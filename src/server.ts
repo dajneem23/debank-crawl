@@ -15,10 +15,6 @@ import 'reflect-metadata';
     // Express application
     const app = (await import('./loaders/expressLoader')).default();
 
-    // AWS S3
-    await (await import('./loaders/awsS3Loader')).default();
-    // Jobs
-
     // ----------------------------------------------------------------
     // Start server
     // ----------------------------------------------------------------

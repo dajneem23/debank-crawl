@@ -1,0 +1,1465 @@
+swagger: "2.0"
+info:
+  description: "1Fox Content Service"
+  version: "1.0.0"
+  title: "1Fox Content Service"
+  contact:
+    email: "dev.1foxglobal@gmail.com"
+
+host: localhost:8084
+basePath: "/v1"
+tags:
+  - name: "Access Service"
+    description: "User, Role & Permission"
+  - name: "Web Content"
+    description: "Web Content formated"
+  - name: "Social Content"
+    description: "Web Content formated"
+  - name: "Crawl content"
+    description: "Crawl content"
+schemes:
+  - "http"
+paths:
+  /users/login:
+    post:
+      tags:
+        - "Access Service"
+      summary: "Add a new user"
+      description: ""
+      operationId: "addUser"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Schema to add a user"
+          required: true
+          schema:
+            $ref: "#/definitions/UserResponse"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              accessToken:
+                type: "string"
+        "400":
+          description: "Validation failed"
+  /users:
+    get:
+      description: "List all users"
+      tags:
+        - "Access Service"
+      consumes:
+        - "application/json"
+      produces":
+        - "application/json"
+      summary: "List users API"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UserResponse"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+        "500":
+          "description": "Internal Server Error"
+          "schema":
+            "$ref": "#/definitions/errs.ErrorResponse"
+    post:
+      description: "Create a user"
+      consumes:
+        "application/json"
+
+      produces:
+        "application/json"
+
+      tags:
+        - "Access Service"
+
+      summary: "Create user API"
+      parameters:
+
+        description: "Create user object"
+        name: "user"
+        in: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/CreateUserRequest"
+
+
+
+      responses:
+        "200":
+          description: "User was created successfully"
+          schema:
+            "$ref": "#/definitions/UserResponse"
+
+
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+
+
+        "409":
+          description: "User already exists"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+
+
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+
+
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+  /users/{id}:
+    get:
+      description: "Get user information"
+      consumes:
+        "application/json"
+      produces:
+        "application/json"
+      tags:
+        - "Access Service"
+      summary: "Get user information API"
+      parameters:
+
+        type: "string"
+        description: "User ID"
+        name: "user_id"
+        in: "path"
+        required: true
+
+
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/UserResponse"
+
+
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+
+
+        "404":
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+
+
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+
+
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+    put:
+      description: "Update specific user information"
+      consumes:
+        "application/json"
+      produces:
+        "application/json"
+      tags:
+        - "Access Service"
+      summary: "Update user information API"
+      parameters:
+        type: "string"
+        description: "User ID"
+        name: "user_id"
+        in: "path"
+        required: true
+        description: "Update user object"
+        name: "user"
+        in: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateUserRequest"
+      responses:
+        "200":
+          description: "User Information was updated successfully"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+        "404":
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+    delete:
+      description: "Delete user"
+      consumes:
+        "application/json"
+      produces:
+        "application/json"
+      tags:
+        - "Access Service"
+      summary: "Delete user API"
+      parameters:
+        type: "string"
+        description: "User ID"
+        name: "user_id"
+        in: "path"
+        required: true
+      responses:
+        "204":
+          description: "User was deleted successfully"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+        "422":
+          description: "Unprocessable Entity"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/errs.ErrorResponse"
+  /access/roles:
+    get:
+      tags:
+        - "Access Service"
+      description: "Get list role"
+      summary: "Get list role"
+      operationId: "getRole"
+      produces:
+        - "application/json"
+      parameters:
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total_count:
+                type: "string"
+              items:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Content"
+    post:
+      tags:
+        - "Access Service"
+      summary: "Add a new web content from crawl content"
+      description: ""
+      operationId: "addContent"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Schema to add a new web content from crawl content"
+          required: true
+          schema:
+            $ref: "#/definitions/Content"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "object"
+                $ref: "#/definitions/Content"
+        "400":
+          description: "Validation failed"
+  /access/v1/roles:
+    get:
+      summary: Returns all roles
+      description: Returns all roles
+      responses:
+        "200":
+          description: A JSON of permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: e650ce56-a771-4087-be50-132d1515f7d5
+                      code:
+                        type: string
+                        example: admin
+                      name:
+                        type: string
+                        example: Admin
+                      description:
+                        type: string
+                        example: Admin management
+                      createdAt:
+                        type: string
+                        example: 2022-06-21T02:16:35.074Z
+                      updatedAt:
+                        type: string
+                        example: 2022-06-21T02:16:35.074Z
+        "404":
+          description: Error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Role not found
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    post:
+      summary: Create role
+      description: Create role
+      requestBody:
+        description: |
+          name: Role name. Ex: Admin
+          description: Role description
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Admin
+                description:
+                  type: string
+                  example: Role Admin
+                code:
+                  type: string
+                  example: admin
+              required:
+                - name
+                - code
+      responses:
+        "200":
+          description: JSON status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error | success
+                  message:
+                    type: string
+                    example: Created successfully
+        "404":
+          description: Error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    /access/v1/roles/{roleId}:
+      get:
+        summary: Returns all permissions for a specific role
+        description: Returns all permissions for a specific role
+        parameters:
+          - in: path
+            name: roleId
+            schema:
+              type: string
+            required: true
+        responses:
+          "200":
+            description: A JSON of permissions
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: OK
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: e650ce56-a771-4087-be50-132d1515f7d5
+                        code:
+                          type: string
+                          example: admin
+                        name:
+                          type: string
+                          example: Admin
+                        items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              checked:
+                                type: boolean
+          "404":
+            description: Error message
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Role not found
+          "401":
+            $ref: "#/components/responses/UnauthorizedError"
+    /access/v1/permissions:
+      get:
+        summary: Returns all permissions
+        description: Returns all permissions
+        responses:
+          "200":
+            description: A JSON of permissions
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: OK
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: e650ce56-a771-4087-be50-132d1515f7d5
+                        code:
+                          type: string
+                          example: user_view
+                        name:
+                          type: string
+                          example: View user information
+                        description:
+                          type: string
+                          example: User has this permission can view other user information
+                        groupId:
+                          type: string
+                          example: e650ce56-a771-4087-be50-132d1515f7d5
+                        createdAt:
+                          type: string
+                          example: 2022-06-21T02:16:35.074Z
+                        updatedAt:
+                          type: string
+                          example: 2022-06-21T02:16:35.074Z
+          "401":
+            $ref: "#/components/responses/UnauthorizedError"
+      post:
+        summary: Create Permission
+        description: Create Permission
+        requestBody:
+          description: |
+            name: Permission name. Ex: VIEW-USER
+            description: Permission description
+            groupId: Permission group
+          required: true
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  groupId:
+                    type: string
+                required:
+                  - code
+                  - name
+        responses:
+          "200":
+            description: JSON status
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: error | success
+                    message:
+                      type: string
+                      example: Created successfully
+          "404":
+            description: Error message
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+          "401":
+            $ref: "#/components/responses/UnauthorizedError"
+    /access/v1/role-permissions:
+      post:
+        summary: Add Permission for Role
+        description: Add Permission for Role
+        requestBody:
+          description: |
+            roleId: Role ID. Ex: e650ce56-a771-4087-be50-132d1515f7d5
+            permissionId: Permission ID. Ex: e650ce56-a771-4087-be50-132d1515f7d5
+          required: true
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  roleId:
+                    type: string
+                  permissionId:
+                    type: string
+                required:
+                  - roleId
+                  - permissionId
+        responses:
+          "200":
+            description: JSON status
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: error | success
+                    message:
+                      type: string
+                      example: Created successfully
+          "404":
+            description: Error message
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+          "401":
+            $ref: "#/components/responses/UnauthorizedError"
+    /access/v1/permission-groups:
+      get:
+        summary: Returns all permission groups
+        description: Returns all permission groups
+        responses:
+          "200":
+            description: A JSON of permissions
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: OK
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: e650ce56-a771-4087-be50-132d1515f7d5
+                        code:
+                          type: string
+                          example: user
+                        name:
+                          type: string
+                          example: User Permission Group
+                        description:
+                          type: string
+                          example: Group of permission relate to user
+                        createdAt:
+                          type: string
+                          example: 2022-06-21T02:16:35.074Z
+                        updatedAt:
+                          type: string
+                          example: 2022-06-21T02:16:35.074Z
+          "404":
+            description: Error message
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Permission group not found
+          "401":
+            $ref: "#/components/responses/UnauthorizedError"
+      post:
+        summary: Create Permission Group
+        description: Create Permission Group
+        requestBody:
+          description: |
+            name: Group name. Ex: User group
+            description:
+          required: true
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                required:
+                  - code
+                  - name
+        responses:
+          "200":
+            description: JSON status
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: error | success
+                    message:
+                      type: string
+                      example: Created successfully
+          "404":
+            description: Error message
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+          "401":
+            $ref: "#/components/responses/UnauthorizedError"
+  /content/web:
+    post:
+      tags:
+        - "Web Content"
+      summary: "Add a new web content from crawl content"
+      description: ""
+      operationId: "addContent"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Schema to add web a new content from crawl content"
+          required: true
+          schema:
+            $ref: "#/definitions/Content"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "object"
+                $ref: "#/definitions/Content"
+        "400":
+          description: "Validation failed"
+
+    get:
+      tags:
+        - "Web Content"
+      description: "Get list web content"
+      summary: "Get list web content"
+      operationId: "getContents"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total_count:
+                type: "string"
+              items:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Content"
+  /content/social:
+    post:
+      tags:
+        - "Social Content"
+      summary: "Add a new social content from crawl content"
+      description: ""
+      operationId: "addContent"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Schema to add a new social content from crawl content"
+          required: true
+          schema:
+            $ref: "#/definitions/Content"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "object"
+                $ref: "#/definitions/Content"
+        "400":
+          description: "Validation failed"
+
+    get:
+      tags:
+        - "Social Content"
+      description: "Get list social content"
+      summary: "Get list social content"
+      operationId: "getContents"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total_count:
+                type: "string"
+              items:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Content"
+
+
+  /content/{id}/web:
+    delete:
+      tags:
+        - "Web Content"
+      description: "Delete web content"
+      operationId: "deleteContent"
+      summary: "Delete web content"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+    put:
+      tags:
+        - "Web Content"
+      description: "Update content"
+      summary: "Update content"
+      operationId: "updateContents"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Schema to update a new web content from crawl content"
+          required: true
+          schema:
+            $ref: "#/definitions/ContentUpdate"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "object"
+                $ref: "#/definitions/Content"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+    get:
+      tags:
+        - "Web Content"
+      description: "get web content by id"
+      operationId: "getContentById"
+      summary: "Get content by id"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "object"
+                $ref: "#/definitions/Content"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+
+  /content/{id}/web/pre-check:
+    get:
+      tags:
+        - "Web web Content"
+      description: "Check content is processing"
+      operationId: "checkContent"
+      summary: "Check content is processing"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "boolean"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+
+  /content/{id}/web/status:
+    patch:
+      tags:
+        - "Web Content"
+      description: "Change web content status"
+      operationId: "checkContent"
+      summary: "Change status"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Schema to update status"
+          required: true
+          schema:
+            $ref: "#/definitions/Status"
+      responses:
+        "204":
+          description: "successful operation"
+
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+  /content/{id}/web/approve:
+    patch:
+      tags:
+        - "Web Content"
+      description: "Approve web content"
+      operationId: "approveContent"
+      summary: "Approve web content"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+
+  /content/{id}/social:
+    delete:
+      tags:
+        - "Social Content"
+      description: "Delete social content"
+      operationId: "deleteContent"
+      summary: "Delete social content"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+    put:
+      tags:
+        - "Social Content"
+      description: "Update web content"
+      summary: "Update web content"
+      operationId: "updateContents"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Schema to update a new content from crawl content"
+          required: true
+          schema:
+            $ref: "#/definitions/ContentUpdate"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "object"
+                $ref: "#/definitions/Content"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+    get:
+      tags:
+        - "Social Content"
+      description: "get social content by id"
+      operationId: "getContentById"
+      summary: "Get social content by id"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "object"
+                $ref: "#/definitions/Content"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+
+  /content/{id}/social/pre-check:
+    get:
+      tags:
+        - "Social Content"
+      description: "Check social content is processing"
+      operationId: "checkContent"
+      summary: "Check social content is processing"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "boolean"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+
+  /content/{id}/social/status:
+    patch:
+      tags:
+        - "Social Content"
+      description: "Change social status"
+      operationId: "checkContent"
+      summary: "Change social status"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Schema to update status"
+          required: true
+          schema:
+            $ref: "#/definitions/Status"
+      responses:
+        "204":
+          description: "successful operation"
+
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+  /content/{id}/social/approve:
+    patch:
+      tags:
+        - "Social Content"
+      description: "Approve social content"
+      operationId: "approveContent"
+      summary: "Approve social content"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+
+  /group-crawl-content:
+    get:
+      tags:
+        - "Crawl content"
+      description: "Get list crawl content"
+      summary: "Get list crawl content"
+      operationId: "getListCrawContents"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              total_count:
+                type: "string"
+              items:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Content"
+
+  /group-crawl-content/{id}:
+    get:
+      tags:
+        - "Crawl content"
+      description: "get crawl content by id"
+      operationId: "getContentById"
+      summary: "Get crawl content by id"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "object"
+                $ref: "#/definitions/Content"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+    delete:
+      tags:
+        - "Crawl content"
+      description: "Delete crawl content"
+      operationId: "deleteContent"
+      summary: "Delete crawl content"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+  /group-crawl-content/{id}/status:
+    patch:
+      tags:
+        - "Crawl content"
+      description: "Change status crawl content"
+      operationId: "deleteContent"
+      summary: "Change status crawl content"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+  /group-crawl-content/{id}/pre-check:
+    patch:
+      tags:
+        - "Crawl content"
+      description: "Check crawl content is processing"
+      operationId: "deleteContent"
+      summary: "Check crawl content is processing"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+  /group-crawl-content/{id}/note:
+    put:
+      tags:
+        - "Crawl content"
+      description: "Admin note crawl content"
+      operationId: "note"
+      summary: "Admin note crawl content"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Schema to update a new content from crawl content"
+          required: true
+          schema:
+            $ref: "#/definitions/Note"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "Content not found"
+        "400":
+          description: "Validation failed"
+definitions:
+  Role:
+    type: "object"
+    required:
+      - code
+      - name
+      - description
+    properties:
+      code:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+    xml:
+      name: "Role"
+  Content:
+    type: "object"
+    required:
+      - languageCode
+      - title
+      - tableOfContents
+      - body
+      - groupId
+      - crawlContentId
+      - contentId
+    properties:
+      languageCode:
+        type: "string"
+        enum:
+          - "vi"
+          - "en"
+      title:
+        type: "string"
+      description:
+        type: "string"
+      tableOfContents:
+        type: "string"
+      body:
+        type: "string"
+      photo:
+        type: "string"
+      note:
+        type: "string"
+      groupId:
+        type: "string"
+      crawlContentId:
+        type: "string"
+      contentId:
+        type: "string"
+    xml:
+      name: "Content"
+  ContentUpdate:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      description:
+        type: "string"
+      tableOfContents:
+        type: "string"
+      body:
+        type: "string"
+      photo:
+        type: "string"
+      note:
+        type: "string"
+    xml:
+      name: "ContentUpdate"
+  Status:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+
+    xml:
+      name: "Status"
+  Note:
+    type: "object"
+    required:
+      - note
+    properties:
+      note:
+        type: "string"
+
+    xml:
+      name: "Note"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+  CreateUserRequest:
+    type: "object"
+    required:
+      - email
+      - language
+      - name
+      - password
+      - role_id
+      - translation_source_languages
+      - translation_target_languages
+    properties:
+      email:
+        type: "string"
+      language:
+        type: "string"
+      name:
+        type: "string"
+      password:
+        type: "string"
+      role_id:
+        type: "string"
+      translation_source_languages:
+        type: "array"
+        items:
+          type: "string"
+      translation_target_languages:
+        type: "array"
+        items:
+          type: "string"
+  RoleResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+      id:
+        type: "string"
+      name:
+        type: "string"
+  UpdateUserRequest:
+    type: "object"
+    required:
+      - "language"
+      - "name"
+    properties:
+      language:
+        type: "string"
+      name:
+        type: "string"
+      role_id:
+        type: "string"
+      translation_source_languages:
+        type: "array"
+        items:
+          type: "string"
+      translation_target_languages:
+        type: "array"
+        items:
+          type: "string"
+  UserResponse:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      id:
+        type: "string"
+      language:
+        type: "string"
+      name:
+        type: "string"
+      role:
+        $ref: "#/definitions/RoleResponse"
+      translation_source_languages:
+        type: "array"
+        items:
+          type: "string"
+      translation_target_languages:
+        type: "array"
+        items:
+          type: "string"
+  errs.ErrorResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+      error:
+        type: "string"
+      errors:
+        type: "array"
+        items:
+          $ref: "#/definitions/validation.ErrorMsg"
+      message:
+        type: "string"
+  validation.ErrorMsg:
+    type: "object"
+    properties:
+      field:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

@@ -1,13 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Event } from '../models/event.model';
 import { BaseModel } from './base.model';
 @Entity()
 export class Agenda extends BaseModel {
   static MODEL_NAME = 'agendas';
 
-  @Column()
   @ManyToOne(() => Event, (event) => event.agendas)
-  event_id: string;
+  @JoinColumn({ name: 'event_id' })
+  eventId: string;
 
   @Column('time')
   time: Date;

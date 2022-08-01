@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { BaseModel } from './base.model';
 @Entity()
 export class Person extends BaseModel {
@@ -25,6 +25,6 @@ export class Person extends BaseModel {
   @Column()
   company: string;
 
-  @Column('jsonb', { nullable: true })
-  social_profiles: object[]; //   Social Profile
+  @Column('jsonb', { nullable: true, name: 'social_profiles' })
+  socialProfiles: object[]; //   Social Profile
 }

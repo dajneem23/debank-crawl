@@ -1,4 +1,4 @@
-import { Entity, Column, OneToOne, PrimaryGeneratedColumn, ManyToMany, OneToMany, JoinTable } from 'typeorm';
+import { Entity, Column, OneToOne, ManyToMany, OneToMany, JoinTable, JoinColumn } from 'typeorm';
 import { EventCategory } from '../modules/event/event.type';
 import { Agenda } from '../models/agenda.model';
 import { Person } from '../models/person.model';
@@ -23,8 +23,8 @@ export class Event extends BaseModel {
   @Column('jsonb', { nullable: true })
   medias: object; //    media
 
-  @Column('jsonb', { nullable: true })
-  social_profiles: object[]; //   Social Profile
+  @Column('jsonb', { nullable: true, name: 'social_profiles' })
+  socialProfiles: object[]; //   Social Profile
 
   @Column('jsonb', { nullable: true })
   news: object[]; //   News
@@ -33,16 +33,26 @@ export class Event extends BaseModel {
   map: object; // Map API
 
   @OneToOne(() => NoTable)
-  no_table: NoTable; // entity: noTable
+  @JoinColumn({ name: 'no_table_id' })
+  noTable: NoTable; // entity: noTable
 
-  @OneToMany(() => Agenda, (agenda) => agenda.event_id)
+  @OneToMany(() => Agenda, (agenda) => agenda.eventId)
+  @JoinColumn({ name: 'event_id' })
   agendas: Agenda[]; // entity: Agenda (array)
 
-  @JoinTable()
   @ManyToMany(() => Person, (person) => person.id)
+  @JoinTable({
+    name: 'event_speakers',
+    joinColumn: { name: 'event_id' },
+    inverseJoinColumn: { name: 'speaker_id' },
+  })
   speakers: Person[]; // entity: Person (array)
 
-  @JoinTable()
   @ManyToMany(() => Person, (person) => person.id)
+  @JoinTable({
+    name: 'event_sponsors',
+    joinColumn: { name: 'event_id' },
+    inverseJoinColumn: { name: 'sponsors_id' },
+  })
   sponsors: Person[]; // entity: Person (array)
 }

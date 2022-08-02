@@ -1,58 +1,83 @@
-import { Entity, Column, OneToOne, ManyToMany, OneToMany, JoinTable, JoinColumn } from 'typeorm';
-import { EventCategory } from '../modules/event/event.type';
-import { Agenda } from '../models/agenda.model';
-import { Person } from '../models/person.model';
-import { NoTable } from './noTable.model';
-import { BaseModel } from './base.model';
-@Entity()
-export class Event extends BaseModel {
-  static MODEL_NAME = 'events';
+import {
+  Entity,
+  Column,
+  ManyToMany,
+  OneToMany,
+  JoinTable,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+} from 'typeorm';
+import { CategoryModel } from './category.model';
+import { CountryModel } from './country.model';
+
+import { SpeakerModel } from './speaker.model';
+import { SponsorModel } from './sponsor.model';
+@Entity('event')
+export class EventModel {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
-  information: string;
+  name: string;
 
   @Column()
   introduction: string;
 
-  @Column({
-    type: 'enum',
-    enum: EventCategory,
-  })
-  category: EventCategory;
-
   @Column('jsonb', { nullable: true })
   medias: object; //    media
 
-  @Column('jsonb', { nullable: true, name: 'social_profiles' })
-  socialProfiles: object[]; //   Social Profile
-
   @Column('jsonb', { nullable: true })
-  news: object[]; //   News
+  agenda: object; //    agenda
+
+  @Column('jsonb', { nullable: true, name: 'social_profiles' })
+  socialProfiles: object; //   Social Profile
 
   @Column('jsonb', { nullable: true })
   map: object; // Map API
 
-  @OneToOne(() => NoTable)
-  @JoinColumn({ name: 'no_table_id' })
-  noTable: NoTable; // entity: noTable
+  @Column('time', { name: 'start_time' })
+  startDate: Date;
 
-  @OneToMany(() => Agenda, (agenda) => agenda.eventId)
-  @JoinColumn({ name: 'event_id' })
-  agendas: Agenda[]; // entity: Agenda (array)
+  @Column('time', { name: 'end_date' })
+  endDate: Date;
 
-  @ManyToMany(() => Person, (person) => person.id)
+  @Column('varchar', { name: 'phone' })
+  phone: string;
+
+  @Column('varchar', { name: 'website' })
+  website: string;
+
+  @ManyToOne(() => CategoryModel, (category) => category.events)
+  @JoinColumn({ name: 'category_id' })
+  category: CategoryModel;
+
+  @ManyToOne(() => CountryModel, (country) => country.events)
+  @JoinColumn({ name: 'country_id' })
+  country: CountryModel;
+
+  @Column()
+  location: string;
+
+  @ManyToMany(() => SpeakerModel)
   @JoinTable({
     name: 'event_speakers',
     joinColumn: { name: 'event_id' },
     inverseJoinColumn: { name: 'speaker_id' },
   })
-  speakers: Person[]; // entity: Person (array)
+  speakers: SpeakerModel[]; // entity: Person (array)
 
-  @ManyToMany(() => Person, (person) => person.id)
+  @ManyToMany(() => SponsorModel)
   @JoinTable({
     name: 'event_sponsors',
     joinColumn: { name: 'event_id' },
-    inverseJoinColumn: { name: 'sponsors_id' },
+    inverseJoinColumn: { name: 'sponsor_id' },
   })
-  sponsors: Person[]; // entity: Person (array)
+  sponsors: SponsorModel[]; // entity: Sponsor (array)
+
+  @Column('timestamp', { name: 'created_at' })
+  createdAt: Date;
+  // Record updated at
+  @Column('timestamp', { name: 'updated_at', nullable: true })
+  updatedAt: Date;
 }

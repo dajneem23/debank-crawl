@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["./src/**/*", "./ormconfig.ts"],
+  "include": ["./src/**/*", "./ormconfig.ts", "src/models/.model.ts"],
   "exclude": ["node_modules", "test"]
 }

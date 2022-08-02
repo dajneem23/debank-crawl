@@ -48,9 +48,13 @@ export class EventModel {
   @Column('varchar', { name: 'website' })
   website: string;
 
-  @ManyToOne(() => CategoryModel, (category) => category.events)
-  @JoinColumn({ name: 'category_id' })
-  category: CategoryModel;
+  @ManyToMany(() => CategoryModel)
+  @JoinTable({
+    name: 'event_categories',
+    joinColumn: { name: 'event_id' },
+    inverseJoinColumn: { name: 'category_id' },
+  })
+  category: CategoryModel[];
 
   @ManyToOne(() => CountryModel, (country) => country.events)
   @JoinColumn({ name: 'country_id' })

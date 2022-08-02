@@ -1,9 +1,23 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class migration1659414787907 implements MigrationInterface {
-  name = 'migration1659414787907';
+export class migration1659417666763 implements MigrationInterface {
+  name = 'migration1659417666763';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
+            CREATE TYPE "public"."category_type_enum" AS ENUM('listening', 'wikiblock', 'event')
+        `);
+    await queryRunner.query(`
+            CREATE TABLE "category" (
+                "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+                "title" character varying(255) NOT NULL,
+                "type" "public"."category_type_enum" NOT NULL,
+                "weight" integer NOT NULL,
+                "created_at" TIMESTAMP NOT NULL,
+                "updated_at" TIMESTAMP,
+                CONSTRAINT "PK_9c4e4a89e3674fc9f382d733f03" PRIMARY KEY ("id")
+            )
+        `);
     await queryRunner.query(`
             CREATE TABLE "country" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -55,7 +69,6 @@ export class migration1659414787907 implements MigrationInterface {
                 "location" character varying NOT NULL,
                 "created_at" TIMESTAMP NOT NULL,
                 "updated_at" TIMESTAMP,
-                "category_id" uuid,
                 "country_id" uuid,
                 CONSTRAINT "PK_30c2f3bbaf6d34a55f8ae6e4614" PRIMARY KEY ("id")
             )
@@ -68,6 +81,19 @@ export class migration1659414787907 implements MigrationInterface {
                 "updated_at" TIMESTAMP,
                 CONSTRAINT "PK_085149e9543db5f135d96b42102" PRIMARY KEY ("id")
             )
+        `);
+    await queryRunner.query(`
+            CREATE TABLE "event_categories" (
+                "event_id" uuid NOT NULL,
+                "category_id" uuid NOT NULL,
+                CONSTRAINT "PK_612fc92db0790503827c0b82af9" PRIMARY KEY ("event_id", "category_id")
+            )
+        `);
+    await queryRunner.query(`
+            CREATE INDEX "IDX_c78c7b670b392b79ee76f01b67" ON "event_categories" ("event_id")
+        `);
+    await queryRunner.query(`
+            CREATE INDEX "IDX_372a350b878524310e04d0ddec" ON "event_categories" ("category_id")
         `);
     await queryRunner.query(`
             CREATE TABLE "event_speakers" (
@@ -110,11 +136,15 @@ export class migration1659414787907 implements MigrationInterface {
         `);
     await queryRunner.query(`
             ALTER TABLE "event"
-            ADD CONSTRAINT "FK_697909a55bde1b28a90560f3ae2" FOREIGN KEY ("category_id") REFERENCES "category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+            ADD CONSTRAINT "FK_9d3288d71ad2b95c583a8fe90e2" FOREIGN KEY ("country_id") REFERENCES "country"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
-            ALTER TABLE "event"
-            ADD CONSTRAINT "FK_9d3288d71ad2b95c583a8fe90e2" FOREIGN KEY ("country_id") REFERENCES "country"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+            ALTER TABLE "event_categories"
+            ADD CONSTRAINT "FK_c78c7b670b392b79ee76f01b675" FOREIGN KEY ("event_id") REFERENCES "event"("id") ON DELETE CASCADE ON UPDATE CASCADE
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "event_categories"
+            ADD CONSTRAINT "FK_372a350b878524310e04d0ddec2" FOREIGN KEY ("category_id") REFERENCES "category"("id") ON DELETE CASCADE ON UPDATE CASCADE
         `);
     await queryRunner.query(`
             ALTER TABLE "event_speakers"
@@ -162,10 +192,13 @@ export class migration1659414787907 implements MigrationInterface {
             ALTER TABLE "event_speakers" DROP CONSTRAINT "FK_600c2c351361372ee94e1a3bdc1"
         `);
     await queryRunner.query(`
-            ALTER TABLE "event" DROP CONSTRAINT "FK_9d3288d71ad2b95c583a8fe90e2"
+            ALTER TABLE "event_categories" DROP CONSTRAINT "FK_372a350b878524310e04d0ddec2"
         `);
     await queryRunner.query(`
-            ALTER TABLE "event" DROP CONSTRAINT "FK_697909a55bde1b28a90560f3ae2"
+            ALTER TABLE "event_categories" DROP CONSTRAINT "FK_c78c7b670b392b79ee76f01b675"
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "event" DROP CONSTRAINT "FK_9d3288d71ad2b95c583a8fe90e2"
         `);
     await queryRunner.query(`
             DROP INDEX "public"."IDX_d2613e3b02f6840bbef2cffbcb"
@@ -195,6 +228,15 @@ export class migration1659414787907 implements MigrationInterface {
             DROP TABLE "event_speakers"
         `);
     await queryRunner.query(`
+            DROP INDEX "public"."IDX_372a350b878524310e04d0ddec"
+        `);
+    await queryRunner.query(`
+            DROP INDEX "public"."IDX_c78c7b670b392b79ee76f01b67"
+        `);
+    await queryRunner.query(`
+            DROP TABLE "event_categories"
+        `);
+    await queryRunner.query(`
             DROP TABLE "crypto_asset_tag"
         `);
     await queryRunner.query(`
@@ -208,6 +250,12 @@ export class migration1659414787907 implements MigrationInterface {
         `);
     await queryRunner.query(`
             DROP TABLE "country"
+        `);
+    await queryRunner.query(`
+            DROP TABLE "category"
+        `);
+    await queryRunner.query(`
+            DROP TYPE "public"."category_type_enum"
         `);
   }
 }

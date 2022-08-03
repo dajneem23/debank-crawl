@@ -3,11 +3,11 @@ import { Controller, Res, Post, Body, Get, Query } from '@/utils/expressDecorato
 import { Response } from 'express';
 import { EventModel } from '@/models/event.model';
 import httpStatusCode from 'http-status';
-import EventService from './event.service';
+import EventService from '../category/event.service';
 import { Event, EventQuery } from './event.type';
 import { Category } from '../category/category.type';
 import { buildQueryFilter } from '@/utils/common';
-
+import * as eventValidation from './event.validation';
 @Service()
 @Controller('/events')
 export default class EventController {
@@ -38,15 +38,26 @@ export default class EventController {
     >,
   ) {
     const result = await this.eventService.create(body);
-    res.status(httpStatusCode.CREATED).json({ data: result, _meta: body });
+    res.status(httpStatusCode.CREATED).json({ data: result });
   }
-  @Get('/')
-  async queryEvent(
-    @Res() res: Response,
-    @Query() _query: Pick<EventQuery, 'name' | 'category' | 'cryptoAssetTags' | 'monthRange' | 'related'>,
-  ) {
+  @Get('/related', [eventValidation.getRelated])
+  async queryRelatedEvent(@Res() res: Response, @Query() _query: Pick<EventQuery, 'category' | 'cryptoAssetTags'>) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.query(filter, query);
-    res.status(httpStatusCode.OK).json({ data: result, _meta: _query });
+    const result = await this.eventService.getRelatedEvent(filter, query);
+    res.status(httpStatusCode.OK).json({ data: result });
+  }
+
+  @Get('/trending', [eventValidation.query])
+  async queryTrendingEvent(@Res() res: Response, @Query() _query: Pick<EventQuery, 'location'>) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.eventService.getTrendingEvent(filter, query);
+    res.status(httpStatusCode.OK).json({ data: result });
+  }
+
+  @Get('/significant', [eventValidation.query])
+  async querySignificantEvent(@Res() res: Response, @Query() _query: EventQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.eventService.getSignificantEvent(filter, query);
+    res.status(httpStatusCode.OK).json({ data: result });
   }
 }

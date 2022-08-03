@@ -1,0 +1,2807 @@
+{
+  "msg": "SUCCESS",
+  "data": {
+    "id": "tbl33YJvrrHeSHX6F",
+    "rows": [
+      {
+        "id": "recd1uN0aIjAp7DV6",
+        "createdTime": "2021-07-07T09:08:53.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recX7BQwydmBbLYPn", "foreignRowDisplayName": "Tonic Finance" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recbyncx5XyHWCK3R", "foreignRowDisplayName": "Inverse Finance" }],
+          "fld4uK2x42wWudxYr": "2021-04-29T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 1600000,
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/inverse-finance-acquires-tonic-finance-in-possible-first-ever-defi-protocol-merger",
+          "fldgSXreNN5P1r2eX": "Tonic Finance acquired by Inverse Finance"
+        }
+      },
+      {
+        "id": "rec3UN8ntAMmaERKn",
+        "createdTime": "2021-07-07T10:22:43.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recgUyM1TWGrUQPfq", "foreignRowDisplayName": "BitGo" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recm6S6hh6oSK3Ubk", "foreignRowDisplayName": "Galaxy Digital" }],
+          "fld4uK2x42wWudxYr": "2021-05-05T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 1200000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/103842/galaxy-digital-acquire-crypto-custodian-bitgo-1-2-billion",
+          "fldgSXreNN5P1r2eX": "BitGo acquired by Galaxy Digital"
+        }
+      },
+      {
+        "id": "recFoAbF7qHwiCTZY",
+        "createdTime": "2021-07-07T10:23:36.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recKMbM7qRXXrkwU3", "foreignRowDisplayName": "Simplex" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recbkJAwQ6gyD59HV", "foreignRowDisplayName": "Nuvei" }],
+          "fld4uK2x42wWudxYr": "2021-05-07T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 250000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/104193/canada-nuvei-acquire-crypto-firm-simplex-250-million",
+          "fldgSXreNN5P1r2eX": "Simplex acquired by Nuvei"
+        }
+      },
+      {
+        "id": "recMTsvVkir7Go01E",
+        "createdTime": "2021-07-07T10:24:09.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recWzOhW9Iubs5rgq", "foreignRowDisplayName": "Tink" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recneTOEEuk4JgVdp", "foreignRowDisplayName": "Visa" }],
+          "fld4uK2x42wWudxYr": "2021-06-24T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 1800000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/109441/visa-acquire-european-open-banking-tink",
+          "fldgSXreNN5P1r2eX": "Tink acquired by Visa"
+        }
+      },
+      {
+        "id": "recQ1BRy3ZbxHsPHW",
+        "createdTime": "2021-07-07T10:24:45.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recOa3Xo31Ac7jIFX", "foreignRowDisplayName": "Crypto Finance AG" }],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "recqbOQD2c3Zrl9Wt", "foreignRowDisplayName": "Deutsche Börse Group" }
+          ],
+          "fld4uK2x42wWudxYr": "2021-06-29T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/109947/deutsche-borse-majority-stake-crypto-finance",
+          "fldgSXreNN5P1r2eX": "Crypto Finance AG acquired by Deutsche Börse Group"
+        }
+      },
+      {
+        "id": "recT6n8PqWnqDGANF",
+        "createdTime": "2021-07-07T10:25:38.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recUaXhqaYXjuzp2V", "foreignRowDisplayName": "JNK Securities" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recwromDqjYLTbPEQ", "foreignRowDisplayName": "Uphold" }],
+          "fld4uK2x42wWudxYr": "2021-03-31T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/100050/finra-approval-uphold-acquisition-broker-dealer-jnk-securities",
+          "fldgSXreNN5P1r2eX": "JNK Securities acquired by Uphold"
+        }
+      },
+      {
+        "id": "reck4gwJk2hSRbRHF",
+        "createdTime": "2021-07-07T10:26:25.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recQS7sO0b9qXz9jb", "foreignRowDisplayName": "Curv" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recPxzMvmifml5qJD", "foreignRowDisplayName": "PayPal" }],
+          "fld4uK2x42wWudxYr": "2021-03-08T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/94601/paypal-curv-acquisition-crypto",
+          "fldgSXreNN5P1r2eX": "Curv acquired by PayPal"
+        }
+      },
+      {
+        "id": "recDQ2SGEF2SehYmE",
+        "createdTime": "2021-07-07T11:32:31.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recs85RWZYBq4gFaJ", "foreignRowDisplayName": "Tagomi" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2020-05-27T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.forbes.com/sites/jeffkauflin/2020/05/27/coinbase-buys-crypto-trading-firm-tagomi-to-boost-institutional-trading-business/?sh=6558207b270f",
+          "fldgSXreNN5P1r2eX": "Tagomi acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recVqL4bzo5LKVWMY",
+        "createdTime": "2021-07-07T11:33:00.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec2BtUFDcltNFr4H", "foreignRowDisplayName": "Neutrino" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2019-02-19T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 14000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/12365/coinbase-acquires-blockchain-analysis-startup-neutrino",
+          "fldPA0UCzeIWoMFPk": ["selechQ9lR1rmqcjI"],
+          "fldgSXreNN5P1r2eX": "Neutrino acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recCJLwmuW0qcw3u9",
+        "createdTime": "2021-07-07T11:33:04.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec05dNn6EbEOpcYD", "foreignRowDisplayName": "Xapo" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2019-08-16T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 55000000,
+          "fld134rExsrLsxxz3": "https://fortune.com/2019/08/15/coinbase-xapo-bitcoin-custody/",
+          "fldgSXreNN5P1r2eX": "Xapo acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recdhMBMtQmNQ5pVx",
+        "createdTime": "2021-07-07T11:33:23.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec7ddpNeS2MxcGZM", "foreignRowDisplayName": "Quedex" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recx8qftFUnmXCmaE", "foreignRowDisplayName": "Bitso" }],
+          "fld4uK2x42wWudxYr": "2021-02-11T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/94586/crypto-exchange-bitso-acquisition-futures-options",
+          "fldgSXreNN5P1r2eX": "Quedex acquired by Bitso"
+        }
+      },
+      {
+        "id": "recp2jenP6BoIZd2l",
+        "createdTime": "2021-07-07T11:42:19.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recwM5wn85xM97v65", "foreignRowDisplayName": "Bison Trails" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2021-01-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/91684/coinbase-aquisition-bison-trails-infrastucture",
+          "fldgSXreNN5P1r2eX": "Bison Trails acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recXK2vCOKOn8IwKp",
+        "createdTime": "2021-07-07T11:42:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recWOaLfEX65fFAPR", "foreignRowDisplayName": "Digital Assets Data" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recWYoAR4X13kTWgf", "foreignRowDisplayName": "NYDIG" }],
+          "fld4uK2x42wWudxYr": "2021-01-11T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/90682/digital-asset-data-nydig",
+          "fldgSXreNN5P1r2eX": "Digital Assets Data acquired by NYDIG"
+        }
+      },
+      {
+        "id": "recwDnCFW0zhg4y40",
+        "createdTime": "2021-07-07T11:43:35.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec2SxNgkBxox2Ksj", "foreignRowDisplayName": "B2C2" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recrFfQqS6OBhNp7E", "foreignRowDisplayName": "SBI Holdings" }],
+          "fld4uK2x42wWudxYr": "2020-12-15T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/87813/sbi-b2c2-crypto-market-maker",
+          "fldgSXreNN5P1r2eX": "B2C2 acquired by SBI Holdings"
+        }
+      },
+      {
+        "id": "rectM6zCc2Rvx2giu",
+        "createdTime": "2021-07-07T11:44:15.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recfBtkrEsDSQvuX5", "foreignRowDisplayName": "Truffle Suite" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFnj0qmZ3I77eMk", "foreignRowDisplayName": "ConsenSys" }],
+          "fld4uK2x42wWudxYr": "2020-11-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/84857/consensys-acquisition-truffle-suite-dapp-ethereum",
+          "fldgSXreNN5P1r2eX": "Truffle Suite acquired by ConsenSys"
+        }
+      },
+      {
+        "id": "rec5sBxYWVr8wlZhX",
+        "createdTime": "2021-07-07T11:45:17.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recytiXDfpCmyKpJL", "foreignRowDisplayName": "DrawBridge" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recm6S6hh6oSK3Ubk", "foreignRowDisplayName": "Galaxy Digital" }],
+          "fld4uK2x42wWudxYr": "2020-11-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/84528/galaxy-digital-crypto-q3-2020-results-financials-acquisition-deals",
+          "fldgSXreNN5P1r2eX": "DrawBridge acquired by Galaxy Digital"
+        }
+      },
+      {
+        "id": "recr9c6SAIZ1iTkoA",
+        "createdTime": "2021-07-07T11:45:23.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recqGD1CaTly0KAMg", "foreignRowDisplayName": "Blue Fire" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recm6S6hh6oSK3Ubk", "foreignRowDisplayName": "Galaxy Digital" }],
+          "fld4uK2x42wWudxYr": "2020-11-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/84528/galaxy-digital-crypto-q3-2020-results-financials-acquisition-deals",
+          "fldgSXreNN5P1r2eX": "Blue Fire acquired by Galaxy Digital"
+        }
+      },
+      {
+        "id": "reciIoNwLvfx95XWS",
+        "createdTime": "2021-07-07T11:46:16.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recRfORBFdAiFogVB", "foreignRowDisplayName": "Blockfolio" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recJ3gy4VDTKwuZ0H", "foreignRowDisplayName": "FTX" }],
+          "fld4uK2x42wWudxYr": "2020-08-25T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 150000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/75965/ftx-blockfolio-crypto-app-acquisition",
+          "fldgSXreNN5P1r2eX": "Blockfolio acquired by FTX"
+        }
+      },
+      {
+        "id": "rechU01v4OC7X5La0",
+        "createdTime": "2021-07-07T11:47:04.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recXV8wNWf8CCNb8m", "foreignRowDisplayName": "Choice Holdings" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recbHkzTv8nmiLyzW", "foreignRowDisplayName": "Kingdom Trust" }],
+          "fld4uK2x42wWudxYr": "2020-05-28T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/66741/kingdom-trust-choice-holdings-bitcoin",
+          "fldgSXreNN5P1r2eX": "Choice Holdings acquired by Kingdom Trust"
+        }
+      },
+      {
+        "id": "recKA4k2TFlaiMMUh",
+        "createdTime": "2021-07-07T12:00:08.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec2x3Q4kI05MsWt2", "foreignRowDisplayName": "Galileo" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec2YysOeOErwFqLb", "foreignRowDisplayName": "SoFi" }],
+          "fld4uK2x42wWudxYr": "2020-04-07T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 1200000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/61170/personal-finance-platform-sofi-to-acquire-payment-processor-galileo-in-a-1-2-billion-deal",
+          "fldgSXreNN5P1r2eX": "Galileo acquired by SoFi"
+        }
+      },
+      {
+        "id": "recLAmHf8ea34EG1n",
+        "createdTime": "2021-07-07T12:01:15.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recxIkNPp8Hyva9Oj", "foreignRowDisplayName": "Portis" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recE5PQDd7KoKsQBz", "foreignRowDisplayName": "ShapeShift" }],
+          "fld4uK2x42wWudxYr": "2020-04-14T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/61753/crypto-exchange-shapeshift-acquires-non-custodial-crypto-wallet-portis",
+          "fldgSXreNN5P1r2eX": "Portis acquired by ShapeShift"
+        }
+      },
+      {
+        "id": "recQWgyoNIFR7vVz0",
+        "createdTime": "2021-07-07T12:01:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recp6lGbDHgQ48ETq", "foreignRowDisplayName": "CoinMarketCap" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1GNLA4xmbezS11", "foreignRowDisplayName": "Binance" }],
+          "fld4uK2x42wWudxYr": "2020-04-02T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 400000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/60595/binance-confirms-acquiring-coinmarketcap",
+          "fldgSXreNN5P1r2eX": "CoinMarketCap acquired by Binance"
+        }
+      },
+      {
+        "id": "recpjvOkL4cZZlTGn",
+        "createdTime": "2021-07-07T12:19:32.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rect4GMHmrKTcR9F8", "foreignRowDisplayName": "Worldpay" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recqyo2Kyj7I6UZT7", "foreignRowDisplayName": "FIS" }],
+          "fld4uK2x42wWudxYr": "2019-03-18T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 35000000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/16254/fis-acquires-worldpay-for-35-billion",
+          "fldgSXreNN5P1r2eX": "Worldpay acquired by FIS"
+        }
+      },
+      {
+        "id": "rec5Lqmcx9r633yDD",
+        "createdTime": "2021-07-07T12:21:03.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recI8IDijU472zntt", "foreignRowDisplayName": "StellarX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "reccP1xujVDf6USi4", "foreignRowDisplayName": "Coinsquare" }],
+          "fld4uK2x42wWudxYr": "2019-02-14T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://medium.com/stellarxhq/stellarx-is-acquired-by-coinsquare-85beadaaaa0e",
+          "fldgSXreNN5P1r2eX": "StellarX acquired by Coinsquare"
+        }
+      },
+      {
+        "id": "rec9WRBxxiXSJl5DO",
+        "createdTime": "2021-07-07T12:21:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recGQ5acOsJTJa35h", "foreignRowDisplayName": "BlockEQ" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "reccP1xujVDf6USi4", "foreignRowDisplayName": "Coinsquare" }],
+          "fldgSXreNN5P1r2eX": "BlockEQ acquired by Coinsquare"
+        }
+      },
+      {
+        "id": "recTUqkAduPVLzBaQ",
+        "createdTime": "2021-07-07T12:22:33.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recxd7Yy3jPp524MH", "foreignRowDisplayName": "Coins.ph" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recTbfUpWWebeSwhE", "foreignRowDisplayName": "Go-Jek" }],
+          "fld4uK2x42wWudxYr": "2019-01-23T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 95000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/8522/southeast-asia-unicorn-go-jek-buys-coins-ph-mobile-wallet-for-95-million",
+          "fldgSXreNN5P1r2eX": "Coins.ph acquired by Go-Jek"
+        }
+      },
+      {
+        "id": "rec6erBxmIe2AHDBk",
+        "createdTime": "2021-07-07T12:23:15.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recK3uHsP6SgyHd9n", "foreignRowDisplayName": "Shard X" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz3w8PXuDlsWo22", "foreignRowDisplayName": "Gemini" }],
+          "fld4uK2x42wWudxYr": "2021-06-09T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/107733/gemini-acquires-crypto-custody-startup-shard-x",
+          "fldgSXreNN5P1r2eX": "Shard X acquired by Gemini"
+        }
+      },
+      {
+        "id": "recCXfxxyPnKGTy2y",
+        "createdTime": "2021-07-07T12:30:21.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recIzJ27rDwVycU1X", "foreignRowDisplayName": "Nifty Gateway" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz3w8PXuDlsWo22", "foreignRowDisplayName": "Gemini" }],
+          "fld4uK2x42wWudxYr": "2019-11-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/47589/winklevoss-brothers-acquire-crypto-collectible-startup",
+          "fldgSXreNN5P1r2eX": "Nifty Gateway acquired by Gemini"
+        }
+      },
+      {
+        "id": "recMJBxLuLtBcCpup",
+        "createdTime": "2021-07-07T12:31:19.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recntRHxY1V8JP0eo", "foreignRowDisplayName": "Blockrize" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz3w8PXuDlsWo22", "foreignRowDisplayName": "Gemini" }],
+          "fldgSXreNN5P1r2eX": "Blockrize acquired by Gemini"
+        }
+      },
+      {
+        "id": "recxkCr6GqB0XbWZ7",
+        "createdTime": "2021-07-07T12:33:20.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recLqQ14qQvaH3vQ0", "foreignRowDisplayName": "The Crypto App" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1yl7FW6SQeXYd6", "foreignRowDisplayName": "TrustSwap" }],
+          "fld4uK2x42wWudxYr": "2021-06-14T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.businesswire.com/news/home/20210614005590/en/TrustSwap-Acquires-The-Crypto-App-Expands-Portfolio-Management-Capabilities-to-Further-Supercharge-Digital-Asset-Ecosystem",
+          "fldgSXreNN5P1r2eX": "The Crypto App acquired by TrustSwap"
+        }
+      },
+      {
+        "id": "recpeGwhLxi5OEiNh",
+        "createdTime": "2021-07-07T12:34:31.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recQuE3K5KdtcxdNJ", "foreignRowDisplayName": "BitcoinTrade" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recc9Mg4pcAZNRY4Z", "foreignRowDisplayName": "Ripio" }],
+          "fld4uK2x42wWudxYr": "2021-01-06T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/argentinia-s-ripio-acquires-brazil-s-second-largest-crypto-exchange",
+          "fldgSXreNN5P1r2eX": "BitcoinTrade acquired by Ripio"
+        }
+      },
+      {
+        "id": "recyyrTaVI2vRsfgo",
+        "createdTime": "2021-07-07T12:36:24.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recmeEJwLpUQN38Q4", "foreignRowDisplayName": "Paradex" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2018-05-23T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.cnbc.com/2018/05/23/reuters-america-coinbase-acquires-cryptocurrency-trading-platform-paradex.html",
+          "fldgSXreNN5P1r2eX": "Paradex acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recauV0RVlF6riswl",
+        "createdTime": "2021-07-07T12:37:18.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recTr0VLEVQiTdT00", "foreignRowDisplayName": "Routefire" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2020-01-07T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/coinbase-acquires-trading-execution-platform-routefire",
+          "fldgSXreNN5P1r2eX": "Routefire acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recA8wT4ukbAtNidM",
+        "createdTime": "2021-07-07T12:38:14.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec4UiNBDR8qK6ETm", "foreignRowDisplayName": "Skew" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2021-04-30T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.skew.com/blog/skew-is-joining-coinbase",
+          "fldgSXreNN5P1r2eX": "Skew acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recZBA75LaQnjxBnE",
+        "createdTime": "2021-07-07T12:39:01.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recQ5ACLZuUD1B40V", "foreignRowDisplayName": "Trust Wallet" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1GNLA4xmbezS11", "foreignRowDisplayName": "Binance" }],
+          "fld4uK2x42wWudxYr": "2018-07-31T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://techcrunch.com/2018/07/31/crypto-exchange-binance-buys-trust-wallet-in-first-acquisition-deal/",
+          "fldgSXreNN5P1r2eX": "Trust Wallet acquired by Binance"
+        }
+      },
+      {
+        "id": "recW8TOKkuozJ505p",
+        "createdTime": "2021-07-07T12:39:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec5X4PXG1u6723Lg", "foreignRowDisplayName": "JEX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1GNLA4xmbezS11", "foreignRowDisplayName": "Binance" }],
+          "fld4uK2x42wWudxYr": "2019-09-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://finance.yahoo.com/news/crypto-gains-bianace-acquires-crypto-232900043.html",
+          "fldgSXreNN5P1r2eX": "JEX acquired by Binance"
+        }
+      },
+      {
+        "id": "recvP3w2jUXuvoOrb",
+        "createdTime": "2021-07-07T12:40:22.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recXgxw6EN2Eu6ORw", "foreignRowDisplayName": "WazirX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1GNLA4xmbezS11", "foreignRowDisplayName": "Binance" }],
+          "fld4uK2x42wWudxYr": "2019-11-21T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 8000000,
+          "fld134rExsrLsxxz3": "https://tech.economictimes.indiatimes.com/news/startups/binance-acquires-bitcoin-exchange-wazirx/72151038",
+          "fldPA0UCzeIWoMFPk": ["selKCVJuaxEznIV73"],
+          "fldgSXreNN5P1r2eX": "WazirX acquired by Binance"
+        }
+      },
+      {
+        "id": "recZy7eMeU8RyKfLs",
+        "createdTime": "2021-07-07T12:40:55.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec0fWZJL1H66Pe33", "foreignRowDisplayName": "DappReview" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1GNLA4xmbezS11", "foreignRowDisplayName": "Binance" }],
+          "fld4uK2x42wWudxYr": "2019-12-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/binance-acquires-beijing-based-blockchain-data-startup-dappreview?utm_source=twitter&utm_medium=coindesk&utm_term=&utm_content=&utm_campaign=Organic%20",
+          "fldgSXreNN5P1r2eX": "DappReview acquired by Binance"
+        }
+      },
+      {
+        "id": "rec0ao2H3qe8sDkyA",
+        "createdTime": "2021-07-07T12:41:44.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recZApkL1lMvvY8nA", "foreignRowDisplayName": "Swipe.io" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1GNLA4xmbezS11", "foreignRowDisplayName": "Binance" }],
+          "fld4uK2x42wWudxYr": "2020-06-30T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/binance-acquires-crypto-debit-card-provider-swipe-for-undisclosed-sum",
+          "fldgSXreNN5P1r2eX": "Swipe.io acquired by Binance"
+        }
+      },
+      {
+        "id": "rec6o1sNVnlKq4YVf",
+        "createdTime": "2021-07-07T12:47:52.000Z",
+        "cellValuesByColumnId": {
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recgUyM1TWGrUQPfq", "foreignRowDisplayName": "BitGo" }],
+          "fld4uK2x42wWudxYr": "2019-10-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.wsj.com/articles/bitgo-acquires-startup-hedge-launches-staking-for-cryptocurrencies-11570102202",
+          "fldgSXreNN5P1r2eX": " acquired by BitGo"
+        }
+      },
+      {
+        "id": "recNMqpxre9DqfowM",
+        "createdTime": "2021-07-07T12:48:36.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec0ucr0kGZTCDwie", "foreignRowDisplayName": "Harbor" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recgUyM1TWGrUQPfq", "foreignRowDisplayName": "BitGo" }],
+          "fld4uK2x42wWudxYr": "2020-02-18T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "http://www.finsmes.com/2020/02/bitgo-acquire-harbor.html?utm_source=feedburner&utm_medium=twitter&utm_campaign=Feed%3A+finsmes%2FcNHu+%28FinSMEs%29",
+          "fldgSXreNN5P1r2eX": "Harbor acquired by BitGo"
+        }
+      },
+      {
+        "id": "recggSwX3P6LtZedv",
+        "createdTime": "2021-07-07T12:49:05.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recYGl7WVodaxgKME", "foreignRowDisplayName": "Lumina" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recgUyM1TWGrUQPfq", "foreignRowDisplayName": "BitGo" }],
+          "fld4uK2x42wWudxYr": "2020-04-14T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.crowdfundinsider.com/2020/04/160254-bitgo-announces-acquisition-of-crypto-financing-platform-lumina-completes-first-phase-of-product-integration/?utm_source=dlvr.it&utm_medium=twitter",
+          "fldgSXreNN5P1r2eX": "Lumina acquired by BitGo"
+        }
+      },
+      {
+        "id": "recJDf5JNWwtouxvC",
+        "createdTime": "2021-07-07T12:59:24.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recHblEHKKgH00JkN", "foreignRowDisplayName": "Vision Hill" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recm6S6hh6oSK3Ubk", "foreignRowDisplayName": "Galaxy Digital" }],
+          "fld4uK2x42wWudxYr": "2021-05-24T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/galaxy-digital-continues-ma-streak-with-vision-hill-acquisition",
+          "fldgSXreNN5P1r2eX": "Vision Hill acquired by Galaxy Digital"
+        }
+      },
+      {
+        "id": "reccZpRfeZ5B37Hsv",
+        "createdTime": "2021-07-07T13:00:48.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recjnl8hoY9OopO6F", "foreignRowDisplayName": "Mobilum" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "reckYK09zUJv1Fimg", "foreignRowDisplayName": "TechX" }],
+          "fld4uK2x42wWudxYr": "2021-05-26T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 13200000,
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/techx-acquires-crypto-to-fiat-gateway-mobilum-for-13-2m",
+          "fldgSXreNN5P1r2eX": "Mobilum acquired by TechX"
+        }
+      },
+      {
+        "id": "recuuDYeAf9QtqkU3",
+        "createdTime": "2021-07-07T13:01:28.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recj258kVr6phT9nj", "foreignRowDisplayName": "Tailcat" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recJPfvBg6fwBGcVA", "foreignRowDisplayName": "Brave" }],
+          "fld4uK2x42wWudxYr": "2021-03-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/brave-acquires-search-engine-in-bid-to-offer-alternative-to-google-search",
+          "fldgSXreNN5P1r2eX": "Tailcat acquired by Brave"
+        }
+      },
+      {
+        "id": "recwciPUdF0xonWiQ",
+        "createdTime": "2021-07-07T13:08:42.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rectPfnc8hTwqLV7t", "foreignRowDisplayName": "Whinstone US Inc" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recagc0ZiPXuMseHN", "foreignRowDisplayName": "Riot Blockchain" }],
+          "fld4uK2x42wWudxYr": "2021-04-08T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 650000000,
+          "fld134rExsrLsxxz3": "http://www.globenewswire.com/news-release/2021/04/08/2206616/0/en/Riot-to-Acquire-Whinstone-Creating-a-US-Based-Industry-Leader-in-Bitcoin-Mining.html",
+          "fldgSXreNN5P1r2eX": "Whinstone US Inc acquired by Riot Blockchain"
+        }
+      },
+      {
+        "id": "rec2lI3wOb80hOQbU",
+        "createdTime": "2021-07-07T13:10:01.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recPEdohw3acCbxVC", "foreignRowDisplayName": "Team.Finance" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1yl7FW6SQeXYd6", "foreignRowDisplayName": "TrustSwap" }],
+          "fld4uK2x42wWudxYr": "2020-12-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/press-releases/trustswap-acquires-teamfinance-cements-position-as-market-leader",
+          "fldgSXreNN5P1r2eX": "Team.Finance acquired by TrustSwap"
+        }
+      },
+      {
+        "id": "recPjdfmNsWcwORZZ",
+        "createdTime": "2021-07-07T13:11:45.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec9Zv9BDSd3MJj8k", "foreignRowDisplayName": "OpenFinance" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recvjq8FOrxqLVRgV", "foreignRowDisplayName": "INX" }],
+          "fld4uK2x42wWudxYr": "2021-01-28T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/inx-s-acquisition-of-security-token-platform-openfinance-almost-complete",
+          "fldgSXreNN5P1r2eX": "OpenFinance acquired by INX"
+        }
+      },
+      {
+        "id": "recGvxekALNyE3tQZ",
+        "createdTime": "2021-07-07T13:13:10.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recM0HOD8oXa1Hado", "foreignRowDisplayName": "BSAVE" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recoTlGZ8p2ISa9Jo", "foreignRowDisplayName": "Celsius Network" }],
+          "fld4uK2x42wWudxYr": "2019-06-24T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://coinjournal.net/crypto-lending-and-borrowing-platform-celsius-network-acquires-bsave/",
+          "fldgSXreNN5P1r2eX": "BSAVE acquired by Celsius Network"
+        }
+      },
+      {
+        "id": "recmiIalfeYF0rrz3",
+        "createdTime": "2021-07-07T13:16:10.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recS6tcvAjWhlhHnS", "foreignRowDisplayName": "MVP Workshop" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recoTlGZ8p2ISa9Jo", "foreignRowDisplayName": "Celsius Network" }],
+          "fld4uK2x42wWudxYr": "2021-06-22T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.prnewswire.com/news-releases/celsius-announces-acquisition-of-mvp-workshop-301317804.html",
+          "fldgSXreNN5P1r2eX": "MVP Workshop acquired by Celsius Network"
+        }
+      },
+      {
+        "id": "recOpr2fjjlwG8M3m",
+        "createdTime": "2021-07-07T13:18:21.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "reckyNtZoJ6VMn3Zb", "foreignRowDisplayName": "Merkle Data" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec2MnpWzlDLISpGv", "foreignRowDisplayName": "Anchorage Digital" }],
+          "fld4uK2x42wWudxYr": "2020-06-15T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/anchorage-acquires-merkle-as-part-of-trading-service-launch",
+          "fldgSXreNN5P1r2eX": "Merkle Data acquired by Anchorage Digital"
+        }
+      },
+      {
+        "id": "recgCI5m8SHn6FvdZ",
+        "createdTime": "2021-07-07T13:21:00.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recz0qKSVbF7CKDQs", "foreignRowDisplayName": "OMG Network" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recYzulIt56GBXeL5", "foreignRowDisplayName": "Genesis Block HK" }],
+          "fld4uK2x42wWudxYr": "2020-12-04T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/omg-rallies-as-genesis-block-ventures-acquires-omg-network",
+          "fldgSXreNN5P1r2eX": "OMG Network acquired by Genesis Block HK"
+        }
+      },
+      {
+        "id": "recS5gzUgrsrH50zk",
+        "createdTime": "2021-07-07T13:21:58.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recODP3ebvDFPg5Tx", "foreignRowDisplayName": "DECO" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec9O2ppKnKQg4dMy", "foreignRowDisplayName": "Chainlink" }],
+          "fld4uK2x42wWudxYr": "2020-08-29T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.prnewswire.com/news-releases/chainlink-acquires-deco-from-cornell-university-301120614.html",
+          "fldgSXreNN5P1r2eX": "DECO acquired by Chainlink"
+        }
+      },
+      {
+        "id": "receVP9yUcKLEDxO6",
+        "createdTime": "2021-07-07T13:22:45.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "rec6GCBEGdpl5ggje", "foreignRowDisplayName": "Elwood Technologies" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec3HaeEpPv1kyFrc", "foreignRowDisplayName": "CoinShares" }],
+          "fld4uK2x42wWudxYr": "2021-07-06T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/110520/coinshares-acquire-blockchain-equity-index-alan-howard-elwood",
+          "fldgSXreNN5P1r2eX": "Elwood Technologies acquired by CoinShares"
+        }
+      },
+      {
+        "id": "rec4T5fd7VuyaDOGr",
+        "createdTime": "2021-07-07T13:23:37.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recP0ecHyhtJ0hBwX", "foreignRowDisplayName": "Farmfol" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recIrzeHRIQcPConh", "foreignRowDisplayName": "Autofarm Network" }],
+          "fld4uK2x42wWudxYr": "2021-03-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://medium.com/autofarm-network/en-acquisition-of-farmfol-io-portfolio-manager-b73e1d96ff67",
+          "fldgSXreNN5P1r2eX": "Farmfol acquired by Autofarm Network"
+        }
+      },
+      {
+        "id": "rec04bZ6Vdcwrydaa",
+        "createdTime": "2021-07-07T13:27:17.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recA423KwKdM9NcMG", "foreignRowDisplayName": "anydot" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recYtYMw9Tr4w6hNI", "foreignRowDisplayName": "Infura" }],
+          "fld4uK2x42wWudxYr": "2020-12-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.infura.io/announcing-our-acquisition-of-any-sender-and-the-alpha-release-of-infura-transactions/?utm_source=social&utm_medium=twitter&utm_campaign=ITX",
+          "fldgSXreNN5P1r2eX": "anydot acquired by Infura"
+        }
+      },
+      {
+        "id": "rec7nCKdNc2T0Ow5V",
+        "createdTime": "2021-07-07T14:22:06.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recUJLhCdA0A5WEjw", "foreignRowDisplayName": "SeedInvest" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recGdFo3jFyg5QGT4", "foreignRowDisplayName": "Circle" }],
+          "fld4uK2x42wWudxYr": "2018-10-05T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/crypto-payments-firm-circle-closes-acquisition-of-crowdfunding-platform-seedinvest?utm_source=dlvr.it&utm_medium=twitter",
+          "fldgSXreNN5P1r2eX": "SeedInvest acquired by Circle"
+        }
+      },
+      {
+        "id": "recF2agUSfmAltmAF",
+        "createdTime": "2021-07-07T14:23:07.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recEKV2FuskoQABjv", "foreignRowDisplayName": "Cinnober" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recLgUxcyFoc3D7IP", "foreignRowDisplayName": "Nasdaq" }],
+          "fld4uK2x42wWudxYr": "2018-09-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/545/nasdaq-acquires-crypto-friendly-service-provider-cinnober",
+          "fldgSXreNN5P1r2eX": "Cinnober acquired by Nasdaq"
+        }
+      },
+      {
+        "id": "recVXwUOmepmGYSl0",
+        "createdTime": "2021-07-07T14:25:07.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recm6QYuEwfuB7boB", "foreignRowDisplayName": "Poloniex" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recGdFo3jFyg5QGT4", "foreignRowDisplayName": "Circle" }],
+          "fld4uK2x42wWudxYr": "2018-02-26T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.trustnodes.com/2018/02/26/circle-acquires-poloniex",
+          "fldgSXreNN5P1r2eX": "Poloniex acquired by Circle"
+        }
+      },
+      {
+        "id": "rechepXLIe6E3L99t",
+        "createdTime": "2021-07-07T14:25:34.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "reca7oN2rSjXpiXr0", "foreignRowDisplayName": "Trigger Finance" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recGdFo3jFyg5QGT4", "foreignRowDisplayName": "Circle" }],
+          "fld4uK2x42wWudxYr": "2017-10-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://coinjournal.net/circle-acquires-trigger-finance-crypto-assets/",
+          "fldgSXreNN5P1r2eX": "Trigger Finance acquired by Circle"
+        }
+      },
+      {
+        "id": "recZjTNeAM0JooC2g",
+        "createdTime": "2021-07-07T14:27:53.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recyfm4SkPiOIpaVK", "foreignRowDisplayName": "Distributed Systems" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2018-08-16T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://pitchbook.com/news/articles/coinbase-continues-ma-streak-with-distributed-systems-deal",
+          "fldgSXreNN5P1r2eX": "Distributed Systems acquired by Coinbase"
+        }
+      },
+      {
+        "id": "reckMyzDMHwBV8YDn",
+        "createdTime": "2021-07-07T14:30:17.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recfP3ZsUjRPEzB04", "foreignRowDisplayName": "Cryptowatch" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fld4uK2x42wWudxYr": "2017-03-01T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/kraken-acquires-digital-currency-data-portal-cryptowatch",
+          "fldgSXreNN5P1r2eX": "Cryptowatch acquired by Kraken"
+        }
+      },
+      {
+        "id": "recpPNWEfqZ4vhb5U",
+        "createdTime": "2021-07-07T14:32:03.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "receckf7e2MwFHKFm", "foreignRowDisplayName": "CryptoFacilities" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fld4uK2x42wWudxYr": "2019-02-04T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 100000000,
+          "fld134rExsrLsxxz3": "https://techcrunch.com/2019/02/04/crypto-exchange-kraken-acquires-crypto-facilities/",
+          "fldgSXreNN5P1r2eX": "CryptoFacilities acquired by Kraken"
+        }
+      },
+      {
+        "id": "recFz9Lccx1QkoAAS",
+        "createdTime": "2021-07-07T14:32:31.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec48DuDN10NeOOux", "foreignRowDisplayName": "CryptoFinance.ai" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fld4uK2x42wWudxYr": "2019-07-01T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/kraken-boosts-institutional-offerings-with-acquisition-of-dan-helds-interchange",
+          "fldgSXreNN5P1r2eX": "CryptoFinance.ai acquired by Kraken"
+        }
+      },
+      {
+        "id": "recwroUUw1mVseIiT",
+        "createdTime": "2021-07-07T14:33:01.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec2rLiDTgOtIyWs8", "foreignRowDisplayName": "Picks & Shovels" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fld4uK2x42wWudxYr": "2019-07-31T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/kraken-boosts-institutional-offerings-with-acquisition-of-dan-helds-interchange",
+          "fldgSXreNN5P1r2eX": "Picks & Shovels acquired by Kraken"
+        }
+      },
+      {
+        "id": "recPXlBmLjmPZNNCk",
+        "createdTime": "2021-07-07T14:33:30.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recGbEUQUZZ2faWPK", "foreignRowDisplayName": "Circle Trade" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fld4uK2x42wWudxYr": "2019-12-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.kraken.com/post/3355/kraken-otc-acquires-circle-trade/",
+          "fldgSXreNN5P1r2eX": "Circle Trade acquired by Kraken"
+        }
+      },
+      {
+        "id": "recelDBhf8A1bvI0u",
+        "createdTime": "2021-07-07T14:34:07.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rectizMeIrvkuDGlF", "foreignRowDisplayName": "Bit Trade" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fld4uK2x42wWudxYr": "2020-01-14T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.crowdfundinsider.com/2020/01/156342-kraken-acquires-australian-crypto-trading-platform-bit-trade/?utm_source=dlvr.it&utm_medium=twitter",
+          "fldgSXreNN5P1r2eX": "Bit Trade acquired by Kraken"
+        }
+      },
+      {
+        "id": "recjtTrThdNtu1Xps",
+        "createdTime": "2021-07-07T14:34:39.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recbYICEU6SfEm669", "foreignRowDisplayName": "BxB" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec1GNLA4xmbezS11", "foreignRowDisplayName": "Binance" }],
+          "fld4uK2x42wWudxYr": "2020-03-31T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/60384/binance-is-launching-a-new-exchange-in-south-korea-next-week",
+          "fldgSXreNN5P1r2eX": "BxB acquired by Binance"
+        }
+      },
+      {
+        "id": "recjARaU6LnsCRqO2",
+        "createdTime": "2021-07-07T14:35:28.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recSWNFmMHbgUU7n3", "foreignRowDisplayName": "Quidd" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmO1Wnira0gzCnV", "foreignRowDisplayName": "Animoca Brands" }],
+          "fld4uK2x42wWudxYr": "2019-08-06T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 8000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/34798/digital-collectibles-market-faces-renaissance-as-platform-targeting-comic-fans-scores-8m-acquisition",
+          "fldgSXreNN5P1r2eX": "Quidd acquired by Animoca Brands"
+        }
+      },
+      {
+        "id": "recP2B2RdfQdn8iPy",
+        "createdTime": "2021-07-07T14:52:54.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recjrQuaz68pH5zEY", "foreignRowDisplayName": "CRYPTO.com" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recIe23G599zEey4Y", "foreignRowDisplayName": "Crypto.com" }],
+          "fld4uK2x42wWudxYr": "2018-07-06T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://techcrunch.com/2018/07/05/crypto-com-mco/",
+          "fldgSXreNN5P1r2eX": "CRYPTO.com acquired by Crypto.com"
+        }
+      },
+      {
+        "id": "rec4afZ2CtBO4KrNk",
+        "createdTime": "2021-07-07T14:53:37.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recRWF5lDvq0zQt68", "foreignRowDisplayName": "The Card Group" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recIe23G599zEey4Y", "foreignRowDisplayName": "Crypto.com" }],
+          "fld4uK2x42wWudxYr": "2020-11-30T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.europeworldnews.com/crypto-com-receives-australian-financial-services-license/",
+          "fldgSXreNN5P1r2eX": "The Card Group acquired by Crypto.com"
+        }
+      },
+      {
+        "id": "rectQXtxfIaqmcXaG",
+        "createdTime": "2021-07-07T16:23:52.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec4gbVl3tVQQzyrT", "foreignRowDisplayName": "Blockdata" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recX3mZyJ8gwsJGiX", "foreignRowDisplayName": "CB Insights" }],
+          "fldPA0UCzeIWoMFPk": ["selkZCkSKz3sigqXO"],
+          "fldgSXreNN5P1r2eX": "Blockdata acquired by CB Insights"
+        }
+      },
+      {
+        "id": "rec32LbBVexa06pKx",
+        "createdTime": "2021-07-07T16:24:29.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recTmR0Wl7VuLqHC5", "foreignRowDisplayName": "AiX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFhFNsZt1CphLl3", "foreignRowDisplayName": "Blockchain.com" }],
+          "fld4uK2x42wWudxYr": "2021-05-04T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/blockchain-com-acquires-ai-firm-to-expand-institutional-offering",
+          "fldgSXreNN5P1r2eX": "AiX acquired by Blockchain.com"
+        }
+      },
+      {
+        "id": "recSWxzKDo9VRbcQs",
+        "createdTime": "2021-07-07T16:25:10.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recP8no5qves5uUSg", "foreignRowDisplayName": "Heritage Financial Systems" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFnj0qmZ3I77eMk", "foreignRowDisplayName": "ConsenSys" }],
+          "fld4uK2x42wWudxYr": "2020-02-06T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/consensys-acquires-us-broker-dealer-in-bid-to-tokenize-trillion-dollar-muni-bond-market",
+          "fldgSXreNN5P1r2eX": "Heritage Financial Systems acquired by ConsenSys"
+        }
+      },
+      {
+        "id": "recwTdUSx3Id1XJ0A",
+        "createdTime": "2021-07-07T16:27:46.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recBMdtKEwz017Un1", "foreignRowDisplayName": "Summa" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recICsGMUYXIyMYRO", "foreignRowDisplayName": "cLabs" }],
+          "fld4uK2x42wWudxYr": "2020-08-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/clabs-celo-acquires-crypto-startup-summa",
+          "fldgSXreNN5P1r2eX": "Summa acquired by cLabs"
+        }
+      },
+      {
+        "id": "recePCmJtFZ812p1o",
+        "createdTime": "2021-07-07T16:32:00.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recMPhO7RKT9KANx6", "foreignRowDisplayName": "Quorum" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFnj0qmZ3I77eMk", "foreignRowDisplayName": "ConsenSys" }],
+          "fld4uK2x42wWudxYr": "2020-08-25T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/consensys-acquires-jp-morgan-quorum-blockchain",
+          "fldgSXreNN5P1r2eX": "Quorum acquired by ConsenSys"
+        }
+      },
+      {
+        "id": "recXf3DKhlkqivSot",
+        "createdTime": "2021-07-07T16:32:33.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec0cT7yGr3KEj1tb", "foreignRowDisplayName": "Luno" }],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "recsY27CxQABl9UNe", "foreignRowDisplayName": "Digital Currency Group" }
+          ],
+          "fld4uK2x42wWudxYr": "2020-09-09T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/digital-currency-group-cryptocurrency-exchange-luno",
+          "fldgSXreNN5P1r2eX": "Luno acquired by Digital Currency Group"
+        }
+      },
+      {
+        "id": "rec6i3JkUhBXJ1hcP",
+        "createdTime": "2021-07-07T16:33:10.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recJEMfmmvI8xGQnF", "foreignRowDisplayName": "TradeBlock" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec3Aawme2EEROa8U", "foreignRowDisplayName": "CoinDesk" }],
+          "fld4uK2x42wWudxYr": "2021-01-05T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.businesswire.com/news/home/20210105005308/en/CoinDesk-Acquires-TradeBlock-the-World%E2%80%99s-Leading-Crypto-Index-Provider",
+          "fldgSXreNN5P1r2eX": "TradeBlock acquired by CoinDesk"
+        }
+      },
+      {
+        "id": "recO020egy3OnfXmc",
+        "createdTime": "2021-07-07T16:33:51.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recPjrdr0rWHLdonC", "foreignRowDisplayName": "Optimus" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recwromDqjYLTbPEQ", "foreignRowDisplayName": "Uphold" }],
+          "fld4uK2x42wWudxYr": "2021-02-02T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.prnewswire.co.uk/news-releases/uphold-to-launch-crypto-enabled-cards-across-europe-following-acquisition-of-optimus-cards-uk-881676396.html",
+          "fldgSXreNN5P1r2eX": "Optimus acquired by Uphold"
+        }
+      },
+      {
+        "id": "recMD4n3dnEDfaNGG",
+        "createdTime": "2021-07-07T16:34:25.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recfQCQNYXojOmD3H", "foreignRowDisplayName": "Nanjing Ribensi Electronic Technology" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rect69DCN1B7vzLFT", "foreignRowDisplayName": "Future FinTech" }],
+          "fld4uK2x42wWudxYr": "2021-04-02T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 9000000,
+          "fld134rExsrLsxxz3": "https://www.prnewswire.com/news-releases/future-fintech-announces-framework-agreement-to-acquire-bitcoin-mining-farm-301260114.html",
+          "fldgSXreNN5P1r2eX": "Nanjing Ribensi Electronic Technology acquired by Future FinTech"
+        }
+      },
+      {
+        "id": "rec5W4u7c8u0rfQ8a",
+        "createdTime": "2021-07-07T16:35:20.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recljnfMdw20QEWbz", "foreignRowDisplayName": "Crypto Pal" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec4ZWA4cVikErbNu", "foreignRowDisplayName": "Hello Pal" }],
+          "fld4uK2x42wWudxYr": "2021-05-27T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 3500000,
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/hello-pal-buys-dogecoin-litecoin-mining-startup",
+          "fldgSXreNN5P1r2eX": "Crypto Pal acquired by Hello Pal"
+        }
+      },
+      {
+        "id": "rec04hnfgZSZYk0DR",
+        "createdTime": "2021-07-07T16:35:55.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recFmx8cKjB79GzWM", "foreignRowDisplayName": "Moonstake" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recM3iptexPHrNHg6", "foreignRowDisplayName": "OIO Holdings" }],
+          "fld4uK2x42wWudxYr": "2021-05-31T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/oio-buys-moonstake",
+          "fldgSXreNN5P1r2eX": "Moonstake acquired by OIO Holdings"
+        }
+      },
+      {
+        "id": "recUFM0nYJs4HmlCs",
+        "createdTime": "2021-07-07T16:36:55.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recGxyFyGaaFhhaGR", "foreignRowDisplayName": "Montcrypto" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recebfl3KDANgfOKe", "foreignRowDisplayName": "The9" }],
+          "fld4uK2x42wWudxYr": "2021-06-04T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/nasdaq-listed-the9-to-buy-control-of-mining-company-montcrypto",
+          "fldgSXreNN5P1r2eX": "Montcrypto acquired by The9"
+        }
+      },
+      {
+        "id": "recPQHHA1Xpwn9OpB",
+        "createdTime": "2021-07-07T16:52:21.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recldcLTJESEZQTZz", "foreignRowDisplayName": "Liquid M Capital" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recizJ3akaKKHFa1m", "foreignRowDisplayName": "Templum" }],
+          "fld4uK2x42wWudxYr": "2018-02-07T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/templum-acquires-liquid-m",
+          "fldgSXreNN5P1r2eX": "Liquid M Capital acquired by Templum"
+        }
+      },
+      {
+        "id": "recdhEZO9fPtuPuRA",
+        "createdTime": "2021-07-07T16:53:04.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recccYScK9Q6aDdEk", "foreignRowDisplayName": "Coincheck" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFEawVVDhhd65Zm", "foreignRowDisplayName": "Monex Group" }],
+          "fld4uK2x42wWudxYr": "2018-04-06T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 33500000,
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/monex-confirms-coincheck-exchange-acquisition-plans-future-ipo",
+          "fldgSXreNN5P1r2eX": "Coincheck acquired by Monex Group"
+        }
+      },
+      {
+        "id": "recW4oo20dw4c7OxW",
+        "createdTime": "2021-07-07T16:53:56.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec2tn2J7sGQbuTxB", "foreignRowDisplayName": "Earn.com" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2018-04-16T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 120000000,
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/coinbase-just-bought-one-of-bitcoins-biggest-startups",
+          "fldgSXreNN5P1r2eX": "Earn.com acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recdXqnu5uHRv5z9C",
+        "createdTime": "2021-07-07T16:54:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recZO2Xj4tQdaCzIw", "foreignRowDisplayName": "BitTorrent" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recDd39K77XywAsBr", "foreignRowDisplayName": "Tron Foundation" }],
+          "fld4uK2x42wWudxYr": "2018-07-25T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/tron-foundation-completes-acquisition-of-bittorrent",
+          "fldgSXreNN5P1r2eX": "BitTorrent acquired by Tron Foundation"
+        }
+      },
+      {
+        "id": "recePdoiSznWsZYDo",
+        "createdTime": "2021-07-07T17:15:32.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recuzPZCCDKd4Oc6i", "foreignRowDisplayName": "Pantronics Holdings" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recvs7U8ns6VTxD9W", "foreignRowDisplayName": "Huobi" }],
+          "fld4uK2x42wWudxYr": "2018-08-29T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/crypto-exchange-huobi-completes-acquisition-of-public-firm-for-70-million",
+          "fldgSXreNN5P1r2eX": "Pantronics Holdings acquired by Huobi"
+        }
+      },
+      {
+        "id": "rec0JmpHzao4QoHaM",
+        "createdTime": "2021-07-07T17:16:44.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recpWOQMOJ5VNYmPd", "foreignRowDisplayName": "Everybody’s Bitcoin" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec8FYYknU9UARipp", "foreignRowDisplayName": "Rakuten" }],
+          "fld4uK2x42wWudxYr": "2018-08-31T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/rakuten-seeks-to-acquire-bitcoin-exchange-in-2-4-million-deal",
+          "fldgSXreNN5P1r2eX": "Everybody’s Bitcoin acquired by Rakuten"
+        }
+      },
+      {
+        "id": "recymveMKD4I9gSwj",
+        "createdTime": "2021-07-07T17:17:17.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec9uGVlv0zKevHSb", "foreignRowDisplayName": "Hedgy" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rectSTkbnu2LF4k5x", "foreignRowDisplayName": "Wyre" }],
+          "fld4uK2x42wWudxYr": "2018-09-07T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/payments-startup-wyre-acquires-bitcoin-smart-contract-developer",
+          "fldgSXreNN5P1r2eX": "Hedgy acquired by Wyre"
+        }
+      },
+      {
+        "id": "recjo8cwZnzrbkoOx",
+        "createdTime": "2021-07-07T17:20:53.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec0Bx47iSu5kite1", "foreignRowDisplayName": "BitTrade" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recvs7U8ns6VTxD9W", "foreignRowDisplayName": "Huobi" }],
+          "fld4uK2x42wWudxYr": "2018-09-12T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/huobi-eyes-japan-expansion-with-acquisition-of-licensed-crypto-exchange",
+          "fldgSXreNN5P1r2eX": "BitTrade acquired by Huobi"
+        }
+      },
+      {
+        "id": "rec9IIWNCxO3A28ii",
+        "createdTime": "2021-07-07T17:21:38.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recQt0LazqXU0wfSn", "foreignRowDisplayName": "Planetary Resources" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFnj0qmZ3I77eMk", "foreignRowDisplayName": "ConsenSys" }],
+          "fld4uK2x42wWudxYr": "2018-11-01T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/blockchain-studio-consensys-acquires-asteroid-mining-space-startup",
+          "fldgSXreNN5P1r2eX": "Planetary Resources acquired by ConsenSys"
+        }
+      },
+      {
+        "id": "recct5AMHy1V95qtU",
+        "createdTime": "2021-07-07T17:31:40.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recgpLYc2TRFJmFRB", "foreignRowDisplayName": "Blockspring" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2019-01-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/coinbase-acquires-andreessen-horowitz-backed-startup-blockspring",
+          "fldgSXreNN5P1r2eX": "Blockspring acquired by Coinbase"
+        }
+      },
+      {
+        "id": "reclbQqzDzCuAI42B",
+        "createdTime": "2021-07-07T17:32:35.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec1I1kBIHA5rLndM", "foreignRowDisplayName": "Crypto Facilities" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fld4uK2x42wWudxYr": "2019-02-04T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 100000000,
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/crypto-kraken-acquires-crypto-facilities",
+          "fldgSXreNN5P1r2eX": "Crypto Facilities acquired by Kraken"
+        }
+      },
+      {
+        "id": "rec5w1gPaaQKns7L5",
+        "createdTime": "2021-07-07T17:33:32.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recr1ZngPl2pz9zZn", "foreignRowDisplayName": "slock.it" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec6c2jP9sFzFH98P", "foreignRowDisplayName": "Blockchains.com" }],
+          "fld4uK2x42wWudxYr": "2019-06-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/the-startup-behind-ethereums-infamous-dao-has-been-acquired",
+          "fldgSXreNN5P1r2eX": "slock.it acquired by Blockchains.com"
+        }
+      },
+      {
+        "id": "recOmiivU73XKHdXz",
+        "createdTime": "2021-07-07T17:33:58.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "reci8smsFi0KppQla", "foreignRowDisplayName": "Interchange" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fldPA0UCzeIWoMFPk": ["selKCVJuaxEznIV73"],
+          "fldgSXreNN5P1r2eX": "Interchange acquired by Kraken"
+        }
+      },
+      {
+        "id": "recXEoXJhIwj91iVm",
+        "createdTime": "2021-07-07T17:34:45.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec7WKjWlvxKDUzHS", "foreignRowDisplayName": "Algrim" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recKFMGYJVw6Fjrns", "foreignRowDisplayName": "Ripple" }],
+          "fld4uK2x42wWudxYr": "2019-09-30T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/ripple-expands-into-iceland-with-acquisition-of-crypto-trading-firm",
+          "fldgSXreNN5P1r2eX": "Algrim acquired by Ripple"
+        }
+      },
+      {
+        "id": "recPCD32QuOxMcW2X",
+        "createdTime": "2021-07-07T19:48:25.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recYAW9iLPh6kQJox", "foreignRowDisplayName": "Shadow Financial Systems" }
+          ],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "recqYMyvxKaes5zRL", "foreignRowDisplayName": "Broadridge Financial Solutions" }
+          ],
+          "fld4uK2x42wWudxYr": "2019-10-02T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/acquisition-marks-broadridge-financials-first-foray-into-crypto-services",
+          "fldgSXreNN5P1r2eX": "Shadow Financial Systems acquired by Broadridge Financial Solutions"
+        }
+      },
+      {
+        "id": "rec4QsjgXFXoYBvVQ",
+        "createdTime": "2021-07-07T19:52:48.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recx31F55uCBxU5SI", "foreignRowDisplayName": "O3 Labs" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "reckX7bimyzbW3PcW", "foreignRowDisplayName": "Bitcoin.com" }],
+          "fld4uK2x42wWudxYr": "2019-10-22T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/bitcoin-com-acquires-japanese-blockchain-developer-03-labs",
+          "fldgSXreNN5P1r2eX": "O3 Labs acquired by Bitcoin.com"
+        }
+      },
+      {
+        "id": "rec7HzZ2RgeGwmz0i",
+        "createdTime": "2021-07-08T09:10:24.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recvFOZsl2ld7qhqp", "foreignRowDisplayName": "Vo1t" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec7Gw1131vbSsLC3", "foreignRowDisplayName": "Genesis" }],
+          "fld4uK2x42wWudxYr": "2020-05-21T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.businesswire.com/news/home/20200521005134/en/Genesis-Acquires-Institutional-Custodian-Vo1t",
+          "fldgSXreNN5P1r2eX": "Vo1t acquired by Genesis"
+        }
+      },
+      {
+        "id": "recydrg81S7RzKqOV",
+        "createdTime": "2021-07-08T09:11:08.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recXMfPEzFS0NPhMQ", "foreignRowDisplayName": "Qu Capital" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec7Gw1131vbSsLC3", "foreignRowDisplayName": "Genesis" }],
+          "fld4uK2x42wWudxYr": "2019-09-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://genesistrading.com/in-the-news/genesis-acquires-quantitative-trading-and-research-firm-qu-capital/",
+          "fldgSXreNN5P1r2eX": "Qu Capital acquired by Genesis"
+        }
+      },
+      {
+        "id": "recnrwdw2mDcIase7",
+        "createdTime": "2021-07-08T09:14:55.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "reczbA2Sy1S6HLZhN", "foreignRowDisplayName": "Hashtag Capital" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recp6lGbDHgQ48ETq", "foreignRowDisplayName": "CoinMarketCap" }],
+          "fld4uK2x42wWudxYr": "2019-06-26T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/coinmarketcap-makes-first-acquisition-to-further-improve-crypto-data-offering",
+          "fldgSXreNN5P1r2eX": "Hashtag Capital acquired by CoinMarketCap"
+        }
+      },
+      {
+        "id": "recIT9pUvv1v0vDyE",
+        "createdTime": "2021-07-08T09:16:24.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recsVLIYDdc0MQfkK", "foreignRowDisplayName": "Blue Ocean Technologies" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec8ZoZA1n88r8NkL", "foreignRowDisplayName": "tØ" }],
+          "fld4uK2x42wWudxYr": "2017-01-18T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/overstocks-blockchain-platform-acquires-market-data-firm",
+          "fldgSXreNN5P1r2eX": "Blue Ocean Technologies acquired by tØ"
+        }
+      },
+      {
+        "id": "recPagoZUquiEQb11",
+        "createdTime": "2021-07-08T09:17:20.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recnjYMu1ZS1w1Uhj", "foreignRowDisplayName": "Skry" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXn10RIbx8B9ocm", "foreignRowDisplayName": "Bloq" }],
+          "fld4uK2x42wWudxYr": "2017-02-27T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/bloq-acqui-hires-blockchain-analytics-firm-skry",
+          "fldgSXreNN5P1r2eX": "Skry acquired by Bloq"
+        }
+      },
+      {
+        "id": "recLvwAVGD4lgUPZ6",
+        "createdTime": "2021-07-08T09:18:02.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recpot0lc3XqqAl0z", "foreignRowDisplayName": "CoinGeek Mining & Hardware" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recWqbfh7i4MZuL1k", "foreignRowDisplayName": "Squire Mining" }],
+          "fld4uK2x42wWudxYr": "2019-01-02T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 45000000,
+          "fldPA0UCzeIWoMFPk": ["selTcRRaamPvrxIII"],
+          "fldgSXreNN5P1r2eX": "CoinGeek Mining & Hardware acquired by Squire Mining"
+        }
+      },
+      {
+        "id": "recDQaRYLR2gSj2Yy",
+        "createdTime": "2021-07-08T09:21:36.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recOqITMGN8DOhriZ", "foreignRowDisplayName": "Backbone Hosting Solutions" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rechXnj35lKP4JySs", "foreignRowDisplayName": "Bitfarms" }],
+          "fld4uK2x42wWudxYr": "2019-08-12T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 28000000,
+          "fldPA0UCzeIWoMFPk": ["selTcRRaamPvrxIII"],
+          "fldgSXreNN5P1r2eX": "Backbone Hosting Solutions acquired by Bitfarms"
+        }
+      },
+      {
+        "id": "recoxV4BZ2RHRRM2g",
+        "createdTime": "2021-07-08T09:22:28.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec68MHci3jbSS7LM", "foreignRowDisplayName": "NUI Social" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recMD1ehJf2kJYzVE", "foreignRowDisplayName": "Appliqate" }],
+          "fld4uK2x42wWudxYr": "2019-03-26T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 25000000,
+          "fldgSXreNN5P1r2eX": "NUI Social acquired by Appliqate"
+        }
+      },
+      {
+        "id": "recCki3NfH3d3kP0k",
+        "createdTime": "2021-07-08T09:24:43.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recV8Q9LrHeMfYDE9", "foreignRowDisplayName": "Surprise" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recl6zubmwAQmRnzD", "foreignRowDisplayName": "Skeepers" }],
+          "fld4uK2x42wWudxYr": "2021-02-22T00:00:00.000Z",
+          "fldgSXreNN5P1r2eX": "Surprise acquired by Skeepers"
+        }
+      },
+      {
+        "id": "rece0Vgog0XoDOsiS",
+        "createdTime": "2021-07-08T09:36:50.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recHafDtEexQc62Rh", "foreignRowDisplayName": "Gamma Point" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmBu0Jp2llO1I4z", "foreignRowDisplayName": "BlockTower" }],
+          "fld4uK2x42wWudxYr": "2021-06-08T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 35000000,
+          "fld134rExsrLsxxz3": "https://www.bloomberg.com/news/articles/2021-06-08/blocktower-acquires-rival-crypto-hedge-fund-gamma-point",
+          "fldgSXreNN5P1r2eX": "Gamma Point acquired by BlockTower"
+        }
+      },
+      {
+        "id": "recyo85EntDHdfSH4",
+        "createdTime": "2021-07-08T09:37:05.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recA9Dj2NN6KwrM79", "foreignRowDisplayName": "XPort Digital" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "reckYK09zUJv1Fimg", "foreignRowDisplayName": "TechX" }],
+          "fld4uK2x42wWudxYr": "2021-06-29T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://finance.yahoo.com/news/techx-closes-acquisition-fiat-crypto-113000010.html",
+          "fldgSXreNN5P1r2eX": "XPort Digital acquired by TechX"
+        }
+      },
+      {
+        "id": "recqMHYgRuSCCWNQx",
+        "createdTime": "2021-07-08T09:38:54.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recxIg1Ku4PZ5oiUn", "foreignRowDisplayName": "Tranglo" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recKFMGYJVw6Fjrns", "foreignRowDisplayName": "Ripple" }],
+          "fld4uK2x42wWudxYr": "2021-03-30T00:00:00.000Z",
+          "fldgSXreNN5P1r2eX": "Tranglo acquired by Ripple"
+        }
+      },
+      {
+        "id": "recjiHnOAWo1uUk3h",
+        "createdTime": "2021-07-08T09:40:29.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recIlCQZMXsTBxAHR", "foreignRowDisplayName": "CGCX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recPHPif4x4aEjFMP", "foreignRowDisplayName": "Majic Wheels" }],
+          "fld4uK2x42wWudxYr": "2021-06-30T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.globenewswire.com/news-release/2021/06/30/2256035/0/en/Majic-Acquires-The-Calfin-Global-Crypto-Exchange-CGCX.html",
+          "fldPA0UCzeIWoMFPk": ["selKCVJuaxEznIV73"],
+          "fldgSXreNN5P1r2eX": "CGCX acquired by Majic Wheels"
+        }
+      },
+      {
+        "id": "reclBL8iETGBpmosx",
+        "createdTime": "2021-07-08T09:42:50.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recnLcGfv0M2bmf2M", "foreignRowDisplayName": "New Word" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recoAP3tia6O0b2yb", "foreignRowDisplayName": "Graph Blockchain" }],
+          "fld4uK2x42wWudxYr": "2021-07-06T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 6000000,
+          "fld134rExsrLsxxz3": "https://www.crowdfundinsider.com/2021/07/177536-graph-blockchain-completes-new-world-acquisition/",
+          "fldgSXreNN5P1r2eX": "New Word acquired by Graph Blockchain"
+        }
+      },
+      {
+        "id": "recoUnIUzDrCGXALw",
+        "createdTime": "2021-07-08T09:47:30.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recjL6Uak5bgOBjcl", "foreignRowDisplayName": "Energy Technology Consultants" }
+          ],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "recaHAJ0VhWlZy7vK", "foreignRowDisplayName": "Everything Blockchain" }
+          ],
+          "fld4uK2x42wWudxYr": "2021-06-21T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 1500000,
+          "fld134rExsrLsxxz3": "https://www.globenewswire.com/news-release/2021/06/21/2250064/0/en/Everything-Blockchain-Acquires-Energy-Technology-Business.html",
+          "fldgSXreNN5P1r2eX": "Energy Technology Consultants acquired by Everything Blockchain"
+        }
+      },
+      {
+        "id": "rechbccgPiFdhVTyV",
+        "createdTime": "2021-07-09T12:36:33.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recb2XKaleURStXYI", "foreignRowDisplayName": "Cipher Browser" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2021-03-24T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coininsider.com/coinbase-acquires-cipher-browser/",
+          "fldgSXreNN5P1r2eX": "Cipher Browser acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recmlVIHZPfONMMnf",
+        "createdTime": "2021-07-10T12:43:26.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recsJUOyOXoIpoFI1", "foreignRowDisplayName": "Adamant" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recWe9hC7MznUVdCt", "foreignRowDisplayName": "Blockstream" }],
+          "fld4uK2x42wWudxYr": "2021-05-23T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://coinmarketcap.com/headlines/news/blockstream-and-adamant-capital/",
+          "fldgSXreNN5P1r2eX": "Adamant acquired by Blockstream"
+        }
+      },
+      {
+        "id": "rec33FeGmkJZe4Lis",
+        "createdTime": "2021-07-10T12:43:56.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recPHymVzkER13QDp", "foreignRowDisplayName": "GreenAddress" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recWe9hC7MznUVdCt", "foreignRowDisplayName": "Blockstream" }],
+          "fld4uK2x42wWudxYr": "2016-07-27T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blockstream.com/2016/07/27/blockstream-greenaddress-acquisition/",
+          "fldgSXreNN5P1r2eX": "GreenAddress acquired by Blockstream"
+        }
+      },
+      {
+        "id": "recwtLeUnvqYaJenU",
+        "createdTime": "2021-07-12T08:12:10.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recLJ5WLylpxBd8dz", "foreignRowDisplayName": "Lition Technology" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec46JQZyoBss9B4M", "foreignRowDisplayName": "TomoChain" }],
+          "fld4uK2x42wWudxYr": "2020-10-28T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coinspeaker.com/tomochain-acquires-german-enterprise-blockchain-lition/",
+          "fldgSXreNN5P1r2eX": "Lition Technology acquired by TomoChain"
+        }
+      },
+      {
+        "id": "rec2ijoBaxOmQAU67",
+        "createdTime": "2021-07-27T09:29:16.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recS7hR1x9VGHCqhj", "foreignRowDisplayName": "Fluidity" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFnj0qmZ3I77eMk", "foreignRowDisplayName": "ConsenSys" }],
+          "fld4uK2x42wWudxYr": "2020-05-22T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.crowdfundinsider.com/2020/05/161938-consensys-announces-acquisition-of-blockchain-technology-company-fluidity/",
+          "fldgSXreNN5P1r2eX": "Fluidity acquired by ConsenSys"
+        }
+      },
+      {
+        "id": "recmxWtmQIbRGfaIl",
+        "createdTime": "2021-08-02T14:40:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec5KgqtYrUMPzFW8", "foreignRowDisplayName": "Coinify" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec0T75PYRnOTq9k8", "foreignRowDisplayName": "Voyager Digital " }],
+          "fld4uK2x42wWudxYr": "2021-08-02T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 85000000,
+          "fld134rExsrLsxxz3": "https://www.forbes.com/sites/emilymason/2021/08/02/bitcoin-brokerage-voyager-breaks-into-digital-payments-with-85-million-acquisition/?sh=2fc98b2a5e62",
+          "fldgSXreNN5P1r2eX": "Coinify acquired by Voyager Digital "
+        }
+      },
+      {
+        "id": "rec419fFBLhV2NjCe",
+        "createdTime": "2021-08-02T14:57:43.000Z",
+        "cellValuesByColumnId": {
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec5KgqtYrUMPzFW8", "foreignRowDisplayName": "Coinify" }],
+          "fld4uK2x42wWudxYr": "2018-12-14T00:00:00.000Z",
+          "fldgSXreNN5P1r2eX": " acquired by Coinify"
+        }
+      },
+      {
+        "id": "recNsRR1USVT2Qbbz",
+        "createdTime": "2021-08-05T07:25:17.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recaFMt0zUfGr2Tli", "foreignRowDisplayName": "Zabo" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2021-08-04T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://zabo.com/blog/zabo-is-joining-coinbase/",
+          "fldgSXreNN5P1r2eX": "Zabo acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recGMGpIRHikvIPdk",
+        "createdTime": "2021-08-09T14:13:14.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recc3rwD26HCIdMD1", "foreignRowDisplayName": "Certus One" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recKOl60AytFAev9O", "foreignRowDisplayName": "Jump Trading" }],
+          "fld4uK2x42wWudxYr": "2021-08-05T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.thetradenews.com/jump-trading-acquires-defi-infrastructure-firm-certus-one/",
+          "fldPA0UCzeIWoMFPk": ["selPTuhTYVyVvMkrE"],
+          "fldgSXreNN5P1r2eX": "Certus One acquired by Jump Trading"
+        }
+      },
+      {
+        "id": "rec3FfCwYsacGSgCu",
+        "createdTime": "2021-08-30T16:56:05.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rectEIBYpTVuE87tV", "foreignRowDisplayName": "Hermez Network" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recNFEDYlu6K4go4F", "foreignRowDisplayName": "Polygon" }],
+          "fld4uK2x42wWudxYr": "2021-08-16T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 250000000,
+          "fld134rExsrLsxxz3": "https://forkast.news/headlines/polygon-acquires-hermez-network-for-us250m/",
+          "fldPA0UCzeIWoMFPk": ["seln4AQqWtyEXDjEF"],
+          "fldgSXreNN5P1r2eX": "Hermez Network acquired by Polygon"
+        }
+      },
+      {
+        "id": "rec0ClOctDFVIuFDo",
+        "createdTime": "2021-08-31T15:39:13.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recWslGbn5A5PKfJK", "foreignRowDisplayName": "LedgerX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recJ3gy4VDTKwuZ0H", "foreignRowDisplayName": "FTX" }],
+          "fld4uK2x42wWudxYr": "2021-08-31T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/116134/ftx-us-acquires-crypto-derivatives-exchange-ledgerx",
+          "fldgSXreNN5P1r2eX": "LedgerX acquired by FTX"
+        }
+      },
+      {
+        "id": "recJfh58hYlnxoYD8",
+        "createdTime": "2021-09-09T13:57:56.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recrWOclyB8cB0xeA", "foreignRowDisplayName": "CipherTrace" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recq3nDBp24bMKtwr", "foreignRowDisplayName": "Mastercard" }],
+          "fld4uK2x42wWudxYr": "2021-09-09T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2021/09/09/mastercard-acquires-crypto-tracing-firm-ciphertrace/",
+          "fldPA0UCzeIWoMFPk": ["selkZCkSKz3sigqXO", "selYKRzMWsarwjoXI"],
+          "fldgSXreNN5P1r2eX": "CipherTrace acquired by Mastercard"
+        }
+      },
+      {
+        "id": "recRWUz1Wg9fFSZRL",
+        "createdTime": "2021-10-04T16:49:39.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recj2hifYWaDdtC4N", "foreignRowDisplayName": "Brud" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recL2wgmzzFwhqS10", "foreignRowDisplayName": "Dapper Labs" }],
+          "fld4uK2x42wWudxYr": "2021-10-04T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://decrypt.co/82517/dapper-labs-nfts-daos-collectives-brud",
+          "fldgSXreNN5P1r2eX": "Brud acquired by Dapper Labs"
+        }
+      },
+      {
+        "id": "recaClHtTomKUYsBz",
+        "createdTime": "2021-10-19T12:14:59.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "reczA06zhaCR0H5fx", "foreignRowDisplayName": "MistServer" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recwtvH9SHIKRgNGA", "foreignRowDisplayName": "Livepeer" }],
+          "fld4uK2x42wWudxYr": "2021-10-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://medium.com/livepeer-blog/livepeer-expands-video-capabilities-with-acquisition-of-mistserver-1d55561edffd",
+          "fldgSXreNN5P1r2eX": "MistServer acquired by Livepeer"
+        }
+      },
+      {
+        "id": "rec4KbJEkP1gIKrt7",
+        "createdTime": "2021-10-20T17:39:56.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recbXV3Wff4x2wU0a", "foreignRowDisplayName": "ErisX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recj4vzL82Ani2SGt", "foreignRowDisplayName": "Cboe" }],
+          "fld4uK2x42wWudxYr": "2021-10-20T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2021/10/20/cboe-reenters-crypto-derivatives-market-with-erisx-acquisition/",
+          "fldgSXreNN5P1r2eX": "ErisX acquired by Cboe"
+        }
+      },
+      {
+        "id": "recPtuOsBhTTZtsk1",
+        "createdTime": "2021-10-30T00:29:42.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recFJ1oLpFj4Oo1ry", "foreignRowDisplayName": "Feral Horses" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recITtAAh3T3HKLN8", "foreignRowDisplayName": "ArtSquare" }],
+          "fld4uK2x42wWudxYr": "2021-06-15T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://artsquare-io.medium.com/artsquare-io-acquires-feral-horses-in-first-art-tokenization-platforms-m-a-operation-daba01fb9bbd",
+          "fldPA0UCzeIWoMFPk": ["sel8IFIkCT1E8y6vI"],
+          "fldgSXreNN5P1r2eX": "Feral Horses acquired by ArtSquare"
+        }
+      },
+      {
+        "id": "rec2cXpVT1Y3a0wPb",
+        "createdTime": "2021-11-02T08:37:56.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recmBFIUFCiHKipJ3", "foreignRowDisplayName": "Bottlepay" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recWYoAR4X13kTWgf", "foreignRowDisplayName": "NYDIG" }],
+          "fld4uK2x42wWudxYr": "2021-10-29T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 300000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/122564/nydig-acquires-british-crypto-startup-bottlepay-300-million-stock-purchase",
+          "fldgSXreNN5P1r2eX": "Bottlepay acquired by NYDIG"
+        }
+      },
+      {
+        "id": "recnEXPscK43hV15x",
+        "createdTime": "2021-11-03T16:15:42.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recAseZYcTfEVHBsd", "foreignRowDisplayName": "GK8" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recoTlGZ8p2ISa9Jo", "foreignRowDisplayName": "Celsius Network" }],
+          "fld4uK2x42wWudxYr": "2021-11-03T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 115000000,
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2021/11/02/celsius-acquiring-israeli-cybersecurity-company-gk8-for-115m/",
+          "fldgSXreNN5P1r2eX": "GK8 acquired by Celsius Network"
+        }
+      },
+      {
+        "id": "recWvfBvuG8vvrRqY",
+        "createdTime": "2021-11-12T08:14:28.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recxyCaiY79Fo7J5Y", "foreignRowDisplayName": "Coin.Fyi" }],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "recjnyxN69FR9KeeP", "foreignRowDisplayName": "Morningstar Ventures" }
+          ],
+          "fld4uK2x42wWudxYr": "2021-11-10T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://coin-fyi.medium.com/coin-fyi-acquisition-by-morningstar-ventures-b343215b7dfe",
+          "fldgSXreNN5P1r2eX": "Coin.Fyi acquired by Morningstar Ventures"
+        }
+      },
+      {
+        "id": "recRHzg2JWBzDaf8q",
+        "createdTime": "2021-11-22T15:22:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rectGhhWPstBQGOeh", "foreignRowDisplayName": "Soluna Computing" }],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "recLokLaTAwsz4WBK", "foreignRowDisplayName": "Mechanical Technology" }
+          ],
+          "fld4uK2x42wWudxYr": "2021-11-02T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.solunacomputing.com/",
+          "fldgSXreNN5P1r2eX": "Soluna Computing acquired by Mechanical Technology"
+        }
+      },
+      {
+        "id": "recxQzI3cLVBkbYVl",
+        "createdTime": "2021-12-03T23:43:02.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recvVRNAbOmE8y7AW", "foreignRowDisplayName": "Unbound Security" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2021-11-30T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.coinbase.com/coinbase-to-acquire-leading-cryptographic-security-company-unbound-security-9c7e67f37e24",
+          "fldgSXreNN5P1r2eX": "Unbound Security acquired by Coinbase"
+        }
+      },
+      {
+        "id": "recQpZyM1G5mcWXeQ",
+        "createdTime": "2021-12-03T23:50:30.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recgXFTAUM1LG5TXx", "foreignRowDisplayName": "BRD" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2021-11-24T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://brd.com/brd-joins-coinbase",
+          "fldgSXreNN5P1r2eX": "BRD acquired by Coinbase"
+        }
+      },
+      {
+        "id": "rec0xaZFQWfTv2NQP",
+        "createdTime": "2021-12-04T00:28:36.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recz2h1Cy9eHxWxhi", "foreignRowDisplayName": "Napoleon" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec3HaeEpPv1kyFrc", "foreignRowDisplayName": "CoinShares" }],
+          "fld4uK2x42wWudxYr": "2022-06-30T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 14500000,
+          "fld134rExsrLsxxz3": "https://www.globenewswire.com/news-release/2022/07/04/2473253/0/en/CoinShares-acquires-Napoleon-Asset-Management-the-first-AIFM-regulated-crypto-asset-manager.html",
+          "fldgSXreNN5P1r2eX": "Napoleon acquired by CoinShares"
+        }
+      },
+      {
+        "id": "recMrgEMxdWovhmyH",
+        "createdTime": "2021-12-05T13:26:06.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recMNcxkjEgpXvUp5", "foreignRowDisplayName": "Nadex" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recIe23G599zEey4Y", "foreignRowDisplayName": "Crypto.com" }],
+          "fld4uK2x42wWudxYr": "2021-12-01T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 216000000,
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2021/12/01/cryptocom-to-acquire-nadex-small-exchange-to-expand-us-presence/",
+          "fldPA0UCzeIWoMFPk": ["selKCVJuaxEznIV73"],
+          "fldgSXreNN5P1r2eX": "Nadex acquired by Crypto.com"
+        }
+      },
+      {
+        "id": "recf8cJpvzH6uY1Su",
+        "createdTime": "2021-12-12T20:59:50.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recswJ7gPUDoG3Pii", "foreignRowDisplayName": "Mir Protocol" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recNFEDYlu6K4go4F", "foreignRowDisplayName": "Polygon" }],
+          "fld4uK2x42wWudxYr": "2021-12-09T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 400000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/126991/polygon-acquires-mir-protocol-400-million-zk-rollups",
+          "fldgSXreNN5P1r2eX": "Mir Protocol acquired by Polygon"
+        }
+      },
+      {
+        "id": "recAb965EW313BkFz",
+        "createdTime": "2021-12-15T19:56:32.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recPO33Qi8p9XoP8o", "foreignRowDisplayName": "RTFKT Studios" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recvOYYo9GL7rGPTS", "foreignRowDisplayName": "Nike" }],
+          "fld4uK2x42wWudxYr": "2021-12-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://news.nike.com/news/nike-acquires-rtfkt",
+          "fldPA0UCzeIWoMFPk": ["sel8IFIkCT1E8y6vI"],
+          "fldgSXreNN5P1r2eX": "RTFKT Studios acquired by Nike"
+        }
+      },
+      {
+        "id": "recAVKe90D3N9y0yg",
+        "createdTime": "2021-12-18T12:05:05.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec3YGg6m3lv50tyo", "foreignRowDisplayName": "Cove Markets" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recNfv3Tj73PJZnBj", "foreignRowDisplayName": "Robinhood" }],
+          "fld4uK2x42wWudxYr": "2021-12-15T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2021/12/14/robinhood-acquires-cross-exchange-crypto-trading-firm-cove-markets/",
+          "fldPA0UCzeIWoMFPk": ["selcHpfnvUF3emGe7"],
+          "fldgSXreNN5P1r2eX": "Cove Markets acquired by Robinhood"
+        }
+      },
+      {
+        "id": "recD1lnZ3zG0JowXY",
+        "createdTime": "2021-12-27T12:41:44.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "receHSPeNly5lYZsx", "foreignRowDisplayName": "Staked" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz8RjPKIlGcmJNA", "foreignRowDisplayName": "Kraken" }],
+          "fld4uK2x42wWudxYr": "2021-12-21T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.businesswire.com/news/home/20211221005538/en/",
+          "fldgSXreNN5P1r2eX": "Staked acquired by Kraken"
+        }
+      },
+      {
+        "id": "recI0Alyy87xymaSW",
+        "createdTime": "2022-01-03T11:19:30.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recYMlr6FRH6gNymG", "foreignRowDisplayName": "MyDeFi" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recYyYsYY0guhgkT2", "foreignRowDisplayName": "Zerion" }],
+          "fld4uK2x42wWudxYr": "2020-03-30T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.zerion.io/zerion-acquires-mydefi-43ec8e185961",
+          "fldgSXreNN5P1r2eX": "MyDeFi acquired by Zerion"
+        }
+      },
+      {
+        "id": "recvHPht2YwEhyixO",
+        "createdTime": "2022-01-07T01:01:02.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec6VWw6S262ZEF27", "foreignRowDisplayName": "Bitbuy" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recS0xDfIMJo74cpi", "foreignRowDisplayName": "WonderFi" }],
+          "fld4uK2x42wWudxYr": "2022-01-04T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 162000000,
+          "fld134rExsrLsxxz3": "https://www.wonder.fi/press-release/wonderfi-to-acquire-bitbuy-canadas-first-approved-crypto-marketplace-with-over-4-4b-transacted",
+          "fldPA0UCzeIWoMFPk": ["selKCVJuaxEznIV73"],
+          "fldgSXreNN5P1r2eX": "Bitbuy acquired by WonderFi"
+        }
+      },
+      {
+        "id": "recKut7hb2w12PnfE",
+        "createdTime": "2022-01-10T18:33:23.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recn3muUy8dqzjMGi", "foreignRowDisplayName": "Votemak" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recjZfS0E4VkQKIGq", "foreignRowDisplayName": "[REDACTED] Cartel" }],
+          "fld4uK2x42wWudxYr": "2022-01-06T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://mirror.xyz/0xE90c74145245B498fef924fAdC7bb34253c7cF90/dxkKXGReQTPO60gCZumzd2oMSMeGs65GPU0dx6AY3rc",
+          "fldgSXreNN5P1r2eX": "Votemak acquired by [REDACTED] Cartel"
+        }
+      },
+      {
+        "id": "recZoFyEU6vY4lrgy",
+        "createdTime": "2022-01-13T17:42:01.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recLykXCTQpE2dY3b", "foreignRowDisplayName": "Utrust" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFGaglieBWeNnrr", "foreignRowDisplayName": "Elrond Foundation" }],
+          "fld4uK2x42wWudxYr": "2022-01-11T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://medium.com/utrust/the-day-has-come-utrust-elrond-have-united-to-take-over-the-web3-payments-landscape-b337a6e3a7e5",
+          "fldPA0UCzeIWoMFPk": ["selYKRzMWsarwjoXI"],
+          "fldgSXreNN5P1r2eX": "Utrust acquired by Elrond Foundation"
+        }
+      },
+      {
+        "id": "rec6dNpg8ExqONyl6",
+        "createdTime": "2022-01-17T21:26:41.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec78hj1qtRE5AitJ", "foreignRowDisplayName": "FairX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recXFUpCrVqFAChFi", "foreignRowDisplayName": "Coinbase" }],
+          "fld4uK2x42wWudxYr": "2022-01-12T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.coinbase.com/coinbases-path-to-creating-a-robust-and-regulated-crypto-derivatives-market-a1dc71577337",
+          "fldgSXreNN5P1r2eX": "FairX acquired by Coinbase"
+        }
+      },
+      {
+        "id": "rec2AFqIiuN6dtA9G",
+        "createdTime": "2022-01-18T09:22:54.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recBaaCT1TqAUERZv", "foreignRowDisplayName": "CriptoLoja" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recb2btMMhTleo8Ro", "foreignRowDisplayName": "2TM Group" }],
+          "fld4uK2x42wWudxYr": "2022-01-12T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/130093/mercado-bitcoin-parent-2tm-to-acquire-portuguese-exchange-criptoloja",
+          "fldgSXreNN5P1r2eX": "CriptoLoja acquired by 2TM Group"
+        }
+      },
+      {
+        "id": "recTWzGkWY4YX9yEu",
+        "createdTime": "2022-01-18T09:25:14.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recoxcyZo2Hs6mji0", "foreignRowDisplayName": "N3TWORK" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recyiV7jk67JPirvB", "foreignRowDisplayName": "Forte" }],
+          "fld4uK2x42wWudxYr": "2022-01-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.businesswire.com/news/home/20220113005333/en/",
+          "fldgSXreNN5P1r2eX": "N3TWORK acquired by Forte"
+        }
+      },
+      {
+        "id": "recGDXwtr0hdKXA0q",
+        "createdTime": "2022-01-18T09:59:39.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recDwj13NSVbdGXOH", "foreignRowDisplayName": "LibertyX" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "reczPIs3UsXEV89Yj", "foreignRowDisplayName": "NCR Corporation" }],
+          "fld4uK2x42wWudxYr": "2022-01-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.businesswire.com/news/home/20220113005846/en/NCR-Completes-Acquisition-of-Cryptocurrency-Leader-LibertyX",
+          "fldgSXreNN5P1r2eX": "LibertyX acquired by NCR Corporation"
+        }
+      },
+      {
+        "id": "recBaRzkUufQrxY8E",
+        "createdTime": "2022-01-23T20:12:56.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recNXQ8TIvFTAiZU4", "foreignRowDisplayName": "Polystream" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rece01T6VhDTQWyfc", "foreignRowDisplayName": "Mythical Games" }],
+          "fld4uK2x42wWudxYr": "2022-01-18T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://polystream.com/polystream-is-now-part-of-mythical-games/",
+          "fldPA0UCzeIWoMFPk": ["sel8IFIkCT1E8y6vI"],
+          "fldgSXreNN5P1r2eX": "Polystream acquired by Mythical Games"
+        }
+      },
+      {
+        "id": "rec9V8ScJ9obvmZm4",
+        "createdTime": "2022-01-24T08:45:40.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recF0iXOmDLRkR1Xc", "foreignRowDisplayName": "Dharma Labs" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recs2fQuYKisirV0s", "foreignRowDisplayName": "OpenSea" }],
+          "fld4uK2x42wWudxYr": "2022-01-18T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://opensea.io/blog/announcements/opensea-acquires-dharma-labs-welcomes-new-cto/",
+          "fldPA0UCzeIWoMFPk": ["sel8IFIkCT1E8y6vI"],
+          "fldgSXreNN5P1r2eX": "Dharma Labs acquired by OpenSea"
+        }
+      },
+      {
+        "id": "recD2Qe0pCnsWKQfi",
+        "createdTime": "2022-01-24T23:33:18.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recT3KmGhIk4OHqq9", "foreignRowDisplayName": "Omniex" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz3w8PXuDlsWo22", "foreignRowDisplayName": "Gemini" }],
+          "fld4uK2x42wWudxYr": "2022-01-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.gemini.com/blog/gemini-acquires-trading-technology-platform-omniex-launches-gemini-prime",
+          "fldgSXreNN5P1r2eX": "Omniex acquired by Gemini"
+        }
+      },
+      {
+        "id": "recnKZF49TcWbJg1h",
+        "createdTime": "2022-01-25T00:27:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recMIMEmdajqdOC0l", "foreignRowDisplayName": "Avari" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recNJnVRxoRMyFy78", "foreignRowDisplayName": "Maple" }],
+          "fld4uK2x42wWudxYr": "2022-01-21T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://maplefinance.medium.com/maple-finance-acquires-avari-for-rapid-launch-on-solana-3e821ae21bc8",
+          "fldgSXreNN5P1r2eX": "Avari acquired by Maple"
+        }
+      },
+      {
+        "id": "recxdwjJftNNiOrkY",
+        "createdTime": "2022-01-25T12:01:42.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recKDDYdwf76ClmD5", "foreignRowDisplayName": "TeraGo" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recLcuJljsW5lLnK3", "foreignRowDisplayName": "Hut 8 Mining" }],
+          "fld4uK2x42wWudxYr": "2022-01-20T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.newswire.ca/news-releases/hut-8-announces-acquisition-of-terago-s-data-center-business-898346800.html",
+          "fldgSXreNN5P1r2eX": "TeraGo acquired by Hut 8 Mining"
+        }
+      },
+      {
+        "id": "recCrzE2VIlPlM5Xm",
+        "createdTime": "2022-01-25T12:39:54.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recI13mXUa7G459hZ", "foreignRowDisplayName": "Axies Alerts PH" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recVwI7jO1RLuveNf", "foreignRowDisplayName": "Yield Guild Games" }],
+          "fld4uK2x42wWudxYr": "2022-01-24T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://twitter.com/officialAAPH/status/1485603991447044098",
+          "fldgSXreNN5P1r2eX": "Axies Alerts PH acquired by Yield Guild Games"
+        }
+      },
+      {
+        "id": "recnJSPwNuu6pfKt6",
+        "createdTime": "2022-01-31T19:05:54.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recLidPNN5OHU40bV", "foreignRowDisplayName": "Wealthfront" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmFcIvQT3TvlMtq", "foreignRowDisplayName": "USB" }],
+          "fld4uK2x42wWudxYr": "2022-01-26T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 1400000000,
+          "fld134rExsrLsxxz3": "https://www.marketwatch.com/story/ubs-agrees-to-acquire-wealthfront-to-deliver-digital-wealth-management-offering-to-millennial-and-gen-z-affluent-investors-271643216409",
+          "fldgSXreNN5P1r2eX": "Wealthfront acquired by USB"
+        }
+      },
+      {
+        "id": "rec7ho3qnMzCdWPin",
+        "createdTime": "2022-02-01T09:51:32.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recUz0qAdN7xMK67m", "foreignRowDisplayName": "Diem" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recUwhveh1fsXxdKx", "foreignRowDisplayName": "Silvergate Capital" }],
+          "fld4uK2x42wWudxYr": "2022-01-31T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/post/132532/diem-association-confirms-sale-of-crypto-payment-network-to-silvergate",
+          "fldgSXreNN5P1r2eX": "Diem acquired by Silvergate Capital"
+        }
+      },
+      {
+        "id": "rec6rW93cq0sFBFbU",
+        "createdTime": "2022-02-03T07:51:52.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recmTbgW6yI210dml", "foreignRowDisplayName": "MyCrypto" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFnj0qmZ3I77eMk", "foreignRowDisplayName": "ConsenSys" }],
+          "fld4uK2x42wWudxYr": "2022-02-01T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2022/02/01/consensys-acquires-ethereum-wallet-mycrypto-plans-to-merge-it-with-metamask/",
+          "fldgSXreNN5P1r2eX": "MyCrypto acquired by ConsenSys"
+        }
+      },
+      {
+        "id": "recv2l0GXWiOStgnU",
+        "createdTime": "2022-02-03T08:02:20.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recpPAsoZSiVDXLXW", "foreignRowDisplayName": "Liquid Global" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recJ3gy4VDTKwuZ0H", "foreignRowDisplayName": "FTX" }],
+          "fld4uK2x42wWudxYr": "2022-02-02T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.liquid.com/acquisition-liquid-ftx",
+          "fldgSXreNN5P1r2eX": "Liquid Global acquired by FTX"
+        }
+      },
+      {
+        "id": "recK8iROWzDGkT11j",
+        "createdTime": "2022-02-03T18:24:08.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recZrAyDTZu29fSKg", "foreignRowDisplayName": "DeCurret" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recR3xDR0Nj6bNQb4", "foreignRowDisplayName": "Amber Group" }],
+          "fld4uK2x42wWudxYr": "2022-02-01T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/132658/amber-group-acquires-fsa-licensed-crypto-exchange-service-decurret",
+          "fldgSXreNN5P1r2eX": "DeCurret acquired by Amber Group"
+        }
+      },
+      {
+        "id": "reci6cKLtmvUytjEw",
+        "createdTime": "2022-02-06T22:23:53.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recApBRDIBZIQMkDL", "foreignRowDisplayName": "Abaxx" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recWc8RvoeOQuCbWD", "foreignRowDisplayName": "Chainanalysis" }],
+          "fld4uK2x42wWudxYr": "2022-02-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/132940/chainalysis-acquires-dc-based-data-and-consultancy-firm-abaxx",
+          "fldgSXreNN5P1r2eX": "Abaxx acquired by Chainanalysis"
+        }
+      },
+      {
+        "id": "recPd78gdypc2DZ8a",
+        "createdTime": "2022-02-06T22:25:06.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recIqwrcNxhJx1hQI", "foreignRowDisplayName": "Excygent" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recWc8RvoeOQuCbWD", "foreignRowDisplayName": "Chainanalysis" }],
+          "fld4uK2x42wWudxYr": "2021-10-05T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/119566/crypto-analytics-startup-chainalysis-acquires-cybercrime-forensics-firm-excygent",
+          "fldgSXreNN5P1r2eX": "Excygent acquired by Chainanalysis"
+        }
+      },
+      {
+        "id": "reczQs7KakmdZRAcB",
+        "createdTime": "2022-02-08T16:59:40.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "receLFqDlrhP77zKm", "foreignRowDisplayName": "Makara" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recB51yHGgQJZarpd", "foreignRowDisplayName": "Betterment" }],
+          "fld4uK2x42wWudxYr": "2022-02-08T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/133473/crypto-focused-robo-advisor-makara-acquired-by-betterment",
+          "fldgSXreNN5P1r2eX": "Makara acquired by Betterment"
+        }
+      },
+      {
+        "id": "recmhJONYtmBAyy0q",
+        "createdTime": "2022-02-18T10:49:45.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "rece9n0IcY229GFwj", "foreignRowDisplayName": "First Digital Trust" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec40PqH8Gko8GtoV", "foreignRowDisplayName": "Fireblocks" }],
+          "fld4uK2x42wWudxYr": "2022-02-16T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://cointelegraph.com/news/fireblocks-acquires-stablecoin-payments-platform-first-digital",
+          "fldgSXreNN5P1r2eX": "First Digital Trust acquired by Fireblocks"
+        }
+      },
+      {
+        "id": "recKeFUiVwgh48pY5",
+        "createdTime": "2022-02-19T17:05:12.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recu6CC0GCBWUTxW7", "foreignRowDisplayName": "Namebase" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz6at828KPv7bBh", "foreignRowDisplayName": "Namecheap" }],
+          "fld4uK2x42wWudxYr": "2022-02-16T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.namebase.io/blog/namebase-has-been-acquired/",
+          "fldgSXreNN5P1r2eX": "Namebase acquired by Namecheap"
+        }
+      },
+      {
+        "id": "rec7ONqasv4qaDANT",
+        "createdTime": "2022-02-21T17:04:28.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recjwmfZbymfwszVI", "foreignRowDisplayName": "Grease Monkey Games" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmO1Wnira0gzCnV", "foreignRowDisplayName": "Animoca Brands" }],
+          "fld4uK2x42wWudxYr": "2022-02-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.animocabrands.com/animoca-brands-acquires-indie-game-developer-grease-monkey-games",
+          "fldgSXreNN5P1r2eX": "Grease Monkey Games acquired by Animoca Brands"
+        }
+      },
+      {
+        "id": "recMePKv7OSBAOSgK",
+        "createdTime": "2022-03-01T14:29:50.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recM85OOzQWe07oLY", "foreignRowDisplayName": "Knox" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recUz5n1mCmuCxVhR", "foreignRowDisplayName": "Tetra Trust" }],
+          "fld4uK2x42wWudxYr": "2022-03-01T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2022/03/01/crypto-firm-knox-joins-forces-with-canadian-qualified-custodian-tetra-trust/",
+          "fldgSXreNN5P1r2eX": "Knox acquired by Tetra Trust"
+        }
+      },
+      {
+        "id": "recgz7LeZvpe3QwBm",
+        "createdTime": "2022-03-10T23:46:30.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recQtdBLy0kCI9TTS", "foreignRowDisplayName": "Otis" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recJKTYob5Gx8jA1Q", "foreignRowDisplayName": "Public" }],
+          "fld4uK2x42wWudxYr": "2022-03-09T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://medium.com/the-public-blog/otis-joins-public-to-empower-fractional-investing-in-nfts-art-and-collectibles-443d73c60363",
+          "fldgSXreNN5P1r2eX": "Otis acquired by Public"
+        }
+      },
+      {
+        "id": "recnCZUui8DVzcUSa",
+        "createdTime": "2022-03-11T20:02:23.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recRJiUsx4WUNnVo0", "foreignRowDisplayName": "Gem" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recGk2B5ehr8XMZk0", "foreignRowDisplayName": "Blockdaemon" }],
+          "fld4uK2x42wWudxYr": "2022-03-09T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2022/03/09/blockdaemon-acquires-crypto-onramp-company-gem/",
+          "fldgSXreNN5P1r2eX": "Gem acquired by Blockdaemon"
+        }
+      },
+      {
+        "id": "recmANOCTkxXJbOHW",
+        "createdTime": "2022-03-14T20:40:04.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recL2pHW8ssTz83WQ", "foreignRowDisplayName": "Larva Labs" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec0Fa29i4ZSauPg6", "foreignRowDisplayName": "Yuga Labs" }],
+          "fld4uK2x42wWudxYr": "2022-03-12T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://mirror.xyz/0xEc9f53fA69682833FBd760C104B5D61aE29221E0/Km81y6Mc3O5LzS0wnrghVIV0HnZgLOd4wsnfcGw3_2I",
+          "fldgSXreNN5P1r2eX": "Larva Labs acquired by Yuga Labs"
+        }
+      },
+      {
+        "id": "recwUIb4Spu37lBgo",
+        "createdTime": "2022-03-19T00:24:20.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recvDmmP6a7bxDelg", "foreignRowDisplayName": "NFTrade" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recyAErQJxnaxnoGT", "foreignRowDisplayName": "BNB Chain" }],
+          "fld4uK2x42wWudxYr": "2022-03-16T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.bnbchain.world/en/blog/bnb-chain-fund-finalizes-strategic-acquisition-of-nftrades-utility-token-nftd/",
+          "fldgSXreNN5P1r2eX": "NFTrade acquired by BNB Chain"
+        }
+      },
+      {
+        "id": "recJZcbhOvWyl1kKe",
+        "createdTime": "2022-03-22T14:19:14.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recB8Gj6U9EqdUDYS", "foreignRowDisplayName": "Altonomy" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFhFNsZt1CphLl3", "foreignRowDisplayName": "Blockchain.com" }],
+          "fld4uK2x42wWudxYr": "2022-03-22T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2022/03/21/crypto-exchange-blockchaincom-acquires-altonomys-otc-desk/",
+          "fldgSXreNN5P1r2eX": "Altonomy acquired by Blockchain.com"
+        }
+      },
+      {
+        "id": "recFKhlMaauy2BQ2U",
+        "createdTime": "2022-03-24T17:13:56.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rechynifU8o2tYdzG", "foreignRowDisplayName": "Good Luck Games" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recJ3gy4VDTKwuZ0H", "foreignRowDisplayName": "FTX" }],
+          "fld4uK2x42wWudxYr": "2022-03-22T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://decrypt.co/95699/ftx-acquires-good-luck-games-storybook-brawl",
+          "fldgSXreNN5P1r2eX": "Good Luck Games acquired by FTX"
+        }
+      },
+      {
+        "id": "recNTae3jt8frIngP",
+        "createdTime": "2022-04-10T22:19:46.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rectSTkbnu2LF4k5x", "foreignRowDisplayName": "Wyre" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "reclOYY9XBey0cyA5", "foreignRowDisplayName": "Bolt" }],
+          "fld4uK2x42wWudxYr": "2022-04-07T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 1500000000,
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/141049/crypto-payments-firm-wyre-acquired-by-bolt-in-deal-worth-roughly-1-5-billion",
+          "fldgSXreNN5P1r2eX": "Wyre acquired by Bolt"
+        }
+      },
+      {
+        "id": "recwhxgk35eU9x9j0",
+        "createdTime": "2022-04-12T10:14:24.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recyxgFfPiwcjdW2z", "foreignRowDisplayName": "Tap Finance" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recRbbecG468wZh7k", "foreignRowDisplayName": "PsyOptions" }],
+          "fld4uK2x42wWudxYr": "2022-02-01T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://medium.com/psyoptions/psyoptions-has-acquired-tap-finance-c9608c9c9c04",
+          "fldgSXreNN5P1r2eX": "Tap Finance acquired by PsyOptions"
+        }
+      },
+      {
+        "id": "recLyjtOWbCuUPUZ6",
+        "createdTime": "2022-04-12T10:54:19.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recUoS7gpFXqpcaRT", "foreignRowDisplayName": "Eden Games" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmO1Wnira0gzCnV", "foreignRowDisplayName": "Animoca Brands" }],
+          "fld4uK2x42wWudxYr": "2022-04-11T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.animocabrands.com/animoca-brands-acquires-eden-games",
+          "fldgSXreNN5P1r2eX": "Eden Games acquired by Animoca Brands"
+        }
+      },
+      {
+        "id": "reccJjOsYcu7Xt7Eq",
+        "createdTime": "2022-04-12T21:11:48.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recKL9qhdLUHoCgIk", "foreignRowDisplayName": "ReKTGlobal" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recSi8rF2va00kWCU", "foreignRowDisplayName": "Infinite Reality" }],
+          "fld4uK2x42wWudxYr": "2022-04-12T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 470000000,
+          "fld134rExsrLsxxz3": "https://www.prnewswire.com/news-releases/metaverse-pioneer-infinite-reality-inc-to-acquire-entertainment-conglomerate-rektglobal-in-landmark-half-billion-dollar-transaction-301523736.html",
+          "fldgSXreNN5P1r2eX": "ReKTGlobal acquired by Infinite Reality"
+        }
+      },
+      {
+        "id": "recF6IaF4D6DYhfYZ",
+        "createdTime": "2022-04-14T10:20:26.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recttgTi8CL05e7yN", "foreignRowDisplayName": "Darewise Entertainment" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmO1Wnira0gzCnV", "foreignRowDisplayName": "Animoca Brands" }],
+          "fld4uK2x42wWudxYr": "2022-04-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.animocabrands.com/animoca-brands-to-acquire-darewise-the-indie-game-company-developing-life-beyond",
+          "fldgSXreNN5P1r2eX": "Darewise Entertainment acquired by Animoca Brands"
+        }
+      },
+      {
+        "id": "recxxEkQR4Ia4OiiL",
+        "createdTime": "2022-04-19T12:08:03.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recyTVIU5OfpDo7T4", "foreignRowDisplayName": "MG Stover" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recKv3jboGvYZUzqj", "foreignRowDisplayName": "PolySign" }],
+          "fld4uK2x42wWudxYr": "2022-04-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2022/04/13/polysign-to-buy-digital-asset-fund-administrator-mg-stover-for-cash-and-stock/",
+          "fldgSXreNN5P1r2eX": "MG Stover acquired by PolySign"
+        }
+      },
+      {
+        "id": "recnSmG1Y9jzIl0my",
+        "createdTime": "2022-04-19T13:46:29.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recX4JXIAykDBu8km", "foreignRowDisplayName": "Ziglu" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recNfv3Tj73PJZnBj", "foreignRowDisplayName": "Robinhood" }],
+          "fld4uK2x42wWudxYr": "2022-04-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.robinhood.com/news/2022/4/19/robinhood-signs-agreement-to-acquire-ziglu",
+          "fldgSXreNN5P1r2eX": "Ziglu acquired by Robinhood"
+        }
+      },
+      {
+        "id": "recY48VoC2BCSpoMg",
+        "createdTime": "2022-04-19T14:57:04.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec6d3rwJvxe0L0pl", "foreignRowDisplayName": "Coinberry" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recS0xDfIMJo74cpi", "foreignRowDisplayName": "WonderFi" }],
+          "fld4uK2x42wWudxYr": "2022-07-04T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 30000000,
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2022/07/04/wonderfi-closes-acquisition-of-crypto-trading-platform-coinberry-may-explore-more-ma/",
+          "fldgSXreNN5P1r2eX": "Coinberry acquired by WonderFi"
+        }
+      },
+      {
+        "id": "rect30BpW9Y9alSRn",
+        "createdTime": "2022-04-21T22:52:49.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recAr2KWrqaWHXcwo", "foreignRowDisplayName": "Be Media" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmO1Wnira0gzCnV", "foreignRowDisplayName": "Animoca Brands" }],
+          "fld4uK2x42wWudxYr": "2022-04-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.animocabrands.com/animoca-brands-to-acquire-be-media-to-power-key-australian-brands",
+          "fldgSXreNN5P1r2eX": "Be Media acquired by Animoca Brands"
+        }
+      },
+      {
+        "id": "recmHxg355ojFVHf1",
+        "createdTime": "2022-04-26T13:18:42.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recRJiUsx4WUNnVo0", "foreignRowDisplayName": "Gem" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recs2fQuYKisirV0s", "foreignRowDisplayName": "OpenSea" }],
+          "fld4uK2x42wWudxYr": "2022-04-25T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://opensea.io/blog/announcements/opensea-acquires-gem-to-invest-in-pro-experience/",
+          "fldgSXreNN5P1r2eX": "Gem acquired by OpenSea"
+        }
+      },
+      {
+        "id": "recpSIevMkqTrsLD9",
+        "createdTime": "2022-04-28T22:43:24.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recAmDyKKR8FTso2o", "foreignRowDisplayName": "Kesitys" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recNBCnfDadUZfMOV", "foreignRowDisplayName": "Kaiko" }],
+          "fld4uK2x42wWudxYr": "2022-04-28T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblockcrypto.com/linked/143724/data-firm-kaiko-acquires-kesitys-in-quantitative-analytics-push",
+          "fldgSXreNN5P1r2eX": "Kesitys acquired by Kaiko"
+        }
+      },
+      {
+        "id": "recDztXkGs6s4Ztni",
+        "createdTime": "2022-04-29T14:07:54.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recdKZ9ygQRJI42ZY", "foreignRowDisplayName": "Upstate Interactive" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmudd51wRmE2x7l", "foreignRowDisplayName": "Foundry" }],
+          "fld4uK2x42wWudxYr": "2022-04-27T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.prnewswire.com/news-releases/foundry-acquires-web3-firm-upstate-interactive-to-expand-blockchain-services-301533843.html",
+          "fldgSXreNN5P1r2eX": "Upstate Interactive acquired by Foundry"
+        }
+      },
+      {
+        "id": "recMHe7gO6kHVA3F4",
+        "createdTime": "2022-05-11T12:22:01.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec977AM3LhyNOB1p", "foreignRowDisplayName": "Napster" }],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "rec8uPHRYZOc9ey0o", "foreignRowDisplayName": "Hivemind" },
+            { "foreignRowId": "recx8MGBMk6hXeqV7", "foreignRowDisplayName": "Algorand" }
+          ],
+          "fld4uK2x42wWudxYr": "2022-05-10T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://twitter.com/HivemindCap/status/1524027670941556739",
+          "fldgSXreNN5P1r2eX": "Napster acquired by Hivemind, Algorand"
+        }
+      },
+      {
+        "id": "recvsVQbjc6uXxmjE",
+        "createdTime": "2022-05-14T10:36:34.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recNmFteet1ySogpf", "foreignRowDisplayName": "Icy.Tools" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recytGgx2cwG9exmW", "foreignRowDisplayName": "QuickNode" }],
+          "fld4uK2x42wWudxYr": "2022-05-12T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.quicknode.com/icy-tools-nft-api-quicknode/",
+          "fldgSXreNN5P1r2eX": "Icy.Tools acquired by QuickNode"
+        }
+      },
+      {
+        "id": "reccfPR75V5yI3vur",
+        "createdTime": "2022-05-19T06:53:10.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recda41Of8rrtn80I", "foreignRowDisplayName": "Ape Board" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "receZ45xRjPYYzQ4W", "foreignRowDisplayName": "Nansen" }],
+          "fld4uK2x42wWudxYr": "2022-05-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.nansen.ai/post/building-the-super-app-of-web3-with-ape-board",
+          "fldgSXreNN5P1r2eX": "Ape Board acquired by Nansen"
+        }
+      },
+      {
+        "id": "recobSKZLDZMMastM",
+        "createdTime": "2022-05-23T14:58:22.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rechRqhqWRgWLP9Ey", "foreignRowDisplayName": "Cualit" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recrWWCrEFCKaC21L", "foreignRowDisplayName": "The Sandbox" }],
+          "fld4uK2x42wWudxYr": "2022-05-19T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://sandboxgame.medium.com/the-sandbox-acquires-technology-firm-cualit-to-accelerate-web3-development-and-metaverse-growth-ced4a77401c1",
+          "fldgSXreNN5P1r2eX": "Cualit acquired by The Sandbox"
+        }
+      },
+      {
+        "id": "rec62siAXMaLfhBLa",
+        "createdTime": "2022-05-24T12:02:29.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec56e8WewTjblGz1", "foreignRowDisplayName": "Zynga" }],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "recEO0j8XdJPWNGTi", "foreignRowDisplayName": "Take-Two Interactive Software" }
+          ],
+          "fld4uK2x42wWudxYr": "2022-05-23T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 12700000000,
+          "fld134rExsrLsxxz3": "https://www.take2games.com/ir/news/take-two-interactive-software-inc-completes-combination-zynga",
+          "fldgSXreNN5P1r2eX": "Zynga acquired by Take-Two Interactive Software"
+        }
+      },
+      {
+        "id": "recNzJ9gSrbNm9KBk",
+        "createdTime": "2022-05-27T11:55:47.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recflQYgGjQI0W6kk", "foreignRowDisplayName": "Vital Algo Trading" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec7MJBu7psJ89Buh", "foreignRowDisplayName": "Chart Prime" }],
+          "fld4uK2x42wWudxYr": "2022-05-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.globenewswire.com/news-release/2022/05/17/2445534/0/en/Trading-Indicator-Service-Chart-Prime-Acquires-Vital-Algo-Trading.html",
+          "fldgSXreNN5P1r2eX": "Vital Algo Trading acquired by Chart Prime"
+        }
+      },
+      {
+        "id": "recQ7xSRIy1ijqADY",
+        "createdTime": "2022-05-30T16:17:35.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recNdlZWyVGhWhPlg", "foreignRowDisplayName": "Jobedu" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recA4GZNtKYv3FJme", "foreignRowDisplayName": "Novajax" }],
+          "fld4uK2x42wWudxYr": "2022-05-30T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.wamda.com/2022/05/us-novajax-acquires-jordans-jobedu",
+          "fldgSXreNN5P1r2eX": "Jobedu acquired by Novajax"
+        }
+      },
+      {
+        "id": "rec8fCvjsHTGY3bjv",
+        "createdTime": "2022-06-01T21:12:21.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recwvmBHrNtaAkkqH", "foreignRowDisplayName": "Interactive Investor" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec4BOZIKBdrOA4UP", "foreignRowDisplayName": "abrdn" }],
+          "fld4uK2x42wWudxYr": "2022-05-31T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 1860116000,
+          "fld134rExsrLsxxz3": "https://www.funds-europe.com/news/abrdn-completes-149bn-interactive-investor-acquisition",
+          "fldgSXreNN5P1r2eX": "Interactive Investor acquired by abrdn"
+        }
+      },
+      {
+        "id": "recGhDW6r6trK8mHD",
+        "createdTime": "2022-06-05T22:48:19.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recNLRg2Hev6LLVKQ", "foreignRowDisplayName": "Notre Game" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmO1Wnira0gzCnV", "foreignRowDisplayName": "Animoca Brands" }],
+          "fld4uK2x42wWudxYr": "2022-06-03T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.animocabrands.com/animoca-brands-acquires-notre-game",
+          "fldgSXreNN5P1r2eX": "Notre Game acquired by Animoca Brands"
+        }
+      },
+      {
+        "id": "recGUiB0PGHRTYGw5",
+        "createdTime": "2022-06-12T16:04:36.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recSsHkRVSvpegnl5", "foreignRowDisplayName": "CYBAVO" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recGdFo3jFyg5QGT4", "foreignRowDisplayName": "Circle" }],
+          "fld4uK2x42wWudxYr": "2022-06-10T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2022/06/10/circle-agrees-to-buy-web-3-infrastructure-platform-cybavo/",
+          "fldgSXreNN5P1r2eX": "CYBAVO acquired by Circle"
+        }
+      },
+      {
+        "id": "recZxhRNIuSVHCuxz",
+        "createdTime": "2022-06-15T21:48:42.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recVBZHnvxBVbB5IV", "foreignRowDisplayName": "Celera Markets Limited" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recR3xDR0Nj6bNQb4", "foreignRowDisplayName": "Amber Group" }],
+          "fld4uK2x42wWudxYr": "2022-06-14T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.prnewswire.com/news-releases/amber-group-now-licensed-to-operate-in-hong-kong-with-acquisition-of-celera-markets-limited-301567225.html",
+          "fldgSXreNN5P1r2eX": "Celera Markets Limited acquired by Amber Group"
+        }
+      },
+      {
+        "id": "recvPNlSKgOqbhhEW",
+        "createdTime": "2022-06-16T14:35:29.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec3i4vyCGM6YFS5n", "foreignRowDisplayName": "TinyTap" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmO1Wnira0gzCnV", "foreignRowDisplayName": "Animoca Brands" }],
+          "fld4uK2x42wWudxYr": "2022-06-16T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 38875000,
+          "fld134rExsrLsxxz3": "https://www.animocabrands.com/animoca-brands-acquires-tinytap",
+          "fldgSXreNN5P1r2eX": "TinyTap acquired by Animoca Brands"
+        }
+      },
+      {
+        "id": "recjyuyIR8pz1pMlS",
+        "createdTime": "2022-06-17T20:27:47.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec2RZBqTvyzd9Fto", "foreignRowDisplayName": "Bitvo" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recJ3gy4VDTKwuZ0H", "foreignRowDisplayName": "FTX" }],
+          "fld4uK2x42wWudxYr": "2022-06-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblock.co/post/152681/ftx-is-acquiring-canadian-cryptocurrency-trading-platform-bitvo",
+          "fldgSXreNN5P1r2eX": "Bitvo acquired by FTX"
+        }
+      },
+      {
+        "id": "recrpeeRa5Z63VhsH",
+        "createdTime": "2022-06-21T09:38:11.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recL2gkiLROfGgzPp", "foreignRowDisplayName": "Landvault" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recfMBsEFJoPkmmoU", "foreignRowDisplayName": "Admix" }],
+          "fld4uK2x42wWudxYr": "2022-06-20T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://venturebeat.com/2022/06/20/admix-merges-with-landvault-to-move-into-making-metaverse-experiences/",
+          "fldgSXreNN5P1r2eX": "Landvault acquired by Admix"
+        }
+      },
+      {
+        "id": "recSakuCDxPft1iKj",
+        "createdTime": "2022-06-21T14:43:22.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec5ZGx7P0Sz8txgr", "foreignRowDisplayName": "Embed Financial" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recxtSqlAmNnY6XZa", "foreignRowDisplayName": "FTX US" }],
+          "fld4uK2x42wWudxYr": "2022-06-21T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.theblock.co/post/153258/ftx-us-embed-financial-acquisition-clearing-stocks",
+          "fldgSXreNN5P1r2eX": "Embed Financial acquired by FTX US"
+        }
+      },
+      {
+        "id": "recH2MMO1G4hntOcz",
+        "createdTime": "2022-06-22T11:13:45.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec1eoW3OXezGPkrY", "foreignRowDisplayName": "Genie" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recsglfrnhJtpzgk3", "foreignRowDisplayName": "Uniswap" }],
+          "fld4uK2x42wWudxYr": "2022-06-21T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://twitter.com/Uniswap/status/1539306956002820096",
+          "fldgSXreNN5P1r2eX": "Genie acquired by Uniswap"
+        }
+      },
+      {
+        "id": "rec08HVd3VYnJe7gr",
+        "createdTime": "2022-06-22T12:05:22.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec4VbCRwGMvxyMIH", "foreignRowDisplayName": "Yunero Studios" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recqcVb3D7XKDnbOe", "foreignRowDisplayName": "Coin98 Labs" }],
+          "fld4uK2x42wWudxYr": "2022-06-21T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blog.coin98.com/coin98-labs-acquires-yunero-studios/",
+          "fldgSXreNN5P1r2eX": "Yunero Studios acquired by Coin98 Labs"
+        }
+      },
+      {
+        "id": "recRZ1fxrme2ULj2E",
+        "createdTime": "2022-06-22T13:09:35.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recIj1YZC9qbN0Jxp", "foreignRowDisplayName": "KnownOrigin" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recMgXLhN4YV0SO9P", "foreignRowDisplayName": "eBay" }],
+          "fld4uK2x42wWudxYr": "2022-06-22T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://twitter.com/KnownOrigin_io/status/1539589450073792518",
+          "fldgSXreNN5P1r2eX": "KnownOrigin acquired by eBay"
+        }
+      },
+      {
+        "id": "recZ70mWCXkUqMvU0",
+        "createdTime": "2022-06-24T11:00:58.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recafGj4IbSfTgMzT", "foreignRowDisplayName": "SolanaMonkeyBusiness" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recK8wyQKB3d1YalK", "foreignRowDisplayName": "MonkeDAO" }],
+          "fld4uK2x42wWudxYr": "2022-06-17T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://twitter.com/monkedao/status/1537851789860425728",
+          "fldgSXreNN5P1r2eX": "SolanaMonkeyBusiness acquired by MonkeDAO"
+        }
+      },
+      {
+        "id": "rec1t3F4C5TOhr32R",
+        "createdTime": "2022-06-27T19:29:17.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recCXdqzl5BIrkrDh", "foreignRowDisplayName": "SnifflesNFT" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recSUCLqsMCZ64zcq", "foreignRowDisplayName": "Tovera" }],
+          "fld4uK2x42wWudxYr": "2022-06-24T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://venturebeat.com/2022/06/24/tovera-acquires-snifflesnft-as-it-chases-after-nft-fraud/",
+          "fldgSXreNN5P1r2eX": "SnifflesNFT acquired by Tovera"
+        }
+      },
+      {
+        "id": "recWddr4ycEVgVtpv",
+        "createdTime": "2022-06-27T19:34:32.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "receQt10aPWeR8GEM", "foreignRowDisplayName": "SETL" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recmeA5jzDkYlkZHO", "foreignRowDisplayName": "Colendi" }],
+          "fld4uK2x42wWudxYr": "2022-06-27T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://setl.io/embedded-fintech-services-platform-colendi-acquires-london-based-enterprise-blockchain-company-setl/",
+          "fldgSXreNN5P1r2eX": "SETL acquired by Colendi"
+        }
+      },
+      {
+        "id": "recDK83JwK77vO7GI",
+        "createdTime": "2022-07-01T15:48:41.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recV6Itz9FBMS6Q9g", "foreignRowDisplayName": "Technicorum Holdings" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recCBBUTNE1r0VXvo", "foreignRowDisplayName": "HKD.com" }],
+          "fld4uK2x42wWudxYr": "2022-07-01T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.accesswire.com/707165/Hong-Kong-Digital-Asset-Exchange-LimitedHKDcom-Announces-MA-with-Technicorum-Holdings-Creating-USD-100-Million-Valuation-Company-in-Singapore",
+          "fldgSXreNN5P1r2eX": "Technicorum Holdings acquired by HKD.com"
+        }
+      },
+      {
+        "id": "recCpzHXpqHF18Tin",
+        "createdTime": "2022-07-14T17:06:11.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recQZfiItNI9dhj9V", "foreignRowDisplayName": "Proof of Talent" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rec4YrNWsL9cv2zrL", "foreignRowDisplayName": "Inflection Points" }],
+          "fld4uK2x42wWudxYr": "2022-07-13T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://proofoftalent.co/blog/proof-of-talent-acquired-by-inflection-points-inc",
+          "fldgSXreNN5P1r2eX": "Proof of Talent acquired by Inflection Points"
+        }
+      },
+      {
+        "id": "recushRGPJCHZ8JkA",
+        "createdTime": "2022-07-22T11:48:32.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recOzlEKIOibTiuAN", "foreignRowDisplayName": "Fluyez" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recKZMIJrKHtIP8l7", "foreignRowDisplayName": "Bit2Me" }],
+          "fld4uK2x42wWudxYr": "2022-07-21T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://www.coindesk.com/business/2022/07/21/spanish-bit2me-buys-peruvian-crypto-exchange-eyes-targets-in-latin-america/",
+          "fldgSXreNN5P1r2eX": "Fluyez acquired by Bit2Me"
+        }
+      },
+      {
+        "id": "recq6v20lXjkzTcSX",
+        "createdTime": "2022-07-22T11:49:32.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recZJzfOqKjoHxsA3", "foreignRowDisplayName": "Sepior" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recGk2B5ehr8XMZk0", "foreignRowDisplayName": "Blockdaemon" }],
+          "fld4uK2x42wWudxYr": "2022-07-20T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://blockdaemon.com/blog/blockdaemon-acquires-leading-data-digital-asset-security-firm-sepior/",
+          "fldgSXreNN5P1r2eX": "Sepior acquired by Blockdaemon"
+        }
+      },
+      {
+        "id": "recItdZkSM30oHoxJ",
+        "createdTime": "2022-07-24T16:13:16.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [
+            { "foreignRowId": "recv6xpnsFnmPr56y", "foreignRowDisplayName": "Measurable Data Token" }
+          ],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recaV9yHWRkaqS0Bm", "foreignRowDisplayName": "Chain" }],
+          "fld4uK2x42wWudxYr": "2022-07-23T00:00:00.000Z",
+          "fldFE8KRFIOMASGAi": 100000000,
+          "fld134rExsrLsxxz3": "https://blog.chain.com/chain-announces-acquisition-of-measurable-data-token-4008b242b407",
+          "fldgSXreNN5P1r2eX": "Measurable Data Token acquired by Chain"
+        }
+      },
+      {
+        "id": "recGUzpOAESONQ1b8",
+        "createdTime": "2022-07-24T16:16:17.000Z",
+        "cellValuesByColumnId": {
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recfzO4EzM930dYnE", "foreignRowDisplayName": "PREMINT" }],
+          "fldJ4wOQIYawIp8v6": [
+            { "foreignRowId": "recO4S729lScxWfnD", "foreignRowDisplayName": "Vulcan Authentication" }
+          ],
+          "fld4uK2x42wWudxYr": "2022-07-20T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://twitter.com/premint_nft/status/1549846612888801281",
+          "fldgSXreNN5P1r2eX": "PREMINT acquired by Vulcan Authentication"
+        }
+      },
+      {
+        "id": "recfuX3ittjRf39yt",
+        "createdTime": "2022-08-02T09:50:32.000Z",
+        "cellValuesByColumnId": {
+          "fldgSXreNN5P1r2eX": "Abstract acquired by Sollensys",
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recv8XUh0IsS8ZPUu", "foreignRowDisplayName": "Abstract" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rectTwpckvHyjoz4E", "foreignRowDisplayName": "Sollensys" }],
+          "fld134rExsrLsxxz3": "https://finance.yahoo.com/news/sollensys-acquires-abstract-media-protect-140000686.html",
+          "fld4uK2x42wWudxYr": "2021-10-19T00:00:00.000Z"
+        }
+      },
+      {
+        "id": "recq0fPTCuQYzsq1T",
+        "createdTime": "2022-08-02T09:54:20.000Z",
+        "cellValuesByColumnId": {
+          "fldgSXreNN5P1r2eX": "Celerit acquired by Sollensys",
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rec4DaqvUE7BIFAs9", "foreignRowDisplayName": "Celerit" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "rectTwpckvHyjoz4E", "foreignRowDisplayName": "Sollensys" }],
+          "fld4uK2x42wWudxYr": "2021-10-29T00:00:00.000Z",
+          "fld134rExsrLsxxz3": "https://consent.yahoo.com/v2/collectConsent?sessionId=3_cc-session_7b07a663-9692-4e5d-bf47-a0b945d5352c"
+        }
+      },
+      {
+        "id": "recp3QaBvAzx88NnW",
+        "createdTime": "2022-08-02T09:56:31.000Z",
+        "cellValuesByColumnId": {
+          "fldgSXreNN5P1r2eX": "ESS Metron acquired by Riot Blockchain",
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "rectioMrkUhb9rBM4", "foreignRowDisplayName": "ESS Metron" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recagc0ZiPXuMseHN", "foreignRowDisplayName": "Riot Blockchain" }],
+          "fld134rExsrLsxxz3": "https://elevenews.com/2021/12/02/bitcoin-miner-riot-blockchain-purchased-ess-metron-for-50-million/",
+          "fldFE8KRFIOMASGAi": 50000000,
+          "fld4uK2x42wWudxYr": "2021-12-01T00:00:00.000Z"
+        }
+      },
+      {
+        "id": "reccHiXZGT5E9wODa",
+        "createdTime": "2022-08-02T09:58:21.000Z",
+        "cellValuesByColumnId": {
+          "fldgSXreNN5P1r2eX": "orderbird acquired by Nets",
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recBqZ7QLIVKevwDe", "foreignRowDisplayName": "orderbird" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recZWcqlkkrDRrC0t", "foreignRowDisplayName": "Nets" }],
+          "fld134rExsrLsxxz3": "https://www.finextra.com/pressarticle/92599/nets-acquires-hospitality-pos-vendor-orderbird",
+          "fldFE8KRFIOMASGAi": 100000000,
+          "fld4uK2x42wWudxYr": "2022-05-12T00:00:00.000Z"
+        }
+      },
+      {
+        "id": "recWsa83xlAq5SudD",
+        "createdTime": "2022-08-02T10:05:19.000Z",
+        "cellValuesByColumnId": {
+          "fldgSXreNN5P1r2eX": "Guesser acquired by Gemini",
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recz3w8PXuDlsWo22", "foreignRowDisplayName": "Gemini" }],
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recmbC8keDpYulz9w", "foreignRowDisplayName": "Guesser" }],
+          "fld134rExsrLsxxz3": "https://www.theblock.co/post/114037/gemini-acqui-hires-defi-platform-guesser-to-grow-adoption-of-its-gusd-stablecoin",
+          "fldPA0UCzeIWoMFPk": ["selnmxt4useaHjfTG"],
+          "fld4uK2x42wWudxYr": "2021-08-10T00:00:00.000Z"
+        }
+      },
+      {
+        "id": "recgpWXLJnFGZB2Ax",
+        "createdTime": "2022-08-02T10:06:49.000Z",
+        "cellValuesByColumnId": {
+          "fldgSXreNN5P1r2eX": "Say Technologies acquired by Robinhood",
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recNfv3Tj73PJZnBj", "foreignRowDisplayName": "Robinhood" }],
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recdtTXRmFaWycGHm", "foreignRowDisplayName": "Say Technologies" }],
+          "fld134rExsrLsxxz3": "https://www.theblock.co/linked/114065/robinhood-acquires-say-technolgoies-140-million-all-cash-deal",
+          "fldFE8KRFIOMASGAi": 140000000,
+          "fld4uK2x42wWudxYr": "2021-08-10T00:00:00.000Z"
+        }
+      },
+      {
+        "id": "rec64dww1JNpaJmZH",
+        "createdTime": "2022-08-02T10:08:01.000Z",
+        "cellValuesByColumnId": {
+          "fldgSXreNN5P1r2eX": "Apifiny acquired by Abri SPAC I",
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recwrvrJvCNNVPbVG", "foreignRowDisplayName": "Apifiny" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recF2sMi9Afqe0nSP", "foreignRowDisplayName": "Abri SPAC I" }],
+          "fld134rExsrLsxxz3": "https://www.theblock.co/linked/132077/crypto-exchange-apifiny-to-go-public-via-530-million-deal-with-abri-spac",
+          "fldPA0UCzeIWoMFPk": ["selcHpfnvUF3emGe7"],
+          "fld4uK2x42wWudxYr": "2022-01-27T00:00:00.000Z"
+        }
+      },
+      {
+        "id": "recgUf0DtQZQlQoi1",
+        "createdTime": "2022-08-02T10:09:04.000Z",
+        "cellValuesByColumnId": {
+          "fldgSXreNN5P1r2eX": "SeSocio acquired by Blockchain.com",
+          "fldUl17R8K10WywIc": [{ "foreignRowId": "recE3PXqTXhysAjhU", "foreignRowDisplayName": "SeSocio" }],
+          "fldJ4wOQIYawIp8v6": [{ "foreignRowId": "recFhFNsZt1CphLl3", "foreignRowDisplayName": "Blockchain.com" }],
+          "fld134rExsrLsxxz3": "https://www.theblock.co/linked/125981/blockchain-com-acquires-latin-american-crypto-investment-platform-sesocio",
+          "fldPA0UCzeIWoMFPk": ["selKCVJuaxEznIV73"],
+          "fld4uK2x42wWudxYr": "2021-12-01T00:00:00.000Z"
+        }
+      }
+    ],
+    "viewDatas": [
+      {
+        "id": "viwsTXdkZrZeTWggE",
+        "frozenColumnCount": 1,
+        "columnOrder": [
+          { "columnId": "fldgSXreNN5P1r2eX", "visibility": true, "width": 280 },
+          { "columnId": "fld4uK2x42wWudxYr", "visibility": true, "width": 116 },
+          { "columnId": "fldFE8KRFIOMASGAi", "visibility": true, "width": 145 },
+          { "columnId": "fldUl17R8K10WywIc", "visibility": true },
+          { "columnId": "fldJ4wOQIYawIp8v6", "visibility": true },
+          { "columnId": "fldPA0UCzeIWoMFPk", "visibility": true },
+          { "columnId": "fld134rExsrLsxxz3", "visibility": true, "width": 328 }
+        ],
+        "filters": null,
+        "lastSortsApplied": {
+          "sortSet": [{ "id": "srtFQwKXuk5gJyTql", "columnId": "fld4uK2x42wWudxYr", "ascending": false }],
+          "shouldAutoSort": true,
+          "appliedTime": "2021-07-08T09:53:55.537Z"
+        },
+        "groupLevels": null,
+        "colorConfig": null,
+        "sharesById": {},
+        "description": null,
+        "createdByUserId": "usrUwagg5yYKnvFBf",
+        "applicationTransactionNumber": 213445,
+        "rowOrder": [
+          { "rowId": "recItdZkSM30oHoxJ", "visibility": true },
+          { "rowId": "recushRGPJCHZ8JkA", "visibility": true },
+          { "rowId": "recq6v20lXjkzTcSX", "visibility": true },
+          { "rowId": "recGUzpOAESONQ1b8", "visibility": true },
+          { "rowId": "recCpzHXpqHF18Tin", "visibility": true },
+          { "rowId": "recY48VoC2BCSpoMg", "visibility": true },
+          { "rowId": "recDK83JwK77vO7GI", "visibility": true },
+          { "rowId": "rec0xaZFQWfTv2NQP", "visibility": true },
+          { "rowId": "recWddr4ycEVgVtpv", "visibility": true },
+          { "rowId": "rec1t3F4C5TOhr32R", "visibility": true },
+          { "rowId": "recRZ1fxrme2ULj2E", "visibility": true },
+          { "rowId": "recSakuCDxPft1iKj", "visibility": true },
+          { "rowId": "recH2MMO1G4hntOcz", "visibility": true },
+          { "rowId": "rec08HVd3VYnJe7gr", "visibility": true },
+          { "rowId": "recrpeeRa5Z63VhsH", "visibility": true },
+          { "rowId": "recjyuyIR8pz1pMlS", "visibility": true },
+          { "rowId": "recZ70mWCXkUqMvU0", "visibility": true },
+          { "rowId": "recvPNlSKgOqbhhEW", "visibility": true },
+          { "rowId": "recZxhRNIuSVHCuxz", "visibility": true },
+          { "rowId": "recGUiB0PGHRTYGw5", "visibility": true },
+          { "rowId": "recGhDW6r6trK8mHD", "visibility": true },
+          { "rowId": "rec8fCvjsHTGY3bjv", "visibility": true },
+          { "rowId": "recQ7xSRIy1ijqADY", "visibility": true },
+          { "rowId": "rec62siAXMaLfhBLa", "visibility": true },
+          { "rowId": "recobSKZLDZMMastM", "visibility": true },
+          { "rowId": "reccfPR75V5yI3vur", "visibility": true },
+          { "rowId": "recNzJ9gSrbNm9KBk", "visibility": true },
+          { "rowId": "recvsVQbjc6uXxmjE", "visibility": true },
+          { "rowId": "reccHiXZGT5E9wODa", "visibility": true },
+          { "rowId": "recMHe7gO6kHVA3F4", "visibility": true },
+          { "rowId": "recpSIevMkqTrsLD9", "visibility": true },
+          { "rowId": "recDztXkGs6s4Ztni", "visibility": true },
+          { "rowId": "recmHxg355ojFVHf1", "visibility": true },
+          { "rowId": "recnSmG1Y9jzIl0my", "visibility": true },
+          { "rowId": "rect30BpW9Y9alSRn", "visibility": true },
+          { "rowId": "recF6IaF4D6DYhfYZ", "visibility": true },
+          { "rowId": "recxxEkQR4Ia4OiiL", "visibility": true },
+          { "rowId": "reccJjOsYcu7Xt7Eq", "visibility": true },
+          { "rowId": "recLyjtOWbCuUPUZ6", "visibility": true },
+          { "rowId": "recNTae3jt8frIngP", "visibility": true },
+          { "rowId": "recJZcbhOvWyl1kKe", "visibility": true },
+          { "rowId": "recFKhlMaauy2BQ2U", "visibility": true },
+          { "rowId": "recwUIb4Spu37lBgo", "visibility": true },
+          { "rowId": "recmANOCTkxXJbOHW", "visibility": true },
+          { "rowId": "recgz7LeZvpe3QwBm", "visibility": true },
+          { "rowId": "recnCZUui8DVzcUSa", "visibility": true },
+          { "rowId": "recMePKv7OSBAOSgK", "visibility": true },
+          { "rowId": "rec7ONqasv4qaDANT", "visibility": true },
+          { "rowId": "recmhJONYtmBAyy0q", "visibility": true },
+          { "rowId": "recKeFUiVwgh48pY5", "visibility": true },
+          { "rowId": "reczQs7KakmdZRAcB", "visibility": true },
+          { "rowId": "reci6cKLtmvUytjEw", "visibility": true },
+          { "rowId": "recv2l0GXWiOStgnU", "visibility": true },
+          { "rowId": "rec6rW93cq0sFBFbU", "visibility": true },
+          { "rowId": "recK8iROWzDGkT11j", "visibility": true },
+          { "rowId": "recwhxgk35eU9x9j0", "visibility": true },
+          { "rowId": "rec7ho3qnMzCdWPin", "visibility": true },
+          { "rowId": "rec64dww1JNpaJmZH", "visibility": true },
+          { "rowId": "recnJSPwNuu6pfKt6", "visibility": true },
+          { "rowId": "recCrzE2VIlPlM5Xm", "visibility": true },
+          { "rowId": "recnKZF49TcWbJg1h", "visibility": true },
+          { "rowId": "recxdwjJftNNiOrkY", "visibility": true },
+          { "rowId": "recD2Qe0pCnsWKQfi", "visibility": true },
+          { "rowId": "recBaRzkUufQrxY8E", "visibility": true },
+          { "rowId": "rec9V8ScJ9obvmZm4", "visibility": true },
+          { "rowId": "recTWzGkWY4YX9yEu", "visibility": true },
+          { "rowId": "recGDXwtr0hdKXA0q", "visibility": true },
+          { "rowId": "rec6dNpg8ExqONyl6", "visibility": true },
+          { "rowId": "rec2AFqIiuN6dtA9G", "visibility": true },
+          { "rowId": "recZoFyEU6vY4lrgy", "visibility": true },
+          { "rowId": "recKut7hb2w12PnfE", "visibility": true },
+          { "rowId": "recvHPht2YwEhyixO", "visibility": true },
+          { "rowId": "recD1lnZ3zG0JowXY", "visibility": true },
+          { "rowId": "recAVKe90D3N9y0yg", "visibility": true },
+          { "rowId": "recAb965EW313BkFz", "visibility": true },
+          { "rowId": "recf8cJpvzH6uY1Su", "visibility": true },
+          { "rowId": "recMrgEMxdWovhmyH", "visibility": true },
+          { "rowId": "recp3QaBvAzx88NnW", "visibility": true },
+          { "rowId": "recgUf0DtQZQlQoi1", "visibility": true },
+          { "rowId": "recxQzI3cLVBkbYVl", "visibility": true },
+          { "rowId": "recQpZyM1G5mcWXeQ", "visibility": true },
+          { "rowId": "recWvfBvuG8vvrRqY", "visibility": true },
+          { "rowId": "recnEXPscK43hV15x", "visibility": true },
+          { "rowId": "recRHzg2JWBzDaf8q", "visibility": true },
+          { "rowId": "rec2cXpVT1Y3a0wPb", "visibility": true },
+          { "rowId": "recq0fPTCuQYzsq1T", "visibility": true },
+          { "rowId": "rec4KbJEkP1gIKrt7", "visibility": true },
+          { "rowId": "recaClHtTomKUYsBz", "visibility": true },
+          { "rowId": "recfuX3ittjRf39yt", "visibility": true },
+          { "rowId": "recPd78gdypc2DZ8a", "visibility": true },
+          { "rowId": "recRWUz1Wg9fFSZRL", "visibility": true },
+          { "rowId": "recJfh58hYlnxoYD8", "visibility": true },
+          { "rowId": "rec0ClOctDFVIuFDo", "visibility": true },
+          { "rowId": "rec3FfCwYsacGSgCu", "visibility": true },
+          { "rowId": "recWsa83xlAq5SudD", "visibility": true },
+          { "rowId": "recgpWXLJnFGZB2Ax", "visibility": true },
+          { "rowId": "recGMGpIRHikvIPdk", "visibility": true },
+          { "rowId": "recNsRR1USVT2Qbbz", "visibility": true },
+          { "rowId": "recmxWtmQIbRGfaIl", "visibility": true },
+          { "rowId": "receVP9yUcKLEDxO6", "visibility": true },
+          { "rowId": "reclBL8iETGBpmosx", "visibility": true },
+          { "rowId": "recjiHnOAWo1uUk3h", "visibility": true },
+          { "rowId": "recQ1BRy3ZbxHsPHW", "visibility": true },
+          { "rowId": "recyo85EntDHdfSH4", "visibility": true },
+          { "rowId": "recMTsvVkir7Go01E", "visibility": true },
+          { "rowId": "recmiIalfeYF0rrz3", "visibility": true },
+          { "rowId": "recoUnIUzDrCGXALw", "visibility": true },
+          { "rowId": "recPtuOsBhTTZtsk1", "visibility": true },
+          { "rowId": "recxkCr6GqB0XbWZ7", "visibility": true },
+          { "rowId": "rec6erBxmIe2AHDBk", "visibility": true },
+          { "rowId": "rece0Vgog0XoDOsiS", "visibility": true },
+          { "rowId": "recUFM0nYJs4HmlCs", "visibility": true },
+          { "rowId": "rec04hnfgZSZYk0DR", "visibility": true },
+          { "rowId": "rec5W4u7c8u0rfQ8a", "visibility": true },
+          { "rowId": "reccZpRfeZ5B37Hsv", "visibility": true },
+          { "rowId": "recJDf5JNWwtouxvC", "visibility": true },
+          { "rowId": "recmlVIHZPfONMMnf", "visibility": true },
+          { "rowId": "recFoAbF7qHwiCTZY", "visibility": true },
+          { "rowId": "rec3UN8ntAMmaERKn", "visibility": true },
+          { "rowId": "rec32LbBVexa06pKx", "visibility": true },
+          { "rowId": "recA8wT4ukbAtNidM", "visibility": true },
+          { "rowId": "recd1uN0aIjAp7DV6", "visibility": true },
+          { "rowId": "recwciPUdF0xonWiQ", "visibility": true },
+          { "rowId": "recMD4n3dnEDfaNGG", "visibility": true },
+          { "rowId": "recT6n8PqWnqDGANF", "visibility": true },
+          { "rowId": "recqMHYgRuSCCWNQx", "visibility": true },
+          { "rowId": "rechbccgPiFdhVTyV", "visibility": true },
+          { "rowId": "rec4T5fd7VuyaDOGr", "visibility": true },
+          { "rowId": "reck4gwJk2hSRbRHF", "visibility": true },
+          { "rowId": "recuuDYeAf9QtqkU3", "visibility": true },
+          { "rowId": "recCki3NfH3d3kP0k", "visibility": true },
+          { "rowId": "recdhMBMtQmNQ5pVx", "visibility": true },
+          { "rowId": "recO020egy3OnfXmc", "visibility": true },
+          { "rowId": "recPjdfmNsWcwORZZ", "visibility": true },
+          { "rowId": "recp2jenP6BoIZd2l", "visibility": true },
+          { "rowId": "recXK2vCOKOn8IwKp", "visibility": true },
+          { "rowId": "recpeGwhLxi5OEiNh", "visibility": true },
+          { "rowId": "rec6i3JkUhBXJ1hcP", "visibility": true },
+          { "rowId": "recwDnCFW0zhg4y40", "visibility": true },
+          { "rowId": "recgCI5m8SHn6FvdZ", "visibility": true },
+          { "rowId": "rec2lI3wOb80hOQbU", "visibility": true },
+          { "rowId": "rec04bZ6Vdcwrydaa", "visibility": true },
+          { "rowId": "rec4afZ2CtBO4KrNk", "visibility": true },
+          { "rowId": "rectM6zCc2Rvx2giu", "visibility": true },
+          { "rowId": "rec5sBxYWVr8wlZhX", "visibility": true },
+          { "rowId": "recr9c6SAIZ1iTkoA", "visibility": true },
+          { "rowId": "recwtLeUnvqYaJenU", "visibility": true },
+          { "rowId": "recXf3DKhlkqivSot", "visibility": true },
+          { "rowId": "recS5gzUgrsrH50zk", "visibility": true },
+          { "rowId": "reciIoNwLvfx95XWS", "visibility": true },
+          { "rowId": "recePCmJtFZ812p1o", "visibility": true },
+          { "rowId": "recwTdUSx3Id1XJ0A", "visibility": true },
+          { "rowId": "rec0ao2H3qe8sDkyA", "visibility": true },
+          { "rowId": "recOpr2fjjlwG8M3m", "visibility": true },
+          { "rowId": "rechU01v4OC7X5La0", "visibility": true },
+          { "rowId": "recDQ2SGEF2SehYmE", "visibility": true },
+          { "rowId": "rec2ijoBaxOmQAU67", "visibility": true },
+          { "rowId": "rec7HzZ2RgeGwmz0i", "visibility": true },
+          { "rowId": "recLAmHf8ea34EG1n", "visibility": true },
+          { "rowId": "recggSwX3P6LtZedv", "visibility": true },
+          { "rowId": "recKA4k2TFlaiMMUh", "visibility": true },
+          { "rowId": "recQWgyoNIFR7vVz0", "visibility": true },
+          { "rowId": "recjtTrThdNtu1Xps", "visibility": true },
+          { "rowId": "recI0Alyy87xymaSW", "visibility": true },
+          { "rowId": "recNMqpxre9DqfowM", "visibility": true },
+          { "rowId": "recSWxzKDo9VRbcQs", "visibility": true },
+          { "rowId": "recelDBhf8A1bvI0u", "visibility": true },
+          { "rowId": "recauV0RVlF6riswl", "visibility": true },
+          { "rowId": "recPXlBmLjmPZNNCk", "visibility": true },
+          { "rowId": "recZy7eMeU8RyKfLs", "visibility": true },
+          { "rowId": "recvP3w2jUXuvoOrb", "visibility": true },
+          { "rowId": "recCXfxxyPnKGTy2y", "visibility": true },
+          { "rowId": "rec4QsjgXFXoYBvVQ", "visibility": true },
+          { "rowId": "rec6o1sNVnlKq4YVf", "visibility": true },
+          { "rowId": "recPCD32QuOxMcW2X", "visibility": true },
+          { "rowId": "recXEoXJhIwj91iVm", "visibility": true },
+          { "rowId": "recydrg81S7RzKqOV", "visibility": true },
+          { "rowId": "recW8TOKkuozJ505p", "visibility": true },
+          { "rowId": "recCJLwmuW0qcw3u9", "visibility": true },
+          { "rowId": "recDQaRYLR2gSj2Yy", "visibility": true },
+          { "rowId": "recjARaU6LnsCRqO2", "visibility": true },
+          { "rowId": "recwroUUw1mVseIiT", "visibility": true },
+          { "rowId": "recFz9Lccx1QkoAAS", "visibility": true },
+          { "rowId": "recnrwdw2mDcIase7", "visibility": true },
+          { "rowId": "recGvxekALNyE3tQZ", "visibility": true },
+          { "rowId": "rec5w1gPaaQKns7L5", "visibility": true },
+          { "rowId": "recoxV4BZ2RHRRM2g", "visibility": true },
+          { "rowId": "recpjvOkL4cZZlTGn", "visibility": true },
+          { "rowId": "recVqL4bzo5LKVWMY", "visibility": true },
+          { "rowId": "rec5Lqmcx9r633yDD", "visibility": true },
+          { "rowId": "recpPNWEfqZ4vhb5U", "visibility": true },
+          { "rowId": "reclbQqzDzCuAI42B", "visibility": true },
+          { "rowId": "recTUqkAduPVLzBaQ", "visibility": true },
+          { "rowId": "recct5AMHy1V95qtU", "visibility": true },
+          { "rowId": "recLvwAVGD4lgUPZ6", "visibility": true },
+          { "rowId": "rec419fFBLhV2NjCe", "visibility": true },
+          { "rowId": "rec9IIWNCxO3A28ii", "visibility": true },
+          { "rowId": "rec7nCKdNc2T0Ow5V", "visibility": true },
+          { "rowId": "recF2agUSfmAltmAF", "visibility": true },
+          { "rowId": "recjo8cwZnzrbkoOx", "visibility": true },
+          { "rowId": "recymveMKD4I9gSwj", "visibility": true },
+          { "rowId": "rec0JmpHzao4QoHaM", "visibility": true },
+          { "rowId": "recePdoiSznWsZYDo", "visibility": true },
+          { "rowId": "recZjTNeAM0JooC2g", "visibility": true },
+          { "rowId": "recZBA75LaQnjxBnE", "visibility": true },
+          { "rowId": "recdXqnu5uHRv5z9C", "visibility": true },
+          { "rowId": "recP2B2RdfQdn8iPy", "visibility": true },
+          { "rowId": "recyyrTaVI2vRsfgo", "visibility": true },
+          { "rowId": "recW4oo20dw4c7OxW", "visibility": true },
+          { "rowId": "recdhEZO9fPtuPuRA", "visibility": true },
+          { "rowId": "recVXwUOmepmGYSl0", "visibility": true },
+          { "rowId": "recPQHHA1Xpwn9OpB", "visibility": true },
+          { "rowId": "rechepXLIe6E3L99t", "visibility": true },
+          { "rowId": "reckMyzDMHwBV8YDn", "visibility": true },
+          { "rowId": "recPagoZUquiEQb11", "visibility": true },
+          { "rowId": "recIT9pUvv1v0vDyE", "visibility": true },
+          { "rowId": "rec33FeGmkJZe4Lis", "visibility": true },
+          { "rowId": "rec9WRBxxiXSJl5DO", "visibility": true },
+          { "rowId": "recMJBxLuLtBcCpup", "visibility": true },
+          { "rowId": "rectQXtxfIaqmcXaG", "visibility": true },
+          { "rowId": "recOmiivU73XKHdXz", "visibility": true }
+        ]
+      }
+    ],
+    "schemaChecksum": "69e673a03661dd2f4d6aa19c9b2f1e1b6aaa43f89a397cee8f7ea5ed561a09bd",
+    "hasOnlyIncludedRowAndCellDataForIncludedViews": false,
+    "applicationTransactionNumber": 213445,
+    "isConstantPooledData": false
+  }
+}

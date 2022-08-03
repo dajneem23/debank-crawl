@@ -15,11 +15,15 @@ import { CountryModel } from './country.model';
 import { SpeakerModel } from './speaker.model';
 import { SponsorModel } from './sponsor.model';
 import { CryptoAssetTagModel } from './crypto_asset_tag.model';
+import { EventType } from '../modules/event/event.type';
 @Entity('event')
 export class EventModel {
   // id - primary id unique
   @PrimaryGeneratedColumn('uuid')
   id?: string;
+
+  @Column('enum', { name: 'type', enum: EventType })
+  type: EventType;
 
   @Column()
   @Index()
@@ -52,8 +56,11 @@ export class EventModel {
   @Column('varchar', { name: 'website' })
   website: string;
 
-  @Column()
+  @Column({ name: 'location' })
   location: string;
+
+  @Column({ name: 'significant', default: false })
+  significant: boolean;
 
   @ManyToMany(() => CategoryModel)
   @JoinTable({

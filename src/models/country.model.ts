@@ -10,7 +10,10 @@ export class CountryModel {
   name: string;
 
   @OneToMany(() => EventModel, (event) => event.country)
-  events: Array<EventModel>;
+  events: EventModel[];
+
+  @Column('varchar', { name: 'code', length: 255, unique: true })
+  code: string;
 
   // Record created at
   @Column('timestamp', { name: 'created_at' })

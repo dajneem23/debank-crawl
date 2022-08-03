@@ -1,13 +1,4 @@
 import { FindOperator } from 'typeorm';
-
-export enum EventCategory {
-  WORKSHOP = 'workshop',
-  EVENT_OR_MEETUP = 'event_or_meetup',
-  CONFERENCE = 'conference',
-  HACKATHON = 'hackathon',
-  DRINK_AND_PARTY = 'drink_and_party',
-}
-
 export enum EventType {
   ONLINE = 'online',
   OFFLINE = 'offline',
@@ -45,6 +36,10 @@ export interface Event {
   website?: string;
 
   location?: string;
+
+  trending?: boolean;
+
+  significant?: boolean;
 
   categories?: CategoryModel[];
 
@@ -85,6 +80,10 @@ export interface EventResponse {
 
   location?: string;
 
+  trending?: boolean;
+
+  significant?: boolean;
+
   categories: Category[];
 
   country: CountryModel;
@@ -95,41 +94,23 @@ export interface EventResponse {
 }
 
 export interface EventQuery extends BaseQuery {
-  id: string;
-
-  name: string;
-
-  introduction: string;
-
-  media?: string;
-
-  agenda?: string;
-
-  socialProfile?: string;
-
-  map?: string;
+  name?: string;
 
   startDate?: Date;
 
   endDate?: Date;
 
-  phone?: string;
+  category?: string;
 
-  website?: string;
+  cryptoAssetTags?: string[];
 
   location?: string;
 
-  category: string;
-
-  cryptoAssetTags?: string[];
+  significant?: boolean;
 
   country?: string;
 
   speaker?: string;
 
   sponsor?: string;
-
-  monthRange?: number;
-
-  related?: boolean;
 }

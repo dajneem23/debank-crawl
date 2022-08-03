@@ -1,5 +1,5 @@
 import { CATEGORY_TYPE } from '../types/Common';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
 import { EventModel } from './event.model';
 @Entity('category', { synchronize: false })
 export class CategoryModel {

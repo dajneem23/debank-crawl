@@ -23,7 +23,7 @@ export class CryptoAssetTagModel {
       referencedColumnName: 'id',
     },
   })
-
+  events: Array<EventModel>;
   // Record created at
   @Column('timestamp', { name: 'created_at' })
   createdAt: Date;

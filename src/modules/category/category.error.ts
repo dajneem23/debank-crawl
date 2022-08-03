@@ -2,29 +2,29 @@ import httpStatusCode from 'http-status';
 import AppError, { AppErrorJSON } from '@/core/errors/AppError';
 
 export const errors = Object.freeze({
-  EVENT_NOT_FOUND: {
-    message: 'Event not found',
+  CATEGORY_NOT_FOUND: {
+    message: 'Category not found',
     code: '4001',
     status: httpStatusCode.NOT_FOUND,
     isPublic: true,
     locales: {
       vi: 'Mục này không tồn tại',
-      en: 'Event not found',
+      en: 'Category not found',
     },
   },
-  EVENT_ALREADY_EXIST: {
-    message: 'Event already exist',
+  CATEGORY_ALREADY_EXIST: {
+    message: 'Category already exist',
     code: '4002',
     status: httpStatusCode.CONFLICT,
     isPublic: true,
     locales: {
       vi: 'Mục này đã tồn tại',
-      en: 'Event already exists',
+      en: 'Category already exists',
     },
   },
 });
 
-export class EventError extends AppError {
+export class CategoryError extends AppError {
   constructor(msg: keyof typeof errors, errDetails?: AppErrorJSON['details']) {
     super({ ...errors[msg], ...(errDetails && { details: errDetails }) });
   }

@@ -13,10 +13,11 @@ import { CountryModel } from './country.model';
 
 import { SpeakerModel } from './speaker.model';
 import { SponsorModel } from './sponsor.model';
+import { CryptoAssetTagModel } from './crypto_asset_tag.model';
 @Entity('event')
 export class EventModel {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id?: string;
 
   @Column()
   name: string;
@@ -36,10 +37,10 @@ export class EventModel {
   @Column('jsonb', { nullable: true })
   map: object; // Map API
 
-  @Column('time', { name: 'start_time' })
+  @Column('timestamp', { name: 'start_date' })
   startDate: Date;
 
-  @Column('time', { name: 'end_date' })
+  @Column('timestamp', { name: 'end_date' })
   endDate: Date;
 
   @Column('varchar', { name: 'phone' })
@@ -48,20 +49,20 @@ export class EventModel {
   @Column('varchar', { name: 'website' })
   website: string;
 
+  @Column()
+  location: string;
+
   @ManyToMany(() => CategoryModel)
   @JoinTable({
     name: 'event_categories',
-    joinColumn: { name: 'event_id' },
-    inverseJoinColumn: { name: 'category_id' },
+    joinColumn: { name: 'event_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'category_id', referencedColumnName: 'id' },
   })
-  category: CategoryModel[];
+  categories: CategoryModel[];
 
   @ManyToOne(() => CountryModel, (country) => country.events)
   @JoinColumn({ name: 'country_id' })
   country: CountryModel;
-
-  @Column()
-  location: string;
 
   @ManyToMany(() => SpeakerModel)
   @JoinTable({
@@ -80,8 +81,8 @@ export class EventModel {
   sponsors: SponsorModel[]; // entity: Sponsor (array)
 
   @Column('timestamp', { name: 'created_at' })
-  createdAt: Date;
+  createdAt?: Date;
   // Record updated at
   @Column('timestamp', { name: 'updated_at', nullable: true })
-  updatedAt: Date;
+  updatedAt?: Date;
 }

@@ -1,0 +1,22 @@
+POST http://localhost:8084/content/v1/events
+Content-Type: application/json
+
+{
+  "name": "1fox_test",
+  "introduction": "1fox_test",
+  "startDate": "2022-08-03 0:39:48.079",
+  "endDate": "2022-08-02 14:39:48.079",
+  "location": "1fox_bulding",
+  "phone": "123456789",
+  "email": "1fox@global.com",
+  "website": "www.1fox.com",
+  "categories":[
+    {"id":"e023fd64-d163-45c6-a740-26f62f0b2136"}
+  ]
+}
+
+##############################################################################
+GET http://localhost:8084/content/v1/events/related?page=1&perPage=3&category=e023fd64-d163-45c6-a740-26f62f0b2136
+##############################################################################
+
+

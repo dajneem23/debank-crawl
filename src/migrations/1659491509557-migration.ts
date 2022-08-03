@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class migration1659417666763 implements MigrationInterface {
-  name = 'migration1659417666763';
+export class migration1659491509557 implements MigrationInterface {
+  name = 'migration1659491509557';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
@@ -62,8 +62,8 @@ export class migration1659417666763 implements MigrationInterface {
                 "agenda" jsonb,
                 "social_profiles" jsonb,
                 "map" jsonb,
-                "start_time" TIME NOT NULL,
-                "end_date" TIME NOT NULL,
+                "start_date" TIMESTAMP NOT NULL,
+                "end_date" TIMESTAMP NOT NULL,
                 "phone" character varying NOT NULL,
                 "website" character varying NOT NULL,
                 "location" character varying NOT NULL,

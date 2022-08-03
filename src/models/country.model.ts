@@ -9,13 +9,13 @@ export class CountryModel {
   @Column('varchar', { name: 'name', length: 255 })
   name: string;
 
-  @OneToMany(() => EventModel, (event) => event.category)
+  @OneToMany(() => EventModel, (event) => event.country)
   events: Array<EventModel>;
 
   // Record created at
   @Column('timestamp', { name: 'created_at' })
   createdAt: Date;
   // Record updated at
-  @Column('timestamp', { name: 'updated_at', nullable: true })
+  @Column('timestamp', { name: 'updated_at', nullable: true, onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 }

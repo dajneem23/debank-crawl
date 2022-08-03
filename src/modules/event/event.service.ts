@@ -13,7 +13,7 @@ export default class EventService {
   private logger = new Logger('eventService');
   /**
    * Create Event
-   * @param {Pick<EventModel, 'name' | 'introduction' | 'medias' | agenda | socialProfiles| map| startDate| endDate | phone | location >} body
+   * @param {Pick<EventModel, 'name' | 'introduction'| 'medias'| 'agenda'| 'socialProfiles'| 'map'| 'startDate'| 'endDate'| 'phone'| 'location'| 'website'| 'categories'| 'country'| 'speakers'| 'sponsors'| 'cryptoAssetTags' >} body
    * @returns {Promise<Event>}
    * Create event and save to database
    */
@@ -35,6 +35,7 @@ export default class EventService {
       | 'country'
       | 'speakers'
       | 'sponsors'
+      | 'cryptoAssetTags'
     >,
   ): Promise<Event> {
     try {
@@ -55,21 +56,36 @@ export default class EventService {
   }
 
   /**
-   * Get Related Event
+   * Query Event
    * @param {Pick<EventQuery, 'category'>} filter
    * @returns {Promise<Array<EventModel>>}
    * Get 3 related event by category sort by start date
    */
-  async getRelated(filter: Pick<EventQuery, 'category'>, query: BaseQuery): Promise<PaginationResult<EventResponse>> {
+  async query(
+    filter: Pick<EventQuery, 'name' | 'category' | 'cryptoAssetTags' | 'monthRange' | 'related'>,
+    query: BaseQuery,
+  ): Promise<PaginationResult<EventResponse>> {
     try {
       const repository = AppDataSource.getRepository(EventModel);
       const now = new Date();
-      // Get event in range 6 month
-      const monthRange = new Date(now.getFullYear(), now.getMonth() + 6, now.getDate());
       const queryData = await repository
         .createQueryBuilder('event')
-        .leftJoinAndSelect('event.categories', 'category', 'category.id  = :categories', {
+        .leftJoinAndSelect('event.categories', 'category')
+        .innerJoinAndSelect('event.cryptoAssetTags', 'crypto_asset_tag')
+        .where(!!filter.name ? 'event.name like :name' : '1 = 1', { name: `%${filter.name}%` })
+        .andWhere(!!filter.category ? 'category.id  = :categories' : '1 = 1', {
           categories: filter.category,
+        })
+        .andWhere(!!filter.cryptoAssetTags ? 'crypto_asset_tag.id  IN (:...cryptoAssetTags) ' : '1 = 1', {
+          cryptoAssetTags: filter.cryptoAssetTags,
+        })
+        .andWhere(!!filter.related ? 'event.startDate > :now' : '1 = 1', { now })
+        .andWhere(!!filter.monthRange ? 'event.startDate < :monthRange' : '1 = 1', {
+          monthRange: new Date(
+            now.getFullYear(),
+            !isNaN(+filter.monthRange) ? now.getMonth() + filter.monthRange : now.getMonth(),
+            now.getDate(),
+          ),
         })
         .select([
           'event.id',
@@ -84,16 +100,11 @@ export default class EventService {
           'event.phone',
           'event.location',
           'event.website',
-          // 'event.categories',
           'event.country',
-          // 'event.speakers',
-          // 'event.sponsors',
-        ])
-        .andWhere('event.startDate > :now', { now })
-        .andWhere('event.startDate < :monthRange', { monthRange: monthRange });
+        ]);
       const count = await queryData.getCount();
       const items = await queryData
-        .orderBy('event.startDate', 'ASC')
+        .orderBy(query.sortBy, query.sortOrder)
         .skip((query.page - 1) * query.perPage)
         .take(query.perPage)
         .getMany();

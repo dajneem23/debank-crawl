@@ -7,6 +7,7 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
   ManyToOne,
+  Index,
 } from 'typeorm';
 import { CategoryModel } from './category.model';
 import { CountryModel } from './country.model';
@@ -16,10 +17,12 @@ import { SponsorModel } from './sponsor.model';
 import { CryptoAssetTagModel } from './crypto_asset_tag.model';
 @Entity('event')
 export class EventModel {
+  // id - primary id unique
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
   @Column()
+  @Index()
   name: string;
 
   @Column()
@@ -60,6 +63,20 @@ export class EventModel {
   })
   categories: CategoryModel[];
 
+  @ManyToMany(() => CryptoAssetTagModel)
+  @JoinTable({
+    name: 'event_crypto_asset_tags',
+    joinColumn: {
+      name: 'event_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'crypto_asset_tag_id',
+      referencedColumnName: 'id',
+    },
+  })
+  cryptoAssetTags: CryptoAssetTagModel[];
+
   @ManyToOne(() => CountryModel, (country) => country.events)
   @JoinColumn({ name: 'country_id' })
   country: CountryModel;
@@ -80,6 +97,7 @@ export class EventModel {
   })
   sponsors: SponsorModel[]; // entity: Sponsor (array)
 
+  // Record created at
   @Column('timestamp', { name: 'created_at' })
   createdAt?: Date;
   // Record updated at

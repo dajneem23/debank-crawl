@@ -2,7 +2,7 @@ import { CATEGORY_TYPE } from '../types/Common';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { EventModel } from './event.model';
 
-@Entity('crypto_asset_tag')
+@Entity('crypto_asset_tag', { synchronize: true })
 export class CryptoAssetTagModel {
   // id - primary id unique
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
@@ -11,19 +11,6 @@ export class CryptoAssetTagModel {
   @Column('varchar', { name: 'name', length: 255 })
   name: string;
 
-  @ManyToMany(() => EventModel)
-  @JoinTable({
-    name: 'event_tag',
-    joinColumn: {
-      name: 'tag_id',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'event_id',
-      referencedColumnName: 'id',
-    },
-  })
-  events: Array<EventModel>;
   // Record created at
   @Column('timestamp', { name: 'created_at' })
   createdAt: Date;

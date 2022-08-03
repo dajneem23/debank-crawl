@@ -19,6 +19,8 @@ import { SpeakerModel } from '@/models/speaker.model';
 import { SponsorModel } from '@/models/sponsor.model';
 import { Category } from '../category/category.type';
 import { BaseQuery } from '@/types/Common';
+import { CryptoAssetTag } from '../cryptoAssetTag/cryptoAssetTag.type';
+import { CryptoAssetTagModel } from '@/models/crypto_asset_tag.model';
 export interface Event {
   id?: string;
 
@@ -45,6 +47,8 @@ export interface Event {
   location?: string;
 
   categories?: CategoryModel[];
+
+  cryptoAssetTags?: CryptoAssetTagModel[];
 
   country?: CountryModel;
 
@@ -117,9 +121,15 @@ export interface EventQuery extends BaseQuery {
 
   category: string;
 
+  cryptoAssetTags?: string[];
+
   country?: string;
 
   speaker?: string;
 
   sponsor?: string;
+
+  monthRange?: number;
+
+  related?: boolean;
 }

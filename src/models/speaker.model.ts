@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('speaker')
 export class SpeakerModel {
+  // id - primary id unique
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

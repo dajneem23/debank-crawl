@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('sponsor')
 export class SponsorModel {
+  // id - primary id unique
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column()
@@ -9,6 +10,7 @@ export class SponsorModel {
   @Column()
   logo: string;
 
+  // Record created at
   @Column('timestamp', { name: 'created_at' })
   createdAt: Date;
   // Record updated at

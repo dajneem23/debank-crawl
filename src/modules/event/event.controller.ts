@@ -34,15 +34,19 @@ export default class EventController {
       | 'country'
       | 'speakers'
       | 'sponsors'
+      | 'cryptoAssetTags'
     >,
   ) {
     const result = await this.eventService.create(body);
     res.status(httpStatusCode.CREATED).json({ data: result, _meta: body });
   }
-  @Get('/related')
-  async getRelated(@Res() res: Response, @Query() _query: Pick<EventQuery, 'category'>) {
+  @Get('/')
+  async queryEvent(
+    @Res() res: Response,
+    @Query() _query: Pick<EventQuery, 'name' | 'category' | 'cryptoAssetTags' | 'monthRange' | 'related'>,
+  ) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getRelated(filter, query);
-    res.status(httpStatusCode.OK).json({ data: result, _meta: query });
+    const result = await this.eventService.query(filter, query);
+    res.status(httpStatusCode.OK).json({ data: result, _meta: _query });
   }
 }

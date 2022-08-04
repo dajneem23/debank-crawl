@@ -15,7 +15,7 @@ const config = {
   logging: true,
   entities: [path.join(__dirname, '../models/*.model.ts')],
   migrations: [path.join(__dirname, '../migrations/*')],
-  migrationsTableName: 'content_service_migration',
+  migrationsTableName: 'event_service_migration',
   // subscribers: [],
 };
 

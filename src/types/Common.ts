@@ -47,3 +47,4 @@ export enum CATEGORY_TYPE {
   WIKIBLOCK = 'wikiblock',
   EVENT = 'event',
 }
+export const trueSQL = '1 = 1';

@@ -77,6 +77,6 @@ export const create = validate({
 
     categories: Joi.array().items(Joi.object()),
 
-    cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
+    cryptoAssetTags: Joi.array().items(Joi.object()),
   }),
 });

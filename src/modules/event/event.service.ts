@@ -102,7 +102,7 @@ export default class EventService {
           cryptoAssetTags: Array.isArray(cryptoAssetTags) ? cryptoAssetTags : [cryptoAssetTags],
         })
         .andWhere('event.startDate > :now', { now })
-        .select();
+        .select(this.OUTPUT_FIELDS);
       const count = await queryData.getCount();
       const items = await queryData
         .orderBy('event.startDate', 'ASC')

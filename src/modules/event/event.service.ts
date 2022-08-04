@@ -3,20 +3,40 @@ import Logger from '@/core/logger';
 import { AppDataSource } from '@/config/dbConfig';
 import { isNull, omitBy, pick } from 'lodash';
 import { EventModel } from '@/models/event.model';
-import { EventError } from '../event/event.error';
-import { Event, EventQuery } from '../event/event.type';
-import { Category } from './category.type';
-import { BaseQuery, PaginationResult } from '@/types/Common';
-import { EventResponse } from '../event/event.type';
+import { EventError } from './event.error';
+import { Event, EventQuery } from './event.type';
+import { Category } from '../category/category.type';
+import { BaseQuery, PaginationResult, trueSQL } from '@/types/Common';
+import { EventResponse } from './event.type';
 import { Brackets } from 'typeorm';
 @Service()
 export default class EventService {
   private logger = new Logger('eventService');
-  private MONTH_RANGE = 6;
   private SIGNIFICANT_EVENT_CATEGORIES = ['conference', 'workshop', 'summit'];
+  private OUTPUT_FIELDS = [
+    'event.id',
+    'event.type',
+    'event.startDate',
+    'event.endDate',
+    'event.name',
+    'event.introduction',
+    'event.medias',
+    'event.agenda',
+    'event.socialProfiles',
+    'event.map',
+    'event.phone',
+    'event.website',
+    'event.country',
+  ];
+  private NUM_OF_EVENT = {
+    TRENDING: 2,
+    SIGNIFICANT: 3,
+    VIRTUAL: 1,
+    MAX: 3,
+  };
   /**
    * Create Event
-   * @param {Pick<EventModel, 'name' | 'introduction'| 'medias'| 'agenda'| 'socialProfiles'| 'map'| 'startDate'| 'endDate'| 'phone'| 'location'| 'website'| 'categories'| 'country'| 'speakers'| 'sponsors'| 'cryptoAssetTags' >} body
+   * @param {Pick<EventModel, 'name' | 'introduction'| 'medias'| 'agenda'| 'socialProfiles'| 'map'| 'startDate'| 'endDate'| 'phone'| 'website'| 'categories'| 'country'| 'speakers'| 'sponsors'| 'cryptoAssetTags' >} body
    * @returns {Promise<Event>}
    * Create event and save to database
    */
@@ -32,7 +52,6 @@ export default class EventService {
       | 'startDate'
       | 'endDate'
       | 'phone'
-      | 'location'
       | 'website'
       | 'categories'
       | 'country'
@@ -71,8 +90,6 @@ export default class EventService {
       const { category, cryptoAssetTags } = filter;
       const repository = AppDataSource.getRepository(EventModel);
       const now = new Date();
-      const monthRange = new Date(now.getFullYear(), now.getMonth() + this.MONTH_RANGE, now.getDate());
-      const trueSQL = '1 = 1';
       const queryData = await repository
         .createQueryBuilder('event')
         .leftJoinAndSelect('event.categories', 'category')
@@ -81,34 +98,14 @@ export default class EventService {
         .andWhere(!!category ? 'category.id  = :category' : trueSQL, {
           category,
         })
-        .andWhere(!!cryptoAssetTags ? 'crypto_asset_tag.id  IN (:...cryptoAssetTags) ' : trueSQL, {
+        .andWhere(!!cryptoAssetTags ? 'crypto_asset_tag.id IN (:...cryptoAssetTags) ' : trueSQL, {
           cryptoAssetTags,
         })
         .andWhere('event.startDate > :now', { now })
-        .andWhere('event.startDate < :monthRange', {
-          monthRange,
-        })
-        .select([
-          'event.id',
-          'event.type',
-          'event.trending',
-          'event.significant',
-          'event.startDate',
-          'event.endDate',
-          'event.name',
-          'event.introduction',
-          'event.medias',
-          'event.agenda',
-          'event.socialProfiles',
-          'event.map',
-          'event.phone',
-          'event.location',
-          'event.website',
-          'event.country',
-        ]);
+        .select();
       const count = await queryData.getCount();
       const items = await queryData
-        .orderBy('event.startDate', query.sortOrder)
+        .orderBy('event.startDate', 'ASC')
         .skip((query.page - 1) * query.perPage)
         .take(query.perPage)
         .getMany();
@@ -122,56 +119,51 @@ export default class EventService {
 
   /**
    * Get Trending event
-   * @param {Pick<EventQuery,'location'>} filter
+   * @param {Pick<EventQuery,'country'>} filter
    * @returns {Promise<Array<EventModel>>}
    */
   async getTrendingEvent(
-    filter: Pick<EventQuery, 'location'>,
+    filter: Pick<EventQuery, 'country'>,
     query: BaseQuery,
   ): Promise<PaginationResult<EventResponse>> {
     try {
       const repository = AppDataSource.getRepository(EventModel);
       const now = new Date();
-      const trueSQL = '1 = 1';
-      const queryData = await repository
+      const [queryTrendingEvent, trendingCount] = await repository
         .createQueryBuilder('event')
+        .leftJoinAndSelect('event.country', 'country', 'country.id = event.country')
+        .innerJoinAndSelect('event.cryptoAssetTags', 'crypto_asset_tag')
         .where(!!query.q ? 'event.name like :name' : trueSQL, { name: query.q })
         .andWhere('event.startDate > :now', { now })
-        .andWhere('event.trending = :trending', { trending: true })
-        .andWhere(
-          !!filter.location
-            ? new Brackets((qb) => {
-                qb.where('event.location = :location', { location: filter.location }).orWhere('event.type = :type', {
-                  type: 'virtual',
-                });
-              })
-            : trueSQL,
-        )
-        .select([
-          'event.id',
-          'event.type',
-          'event.trending',
-          'event.significant',
-          'event.startDate',
-          'event.endDate',
-          'event.name',
-          'event.introduction',
-          'event.medias',
-          'event.agenda',
-          'event.socialProfiles',
-          'event.map',
-          'event.phone',
-          'event.location',
-          'event.website',
-          'event.country',
-        ]);
-      const count = await queryData.getCount();
-      const items = await queryData
-        .skip((query.page - 1) * query.perPage)
-        .take(query.perPage)
-        .getMany();
+        .andWhere('crypto_asset_tag.name IN (:...tags) ', {
+          tags: ['trending'],
+        })
+        .andWhere(!!filter.country ? 'country.id  = :country' : trueSQL, {
+          country: filter.country,
+        })
+        .select(this.OUTPUT_FIELDS)
+        .take(this.NUM_OF_EVENT.TRENDING)
+        .orderBy('event.startDate', 'ASC')
+        .getManyAndCount();
+      const [queryVirtualEvent, virtualCount] = await repository
+        .createQueryBuilder('event')
+        .innerJoinAndSelect('event.cryptoAssetTags', 'crypto_asset_tag')
+        .where(!!query.q ? 'event.name like :name' : trueSQL, { name: query.q })
+        .andWhere('event.startDate > :now', { now })
+        .andWhere('event.type = :type', { type: 'virtual' })
+        .andWhere('crypto_asset_tag.name IN (:...tags) ', {
+          tags: ['trending'],
+        })
+        .andWhere(!!queryTrendingEvent.length ? 'event.id NOT IN (:...trendingEvents) ' : trueSQL, {
+          trendingEvents: queryTrendingEvent.map((item) => item.id),
+        })
+        .select(this.OUTPUT_FIELDS)
+        .take(this.NUM_OF_EVENT.MAX - queryTrendingEvent.length)
+        .orderBy('event.startDate', 'ASC')
+        .getManyAndCount();
+      const items = [...queryTrendingEvent, ...queryVirtualEvent];
       this.logger.debug('[query event:success]', { filter });
-      return { totalCount: count, items };
+      return { totalCount: trendingCount + virtualCount, items };
     } catch (err) {
       this.logger.error('[query event:error]', err.message);
       throw err;
@@ -180,47 +172,30 @@ export default class EventService {
 
   /**
    * Get Significant event
-   * @param {Pick<EventQuery,'significant' >} filter
+   * @param {EventQuery} filter
    * @returns {Promise<Array<EventModel>>}
    */
   async getSignificantEvent(filter: EventQuery, query: BaseQuery): Promise<PaginationResult<EventResponse>> {
     try {
       const repository = AppDataSource.getRepository(EventModel);
       const now = new Date();
-      const trueSQL = '1 = 1';
-      const queryData = await repository
+      const [events, count] = await repository
         .createQueryBuilder('event')
+        // .innerJoinAndSelect('event.categories', 'category')
+        .innerJoinAndSelect('event.cryptoAssetTags', 'crypto_asset_tag')
         .where(!!query.q ? 'event.name like :name' : trueSQL, { name: query.q })
         .andWhere('event.startDate > :now', { now })
-        .andWhere('event.significant = :significant', { significant: true })
-        // .innerJoinAndSelect('event.categories', 'category', 'category.id  IN (:...categories)', {
-        //   categories,
+        // .andWhere('category.name IN (:...categories)', {
+        //   categories: [],
         // })
-        .select([
-          'event.id',
-          'event.type',
-          'event.trending',
-          'event.significant',
-          'event.startDate',
-          'event.endDate',
-          'event.name',
-          'event.introduction',
-          'event.medias',
-          'event.agenda',
-          'event.socialProfiles',
-          'event.map',
-          'event.phone',
-          'event.location',
-          'event.website',
-          'event.country',
-        ]);
-      const count = await queryData.getCount();
-      const items = await queryData
-        .skip((query.page - 1) * query.perPage)
-        .take(query.perPage)
-        .getMany();
+        .andWhere('crypto_asset_tag.name IN (:...tags) ', {
+          tags: ['significant'],
+        })
+        .select(this.OUTPUT_FIELDS)
+        .take(this.NUM_OF_EVENT.SIGNIFICANT)
+        .getManyAndCount();
       this.logger.debug('[query event:success]', { filter });
-      return { totalCount: count, items };
+      return { totalCount: count, items: events };
     } catch (err) {
       this.logger.error('[query event:error]', err.message);
       throw err;

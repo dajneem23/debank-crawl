@@ -2,7 +2,7 @@ import { CATEGORY_TYPE } from '../types/Common';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { EventModel } from './event.model';
 
-@Entity('crypto_asset_tag', { synchronize: true })
+@Entity('crypto_asset_tag', { synchronize: false })
 export class CryptoAssetTagModel {
   // id - primary id unique
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
@@ -10,6 +10,9 @@ export class CryptoAssetTagModel {
   // Name
   @Column('varchar', { name: 'name', length: 255 })
   name: string;
+
+  @Column('boolean', { name: 'is_show', default: true })
+  isShow: boolean;
 
   // Record created at
   @Column('timestamp', { name: 'created_at' })

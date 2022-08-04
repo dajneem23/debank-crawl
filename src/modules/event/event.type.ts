@@ -35,12 +35,6 @@ export interface Event {
 
   website?: string;
 
-  location?: string;
-
-  trending?: boolean;
-
-  significant?: boolean;
-
   categories?: CategoryModel[];
 
   cryptoAssetTags?: CryptoAssetTagModel[];
@@ -78,11 +72,7 @@ export interface EventResponse {
 
   website?: string;
 
-  location?: string;
-
   trending?: boolean;
-
-  significant?: boolean;
 
   categories: Category[];
 
@@ -103,10 +93,6 @@ export interface EventQuery extends BaseQuery {
   category?: string;
 
   cryptoAssetTags?: string[];
-
-  location?: string;
-
-  significant?: boolean;
 
   country?: string;
 

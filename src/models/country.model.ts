@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { EventModel } from './event.model';
-@Entity('country')
+@Entity('country', { synchronize: false })
 export class CountryModel {
   // id - primary id unique
   @PrimaryGeneratedColumn('uuid', { name: 'id' })

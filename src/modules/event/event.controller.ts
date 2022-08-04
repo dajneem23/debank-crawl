@@ -3,7 +3,7 @@ import { Controller, Res, Post, Body, Get, Query } from '@/utils/expressDecorato
 import { Response } from 'express';
 import { EventModel } from '@/models/event.model';
 import httpStatusCode from 'http-status';
-import EventService from '../category/event.service';
+import EventService from './event.service';
 import { Event, EventQuery } from './event.type';
 import { Category } from '../category/category.type';
 import { buildQueryFilter } from '@/utils/common';
@@ -13,7 +13,7 @@ import * as eventValidation from './event.validation';
 export default class EventController {
   @Inject()
   private eventService: EventService;
-  @Post('/', [])
+  @Post('/', [eventValidation.create])
   async create(
     @Res() res: Response,
     @Body()
@@ -28,7 +28,6 @@ export default class EventController {
       | 'startDate'
       | 'endDate'
       | 'phone'
-      | 'location'
       | 'website'
       | 'categories'
       | 'country'
@@ -48,7 +47,7 @@ export default class EventController {
   }
 
   @Get('/trending', [eventValidation.query])
-  async queryTrendingEvent(@Res() res: Response, @Query() _query: Pick<EventQuery, 'location'>) {
+  async queryTrendingEvent(@Res() res: Response, @Query() _query: Pick<EventQuery, 'country'>) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.eventService.getTrendingEvent(filter, query);
     res.status(httpStatusCode.OK).json({ data: result });

@@ -56,12 +56,6 @@ export class EventModel {
   @Column('varchar', { name: 'website' })
   website: string;
 
-  @Column({ name: 'location' })
-  location: string;
-
-  @Column({ name: 'significant', default: false })
-  significant: boolean;
-
   @ManyToMany(() => CategoryModel)
   @JoinTable({
     name: 'event_categories',

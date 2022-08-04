@@ -16,6 +16,19 @@ export default class CryptoAssetTagSeed implements Seeder {
         createdAt: new Date(),
       };
     });
+    const hideTag = [
+      {
+        name: 'trending',
+        isShow: false,
+        createdAt: new Date(),
+      },
+      {
+        name: 'significant',
+        isShow: false,
+        createdAt: new Date(),
+      },
+    ];
+    cryptoAssetTags.push(...hideTag);
     logger.info('[running]', { cryptoAssetTags });
     await connection.createQueryBuilder().insert().into(CryptoAssetTagModel).values(cryptoAssetTags).execute();
     logger.debug('[run:end]');

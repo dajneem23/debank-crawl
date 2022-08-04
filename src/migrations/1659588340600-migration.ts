@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class migration1659518761698 implements MigrationInterface {
-  name = 'migration1659518761698';
+export class migration1659588340600 implements MigrationInterface {
+  name = 'migration1659588340600';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
@@ -16,6 +16,17 @@ export class migration1659518761698 implements MigrationInterface {
                 "created_at" TIMESTAMP NOT NULL,
                 "updated_at" TIMESTAMP,
                 CONSTRAINT "PK_9c4e4a89e3674fc9f382d733f03" PRIMARY KEY ("id")
+            )
+        `);
+    await queryRunner.query(`
+            CREATE TABLE "country" (
+                "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+                "name" character varying(255) NOT NULL,
+                "code" character varying(255) NOT NULL,
+                "created_at" TIMESTAMP NOT NULL,
+                "updated_at" TIMESTAMP,
+                CONSTRAINT "UQ_8ff4c23dc9a3f3856555bd86186" UNIQUE ("code"),
+                CONSTRAINT "PK_bf6e37c231c4f4ea56dcd887269" PRIMARY KEY ("id")
             )
         `);
     await queryRunner.query(`
@@ -48,6 +59,7 @@ export class migration1659518761698 implements MigrationInterface {
             CREATE TABLE "crypto_asset_tag" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                 "name" character varying(255) NOT NULL,
+                "is_show" boolean NOT NULL DEFAULT true,
                 "created_at" TIMESTAMP NOT NULL,
                 "updated_at" TIMESTAMP,
                 CONSTRAINT "PK_085149e9543db5f135d96b42102" PRIMARY KEY ("id")
@@ -70,8 +82,6 @@ export class migration1659518761698 implements MigrationInterface {
                 "end_date" TIMESTAMP NOT NULL,
                 "phone" character varying NOT NULL,
                 "website" character varying NOT NULL,
-                "location" character varying NOT NULL,
-                "significant" boolean NOT NULL DEFAULT false,
                 "created_at" TIMESTAMP NOT NULL,
                 "updated_at" TIMESTAMP,
                 "country_id" uuid,
@@ -80,17 +90,6 @@ export class migration1659518761698 implements MigrationInterface {
         `);
     await queryRunner.query(`
             CREATE INDEX "IDX_b535fbe8ec6d832dde22065ebd" ON "event" ("name")
-        `);
-    await queryRunner.query(`
-            CREATE TABLE "country" (
-                "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-                "name" character varying(255) NOT NULL,
-                "code" character varying(255) NOT NULL,
-                "created_at" TIMESTAMP NOT NULL,
-                "updated_at" TIMESTAMP,
-                CONSTRAINT "UQ_8ff4c23dc9a3f3856555bd86186" UNIQUE ("code"),
-                CONSTRAINT "PK_bf6e37c231c4f4ea56dcd887269" PRIMARY KEY ("id")
-            )
         `);
     await queryRunner.query(`
             CREATE TABLE "event_categories" (
@@ -247,9 +246,6 @@ export class migration1659518761698 implements MigrationInterface {
             DROP TABLE "event_categories"
         `);
     await queryRunner.query(`
-            DROP TABLE "country"
-        `);
-    await queryRunner.query(`
             DROP INDEX "public"."IDX_b535fbe8ec6d832dde22065ebd"
         `);
     await queryRunner.query(`
@@ -266,6 +262,9 @@ export class migration1659518761698 implements MigrationInterface {
         `);
     await queryRunner.query(`
             DROP TABLE "speaker"
+        `);
+    await queryRunner.query(`
+            DROP TABLE "country"
         `);
     await queryRunner.query(`
             DROP TABLE "category"

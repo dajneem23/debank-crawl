@@ -1,6 +1,4 @@
-import { CATEGORY_TYPE } from '../types/Common';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
-import { EventModel } from './event.model';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('crypto_asset_tag', { synchronize: false })
 export class CryptoAssetTagModel {

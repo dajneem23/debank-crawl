@@ -1,14 +1,11 @@
 import { Service } from 'typedi';
 import Logger from '@/core/logger';
 import { AppDataSource } from '@/config/dbConfig';
-import { isNull, omitBy, pick } from 'lodash';
+import { isNull, omitBy } from 'lodash';
 import { EventModel } from '@/models/event.model';
-import { EventError } from './event.error';
 import { Event, EventQuery } from './event.type';
-import { Category } from '../category/category.type';
 import { BaseQuery, PaginationResult, trueSQL } from '@/types/Common';
 import { EventResponse } from './event.type';
-import { Brackets } from 'typeorm';
 @Service()
 export default class EventService {
   private logger = new Logger('eventService');
@@ -99,10 +96,10 @@ export default class EventService {
           category,
         })
         .andWhere(!!cryptoAssetTags ? 'crypto_asset_tag.id IN (:...cryptoAssetTags) ' : trueSQL, {
-          cryptoAssetTags,
+          cryptoAssetTags: Array.isArray(cryptoAssetTags) ? cryptoAssetTags : [cryptoAssetTags],
         })
         .andWhere('event.startDate > :now', { now })
-        .select();
+        .select(this.OUTPUT_FIELDS);
       const count = await queryData.getCount();
       const items = await queryData
         .orderBy('event.startDate', 'ASC')

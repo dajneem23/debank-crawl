@@ -1,14 +1,4 @@
-import {
-  Entity,
-  Column,
-  ManyToMany,
-  OneToMany,
-  JoinTable,
-  JoinColumn,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  Index,
-} from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable, JoinColumn, PrimaryGeneratedColumn, ManyToOne, Index } from 'typeorm';
 import { CategoryModel } from './category.model';
 import { CountryModel } from './country.model';
 

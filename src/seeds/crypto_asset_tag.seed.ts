@@ -2,8 +2,6 @@ import { Connection } from 'typeorm';
 import { Factory, Seeder } from 'typeorm-seeding';
 import { CryptoAssetTagModel } from '../models/crypto_asset_tag.model';
 import Logger from '../core/logger';
-import { alphabetSize6 } from '../utils/randomString';
-import { random } from 'lodash';
 const logger = new Logger('countrySeed');
 export default class CryptoAssetTagSeed implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {

@@ -2,7 +2,7 @@ import { CATEGORY_TYPE } from '../types/Common';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { EventModel } from './event.model';
 
-@Entity('crypto_asset_tag', { synchronize: false })
+@Entity('crypto_asset_tag', { synchronize: true })
 export class CryptoAssetTagModel {
   // id - primary id unique
   @PrimaryGeneratedColumn('uuid', { name: 'id' })

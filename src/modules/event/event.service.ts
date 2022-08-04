@@ -99,7 +99,7 @@ export default class EventService {
           category,
         })
         .andWhere(!!cryptoAssetTags ? 'crypto_asset_tag.id IN (:...cryptoAssetTags) ' : trueSQL, {
-          cryptoAssetTags,
+          cryptoAssetTags: Array.isArray(cryptoAssetTags) ? cryptoAssetTags : [cryptoAssetTags],
         })
         .andWhere('event.startDate > :now', { now })
         .select();

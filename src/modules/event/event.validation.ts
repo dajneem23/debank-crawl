@@ -19,7 +19,7 @@ export const query = validate({
 
     category: Joi.string(),
 
-    cryptoAssetTags: Joi.array().items(Joi.string()),
+    cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
   }),
 });
 export const getRelated = validate({
@@ -38,7 +38,7 @@ export const getRelated = validate({
 
     category: Joi.string(),
 
-    cryptoAssetTags: Joi.array().items(Joi.string()),
+    cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
   }),
 });
 export const create = validate({
@@ -77,6 +77,6 @@ export const create = validate({
 
     categories: Joi.array().items(Joi.object()),
 
-    cryptoAssetTags: Joi.array().items(Joi.object()),
+    cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
   }),
 });

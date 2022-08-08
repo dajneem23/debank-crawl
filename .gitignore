@@ -32,3 +32,6 @@ coverage
 Thumbs.db
 Desktop.ini
 .yarnrc.yml
+
+#Docker volumes
+/docker/data/

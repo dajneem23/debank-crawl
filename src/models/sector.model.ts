@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-@Entity('sector', { synchronize: false })
+@Entity('sector', { synchronize: true })
 export class SectorModel {
   // id - primary id unique
   @PrimaryGeneratedColumn('uuid', { name: 'id' })

@@ -11,12 +11,13 @@ import {
 import {
   SponsorModel,
   SectorModel,
-  PersonModel,
   GalleryModel,
   CryptocurrencyModel,
   CompanyModel,
   CategoryModel,
   ProjectModel,
+  TeamModel,
+  FeatureModel,
 } from '../models';
 @Entity('product')
 export class ProductModel {
@@ -36,6 +37,9 @@ export class ProductModel {
   @OneToMany(() => CryptocurrencyModel, (cryptocurrency) => cryptocurrency.companyId)
   cryptocurrencies: CryptocurrencyModel[];
 
+  @OneToMany(() => FeatureModel, (feature) => feature.productId)
+  features: FeatureModel[];
+
   @ManyToOne(() => CompanyModel, (company) => company.products)
   @JoinColumn({ name: 'company_id' })
   companyId: string;
@@ -43,6 +47,14 @@ export class ProductModel {
   @ManyToOne(() => ProjectModel, (project) => project.products)
   @JoinColumn({ name: 'project_id' })
   projectId: string;
+
+  @ManyToMany(() => TeamModel)
+  @JoinTable({
+    name: 'product_teams',
+    joinColumn: { name: 'product_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'team_id', referencedColumnName: 'id' },
+  })
+  teams: TeamModel[];
 
   @ManyToMany(() => CategoryModel)
   @JoinTable({
@@ -60,14 +72,6 @@ export class ProductModel {
   })
   sectors: SectorModel[];
 
-  @ManyToMany(() => PersonModel)
-  @JoinTable({
-    name: 'product_persons',
-    joinColumn: { name: 'product_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'person_id', referencedColumnName: 'id' },
-  })
-  persons: PersonModel[];
-
   @ManyToMany(() => SponsorModel)
   @JoinTable({
     name: 'product_sponsors',
@@ -76,50 +80,77 @@ export class ProductModel {
   })
   sponsors: SponsorModel[]; // entity: Sponsor (array)
 
-  @Column({ name: ' features_and_specs' })
-  featuresAndSpecs: string;
+  @Column({ name: 'email' })
+  email: string;
 
   @Column({ name: ' avatar' })
   avatar: string;
 
-  @Column({ name: 'summary' })
-  summary: string;
+  @Column({ name: 'about' })
+  about: string;
+
+  @Column({ name: 'ios_app' })
+  iosApp: string;
+
+  @Column({ name: 'googleplay_app' })
+  googleplayApp: string;
+
+  @Column({ name: 'chrome_extension' })
+  chromeExtension: string;
+
+  @Column({ name: 'mac_app' })
+  macApp: string;
+
+  @Column({ name: 'linux_app' })
+  linuxApp: string;
+
+  @Column({ name: 'windows_app' })
+  windowsApp: string;
+
+  @Column({ name: 'wiki' })
+  wiki: string;
+
+  @Column({ name: 'tel' })
+  tel: string;
 
   @Column({ name: 'recent_tweet' })
   recentTweet: string;
 
-  @Column({ name: 'twitter_url' })
-  twitterUrl: string;
+  @Column({ name: 'twitter' })
+  twitter: string;
 
-  @Column({ name: 'telegram_url' })
-  telegramUrl: string;
+  @Column({ name: 'telegram' })
+  telegram: string;
 
-  @Column({ name: 'facebook_url' })
-  facebookUrl: string;
+  @Column({ name: 'facebook' })
+  facebook: string;
 
-  @Column({ name: 'instagram_url' })
-  instagramUrl: string;
+  @Column({ name: 'instagram' })
+  instagram: string;
 
-  @Column({ name: 'linkedin_url' })
-  linkedinUrl: string;
+  @Column({ name: 'linkedin' })
+  linkedin: string;
 
-  @Column({ name: 'github_url' })
-  githubUrl: string;
+  @Column({ name: 'github' })
+  github: string;
 
-  @Column({ name: 'medium_url' })
-  mediumUrl: string;
+  @Column({ name: 'medium' })
+  medium: string;
 
-  @Column({ name: 'youtube_url' })
-  youtubeUrl: string;
+  @Column({ name: 'youtube' })
+  youtube: string;
 
-  @Column({ name: 'website_url' })
-  websiteUrl: string;
+  @Column({ name: 'website' })
+  website: string;
 
-  @Column({ name: 'blog_url' })
-  blogUrl: string;
+  @Column({ name: 'blog' })
+  blog: string;
 
-  @Column({ name: 'download_url' })
-  downloadUrl: string;
+  @Column({ name: 'download' })
+  download: string;
+
+  @Column({ name: 'reddit', nullable: true })
+  reddit: string;
 
   // Record created at
   @Column('timestamp', { name: 'created_at' })

@@ -1,0 +1,3862 @@
+[
+  {
+    "id": 1,
+    "company_name": "Jelurida",
+    "sector": "Software"
+  },
+  {
+    "id": 2,
+    "company_name": "Jelurida",
+    "sector": "Europe"
+  },
+  {
+    "id": 3,
+    "company_name": "Ledger",
+    "sector": "Manufacturing"
+  },
+  {
+    "id": 4,
+    "company_name": "Ledger",
+    "sector": "North America"
+  },
+  {
+    "id": 5,
+    "company_name": "Ledger",
+    "sector": "Europe"
+  },
+  {
+    "id": 6,
+    "company_name": "BTCMEX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 7,
+    "company_name": "BTCMEX",
+    "sector": "Asia"
+  },
+  {
+    "id": 8,
+    "company_name": "Swapzone",
+    "sector": "Exchange"
+  },
+  {
+    "id": 9,
+    "company_name": "PrimeXBT",
+    "sector": "Exchange"
+  },
+  {
+    "id": 10,
+    "company_name": "PrimeXBT",
+    "sector": "Africa"
+  },
+  {
+    "id": 11,
+    "company_name": "Tradeium",
+    "sector": "Software"
+  },
+  {
+    "id": 12,
+    "company_name": "Tradeium",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 13,
+    "company_name": "Tradeium",
+    "sector": "North America"
+  },
+  {
+    "id": 14,
+    "company_name": "stakefish",
+    "sector": "Software"
+  },
+  {
+    "id": 15,
+    "company_name": "stakefish",
+    "sector": "Asia"
+  },
+  {
+    "id": 16,
+    "company_name": "BigONE",
+    "sector": "Exchange"
+  },
+  {
+    "id": 17,
+    "company_name": "BigONE",
+    "sector": "Asia"
+  },
+  {
+    "id": 18,
+    "company_name": "LocalBitcoins",
+    "sector": "Exchange"
+  },
+  {
+    "id": 19,
+    "company_name": "LocalBitcoins",
+    "sector": "Europe"
+  },
+  {
+    "id": 20,
+    "company_name": "Prysmatic Labs",
+    "sector": "Software"
+  },
+  {
+    "id": 21,
+    "company_name": "Prysmatic Labs",
+    "sector": "North America"
+  },
+  {
+    "id": 22,
+    "company_name": "Amplify Exchange",
+    "sector": "Exchange"
+  },
+  {
+    "id": 23,
+    "company_name": "Amplify Exchange",
+    "sector": "Europe"
+  },
+  {
+    "id": 24,
+    "company_name": "WazirX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 25,
+    "company_name": "WazirX",
+    "sector": "Asia"
+  },
+  {
+    "id": 26,
+    "company_name": "DappRadar",
+    "sector": "Research"
+  },
+  {
+    "id": 27,
+    "company_name": "DappRadar",
+    "sector": "Europe"
+  },
+  {
+    "id": 28,
+    "company_name": "Elliptic",
+    "sector": "Research"
+  },
+  {
+    "id": 29,
+    "company_name": "Elliptic",
+    "sector": "Europe"
+  },
+  {
+    "id": 30,
+    "company_name": "Coin Metrics",
+    "sector": "Research"
+  },
+  {
+    "id": 31,
+    "company_name": "Coin Metrics",
+    "sector": "North America"
+  },
+  {
+    "id": 32,
+    "company_name": "Glassnode",
+    "sector": "Software"
+  },
+  {
+    "id": 33,
+    "company_name": "Glassnode",
+    "sector": "Research"
+  },
+  {
+    "id": 34,
+    "company_name": "Glassnode",
+    "sector": "Europe"
+  },
+  {
+    "id": 35,
+    "company_name": "MVP Workshop",
+    "sector": "Research"
+  },
+  {
+    "id": 36,
+    "company_name": "MVP Workshop",
+    "sector": "Development"
+  },
+  {
+    "id": 37,
+    "company_name": "MVP Workshop",
+    "sector": "Advisory"
+  },
+  {
+    "id": 38,
+    "company_name": "MVP Workshop",
+    "sector": "Europe"
+  },
+  {
+    "id": 39,
+    "company_name": "Genesis Group",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 40,
+    "company_name": "Genesis Group",
+    "sector": "Advisory"
+  },
+  {
+    "id": 41,
+    "company_name": "Genesis Group",
+    "sector": "Europe"
+  },
+  {
+    "id": 42,
+    "company_name": "Coinmine",
+    "sector": "Manufacturing"
+  },
+  {
+    "id": 43,
+    "company_name": "Coinmine",
+    "sector": "North America"
+  },
+  {
+    "id": 44,
+    "company_name": "Tezos Foundation",
+    "sector": "Software"
+  },
+  {
+    "id": 45,
+    "company_name": "Tezos Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 46,
+    "company_name": "Tezos Foundation",
+    "sector": "Europe"
+  },
+  {
+    "id": 47,
+    "company_name": "Electric Coin Company",
+    "sector": "Software"
+  },
+  {
+    "id": 48,
+    "company_name": "Electric Coin Company",
+    "sector": "North America"
+  },
+  {
+    "id": 49,
+    "company_name": "Canaan",
+    "sector": "Manufacturing"
+  },
+  {
+    "id": 50,
+    "company_name": "Canaan",
+    "sector": "Asia"
+  },
+  {
+    "id": 51,
+    "company_name": "Multicoin Capital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 52,
+    "company_name": "Multicoin Capital",
+    "sector": "North America"
+  },
+  {
+    "id": 53,
+    "company_name": "Arweave",
+    "sector": "Software"
+  },
+  {
+    "id": 54,
+    "company_name": "Arweave",
+    "sector": "Europe"
+  },
+  {
+    "id": 55,
+    "company_name": "DeversiFi",
+    "sector": "Exchange"
+  },
+  {
+    "id": 56,
+    "company_name": "DeversiFi",
+    "sector": "Asia"
+  },
+  {
+    "id": 57,
+    "company_name": "BlockTower Capital",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 58,
+    "company_name": "BlockTower Capital",
+    "sector": "North America"
+  },
+  {
+    "id": 59,
+    "company_name": "Civil",
+    "sector": "Software"
+  },
+  {
+    "id": 60,
+    "company_name": "Civil",
+    "sector": "Media"
+  },
+  {
+    "id": 61,
+    "company_name": "Civil",
+    "sector": "North America"
+  },
+  {
+    "id": 62,
+    "company_name": "Cointraffic",
+    "sector": "Marketing"
+  },
+  {
+    "id": 63,
+    "company_name": "Cointraffic",
+    "sector": "Europe"
+  },
+  {
+    "id": 64,
+    "company_name": "STASIS",
+    "sector": "Software"
+  },
+  {
+    "id": 65,
+    "company_name": "STASIS",
+    "sector": "Europe"
+  },
+  {
+    "id": 66,
+    "company_name": "Weiss Crypto Ratings",
+    "sector": "Research"
+  },
+  {
+    "id": 67,
+    "company_name": "Weiss Crypto Ratings",
+    "sector": "North America"
+  },
+  {
+    "id": 68,
+    "company_name": "Dolomite",
+    "sector": "Exchange"
+  },
+  {
+    "id": 69,
+    "company_name": "Dolomite",
+    "sector": "North America"
+  },
+  {
+    "id": 70,
+    "company_name": "Nash",
+    "sector": "Exchange"
+  },
+  {
+    "id": 71,
+    "company_name": "Nash",
+    "sector": "Europe"
+  },
+  {
+    "id": 72,
+    "company_name": "SmartContract",
+    "sector": "Software"
+  },
+  {
+    "id": 73,
+    "company_name": "SmartContract",
+    "sector": "North America"
+  },
+  {
+    "id": 74,
+    "company_name": "CME Group",
+    "sector": "Research"
+  },
+  {
+    "id": 75,
+    "company_name": "CME Group",
+    "sector": "Exchange"
+  },
+  {
+    "id": 76,
+    "company_name": "CME Group",
+    "sector": "North America"
+  },
+  {
+    "id": 77,
+    "company_name": "Deribit",
+    "sector": "Exchange"
+  },
+  {
+    "id": 78,
+    "company_name": "Deribit",
+    "sector": "Europe"
+  },
+  {
+    "id": 79,
+    "company_name": "Dash Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 80,
+    "company_name": "Dash Foundation",
+    "sector": "Education"
+  },
+  {
+    "id": 81,
+    "company_name": "Dash Foundation",
+    "sector": "North America"
+  },
+  {
+    "id": 82,
+    "company_name": "Litecoin Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 83,
+    "company_name": "Litecoin Foundation",
+    "sector": "Asia"
+  },
+  {
+    "id": 84,
+    "company_name": "Cardano Foundation",
+    "sector": "Software"
+  },
+  {
+    "id": 85,
+    "company_name": "Cardano Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 86,
+    "company_name": "Cardano Foundation",
+    "sector": "Europe"
+  },
+  {
+    "id": 87,
+    "company_name": "Agoric",
+    "sector": "Software"
+  },
+  {
+    "id": 88,
+    "company_name": "Agoric",
+    "sector": "North America"
+  },
+  {
+    "id": 89,
+    "company_name": "Bitspark",
+    "sector": "Exchange"
+  },
+  {
+    "id": 90,
+    "company_name": "Bitspark",
+    "sector": "Asia"
+  },
+  {
+    "id": 91,
+    "company_name": "Casa",
+    "sector": "Software"
+  },
+  {
+    "id": 92,
+    "company_name": "Casa",
+    "sector": "North America"
+  },
+  {
+    "id": 93,
+    "company_name": "RTrade Technologies",
+    "sector": "Software"
+  },
+  {
+    "id": 94,
+    "company_name": "RTrade Technologies",
+    "sector": "Development"
+  },
+  {
+    "id": 95,
+    "company_name": "RTrade Technologies",
+    "sector": "North America"
+  },
+  {
+    "id": 96,
+    "company_name": "Tachyon",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 97,
+    "company_name": "Tachyon",
+    "sector": "North America"
+  },
+  {
+    "id": 98,
+    "company_name": "Gitcoin",
+    "sector": "Software"
+  },
+  {
+    "id": 99,
+    "company_name": "Gitcoin",
+    "sector": "Development"
+  },
+  {
+    "id": 100,
+    "company_name": "Gitcoin",
+    "sector": "North America"
+  },
+  {
+    "id": 101,
+    "company_name": "Core Scientific",
+    "sector": "Software"
+  },
+  {
+    "id": 102,
+    "company_name": "Core Scientific",
+    "sector": "Development"
+  },
+  {
+    "id": 103,
+    "company_name": "Core Scientific",
+    "sector": "North America"
+  },
+  {
+    "id": 104,
+    "company_name": "Rain",
+    "sector": "Exchange"
+  },
+  {
+    "id": 105,
+    "company_name": "Rain",
+    "sector": "Middle East"
+  },
+  {
+    "id": 106,
+    "company_name": "Miner Bros Limited",
+    "sector": "Retail"
+  },
+  {
+    "id": 107,
+    "company_name": "Miner Bros Limited",
+    "sector": "Asia"
+  },
+  {
+    "id": 108,
+    "company_name": "MXC",
+    "sector": "Exchange"
+  },
+  {
+    "id": 109,
+    "company_name": "MXC",
+    "sector": "Asia"
+  },
+  {
+    "id": 110,
+    "company_name": "MeterQubes",
+    "sector": "Exchange"
+  },
+  {
+    "id": 111,
+    "company_name": "MeterQubes",
+    "sector": "Europe"
+  },
+  {
+    "id": 112,
+    "company_name": "Crypto Finance",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 113,
+    "company_name": "Crypto Finance",
+    "sector": "Advisory"
+  },
+  {
+    "id": 114,
+    "company_name": "Crypto Finance",
+    "sector": "Europe"
+  },
+  {
+    "id": 115,
+    "company_name": "Enterprise Ethereum Alliance",
+    "sector": "Software"
+  },
+  {
+    "id": 116,
+    "company_name": "Enterprise Ethereum Alliance",
+    "sector": "Development"
+  },
+  {
+    "id": 117,
+    "company_name": "Enterprise Ethereum Alliance",
+    "sector": "North America"
+  },
+  {
+    "id": 118,
+    "company_name": "UPbit",
+    "sector": "Exchange"
+  },
+  {
+    "id": 119,
+    "company_name": "UPbit",
+    "sector": "Asia"
+  },
+  {
+    "id": 120,
+    "company_name": "tZERO",
+    "sector": "Development"
+  },
+  {
+    "id": 121,
+    "company_name": "tZERO",
+    "sector": "Advisory"
+  },
+  {
+    "id": 122,
+    "company_name": "tZERO",
+    "sector": "North America"
+  },
+  {
+    "id": 123,
+    "company_name": "Bitcoin Gear",
+    "sector": "Retail"
+  },
+  {
+    "id": 124,
+    "company_name": "Bitcoin Gear",
+    "sector": "North America"
+  },
+  {
+    "id": 125,
+    "company_name": "Bitcoin Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 126,
+    "company_name": "Bitcoin Foundation",
+    "sector": "Education"
+  },
+  {
+    "id": 127,
+    "company_name": "Bitcoin Foundation",
+    "sector": "North America"
+  },
+  {
+    "id": 128,
+    "company_name": "nChain",
+    "sector": "Research"
+  },
+  {
+    "id": 129,
+    "company_name": "nChain",
+    "sector": "Development"
+  },
+  {
+    "id": 130,
+    "company_name": "nChain",
+    "sector": "Advisory"
+  },
+  {
+    "id": 131,
+    "company_name": "nChain",
+    "sector": "Europe"
+  },
+  {
+    "id": 132,
+    "company_name": "Morgan Creek Digital Assets",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 133,
+    "company_name": "Morgan Creek Digital Assets",
+    "sector": "North America"
+  },
+  {
+    "id": 134,
+    "company_name": "Block.one",
+    "sector": "Software"
+  },
+  {
+    "id": 135,
+    "company_name": "Block.one",
+    "sector": "Development"
+  },
+  {
+    "id": 136,
+    "company_name": "Block.one",
+    "sector": "Europe"
+  },
+  {
+    "id": 137,
+    "company_name": "Blockstation",
+    "sector": "Software"
+  },
+  {
+    "id": 138,
+    "company_name": "Blockstation",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 139,
+    "company_name": "Blockstation",
+    "sector": "North America"
+  },
+  {
+    "id": 140,
+    "company_name": "Crypto Capital",
+    "sector": "Software"
+  },
+  {
+    "id": 141,
+    "company_name": "Crypto Capital",
+    "sector": "Europe"
+  },
+  {
+    "id": 142,
+    "company_name": "ARYZE",
+    "sector": "Software"
+  },
+  {
+    "id": 143,
+    "company_name": "ARYZE",
+    "sector": "Europe"
+  },
+  {
+    "id": 144,
+    "company_name": "CODEX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 145,
+    "company_name": "CODEX",
+    "sector": "Europe"
+  },
+  {
+    "id": 146,
+    "company_name": "HitBTC",
+    "sector": "Exchange"
+  },
+  {
+    "id": 147,
+    "company_name": "HitBTC",
+    "sector": "South America"
+  },
+  {
+    "id": 148,
+    "company_name": "Bitfury",
+    "sector": "Software"
+  },
+  {
+    "id": 149,
+    "company_name": "Bitfury",
+    "sector": "Research"
+  },
+  {
+    "id": 150,
+    "company_name": "Bitfury",
+    "sector": "Mining Pool"
+  },
+  {
+    "id": 151,
+    "company_name": "Bitfury",
+    "sector": "Manufacturing"
+  },
+  {
+    "id": 152,
+    "company_name": "Bitfury",
+    "sector": "Europe"
+  },
+  {
+    "id": 153,
+    "company_name": "Mastercard",
+    "sector": "Software"
+  },
+  {
+    "id": 154,
+    "company_name": "Mastercard",
+    "sector": "North America"
+  },
+  {
+    "id": 155,
+    "company_name": "Minds + Machines Group Limited",
+    "sector": "Software"
+  },
+  {
+    "id": 156,
+    "company_name": "Minds + Machines Group Limited",
+    "sector": "North America"
+  },
+  {
+    "id": 157,
+    "company_name": "ShapeShift",
+    "sector": "Exchange"
+  },
+  {
+    "id": 158,
+    "company_name": "ShapeShift",
+    "sector": "Europe"
+  },
+  {
+    "id": 159,
+    "company_name": "JPMorgan",
+    "sector": "Development"
+  },
+  {
+    "id": 160,
+    "company_name": "JPMorgan",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 161,
+    "company_name": "JPMorgan",
+    "sector": "North America"
+  },
+  {
+    "id": 162,
+    "company_name": "TokenInsight",
+    "sector": "Research"
+  },
+  {
+    "id": 163,
+    "company_name": "TokenInsight",
+    "sector": "Asia"
+  },
+  {
+    "id": 164,
+    "company_name": "AZ Blockchain",
+    "sector": "Marketing"
+  },
+  {
+    "id": 165,
+    "company_name": "AZ Blockchain",
+    "sector": "North America"
+  },
+  {
+    "id": 166,
+    "company_name": "Fidelity Investments",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 167,
+    "company_name": "Fidelity Investments",
+    "sector": "North America"
+  },
+  {
+    "id": 168,
+    "company_name": "Genesis Mining",
+    "sector": "Mining Pool"
+  },
+  {
+    "id": 169,
+    "company_name": "Genesis Mining",
+    "sector": "Europe"
+  },
+  {
+    "id": 170,
+    "company_name": "Real Time Crypto",
+    "sector": "Media"
+  },
+  {
+    "id": 171,
+    "company_name": "Poloniex",
+    "sector": "Exchange"
+  },
+  {
+    "id": 172,
+    "company_name": "Poloniex",
+    "sector": "North America"
+  },
+  {
+    "id": 173,
+    "company_name": "Digital Ark",
+    "sector": "Marketing"
+  },
+  {
+    "id": 174,
+    "company_name": "Digital Ark",
+    "sector": "Europe"
+  },
+  {
+    "id": 175,
+    "company_name": "Openledger",
+    "sector": "Development"
+  },
+  {
+    "id": 176,
+    "company_name": "Openledger",
+    "sector": "Europe"
+  },
+  {
+    "id": 177,
+    "company_name": "Kraken",
+    "sector": "Exchange"
+  },
+  {
+    "id": 178,
+    "company_name": "Kraken",
+    "sector": "North America"
+  },
+  {
+    "id": 179,
+    "company_name": "CryptoPanic",
+    "sector": "Media"
+  },
+  {
+    "id": 180,
+    "company_name": "CryptoPanic",
+    "sector": "Europe"
+  },
+  {
+    "id": 181,
+    "company_name": "Bitstamp",
+    "sector": "Exchange"
+  },
+  {
+    "id": 182,
+    "company_name": "Bitstamp",
+    "sector": "Europe"
+  },
+  {
+    "id": 183,
+    "company_name": "Hyperledger",
+    "sector": "Software"
+  },
+  {
+    "id": 184,
+    "company_name": "Hyperledger",
+    "sector": "Development"
+  },
+  {
+    "id": 185,
+    "company_name": "Hyperledger",
+    "sector": "North America"
+  },
+  {
+    "id": 186,
+    "company_name": "Sydney Blockchain Centre",
+    "sector": "Education"
+  },
+  {
+    "id": 187,
+    "company_name": "Sydney Blockchain Centre",
+    "sector": "Oceania"
+  },
+  {
+    "id": 188,
+    "company_name": "Goldman Sachs",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 189,
+    "company_name": "Goldman Sachs",
+    "sector": "Research"
+  },
+  {
+    "id": 190,
+    "company_name": "Goldman Sachs",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 191,
+    "company_name": "Goldman Sachs",
+    "sector": "Advisory"
+  },
+  {
+    "id": 192,
+    "company_name": "Goldman Sachs",
+    "sector": "North America"
+  },
+  {
+    "id": 193,
+    "company_name": "IBM Blockchain",
+    "sector": "Software"
+  },
+  {
+    "id": 194,
+    "company_name": "IBM Blockchain",
+    "sector": "Development"
+  },
+  {
+    "id": 195,
+    "company_name": "IBM Blockchain",
+    "sector": "North America"
+  },
+  {
+    "id": 196,
+    "company_name": "Bithumb",
+    "sector": "Exchange"
+  },
+  {
+    "id": 197,
+    "company_name": "Bithumb",
+    "sector": "Asia"
+  },
+  {
+    "id": 198,
+    "company_name": "Digital Asset Management",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 199,
+    "company_name": "Digital Asset Management",
+    "sector": "Advisory"
+  },
+  {
+    "id": 200,
+    "company_name": "Digital Asset Management",
+    "sector": "Europe"
+  },
+  {
+    "id": 201,
+    "company_name": "BitGo",
+    "sector": "Software"
+  },
+  {
+    "id": 202,
+    "company_name": "BitGo",
+    "sector": "North America"
+  },
+  {
+    "id": 203,
+    "company_name": "Conversion Wizards",
+    "sector": "Marketing"
+  },
+  {
+    "id": 204,
+    "company_name": "Conversion Wizards",
+    "sector": "North America"
+  },
+  {
+    "id": 205,
+    "company_name": "Chainalysis",
+    "sector": "Software"
+  },
+  {
+    "id": 206,
+    "company_name": "Chainalysis",
+    "sector": "Research"
+  },
+  {
+    "id": 207,
+    "company_name": "Chainalysis",
+    "sector": "North America"
+  },
+  {
+    "id": 208,
+    "company_name": "Chainalysis",
+    "sector": "Europe"
+  },
+  {
+    "id": 209,
+    "company_name": "Blockchain, Inc.",
+    "sector": "Software"
+  },
+  {
+    "id": 210,
+    "company_name": "Blockchain, Inc.",
+    "sector": "Europe"
+  },
+  {
+    "id": 211,
+    "company_name": "Issuance",
+    "sector": "Software"
+  },
+  {
+    "id": 212,
+    "company_name": "Issuance",
+    "sector": "Marketing"
+  },
+  {
+    "id": 213,
+    "company_name": "Issuance",
+    "sector": "Advisory"
+  },
+  {
+    "id": 214,
+    "company_name": "Issuance",
+    "sector": "North America"
+  },
+  {
+    "id": 215,
+    "company_name": "BlockVC",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 216,
+    "company_name": "BlockVC",
+    "sector": "Research"
+  },
+  {
+    "id": 217,
+    "company_name": "BlockVC",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 218,
+    "company_name": "BlockVC",
+    "sector": "Advisory"
+  },
+  {
+    "id": 219,
+    "company_name": "BlockVC",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 220,
+    "company_name": "BlockVC",
+    "sector": "Asia"
+  },
+  {
+    "id": 221,
+    "company_name": "Node Capital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 222,
+    "company_name": "Node Capital",
+    "sector": "Research"
+  },
+  {
+    "id": 223,
+    "company_name": "Node Capital",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 224,
+    "company_name": "Node Capital",
+    "sector": "Asia"
+  },
+  {
+    "id": 225,
+    "company_name": "Blockchain Capital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 226,
+    "company_name": "Blockchain Capital",
+    "sector": "Advisory"
+  },
+  {
+    "id": 227,
+    "company_name": "Blockchain Capital",
+    "sector": "North America"
+  },
+  {
+    "id": 228,
+    "company_name": "Andreessen Horowitz",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 229,
+    "company_name": "Andreessen Horowitz",
+    "sector": "North America"
+  },
+  {
+    "id": 230,
+    "company_name": "Pantera Capital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 231,
+    "company_name": "Pantera Capital",
+    "sector": "North America"
+  },
+  {
+    "id": 232,
+    "company_name": "Digital Currency Group",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 233,
+    "company_name": "Digital Currency Group",
+    "sector": "North America"
+  },
+  {
+    "id": 234,
+    "company_name": "CrowdfundX",
+    "sector": "Marketing"
+  },
+  {
+    "id": 235,
+    "company_name": "CrowdfundX",
+    "sector": "Advisory"
+  },
+  {
+    "id": 236,
+    "company_name": "CrowdfundX",
+    "sector": "North America"
+  },
+  {
+    "id": 237,
+    "company_name": "Gresham International",
+    "sector": "Legal"
+  },
+  {
+    "id": 238,
+    "company_name": "Gresham International",
+    "sector": "North America"
+  },
+  {
+    "id": 239,
+    "company_name": "Gresham International",
+    "sector": "Europe"
+  },
+  {
+    "id": 240,
+    "company_name": "Bitmain",
+    "sector": "Mining Pool"
+  },
+  {
+    "id": 241,
+    "company_name": "Bitmain",
+    "sector": "Manufacturing"
+  },
+  {
+    "id": 242,
+    "company_name": "Bitmain",
+    "sector": "Asia"
+  },
+  {
+    "id": 243,
+    "company_name": "InboundJunction",
+    "sector": "Marketing"
+  },
+  {
+    "id": 244,
+    "company_name": "InboundJunction",
+    "sector": "Middle East"
+  },
+  {
+    "id": 245,
+    "company_name": "Omise",
+    "sector": "Software"
+  },
+  {
+    "id": 246,
+    "company_name": "Omise",
+    "sector": "Development"
+  },
+  {
+    "id": 247,
+    "company_name": "Omise",
+    "sector": "Asia"
+  },
+  {
+    "id": 248,
+    "company_name": "Coin Center",
+    "sector": "Research"
+  },
+  {
+    "id": 249,
+    "company_name": "Coin Center",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 250,
+    "company_name": "Coin Center",
+    "sector": "North America"
+  },
+  {
+    "id": 251,
+    "company_name": "Reflective Ventures",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 252,
+    "company_name": "Reflective Ventures",
+    "sector": "North America"
+  },
+  {
+    "id": 253,
+    "company_name": "Blockchain Transparency Institute",
+    "sector": "Research"
+  },
+  {
+    "id": 254,
+    "company_name": "Blockchain Transparency Institute",
+    "sector": "North America"
+  },
+  {
+    "id": 255,
+    "company_name": "Coinme",
+    "sector": "Retail"
+  },
+  {
+    "id": 256,
+    "company_name": "Coinme",
+    "sector": "Advisory"
+  },
+  {
+    "id": 257,
+    "company_name": "Coinme",
+    "sector": "North America"
+  },
+  {
+    "id": 258,
+    "company_name": "TF Blockchain",
+    "sector": "Media"
+  },
+  {
+    "id": 259,
+    "company_name": "TF Blockchain",
+    "sector": "Education"
+  },
+  {
+    "id": 260,
+    "company_name": "TF Blockchain",
+    "sector": "North America"
+  },
+  {
+    "id": 261,
+    "company_name": "Arrington XRP Capital",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 262,
+    "company_name": "Arrington XRP Capital",
+    "sector": "North America"
+  },
+  {
+    "id": 263,
+    "company_name": "Pithia",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 264,
+    "company_name": "Pithia",
+    "sector": "North America"
+  },
+  {
+    "id": 265,
+    "company_name": "New Alchemy",
+    "sector": "Development"
+  },
+  {
+    "id": 266,
+    "company_name": "New Alchemy",
+    "sector": "Advisory"
+  },
+  {
+    "id": 267,
+    "company_name": "New Alchemy",
+    "sector": "North America"
+  },
+  {
+    "id": 268,
+    "company_name": "Bloccelerate",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 269,
+    "company_name": "Bloccelerate",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 270,
+    "company_name": "Bloccelerate",
+    "sector": "North America"
+  },
+  {
+    "id": 271,
+    "company_name": "CryptoLaw Partners",
+    "sector": "Legal"
+  },
+  {
+    "id": 272,
+    "company_name": "CryptoLaw Partners",
+    "sector": "North America"
+  },
+  {
+    "id": 273,
+    "company_name": "Perkins Coie LLP",
+    "sector": "Legal"
+  },
+  {
+    "id": 274,
+    "company_name": "Perkins Coie LLP",
+    "sector": "North America"
+  },
+  {
+    "id": 275,
+    "company_name": "MarketAcross",
+    "sector": "Marketing"
+  },
+  {
+    "id": 276,
+    "company_name": "MarketAcross",
+    "sector": "Asia"
+  },
+  {
+    "id": 277,
+    "company_name": "Skew",
+    "sector": "Research"
+  },
+  {
+    "id": 278,
+    "company_name": "Skew",
+    "sector": "Europe"
+  },
+  {
+    "id": 279,
+    "company_name": "Xpring",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 280,
+    "company_name": "Xpring",
+    "sector": "Software"
+  },
+  {
+    "id": 281,
+    "company_name": "Xpring",
+    "sector": "Development"
+  },
+  {
+    "id": 282,
+    "company_name": "Xpring",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 283,
+    "company_name": "Xpring",
+    "sector": "North America"
+  },
+  {
+    "id": 284,
+    "company_name": "Transparent Systems",
+    "sector": "Software"
+  },
+  {
+    "id": 285,
+    "company_name": "Transparent Systems",
+    "sector": "North America"
+  },
+  {
+    "id": 286,
+    "company_name": "MyCointainer",
+    "sector": "Software"
+  },
+  {
+    "id": 287,
+    "company_name": "MyCointainer",
+    "sector": "Education"
+  },
+  {
+    "id": 288,
+    "company_name": "MyCointainer",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 289,
+    "company_name": "MyCointainer",
+    "sector": "Europe"
+  },
+  {
+    "id": 290,
+    "company_name": "Lightning Labs",
+    "sector": "Software"
+  },
+  {
+    "id": 291,
+    "company_name": "Lightning Labs",
+    "sector": "North America"
+  },
+  {
+    "id": 292,
+    "company_name": "YAP Global",
+    "sector": "Marketing"
+  },
+  {
+    "id": 293,
+    "company_name": "YAP Global",
+    "sector": "Europe"
+  },
+  {
+    "id": 294,
+    "company_name": "#Hashed",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 295,
+    "company_name": "#Hashed",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 296,
+    "company_name": "#Hashed",
+    "sector": "Asia"
+  },
+  {
+    "id": 297,
+    "company_name": "Truffle",
+    "sector": "Software"
+  },
+  {
+    "id": 298,
+    "company_name": "Truffle",
+    "sector": "Development"
+  },
+  {
+    "id": 299,
+    "company_name": "Truffle",
+    "sector": "North America"
+  },
+  {
+    "id": 300,
+    "company_name": "ShortHop",
+    "sector": "Exchange"
+  },
+  {
+    "id": 301,
+    "company_name": "ShortHop",
+    "sector": "North America"
+  },
+  {
+    "id": 302,
+    "company_name": "ZenLedger",
+    "sector": "Software"
+  },
+  {
+    "id": 303,
+    "company_name": "ZenLedger",
+    "sector": "North America"
+  },
+  {
+    "id": 304,
+    "company_name": "Huobi Global",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 305,
+    "company_name": "Huobi Global",
+    "sector": "Mining Pool"
+  },
+  {
+    "id": 306,
+    "company_name": "Huobi Global",
+    "sector": "Exchange"
+  },
+  {
+    "id": 307,
+    "company_name": "Huobi Global",
+    "sector": "Asia"
+  },
+  {
+    "id": 308,
+    "company_name": "Lendroid",
+    "sector": "Software"
+  },
+  {
+    "id": 309,
+    "company_name": "Lendroid",
+    "sector": "DeFi"
+  },
+  {
+    "id": 310,
+    "company_name": "BTSE",
+    "sector": "Exchange"
+  },
+  {
+    "id": 311,
+    "company_name": "BTSE",
+    "sector": "Middle East"
+  },
+  {
+    "id": 312,
+    "company_name": "Stellar Development Foundation",
+    "sector": "Software"
+  },
+  {
+    "id": 313,
+    "company_name": "Stellar Development Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 314,
+    "company_name": "Stellar Development Foundation",
+    "sector": "North America"
+  },
+  {
+    "id": 315,
+    "company_name": "BW.com",
+    "sector": "Exchange"
+  },
+  {
+    "id": 316,
+    "company_name": "BW.com",
+    "sector": "Oceania"
+  },
+  {
+    "id": 317,
+    "company_name": "TravelbyBit",
+    "sector": "Retail"
+  },
+  {
+    "id": 318,
+    "company_name": "TravelbyBit",
+    "sector": "Oceania"
+  },
+  {
+    "id": 319,
+    "company_name": "Conflux",
+    "sector": "Software"
+  },
+  {
+    "id": 320,
+    "company_name": "Conflux",
+    "sector": "Asia"
+  },
+  {
+    "id": 321,
+    "company_name": "dex.blue",
+    "sector": "Exchange"
+  },
+  {
+    "id": 322,
+    "company_name": "dex.blue",
+    "sector": "Europe"
+  },
+  {
+    "id": 323,
+    "company_name": "Ethereum Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 324,
+    "company_name": "Ethereum Foundation",
+    "sector": "Europe"
+  },
+  {
+    "id": 325,
+    "company_name": "IOTA Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 326,
+    "company_name": "IOTA Foundation",
+    "sector": "Europe"
+  },
+  {
+    "id": 327,
+    "company_name": "ZBG",
+    "sector": "Exchange"
+  },
+  {
+    "id": 328,
+    "company_name": "ZBG",
+    "sector": "Asia"
+  },
+  {
+    "id": 329,
+    "company_name": "ZB.com",
+    "sector": "Exchange"
+  },
+  {
+    "id": 330,
+    "company_name": "ZB.com",
+    "sector": "Europe"
+  },
+  {
+    "id": 331,
+    "company_name": "BaseFEX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 332,
+    "company_name": "BaseFEX",
+    "sector": "Africa"
+  },
+  {
+    "id": 333,
+    "company_name": "Blox",
+    "sector": "Software"
+  },
+  {
+    "id": 334,
+    "company_name": "Blox",
+    "sector": "Middle East"
+  },
+  {
+    "id": 335,
+    "company_name": "ChangeNOW",
+    "sector": "Exchange"
+  },
+  {
+    "id": 336,
+    "company_name": "ChangeNOW",
+    "sector": "South America"
+  },
+  {
+    "id": 337,
+    "company_name": "PrimeBit",
+    "sector": "Exchange"
+  },
+  {
+    "id": 338,
+    "company_name": "PrimeBit",
+    "sector": "Caribbean"
+  },
+  {
+    "id": 339,
+    "company_name": "Decoin",
+    "sector": "Exchange"
+  },
+  {
+    "id": 340,
+    "company_name": "Decoin",
+    "sector": "Europe"
+  },
+  {
+    "id": 341,
+    "company_name": "Bitcoin of America",
+    "sector": "Retail"
+  },
+  {
+    "id": 342,
+    "company_name": "Bitcoin of America",
+    "sector": "Exchange"
+  },
+  {
+    "id": 343,
+    "company_name": "Bitcoin of America",
+    "sector": "North America"
+  },
+  {
+    "id": 344,
+    "company_name": "Cartesi",
+    "sector": "Software"
+  },
+  {
+    "id": 345,
+    "company_name": "Cartesi",
+    "sector": "Asia"
+  },
+  {
+    "id": 346,
+    "company_name": "FTX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 347,
+    "company_name": "FTX",
+    "sector": "Caribbean"
+  },
+  {
+    "id": 348,
+    "company_name": "Bitwise",
+    "sector": "Research"
+  },
+  {
+    "id": 349,
+    "company_name": "Bitwise",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 350,
+    "company_name": "Bitwise",
+    "sector": "North America"
+  },
+  {
+    "id": 351,
+    "company_name": "TokenMinds",
+    "sector": "Marketing"
+  },
+  {
+    "id": 352,
+    "company_name": "TokenMinds",
+    "sector": "Development"
+  },
+  {
+    "id": 353,
+    "company_name": "TokenMinds",
+    "sector": "Advisory"
+  },
+  {
+    "id": 354,
+    "company_name": "TokenMinds",
+    "sector": "Asia"
+  },
+  {
+    "id": 355,
+    "company_name": "TokenAnalyst",
+    "sector": "Research"
+  },
+  {
+    "id": 356,
+    "company_name": "TokenAnalyst",
+    "sector": "Europe"
+  },
+  {
+    "id": 357,
+    "company_name": "Bitcoin Club Malta",
+    "sector": "Education"
+  },
+  {
+    "id": 358,
+    "company_name": "Bitcoin Club Malta",
+    "sector": "Europe"
+  },
+  {
+    "id": 359,
+    "company_name": "BitCoke",
+    "sector": "Exchange"
+  },
+  {
+    "id": 360,
+    "company_name": "BitCoke",
+    "sector": "Asia"
+  },
+  {
+    "id": 361,
+    "company_name": "Coinfirm",
+    "sector": "Software"
+  },
+  {
+    "id": 362,
+    "company_name": "Coinfirm",
+    "sector": "Research"
+  },
+  {
+    "id": 363,
+    "company_name": "Coinfirm",
+    "sector": "Advisory"
+  },
+  {
+    "id": 364,
+    "company_name": "Coinfirm",
+    "sector": "Europe"
+  },
+  {
+    "id": 365,
+    "company_name": "Coinfirm",
+    "sector": "Asia"
+  },
+  {
+    "id": 366,
+    "company_name": "WTIA Cascadia Blockchain Council",
+    "sector": "Education"
+  },
+  {
+    "id": 367,
+    "company_name": "WTIA Cascadia Blockchain Council",
+    "sector": "North America"
+  },
+  {
+    "id": 368,
+    "company_name": "Ripple",
+    "sector": "Software"
+  },
+  {
+    "id": 369,
+    "company_name": "Ripple",
+    "sector": "North America"
+  },
+  {
+    "id": 370,
+    "company_name": "EAK Digital",
+    "sector": "Marketing"
+  },
+  {
+    "id": 371,
+    "company_name": "EAK Digital",
+    "sector": "Europe"
+  },
+  {
+    "id": 372,
+    "company_name": "R3",
+    "sector": "Software"
+  },
+  {
+    "id": 373,
+    "company_name": "R3",
+    "sector": "Research"
+  },
+  {
+    "id": 374,
+    "company_name": "R3",
+    "sector": "Development"
+  },
+  {
+    "id": 375,
+    "company_name": "R3",
+    "sector": "North America"
+  },
+  {
+    "id": 376,
+    "company_name": "Band Protocol",
+    "sector": "DeFi"
+  },
+  {
+    "id": 377,
+    "company_name": "Band Protocol",
+    "sector": "Asia"
+  },
+  {
+    "id": 378,
+    "company_name": "Messari",
+    "sector": "Research"
+  },
+  {
+    "id": 379,
+    "company_name": "Messari",
+    "sector": "North America"
+  },
+  {
+    "id": 380,
+    "company_name": "Blockstream",
+    "sector": "Software"
+  },
+  {
+    "id": 381,
+    "company_name": "Blockstream",
+    "sector": "North America"
+  },
+  {
+    "id": 382,
+    "company_name": "Overbit",
+    "sector": "Exchange"
+  },
+  {
+    "id": 383,
+    "company_name": "Overbit",
+    "sector": "Asia"
+  },
+  {
+    "id": 384,
+    "company_name": "OpenCrowd",
+    "sector": "Software"
+  },
+  {
+    "id": 385,
+    "company_name": "OpenCrowd",
+    "sector": "Development"
+  },
+  {
+    "id": 386,
+    "company_name": "OpenCrowd",
+    "sector": "North America"
+  },
+  {
+    "id": 387,
+    "company_name": "Mt. Gox",
+    "sector": "Exchange"
+  },
+  {
+    "id": 388,
+    "company_name": "Mt. Gox",
+    "sector": "Asia"
+  },
+  {
+    "id": 389,
+    "company_name": "LunarCRUSH",
+    "sector": "Research"
+  },
+  {
+    "id": 390,
+    "company_name": "LunarCRUSH",
+    "sector": "North America"
+  },
+  {
+    "id": 391,
+    "company_name": "CryptoLocally",
+    "sector": "Exchange"
+  },
+  {
+    "id": 392,
+    "company_name": "CryptoLocally",
+    "sector": "Asia"
+  },
+  {
+    "id": 393,
+    "company_name": "Draper Goren Holm",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 394,
+    "company_name": "Draper Goren Holm",
+    "sector": "Advisory"
+  },
+  {
+    "id": 395,
+    "company_name": "Draper Goren Holm",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 396,
+    "company_name": "Draper Goren Holm",
+    "sector": "North America"
+  },
+  {
+    "id": 397,
+    "company_name": "Centrifuge",
+    "sector": "DeFi"
+  },
+  {
+    "id": 398,
+    "company_name": "Centrifuge",
+    "sector": "Europe"
+  },
+  {
+    "id": 399,
+    "company_name": "Digital Assets Data",
+    "sector": "Software"
+  },
+  {
+    "id": 400,
+    "company_name": "Digital Assets Data",
+    "sector": "Research"
+  },
+  {
+    "id": 401,
+    "company_name": "Digital Assets Data",
+    "sector": "North America"
+  },
+  {
+    "id": 402,
+    "company_name": "Gemini",
+    "sector": "Exchange"
+  },
+  {
+    "id": 403,
+    "company_name": "Gemini",
+    "sector": "North America"
+  },
+  {
+    "id": 404,
+    "company_name": "Neo Foundation",
+    "sector": "Software"
+  },
+  {
+    "id": 405,
+    "company_name": "Neo Foundation",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 406,
+    "company_name": "Neo Foundation",
+    "sector": "Asia"
+  },
+  {
+    "id": 407,
+    "company_name": "TaxBit",
+    "sector": "Software"
+  },
+  {
+    "id": 408,
+    "company_name": "TaxBit",
+    "sector": "North America"
+  },
+  {
+    "id": 409,
+    "company_name": "Santiment",
+    "sector": "Research"
+  },
+  {
+    "id": 410,
+    "company_name": "Santiment",
+    "sector": "Europe"
+  },
+  {
+    "id": 411,
+    "company_name": "Securitize",
+    "sector": "Software"
+  },
+  {
+    "id": 412,
+    "company_name": "Securitize",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 413,
+    "company_name": "Securitize",
+    "sector": "North America"
+  },
+  {
+    "id": 414,
+    "company_name": "OKCoin",
+    "sector": "Exchange"
+  },
+  {
+    "id": 415,
+    "company_name": "OKCoin",
+    "sector": "North America"
+  },
+  {
+    "id": 416,
+    "company_name": "Celsius Network",
+    "sector": "Software"
+  },
+  {
+    "id": 417,
+    "company_name": "Celsius Network",
+    "sector": "Lending & Borrowing"
+  },
+  {
+    "id": 418,
+    "company_name": "Celsius Network",
+    "sector": "North America"
+  },
+  {
+    "id": 419,
+    "company_name": "Celsius Network",
+    "sector": "Europe"
+  },
+  {
+    "id": 420,
+    "company_name": "CipherTrace",
+    "sector": "Research"
+  },
+  {
+    "id": 421,
+    "company_name": "CipherTrace",
+    "sector": "Advisory"
+  },
+  {
+    "id": 422,
+    "company_name": "CipherTrace",
+    "sector": "North America"
+  },
+  {
+    "id": 423,
+    "company_name": "bitFlyer",
+    "sector": "Exchange"
+  },
+  {
+    "id": 424,
+    "company_name": "bitFlyer",
+    "sector": "North America"
+  },
+  {
+    "id": 425,
+    "company_name": "SIBEX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 426,
+    "company_name": "SIBEX",
+    "sector": "Europe"
+  },
+  {
+    "id": 427,
+    "company_name": "EMURGO",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 428,
+    "company_name": "EMURGO",
+    "sector": "Software"
+  },
+  {
+    "id": 429,
+    "company_name": "EMURGO",
+    "sector": "Advisory"
+  },
+  {
+    "id": 430,
+    "company_name": "EMURGO",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 431,
+    "company_name": "EMURGO",
+    "sector": "Asia"
+  },
+  {
+    "id": 432,
+    "company_name": "SwapSpace",
+    "sector": "Exchange"
+  },
+  {
+    "id": 433,
+    "company_name": "SwapSpace",
+    "sector": "Oceania"
+  },
+  {
+    "id": 434,
+    "company_name": "Crypto.Games",
+    "sector": "Casino"
+  },
+  {
+    "id": 435,
+    "company_name": "Crypto.Games",
+    "sector": "South America"
+  },
+  {
+    "id": 436,
+    "company_name": "Compound",
+    "sector": "Lending & Borrowing"
+  },
+  {
+    "id": 437,
+    "company_name": "Compound",
+    "sector": "DeFi"
+  },
+  {
+    "id": 438,
+    "company_name": "Compound",
+    "sector": "North America"
+  },
+  {
+    "id": 439,
+    "company_name": "YouHodler",
+    "sector": "Lending & Borrowing"
+  },
+  {
+    "id": 440,
+    "company_name": "YouHodler",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 441,
+    "company_name": "YouHodler",
+    "sector": "Europe"
+  },
+  {
+    "id": 442,
+    "company_name": "Bluezelle",
+    "sector": "Software"
+  },
+  {
+    "id": 443,
+    "company_name": "Bluezelle",
+    "sector": "Asia"
+  },
+  {
+    "id": 444,
+    "company_name": "Phemex",
+    "sector": "Exchange"
+  },
+  {
+    "id": 445,
+    "company_name": "Phemex",
+    "sector": "Asia"
+  },
+  {
+    "id": 446,
+    "company_name": "Sportsbet.io",
+    "sector": "Casino"
+  },
+  {
+    "id": 447,
+    "company_name": "Sportsbet.io",
+    "sector": "South America"
+  },
+  {
+    "id": 448,
+    "company_name": "Nym",
+    "sector": "Software"
+  },
+  {
+    "id": 449,
+    "company_name": "Nym",
+    "sector": "Research"
+  },
+  {
+    "id": 450,
+    "company_name": "Nym",
+    "sector": "Europe"
+  },
+  {
+    "id": 451,
+    "company_name": "Bitfinex",
+    "sector": "Exchange"
+  },
+  {
+    "id": 452,
+    "company_name": "Bitfinex",
+    "sector": "Asia"
+  },
+  {
+    "id": 453,
+    "company_name": "Bityard",
+    "sector": "Exchange"
+  },
+  {
+    "id": 454,
+    "company_name": "Bityard",
+    "sector": "Asia"
+  },
+  {
+    "id": 455,
+    "company_name": "Solana",
+    "sector": "Software"
+  },
+  {
+    "id": 456,
+    "company_name": "Solana",
+    "sector": "North America"
+  },
+  {
+    "id": 457,
+    "company_name": "Switchere",
+    "sector": "Exchange"
+  },
+  {
+    "id": 458,
+    "company_name": "Switchere",
+    "sector": "Europe"
+  },
+  {
+    "id": 459,
+    "company_name": "Bittrex",
+    "sector": "Exchange"
+  },
+  {
+    "id": 460,
+    "company_name": "Bittrex",
+    "sector": "North America"
+  },
+  {
+    "id": 461,
+    "company_name": "XBTPro",
+    "sector": "Exchange"
+  },
+  {
+    "id": 462,
+    "company_name": "XBTPro",
+    "sector": "North America"
+  },
+  {
+    "id": 463,
+    "company_name": "Exolix",
+    "sector": "Exchange"
+  },
+  {
+    "id": 464,
+    "company_name": "Exolix",
+    "sector": "Europe"
+  },
+  {
+    "id": 465,
+    "company_name": "mStable",
+    "sector": "Lending & Borrowing"
+  },
+  {
+    "id": 466,
+    "company_name": "mStable",
+    "sector": "DeFi"
+  },
+  {
+    "id": 467,
+    "company_name": "mStable",
+    "sector": "Europe"
+  },
+  {
+    "id": 468,
+    "company_name": "Parity Technologies",
+    "sector": "Software"
+  },
+  {
+    "id": 469,
+    "company_name": "Parity Technologies",
+    "sector": "Development"
+  },
+  {
+    "id": 470,
+    "company_name": "Parity Technologies",
+    "sector": "Europe"
+  },
+  {
+    "id": 471,
+    "company_name": "CryptoAltum",
+    "sector": "Exchange"
+  },
+  {
+    "id": 472,
+    "company_name": "CryptoAltum",
+    "sector": "Oceania"
+  },
+  {
+    "id": 473,
+    "company_name": "CryptoSlate",
+    "sector": "Media"
+  },
+  {
+    "id": 474,
+    "company_name": "CryptoSlate",
+    "sector": "Europe"
+  },
+  {
+    "id": 475,
+    "company_name": "EZPostage",
+    "sector": "Software"
+  },
+  {
+    "id": 476,
+    "company_name": "EZPostage",
+    "sector": "Europe"
+  },
+  {
+    "id": 477,
+    "company_name": "Cryptonites",
+    "sector": "Media"
+  },
+  {
+    "id": 478,
+    "company_name": "Cryptonites",
+    "sector": "Europe"
+  },
+  {
+    "id": 479,
+    "company_name": "Crypto Briefing",
+    "sector": "Research"
+  },
+  {
+    "id": 480,
+    "company_name": "Crypto Briefing",
+    "sector": "Media"
+  },
+  {
+    "id": 481,
+    "company_name": "Crypto Briefing",
+    "sector": "Education"
+  },
+  {
+    "id": 482,
+    "company_name": "Crypto Briefing",
+    "sector": "North America"
+  },
+  {
+    "id": 483,
+    "company_name": "NSBroker",
+    "sector": "Exchange"
+  },
+  {
+    "id": 484,
+    "company_name": "NSBroker",
+    "sector": "Broker"
+  },
+  {
+    "id": 485,
+    "company_name": "NSBroker",
+    "sector": "Europe"
+  },
+  {
+    "id": 486,
+    "company_name": "1xBit",
+    "sector": "Casino"
+  },
+  {
+    "id": 487,
+    "company_name": "1xBit",
+    "sector": "Europe"
+  },
+  {
+    "id": 488,
+    "company_name": "ZBX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 489,
+    "company_name": "ZBX",
+    "sector": "Europe"
+  },
+  {
+    "id": 490,
+    "company_name": "AAX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 491,
+    "company_name": "AAX",
+    "sector": "Asia"
+  },
+  {
+    "id": 492,
+    "company_name": "MyCoinStory",
+    "sector": "Exchange"
+  },
+  {
+    "id": 493,
+    "company_name": "MyCoinStory",
+    "sector": "Asia"
+  },
+  {
+    "id": 494,
+    "company_name": "Akoin",
+    "sector": "Software"
+  },
+  {
+    "id": 495,
+    "company_name": "Akoin",
+    "sector": "Philanthropy"
+  },
+  {
+    "id": 496,
+    "company_name": "Akoin",
+    "sector": "Africa"
+  },
+  {
+    "id": 497,
+    "company_name": "Anycoin Direct",
+    "sector": "Exchange"
+  },
+  {
+    "id": 498,
+    "company_name": "Anycoin Direct",
+    "sector": "Europe"
+  },
+  {
+    "id": 499,
+    "company_name": "Stably",
+    "sector": "Software"
+  },
+  {
+    "id": 500,
+    "company_name": "Stably",
+    "sector": "North America"
+  },
+  {
+    "id": 501,
+    "company_name": "Revolut",
+    "sector": "Software"
+  },
+  {
+    "id": 502,
+    "company_name": "Revolut",
+    "sector": "Exchange"
+  },
+  {
+    "id": 503,
+    "company_name": "Revolut",
+    "sector": "Europe"
+  },
+  {
+    "id": 504,
+    "company_name": "Nexo",
+    "sector": "Lending & Borrowing"
+  },
+  {
+    "id": 505,
+    "company_name": "Nexo",
+    "sector": "Europe"
+  },
+  {
+    "id": 506,
+    "company_name": "Bit.com",
+    "sector": "Exchange"
+  },
+  {
+    "id": 507,
+    "company_name": "Bit.com",
+    "sector": "Asia"
+  },
+  {
+    "id": 508,
+    "company_name": "Currency.com",
+    "sector": "Exchange"
+  },
+  {
+    "id": 509,
+    "company_name": "Currency.com",
+    "sector": "Europe"
+  },
+  {
+    "id": 510,
+    "company_name": "Binance",
+    "sector": "Exchange"
+  },
+  {
+    "id": 511,
+    "company_name": "Binance",
+    "sector": "Europe"
+  },
+  {
+    "id": 512,
+    "company_name": "Binance",
+    "sector": "Asia"
+  },
+  {
+    "id": 513,
+    "company_name": "Grayscale Investments",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 514,
+    "company_name": "Grayscale Investments",
+    "sector": "North America"
+  },
+  {
+    "id": 515,
+    "company_name": "MicroStrategy",
+    "sector": "Software"
+  },
+  {
+    "id": 516,
+    "company_name": "MicroStrategy",
+    "sector": "North America"
+  },
+  {
+    "id": 517,
+    "company_name": "Strix Leviathan",
+    "sector": "Software"
+  },
+  {
+    "id": 518,
+    "company_name": "Strix Leviathan",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 519,
+    "company_name": "Strix Leviathan",
+    "sector": "North America"
+  },
+  {
+    "id": 520,
+    "company_name": "Mogul Productions",
+    "sector": "Software"
+  },
+  {
+    "id": 521,
+    "company_name": "Mogul Productions",
+    "sector": "Entertainment"
+  },
+  {
+    "id": 522,
+    "company_name": "Mogul Productions",
+    "sector": "North America"
+  },
+  {
+    "id": 523,
+    "company_name": "bitFlyer USA",
+    "sector": "Exchange"
+  },
+  {
+    "id": 524,
+    "company_name": "bitFlyer USA",
+    "sector": "North America"
+  },
+  {
+    "id": 525,
+    "company_name": "Coinbase",
+    "sector": "Exchange"
+  },
+  {
+    "id": 526,
+    "company_name": "Coinbase",
+    "sector": "North America"
+  },
+  {
+    "id": 527,
+    "company_name": "C-Trade",
+    "sector": "Exchange"
+  },
+  {
+    "id": 528,
+    "company_name": "C-Trade",
+    "sector": "Caribbean"
+  },
+  {
+    "id": 529,
+    "company_name": "Bitbuy",
+    "sector": "Exchange"
+  },
+  {
+    "id": 530,
+    "company_name": "Bitbuy",
+    "sector": "North America"
+  },
+  {
+    "id": 531,
+    "company_name": "ADD.XYZ",
+    "sector": "Lending & Borrowing"
+  },
+  {
+    "id": 532,
+    "company_name": "ADD.XYZ",
+    "sector": "Caribbean"
+  },
+  {
+    "id": 533,
+    "company_name": "MediaX Agency",
+    "sector": "Marketing"
+  },
+  {
+    "id": 534,
+    "company_name": "MediaX Agency",
+    "sector": "Asia"
+  },
+  {
+    "id": 535,
+    "company_name": "ZebPay",
+    "sector": "Exchange"
+  },
+  {
+    "id": 536,
+    "company_name": "ZebPay",
+    "sector": "Asia"
+  },
+  {
+    "id": 537,
+    "company_name": "Invictus Capital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 538,
+    "company_name": "Invictus Capital",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 539,
+    "company_name": "Invictus Capital",
+    "sector": "Caribbean"
+  },
+  {
+    "id": 540,
+    "company_name": "Visa",
+    "sector": "Development"
+  },
+  {
+    "id": 541,
+    "company_name": "Visa",
+    "sector": "North America"
+  },
+  {
+    "id": 542,
+    "company_name": "Rapid Innovation",
+    "sector": "Development"
+  },
+  {
+    "id": 543,
+    "company_name": "Rapid Innovation",
+    "sector": "North America"
+  },
+  {
+    "id": 544,
+    "company_name": "Paradox Group",
+    "sector": "Marketing"
+  },
+  {
+    "id": 545,
+    "company_name": "Paradox Group",
+    "sector": "Europe"
+  },
+  {
+    "id": 546,
+    "company_name": "CommerceBlock",
+    "sector": "Software"
+  },
+  {
+    "id": 547,
+    "company_name": "CommerceBlock",
+    "sector": "Europe"
+  },
+  {
+    "id": 548,
+    "company_name": "Binance.US",
+    "sector": "Exchange"
+  },
+  {
+    "id": 549,
+    "company_name": "Binance.US",
+    "sector": "North America"
+  },
+  {
+    "id": 550,
+    "company_name": "Bybit",
+    "sector": "Exchange"
+  },
+  {
+    "id": 551,
+    "company_name": "Bybit",
+    "sector": "Asia"
+  },
+  {
+    "id": 552,
+    "company_name": "Worthpad",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 553,
+    "company_name": "Worthpad",
+    "sector": "Software"
+  },
+  {
+    "id": 554,
+    "company_name": "Worthpad",
+    "sector": "Exchange"
+  },
+  {
+    "id": 555,
+    "company_name": "Worthpad",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 556,
+    "company_name": "Worthpad",
+    "sector": "Europe"
+  },
+  {
+    "id": 557,
+    "company_name": "Ambire",
+    "sector": "Software"
+  },
+  {
+    "id": 558,
+    "company_name": "Ambire",
+    "sector": "Europe"
+  },
+  {
+    "id": 559,
+    "company_name": "WhaleFin",
+    "sector": "Exchange"
+  },
+  {
+    "id": 560,
+    "company_name": "WhaleFin",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 561,
+    "company_name": "WhaleFin",
+    "sector": "Asia"
+  },
+  {
+    "id": 562,
+    "company_name": "LetsExchange",
+    "sector": "Exchange"
+  },
+  {
+    "id": 563,
+    "company_name": "LetsExchange",
+    "sector": "Africa"
+  },
+  {
+    "id": 564,
+    "company_name": "Duelbits",
+    "sector": "Casino"
+  },
+  {
+    "id": 565,
+    "company_name": "Duelbits",
+    "sector": "South America"
+  },
+  {
+    "id": 566,
+    "company_name": "Aeon Law",
+    "sector": "Legal"
+  },
+  {
+    "id": 567,
+    "company_name": "Aeon Law",
+    "sector": "North America"
+  },
+  {
+    "id": 568,
+    "company_name": "OKX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 569,
+    "company_name": "OKX",
+    "sector": "Asia"
+  },
+  {
+    "id": 570,
+    "company_name": "Footprint Analytics",
+    "sector": "Software"
+  },
+  {
+    "id": 571,
+    "company_name": "Footprint Analytics",
+    "sector": "DeFi"
+  },
+  {
+    "id": 572,
+    "company_name": "Footprint Analytics",
+    "sector": "Asia"
+  },
+  {
+    "id": 573,
+    "company_name": "BlockDown",
+    "sector": "Media"
+  },
+  {
+    "id": 574,
+    "company_name": "BlockDown",
+    "sector": "Europe"
+  },
+  {
+    "id": 575,
+    "company_name": "SolRazr",
+    "sector": "Software"
+  },
+  {
+    "id": 576,
+    "company_name": "SolRazr",
+    "sector": "Development"
+  },
+  {
+    "id": 577,
+    "company_name": "SolRazr",
+    "sector": "Asia"
+  },
+  {
+    "id": 578,
+    "company_name": "Quantum Economics",
+    "sector": "Research"
+  },
+  {
+    "id": 579,
+    "company_name": "Quantum Economics",
+    "sector": "Advisory"
+  },
+  {
+    "id": 580,
+    "company_name": "Quantum Economics",
+    "sector": "Europe"
+  },
+  {
+    "id": 581,
+    "company_name": "Velo Trust",
+    "sector": "Exchange"
+  },
+  {
+    "id": 582,
+    "company_name": "Velo Trust",
+    "sector": "Europe"
+  },
+  {
+    "id": 583,
+    "company_name": "Ignite",
+    "sector": "Software"
+  },
+  {
+    "id": 584,
+    "company_name": "Ignite",
+    "sector": "Development"
+  },
+  {
+    "id": 585,
+    "company_name": "Ignite",
+    "sector": "North America"
+  },
+  {
+    "id": 586,
+    "company_name": "Galaxy Digital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 587,
+    "company_name": "Galaxy Digital",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 588,
+    "company_name": "Galaxy Digital",
+    "sector": "North America"
+  },
+  {
+    "id": 589,
+    "company_name": "Circle",
+    "sector": "Software"
+  },
+  {
+    "id": 590,
+    "company_name": "Circle",
+    "sector": "Research"
+  },
+  {
+    "id": 591,
+    "company_name": "Circle",
+    "sector": "Exchange"
+  },
+  {
+    "id": 592,
+    "company_name": "Circle",
+    "sector": "North America"
+  },
+  {
+    "id": 593,
+    "company_name": "BlockFi",
+    "sector": "Lending & Borrowing"
+  },
+  {
+    "id": 594,
+    "company_name": "BlockFi",
+    "sector": "North America"
+  },
+  {
+    "id": 595,
+    "company_name": "Launchpool Labs",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 596,
+    "company_name": "Launchpool Labs",
+    "sector": "Europe"
+  },
+  {
+    "id": 597,
+    "company_name": "Launchpool Labs",
+    "sector": "Asia"
+  },
+  {
+    "id": 598,
+    "company_name": "Morningstar Ventures",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 599,
+    "company_name": "Morningstar Ventures",
+    "sector": "Middle East"
+  },
+  {
+    "id": 600,
+    "company_name": "Matterblock",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 601,
+    "company_name": "Bity",
+    "sector": "Exchange"
+  },
+  {
+    "id": 602,
+    "company_name": "Bity",
+    "sector": "Europe"
+  },
+  {
+    "id": 603,
+    "company_name": "BitMEX",
+    "sector": "Research"
+  },
+  {
+    "id": 604,
+    "company_name": "BitMEX",
+    "sector": "Exchange"
+  },
+  {
+    "id": 605,
+    "company_name": "BitMEX",
+    "sector": "Asia"
+  },
+  {
+    "id": 606,
+    "company_name": "ConsenSys",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 607,
+    "company_name": "ConsenSys",
+    "sector": "Software"
+  },
+  {
+    "id": 608,
+    "company_name": "ConsenSys",
+    "sector": "Education"
+  },
+  {
+    "id": 609,
+    "company_name": "ConsenSys",
+    "sector": "Development"
+  },
+  {
+    "id": 610,
+    "company_name": "ConsenSys",
+    "sector": "Advisory"
+  },
+  {
+    "id": 611,
+    "company_name": "ConsenSys",
+    "sector": "North America"
+  },
+  {
+    "id": 612,
+    "company_name": "Dfinity",
+    "sector": "Software"
+  },
+  {
+    "id": 613,
+    "company_name": "Dfinity",
+    "sector": "Research"
+  },
+  {
+    "id": 614,
+    "company_name": "Dfinity",
+    "sector": "Development"
+  },
+  {
+    "id": 615,
+    "company_name": "Dfinity",
+    "sector": "North America"
+  },
+  {
+    "id": 616,
+    "company_name": "Dfinity",
+    "sector": "Europe"
+  },
+  {
+    "id": 617,
+    "company_name": "LimeWire",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 618,
+    "company_name": "LimeWire",
+    "sector": "Europe"
+  },
+  {
+    "id": 619,
+    "company_name": "CoinDesk",
+    "sector": "Media"
+  },
+  {
+    "id": 620,
+    "company_name": "CoinDesk",
+    "sector": "North America"
+  },
+  {
+    "id": 621,
+    "company_name": "Three Arrows Capital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 622,
+    "company_name": "Three Arrows Capital",
+    "sector": "Asia"
+  },
+  {
+    "id": 623,
+    "company_name": "Magic Eden",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 624,
+    "company_name": "Magic Eden",
+    "sector": "North America"
+  },
+  {
+    "id": 625,
+    "company_name": "Decrypt",
+    "sector": "Media"
+  },
+  {
+    "id": 626,
+    "company_name": "Decrypt",
+    "sector": "North America"
+  },
+  {
+    "id": 627,
+    "company_name": "Bakkt",
+    "sector": "Exchange"
+  },
+  {
+    "id": 628,
+    "company_name": "Bakkt",
+    "sector": "North America"
+  },
+  {
+    "id": 629,
+    "company_name": "Coinbase NFT",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 630,
+    "company_name": "Coinbase NFT",
+    "sector": "North America"
+  },
+  {
+    "id": 631,
+    "company_name": "Bridgewater Associates",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 632,
+    "company_name": "Bridgewater Associates",
+    "sector": "North America"
+  },
+  {
+    "id": 633,
+    "company_name": "Paradigm",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 634,
+    "company_name": "Paradigm",
+    "sector": "North America"
+  },
+  {
+    "id": 635,
+    "company_name": "GhostRider Ventures",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 636,
+    "company_name": "GhostRider Ventures",
+    "sector": "North America"
+  },
+  {
+    "id": 637,
+    "company_name": "Crypto.com NFT",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 638,
+    "company_name": "Crypto.com NFT",
+    "sector": "Asia"
+  },
+  {
+    "id": 639,
+    "company_name": "LooksRare",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 640,
+    "company_name": "LooksRare",
+    "sector": "North America"
+  },
+  {
+    "id": 641,
+    "company_name": "Singular",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 642,
+    "company_name": "Singular",
+    "sector": "Europe"
+  },
+  {
+    "id": 643,
+    "company_name": "Input Output",
+    "sector": "Software"
+  },
+  {
+    "id": 644,
+    "company_name": "Input Output",
+    "sector": "Research"
+  },
+  {
+    "id": 645,
+    "company_name": "Input Output",
+    "sector": "Development"
+  },
+  {
+    "id": 646,
+    "company_name": "Input Output",
+    "sector": "Asia"
+  },
+  {
+    "id": 647,
+    "company_name": "Solanart",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 648,
+    "company_name": "Solanart",
+    "sector": "North America"
+  },
+  {
+    "id": 649,
+    "company_name": "GiveCrypto",
+    "sector": "Philanthropy"
+  },
+  {
+    "id": 650,
+    "company_name": "GiveCrypto",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 651,
+    "company_name": "GiveCrypto",
+    "sector": "North America"
+  },
+  {
+    "id": 652,
+    "company_name": "Ava Labs",
+    "sector": "Software"
+  },
+  {
+    "id": 653,
+    "company_name": "Ava Labs",
+    "sector": "Development"
+  },
+  {
+    "id": 654,
+    "company_name": "Ava Labs",
+    "sector": "North America"
+  },
+  {
+    "id": 655,
+    "company_name": "Haun Ventures",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 656,
+    "company_name": "Haun Ventures",
+    "sector": "North America"
+  },
+  {
+    "id": 657,
+    "company_name": "Ascensive Assets",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 658,
+    "company_name": "Ascensive Assets",
+    "sector": "Asia"
+  },
+  {
+    "id": 659,
+    "company_name": "Kusama Kingdom",
+    "sector": "NFT Brand"
+  },
+  {
+    "id": 660,
+    "company_name": "Kusama Kingdom",
+    "sector": "Europe"
+  },
+  {
+    "id": 661,
+    "company_name": "Yuga Labs",
+    "sector": "NFT Brand"
+  },
+  {
+    "id": 662,
+    "company_name": "Yuga Labs",
+    "sector": "North America"
+  },
+  {
+    "id": 663,
+    "company_name": "Block",
+    "sector": "Software"
+  },
+  {
+    "id": 664,
+    "company_name": "Block",
+    "sector": "North America"
+  },
+  {
+    "id": 665,
+    "company_name": "Jsquare",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 666,
+    "company_name": "Jsquare",
+    "sector": "Asia"
+  },
+  {
+    "id": 667,
+    "company_name": "Optimism",
+    "sector": "Software"
+  },
+  {
+    "id": 668,
+    "company_name": "Optimism",
+    "sector": "Development"
+  },
+  {
+    "id": 669,
+    "company_name": "Optimism",
+    "sector": "North America"
+  },
+  {
+    "id": 670,
+    "company_name": "Reflexer Labs",
+    "sector": "Software"
+  },
+  {
+    "id": 671,
+    "company_name": "Reflexer Labs",
+    "sector": "Development"
+  },
+  {
+    "id": 672,
+    "company_name": "Reflexer Labs",
+    "sector": "North America"
+  },
+  {
+    "id": 673,
+    "company_name": "CoinList",
+    "sector": "Exchange"
+  },
+  {
+    "id": 674,
+    "company_name": "CoinList",
+    "sector": "North America"
+  },
+  {
+    "id": 675,
+    "company_name": "FTX US Derivatives (formerly LedgerX)",
+    "sector": "Exchange"
+  },
+  {
+    "id": 676,
+    "company_name": "FTX US Derivatives (formerly LedgerX)",
+    "sector": "North America"
+  },
+  {
+    "id": 677,
+    "company_name": "Bored Ape Yacht Club",
+    "sector": "NFT Brand"
+  },
+  {
+    "id": 678,
+    "company_name": "Bored Ape Yacht Club",
+    "sector": "North America"
+  },
+  {
+    "id": 679,
+    "company_name": "Sky Mavis",
+    "sector": "Software"
+  },
+  {
+    "id": 680,
+    "company_name": "Sky Mavis",
+    "sector": "Asia"
+  },
+  {
+    "id": 681,
+    "company_name": "Digital Finance Group",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 682,
+    "company_name": "Digital Finance Group",
+    "sector": "Asia"
+  },
+  {
+    "id": 683,
+    "company_name": "Quadency",
+    "sector": "Software"
+  },
+  {
+    "id": 684,
+    "company_name": "Quadency",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 685,
+    "company_name": "Quadency",
+    "sector": "North America"
+  },
+  {
+    "id": 686,
+    "company_name": "SwissBorg",
+    "sector": "Exchange"
+  },
+  {
+    "id": 687,
+    "company_name": "SwissBorg",
+    "sector": "Europe"
+  },
+  {
+    "id": 688,
+    "company_name": "Delphi Digital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 689,
+    "company_name": "Delphi Digital",
+    "sector": "Software"
+  },
+  {
+    "id": 690,
+    "company_name": "Delphi Digital",
+    "sector": "Research"
+  },
+  {
+    "id": 691,
+    "company_name": "Delphi Digital",
+    "sector": "North America"
+  },
+  {
+    "id": 692,
+    "company_name": "Crypto.com",
+    "sector": "Exchange"
+  },
+  {
+    "id": 693,
+    "company_name": "Crypto.com",
+    "sector": "Asia"
+  },
+  {
+    "id": 694,
+    "company_name": "DeFiance Capital",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 695,
+    "company_name": "DeFiance Capital",
+    "sector": "Asia"
+  },
+  {
+    "id": 696,
+    "company_name": "CoinGecko",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 697,
+    "company_name": "CoinGecko",
+    "sector": "Research"
+  },
+  {
+    "id": 698,
+    "company_name": "CoinGecko",
+    "sector": "Education"
+  },
+  {
+    "id": 699,
+    "company_name": "CoinGecko",
+    "sector": "Analytics"
+  },
+  {
+    "id": 700,
+    "company_name": "CoinGecko",
+    "sector": "Asia"
+  },
+  {
+    "id": 701,
+    "company_name": "Meta",
+    "sector": "Software"
+  },
+  {
+    "id": 702,
+    "company_name": "Meta",
+    "sector": "North America"
+  },
+  {
+    "id": 703,
+    "company_name": "Ark Invest",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 704,
+    "company_name": "Ark Invest",
+    "sector": "North America"
+  },
+  {
+    "id": 705,
+    "company_name": "Terraform Labs",
+    "sector": "Software"
+  },
+  {
+    "id": 706,
+    "company_name": "Terraform Labs",
+    "sector": "Development"
+  },
+  {
+    "id": 707,
+    "company_name": "Terraform Labs",
+    "sector": "Asia"
+  },
+  {
+    "id": 708,
+    "company_name": "Luna Foundation Guard",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 709,
+    "company_name": "Luna Foundation Guard",
+    "sector": "Asset Management"
+  },
+  {
+    "id": 710,
+    "company_name": "Luna Foundation Guard",
+    "sector": "Asia"
+  },
+  {
+    "id": 711,
+    "company_name": "Coinbase Ventures",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 712,
+    "company_name": "Coinbase Ventures",
+    "sector": "North America"
+  },
+  {
+    "id": 713,
+    "company_name": "IntoTheBlock",
+    "sector": "Software"
+  },
+  {
+    "id": 714,
+    "company_name": "IntoTheBlock",
+    "sector": "Research"
+  },
+  {
+    "id": 715,
+    "company_name": "IntoTheBlock",
+    "sector": "North America"
+  },
+  {
+    "id": 716,
+    "company_name": "Alameda Research",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 717,
+    "company_name": "Alameda Research",
+    "sector": "Research"
+  },
+  {
+    "id": 718,
+    "company_name": "Alameda Research",
+    "sector": "Asia"
+  },
+  {
+    "id": 719,
+    "company_name": "OpenSea",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 720,
+    "company_name": "OpenSea",
+    "sector": "North America"
+  },
+  {
+    "id": 721,
+    "company_name": "Symbiosis Labs",
+    "sector": "Software"
+  },
+  {
+    "id": 722,
+    "company_name": "Symbiosis Labs",
+    "sector": "Exchange"
+  },
+  {
+    "id": 723,
+    "company_name": "Symbiosis Labs",
+    "sector": "Europe"
+  },
+  {
+    "id": 724,
+    "company_name": "42 Studio",
+    "sector": "Marketing"
+  },
+  {
+    "id": 725,
+    "company_name": "42 Studio",
+    "sector": "Development"
+  },
+  {
+    "id": 726,
+    "company_name": "42 Studio",
+    "sector": "Asia"
+  },
+  {
+    "id": 727,
+    "company_name": "The Block",
+    "sector": "Media"
+  },
+  {
+    "id": 728,
+    "company_name": "The Block",
+    "sector": "North America"
+  },
+  {
+    "id": 729,
+    "company_name": "Cointelegraph",
+    "sector": "Media"
+  },
+  {
+    "id": 730,
+    "company_name": "Cointelegraph",
+    "sector": "North America"
+  },
+  {
+    "id": 731,
+    "company_name": "Cointelegraph",
+    "sector": "Europe"
+  },
+  {
+    "id": 732,
+    "company_name": "Zebu Digital",
+    "sector": "Marketing"
+  },
+  {
+    "id": 733,
+    "company_name": "Zebu Digital",
+    "sector": "Europe"
+  },
+  {
+    "id": 734,
+    "company_name": "Blockworks",
+    "sector": "Media"
+  },
+  {
+    "id": 735,
+    "company_name": "Blockworks",
+    "sector": "North America"
+  },
+  {
+    "id": 736,
+    "company_name": "SmartFi",
+    "sector": "Exchange"
+  },
+  {
+    "id": 737,
+    "company_name": "SmartFi",
+    "sector": "North America"
+  },
+  {
+    "id": 738,
+    "company_name": "Spendabit",
+    "sector": "Retail"
+  },
+  {
+    "id": 739,
+    "company_name": "Spendabit",
+    "sector": "North America"
+  },
+  {
+    "id": 740,
+    "company_name": "Onomy Protocol",
+    "sector": "Exchange"
+  },
+  {
+    "id": 741,
+    "company_name": "Onomy Protocol",
+    "sector": "Development"
+  },
+  {
+    "id": 742,
+    "company_name": "Onomy Protocol",
+    "sector": "North America"
+  },
+  {
+    "id": 743,
+    "company_name": "MINERSET",
+    "sector": "Software"
+  },
+  {
+    "id": 744,
+    "company_name": "MINERSET",
+    "sector": "Retail"
+  },
+  {
+    "id": 745,
+    "company_name": "MINERSET",
+    "sector": "Accelerator"
+  },
+  {
+    "id": 746,
+    "company_name": "MINERSET",
+    "sector": "Asia"
+  },
+  {
+    "id": 747,
+    "company_name": "zkLend",
+    "sector": "DeFi"
+  },
+  {
+    "id": 748,
+    "company_name": "zkLend",
+    "sector": "Asia"
+  },
+  {
+    "id": 749,
+    "company_name": "Autograph",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 750,
+    "company_name": "Autograph",
+    "sector": "North America"
+  },
+  {
+    "id": 751,
+    "company_name": "Swyftx",
+    "sector": "Exchange"
+  },
+  {
+    "id": 752,
+    "company_name": "Swyftx",
+    "sector": "Oceania"
+  },
+  {
+    "id": 753,
+    "company_name": "Animoca Brands",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 754,
+    "company_name": "Animoca Brands",
+    "sector": "Entertainment"
+  },
+  {
+    "id": 755,
+    "company_name": "Animoca Brands",
+    "sector": "Development"
+  },
+  {
+    "id": 756,
+    "company_name": "Animoca Brands",
+    "sector": "Asia"
+  },
+  {
+    "id": 757,
+    "company_name": "Union Square Ventures",
+    "sector": "Venture Capital"
+  },
+  {
+    "id": 758,
+    "company_name": "Union Square Ventures",
+    "sector": "North America"
+  },
+  {
+    "id": 759,
+    "company_name": "Dapper Labs",
+    "sector": "NFT Marketplace"
+  },
+  {
+    "id": 760,
+    "company_name": "Dapper Labs",
+    "sector": "Development"
+  },
+  {
+    "id": 761,
+    "company_name": "Dapper Labs",
+    "sector": "North America"
+  },
+  {
+    "id": 762,
+    "company_name": "Blockchain Game Alliance",
+    "sector": "Nonprofit"
+  },
+  {
+    "id": 763,
+    "company_name": "Blockchain Game Alliance",
+    "sector": "Education"
+  },
+  {
+    "id": 764,
+    "company_name": "Blockchain Game Alliance",
+    "sector": "North America"
+  },
+  {
+    "id": 765,
+    "company_name": "XT.COM Exchange",
+    "sector": "Exchange"
+  },
+  {
+    "id": 766,
+    "company_name": "XT.COM Exchange",
+    "sector": "Asia"
+  },
+  {
+    "id": 767,
+    "company_name": "CertiK",
+    "sector": "Software"
+  },
+  {
+    "id": 768,
+    "company_name": "CertiK",
+    "sector": "Auditing Firm"
+  },
+  {
+    "id": 769,
+    "company_name": "CertiK",
+    "sector": "North America"
+  },
+  {
+    "id": 770,
+    "company_name": "Strike",
+    "sector": "Software"
+  },
+  {
+    "id": 771,
+    "company_name": "Strike",
+    "sector": "Payments"
+  },
+  {
+    "id": 772,
+    "company_name": "Strike",
+    "sector": "North America"
+  }
+]

@@ -34,4 +34,4 @@ Desktop.ini
 .yarnrc.yml
 
 #Docker volumes
-/docker/data/
+/docker/db

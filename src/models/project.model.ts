@@ -1,3 +1,4 @@
+import { BlockList } from 'net';
 import {
   Entity,
   Column,
@@ -8,7 +9,16 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { CategoryModel, CompanyModel, PersonModel, ProductModel, SectorModel } from '../models';
+import {
+  CategoryModel,
+  CompanyModel,
+  BlockchainModel,
+  ProductModel,
+  SectorModel,
+  TeamModel,
+  ExchangeModel,
+  WalletModel,
+} from '../models';
 @Entity('project', { synchronize: true })
 export class ProjectModel {
   // id - primary id unique
@@ -18,20 +28,44 @@ export class ProjectModel {
   @Column('varchar', { name: 'name' })
   name: string;
 
-  @ManyToOne(() => CompanyModel, (company) => company.persons)
+  @ManyToOne(() => CompanyModel, (company) => company.projects)
   @JoinColumn({ name: 'company_id' })
   companyId: string;
 
   @OneToMany(() => ProductModel, (product) => product.projectId)
   products: ProductModel[];
 
-  // @ManyToMany(() => PersonModel)
-  // @JoinTable({
-  //   name: 'project_persons',
-  //   joinColumn: { name: 'project_id', referencedColumnName: 'id' },
-  //   inverseJoinColumn: { name: 'person_id', referencedColumnName: 'id' },
-  // })
-  // persons: PersonModel[];
+  @ManyToMany(() => TeamModel)
+  @JoinTable({
+    name: 'project_teams',
+    joinColumn: { name: 'project_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'team_id', referencedColumnName: 'id' },
+  })
+  teams: TeamModel[];
+
+  @ManyToMany(() => BlockchainModel)
+  @JoinTable({
+    name: 'project_blockchains',
+    joinColumn: { name: 'project_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'blockchain_id', referencedColumnName: 'id' },
+  })
+  blockchains: BlockchainModel[];
+
+  @ManyToMany(() => ExchangeModel)
+  @JoinTable({
+    name: 'project_exchanges',
+    joinColumn: { name: 'project_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'exchange_id', referencedColumnName: 'id' },
+  })
+  exchanges: ExchangeModel[];
+
+  @ManyToMany(() => WalletModel)
+  @JoinTable({
+    name: 'project_wallets',
+    joinColumn: { name: 'project_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'wallet_id', referencedColumnName: 'id' },
+  })
+  wallets: WalletModel[];
 
   @ManyToMany(() => SectorModel)
   @JoinTable({
@@ -70,41 +104,44 @@ export class ProjectModel {
   @Column({ name: 'avatar', nullable: true })
   avatar: string;
 
-  @Column({ name: 'summary', nullable: true })
-  summary: string;
+  @Column({ name: 'about', nullable: true })
+  about: string;
 
   @Column({ name: 'review', nullable: true })
   review: string;
 
-  @Column({ name: 'twitter_url', nullable: true })
-  twitterUrl: string;
+  @Column({ name: 'twitter', nullable: true })
+  twitter: string;
 
-  @Column({ name: 'telegram_url', nullable: true })
-  telegramUrl: string;
+  @Column({ name: 'telegram', nullable: true })
+  telegram: string;
 
-  @Column({ name: 'facebook_url', nullable: true })
-  facebookUrl: string;
+  @Column({ name: 'facebook', nullable: true })
+  facebook: string;
 
-  @Column({ name: 'instagram_url', nullable: true })
-  instagramUrl: string;
+  @Column({ name: 'instagram', nullable: true })
+  instagram: string;
 
-  @Column({ name: 'linkedin_url', nullable: true })
-  linkedinUrl: string;
+  @Column({ name: 'linkedin', nullable: true })
+  linkedin: string;
 
-  @Column({ name: 'github_url', nullable: true })
-  githubUrl: string;
+  @Column({ name: 'github', nullable: true })
+  github: string;
 
-  @Column({ name: 'medium_url', nullable: true })
-  mediumUrl: string;
+  @Column({ name: 'medium', nullable: true })
+  medium: string;
 
-  @Column({ name: 'youtube_url', nullable: true })
-  youtubeUrl: string;
+  @Column({ name: 'youtube', nullable: true })
+  youtube: string;
 
-  @Column({ name: 'website_url', nullable: true })
-  websiteUrl: string;
+  @Column({ name: 'website', nullable: true })
+  website: string;
 
-  @Column({ name: 'blog_url', nullable: true })
-  blogUrl: string;
+  @Column({ name: 'blog', nullable: true })
+  blog: string;
+
+  @Column({ name: 'reddit', nullable: true })
+  reddit: string;
 
   @Column({ name: 'whitepaper', nullable: true })
   whitepaper: string;

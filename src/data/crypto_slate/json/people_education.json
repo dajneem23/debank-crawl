@@ -1,0 +1,2007 @@
+[
+  {
+    "id": 1,
+    "person_name": "Tim Draper",
+    "education": "Stanford University - BS -Electrical Engineering - 1976-1980"
+  },
+  {
+    "id": 2,
+    "person_name": "Tim Draper",
+    "education": "Harvard Business School - MBA -Business - 1982-1984"
+  },
+  {
+    "id": 3,
+    "person_name": "Marc Andreessen",
+    "education": "University of Illinois at Urbana-Champaign - 1993"
+  },
+  {
+    "id": 4,
+    "person_name": "Thomas Lee",
+    "education": "The Wharton School - 1987-1991"
+  },
+  {
+    "id": 5,
+    "person_name": "Jacob Canfield",
+    "education": "Western Michigan University - B.S. -Biomedical Sciences - 2002-2006"
+  },
+  {
+    "id": 6,
+    "person_name": "Jacob Canfield",
+    "education": "Life University - Doctor of Chiropractic - 2006-2010"
+  },
+  {
+    "id": 7,
+    "person_name": "Justin Wu",
+    "education": "University of Washington - Information Architecture - 2008-2013"
+  },
+  {
+    "id": 8,
+    "person_name": "Dan Morehead",
+    "education": "Princeton University - B.S.E -Civil Engineering -"
+  },
+  {
+    "id": 9,
+    "person_name": "Arthur Hayes",
+    "education": "University of Pennsylvania - Bachelors of Science in Economics -Finance - 2004-2008"
+  },
+  {
+    "id": 10,
+    "person_name": "Dan Larimer",
+    "education": "Virginia Tech - Computer Science - 2000-2003"
+  },
+  {
+    "id": 11,
+    "person_name": "Brock Pierce",
+    "education": "University of Southern California - Film -"
+  },
+  {
+    "id": 12,
+    "person_name": "Erik Voorhees",
+    "education": "University of Puget Sound - Business Leadership and Political Economics - 2003-2007"
+  },
+  {
+    "id": 13,
+    "person_name": "Max Keiser",
+    "education": "New York University - BA - 1979-1983"
+  },
+  {
+    "id": 14,
+    "person_name": "Tone Vays",
+    "education": "State University of New York at New Paltz - BS -Geopolitical/Geophysical Engineering - 1997-2002"
+  },
+  {
+    "id": 15,
+    "person_name": "Tone Vays",
+    "education": "Florida State University - MS -Financial Engineering - 2003-2005"
+  },
+  {
+    "id": 16,
+    "person_name": "Meltem Demirors",
+    "education": "Rice University - B.A. -Mathematical Economics - 2005-2009"
+  },
+  {
+    "id": 17,
+    "person_name": "Meltem Demirors",
+    "education": "MIT Sloan School of Management - MBA - 2013-2015"
+  },
+  {
+    "id": 18,
+    "person_name": "Olaf Carlson-Wee",
+    "education": "Vassar College - Bachelor of Arts -Sociology - 2008-2012"
+  },
+  {
+    "id": 19,
+    "person_name": "Jesse Proudman",
+    "education": "Entrepreneurs Organization at MIT - Entrepreneurial Masters Program Certificate - 2012-2014"
+  },
+  {
+    "id": 20,
+    "person_name": "Jesse Proudman",
+    "education": "University of Puget Sound - BA -Business Leadership Program - 2003-2007"
+  },
+  {
+    "id": 21,
+    "person_name": "Joey Krug",
+    "education": "Pomona College - Computer Science - 2013-2014"
+  },
+  {
+    "id": 22,
+    "person_name": "Tyler Winklevoss",
+    "education": "Harvard University - B.A. -Economics - 2000-2004"
+  },
+  {
+    "id": 23,
+    "person_name": "Tyler Winklevoss",
+    "education": "University of Oxford - MBA - 2009-2010"
+  },
+  {
+    "id": 24,
+    "person_name": "Cameron Winklevoss",
+    "education": "Harvard University - Bachelor's Degree -Economics - 200-2004"
+  },
+  {
+    "id": 25,
+    "person_name": "Cameron Winklevoss",
+    "education": "University of Oxford - MBA - 2009-2010"
+  },
+  {
+    "id": 26,
+    "person_name": "Robert Mao",
+    "education": "Southeast University - Bach. -Computer Science - 1990-1994"
+  },
+  {
+    "id": 27,
+    "person_name": "Robert Mao",
+    "education": "China Europe International Business School - Management - 2000"
+  },
+  {
+    "id": 28,
+    "person_name": "Charlie Shrem",
+    "education": "City University of New York-Brooklyn College - BS -Economics & Science - 2008-2012"
+  },
+  {
+    "id": 29,
+    "person_name": "David Chaum",
+    "education": "University of California Berkeley - Ph.D. -Computer Science and Business Administration - 1982"
+  },
+  {
+    "id": 30,
+    "person_name": "Nick Szabo",
+    "education": "University of Washington - Computer Science - 1989"
+  },
+  {
+    "id": 31,
+    "person_name": "Eman Pulis",
+    "education": "University of Malta - Bachelors of Education -Psychology -Kinesiology -First Class Honours - 2001-2005"
+  },
+  {
+    "id": 32,
+    "person_name": "Eman Pulis",
+    "education": "University of Malta - Master of Fine Arts. Creativity and Innovation - 2005-2007"
+  },
+  {
+    "id": 33,
+    "person_name": "Eman Pulis",
+    "education": "University of Malta - Master of Fine Arts - MFA -Diplomatic Studies - 2006-2007"
+  },
+  {
+    "id": 34,
+    "person_name": "Jeremy Allaire",
+    "education": "Macalester College - BA -Politcal Science -Economics -Philosophy -"
+  },
+  {
+    "id": 35,
+    "person_name": "Will Warren",
+    "education": "University of California -San Diego - B.S. -Mechanical Engineering - 2010-2013"
+  },
+  {
+    "id": 36,
+    "person_name": "Will Warren",
+    "education": "University of California -San Diego - Ph.D. Dropout -Structural Engineering - 2014-2016"
+  },
+  {
+    "id": 37,
+    "person_name": "Vinny Lingham",
+    "education": "University of South Africa - Honours -E-Commerce -Cum Laude - 2000-2001"
+  },
+  {
+    "id": 38,
+    "person_name": "Brendan Eich",
+    "education": "Santa Clara University - BS -Math/Computer Science - 1979-1983"
+  },
+  {
+    "id": 39,
+    "person_name": "Brendan Eich",
+    "education": "University of Illinois at Urbana-Champaign - MS -Computer Science - 1983-1985"
+  },
+  {
+    "id": 40,
+    "person_name": "Adam Back",
+    "education": "University of Exeter - Ph.D. -Computer Science - 1992-1995"
+  },
+  {
+    "id": 41,
+    "person_name": "Anthony Pompliano",
+    "education": "Bucknell University - BA -Double Major in Economics and Sociology -"
+  },
+  {
+    "id": 42,
+    "person_name": "Linda Xie",
+    "education": "University of California -San Diego - B.A. -Economics - 2009-2012"
+  },
+  {
+    "id": 43,
+    "person_name": "Neeraj K. Agrawal",
+    "education": "Syracuse University - BA -Policy Studies -Political Science - 2006-2010"
+  },
+  {
+    "id": 44,
+    "person_name": "Galia Benartzi",
+    "education": "The Johns Hopkins University -"
+  },
+  {
+    "id": 45,
+    "person_name": "Alistair Milne",
+    "education": "CryptoCurrency Certification Consortium - Certified Bitcoin Professional - 2015"
+  },
+  {
+    "id": 46,
+    "person_name": "Alistair Milne",
+    "education": "Peter Symonds College - Computer Science - 2004-2006"
+  },
+  {
+    "id": 47,
+    "person_name": "Alistair Milne",
+    "education": "UMIST -Manchester - Computer Science - 1996-1999"
+  },
+  {
+    "id": 48,
+    "person_name": "Brian Kelly",
+    "education": "University of Vermont - BA - 1989-1993"
+  },
+  {
+    "id": 49,
+    "person_name": "Brian Kelly",
+    "education": "Babson F.W. Olin Graduate School of Business - MBA - 1993-1995"
+  },
+  {
+    "id": 50,
+    "person_name": "Laura Shin",
+    "education": "Colombia University - Graduate School of Journalism - Master of Arts -Science Journalism - 2007-2008"
+  },
+  {
+    "id": 51,
+    "person_name": "Laura Shin",
+    "education": "Stanford University - BA -Modern Thought and Literature - 1993-1997"
+  },
+  {
+    "id": 52,
+    "person_name": "Tuur Demeester",
+    "education": "Sint-Lodewijkcollege Brugge - Graduate -Science - Modern Languages - 1995-2001"
+  },
+  {
+    "id": 53,
+    "person_name": "Tuur Demeester",
+    "education": "Universiteit Gent - Various Classes - 2003-2006"
+  },
+  {
+    "id": 54,
+    "person_name": "Barry Silbert",
+    "education": "Emory University - Goizueta Busainess School - BBA -Finance - 1994-1998"
+  },
+  {
+    "id": 55,
+    "person_name": "Nouriel Roubini",
+    "education": "Bocconi University - Laurea BA -Economics - 1977-1982"
+  },
+  {
+    "id": 56,
+    "person_name": "Nouriel Roubini",
+    "education": "Harvard University - Ph.D. -Economics - 1983-1988"
+  },
+  {
+    "id": 57,
+    "person_name": "Jeff Garzik",
+    "education": "Georgia Institute of Technology - Computer Science - 1992-1996"
+  },
+  {
+    "id": 58,
+    "person_name": "Jesse Powell",
+    "education": "California State University - Sacramento - Philosophy w/ Concentration in Ethics & Law -"
+  },
+  {
+    "id": 59,
+    "person_name": "Bill Barhydt",
+    "education": "Stanford University - Computer Science - 1990-1991"
+  },
+  {
+    "id": 60,
+    "person_name": "Andy Cheung",
+    "education": "eCommerce at Bond University - Bachelor of Information Technology -"
+  },
+  {
+    "id": 61,
+    "person_name": "Wei Zhou",
+    "education": "Shanghai Jiao Tong University - Associate's degree -Accounting and Financial Management - 2000"
+  },
+  {
+    "id": 62,
+    "person_name": "Wei Zhou",
+    "education": "Harvard University - Bachelor's degree -Economics and East Asian Studies - 1996-2001"
+  },
+  {
+    "id": 63,
+    "person_name": "Yoni Assia",
+    "education": "Microsoft - Microsoft Certified Solutions Developer - 1999"
+  },
+  {
+    "id": 64,
+    "person_name": "Yoni Assia",
+    "education": "Open University - BA -Management and Computer Scienes - 2003-2005"
+  },
+  {
+    "id": 65,
+    "person_name": "Yoni Assia",
+    "education": "IDC Herzliya - Msc -Computer Sciences - 2005-2007"
+  },
+  {
+    "id": 66,
+    "person_name": "Michael Moro",
+    "education": "Georgetown University McDonough School of Business - BS -Business Administration - 1996-2000"
+  },
+  {
+    "id": 67,
+    "person_name": "Vlad Zamfir",
+    "education": "University of Guelph - Bachelor's degree -Mathematics - 2008-2012"
+  },
+  {
+    "id": 68,
+    "person_name": "Chris Burniske",
+    "education": "Stanford University - BS -Earth Systems -Phi Beta Kapa - 2008-2013"
+  },
+  {
+    "id": 69,
+    "person_name": "Hal Finney",
+    "education": "California Institute of Technology - BS -Engineering -Computer Science - 1974-1079"
+  },
+  {
+    "id": 70,
+    "person_name": "Gabriel Anderson",
+    "education": "Concordia University-Irvine - 1998-1999 -"
+  },
+  {
+    "id": 71,
+    "person_name": "Gabriel Anderson",
+    "education": "California State University-Fullterton - B.A. -Finance - 1998-2003"
+  },
+  {
+    "id": 72,
+    "person_name": "Nikolay Storonsky",
+    "education": "Moscow Institute of Physics and Technology - MSc -General and Applied Physics - 2001-2007"
+  },
+  {
+    "id": 73,
+    "person_name": "Nikolay Storonsky",
+    "education": "New Economic School - MA -Applied Electronics and Finance - 2005-2007"
+  },
+  {
+    "id": 74,
+    "person_name": "Jacobo Toll-Messia",
+    "education": "University of Greenwich - MSc -Distributed Computing Systems - 2002-2004"
+  },
+  {
+    "id": 75,
+    "person_name": "Kwun-Phite Lock",
+    "education": "University of Washington - B.S. -Economics - 2007-2011"
+  },
+  {
+    "id": 76,
+    "person_name": "Kwun-Phite Lock",
+    "education": "China Europe International Business School - MBA - 2017-2019"
+  },
+  {
+    "id": 77,
+    "person_name": "Tim Coulter",
+    "education": "Florida Institute of Technology - B.S. -Software Engineering - 2003-2007"
+  },
+  {
+    "id": 78,
+    "person_name": "Jonathan G. Blanco",
+    "education": "Universidad de Cádiz - Spanish Language and Literature - 2004"
+  },
+  {
+    "id": 79,
+    "person_name": "Jonathan G. Blanco",
+    "education": "University of Washington -Michael G. Foster School of Business - Bachelor's Degree -Entrepreneurial Studies - 2001-2005"
+  },
+  {
+    "id": 80,
+    "person_name": "Samantha Yap",
+    "education": "Glen Waverley Secondary College - Victorian Certificate of Education - 2006-2010"
+  },
+  {
+    "id": 81,
+    "person_name": "Samantha Yap",
+    "education": "Unversitas Gadjah Mada - Advanced Indonesian - 2012"
+  },
+  {
+    "id": 82,
+    "person_name": "Samantha Yap",
+    "education": "Universitas Katolik Indonesia Atma Jaya - Intensive Language Program -Indonesian Language - 2013"
+  },
+  {
+    "id": 83,
+    "person_name": "Samantha Yap",
+    "education": "The University of Hong Kong - Broadcast Journalism - 2013"
+  },
+  {
+    "id": 84,
+    "person_name": "Samantha Yap",
+    "education": "Monash University - Bachelor of Journalism - 2011-2013"
+  },
+  {
+    "id": 85,
+    "person_name": "Dave Pulis",
+    "education": "University of Malta - B.Commerce -Management and Public Policy - 2002-2005"
+  },
+  {
+    "id": 86,
+    "person_name": "Dave Pulis",
+    "education": "University of Malta - Master in Lateral Thinking - 2005-2007"
+  },
+  {
+    "id": 87,
+    "person_name": "Kate Mitselmakher",
+    "education": "Lomonosov Moscow State University - BS -Economics - 2004-2006"
+  },
+  {
+    "id": 88,
+    "person_name": "Kate Mitselmakher",
+    "education": "University of Florida - Bachelor's of Science -Business Administration - 2006-2010"
+  },
+  {
+    "id": 89,
+    "person_name": "Kate Mitselmakher",
+    "education": "Harvard University - Master of Arts -International Relations and Affairs - 2015-2017"
+  },
+  {
+    "id": 90,
+    "person_name": "Chris Jones",
+    "education": "Georgetown University McDonough School of Business - BSBA -Marketing/Management - 1991-1995"
+  },
+  {
+    "id": 91,
+    "person_name": "Chris Jones",
+    "education": "Northwestern University - Kellogg School of Management - MBA -Marketing - 2000-2002"
+  },
+  {
+    "id": 92,
+    "person_name": "Charles Hoskinson",
+    "education": "University of Colorado Boulder - Mathematics and Cryptography - 2008-2010"
+  },
+  {
+    "id": 93,
+    "person_name": "Kory Hoang",
+    "education": "University of Washington Bothell - BBA -Finance & Marketing - 2012-2015"
+  },
+  {
+    "id": 94,
+    "person_name": "Leon Li",
+    "education": "Tsinghua University - Master's Degree -"
+  },
+  {
+    "id": 95,
+    "person_name": "Spencer Dinwiddie",
+    "education": "University of Colorado Boulder -"
+  },
+  {
+    "id": 96,
+    "person_name": "Michael Arrington",
+    "education": "Stanford Law School - Law - 1995"
+  },
+  {
+    "id": 97,
+    "person_name": "Taylor Monahan",
+    "education": "New York University - Dropout -Film & Television -Minor in Producing - 2008-2012"
+  },
+  {
+    "id": 98,
+    "person_name": "Edward Moncada",
+    "education": "University of California -Berkeley - BS -Engineering - 1997"
+  },
+  {
+    "id": 99,
+    "person_name": "Adam White",
+    "education": "University of California -Davis - BS -Optical Engineering - 2001-2006"
+  },
+  {
+    "id": 100,
+    "person_name": "Adam White",
+    "education": "Harvard Business School - MBA - 2011-2013"
+  },
+  {
+    "id": 101,
+    "person_name": "Fred Ehrsam",
+    "education": "Duke University - B.S. -Computer Science -Economics -"
+  },
+  {
+    "id": 102,
+    "person_name": "Kosala Hemachandra",
+    "education": "California State University Northridge - Bachelor's degree -Computer Engineering - 2010-2016"
+  },
+  {
+    "id": 103,
+    "person_name": "Michael Novogratz",
+    "education": "Princeton - Economics - 1985-1989"
+  },
+  {
+    "id": 104,
+    "person_name": "David Marcus",
+    "education": "University of Geneva - Economics - 1992-1994"
+  },
+  {
+    "id": 105,
+    "person_name": "Su Zhu",
+    "education": "Columbia University in the City of New York - Bachelor of Arts (B.A.) -Mathematics -Summa cum Laude -Phi Beta Kappa -"
+  },
+  {
+    "id": 106,
+    "person_name": "Alex Krüger",
+    "education": "Universidad del CEMA - MS -Finance -"
+  },
+  {
+    "id": 107,
+    "person_name": "Alex Krüger",
+    "education": "Universidad Torcuato di Tella - BS -Economics -"
+  },
+  {
+    "id": 108,
+    "person_name": "Alex Krüger",
+    "education": "Columbia University - Columbia Business School - MBA -Finance -"
+  },
+  {
+    "id": 109,
+    "person_name": "Ryan Sean Adams",
+    "education": "Brock University - BA -Honors -Business Administration -"
+  },
+  {
+    "id": 110,
+    "person_name": "Lawrence Lerner",
+    "education": "University of Chicago - Math - 1982-1986"
+  },
+  {
+    "id": 111,
+    "person_name": "Charlie Lee",
+    "education": "Massachusetts Institute of Technology - Computer Science - 1995-2000"
+  },
+  {
+    "id": 112,
+    "person_name": "Vitalik Buterin",
+    "education": "University of Waterloo - Computer Science - 2012-2013"
+  },
+  {
+    "id": 113,
+    "person_name": "Da Hongfei",
+    "education": "South China University of Technology - B.A. -Technology and English - 1997-2001"
+  },
+  {
+    "id": 114,
+    "person_name": "Travis Kling",
+    "education": "Texas A&M University - Mays Business School - BBA -Accounting - 2003-2007"
+  },
+  {
+    "id": 115,
+    "person_name": "Travis Kling",
+    "education": "Texas A&M University - Mays Business School - MS -Finance - 2007-2008"
+  },
+  {
+    "id": 116,
+    "person_name": "Caitlin Long",
+    "education": "University of Wyoming - BA -Political Economy - 1987-1990"
+  },
+  {
+    "id": 117,
+    "person_name": "Caitlin Long",
+    "education": "Harvard Kennedy School of Government - MPP -International Trade and Finance - 1990-1994"
+  },
+  {
+    "id": 118,
+    "person_name": "Caitlin Long",
+    "education": "Harvard Law School - JD -Law - 1990-1994"
+  },
+  {
+    "id": 119,
+    "person_name": "Sasha Ivanov",
+    "education": "Lomonosov Moscow State University (MSU) - Specialist Degree -Theoretical and Mathematical Physics - 1995-1999"
+  },
+  {
+    "id": 120,
+    "person_name": "Sasha Ivanov",
+    "education": "Leipzig University - Post Graduate Program - 2002"
+  },
+  {
+    "id": 121,
+    "person_name": "Joseph Muscat",
+    "education": "University of Malta - Bachelor of Commerce in Management and Public Policy - 1995"
+  },
+  {
+    "id": 122,
+    "person_name": "Joseph Muscat",
+    "education": "University of Malta - Bachelor of Arts with Honours in Public Policy - 1996"
+  },
+  {
+    "id": 123,
+    "person_name": "Joseph Muscat",
+    "education": "University of Malta - Master of Arts in European Studies - 1997"
+  },
+  {
+    "id": 124,
+    "person_name": "Joseph Muscat",
+    "education": "University of Bristol - Doctorate of Philosophy in Management Research - 2007"
+  },
+  {
+    "id": 125,
+    "person_name": "Paolo Ardoino",
+    "education": "Lico Scientifico - Bachelor of Science (BS) - 1998-2003"
+  },
+  {
+    "id": 126,
+    "person_name": "Paolo Ardoino",
+    "education": "Università degli Studi di Genova - Bachelor of Computer Science - 2003-2008"
+  },
+  {
+    "id": 127,
+    "person_name": "Jean-Louis van der Velde",
+    "education": "National Taiwan Normal University - 1985-1988"
+  },
+  {
+    "id": 128,
+    "person_name": "James Todaro",
+    "education": "Providence Collge - Bachelor's Degree -Chemistry - 2004-2008"
+  },
+  {
+    "id": 129,
+    "person_name": "James Todaro",
+    "education": "Columbia University College of Physicians and Surgeons - Doctor of Medicine (M.D.) - 2010-2014"
+  },
+  {
+    "id": 130,
+    "person_name": "Ari Paul",
+    "education": "University of Pennsylvania - BA -Politcal Science - 2002-2006"
+  },
+  {
+    "id": 131,
+    "person_name": "Ari Paul",
+    "education": "The University of Chicago - MBA -Econometrics & Statistics -Entrepreneurship -Strategic Management and Economics - 2011-2014"
+  },
+  {
+    "id": 132,
+    "person_name": "Elizabeth Stark",
+    "education": "Harvard University - Doctor of Law -"
+  },
+  {
+    "id": 133,
+    "person_name": "Marco Streng",
+    "education": "Ludwig-Maximillians Universität München - Mathematics - 2011-2013"
+  },
+  {
+    "id": 134,
+    "person_name": "Craig Wright",
+    "education": "Northumbria University - Master of Laws -LLM -"
+  },
+  {
+    "id": 135,
+    "person_name": "Craig Wright",
+    "education": "University of Newcastle - Master of Statistics -Mathematics - 2006-2009"
+  },
+  {
+    "id": 136,
+    "person_name": "Craig Wright",
+    "education": "Charles Sturt University - Doctor of Philosophy - PhD -Computer Science / Economics - 2008-2014"
+  },
+  {
+    "id": 137,
+    "person_name": "Chris Larsen",
+    "education": "Stanford Graduate School of Business - MBA -1989-1991"
+  },
+  {
+    "id": 138,
+    "person_name": "Chris Larsen",
+    "education": "San Francisco State University - B.A.Sc. Accounting & Finance - 1982-1984"
+  },
+  {
+    "id": 139,
+    "person_name": "Alex Mashinsky",
+    "education": "The Open University of Israel - Bachelor of Engineering - 1980-1982"
+  },
+  {
+    "id": 140,
+    "person_name": "Alex Mashinsky",
+    "education": "Tel Aviv University - Bachelor of Science - BS -Economics - 1987-1989"
+  },
+  {
+    "id": 141,
+    "person_name": "Changpeng Zhao",
+    "education": "McGill University - Computer Science -"
+  },
+  {
+    "id": 142,
+    "person_name": "Cal Evans",
+    "education": "University of Surrey - LLB (Hons) -Law - 2006-2009"
+  },
+  {
+    "id": 143,
+    "person_name": "Cal Evans",
+    "education": "University of Law - PGDip LP -Legal Practice Course - 2009-2010"
+  },
+  {
+    "id": 144,
+    "person_name": "Cal Evans",
+    "education": "Yale School of Management - Certificate -Financial Markets - 2016"
+  },
+  {
+    "id": 145,
+    "person_name": "Cal Evans",
+    "education": "Institute of Blockchain - Certified Cryptocurrency Expert - 2019"
+  },
+  {
+    "id": 146,
+    "person_name": "Rune Christensen",
+    "education": "Copenhagen Business School - International Business - 2011-2013"
+  },
+  {
+    "id": 147,
+    "person_name": "Rune Christensen",
+    "education": "Københavns Universitet - Biochemistry - 2013-2014"
+  },
+  {
+    "id": 148,
+    "person_name": "Steven Becker",
+    "education": "University of Cape Town - Bachelor of Business Science (Hons) Finance -Financial Accounting and Economics -"
+  },
+  {
+    "id": 149,
+    "person_name": "Steven Becker",
+    "education": "University of Cape Town - Master of Science (M.Sc) Financial Mathematics - 2000-2002"
+  },
+  {
+    "id": 150,
+    "person_name": "Sam Williams",
+    "education": "University of Kent - Doctor of Philosophy - Ph.D.-Computer Science - 2014"
+  },
+  {
+    "id": 151,
+    "person_name": "Sam Williams",
+    "education": "University of Nottingham - First class Bsc Hons -Computet Science - 2011-2014"
+  },
+  {
+    "id": 152,
+    "person_name": "Kathleen Breitman",
+    "education": "New York University - 2008-2012 -"
+  },
+  {
+    "id": 153,
+    "person_name": "Kathleen Breitman",
+    "education": "Cornell University - BA - 2008-2012"
+  },
+  {
+    "id": 154,
+    "person_name": "Ivan Bjelajac",
+    "education": "EMBA -Cotrugli - 2016-2018"
+  },
+  {
+    "id": 155,
+    "person_name": "Ethan Fast",
+    "education": "University of Virgina - BA -Computer Science - 2007-2011"
+  },
+  {
+    "id": 156,
+    "person_name": "Ethan Fast",
+    "education": "Stanford - Ph.D. -Computer Science - 2013-2018"
+  },
+  {
+    "id": 157,
+    "person_name": "Tony Tran",
+    "education": "University of Washington - BSEE -Electrical Engineering - 2003-2008"
+  },
+  {
+    "id": 158,
+    "person_name": "Pat Larsen",
+    "education": "United States Air Force Academy - Bachelor of of Science -Materials Science Chemistry - 1998-2002"
+  },
+  {
+    "id": 159,
+    "person_name": "Pat Larsen",
+    "education": "The University of Chicago Booth School of Business - MBA -Finance -Entrepreneurship -Accounting - 2008-2011"
+  },
+  {
+    "id": 160,
+    "person_name": "Gregory Klumov",
+    "education": "Moscow State Technical University of Civil Aviation (MSTUCA) - Bachelor of Science - Information Technology -"
+  },
+  {
+    "id": 161,
+    "person_name": "Gregory Klumov",
+    "education": "Moscow Institute of World Economics and International Relations - Doctor of Philosophy -Ph.D. -"
+  },
+  {
+    "id": 162,
+    "person_name": "Gregory Klumov",
+    "education": "Moscow School of Management SKOLKOVO - Master of Business Administration - MBA - 2013-2014"
+  },
+  {
+    "id": 163,
+    "person_name": "Joost Jager",
+    "education": "Radboud University - Master of Science - 1997-2001"
+  },
+  {
+    "id": 164,
+    "person_name": "Will Harborne",
+    "education": "Winchester College - Math - 2006-2011"
+  },
+  {
+    "id": 165,
+    "person_name": "Will Harborne",
+    "education": "University of Cambridge - Master of Engineering - 2012-2016"
+  },
+  {
+    "id": 166,
+    "person_name": "Kyle Samani",
+    "education": "New York University - Leonard N. Stern School of Business - Bachelor of Science -Finance and Management - 2008-2012"
+  },
+  {
+    "id": 167,
+    "person_name": "Sergey Nazarov",
+    "education": "New York University - B.A. -Philosophy and Management -"
+  },
+  {
+    "id": 168,
+    "person_name": "Richie Lai",
+    "education": "University of Central Florida - Computer Science - 1994-1996"
+  },
+  {
+    "id": 169,
+    "person_name": "Matej Michalko",
+    "education": "EPFL (École polytechnique fédérale de Lausanne) - 2008-2012"
+  },
+  {
+    "id": 170,
+    "person_name": "Calvin Ayre",
+    "education": "University of Waterloo - BSc in General Sciences - 1982-1984"
+  },
+  {
+    "id": 171,
+    "person_name": "Calvin Ayre",
+    "education": "City University of Seattle - MBA in Management Finance - 1987-1989"
+  },
+  {
+    "id": 172,
+    "person_name": "Farbood Nivi",
+    "education": "The University of Michigan - BA -Psychology - 1995-2000"
+  },
+  {
+    "id": 173,
+    "person_name": "Bobby Lee",
+    "education": "Stanford University - B.S. -Computer Science - 1993-1997"
+  },
+  {
+    "id": 174,
+    "person_name": "Bobby Lee",
+    "education": "Stanford University - M.S. -Computer Science - 1997-1998"
+  },
+  {
+    "id": 175,
+    "person_name": "Jeffrey Wilcke",
+    "education": "HKU (Hogeschool voor de Kunsten Utrecht) - 2003-2006"
+  },
+  {
+    "id": 176,
+    "person_name": "Anthony Di lorio",
+    "education": "Ryerson University - Bachelor of Commerce (B.Com.) -Marketing - 1994-1998"
+  },
+  {
+    "id": 177,
+    "person_name": "Hudson Jameson",
+    "education": "University of North Texas - Bachelor of Science (B.S.) -Computer Science - 2010-2014"
+  },
+  {
+    "id": 178,
+    "person_name": "Gavin Anderson",
+    "education": "Princeton University - Bachelor's -Computer Science - 1984-1988"
+  },
+  {
+    "id": 179,
+    "person_name": "Pierre Rochard",
+    "education": "The University of Texas at Austin - Master’s Degree -ccounting - 2012-2013"
+  },
+  {
+    "id": 180,
+    "person_name": "Pierre Rochard",
+    "education": "The University of Texas at Austin - Bachelor of Business Administration - BBA -Accounting - 2012-2013"
+  },
+  {
+    "id": 181,
+    "person_name": "Emin Gün Sirer",
+    "education": "Robert College - 1982-1989"
+  },
+  {
+    "id": 182,
+    "person_name": "Emin Gün Sirer",
+    "education": "Princeton University - B.S.E. -Computer Science - 1989-1993"
+  },
+  {
+    "id": 183,
+    "person_name": "Emin Gün Sirer",
+    "education": "University of Washington - Ph.D.Field Of StudyComputer Science - 1993-2000"
+  },
+  {
+    "id": 184,
+    "person_name": "Manish Kataria",
+    "education": "Stern Business School - New York University - Bachelor of Science (B.S.) -Finance - 2000-2004"
+  },
+  {
+    "id": 185,
+    "person_name": "Jimmy Song",
+    "education": "Technical University of Budapest - Mathematics - 1997"
+  },
+  {
+    "id": 186,
+    "person_name": "Jimmy Song",
+    "education": "University of Michigan - Bachelor of Sciences -Mathematics - 1994-1998"
+  },
+  {
+    "id": 187,
+    "person_name": "Julian Kopald",
+    "education": "Metropolitan College of New York - Master of Business Administration (M.B.A.) -Business Administration and Management - 2005-2007"
+  },
+  {
+    "id": 188,
+    "person_name": "Julian Kopald",
+    "education": "City University of New York-Hunter College - Bachelor's Degree -Communication and Media Studies - 2003-2005"
+  },
+  {
+    "id": 189,
+    "person_name": "Kristina Lucrezia Cornèr",
+    "education": "Venice International University - Political Science -"
+  },
+  {
+    "id": 190,
+    "person_name": "Kristina Lucrezia Cornèr",
+    "education": "Aix-Marseille University - M.A. -Classical Philology and Comparative Litterature -"
+  },
+  {
+    "id": 191,
+    "person_name": "Kristina Lucrezia Cornèr",
+    "education": "Università Ca'​ Foscari Venezia - International Relations and Affairs -"
+  },
+  {
+    "id": 192,
+    "person_name": "Jared Tate",
+    "education": "United States Military Academy at West Point - Psychology - 2007"
+  },
+  {
+    "id": 193,
+    "person_name": "Jared Tate",
+    "education": "The College of Idaho - Psychology & Business - 2006-2009"
+  },
+  {
+    "id": 194,
+    "person_name": "Jared Tate",
+    "education": "Utah Valley University - Aviation Administration - 2012-2014"
+  },
+  {
+    "id": 195,
+    "person_name": "Steve Ehrlich",
+    "education": "Franklin & Marshall College - BA -Accounting - 1983-1987"
+  },
+  {
+    "id": 196,
+    "person_name": "Ivan Liljeqvist",
+    "education": "Stanford University - Machine Learning - 2016-2017"
+  },
+  {
+    "id": 197,
+    "person_name": "Ivan Liljeqvist",
+    "education": "KTH Royal Institute of Technology - Master’s Degree -Computer Science - 2014-2019"
+  },
+  {
+    "id": 198,
+    "person_name": "Virgil Griffith",
+    "education": "University of Alabama - Bachelor of SciencesField Of StudyComputer and Cognitive Science - 2002-2004"
+  },
+  {
+    "id": 199,
+    "person_name": "Virgil Griffith",
+    "education": "Caltech - Doctor of Philosophy (PhD)Field Of StudyComputation and Neural Systems - 2007-2014"
+  },
+  {
+    "id": 200,
+    "person_name": "Dae Yu",
+    "education": "NCSU - B.S. E.E. -"
+  },
+  {
+    "id": 201,
+    "person_name": "Brad Garlinghouse",
+    "education": "Harvard Business School - MBA - 1997"
+  },
+  {
+    "id": 202,
+    "person_name": "Roger Ver",
+    "education": "Deanza College - Astronomy -Economics and Math - 1997-1999"
+  },
+  {
+    "id": 203,
+    "person_name": "Roger Ver",
+    "education": "Stanford - Physics - 1998"
+  },
+  {
+    "id": 204,
+    "person_name": "Peter McCormack",
+    "education": "Buckinghamshire Chilterns University College - Music Industry Management - 1997-2000"
+  },
+  {
+    "id": 205,
+    "person_name": "Mark Mueller-Eberstein",
+    "education": "The Philipp University of Marburg - Business Administration - 1990-1991"
+  },
+  {
+    "id": 206,
+    "person_name": "Mark Mueller-Eberstein",
+    "education": "Technische Universität Berlin - Business Administration - 1991-1997"
+  },
+  {
+    "id": 207,
+    "person_name": "Mahbod Moghadam",
+    "education": "Yale University - Bachelor's Degree -History International Studies - 2004-2004"
+  },
+  {
+    "id": 208,
+    "person_name": "Mahbod Moghadam",
+    "education": "Stanford University Law School - J.D. -Baking -Corporate Finance -and Securities Law - 2005-2008"
+  },
+  {
+    "id": 209,
+    "person_name": "Andrew Yang",
+    "education": "Brown University - BA -Economics - 1992-1996"
+  },
+  {
+    "id": 210,
+    "person_name": "Andrew Yang",
+    "education": "Columbia University School of Law - J.D. - 1996-1999"
+  },
+  {
+    "id": 211,
+    "person_name": "David Schwartz",
+    "education": "University of Houston - Electrical Engineering - 1986-1990"
+  },
+  {
+    "id": 212,
+    "person_name": "Kelly Loeffler",
+    "education": "University of Illinois - Bachelor's degree -College of Commerce & Business Administration -"
+  },
+  {
+    "id": 213,
+    "person_name": "Kelly Loeffler",
+    "education": "DePaul University - MBA - 1997-1999"
+  },
+  {
+    "id": 214,
+    "person_name": "Justin Sunerok",
+    "education": "Dongyang Internet Computer Academy - Bitcoin Blockchain Developer -"
+  },
+  {
+    "id": 215,
+    "person_name": "Anthony Xie",
+    "education": "Western University - Ivey Business School - 2015 Alumni"
+  },
+  {
+    "id": 216,
+    "person_name": "Ben Delo",
+    "education": "University of Oxford - Bachelor of Arts (BA) -Mathematics and Computer Science -First Class Honours - 2002–2005"
+  },
+  {
+    "id": 217,
+    "person_name": "Vignesh Sundaresan",
+    "education": "Carleton University - Master of Engineering (MEng) - 2013-2015"
+  },
+  {
+    "id": 218,
+    "person_name": "Camila Russo",
+    "education": "Pontificia Universidad Catalica de Chile - B.S. Journalism - 2004-2008"
+  },
+  {
+    "id": 219,
+    "person_name": "Camila Russo",
+    "education": "Northwestern University - Master of Science in Journalism - 2009-2010"
+  },
+  {
+    "id": 220,
+    "person_name": "Soravis Srinawakoon",
+    "education": "Stanford University - Bachelor of Science (B.S.) -Computer Science - 2010-2013"
+  },
+  {
+    "id": 221,
+    "person_name": "Soravis Srinawakoon",
+    "education": "Stanford University - Master of Science (M.S.) -Management Science and Engineering - 2013-2014"
+  },
+  {
+    "id": 222,
+    "person_name": "Xiong Yidan",
+    "education": "West Liberty State University - Exchange Student -Graphic Design - 2011-2012"
+  },
+  {
+    "id": 223,
+    "person_name": "Xiong Yidan",
+    "education": "Zhejiang Normal University - Bachelor's degree -Advertising - 2009-2013"
+  },
+  {
+    "id": 224,
+    "person_name": "Lennix Lai",
+    "education": "Western University - Ivey Business School - 2015 Alumni"
+  },
+  {
+    "id": 225,
+    "person_name": "Mark Zuckerberg",
+    "education": "Harvard University - Dropout - 2004"
+  },
+  {
+    "id": 226,
+    "person_name": "Samson Mow",
+    "education": "Simon Fraser University - BBA -Management Information Systems & Marketing -"
+  },
+  {
+    "id": 227,
+    "person_name": "Lior Yaffe",
+    "education": "Technion - BA -Computer Science - 1993-1996"
+  },
+  {
+    "id": 228,
+    "person_name": "Andreas Antonopoulos",
+    "education": "University College London - Computer Science & Distributed Systems - 1991-1996"
+  },
+  {
+    "id": 229,
+    "person_name": "Balaji Srinivasan",
+    "education": "Stanford University - M.S. -Electrical Engineering - 2000-2001"
+  },
+  {
+    "id": 230,
+    "person_name": "Balaji Srinivasan",
+    "education": "Stanford University - M.S. -Chemical Engineering - 2002-2003"
+  },
+  {
+    "id": 231,
+    "person_name": "Balaji Srinivasan",
+    "education": "Stanford University - Ph.D. Electrical Engineering - 2002-2006"
+  },
+  {
+    "id": 232,
+    "person_name": "Simon Yu",
+    "education": "University of Washington - Michael G. Foster School of Business - BBA -Finance - 2009-2014"
+  },
+  {
+    "id": 233,
+    "person_name": "Abdalla Kablan",
+    "education": "University of Malta - BSc -I.T. -Systems Engineering - 2002-2005"
+  },
+  {
+    "id": 234,
+    "person_name": "Abdalla Kablan",
+    "education": "University of Bradford - MSc -Masters in Financial Engineering and Knowledge Management - 2005-2006"
+  },
+  {
+    "id": 235,
+    "person_name": "Abdalla Kablan",
+    "education": "University of Essex - PhD -Computational Finance - 2007-2011"
+  },
+  {
+    "id": 236,
+    "person_name": "Josh Rager",
+    "education": "Western Kentucky University - Bachelor of Science - BS - 2003-2006"
+  },
+  {
+    "id": 237,
+    "person_name": "Josh Rager",
+    "education": "Vanderbilt University - Professional -Dietetics Residency / Intership - 2006-2007"
+  },
+  {
+    "id": 238,
+    "person_name": "Gavin Wood",
+    "education": "University of York - Master of Engineering (MEng) - 1998-2002"
+  },
+  {
+    "id": 239,
+    "person_name": "Gavin Wood",
+    "education": "University of York - Doctor of Philosophy (Ph.D.) - 2002-2005"
+  },
+  {
+    "id": 240,
+    "person_name": "Hester Peirce",
+    "education": "Case Western Reserve University - B.A. - 1993"
+  },
+  {
+    "id": 241,
+    "person_name": "Hester Peirce",
+    "education": "Yale Law School - J.D. - 1997"
+  },
+  {
+    "id": 242,
+    "person_name": "W. Scott Stornetta",
+    "education": "Brigham Young University - B.S. -Physics - 1983"
+  },
+  {
+    "id": 243,
+    "person_name": "W. Scott Stornetta",
+    "education": "Stanford University - Ph.D. -Physics - 1983-1989"
+  },
+  {
+    "id": 244,
+    "person_name": "J. Christopher Giancarlo",
+    "education": "Skidmore College - BA -Government - 1977-1981"
+  },
+  {
+    "id": 245,
+    "person_name": "J. Christopher Giancarlo",
+    "education": "Vanderbilt University Law School - JD -Law - 1981-1984"
+  },
+  {
+    "id": 246,
+    "person_name": "Arry Yu",
+    "education": "Cornell University - B.A. -Asian Studies -Mathematics -Music -"
+  },
+  {
+    "id": 247,
+    "person_name": "Joe Roets",
+    "education": "St. Mary of the Plains - B.A. -History - 1990-1991"
+  },
+  {
+    "id": 248,
+    "person_name": "Joe Roets",
+    "education": "St. Mary of the Plains - B.S. -Computer Science - 1991-1992"
+  },
+  {
+    "id": 249,
+    "person_name": "Carlos Domingo",
+    "education": "Universitat Politecnica de Catalunya -Barcelona -Spain - Bachelor -Computer Science - 1989-1993"
+  },
+  {
+    "id": 250,
+    "person_name": "Carlos Domingo",
+    "education": "Universitat Politècnica de Catalunya - Ph.D. -Computer Science - 1988-1994"
+  },
+  {
+    "id": 251,
+    "person_name": "Carlos Domingo",
+    "education": "Tokyo Institute of Technology - Master -Computer Science - 1993-1998"
+  },
+  {
+    "id": 252,
+    "person_name": "Carlos Domingo",
+    "education": "Stanford University Graduate School of Business - Executive MBA -AeA/Stanford Executive Institute - 2002"
+  },
+  {
+    "id": 253,
+    "person_name": "Lili Zhao",
+    "education": "ifs School of Finance - Certificate for Financial Advisers (CeFA®) - 2010"
+  },
+  {
+    "id": 254,
+    "person_name": "Lili Zhao",
+    "education": "ESADE Business School - Programme for Leadership Development -PLD -Business Administration and Management - 2012-2013"
+  },
+  {
+    "id": 255,
+    "person_name": "Lili Zhao",
+    "education": "Universität St. Gallen-Hochschule für Wirtschafts- -Rechts- und Sozialwissenschaften - Master of Business Administration (MBA) - 2012-2014"
+  },
+  {
+    "id": 256,
+    "person_name": "Preston Pysh",
+    "education": "United States Military Academy at West Point - Bachelor of Science -Aerospace Engineering - 1999-2003"
+  },
+  {
+    "id": 257,
+    "person_name": "Preston Pysh",
+    "education": "Army Aviation Flight School - Qualified in the AH-64D Apache -OH-58A/C -TH-67. - 2003-2004"
+  },
+  {
+    "id": 258,
+    "person_name": "Preston Pysh",
+    "education": "Military Intelligence Captain's Career Course - 2008-2009"
+  },
+  {
+    "id": 259,
+    "person_name": "Preston Pysh",
+    "education": "Defense Acquisition University - Army Acqusition Officer -Program Management - 2011"
+  },
+  {
+    "id": 260,
+    "person_name": "Preston Pysh",
+    "education": "The Johns Hopkins University - Master of Business Administration (M.B.A.) -Banking and Finance - 2016-2018"
+  },
+  {
+    "id": 261,
+    "person_name": "Raoul Pal",
+    "education": "University of Plymouth - Economics & Law - 1987-1990"
+  },
+  {
+    "id": 262,
+    "person_name": "Loi Luu",
+    "education": "Vietnam National University -Hanoi - Bachelor's degree -Computer Science - 2009-2013"
+  },
+  {
+    "id": 263,
+    "person_name": "Loi Luu",
+    "education": "National University of Singapore - Doctor of Philosophy (Ph.D.) -Computer Science - 2014-2017"
+  },
+  {
+    "id": 264,
+    "person_name": "Joe Vezzani",
+    "education": "Michigan State University - BA Finance -"
+  },
+  {
+    "id": 265,
+    "person_name": "Philip Salter",
+    "education": "Technical University of Munich - Bachelor of Science (B.S.) -Informatics - 2011-2014"
+  },
+  {
+    "id": 266,
+    "person_name": "Ryan Selkis",
+    "education": "Boston College - B.S. cum laude -Finance - 2004-2008"
+  },
+  {
+    "id": 267,
+    "person_name": "Ryan Selkis",
+    "education": "General Assembly - Front-End Web Development - 2012-2013"
+  },
+  {
+    "id": 332,
+    "person_name": "Brad Yasar",
+    "education": "Pepperdine University - BA -Economics - 1996-1999"
+  },
+  {
+    "id": 268,
+    "person_name": "Ryan Selkis",
+    "education": "MIT Sloan School of Management - Master of Business Administration (MBA) -Entrepreneurship & Innovation - 2013-2014"
+  },
+  {
+    "id": 269,
+    "person_name": "On Yavin",
+    "education": "The College of Management - Academic Studies - Bachelor of Laws (LLB) -Law - 2000-2005"
+  },
+  {
+    "id": 270,
+    "person_name": "Jake Yocom-Piatt",
+    "education": "University of Illinois at Urbana-Champaign - Bachelor of Science (B.S.) -Physics - 1998-2002"
+  },
+  {
+    "id": 271,
+    "person_name": "Jake Yocom-Piatt",
+    "education": "University of Chicago - Master of Science (M.S.) -Physics - 2002-2004"
+  },
+  {
+    "id": 272,
+    "person_name": "Adam Cochran",
+    "education": "Wilfrid Laurier University - Bachelor’s Degree -General Arts - 2009-2013"
+  },
+  {
+    "id": 273,
+    "person_name": "Adam Cochran",
+    "education": "California Coast University - Master of Business Administration (M.B.A.) -Marketing - 2015-2017"
+  },
+  {
+    "id": 274,
+    "person_name": "Chieh Liu",
+    "education": "California State Polytechnic University-Pomona -"
+  },
+  {
+    "id": 275,
+    "person_name": "Thomas Thornton",
+    "education": "UC Irvine - BA -Political Science -"
+  },
+  {
+    "id": 276,
+    "person_name": "Carylyne Chan",
+    "education": "Ngee Ann Polytechnic - Mass Communication - 2008-2011"
+  },
+  {
+    "id": 277,
+    "person_name": "Carylyne Chan",
+    "education": "Singapore Management University - Business Management - 2011-2015"
+  },
+  {
+    "id": 278,
+    "person_name": "Carylyne Chan",
+    "education": "AngelPad - AngelPad #10 - 2016"
+  },
+  {
+    "id": 279,
+    "person_name": "Ross Ulbricht",
+    "education": "The University of Texas at Dallas - B.S. -Physics - 2002-2006"
+  },
+  {
+    "id": 280,
+    "person_name": "Ross Ulbricht",
+    "education": "Pennsylvania State University - 2006-2010"
+  },
+  {
+    "id": 281,
+    "person_name": "Sam Bankman-Fried",
+    "education": "Massachusetts Institute of Technology - Physics - 2010-2014"
+  },
+  {
+    "id": 282,
+    "person_name": "Lynn Liss",
+    "education": "The University of Chicago Booth School of Business - MBA -Strategy & Finance - 1998-2001"
+  },
+  {
+    "id": 283,
+    "person_name": "Jay Hao",
+    "education": "University of Mississippi - Electrical Engineering - 1994"
+  },
+  {
+    "id": 284,
+    "person_name": "Jay Hao",
+    "education": "Georgia Institute of Technology - Electrical Engineering - 1995"
+  },
+  {
+    "id": 285,
+    "person_name": "Alysa Xu",
+    "education": "Cheung Kong Graduate School of Business - EMBA degree -"
+  },
+  {
+    "id": 286,
+    "person_name": "Alysa Xu",
+    "education": "Renmin University of China - Master’s degree in Economics -"
+  },
+  {
+    "id": 287,
+    "person_name": "Joel Edgerton",
+    "education": "UNCC - BA -International Business - 1990-1995"
+  },
+  {
+    "id": 288,
+    "person_name": "Joel Edgerton",
+    "education": "Waseda University - Japanese Studies - 2000-2001"
+  },
+  {
+    "id": 289,
+    "person_name": "Joel Edgerton",
+    "education": "University of South Carolina - International Master of Business Administration (MBA) -Finance and Japanese - 1999-2002"
+  },
+  {
+    "id": 290,
+    "person_name": "Ethan Vera",
+    "education": "The University of British Columbia - Bachelor’s Degree -Vancouver School of Economics - 2013-2014"
+  },
+  {
+    "id": 291,
+    "person_name": "Ethan Vera",
+    "education": "Singapore Management University - Bachelor’s Degree -Lee Kong Chian School of Business - 2017"
+  },
+  {
+    "id": 292,
+    "person_name": "Ethan Vera",
+    "education": "Queen's University - Bachelor’s Degree -Smith School of Business - 2014-2018"
+  },
+  {
+    "id": 293,
+    "person_name": "Shunsuke Murasaki",
+    "education": "Aoyama Gakuin University - Bachelor of Economics -Economics - 2002-2006"
+  },
+  {
+    "id": 294,
+    "person_name": "John deVadoss",
+    "education": "University of Massachusetts -Amherst - MS in CS -PhD Candidate - Machine Learning -"
+  },
+  {
+    "id": 295,
+    "person_name": "Chun Wang",
+    "education": "Tianjin University - Computer Science - 2000-2004"
+  },
+  {
+    "id": 296,
+    "person_name": "Ruben Merre",
+    "education": "Institute of Project Management - Project Management Professional (PMP) - 2016"
+  },
+  {
+    "id": 297,
+    "person_name": "Ruben Merre",
+    "education": "Vlerick Business School - People Manager Programme - 2017"
+  },
+  {
+    "id": 298,
+    "person_name": "Ruben Merre",
+    "education": "Saïd Business School -University of Oxford - Executive Education - Oxford Blockchain Strategy Programme - 2018"
+  },
+  {
+    "id": 299,
+    "person_name": "Brian Armstrong",
+    "education": "Rice University - Bachelor's Degree -Computer Science -Economics - 2001-2005"
+  },
+  {
+    "id": 300,
+    "person_name": "Brian Armstrong",
+    "education": "Rice University - Master's Degree -Computer Science - 2005-2006"
+  },
+  {
+    "id": 301,
+    "person_name": "Paul Claudius",
+    "education": "Wilhelm Gymnasium - 1994-2003"
+  },
+  {
+    "id": 302,
+    "person_name": "Paul Claudius",
+    "education": "University of Passau - Vordiplom -Business and Economics - 2003-2006"
+  },
+  {
+    "id": 303,
+    "person_name": "Paul Claudius",
+    "education": "ESCP Europe / ESCP-EAP - Master of Science (MSc) -International Management - 2006-2009"
+  },
+  {
+    "id": 304,
+    "person_name": "Alexander Fazel",
+    "education": "SKEMA Business School - Bachelor of Business Administration (B.B.A.) -International Business -"
+  },
+  {
+    "id": 305,
+    "person_name": "Alexander Fazel",
+    "education": "CSUF - Bachelor's Degree -International Business - 2006-2007"
+  },
+  {
+    "id": 306,
+    "person_name": "Dovey Wan",
+    "education": "Sun-Yat-Sen University - Bachelor -Computer Software Engineering - 2006-2010"
+  },
+  {
+    "id": 307,
+    "person_name": "Dovey Wan",
+    "education": "Carnegie Mellon University - Master of Information System - 2010-2012"
+  },
+  {
+    "id": 308,
+    "person_name": "Ken Kodama",
+    "education": "St. Andrew's University - Department of Business - 2007-2013"
+  },
+  {
+    "id": 309,
+    "person_name": "Dawn Song",
+    "education": "Carnegie Mellon University - Master of Science (M.S.) -Computer Science - 1997-1999"
+  },
+  {
+    "id": 310,
+    "person_name": "Dawn Song",
+    "education": "University of California -Berkeley - Doctor of Philosophy (Ph.D.) -Computer Science - 1999-2002"
+  },
+  {
+    "id": 311,
+    "person_name": "Avi Felman",
+    "education": "Washington University in St. Louis - Bachelor’s Degree -Chemical Engineering -"
+  },
+  {
+    "id": 312,
+    "person_name": "Peter Brandt",
+    "education": "University of Michigan - Twin Cities - Bachelor's Degree -Journalism - 1967-1970"
+  },
+  {
+    "id": 313,
+    "person_name": "Ajit Tripathi",
+    "education": "Indian Institute of Technology -Kanpur - B Tech -Electrical Engineering - 1993-1997"
+  },
+  {
+    "id": 314,
+    "person_name": "Ajit Tripathi",
+    "education": "IMD Business School - MBA -Business Administration - 2010-2010"
+  },
+  {
+    "id": 315,
+    "person_name": "Sanja Kon",
+    "education": "Università Commerciale 'Luigi Bocconi' / Bocconi University - MastersField Of StudyMarketing Management -Summa Cum Laude - 2007-2009"
+  },
+  {
+    "id": 316,
+    "person_name": "Sanja Kon",
+    "education": "Copenhagen Business School - Double Master Degree -Strategic Market Creation - 2008-2009"
+  },
+  {
+    "id": 317,
+    "person_name": "Sanja Kon",
+    "education": "Università Commerciale 'Luigi Bocconi' / Bocconi University - Bachelor -Business/Managerial Economics - 2004-2007"
+  },
+  {
+    "id": 318,
+    "person_name": "Dan Held",
+    "education": "Texas A&M University - Mays Business School - Business Administration -Finance - 2006-2010"
+  },
+  {
+    "id": 319,
+    "person_name": "Eric Thies",
+    "education": "University of Arizona - Bachelor's Degree -Political Science and Government - 2012-2016"
+  },
+  {
+    "id": 320,
+    "person_name": "David Zacks",
+    "education": "California Lutheran University - Bachelors of Arts -International Studies and Political Science -"
+  },
+  {
+    "id": 321,
+    "person_name": "David Zacks",
+    "education": "Middlebury Institute of International Studies at Monterey - Master of Arts -International Policy Studies -"
+  },
+  {
+    "id": 322,
+    "person_name": "Antoni Trenchev",
+    "education": "King's College London - Bachelor's degree -Law - 2006-2008"
+  },
+  {
+    "id": 323,
+    "person_name": "Antoni Trenchev",
+    "education": "Humboldt University of Berlin - Master of Laws - LLM -German and European Law - 2008-2010"
+  },
+  {
+    "id": 324,
+    "person_name": "Justin Sun",
+    "education": "Peking University - B.A. -History - 2007-2011"
+  },
+  {
+    "id": 325,
+    "person_name": "Justin Sun",
+    "education": "University of Pennsylvania - M.A. -Political Economy - 2011-2013"
+  },
+  {
+    "id": 326,
+    "person_name": "Bobby Ong",
+    "education": "University College London -U. of London - BSc Economics - 2009-2012"
+  },
+  {
+    "id": 327,
+    "person_name": "Huy Nguyen",
+    "education": "University of California -Berkeley - Bachelor's Degree -EECS -"
+  },
+  {
+    "id": 328,
+    "person_name": "Tom Busby",
+    "education": "CU Coventry - Foundation degree -Engineering - 2014"
+  },
+  {
+    "id": 329,
+    "person_name": "Tom Busby",
+    "education": "Aston University - Bachelor of Engineering - BE -Mechanical Engineering - 2018-2022"
+  },
+  {
+    "id": 330,
+    "person_name": "Brad Yasar",
+    "education": "Academie de Grenoble - BS -Applied Sciences Math -Physics & Chemistry - 1992-1996"
+  },
+  {
+    "id": 331,
+    "person_name": "Brad Yasar",
+    "education": "Pepperdine University - BS -International Business Management - 1996-1999"
+  },
+  {
+    "id": 333,
+    "person_name": "Ran Neuner",
+    "education": "University of Witwatersrand - B.Com -Finance and Investment - 1994-1998"
+  },
+  {
+    "id": 334,
+    "person_name": "Ran Neuner",
+    "education": "Singularity University - Executive Program -International Business - 2017"
+  },
+  {
+    "id": 335,
+    "person_name": "Ran Neuner",
+    "education": "American Institute for Investment and Management Research - Chartered Financial Analyst - 1997-1999"
+  },
+  {
+    "id": 336,
+    "person_name": "Ran Neuner",
+    "education": "Harvard Business School - International Business - 2017-2019"
+  },
+  {
+    "id": 337,
+    "person_name": "Mitchell Moos",
+    "education": "University of Washington - Foster School of Business -"
+  },
+  {
+    "id": 338,
+    "person_name": "Mati Greenspan",
+    "education": "CySEC - Licensed Portfolio Manager - 2016-2017"
+  },
+  {
+    "id": 339,
+    "person_name": "Nicholas Merten",
+    "education": "Virginia Commonwealth University - Business Administration & Finance - 2016-2017"
+  },
+  {
+    "id": 340,
+    "person_name": "Joseph Lubin",
+    "education": "Princeton University - B.S. Engineering - 1982-1987"
+  },
+  {
+    "id": 341,
+    "person_name": "Milo McCloud",
+    "education": "King's Bruton - 2011-2016"
+  },
+  {
+    "id": 342,
+    "person_name": "Nicholas Gregory",
+    "education": "Southampton Solent University - Bachelor's degree - 1994-1998"
+  },
+  {
+    "id": 343,
+    "person_name": "Nicholas Gregory",
+    "education": "Queen Mary University of London - Master of Science - 1997-1998"
+  },
+  {
+    "id": 344,
+    "person_name": "Michael Saylor",
+    "education": "Massachusetts Institute of Technology - S.B. -Aeronautics & Astronautics -History of Science - 1983-1987"
+  },
+  {
+    "id": 345,
+    "person_name": "Atul Ajoy",
+    "education": "University of Southern California -"
+  },
+  {
+    "id": 346,
+    "person_name": "Adam Levy",
+    "education": "University of Southern California - 2017-2019"
+  },
+  {
+    "id": 347,
+    "person_name": "Erhan Korhaliller",
+    "education": "The University of Huddersfield - Bachelor's degree -Business Administration and Management - 2009-2012"
+  },
+  {
+    "id": 348,
+    "person_name": "Brett Harrison",
+    "education": "Harvard University - Bachelor of Arts -Computer Science - 2006 - 2010"
+  },
+  {
+    "id": 349,
+    "person_name": "Brett Harrison",
+    "education": "Harvard University - Master of Science -Computer Science - 2008 - 2010"
+  },
+  {
+    "id": 350,
+    "person_name": "Sandeep Nailwal",
+    "education": "NITIE - Master of Business Administration (M.B.A.)Technology -Finance and Supply Chain Management - 2012 - 2014"
+  },
+  {
+    "id": 351,
+    "person_name": "Dominic Williams",
+    "education": "King's College London - Bachelor's Degree -Computer Science - 1992 - 1995"
+  },
+  {
+    "id": 352,
+    "person_name": "Anatoly Yakovenko",
+    "education": "University of Illinois at Urbana-Champaign - BS Computer Science - 1999 - 2003"
+  },
+  {
+    "id": 353,
+    "person_name": "Do Kwon",
+    "education": "Stanford University - BS Computer Science - 2010-2015"
+  },
+  {
+    "id": 354,
+    "person_name": "Matt Huang",
+    "education": "Massachusetts Institute of Technology - B.S. -Mathematics - 2006 - 2010"
+  },
+  {
+    "id": 355,
+    "person_name": "Ray Dalio",
+    "education": "C.W. Post College - B.S. in Finance - 1971"
+  },
+  {
+    "id": 356,
+    "person_name": "Ray Dalio",
+    "education": "Harvard Business School - MBA - 1973"
+  },
+  {
+    "id": 357,
+    "person_name": "Bill Shihara",
+    "education": "University of Southern California - 1993-1996"
+  },
+  {
+    "id": 358,
+    "person_name": "Catherine Coley",
+    "education": "SEAS Scholar - National University of Singapore / NUS -"
+  },
+  {
+    "id": 359,
+    "person_name": "Catherine Coley",
+    "education": "GLOBE Scholar - The Chinese University of Hong Kong -"
+  },
+  {
+    "id": 360,
+    "person_name": "Catherine Coley",
+    "education": "GLOBE Scholar - Copenhagen Business School -"
+  },
+  {
+    "id": 361,
+    "person_name": "Catherine Coley",
+    "education": "University of North Carolina at Chapel Hill - Kenan-Flagler Business School - Bachelor of Science (BS) -"
+  },
+  {
+    "id": 362,
+    "person_name": "Maxi Kuan",
+    "education": "Tamkang University - Bachelor -Japanese - 1996 - 2000"
+  },
+  {
+    "id": 363,
+    "person_name": "Kathryn Haun",
+    "education": "Boston University - BA - 1993 - 1997"
+  },
+  {
+    "id": 364,
+    "person_name": "Kathryn Haun",
+    "education": "Stanford Law School - JD - 1997 - 2000"
+  },
+  {
+    "id": 365,
+    "person_name": "Erick Pinos",
+    "education": "MIT Sloan School of Management - Concentration -Entrepreneurship - 2013 - 2017"
+  },
+  {
+    "id": 366,
+    "person_name": "Erick Pinos",
+    "education": "Massachusetts Institute of Technology - Bachelor of Science -Management - 2013 - 2017"
+  },
+  {
+    "id": 367,
+    "person_name": "Arthur Cheong",
+    "education": "Nanyang Technological University Singapore - B.A. (Hons) -Economics -EntrepreneurshipB.A. (Hons) -Economics -Entrepreneurship - 2012 - 2014"
+  },
+  {
+    "id": 368,
+    "person_name": "Elnaz Sarraf",
+    "education": "Shariati University - Associate of Arts Degree -Graphics Design - 2002 - 2004"
+  },
+  {
+    "id": 369,
+    "person_name": "Elnaz Sarraf",
+    "education": "Iran University of Science and Technology - Bachelor of Engineering (BE) - 2006 - 2007"
+  },
+  {
+    "id": 370,
+    "person_name": "Elnaz Sarraf",
+    "education": "West Valley College - Transfer Courses -Art and Business - 2007 - 2010"
+  },
+  {
+    "id": 371,
+    "person_name": "Elnaz Sarraf",
+    "education": "California State University - Easty Bay - Bachelor of Arts (B.A.) - 2010 - 2012"
+  },
+  {
+    "id": 372,
+    "person_name": "Cathie Wood",
+    "education": "University of Southern California - BS Economics and Finance - 1976 - 1981"
+  },
+  {
+    "id": 373,
+    "person_name": "Stani Kulechov",
+    "education": "University of Helsinki - Master's Degree -Law - 2015 - 2020"
+  },
+  {
+    "id": 374,
+    "person_name": "Sam Trabucco",
+    "education": "Massachusetts Institute of Technology - Bachelor of Science (BS) -Mathematics with Computer Science - 2011 - 2015"
+  },
+  {
+    "id": 375,
+    "person_name": "Devin Finzer",
+    "education": "Brown University - BS -Computer Science - Mathetmatics - 2009 - 2013"
+  },
+  {
+    "id": 376,
+    "person_name": "Marius van der Wijden",
+    "education": "Technische Universität Darmstadt - Bachelor of Science in Information Technology - 2016 - 2019"
+  },
+  {
+    "id": 377,
+    "person_name": "Marius van der Wijden",
+    "education": "Technische Universität Darmstadt - Masters in Computer Science - 2019 - 2021"
+  },
+  {
+    "id": 378,
+    "person_name": "Alex Atallah",
+    "education": "Stanford University - BS Computer Science - 2010 - 2014"
+  },
+  {
+    "id": 379,
+    "person_name": "Tom Brady",
+    "education": "University of Michigan - BS -General Studies / Business - 1995 - 1999"
+  },
+  {
+    "id": 380,
+    "person_name": "Michael Ippolito",
+    "education": "Emory University -"
+  },
+  {
+    "id": 381,
+    "person_name": "Michael McCaffrey",
+    "education": "Carnegie Mellon University - Bachelor of Science -Economics and Statistics -"
+  },
+  {
+    "id": 382,
+    "person_name": "Cynthia Lummis",
+    "education": "University of Wyoming - Bachelor of Science in Biology - 1976"
+  },
+  {
+    "id": 383,
+    "person_name": "Cynthia Lummis",
+    "education": "University of Wyoming - Bachelor of Science -Animal Science - 1978"
+  },
+  {
+    "id": 384,
+    "person_name": "Cynthia Lummis",
+    "education": "University of Wyoming College of Law - JD - 1985"
+  },
+  {
+    "id": 385,
+    "person_name": "Harry Horsfall",
+    "education": "University of Exeter - Bachelor of Arts -Economics and Politics - 2010 - 2013"
+  },
+  {
+    "id": 386,
+    "person_name": "Jay Cassano",
+    "education": "Phillips Exeter Academy - Classical Diploma - 2002 - 2006"
+  },
+  {
+    "id": 387,
+    "person_name": "Jay Cassano",
+    "education": "Hampshire College - BA -Politics and Philosophy - 2006 - 2010"
+  },
+  {
+    "id": 388,
+    "person_name": "Jason Yanowitz",
+    "education": "Emory University - Bachelor of Arts (B.A.) -History -"
+  },
+  {
+    "id": 389,
+    "person_name": "Fred Wilson",
+    "education": "Massachusetts Institute of Technology - SB -Mechanical Engineering - 1979 - 1983"
+  },
+  {
+    "id": 390,
+    "person_name": "Fred Wilson",
+    "education": "The Wharton School - MBA -Finance - 1985 - 1987"
+  },
+  {
+    "id": 391,
+    "person_name": "Esteban Ordano",
+    "education": "Instituto Tecnológico de Buenos Aires - Software Engineering -Information Technologies - 2009 - 2014"
+  },
+  {
+    "id": 392,
+    "person_name": "Jack Mallers",
+    "education": "Columbia College Chicago -"
+  },
+  {
+    "id": 393,
+    "person_name": "Ari Meilich",
+    "education": "University of Buenos Aires - Philosophy - 2007 2009"
+  },
+  {
+    "id": 394,
+    "person_name": "Ari Meilich",
+    "education": "Hunter College - Bachelor of Science -Neuroscience - 2010 - 2013"
+  },
+  {
+    "id": 395,
+    "person_name": "Brian Fu",
+    "education": "The University of British Columbia - Bachelor -Major Engineering Physics -Minor Commerce - 2003 - 2008"
+  },
+  {
+    "id": 396,
+    "person_name": "Brian Fu",
+    "education": "Harvard Business School Online - Certificate in Global Business - 2021 - 2022"
+  },
+  {
+    "id": 397,
+    "person_name": "Jane Ma",
+    "education": "Columbia University in the City of New York -"
+  },
+  {
+    "id": 398,
+    "person_name": "Jane Ma",
+    "education": "Barnard College - Bachelor of Arts (B.A.) -Economics and History - 2012 - 2015"
+  },
+  {
+    "id": 399,
+    "person_name": "Janet Yellen",
+    "education": "Brown University - Bachelor in Economics - 1967"
+  },
+  {
+    "id": 400,
+    "person_name": "Janet Yellen",
+    "education": "Yale University - MA in Economics -"
+  },
+  {
+    "id": 401,
+    "person_name": "Janet Yellen",
+    "education": "Yale University - Ph.D. in Economics - 1971"
+  }
+]

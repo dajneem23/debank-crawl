@@ -41,6 +41,9 @@ export class EventModel {
   @Column('varchar', { name: 'website' })
   website: string;
 
+  @Column({ name: 'reddit', nullable: true })
+  reddit: string;
+
   @ManyToMany(() => CategoryModel)
   @JoinTable({
     name: 'event_categories',

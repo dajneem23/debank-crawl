@@ -1,6 +1,6 @@
 import { CATEGORY_TYPE } from '../types/Common';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-@Entity('category', { synchronize: false })
+@Entity('category', { synchronize: true })
 export class CategoryModel {
   // id - primary id unique
   @PrimaryGeneratedColumn('uuid', { name: 'id' })

@@ -1,0 +1,2702 @@
+[
+  {
+    "id": 1,
+    "company_name": "Jelurida",
+    "support": "Wiki/FAQ:https://desk.zoho.eu/portal/jelurida/home"
+  },
+  {
+    "id": 2,
+    "company_name": "Jelurida",
+    "support": "Support Website:https://www.jelurida.com/contact-us"
+  },
+  {
+    "id": 3,
+    "company_name": "Ledger",
+    "support": "Support Website:https://support.ledger.com/hc/en-us"
+  },
+  {
+    "id": 4,
+    "company_name": "BTCMEX",
+    "support": "Wiki/FAQ:https://help.btcmex.com/hc/en-001"
+  },
+  {
+    "id": 5,
+    "company_name": "BTCMEX",
+    "support": "official@btcmex.com:mailto:official@btcmex.com"
+  },
+  {
+    "id": 6,
+    "company_name": "BTCMEX",
+    "support": "Support Website:https://help.btcmex.com/hc/en-001"
+  },
+  {
+    "id": 7,
+    "company_name": "Swapzone",
+    "support": "support@swapzone.io:mailto:support@swapzone.io"
+  },
+  {
+    "id": 8,
+    "company_name": "PrimeXBT",
+    "support": "support@help.primexbt.com:mailto:support@help.primexbt.com"
+  },
+  {
+    "id": 9,
+    "company_name": "PrimeXBT",
+    "support": "Support Website:https://help.primexbt.com/"
+  },
+  {
+    "id": 10,
+    "company_name": "Tradeium",
+    "support": "Wiki/FAQ:https://tradeium.io/#faq"
+  },
+  {
+    "id": 11,
+    "company_name": "Tradeium",
+    "support": "contact@tradeium.io:mailto:contact@tradeium.io"
+  },
+  {
+    "id": 12,
+    "company_name": "stakefish",
+    "support": "hi@stake.fish:mailto:hi@stake.fish"
+  },
+  {
+    "id": 13,
+    "company_name": "BigONE",
+    "support": "support@big.one:mailto:support@big.one"
+  },
+  {
+    "id": 14,
+    "company_name": "BigONE",
+    "support": "Support Website:https://bigone.zendesk.com/hc/en-us"
+  },
+  {
+    "id": 15,
+    "company_name": "LocalBitcoins",
+    "support": "Wiki/FAQ:https://localbitcoins.com/faq"
+  },
+  {
+    "id": 16,
+    "company_name": "LocalBitcoins",
+    "support": "Support Website:https://localbitcoins.com/support/request/"
+  },
+  {
+    "id": 17,
+    "company_name": "Prysmatic Labs",
+    "support": "contact@prysmaticlabs.com:mailto:contact@prysmaticlabs.com"
+  },
+  {
+    "id": 18,
+    "company_name": "Amplify Exchange",
+    "support": "Wiki/FAQ:https://support.amplifyexchange.com/hc/en-us/categories/360002128334-Frequently-Asked-Questions"
+  },
+  {
+    "id": 19,
+    "company_name": "Amplify Exchange",
+    "support": "info@amplifyexchange.com:mailto:info@amplifyexchange.com"
+  },
+  {
+    "id": 20,
+    "company_name": "Amplify Exchange",
+    "support": "Support Website:https://support.amplifyexchange.com/hc/en-us"
+  },
+  {
+    "id": 21,
+    "company_name": "WazirX",
+    "support": "Support Website:https://support.wazirx.com/hc/en-us"
+  },
+  {
+    "id": 22,
+    "company_name": "Elliptic",
+    "support": "Support Website:https://www.elliptic.co/contact"
+  },
+  {
+    "id": 23,
+    "company_name": "Coin Metrics",
+    "support": "info@coinmetrics.io:mailto:info@coinmetrics.io"
+  },
+  {
+    "id": 24,
+    "company_name": "Glassnode",
+    "support": "Tel: +41 (0)41 481 04 04:tel://+41 (0)41 481 04 04"
+  },
+  {
+    "id": 25,
+    "company_name": "Glassnode",
+    "support": "contact@glassnode.com:mailto:contact@glassnode.com"
+  },
+  {
+    "id": 26,
+    "company_name": "Glassnode",
+    "support": "Support Website:https://glassnode.com/contact"
+  },
+  {
+    "id": 27,
+    "company_name": "MVP Workshop",
+    "support": "Wiki/FAQ:https://mvpworkshop.co/faq/"
+  },
+  {
+    "id": 28,
+    "company_name": "MVP Workshop",
+    "support": "hello@mvpworkshop.co:mailto:hello@mvpworkshop.co"
+  },
+  {
+    "id": 29,
+    "company_name": "MVP Workshop",
+    "support": "Support Website:https://mvpworkshop.co/contact/"
+  },
+  {
+    "id": 30,
+    "company_name": "Genesis Group",
+    "support": "Support Website:https://www.genesis-group.com/contact/"
+  },
+  {
+    "id": 31,
+    "company_name": "Coinmine",
+    "support": "Wiki/FAQ:https://coinmine.com/pages/faq"
+  },
+  {
+    "id": 32,
+    "company_name": "Coinmine",
+    "support": "Support Website:https://coinmine.com/pages/contact-us"
+  },
+  {
+    "id": 33,
+    "company_name": "Tezos Foundation",
+    "support": "Support Website:https://tezos.foundation/contact-form/general"
+  },
+  {
+    "id": 34,
+    "company_name": "Electric Coin Company",
+    "support": "info@electriccoin.co:mailto:info@electriccoin.co"
+  },
+  {
+    "id": 35,
+    "company_name": "Electric Coin Company",
+    "support": "Support Website:https://electriccoin.co/contact/"
+  },
+  {
+    "id": 36,
+    "company_name": "Canaan",
+    "support": "sales@canaan.io:mailto:sales@canaan.io"
+  },
+  {
+    "id": 37,
+    "company_name": "Arweave",
+    "support": "Wiki/FAQ:https://www.arweave.org/faqs.html"
+  },
+  {
+    "id": 38,
+    "company_name": "Arweave",
+    "support": "team@arweave.org:mailto:team@arweave.org"
+  },
+  {
+    "id": 39,
+    "company_name": "DeversiFi",
+    "support": "Wiki/FAQ:https://nectar.community/faq"
+  },
+  {
+    "id": 40,
+    "company_name": "DeversiFi",
+    "support": "info@deversifi.com:mailto:info@deversifi.com"
+  },
+  {
+    "id": 41,
+    "company_name": "BlockTower Capital",
+    "support": "Support Website:https://www.blocktower.com/contact"
+  },
+  {
+    "id": 42,
+    "company_name": "Civil",
+    "support": "Wiki/FAQ:https://help.civil.co/"
+  },
+  {
+    "id": 43,
+    "company_name": "Civil",
+    "support": "support@civil.co:mailto:support@civil.co"
+  },
+  {
+    "id": 44,
+    "company_name": "Civil",
+    "support": "Support Website:https://civil.co/contact/"
+  },
+  {
+    "id": 45,
+    "company_name": "Cointraffic",
+    "support": "Wiki/FAQ:https://faq.cointraffic.io/en"
+  },
+  {
+    "id": 46,
+    "company_name": "Cointraffic",
+    "support": "support@cointraffic.io:mailto:support@cointraffic.io"
+  },
+  {
+    "id": 47,
+    "company_name": "STASIS",
+    "support": "Wiki/FAQ:https://stasis.net/qa/"
+  },
+  {
+    "id": 48,
+    "company_name": "STASIS",
+    "support": "corp@stasis.net:mailto:corp@stasis.net"
+  },
+  {
+    "id": 49,
+    "company_name": "STASIS",
+    "support": "Support Website:https://stasis.net/contacts/"
+  },
+  {
+    "id": 50,
+    "company_name": "Weiss Crypto Ratings",
+    "support": "Wiki/FAQ:https://weisscrypto.com/en/frequently-asked-questions"
+  },
+  {
+    "id": 51,
+    "company_name": "Weiss Crypto Ratings",
+    "support": "Tel: 1-877-934-7778:tel://1-877-934-7778"
+  },
+  {
+    "id": 52,
+    "company_name": "Weiss Crypto Ratings",
+    "support": "contactus@weissinc.com:mailto:contactus@weissinc.com"
+  },
+  {
+    "id": 53,
+    "company_name": "Weiss Crypto Ratings",
+    "support": "Support Website:https://weisscrypto.com/en/contact"
+  },
+  {
+    "id": 54,
+    "company_name": "Dolomite",
+    "support": "Wiki/FAQ:https://dolomite.io/support/faq.html"
+  },
+  {
+    "id": 55,
+    "company_name": "Nash",
+    "support": "Wiki/FAQ:https://support.nash.io/hc/en-us"
+  },
+  {
+    "id": 56,
+    "company_name": "Nash",
+    "support": "Support Website:https://nash.io/help/contact"
+  },
+  {
+    "id": 57,
+    "company_name": "SmartContract",
+    "support": "Support@SmartContract.com:mailto:Support@SmartContract.com"
+  },
+  {
+    "id": 58,
+    "company_name": "CME Group",
+    "support": "Tel: +1 312 930 3434:tel://+1 312 930 3434"
+  },
+  {
+    "id": 59,
+    "company_name": "CME Group",
+    "support": "Corporate.Communications@cmegroup.com:mailto:Corporate.Communications@cmegroup.com"
+  },
+  {
+    "id": 60,
+    "company_name": "Deribit",
+    "support": "Wiki/FAQ:https://www.deribit.com/pages/information/faq"
+  },
+  {
+    "id": 61,
+    "company_name": "Dash Foundation",
+    "support": "Support Website:https://www.dashfoundation.io/contact/"
+  },
+  {
+    "id": 62,
+    "company_name": "Litecoin Foundation",
+    "support": "contact@litecoinfoundation.net:mailto:contact@litecoinfoundation.net"
+  },
+  {
+    "id": 63,
+    "company_name": "Cardano Foundation",
+    "support": "info@cardanofoundation.org:mailto:info@cardanofoundation.org"
+  },
+  {
+    "id": 64,
+    "company_name": "Bitspark",
+    "support": "Wiki/FAQ:http://support.bitspark.io/en/"
+  },
+  {
+    "id": 65,
+    "company_name": "Bitspark",
+    "support": "info@bitspark.io:mailto:info@bitspark.io"
+  },
+  {
+    "id": 66,
+    "company_name": "Bitspark",
+    "support": "Support Website:https://www.bitspark.io/contact-us"
+  },
+  {
+    "id": 67,
+    "company_name": "Casa",
+    "support": "help@team.casa:mailto:help@team.casa"
+  },
+  {
+    "id": 68,
+    "company_name": "Casa",
+    "support": "Support Website:https://keys.casa/support"
+  },
+  {
+    "id": 69,
+    "company_name": "RTrade Technologies",
+    "support": "Wiki/FAQ:https://temporal.cloud/faq/"
+  },
+  {
+    "id": 70,
+    "company_name": "RTrade Technologies",
+    "support": "info@rtradetechnologies.com:mailto:info@rtradetechnologies.com"
+  },
+  {
+    "id": 71,
+    "company_name": "RTrade Technologies",
+    "support": "Support Website:https://temporal.cloud/contact/"
+  },
+  {
+    "id": 72,
+    "company_name": "Tachyon",
+    "support": "Wiki/FAQ:https://docs.google.com/document/d/1bTc17Oz9WdO9KcBZUsfU_b9_x5Y855z8sElo7Yiw8fY/"
+  },
+  {
+    "id": 73,
+    "company_name": "Tachyon",
+    "support": "tachyon@consensys.net:mailto:tachyon@consensys.net"
+  },
+  {
+    "id": 74,
+    "company_name": "Tachyon",
+    "support": "Support Website:https://labs.consensys.net/contact/"
+  },
+  {
+    "id": 75,
+    "company_name": "Gitcoin",
+    "support": "Wiki/FAQ:https://gitcoin.co/help"
+  },
+  {
+    "id": 76,
+    "company_name": "Gitcoin",
+    "support": "founders@gitcoin.co:mailto:founders@gitcoin.co"
+  },
+  {
+    "id": 77,
+    "company_name": "Gitcoin",
+    "support": "Support Website:https://gitcoin.co/blog/contact/"
+  },
+  {
+    "id": 78,
+    "company_name": "Core Scientific",
+    "support": "Tel: (425) 822-1466:tel://(425) 822-1466"
+  },
+  {
+    "id": 79,
+    "company_name": "Core Scientific",
+    "support": "Support Website:https://www.corescientific.com/contact"
+  },
+  {
+    "id": 80,
+    "company_name": "Rain",
+    "support": "Wiki/FAQ:https://support.rain.bh/en/collections/948736-about-rain"
+  },
+  {
+    "id": 81,
+    "company_name": "Rain",
+    "support": "support@rain.bh:mailto:support@rain.bh"
+  },
+  {
+    "id": 82,
+    "company_name": "Rain",
+    "support": "Support Website:https://support.rain.bh/en/"
+  },
+  {
+    "id": 83,
+    "company_name": "Miner Bros Limited",
+    "support": "Wiki/FAQ:https://www.cryptominerbros.com/frequently-asked-questions"
+  },
+  {
+    "id": 84,
+    "company_name": "Miner Bros Limited",
+    "support": "Tel: +86-13138175303:tel://+86-13138175303"
+  },
+  {
+    "id": 85,
+    "company_name": "Miner Bros Limited",
+    "support": "info@cryptominerbros.com:mailto:info@cryptominerbros.com"
+  },
+  {
+    "id": 86,
+    "company_name": "Miner Bros Limited",
+    "support": "Support Website:https://www.cryptominerbros.com/contact"
+  },
+  {
+    "id": 87,
+    "company_name": "MXC",
+    "support": "Wiki/FAQ:https://mxc-exchange.zendesk.com/hc/en-001"
+  },
+  {
+    "id": 88,
+    "company_name": "MXC",
+    "support": "service@mxc.com:mailto:service@mxc.com"
+  },
+  {
+    "id": 89,
+    "company_name": "MXC",
+    "support": "Support Website:https://t.me/MXCEnglish"
+  },
+  {
+    "id": 90,
+    "company_name": "MeterQubes",
+    "support": "admin@meterqubes.io:mailto:admin@meterqubes.io"
+  },
+  {
+    "id": 91,
+    "company_name": "Crypto Finance",
+    "support": "Tel: +41 41 545 88 22:tel://+41 41 545 88 22"
+  },
+  {
+    "id": 92,
+    "company_name": "Crypto Finance",
+    "support": "info@cryptofinance.ch:mailto:info@cryptofinance.ch"
+  },
+  {
+    "id": 93,
+    "company_name": "Crypto Finance",
+    "support": "Support Website:https://www.cryptofinance.ch/en/contact/"
+  },
+  {
+    "id": 94,
+    "company_name": "Enterprise Ethereum Alliance",
+    "support": "Wiki/FAQ:https://entethalliance.org/faqs/"
+  },
+  {
+    "id": 95,
+    "company_name": "Enterprise Ethereum Alliance",
+    "support": "Support Website:https://entethalliance.org/contact/"
+  },
+  {
+    "id": 96,
+    "company_name": "UPbit",
+    "support": "Wiki/FAQ:https://sg.upbit.com/service_center/faq"
+  },
+  {
+    "id": 97,
+    "company_name": "tZERO",
+    "support": "Tel: 855.893.7611:tel://855.893.7611"
+  },
+  {
+    "id": 98,
+    "company_name": "tZERO",
+    "support": "support@tzero.com:mailto:support@tzero.com"
+  },
+  {
+    "id": 99,
+    "company_name": "Bitcoin Gear",
+    "support": "Wiki/FAQ:https://www.bitcoin-gear.com/pages/faq"
+  },
+  {
+    "id": 100,
+    "company_name": "Bitcoin Gear",
+    "support": "customerservice@bitcoin-gear.com:mailto:customerservice@bitcoin-gear.com"
+  },
+  {
+    "id": 101,
+    "company_name": "Bitcoin Foundation",
+    "support": "Support Website:https://bitcoinfoundation.org/contact/"
+  },
+  {
+    "id": 102,
+    "company_name": "nChain",
+    "support": "media@nchain.com:mailto:media@nchain.com"
+  },
+  {
+    "id": 103,
+    "company_name": "nChain",
+    "support": "Support Website:https://nchain.com/en/contact/"
+  },
+  {
+    "id": 104,
+    "company_name": "Morgan Creek Digital Assets",
+    "support": "team@bitwiseinvestments:mailto:team@bitwiseinvestments"
+  },
+  {
+    "id": 105,
+    "company_name": "Block.one",
+    "support": "developers@block.one:mailto:developers@block.one"
+  },
+  {
+    "id": 106,
+    "company_name": "Block.one",
+    "support": "Support Website:https://block.one/contact/"
+  },
+  {
+    "id": 107,
+    "company_name": "Blockstation",
+    "support": "Wiki/FAQ:http://help.blockstation.com?utm_source=cryptoslate&utm_medium=companyfeature"
+  },
+  {
+    "id": 108,
+    "company_name": "Blockstation",
+    "support": "Tel: 1-833-326-2646:tel://1-833-326-2646"
+  },
+  {
+    "id": 109,
+    "company_name": "Blockstation",
+    "support": "support@blockstation.com:mailto:support@blockstation.com"
+  },
+  {
+    "id": 110,
+    "company_name": "Blockstation",
+    "support": "Support Website:https://blockstation.com/contact?utm_source=cryptoslate&utm_medium=companyfeature"
+  },
+  {
+    "id": 111,
+    "company_name": "Crypto Capital",
+    "support": "Wiki/FAQ:https://support.cryptocapital.co/support/home"
+  },
+  {
+    "id": 112,
+    "company_name": "Crypto Capital",
+    "support": "contact@cryptocapital.co:mailto:contact@cryptocapital.co"
+  },
+  {
+    "id": 113,
+    "company_name": "ARYZE",
+    "support": "info@aryze.io:mailto:info@aryze.io"
+  },
+  {
+    "id": 114,
+    "company_name": "CODEX",
+    "support": "Wiki/FAQ:https://support.codex.one/hc/en-us"
+  },
+  {
+    "id": 115,
+    "company_name": "CODEX",
+    "support": "Tel: +442035143400:tel://+442035143400"
+  },
+  {
+    "id": 116,
+    "company_name": "CODEX",
+    "support": "support@codex.one:mailto:support@codex.one"
+  },
+  {
+    "id": 117,
+    "company_name": "HitBTC",
+    "support": "Wiki/FAQ:https://hitbtc.com/faq"
+  },
+  {
+    "id": 118,
+    "company_name": "HitBTC",
+    "support": "support@hitbtc.com:mailto:support@hitbtc.com"
+  },
+  {
+    "id": 119,
+    "company_name": "HitBTC",
+    "support": "Support Website:https://support.hitbtc.com/hc/en-us"
+  },
+  {
+    "id": 120,
+    "company_name": "Bitfury",
+    "support": "info@bitfury.com:mailto:info@bitfury.com"
+  },
+  {
+    "id": 121,
+    "company_name": "Mastercard",
+    "support": "Wiki/FAQ:https://developer.mastercard.com/support"
+  },
+  {
+    "id": 122,
+    "company_name": "Mastercard",
+    "support": "Support Website:https://www.mastercard.us/content/dam/mccom/global/documents/global-services-phone-numbers.pdf"
+  },
+  {
+    "id": 123,
+    "company_name": "Minds + Machines Group Limited",
+    "support": "Wiki/FAQ:https://www.join.luxe/faq/"
+  },
+  {
+    "id": 124,
+    "company_name": "Minds + Machines Group Limited",
+    "support": "Tel: 1 206 531 3850:tel://  1 206 531 3850"
+  },
+  {
+    "id": 125,
+    "company_name": "Minds + Machines Group Limited",
+    "support": "support@mmx.co:mailto:support@mmx.co"
+  },
+  {
+    "id": 126,
+    "company_name": "Minds + Machines Group Limited",
+    "support": "Support Website:https://www.join.luxe/contact/"
+  },
+  {
+    "id": 127,
+    "company_name": "ShapeShift",
+    "support": "Wiki/FAQ:https://info.shapeshift.io/faq/"
+  },
+  {
+    "id": 128,
+    "company_name": "ShapeShift",
+    "support": "support@shapeshift.zendesk.com:mailto:support@shapeshift.zendesk.com"
+  },
+  {
+    "id": 129,
+    "company_name": "ShapeShift",
+    "support": "Support Website:https://shapeshift.zendesk.com/hc/en-us/requests/new"
+  },
+  {
+    "id": 130,
+    "company_name": "JPMorgan",
+    "support": "Wiki/FAQ:https://github.com/jpmorganchase/quorum/wiki"
+  },
+  {
+    "id": 131,
+    "company_name": "JPMorgan",
+    "support": "quorum_info@jpmorgan.com:mailto:quorum_info@jpmorgan.com"
+  },
+  {
+    "id": 132,
+    "company_name": "JPMorgan",
+    "support": "Support Website:https://www.jpmorgan.com/global/contact-us"
+  },
+  {
+    "id": 133,
+    "company_name": "TokenInsight",
+    "support": "data@tokeninsight.com:mailto:data@tokeninsight.com"
+  },
+  {
+    "id": 134,
+    "company_name": "TokenInsight",
+    "support": "Support Website:https://tokeninsight.com/feedback"
+  },
+  {
+    "id": 135,
+    "company_name": "AZ Blockchain",
+    "support": "Tel: +1 416 821-9655:tel://+1 416 821-9655"
+  },
+  {
+    "id": 136,
+    "company_name": "AZ Blockchain",
+    "support": "info@azblockchain.co:mailto:info@azblockchain.co"
+  },
+  {
+    "id": 137,
+    "company_name": "Fidelity Investments",
+    "support": "Wiki/FAQ:https://www.fidelity.com/faqs/overview"
+  },
+  {
+    "id": 138,
+    "company_name": "Fidelity Investments",
+    "support": "Tel: 800-972-2155:tel://800-972-2155"
+  },
+  {
+    "id": 139,
+    "company_name": "Fidelity Investments",
+    "support": "Support Website:https://www.fidelitydigitalassets.com/contact-us/overview"
+  },
+  {
+    "id": 140,
+    "company_name": "Genesis Mining",
+    "support": "Wiki/FAQ:https://www.genesis-mining.com/customer-service"
+  },
+  {
+    "id": 141,
+    "company_name": "Genesis Mining",
+    "support": "contact@genesis-mining.com:mailto:contact@genesis-mining.com"
+  },
+  {
+    "id": 142,
+    "company_name": "Real Time Crypto",
+    "support": "RTCpartnerships@gmail.com:mailto:RTCpartnerships@gmail.com"
+  },
+  {
+    "id": 143,
+    "company_name": "Poloniex",
+    "support": "Wiki/FAQ:https://poloniex.freshdesk.com/support/home"
+  },
+  {
+    "id": 144,
+    "company_name": "Poloniex",
+    "support": "Support Website:https://poloniex.com/contact"
+  },
+  {
+    "id": 145,
+    "company_name": "Digital Ark",
+    "support": "contact@digitalark.com:mailto:contact@digitalark.com"
+  },
+  {
+    "id": 146,
+    "company_name": "Digital Ark",
+    "support": "Support Website:https://digitalark.com/#contact"
+  },
+  {
+    "id": 147,
+    "company_name": "Openledger",
+    "support": "contact@openledger.info:mailto:contact@openledger.info"
+  },
+  {
+    "id": 148,
+    "company_name": "Openledger",
+    "support": "Support Website:https://openledger.freshdesk.com/support/home"
+  },
+  {
+    "id": 149,
+    "company_name": "Kraken",
+    "support": "Wiki/FAQ:https://www.kraken.com/en-us/help/faq"
+  },
+  {
+    "id": 150,
+    "company_name": "Kraken",
+    "support": "support@kraken.com:mailto:support@kraken.com"
+  },
+  {
+    "id": 151,
+    "company_name": "Kraken",
+    "support": "Support Website:https://support.kraken.com/hc/en-us"
+  },
+  {
+    "id": 152,
+    "company_name": "CryptoPanic",
+    "support": "kaspars@cryptopanic.com:mailto:kaspars@cryptopanic.com"
+  },
+  {
+    "id": 153,
+    "company_name": "CryptoPanic",
+    "support": "Support Website:https://cryptopanic.com/contact/"
+  },
+  {
+    "id": 154,
+    "company_name": "Bitstamp",
+    "support": "Wiki/FAQ:https://www.bitstamp.net/faq/"
+  },
+  {
+    "id": 155,
+    "company_name": "Bitstamp",
+    "support": "Tel: +44 20 3868 9628:tel://+44 20 3868 9628"
+  },
+  {
+    "id": 156,
+    "company_name": "Bitstamp",
+    "support": "info@bitstamp.net:mailto:info@bitstamp.net"
+  },
+  {
+    "id": 157,
+    "company_name": "Hyperledger",
+    "support": "info@hyperledger.org:mailto:info@hyperledger.org"
+  },
+  {
+    "id": 158,
+    "company_name": "Sydney Blockchain Centre",
+    "support": "info@sydblockchaincentre.com.au:mailto:info@sydblockchaincentre.com.au"
+  },
+  {
+    "id": 159,
+    "company_name": "Sydney Blockchain Centre",
+    "support": "Support Website:https://www.sydblockchaincentre.com/contact"
+  },
+  {
+    "id": 160,
+    "company_name": "Goldman Sachs",
+    "support": "Wiki/FAQ:https://www.goldmansachs.com/investor-relations/faqs/"
+  },
+  {
+    "id": 161,
+    "company_name": "Goldman Sachs",
+    "support": "Tel: 1-212-902-0300:tel://1-212-902-0300"
+  },
+  {
+    "id": 162,
+    "company_name": "Goldman Sachs",
+    "support": "gs-investor-relations@gs.com:mailto:gs-investor-relations@gs.com"
+  },
+  {
+    "id": 163,
+    "company_name": "IBM Blockchain",
+    "support": "Wiki/FAQ:https://ibm-blockchain.github.io/"
+  },
+  {
+    "id": 164,
+    "company_name": "IBM Blockchain",
+    "support": "Support Website:https://www.ibm.com/contact/us/en/"
+  },
+  {
+    "id": 165,
+    "company_name": "Bithumb",
+    "support": "Wiki/FAQ:https://www.bithumb.com/u1/US170"
+  },
+  {
+    "id": 166,
+    "company_name": "Bithumb",
+    "support": "Tel: +82-1661-5551:tel://+82-1661-5551"
+  },
+  {
+    "id": 167,
+    "company_name": "Bithumb",
+    "support": "Support Website:https://www.bithumb.com/u1/US101/"
+  },
+  {
+    "id": 168,
+    "company_name": "Digital Asset Management",
+    "support": "Tel: +350 200 73337:tel://+350 200 73337"
+  },
+  {
+    "id": 169,
+    "company_name": "Digital Asset Management",
+    "support": "info@dam.gi:mailto:info@dam.gi"
+  },
+  {
+    "id": 170,
+    "company_name": "Digital Asset Management",
+    "support": "Support Website:https://www.dam.gi/contact/"
+  },
+  {
+    "id": 171,
+    "company_name": "BitGo",
+    "support": "Wiki/FAQ:https://bitgo.freshdesk.com/support/solutions/folders/27000003984"
+  },
+  {
+    "id": 172,
+    "company_name": "BitGo",
+    "support": "media@bitgo.com:mailto:media@bitgo.com"
+  },
+  {
+    "id": 173,
+    "company_name": "BitGo",
+    "support": "Support Website:https://www.bitgo.com/info/contact"
+  },
+  {
+    "id": 174,
+    "company_name": "Conversion Wizards",
+    "support": "Tel: (650) 761 2620:tel://(650) 761 2620"
+  },
+  {
+    "id": 175,
+    "company_name": "Conversion Wizards",
+    "support": "jasper@theconversionwizards.com:mailto:jasper@theconversionwizards.com"
+  },
+  {
+    "id": 176,
+    "company_name": "Chainalysis",
+    "support": "Tel: 415-316-4371:tel://415-316-4371"
+  },
+  {
+    "id": 177,
+    "company_name": "Chainalysis",
+    "support": "info@chainalysis.com:mailto:info@chainalysis.com"
+  },
+  {
+    "id": 178,
+    "company_name": "Chainalysis",
+    "support": "Support Website:https://www.chainalysis.com/contact.html"
+  },
+  {
+    "id": 179,
+    "company_name": "Blockchain, Inc.",
+    "support": "Wiki/FAQ:https://support.blockchain.com/hc/en-us/categories/201149143-Educational-Resources"
+  },
+  {
+    "id": 180,
+    "company_name": "Blockchain, Inc.",
+    "support": "social@blockchain.info:mailto:social@blockchain.info"
+  },
+  {
+    "id": 181,
+    "company_name": "Blockchain, Inc.",
+    "support": "Support Website:https://support.blockchain.com/hc/en-us"
+  },
+  {
+    "id": 182,
+    "company_name": "BlockVC",
+    "support": "business@blockvc.fund:mailto:business@blockvc.fund"
+  },
+  {
+    "id": 183,
+    "company_name": "Node Capital",
+    "support": "Tel: 010-8217-6160:tel:// 010-8217-6160"
+  },
+  {
+    "id": 184,
+    "company_name": "Node Capital",
+    "support": "partner@nodecap.com:mailto:partner@nodecap.com"
+  },
+  {
+    "id": 185,
+    "company_name": "Blockchain Capital",
+    "support": "Tel: +1 (415) 677-5340:tel://+1 (415) 677-5340"
+  },
+  {
+    "id": 186,
+    "company_name": "Blockchain Capital",
+    "support": "contact@blockchaincapital.com:mailto:contact@blockchaincapital.com"
+  },
+  {
+    "id": 187,
+    "company_name": "Blockchain Capital",
+    "support": "Support Website:http://blockchain.capital/contact/"
+  },
+  {
+    "id": 188,
+    "company_name": "Andreessen Horowitz",
+    "support": "businessplans@a16z.com:mailto:businessplans@a16z.com"
+  },
+  {
+    "id": 189,
+    "company_name": "Pantera Capital",
+    "support": "Tel: +1 650 854 7000:tel://+1 650 854 7000"
+  },
+  {
+    "id": 190,
+    "company_name": "Pantera Capital",
+    "support": "ir@panteracapital.com:mailto:ir@panteracapital.com"
+  },
+  {
+    "id": 191,
+    "company_name": "Pantera Capital",
+    "support": "Support Website:http://info.panteracapital.com/invest"
+  },
+  {
+    "id": 192,
+    "company_name": "Digital Currency Group",
+    "support": "Support Website:https://dcg.co/contact/"
+  },
+  {
+    "id": 193,
+    "company_name": "CrowdfundX",
+    "support": "Support Website:https://www.crowdfundx.io/#ajax-contact_div"
+  },
+  {
+    "id": 194,
+    "company_name": "Gresham International",
+    "support": "Tel: +1 (307) 298 0064 US:tel://+1 (307) 298 0064 US"
+  },
+  {
+    "id": 195,
+    "company_name": "Bitmain",
+    "support": "Wiki/FAQ:https://service.bitmain.com/support"
+  },
+  {
+    "id": 196,
+    "company_name": "Bitmain",
+    "support": "Tel: +65-3138-9024:tel://+65-3138-9024"
+  },
+  {
+    "id": 197,
+    "company_name": "Bitmain",
+    "support": "info@bitmaintech.com:mailto:info@bitmaintech.com"
+  },
+  {
+    "id": 198,
+    "company_name": "Bitmain",
+    "support": "Support Website:https://support.bitmain.com/hc/en-us/requests/new"
+  },
+  {
+    "id": 199,
+    "company_name": "Omise",
+    "support": "Wiki/FAQ:https://www.omise.co/support"
+  },
+  {
+    "id": 200,
+    "company_name": "Omise",
+    "support": "Support Website:https://www.omise.co/contact"
+  },
+  {
+    "id": 201,
+    "company_name": "Coin Center",
+    "support": "contact@coincenter.org:mailto:contact@coincenter.org"
+  },
+  {
+    "id": 202,
+    "company_name": "Reflective Ventures",
+    "support": "Tel: 206-775-8266:tel://206-775-8266"
+  },
+  {
+    "id": 203,
+    "company_name": "Reflective Ventures",
+    "support": "info@reflectiveventures.io:mailto:info@reflectiveventures.io"
+  },
+  {
+    "id": 204,
+    "company_name": "Reflective Ventures",
+    "support": "Support Website:https://www.reflectiveventures.io/get-funding/"
+  },
+  {
+    "id": 205,
+    "company_name": "Blockchain Transparency Institute",
+    "support": "Support Website:https://www.blockchaintransparency.org/contact/"
+  },
+  {
+    "id": 206,
+    "company_name": "Coinme",
+    "support": "Wiki/FAQ:https://www.coinme.com/faq"
+  },
+  {
+    "id": 207,
+    "company_name": "Coinme",
+    "support": "Tel: +1 800-944-3405:tel://+1 800-944-3405"
+  },
+  {
+    "id": 208,
+    "company_name": "Coinme",
+    "support": "support@coime.com:mailto:support@coime.com"
+  },
+  {
+    "id": 209,
+    "company_name": "Coinme",
+    "support": "Support Website:https://coinme.freshdesk.com/support/home"
+  },
+  {
+    "id": 210,
+    "company_name": "Arrington XRP Capital",
+    "support": "contact@arringtonxrpcapital.com:mailto:contact@arringtonxrpcapital.com"
+  },
+  {
+    "id": 211,
+    "company_name": "Pithia",
+    "support": "Wiki/FAQ:https://pithia.com/index.php/purpose-principles/for-new-entrepreneurs"
+  },
+  {
+    "id": 212,
+    "company_name": "Pithia",
+    "support": "services@pithia.com:mailto:services@pithia.com"
+  },
+  {
+    "id": 213,
+    "company_name": "New Alchemy",
+    "support": "Support Website:https://newalchemy.io/"
+  },
+  {
+    "id": 214,
+    "company_name": "Bloccelerate",
+    "support": "info@bloccelerate.com:mailto:info@bloccelerate.com"
+  },
+  {
+    "id": 215,
+    "company_name": "CryptoLaw Partners",
+    "support": "Support Website:https://cryptolawpartners.com/contact"
+  },
+  {
+    "id": 216,
+    "company_name": "MarketAcross",
+    "support": "Tel: +972.54.638.0521:tel://+972.54.638.0521"
+  },
+  {
+    "id": 217,
+    "company_name": "MarketAcross",
+    "support": "info@marketacross.com:mailto:info@marketacross.com"
+  },
+  {
+    "id": 218,
+    "company_name": "MarketAcross",
+    "support": "Support Website:https://marketacross.com/#contact-us"
+  },
+  {
+    "id": 219,
+    "company_name": "Skew",
+    "support": "contact@skew.com:mailto:contact@skew.com"
+  },
+  {
+    "id": 220,
+    "company_name": "Xpring",
+    "support": "Wiki/FAQ:https://xpring.io/faq"
+  },
+  {
+    "id": 221,
+    "company_name": "Xpring",
+    "support": "contactxpring@ripple.com:mailto:contactxpring@ripple.com"
+  },
+  {
+    "id": 222,
+    "company_name": "Transparent Systems",
+    "support": "info@transparentsystems.com:mailto:info@transparentsystems.com"
+  },
+  {
+    "id": 223,
+    "company_name": "MyCointainer",
+    "support": "Wiki/FAQ:https://www.mycointainer.com/faq/"
+  },
+  {
+    "id": 224,
+    "company_name": "MyCointainer",
+    "support": "support@mycointainer.com:mailto:support@mycointainer.com"
+  },
+  {
+    "id": 225,
+    "company_name": "MyCointainer",
+    "support": "Support Website:https://www.mycointainer.com/company/#contacts"
+  },
+  {
+    "id": 226,
+    "company_name": "Lightning Labs",
+    "support": "Wiki/FAQ:https://lightning.engineering/index.html#faq"
+  },
+  {
+    "id": 227,
+    "company_name": "Lightning Labs",
+    "support": "hello@lightning.engineering:mailto:hello@lightning.engineering"
+  },
+  {
+    "id": 228,
+    "company_name": "YAP Global",
+    "support": "Support Website:https://yapglobal.com/contact/"
+  },
+  {
+    "id": 229,
+    "company_name": "#Hashed",
+    "support": "Support Website:https://www.hashed.com/contact/"
+  },
+  {
+    "id": 230,
+    "company_name": "Truffle",
+    "support": "Wiki/FAQ:https://www.trufflesuite.com/docs"
+  },
+  {
+    "id": 231,
+    "company_name": "Truffle",
+    "support": "inquiry@trufflesuite.com:mailto:inquiry@trufflesuite.com"
+  },
+  {
+    "id": 232,
+    "company_name": "ShortHop",
+    "support": "Wiki/FAQ:https://shorthop.zendesk.com/"
+  },
+  {
+    "id": 233,
+    "company_name": "ShortHop",
+    "support": "info@shorthop.com:mailto:info@shorthop.com"
+  },
+  {
+    "id": 234,
+    "company_name": "ShortHop",
+    "support": "Support Website:https://shorthop.zendesk.com/"
+  },
+  {
+    "id": 235,
+    "company_name": "ZenLedger",
+    "support": "hello@zenledger.io:mailto:hello@zenledger.io"
+  },
+  {
+    "id": 236,
+    "company_name": "Huobi Global",
+    "support": "Wiki/FAQ:https://huobiglobal.zendesk.com/hc/en-us"
+  },
+  {
+    "id": 237,
+    "company_name": "Huobi Global",
+    "support": "support@huobi.pro:mailto:support@huobi.pro"
+  },
+  {
+    "id": 238,
+    "company_name": "Stellar Development Foundation",
+    "support": "Wiki/FAQ:https://www.stellar.org/community/faq/"
+  },
+  {
+    "id": 239,
+    "company_name": "Stellar Development Foundation",
+    "support": "Support Website:https://www.stellar.org/contact"
+  },
+  {
+    "id": 240,
+    "company_name": "BW.com",
+    "support": "Wiki/FAQ:https://www.bw.com/FAQ"
+  },
+  {
+    "id": 241,
+    "company_name": "BW.com",
+    "support": "support@bw.com:mailto:support@bw.com"
+  },
+  {
+    "id": 242,
+    "company_name": "BW.com",
+    "support": "Support Website:https://t.me/BW_support"
+  },
+  {
+    "id": 243,
+    "company_name": "TravelbyBit",
+    "support": "Wiki/FAQ:https://travelbybit.com/faq"
+  },
+  {
+    "id": 244,
+    "company_name": "TravelbyBit",
+    "support": "Support Website:https://travelbybit.com/contact-us"
+  },
+  {
+    "id": 245,
+    "company_name": "Conflux",
+    "support": "Wiki/FAQ:https://www.conflux-chain.org/faqs/"
+  },
+  {
+    "id": 246,
+    "company_name": "dex.blue",
+    "support": "contact@dex.blue:mailto:contact@dex.blue"
+  },
+  {
+    "id": 247,
+    "company_name": "IOTA Foundation",
+    "support": "Wiki/FAQ:https://www.iota.org/get-started/faqs"
+  },
+  {
+    "id": 248,
+    "company_name": "IOTA Foundation",
+    "support": "contact@iota.org:mailto:contact@iota.org"
+  },
+  {
+    "id": 249,
+    "company_name": "ZBG",
+    "support": "Wiki/FAQ:https://zbg.zendesk.com/hc/en-us/categories/900000008323-Miscellaneous"
+  },
+  {
+    "id": 250,
+    "company_name": "ZBG",
+    "support": "sp@zbg.com:mailto:sp@zbg.com"
+  },
+  {
+    "id": 251,
+    "company_name": "ZBG",
+    "support": "Support Website:https://zbg.zendesk.com/hc/en-us/requests/new"
+  },
+  {
+    "id": 252,
+    "company_name": "ZB.com",
+    "support": "Wiki/FAQ:https://www.zb.com/help/guides"
+  },
+  {
+    "id": 253,
+    "company_name": "ZB.com",
+    "support": "support@zb.cn:mailto:support@zb.cn"
+  },
+  {
+    "id": 254,
+    "company_name": "BaseFEX",
+    "support": "Wiki/FAQ:https://www.basefex.com/docs/faq"
+  },
+  {
+    "id": 255,
+    "company_name": "BaseFEX",
+    "support": "support@basefex.com:mailto:support@basefex.com"
+  },
+  {
+    "id": 256,
+    "company_name": "BaseFEX",
+    "support": "Support Website:https://www.basefex.com/docs/support"
+  },
+  {
+    "id": 257,
+    "company_name": "Blox",
+    "support": "Wiki/FAQ:https://www.blox.io/support/faq/"
+  },
+  {
+    "id": 258,
+    "company_name": "Blox",
+    "support": "Support Website:https://www.blox.io/support/"
+  },
+  {
+    "id": 259,
+    "company_name": "ChangeNOW",
+    "support": "Wiki/FAQ:https://changenow.io/faq"
+  },
+  {
+    "id": 260,
+    "company_name": "ChangeNOW",
+    "support": "support@changenow.io:mailto:support@changenow.io"
+  },
+  {
+    "id": 261,
+    "company_name": "ChangeNOW",
+    "support": "Support Website:https://support.changenow.io/hc/en-us"
+  },
+  {
+    "id": 262,
+    "company_name": "PrimeBit",
+    "support": "Wiki/FAQ:https://support.primebit.com/hc/en-001/sections/360002457460-FAQ"
+  },
+  {
+    "id": 263,
+    "company_name": "PrimeBit",
+    "support": "Support Website:https://support.primebit.com/hc/en-001"
+  },
+  {
+    "id": 264,
+    "company_name": "Decoin",
+    "support": "Wiki/FAQ:https://www.decoin.io/en/support#faq"
+  },
+  {
+    "id": 265,
+    "company_name": "Decoin",
+    "support": "support@decoin.io:mailto:support@decoin.io"
+  },
+  {
+    "id": 266,
+    "company_name": "Decoin",
+    "support": "Support Website:https://www.decoin.io/en/support/home"
+  },
+  {
+    "id": 267,
+    "company_name": "Bitcoin of America",
+    "support": "Wiki/FAQ:https://www.bitcoinofamerica.org/faq.php"
+  },
+  {
+    "id": 268,
+    "company_name": "Bitcoin of America",
+    "support": "Tel: 888-502-5003:tel://888-502-5003"
+  },
+  {
+    "id": 269,
+    "company_name": "Bitcoin of America",
+    "support": "helpdesk@bitcoinofamerica.org:mailto:helpdesk@bitcoinofamerica.org"
+  },
+  {
+    "id": 270,
+    "company_name": "Bitcoin of America",
+    "support": "Support Website:https://www.bitcoinofamerica.org/contact.php"
+  },
+  {
+    "id": 271,
+    "company_name": "FTX",
+    "support": "Support Website:https://help.ftx.com/hc/en-us/articles/360028737592-How-to-contact-us"
+  },
+  {
+    "id": 272,
+    "company_name": "Bitwise",
+    "support": "Wiki/FAQ:https://www.bitwiseinvestments.com/faq"
+  },
+  {
+    "id": 273,
+    "company_name": "Bitwise",
+    "support": "team@bitwiseinvestments.com:mailto:team@bitwiseinvestments.com"
+  },
+  {
+    "id": 274,
+    "company_name": "Bitwise",
+    "support": "Support Website:https://www.bitwiseinvestments.com/professionals"
+  },
+  {
+    "id": 275,
+    "company_name": "TokenMinds",
+    "support": "team@tokenminds.co:mailto:team@tokenminds.co"
+  },
+  {
+    "id": 276,
+    "company_name": "TokenMinds",
+    "support": "Support Website:https://wa.me/61468401509"
+  },
+  {
+    "id": 277,
+    "company_name": "TokenAnalyst",
+    "support": "info@tokenanalyst.io:mailto:info@tokenanalyst.io"
+  },
+  {
+    "id": 278,
+    "company_name": "Bitcoin Club Malta",
+    "support": "contact@bitcoinclub.mt:mailto:contact@bitcoinclub.mt"
+  },
+  {
+    "id": 279,
+    "company_name": "BitCoke",
+    "support": "Wiki/FAQ:https://www.bitcoke.com/course/D6E0696D64CC528085013ADC53FFC789"
+  },
+  {
+    "id": 280,
+    "company_name": "BitCoke",
+    "support": "support@bitcoke.com:mailto:support@bitcoke.com"
+  },
+  {
+    "id": 281,
+    "company_name": "Coinfirm",
+    "support": "Tel: +44 203 608 6249:tel://+44 203 608 6249"
+  },
+  {
+    "id": 282,
+    "company_name": "Coinfirm",
+    "support": "contact@coinfirm.com:mailto:contact@coinfirm.com"
+  },
+  {
+    "id": 283,
+    "company_name": "WTIA Cascadia Blockchain Council",
+    "support": "Wiki/FAQ:https://www.washingtontechnology.org/about/#faq"
+  },
+  {
+    "id": 284,
+    "company_name": "WTIA Cascadia Blockchain Council",
+    "support": "Tel: 206.448.3033:tel://206.448.3033"
+  },
+  {
+    "id": 285,
+    "company_name": "WTIA Cascadia Blockchain Council",
+    "support": "info@washingtontechnology.org:mailto:info@washingtontechnology.org"
+  },
+  {
+    "id": 286,
+    "company_name": "WTIA Cascadia Blockchain Council",
+    "support": "Support Website:https://www.washingtontechnology.org/blockchain/"
+  },
+  {
+    "id": 287,
+    "company_name": "Ripple",
+    "support": "Wiki/FAQ:https://ripple.com/faq/"
+  },
+  {
+    "id": 288,
+    "company_name": "Ripple",
+    "support": "support@ripple.com:mailto:support@ripple.com"
+  },
+  {
+    "id": 289,
+    "company_name": "Ripple",
+    "support": "Support Website:https://ripple.com/contact/#sales"
+  },
+  {
+    "id": 290,
+    "company_name": "EAK Digital",
+    "support": "Tel: 020 3856 3922:tel://020 3856 3922"
+  },
+  {
+    "id": 291,
+    "company_name": "EAK Digital",
+    "support": "hello@eakdigital.com:mailto:hello@eakdigital.com"
+  },
+  {
+    "id": 292,
+    "company_name": "EAK Digital",
+    "support": "Support Website:https://eakdigital.com/get-in-touch/"
+  },
+  {
+    "id": 293,
+    "company_name": "R3",
+    "support": "Wiki/FAQ:https://www.r3.com/wp-content/uploads/2018/09/US_18_R3_FS_v7.pdf"
+  },
+  {
+    "id": 294,
+    "company_name": "R3",
+    "support": "Tel: 1 646 630 7421:tel://1 646 630 7421"
+  },
+  {
+    "id": 295,
+    "company_name": "R3",
+    "support": "lrcbusinessdev@r3cev.com:mailto:lrcbusinessdev@r3cev.com"
+  },
+  {
+    "id": 296,
+    "company_name": "R3",
+    "support": "Support Website:https://www.r3.com/contact-us/"
+  },
+  {
+    "id": 297,
+    "company_name": "Band Protocol",
+    "support": "connect@bandprotocol.com:mailto:connect@bandprotocol.com"
+  },
+  {
+    "id": 298,
+    "company_name": "Messari",
+    "support": "support@messari.io:mailto:support@messari.io"
+  },
+  {
+    "id": 299,
+    "company_name": "Blockstream",
+    "support": "inquiries@blockstream.com:mailto:inquiries@blockstream.com"
+  },
+  {
+    "id": 300,
+    "company_name": "Overbit",
+    "support": "Wiki/FAQ:http://help.overbit.com/en/collections/2180998-faq"
+  },
+  {
+    "id": 301,
+    "company_name": "Overbit",
+    "support": "support@overbit.com:mailto:support@overbit.com"
+  },
+  {
+    "id": 302,
+    "company_name": "Overbit",
+    "support": "Support Website:https://www.overbit.com/en/support"
+  },
+  {
+    "id": 303,
+    "company_name": "OpenCrowd",
+    "support": "Tel: 212 768 1730:tel://212 768 1730"
+  },
+  {
+    "id": 304,
+    "company_name": "OpenCrowd",
+    "support": "info@opencrowd.com:mailto:info@opencrowd.com"
+  },
+  {
+    "id": 305,
+    "company_name": "OpenCrowd",
+    "support": "Support Website:https://opencrowd.com/contact"
+  },
+  {
+    "id": 306,
+    "company_name": "LunarCRUSH",
+    "support": "Wiki/FAQ:https://intercom.help/lunarcrush/en/"
+  },
+  {
+    "id": 307,
+    "company_name": "CryptoLocally",
+    "support": "Wiki/FAQ:https://cryptolocally.com/en/eos/how-to"
+  },
+  {
+    "id": 308,
+    "company_name": "CryptoLocally",
+    "support": "admin@cryptolocally.com:mailto:admin@cryptolocally.com"
+  },
+  {
+    "id": 309,
+    "company_name": "CryptoLocally",
+    "support": "Support Website:https://cryptolocally.com/en/contact"
+  },
+  {
+    "id": 310,
+    "company_name": "Draper Goren Holm",
+    "support": "Support Website:https://drapergorenholm.com/contact"
+  },
+  {
+    "id": 311,
+    "company_name": "Centrifuge",
+    "support": "hello@centrifuge.io:mailto:hello@centrifuge.io"
+  },
+  {
+    "id": 312,
+    "company_name": "Digital Assets Data",
+    "support": "contact@digitalassetsdata.com:mailto:contact@digitalassetsdata.com"
+  },
+  {
+    "id": 313,
+    "company_name": "Gemini",
+    "support": "Wiki/FAQ:https://gemini24.zendesk.com/hc/en-us"
+  },
+  {
+    "id": 314,
+    "company_name": "Gemini",
+    "support": "Tel: +1 (866) 240-5113:tel://+1 (866) 240-5113"
+  },
+  {
+    "id": 315,
+    "company_name": "Gemini",
+    "support": "hello@gemini.com:mailto:hello@gemini.com"
+  },
+  {
+    "id": 316,
+    "company_name": "Gemini",
+    "support": "Support Website:https://gemini24.zendesk.com/hc/en-us/requests/new"
+  },
+  {
+    "id": 317,
+    "company_name": "Neo Foundation",
+    "support": "contact@neo.org:mailto:contact@neo.org"
+  },
+  {
+    "id": 318,
+    "company_name": "TaxBit",
+    "support": "Wiki/FAQ:https://taxbit.com/features"
+  },
+  {
+    "id": 319,
+    "company_name": "TaxBit",
+    "support": "support@taxbit.com:mailto:support@taxbit.com"
+  },
+  {
+    "id": 320,
+    "company_name": "TaxBit",
+    "support": "Support Website:https://help.taxbit.com/hc/en-us"
+  },
+  {
+    "id": 321,
+    "company_name": "Santiment",
+    "support": "support@santiment.net:mailto:support@santiment.net"
+  },
+  {
+    "id": 322,
+    "company_name": "Securitize",
+    "support": "Tel: +1 415-413-8993:tel://+1 415-413-8993"
+  },
+  {
+    "id": 323,
+    "company_name": "Securitize",
+    "support": "Support Website:https://www.securitize.io/contact"
+  },
+  {
+    "id": 324,
+    "company_name": "OKCoin",
+    "support": "Wiki/FAQ:https://www.okcoin.com/account/users/support"
+  },
+  {
+    "id": 325,
+    "company_name": "OKCoin",
+    "support": "support@okcoin.com:mailto:support@okcoin.com"
+  },
+  {
+    "id": 326,
+    "company_name": "OKCoin",
+    "support": "Support Website:https://www.okcoin.com/contact-us.html"
+  },
+  {
+    "id": 327,
+    "company_name": "Celsius Network",
+    "support": "Wiki/FAQ:https://support.celsius.network/hc/en-us"
+  },
+  {
+    "id": 328,
+    "company_name": "Celsius Network",
+    "support": "Tel: 1-201-824-2888:tel://1-201-824-2888"
+  },
+  {
+    "id": 329,
+    "company_name": "CipherTrace",
+    "support": "Tel: 650-542-0020:tel://650-542-0020"
+  },
+  {
+    "id": 330,
+    "company_name": "CipherTrace",
+    "support": "contact@ciphertrace.com:mailto:contact@ciphertrace.com"
+  },
+  {
+    "id": 331,
+    "company_name": "CipherTrace",
+    "support": "Support Website:https://ciphertrace.com/contact/"
+  },
+  {
+    "id": 332,
+    "company_name": "bitFlyer",
+    "support": "Wiki/FAQ:https://bitflyer.com/en-us/faq"
+  },
+  {
+    "id": 333,
+    "company_name": "bitFlyer",
+    "support": "info.us@bitflyer.com:mailto:info.us@bitflyer.com"
+  },
+  {
+    "id": 334,
+    "company_name": "bitFlyer",
+    "support": "Support Website:https://bitflyer.com/en-us/contact"
+  },
+  {
+    "id": 335,
+    "company_name": "SIBEX",
+    "support": "info@sibex.io:mailto:info@sibex.io"
+  },
+  {
+    "id": 336,
+    "company_name": "EMURGO",
+    "support": "Support Website:https://emurgo.io/#/en/contact#get-in-touch"
+  },
+  {
+    "id": 337,
+    "company_name": "SwapSpace",
+    "support": "Wiki/FAQ:https://swapspace.co/faq"
+  },
+  {
+    "id": 338,
+    "company_name": "SwapSpace",
+    "support": "support@swapspace.co:mailto:support@swapspace.co"
+  },
+  {
+    "id": 339,
+    "company_name": "Crypto.Games",
+    "support": "Wiki/FAQ:https://crypto.games/faq"
+  },
+  {
+    "id": 340,
+    "company_name": "Crypto.Games",
+    "support": "support@crypto.games:mailto:support@crypto.games"
+  },
+  {
+    "id": 341,
+    "company_name": "Crypto.Games",
+    "support": "Support Website:https://cryptogames.zendesk.com/"
+  },
+  {
+    "id": 342,
+    "company_name": "Compound",
+    "support": "Wiki/FAQ:https://medium.com/compound-finance/faq-1a2636713b69"
+  },
+  {
+    "id": 343,
+    "company_name": "YouHodler",
+    "support": "support@yoouhodler.com:mailto:support@yoouhodler.com"
+  },
+  {
+    "id": 344,
+    "company_name": "Phemex",
+    "support": "Wiki/FAQ:https://phemex.com/references/categories/faq"
+  },
+  {
+    "id": 345,
+    "company_name": "Phemex",
+    "support": "support@phemex.com:mailto:support@phemex.com"
+  },
+  {
+    "id": 346,
+    "company_name": "Phemex",
+    "support": "Support Website:https://phemex.com/references/articles/phemex-terms-of-use"
+  },
+  {
+    "id": 347,
+    "company_name": "Sportsbet.io",
+    "support": "Wiki/FAQ:https://sportsbet.io/support/faq"
+  },
+  {
+    "id": 348,
+    "company_name": "Sportsbet.io",
+    "support": "cs@sportsbet.io:mailto:cs@sportsbet.io"
+  },
+  {
+    "id": 349,
+    "company_name": "Nym",
+    "support": "Wiki/FAQ:https://nymtech.net/#faq"
+  },
+  {
+    "id": 350,
+    "company_name": "Nym",
+    "support": "contact@nymtech.net:mailto:contact@nymtech.net"
+  },
+  {
+    "id": 351,
+    "company_name": "Nym",
+    "support": "Support Website:https://nymtech.net/contact"
+  },
+  {
+    "id": 352,
+    "company_name": "Bitfinex",
+    "support": "Wiki/FAQ:https://support.bitfinex.com/hc/en-us"
+  },
+  {
+    "id": 353,
+    "company_name": "Bitfinex",
+    "support": "support@bitfinex.com:mailto:support@bitfinex.com"
+  },
+  {
+    "id": 354,
+    "company_name": "Bitfinex",
+    "support": "Support Website:https://www.bitfinex.com/support"
+  },
+  {
+    "id": 355,
+    "company_name": "Bityard",
+    "support": "Wiki/FAQ:https://support.bityard.com/hc/en-us/categories/360002627552-FAQ"
+  },
+  {
+    "id": 356,
+    "company_name": "Bityard",
+    "support": "bd@bityard.com:mailto:bd@bityard.com"
+  },
+  {
+    "id": 357,
+    "company_name": "Bityard",
+    "support": "Support Website:https://support.bityard.com/hc/en-us/articles/360040261971-Contact-Us"
+  },
+  {
+    "id": 358,
+    "company_name": "Solana",
+    "support": "Wiki/FAQ:https://solana.com/faqs/"
+  },
+  {
+    "id": 359,
+    "company_name": "Switchere",
+    "support": "Wiki/FAQ:https://en.bitcoinwiki.org/wiki/Switchere"
+  },
+  {
+    "id": 360,
+    "company_name": "Switchere",
+    "support": "customercare@switchere.com:mailto:customercare@switchere.com"
+  },
+  {
+    "id": 361,
+    "company_name": "Switchere",
+    "support": "Support Website:https://switchere.com/contact"
+  },
+  {
+    "id": 362,
+    "company_name": "Bittrex",
+    "support": "Wiki/FAQ:https://support.bittrex.com/hc/en-us"
+  },
+  {
+    "id": 363,
+    "company_name": "Bittrex",
+    "support": "media@bittrex.com:mailto:media@bittrex.com"
+  },
+  {
+    "id": 364,
+    "company_name": "Bittrex",
+    "support": "Support Website:https://support.bittrex.com/hc/en-us/articles/360001318332"
+  },
+  {
+    "id": 365,
+    "company_name": "XBTPro",
+    "support": "Wiki/FAQ:https://help.xbtpro.com/support/home"
+  },
+  {
+    "id": 366,
+    "company_name": "XBTPro",
+    "support": "support@xbtpro.com:mailto:support@xbtpro.com"
+  },
+  {
+    "id": 367,
+    "company_name": "Exolix",
+    "support": "Wiki/FAQ:https://exolix.com/faq"
+  },
+  {
+    "id": 368,
+    "company_name": "Exolix",
+    "support": "support@exolix.com:mailto:support@exolix.com"
+  },
+  {
+    "id": 369,
+    "company_name": "Exolix",
+    "support": "Support Website:https://exolix.com/contact"
+  },
+  {
+    "id": 370,
+    "company_name": "mStable",
+    "support": "info@mstable.org:mailto:info@mstable.org"
+  },
+  {
+    "id": 371,
+    "company_name": "CryptoAltum",
+    "support": "Wiki/FAQ:https://cryptoaltum.com/en/account-opening"
+  },
+  {
+    "id": 372,
+    "company_name": "CryptoAltum",
+    "support": "support@cryptoaltum.com:mailto:support@cryptoaltum.com"
+  },
+  {
+    "id": 373,
+    "company_name": "CryptoAltum",
+    "support": "Support Website:https://t.me/CryptoAltumGeneral_bot"
+  },
+  {
+    "id": 374,
+    "company_name": "CryptoSlate",
+    "support": "Wiki/FAQ:https://cryptoslate.com/faq"
+  },
+  {
+    "id": 375,
+    "company_name": "CryptoSlate",
+    "support": "hello@cryptoslate.com:mailto:hello@cryptoslate.com"
+  },
+  {
+    "id": 376,
+    "company_name": "CryptoSlate",
+    "support": "Support Website:https://cryptoslate.com/contact/"
+  },
+  {
+    "id": 377,
+    "company_name": "EZPostage",
+    "support": "Wiki/FAQ:https://ezpostage.io/faq"
+  },
+  {
+    "id": 378,
+    "company_name": "EZPostage",
+    "support": "support@ezpostage.io:mailto:support@ezpostage.io"
+  },
+  {
+    "id": 379,
+    "company_name": "Cryptonites",
+    "support": "clarisse@swissborg.com:mailto:clarisse@swissborg.com"
+  },
+  {
+    "id": 380,
+    "company_name": "Crypto Briefing",
+    "support": "Tel: +1 (312) 566-7423:tel://+1 (312) 566-7423"
+  },
+  {
+    "id": 381,
+    "company_name": "Crypto Briefing",
+    "support": "info@cryptobriefing.com:mailto:info@cryptobriefing.com"
+  },
+  {
+    "id": 382,
+    "company_name": "NSBroker",
+    "support": "Wiki/FAQ:https://nsbroker.com/glossary"
+  },
+  {
+    "id": 383,
+    "company_name": "NSBroker",
+    "support": "Tel: +356(27)78-15-65:tel://+356(27)78-15-65"
+  },
+  {
+    "id": 384,
+    "company_name": "NSBroker",
+    "support": "help@nsbroker.com:mailto:help@nsbroker.com"
+  },
+  {
+    "id": 385,
+    "company_name": "NSBroker",
+    "support": "Support Website:https://nsbroker.com/contact-us"
+  },
+  {
+    "id": 386,
+    "company_name": "1xBit",
+    "support": "Wiki/FAQ:https://refpaexhil.top/L?tag=d_475799m_1732c_Ls&site=475799&ad=1732&r=information/contacts/"
+  },
+  {
+    "id": 387,
+    "company_name": "1xBit",
+    "support": "support-en@1x-bit.com:mailto:support-en@1x-bit.com"
+  },
+  {
+    "id": 388,
+    "company_name": "1xBit",
+    "support": "Support Website:https://refpaexhil.top/L?tag=d_475799m_1732c_Ls&site=475799&ad=1732&r=information/rules/"
+  },
+  {
+    "id": 389,
+    "company_name": "ZBX",
+    "support": "Tel: +35621669660:tel://+35621669660"
+  },
+  {
+    "id": 390,
+    "company_name": "ZBX",
+    "support": "support@zbx.com:mailto:support@zbx.com"
+  },
+  {
+    "id": 391,
+    "company_name": "MyCoinStory",
+    "support": "Wiki/FAQ:https://help.mycoinstory.com"
+  },
+  {
+    "id": 392,
+    "company_name": "MyCoinStory",
+    "support": "support@gmail.com:mailto:support@gmail.com"
+  },
+  {
+    "id": 393,
+    "company_name": "MyCoinStory",
+    "support": "Support Website:https://bit.ly/MCSlivechat"
+  },
+  {
+    "id": 394,
+    "company_name": "Anycoin Direct",
+    "support": "Wiki/FAQ:https://anycoindirect.eu/en/support/overview"
+  },
+  {
+    "id": 395,
+    "company_name": "Anycoin Direct",
+    "support": "Tel: +31 413 74 71 74:tel://+31 413 74 71 74"
+  },
+  {
+    "id": 396,
+    "company_name": "Anycoin Direct",
+    "support": "support@anycoindirect.eu:mailto:support@anycoindirect.eu"
+  },
+  {
+    "id": 397,
+    "company_name": "Anycoin Direct",
+    "support": "Support Website:https://anycoindirect.eu/en/support"
+  },
+  {
+    "id": 398,
+    "company_name": "Stably",
+    "support": "info@stably.io:mailto:info@stably.io"
+  },
+  {
+    "id": 399,
+    "company_name": "Stably",
+    "support": "Support Website:https://www.stably.io/"
+  },
+  {
+    "id": 400,
+    "company_name": "Revolut",
+    "support": "Wiki/FAQ:https://www.revolut.com/help"
+  },
+  {
+    "id": 401,
+    "company_name": "Revolut",
+    "support": "Tel: +44 20 3322 8352:tel://+44 20 3322 8352"
+  },
+  {
+    "id": 402,
+    "company_name": "Revolut",
+    "support": "Support Website:https://www.revolut.com/contact-us"
+  },
+  {
+    "id": 403,
+    "company_name": "Nexo",
+    "support": "info@nexo.io:mailto:info@nexo.io"
+  },
+  {
+    "id": 404,
+    "company_name": "Nexo",
+    "support": "Support Website:https://support.nexo.io/hc/en-us"
+  },
+  {
+    "id": 405,
+    "company_name": "Bit.com",
+    "support": "support@bit.com:mailto:support@bit.com"
+  },
+  {
+    "id": 406,
+    "company_name": "Bit.com",
+    "support": "Support Website:https://support.bit.com/hc/en-us"
+  },
+  {
+    "id": 407,
+    "company_name": "Binance",
+    "support": "Wiki/FAQ:https://support.binance.com/hc/en-us"
+  },
+  {
+    "id": 408,
+    "company_name": "Binance",
+    "support": "Tel: +1-800-435-0577:tel://+1-800-435-0577"
+  },
+  {
+    "id": 409,
+    "company_name": "Binance",
+    "support": "support@binance.zendesk.com:mailto:support@binance.zendesk.com"
+  },
+  {
+    "id": 410,
+    "company_name": "Binance",
+    "support": "Support Website:https://www.binance.com/contactUsCn.html"
+  },
+  {
+    "id": 411,
+    "company_name": "Grayscale Investments",
+    "support": "Wiki/FAQ:https://grayscale.co/faq/"
+  },
+  {
+    "id": 412,
+    "company_name": "Grayscale Investments",
+    "support": "info@grayscale.co:mailto:info@grayscale.co"
+  },
+  {
+    "id": 413,
+    "company_name": "Grayscale Investments",
+    "support": "Support Website:https://grayscale.co/connect/"
+  },
+  {
+    "id": 414,
+    "company_name": "MicroStrategy",
+    "support": "Tel: 703-848-8700:tel://703-848-8700"
+  },
+  {
+    "id": 415,
+    "company_name": "MicroStrategy",
+    "support": "support@microstrategy.com:mailto:support@microstrategy.com"
+  },
+  {
+    "id": 416,
+    "company_name": "MicroStrategy",
+    "support": "Support Website:https://www.microstrategy.com/en/support"
+  },
+  {
+    "id": 417,
+    "company_name": "Strix Leviathan",
+    "support": "Tel: (425) 390-4942:tel://(425) 390-4942"
+  },
+  {
+    "id": 418,
+    "company_name": "Mogul Productions",
+    "support": "info@mogulproductions.com:mailto:info@mogulproductions.com"
+  },
+  {
+    "id": 419,
+    "company_name": "bitFlyer USA",
+    "support": "Wiki/FAQ:https://bitflyer.com/en-us/faq"
+  },
+  {
+    "id": 420,
+    "company_name": "bitFlyer USA",
+    "support": "Support Website:https://bitflyer.com/en-us/contact"
+  },
+  {
+    "id": 421,
+    "company_name": "Coinbase",
+    "support": "Wiki/FAQ:https://support.coinbase.com/"
+  },
+  {
+    "id": 422,
+    "company_name": "Coinbase",
+    "support": "Tel: +1 (888) 908-7930:tel://+1 (888) 908-7930"
+  },
+  {
+    "id": 423,
+    "company_name": "Coinbase",
+    "support": "support@coinbase.com:mailto:support@coinbase.com"
+  },
+  {
+    "id": 424,
+    "company_name": "Coinbase",
+    "support": "Support Website:https://support.coinbase.com/customer/portal/emails/new"
+  },
+  {
+    "id": 425,
+    "company_name": "C-Trade",
+    "support": "Wiki/FAQ:https://help.c-trade.com/hc/en-us"
+  },
+  {
+    "id": 426,
+    "company_name": "C-Trade",
+    "support": "support@c-trade.com:mailto:support@c-trade.com"
+  },
+  {
+    "id": 427,
+    "company_name": "C-Trade",
+    "support": "Support Website:https://help.c-trade.com/hc/en-us/requests/new"
+  },
+  {
+    "id": 428,
+    "company_name": "Bitbuy",
+    "support": "Wiki/FAQ:https://bitbuy.ca/en/how-it-works"
+  },
+  {
+    "id": 429,
+    "company_name": "Bitbuy",
+    "support": "support@bitbuy.ca:mailto:support@bitbuy.ca"
+  },
+  {
+    "id": 430,
+    "company_name": "Bitbuy",
+    "support": "Support Website:https://support.bitbuy.ca/hc/en-us"
+  },
+  {
+    "id": 431,
+    "company_name": "ADD.XYZ",
+    "support": "Wiki/FAQ:https://about.add.xyz/"
+  },
+  {
+    "id": 432,
+    "company_name": "ADD.XYZ",
+    "support": "hello@add.xyz:mailto:hello@add.xyz"
+  },
+  {
+    "id": 433,
+    "company_name": "MediaX Agency",
+    "support": "contact@mediax.agency:mailto:contact@mediax.agency"
+  },
+  {
+    "id": 434,
+    "company_name": "MediaX Agency",
+    "support": "Support Website:https://mediax.agency/"
+  },
+  {
+    "id": 435,
+    "company_name": "ZebPay",
+    "support": "Wiki/FAQ:https://help.zebpay.com/support/solutions/folders/44001201696"
+  },
+  {
+    "id": 436,
+    "company_name": "ZebPay",
+    "support": "help@zebpay.com:mailto:help@zebpay.com"
+  },
+  {
+    "id": 437,
+    "company_name": "ZebPay",
+    "support": "Support Website:https://help.zebpay.com/support/home"
+  },
+  {
+    "id": 438,
+    "company_name": "Invictus Capital",
+    "support": "Wiki/FAQ:https://invictuscapital.com/en/news"
+  },
+  {
+    "id": 439,
+    "company_name": "Invictus Capital",
+    "support": "Haydn@invictuscapital.com:mailto:Haydn@invictuscapital.com"
+  },
+  {
+    "id": 440,
+    "company_name": "Invictus Capital",
+    "support": "Support Website:https://t.me/invictus_capital"
+  },
+  {
+    "id": 441,
+    "company_name": "Visa",
+    "support": "visab2bconnect@visa.com:mailto:visab2bconnect@visa.com"
+  },
+  {
+    "id": 442,
+    "company_name": "Rapid Innovation",
+    "support": "hello@rapidinnovation.io:mailto:hello@rapidinnovation.io"
+  },
+  {
+    "id": 443,
+    "company_name": "Paradox Group",
+    "support": "Wiki/FAQ:http://support.paradoxgroup.co/en/"
+  },
+  {
+    "id": 444,
+    "company_name": "Paradox Group",
+    "support": "hello@paradoxgroup.co:mailto:hello@paradoxgroup.co"
+  },
+  {
+    "id": 445,
+    "company_name": "CommerceBlock",
+    "support": "Wiki/FAQ:https://commerceblock.readthedocs.io/en/latest/index.html"
+  },
+  {
+    "id": 446,
+    "company_name": "Binance.US",
+    "support": "Wiki/FAQ:https://support.binance.us/hc/en-us/categories/360002072912-FAQs"
+  },
+  {
+    "id": 447,
+    "company_name": "Binance.US",
+    "support": "Support Website:https://support.binance.us/hc/en-us/requests/new"
+  },
+  {
+    "id": 448,
+    "company_name": "Bybit",
+    "support": "marketing@bybit.com:mailto:marketing@bybit.com"
+  },
+  {
+    "id": 449,
+    "company_name": "Worthpad",
+    "support": "Wiki/FAQ:https://worthpad.io"
+  },
+  {
+    "id": 450,
+    "company_name": "Worthpad",
+    "support": "support@worthpad.io:mailto:support@worthpad.io"
+  },
+  {
+    "id": 451,
+    "company_name": "Worthpad",
+    "support": "Support Website:https://worthpad.io/contact-us"
+  },
+  {
+    "id": 452,
+    "company_name": "Ambire",
+    "support": "Wiki/FAQ:https://help.adex.network/hc/en-us"
+  },
+  {
+    "id": 453,
+    "company_name": "Ambire",
+    "support": "contactus@ambire.com:mailto:contactus@ambire.com"
+  },
+  {
+    "id": 454,
+    "company_name": "Ambire",
+    "support": "Support Website:https://help.adex.network/hc/en-us"
+  },
+  {
+    "id": 455,
+    "company_name": "WhaleFin",
+    "support": "Wiki/FAQ:https://support.whalefin.com/hc/en-us"
+  },
+  {
+    "id": 456,
+    "company_name": "WhaleFin",
+    "support": "service@whalefin.com:mailto:service@whalefin.com"
+  },
+  {
+    "id": 457,
+    "company_name": "WhaleFin",
+    "support": "Support Website:https://t.me/WhaleFinSupport"
+  },
+  {
+    "id": 458,
+    "company_name": "LetsExchange",
+    "support": "Wiki/FAQ:https://letsexchange.io/faq"
+  },
+  {
+    "id": 459,
+    "company_name": "LetsExchange",
+    "support": "support@letsexchange.io:mailto:support@letsexchange.io"
+  },
+  {
+    "id": 460,
+    "company_name": "LetsExchange",
+    "support": "Support Website:https://letsexchange.io/contacts"
+  },
+  {
+    "id": 461,
+    "company_name": "Duelbits",
+    "support": "support@duelbits.com:mailto:support@duelbits.com"
+  },
+  {
+    "id": 462,
+    "company_name": "Aeon Law",
+    "support": "Tel: 206-217-2200:tel:// 206-217-2200"
+  },
+  {
+    "id": 463,
+    "company_name": "Aeon Law",
+    "support": "Support Website:http://aeonlaw.com/contact-us/"
+  },
+  {
+    "id": 464,
+    "company_name": "OKX",
+    "support": "Wiki/FAQ:https://www.okx.com/support-center.html"
+  },
+  {
+    "id": 465,
+    "company_name": "OKX",
+    "support": "Tel: +1 226 798 4487:tel://+1 226 798 4487"
+  },
+  {
+    "id": 466,
+    "company_name": "OKX",
+    "support": "support@okx.com:mailto:support@okx.com"
+  },
+  {
+    "id": 467,
+    "company_name": "BlockDown",
+    "support": "contact@blockdownconf.com:mailto:contact@blockdownconf.com"
+  },
+  {
+    "id": 468,
+    "company_name": "Quantum Economics",
+    "support": "info@quantumeconomics.io:mailto:info@quantumeconomics.io"
+  },
+  {
+    "id": 469,
+    "company_name": "Velo Trust",
+    "support": "Wiki/FAQ:https://www.velotrust.com/faqs"
+  },
+  {
+    "id": 470,
+    "company_name": "Velo Trust",
+    "support": "support@velotrust.com:mailto:support@velotrust.com"
+  },
+  {
+    "id": 471,
+    "company_name": "Velo Trust",
+    "support": "Support Website:https://www.velotrust.com/contact"
+  },
+  {
+    "id": 472,
+    "company_name": "Ignite",
+    "support": "Wiki/FAQ:https://tendermint.com/docs/"
+  },
+  {
+    "id": 473,
+    "company_name": "Ignite",
+    "support": "hello@tendermint.com:mailto:hello@tendermint.com"
+  },
+  {
+    "id": 474,
+    "company_name": "Galaxy Digital",
+    "support": "Tel: +1-212-390-9216:tel://+1-212-390-9216"
+  },
+  {
+    "id": 475,
+    "company_name": "Galaxy Digital",
+    "support": "Fiona.Choi@galaxydigital.io:mailto:Fiona.Choi@galaxydigital.io"
+  },
+  {
+    "id": 476,
+    "company_name": "Circle",
+    "support": "support@circle.com:mailto:support@circle.com"
+  },
+  {
+    "id": 477,
+    "company_name": "Circle",
+    "support": "Support Website:https://www.circle.com/en/contact-us"
+  },
+  {
+    "id": 478,
+    "company_name": "BlockFi",
+    "support": "Wiki/FAQ:https://blockfi.com/faq/"
+  },
+  {
+    "id": 479,
+    "company_name": "BlockFi",
+    "support": "Tel: 646-779-9688:tel://646-779-9688"
+  },
+  {
+    "id": 480,
+    "company_name": "BlockFi",
+    "support": "Support Website:https://blockfi.com/feedback"
+  },
+  {
+    "id": 481,
+    "company_name": "Launchpool Labs",
+    "support": "labs@launchpool.xyz:mailto:labs@launchpool.xyz"
+  },
+  {
+    "id": 482,
+    "company_name": "Launchpool Labs",
+    "support": "Support Website:https://t.me/LaunchpoolLabsSupport"
+  },
+  {
+    "id": 483,
+    "company_name": "Matterblock",
+    "support": "Support Website:https://www.matterblock.com/#contact"
+  },
+  {
+    "id": 484,
+    "company_name": "Bity",
+    "support": "Wiki/FAQ:https://bity.com/faq"
+  },
+  {
+    "id": 485,
+    "company_name": "Bity",
+    "support": "Tel: +41 22 738 30 45:tel://+41 22 738 30 45"
+  },
+  {
+    "id": 486,
+    "company_name": "Bity",
+    "support": "info@bity.com:mailto:info@bity.com"
+  },
+  {
+    "id": 487,
+    "company_name": "BitMEX",
+    "support": "Wiki/FAQ:https://bitmex.freshdesk.com/support/home"
+  },
+  {
+    "id": 488,
+    "company_name": "BitMEX",
+    "support": "support@bitmex.com:mailto:support@bitmex.com"
+  },
+  {
+    "id": 489,
+    "company_name": "ConsenSys",
+    "support": "Support Website:https://new.consensys.net/#contact-form-anchor"
+  },
+  {
+    "id": 490,
+    "company_name": "Three Arrows Capital",
+    "support": "management@threearrowscap.com:mailto:management@threearrowscap.com"
+  },
+  {
+    "id": 491,
+    "company_name": "Decrypt",
+    "support": "editor@decrypt.co:mailto:editor@decrypt.co"
+  },
+  {
+    "id": 492,
+    "company_name": "Coinbase NFT",
+    "support": "Wiki/FAQ:https://support.coinbase.com/"
+  },
+  {
+    "id": 493,
+    "company_name": "Coinbase NFT",
+    "support": "Tel: +1 (888) 908-7930:tel://+1 (888) 908-7930"
+  },
+  {
+    "id": 494,
+    "company_name": "Coinbase NFT",
+    "support": "support@coinbase.com:mailto:support@coinbase.com"
+  },
+  {
+    "id": 495,
+    "company_name": "Coinbase NFT",
+    "support": "Support Website:https://support.coinbase.com/customer/portal/emails/new"
+  },
+  {
+    "id": 496,
+    "company_name": "Bridgewater Associates",
+    "support": "web-master@bwater.com:mailto:web-master@bwater.com"
+  },
+  {
+    "id": 497,
+    "company_name": "Paradigm",
+    "support": "info@paradigm.xyz:mailto:info@paradigm.xyz"
+  },
+  {
+    "id": 498,
+    "company_name": "GhostRider Ventures",
+    "support": "info@ghostriderventures.com:mailto:info@ghostriderventures.com"
+  },
+  {
+    "id": 499,
+    "company_name": "Input Output",
+    "support": "Support Website:https://iohk.io/contact/"
+  },
+  {
+    "id": 500,
+    "company_name": "Solanart",
+    "support": "team@solanart.io:mailto:team@solanart.io"
+  },
+  {
+    "id": 501,
+    "company_name": "Ascensive Assets",
+    "support": "contact@ascensiveassets.com:mailto:contact@ascensiveassets.com"
+  },
+  {
+    "id": 502,
+    "company_name": "Kusama Kingdom",
+    "support": "contact.rdstudios@gmail.com:mailto:contact.rdstudios@gmail.com"
+  },
+  {
+    "id": 503,
+    "company_name": "Yuga Labs",
+    "support": "hi@yugalabs.io:mailto:hi@yugalabs.io"
+  },
+  {
+    "id": 504,
+    "company_name": "Block",
+    "support": "ir@block.xyz:mailto:ir@block.xyz"
+  },
+  {
+    "id": 505,
+    "company_name": "Jsquare",
+    "support": "contact@jsquare.co:mailto:contact@jsquare.co"
+  },
+  {
+    "id": 506,
+    "company_name": "Reflexer Labs",
+    "support": "contact@reflexer.finance:mailto:contact@reflexer.finance"
+  },
+  {
+    "id": 507,
+    "company_name": "CoinList",
+    "support": "Tel: 212-652-2235:tel://212-652-2235"
+  },
+  {
+    "id": 508,
+    "company_name": "CoinList",
+    "support": "team@coinlist.co:mailto:team@coinlist.co"
+  },
+  {
+    "id": 509,
+    "company_name": "Sky Mavis",
+    "support": "Aleksander@Skymavis.com:mailto:Aleksander@Skymavis.com"
+  },
+  {
+    "id": 510,
+    "company_name": "Digital Finance Group",
+    "support": "contact@dfg.group:mailto:contact@dfg.group"
+  },
+  {
+    "id": 511,
+    "company_name": "Quadency",
+    "support": "Wiki/FAQ:https://quadency.com/?utm_source=CoListing&utm_medium=OutboundLinks&utm_campaign=CryptoSlate#faq"
+  },
+  {
+    "id": 512,
+    "company_name": "Quadency",
+    "support": "support@quadency.com:mailto:support@quadency.com"
+  },
+  {
+    "id": 513,
+    "company_name": "SwissBorg",
+    "support": "Support Website:https://help.swissborg.com/hc/en-us/requests/new"
+  },
+  {
+    "id": 514,
+    "company_name": "Crypto.com",
+    "support": "Wiki/FAQ:http://www.crypto.com/help"
+  },
+  {
+    "id": 515,
+    "company_name": "Crypto.com",
+    "support": "Support Website:https://crypto.com/en/about.html#page-contact"
+  },
+  {
+    "id": 516,
+    "company_name": "Meta",
+    "support": "Wiki/FAQ:https://www.facebook.com/help/"
+  },
+  {
+    "id": 517,
+    "company_name": "Meta",
+    "support": "Tel: 650-543-4800:tel://650-543-4800"
+  },
+  {
+    "id": 518,
+    "company_name": "Ark Invest",
+    "support": "info@ark-invest.com:mailto:info@ark-invest.com"
+  },
+  {
+    "id": 519,
+    "company_name": "Terraform Labs",
+    "support": "general@terra.money:mailto:general@terra.money"
+  },
+  {
+    "id": 520,
+    "company_name": "Luna Foundation Guard",
+    "support": "contact@lfg.org:mailto:contact@lfg.org"
+  },
+  {
+    "id": 521,
+    "company_name": "Coinbase Ventures",
+    "support": "support@coinbase.com:mailto:support@coinbase.com"
+  },
+  {
+    "id": 522,
+    "company_name": "Alameda Research",
+    "support": "info@alameda-research.com:mailto:info@alameda-research.com"
+  },
+  {
+    "id": 523,
+    "company_name": "Symbiosis Labs",
+    "support": "Wiki/FAQ:https://docs.symbiosis.finance/"
+  },
+  {
+    "id": 524,
+    "company_name": "Symbiosis Labs",
+    "support": "hi@symbiosis.finance:mailto:hi@symbiosis.finance"
+  },
+  {
+    "id": 525,
+    "company_name": "42 Studio",
+    "support": "Tel: +44 7862 071135:tel://+44 7862 071135"
+  },
+  {
+    "id": 526,
+    "company_name": "42 Studio",
+    "support": "digital@42studio.io:mailto:digital@42studio.io"
+  },
+  {
+    "id": 527,
+    "company_name": "42 Studio",
+    "support": "Support Website:https://42studio.io/contact/"
+  },
+  {
+    "id": 528,
+    "company_name": "Zebu Digital",
+    "support": "hello@zebudigital.com:mailto:hello@zebudigital.com"
+  },
+  {
+    "id": 529,
+    "company_name": "Zebu Digital",
+    "support": "Support Website:https://www.zebudigital.com/contact"
+  },
+  {
+    "id": 530,
+    "company_name": "SmartFi",
+    "support": "Wiki/FAQ:https://help.smartfi.com/hc/en-us/categories/360005162054-General-Support-FAQs"
+  },
+  {
+    "id": 531,
+    "company_name": "SmartFi",
+    "support": "contact@smartfi.com:mailto:contact@smartfi.com"
+  },
+  {
+    "id": 532,
+    "company_name": "Spendabit",
+    "support": "contact@spendabit.co:mailto:contact@spendabit.co"
+  },
+  {
+    "id": 533,
+    "company_name": "Onomy Protocol",
+    "support": "hello@onomy.io:mailto:hello@onomy.io"
+  },
+  {
+    "id": 534,
+    "company_name": "MINERSET",
+    "support": "sales@minerset.com:mailto:sales@minerset.com"
+  },
+  {
+    "id": 535,
+    "company_name": "zkLend",
+    "support": "info@zklend.com:mailto:info@zklend.com"
+  },
+  {
+    "id": 536,
+    "company_name": "Union Square Ventures",
+    "support": "Tel: (212) 994-7880:tel://(212) 994-7880"
+  },
+  {
+    "id": 537,
+    "company_name": "Union Square Ventures",
+    "support": "info@usv.com:mailto:info@usv.com"
+  },
+  {
+    "id": 538,
+    "company_name": "XT.COM Exchange",
+    "support": "Wiki/FAQ:https://xtsupport.zendesk.com/hc/en-us/sections/900000093786-FAQs"
+  },
+  {
+    "id": 539,
+    "company_name": "XT.COM Exchange",
+    "support": "support@xt.com:mailto:support@xt.com"
+  },
+  {
+    "id": 540,
+    "company_name": "XT.COM Exchange",
+    "support": "Support Website:https://t.me/XTsupport_EN"
+  }
+]

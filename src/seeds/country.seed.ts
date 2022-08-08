@@ -4,7 +4,7 @@ import { CountryModel } from '../models/country.model';
 import Logger from '../core/logger';
 import data from '../data/contries.json';
 const logger = new Logger('countrySeed');
-export default class CreateCountrySeed implements Seeder {
+export default class CountrySeed implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     logger.debug('[run:start]');
     logger.info('[running]', { data });

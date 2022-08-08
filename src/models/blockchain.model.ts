@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('blockchain', { synchronize: true })
-export class Blockchain {
+export class BlockchainModel {
   // id - primary id unique
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   id: string;

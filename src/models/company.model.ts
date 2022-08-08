@@ -7,16 +7,20 @@ import {
   JoinTable,
   JoinColumn,
   ManyToOne,
+  Index,
 } from 'typeorm';
 import {
   CategoryModel,
   CountryModel,
   CryptocurrencyModel,
   GalleryModel,
-  PersonModel,
   ProductModel,
   ProjectModel,
   SectorModel,
+  TeamModel,
+  FeatureModel,
+  SupportModel,
+  CCYModel,
 } from '../models';
 
 @Entity('company')
@@ -25,12 +29,15 @@ export class CompanyModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  // @Column()
-  // @Index()
-  // name: string;
+  @Column()
+  @Index()
+  name: string;
 
-  @OneToMany(() => PersonModel, (person) => person.companyId)
-  persons: PersonModel[];
+  @OneToMany(() => TeamModel, (team) => team.companyId)
+  teams: TeamModel[];
+
+  @OneToMany(() => FeatureModel, (feature) => feature.companyId)
+  features: FeatureModel[];
 
   @OneToMany(() => ProjectModel, (project) => project.companyId)
   projects: ProjectModel[];
@@ -64,10 +71,29 @@ export class CompanyModel {
   })
   categories: CategoryModel[];
 
+  @ManyToMany(() => CCYModel)
+  @JoinTable({
+    name: 'company_ccys',
+    joinColumn: { name: 'company_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'ccy_id', referencedColumnName: 'id' },
+  })
+  ccys: CCYModel[];
+
+  @ManyToMany(() => SupportModel)
+  @JoinTable({
+    name: 'company_supports',
+    joinColumn: { name: 'company_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'support_id', referencedColumnName: 'id' },
+  })
+  supports: SupportModel[];
+
   //Sector - foreign key relation with SectorModel
 
-  @Column({ name: 'summary', nullable: true })
-  summary: string;
+  @Column({ name: 'director', nullable: true })
+  director: string;
+
+  @Column({ name: 'about', nullable: true })
+  about: string;
 
   @Column({ name: 'headquarter', nullable: true })
   headquarter: string;
@@ -75,41 +101,41 @@ export class CompanyModel {
   @Column({ name: 'avatar', nullable: true })
   avatar: string;
 
-  @Column({ name: 'services_and_features', nullable: true })
-  servicesAndFeatures: string;
-
   @Column({ name: 'recent_tweet', nullable: true })
   recentTweet: string;
 
-  @Column({ name: 'twitter_url', nullable: true })
-  twitterUrl: string;
+  @Column({ name: 'twitter', nullable: true })
+  twitter: string;
 
-  @Column({ name: 'telegram_url', nullable: true })
-  telegramUrl: string;
+  @Column({ name: 'telegram', nullable: true })
+  telegram: string;
 
-  @Column({ name: 'facebook_url', nullable: true })
-  facebookUrl: string;
+  @Column({ name: 'facebook', nullable: true })
+  facebook: string;
 
-  @Column({ name: 'instagram_url', nullable: true })
-  instagramUrl: string;
+  @Column({ name: 'instagram', nullable: true })
+  instagram: string;
 
-  @Column({ name: 'linkedin_url', nullable: true })
-  linkedinUrl: string;
+  @Column({ name: 'linkedin', nullable: true })
+  linkedin: string;
 
-  @Column({ name: 'github_url', nullable: true })
-  githubUrl: string;
+  @Column({ name: 'github', nullable: true })
+  github: string;
 
-  @Column({ name: 'medium_url', nullable: true })
-  mediumUrl: string;
+  @Column({ name: 'medium', nullable: true })
+  medium: string;
 
-  @Column({ name: 'youtube_url', nullable: true })
-  youtubeUrl: string;
+  @Column({ name: 'youtube', nullable: true })
+  youtube: string;
 
-  @Column({ name: 'website_url', nullable: true })
-  websiteUrl: string;
+  @Column({ name: 'website', nullable: true })
+  website: string;
 
-  @Column({ name: 'blog_url', nullable: true })
-  blogUrl: string;
+  @Column({ name: 'blog', nullable: true })
+  blog: string;
+
+  @Column({ name: 'reddit', nullable: true })
+  reddit: string;
 
   // Record created at
   @Column('timestamp', { name: 'created_at' })

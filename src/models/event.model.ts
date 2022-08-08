@@ -1,11 +1,6 @@
 import { Entity, Column, ManyToMany, JoinTable, JoinColumn, PrimaryGeneratedColumn, ManyToOne, Index } from 'typeorm';
-import { CategoryModel } from './category.model';
-import { CountryModel } from './country.model';
-
-import { SpeakerModel } from './speaker.model';
-import { SponsorModel } from './sponsor.model';
-import { CryptoAssetTagModel } from './crypto_asset_tag.model';
 import { EventType } from '../modules/event/event.type';
+import { SpeakerModel, SponsorModel, CryptoAssetTagModel, CountryModel, CategoryModel } from '../models';
 @Entity('event')
 export class EventModel {
   // id - primary id unique
@@ -15,11 +10,11 @@ export class EventModel {
   @Column('enum', { name: 'type', enum: EventType })
   type: EventType;
 
-  @Column()
+  @Column({ name: 'name', nullable: true })
   @Index()
   name: string;
 
-  @Column()
+  @Column({ name: 'introduction', nullable: true })
   introduction: string;
 
   @Column('jsonb', { nullable: true })

@@ -4,7 +4,7 @@ import { AppDataSource } from '@/config/dbConfig';
 import { Category } from './category.type';
 import { CategoryError } from './category.error';
 import { isNull, omitBy, pick } from 'lodash';
-import { CategoryModel } from '@/models/category.model';
+import { CategoryModel } from '@/models';
 
 @Service()
 export default class categoryService {

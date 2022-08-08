@@ -4,14 +4,9 @@ export enum EventType {
   OFFLINE = 'offline',
   VIRTUAL = 'virtual',
 }
-import { CategoryModel } from '@/models/category.model';
-import { CountryModel } from '@/models/country.model';
-import { SpeakerModel } from '@/models/speaker.model';
-import { SponsorModel } from '@/models/sponsor.model';
 import { Category } from '../category/category.type';
 import { BaseQuery } from '@/types/Common';
-import { CryptoAssetTag } from '../cryptoAssetTag/cryptoAssetTag.type';
-import { CryptoAssetTagModel } from '@/models/crypto_asset_tag.model';
+import { CryptoAssetTagModel, CategoryModel, SponsorModel, SpeakerModel, CountryModel } from '@/models';
 export interface Event {
   id?: string;
 

@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm';
 import { Factory, Seeder } from 'typeorm-seeding';
-import { CryptoAssetTagModel } from '../models/crypto_asset_tag.model';
+import { CryptoAssetTagModel } from '@/models';
 import Logger from '../core/logger';
 const logger = new Logger('countrySeed');
 export default class CryptoAssetTagSeed implements Seeder {

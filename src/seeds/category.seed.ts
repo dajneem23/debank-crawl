@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm';
 import { Factory, Seeder } from 'typeorm-seeding';
-import { CategoryModel } from '../models/category.model';
+import { CategoryModel } from '@/models';
 import Logger from '../core/logger';
 import { CATEGORY_TYPE } from '../types/Common';
 const logger = new Logger('countrySeed');

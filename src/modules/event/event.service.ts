@@ -2,7 +2,7 @@ import { Service } from 'typedi';
 import Logger from '@/core/logger';
 import { AppDataSource } from '@/config/dbConfig';
 import { isNull, omitBy } from 'lodash';
-import { EventModel } from '@/models/event.model';
+import { EventModel } from '@/models';
 import { Event, EventQuery } from './event.type';
 import { BaseQuery, PaginationResult, trueSQL } from '@/types/Common';
 import { EventResponse } from './event.type';

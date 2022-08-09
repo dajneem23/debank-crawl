@@ -4,6 +4,9 @@ import { PersonModel } from '../models';
 import Logger from '../core/logger';
 const logger = new Logger('PersonSeed');
 import crypto_people from '../data/crypto_slate/json/crypto_people.json';
+import person_currentwork from '../data/crypto_slate/json/people_current_work.json';
+import person_previouswork from '../data/crypto_slate/json/people_previous_work.json';
+import person_education from '../data/crypto_slate/json/people_education.json';
 export default class PersonSeed implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     logger.debug('[run:start]');
@@ -25,6 +28,15 @@ export default class PersonSeed implements Seeder {
           about: person.about,
           medium: person.medium,
           reddit: person.reddit,
+          currentWork: person_currentwork.filter((item) => {
+            return item.person_name === person.name;
+          }),
+          previousWork: person_previouswork.filter((item) => {
+            return item.person_name === person.name;
+          }),
+          education: person_education.filter((item) => {
+            return item.person_name === person.name;
+          }),
           createdAt: new Date(),
         };
       }),

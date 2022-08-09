@@ -1,6 +1,4 @@
 import { Connection } from 'typeorm';
-import { Factory, Seeder } from 'typeorm-seeding';
-import { PersonModel } from '../models';
 import Logger from '../core/logger';
 const logger = new Logger('PersonSeed');
 import crypto_people from '../data/crypto_slate/json/crypto_people.json';

@@ -1,12 +1,14 @@
+import { type } from 'os';
+
 export interface BaseQuery {
   page?: number;
-  perPage?: number;
-  sortBy?: string;
-  sortOrder?: 'DESC' | 'ASC';
+  per_page?: number;
+  sort_by?: string;
+  sort_order?: 'desc' | 'asc';
   q?: string;
 }
 
-export type PaginationResult<T> = { totalCount: number; items: T[] };
+export type PaginationResult<T> = { total_count: number; items: T[] };
 
 export type CurrencyCode = 'VND' | 'USD';
 
@@ -46,5 +48,122 @@ export enum CATEGORY_TYPE {
   LISTENING = 'listening',
   WIKIBLOCK = 'wikiblock',
   EVENT = 'event',
+  CRYPTO_ASSET = 'crypto_asset',
+  PERSON = 'person',
 }
-export const trueSQL = '1 = 1';
+export type BaseModel = {
+  id: string;
+
+  created_by?: string;
+
+  updated_by?: string;
+
+  // Record created at
+  created_at?: Date;
+  // Record updated at
+  updated_at?: Date;
+};
+
+export type BaseInformationModel = {
+  id: string;
+
+  verified?: boolean;
+
+  tel?: string;
+
+  email?: string;
+
+  avatar?: string;
+
+  about?: string;
+
+  twitter?: object;
+
+  telegram?: object;
+
+  facebook?: object;
+
+  instagram?: object;
+
+  linkedin?: object;
+
+  github?: object;
+
+  medium?: object;
+
+  youtube?: object;
+
+  website?: object;
+
+  blog?: object;
+
+  reddit?: object;
+
+  created_by?: string;
+
+  updated_by?: string;
+
+  // Record created at
+  created_at?: Date;
+  // Record updated at
+  updated_at?: Date;
+};
+
+export type Feature = {
+  title: string;
+  description: string;
+};
+
+export type Service = {
+  title: string;
+  description: string;
+};
+
+export type Gallery = {
+  name: string;
+  url: string;
+};
+
+export type CCY = {
+  title: string;
+  description: string;
+};
+
+export enum WorkType {
+  CURRENT = 'current',
+  PREVIOUS = 'previous',
+}
+
+export enum DEVELOPMENT_STATUS {
+  WORKING_PRODUCT = 'working_product',
+  ON_GOING_DEVELOPMENT = 'on_going_development',
+  ALPHA_VERSION = 'alpha_version',
+  BETA_VERSION = 'beta_version',
+  DEFUNCT = 'defunct',
+  UNKNOWN = 'unknown',
+  PROTOTYPE_MVP = 'prototype_mvp',
+}
+
+export type ContractAddress = {
+  owner: string;
+  address?: string;
+  url?: string;
+};
+export enum EventType {
+  ONLINE = 'online',
+  OFFLINE = 'offline',
+  VIRTUAL = 'virtual',
+}
+export enum SponsorType {
+  COMPANY = 'company',
+  PERSON = 'person',
+}
+export type Sponsor = {
+  id: string;
+  name?: string;
+  type?: SponsorType;
+};
+export type Agenda = {
+  time?: Date;
+  description?: string;
+};

@@ -1,9 +1,7 @@
 import { CATEGORY_TYPE } from '@/types/Common';
-import { FindOperator } from 'typeorm';
+import { BaseModel } from '@/types/Common';
 
-export interface Category {
-  // Keyword ID
-  id?: string;
+export interface Category extends BaseModel {
   // title
   title?: string;
   // weight
@@ -11,8 +9,6 @@ export interface Category {
   // type
   type?: CATEGORY_TYPE;
   // createdAt
-  createdAt?: Date | FindOperator<Date>;
-  updatedAt?: Date | FindOperator<Date>;
 }
 export type CategoryParams = {
   id: string;

@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Entity } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
 @Entity('ccy', { synchronize: true })
 export class CCYModel {
   @PrimaryGeneratedColumn('uuid')

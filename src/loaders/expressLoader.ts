@@ -9,8 +9,6 @@ import { Container } from 'typedi';
 import { isCelebrateError } from 'celebrate';
 import httpStatusCodes from 'http-status';
 import { isEmpty } from 'lodash';
-import swaggerUi from 'swagger-ui-express';
-import YAML from 'yamljs';
 
 import APIRoutesV1 from '@/api/routes/v1';
 import env from '@/config/env';
@@ -18,7 +16,6 @@ import { DILogger } from '@/loaders/loggerLoader';
 import AppError, { AppErrorLocale } from '@/core/errors/AppError';
 import { CommonError, UnknownError } from '@/core/errors/CommonError';
 
-const swaggerDocument = YAML.load('swagger.yaml');
 /**
  * Convert any error to AppError
  */
@@ -85,7 +82,6 @@ const expressLoader = (): Express => {
   app.set('port', env.APP_PORT);
   app.set('env', env.APP_ENV);
   app.set('host', env.APP_HOST);
-  app.set('db_name', env.DB_NAME);
 
   // ----------------------------------------------------------------
   // Core middlewares
@@ -109,7 +105,6 @@ const expressLoader = (): Express => {
   // Mount API routes
   // ----------------------------------------------------------------
 
-  app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   APIRoutesV1(app);
 
   // ----------------------------------------------------------------

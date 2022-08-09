@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "0fece07c-da96-41ac-aebd-ce63fc886b9c",
+    "colId": "8a6674d4-8759-426a-8437-1a439df83504",
+    "containerId": "",
+    "name": "user",
+    "url": "http://localhost:8084/api/v1/private/users",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-08-09T03:42:17.496Z",
+    "modified": "2022-08-09T03:46:24.991Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \n \"name\":\"HoiVu\" \n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

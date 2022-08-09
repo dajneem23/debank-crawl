@@ -85,8 +85,6 @@ export class EventService {
       return { code: httpStatus.OK, result: event };
     } catch (err) {
       this.logger.error('[update:error]', err.message);
-      if (err.code === 11000 && err.keyPattern?.email) throwErr(new AuthError('EMAIL_ALREADY_EXISTS'));
-      throw err;
     }
   }
 }

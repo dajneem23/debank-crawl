@@ -4,7 +4,7 @@ env:
   BACKUP_DIR: .
 
 vars:
-  DC_PROJECT: 1fox-infra
+  DC_PROJECT: 1fox-wikiblock
   ENV_FILE: docker.env
 
 dotenv: ['docker.env']
@@ -75,4 +75,4 @@ tasks:
   db_create:
     desc: Recreate all Docker Compose services a.
     cmds:
-      -  yarn migration:generate && yarn migration:run
+      - yarn migration:generate && yarn migration:run

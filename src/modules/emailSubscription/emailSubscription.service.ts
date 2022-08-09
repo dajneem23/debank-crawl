@@ -6,7 +6,7 @@ import { withMongoTransaction } from '@/utils/mongoDB';
 import { Filter } from 'mongodb';
 import { EmailSubscription, EmailSubscriptionPayload } from '@/modules/emailSubscription/emailSubscription.type';
 import { toEmailSubscriptionOutput } from '@/modules/emailSubscription/emailSubscription.util';
-import UserService from '@/modules/user/user.service';
+import { UserService } from '@/modules/user/user.service';
 import { throwErr } from '@/utils/common';
 import { UserError } from '@/modules/user/user.error';
 import { alphabetSize12 } from '@/utils/randomString';

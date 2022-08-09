@@ -8,7 +8,7 @@ import Logger from '@/core/logger';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { throwErr } from '@/utils/common';
 import { AuthError } from '@/modules/auth/auth.error';
-import UserService from '@/modules/user/user.service';
+import { UserService } from '@/modules/user/user.service';
 import { toUserOutput } from '@/modules/user/user.util';
 import { AuthSession, BearerTokens, JWTPayload, RegisterInput } from '@/modules/auth/authSession.type';
 import { User, UserOutput, UserRole } from '@/modules/user/user.type';

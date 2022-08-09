@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { Event } from './event.type';
 
-export const COLLECTION_NAME = 'events';
+const COLLECTION_NAME = 'events';
 
 @Service()
 export class EventModel {

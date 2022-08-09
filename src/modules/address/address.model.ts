@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { UserAddress } from './address.type';
 
-export const COLLECTION_NAME = 'addresses';
+const COLLECTION_NAME = 'addresses';
 
 @Service()
 export default class AddressModel {

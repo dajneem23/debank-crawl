@@ -64,3 +64,9 @@ export const removeLeadingZeroFromString = (name: string) => {
 export const convertBytesToMB = (bytes: number) => {
   return bytes / 1024 / 1024;
 };
+
+export type KeysOfType<O, T> = {
+  [K in keyof O]: O[K] extends T ? K : never;
+}[keyof O];
+
+export const PhoneNumberPattern = /^\+?[0-9]{1,3}?[0-9]{8,12}$/;

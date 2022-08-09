@@ -1,7 +1,7 @@
 import httpStatusCode from 'http-status';
 import AppError, { AppErrorJSON } from '@/core/errors/AppError';
 
-export const errors = Object.freeze({
+const errors = Object.freeze({
   USER_NOT_FOUND: {
     message: 'User does not exist',
     code: null,

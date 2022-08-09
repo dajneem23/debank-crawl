@@ -1,7 +1,7 @@
 import { Inject, Service } from 'typedi';
 import httpStatusCode from 'http-status';
 import { Auth, Body, Controller, Get, Params, Put, Post, Patch, Query, Res, Delete } from '@/utils/expressDecorators';
-import UserService from '@/modules/user/user.service';
+import { UserService } from '.';
 import { Response } from 'express';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import * as userValidation from './user.validation';
@@ -11,7 +11,7 @@ import AuthService from '@/modules/auth/auth.service';
 
 @Service()
 @Controller('/')
-export default class UserController {
+export class UserController {
   @Inject()
   private userService: UserService;
 

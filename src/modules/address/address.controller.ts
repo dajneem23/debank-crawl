@@ -9,7 +9,7 @@ import { JWTPayload } from '@/modules/auth/authSession.type';
 import { BaseQuery } from '@/types/Common';
 import { getVNProvince, getVNDistrict, getVNWard } from './VN';
 import { buildQueryFilter } from '@/utils/common';
-import UserService from '@/modules/user/user.service';
+import { UserService } from '@/modules/user/user.service';
 
 @Service()
 @Controller('/')

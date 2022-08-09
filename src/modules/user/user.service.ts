@@ -20,7 +20,7 @@ import BlocklistService from '@/modules/auth/blocklist.service';
 import { generateTextAlias } from '@/utils/text';
 
 @Service()
-export default class UserService {
+export class UserService {
   private logger = new Logger('UserService');
 
   @Inject()

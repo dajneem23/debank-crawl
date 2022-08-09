@@ -1,31 +1,60 @@
-import { BaseInformationModel, EventType, Sponsor, Agenda } from '@/types/Common';
+import { BaseInformationModel, EventType, Sponsor, Agenda, BaseQuery } from '@/types/Common';
 
 export interface Event extends BaseInformationModel {
   // id - primary id unique
 
-  type: EventType;
+  type?: EventType;
 
-  name: string;
+  name?: string;
 
-  introduction: string;
+  introduction?: string;
 
-  agenda: Array<Agenda>;
+  email?: string;
 
-  location: object; // Map API
+  agenda?: Array<Agenda>;
 
-  startDate: Date;
+  location?: object; // Map API
 
-  endDate: Date;
+  start_date?: Date;
 
-  phone: string;
+  end_date?: Date;
 
   categories?: Array<string>;
 
   country?: string;
 
   //array id of persons
-  speakers: Array<string>;
+  speakers?: Array<string>;
 
   //array id of persons
-  sponsors: Array<Sponsor>;
+  sponsors?: Array<Sponsor>;
 }
+export interface EventQuery extends BaseQuery {
+  name?: string;
+
+  start_date?: Date;
+
+  end_date?: Date;
+
+  category?: string;
+
+  cryptoAssetTags?: string[];
+
+  country?: string;
+
+  speaker?: string;
+
+  sponsor?: string;
+}
+
+export type EventInput = {
+  newEvent?: Event;
+  updateEvent?: { data: Event; id: string };
+};
+
+export type EventOutput = {
+  code: number;
+  result?: Event | any;
+  totalCount?: number;
+  data?: Array<Event>;
+};

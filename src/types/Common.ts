@@ -65,7 +65,7 @@ export type BaseModel = {
 };
 
 export type BaseInformationModel = {
-  id: string;
+  id?: string;
 
   verified?: boolean;
 
@@ -77,27 +77,27 @@ export type BaseInformationModel = {
 
   about?: string;
 
-  twitter?: object;
+  twitter?: string;
 
-  telegram?: object;
+  telegram?: string;
 
-  facebook?: object;
+  facebook?: string;
 
-  instagram?: object;
+  instagram?: string;
 
-  linkedin?: object;
+  linkedin?: string;
 
-  github?: object;
+  github?: string;
 
-  medium?: object;
+  medium?: string;
 
-  youtube?: object;
+  youtube?: string;
 
-  website?: object;
+  website?: string;
 
-  blog?: object;
+  blog?: string;
 
-  reddit?: object;
+  reddit?: string;
 
   created_by?: string;
 

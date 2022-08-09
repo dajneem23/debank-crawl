@@ -5,7 +5,7 @@ services:
     image: mongo
     container_name: mongodb
     ports:
-      - "${DB_PORT}:${DB_PORT}"
+      - "${DB_PORT}:27017"
     environment:
       - MONGO_INITDB_DATABASE= "${DB_NAME}"
       - MONGO_INITDB_ROOT_USERNAME= "${DB_USERNAME}"

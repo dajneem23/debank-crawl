@@ -30,9 +30,7 @@ export class EventController {
   ) {
     const result = await this.eventService.update({
       _id: params.id,
-      updateEvent: {
-        data: body,
-      },
+      updateEvent: body,
     } as EventInput);
     res.status(httpStatus.OK).json(result);
   }

@@ -53,7 +53,7 @@ export enum CATEGORY_TYPE {
   PERSON = 'person',
 }
 export type BaseModel = {
-  id: string;
+  _id?: string;
 
   created_by?: string;
 
@@ -72,7 +72,7 @@ export type BaseModel = {
 };
 
 export type BaseInformationModel = {
-  id?: string;
+  _id?: string;
 
   verified?: boolean;
 

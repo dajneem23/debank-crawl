@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "_id": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "colName": "wikiblock",
+    "created": "2022-08-09T04:07:44.294Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+        "name": "event",
+        "containerId": "",
+        "created": "2022-08-10T02:27:59.101Z",
+        "sortNum": 10000
+      }
+    ]
+  }
+]

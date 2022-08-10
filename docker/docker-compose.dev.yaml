@@ -11,6 +11,18 @@ services:
       PGPASSWORD: "${DB_PASSWORD}"
     ports:
       - ${DB_PORT}:5432
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "${MONGO_DB_PORT}:${MONGO_DB_PORT}"
+    environment:
+      - MONGO_INITDB_DATABASE= "${MONGO_INITDB_DATABASE}"
+      - MONGO_INITDB_ROOT_USERNAME= "${MONGO_INITDB_ROOT_USERNAME}"
+      - MONGO_INITDB_ROOT_PASSWORD= "${MONGO_INITDB_ROOT_PASSWORD}"
+    volumes:
+      - ./db/mongo:/data/db
+    restart: always
   redis:
     image: redis:6-alpine
     restart: always

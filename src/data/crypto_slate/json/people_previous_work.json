@@ -1,0 +1,2967 @@
+[
+  {
+    "id": 1,
+    "person_name": "Marc Andreessen",
+    "work": "NetscapeCo-Founder1994-1998"
+  },
+  {
+    "id": 2,
+    "person_name": "Marc Andreessen",
+    "work": "NetscapeCTO & EVP of Products1994-1999"
+  },
+  {
+    "id": 3,
+    "person_name": "Marc Andreessen",
+    "work": "OpswareCo-Founder1999-2007"
+  },
+  {
+    "id": 4,
+    "person_name": "Marc Andreessen",
+    "work": "Ning InteractiveCo-Founder2004"
+  },
+  {
+    "id": 5,
+    "person_name": "Thomas Lee",
+    "work": "JPMorgan Managing Director1999-2014"
+  },
+  {
+    "id": 6,
+    "person_name": "Viktor Radchenko",
+    "work": "Trucker PathCo-Founder / CTO2012-2014"
+  },
+  {
+    "id": 7,
+    "person_name": "Jacob Canfield",
+    "work": "Simple Truth ChiropracticCEO2012-2017"
+  },
+  {
+    "id": 8,
+    "person_name": "Dan Morehead",
+    "work": "Tiger ManagementCFO & Head of Macro Trading1996-2000"
+  },
+  {
+    "id": 9,
+    "person_name": "Dan Morehead",
+    "work": "AtriaxCo-Founder & CEO2000-2002"
+  },
+  {
+    "id": 10,
+    "person_name": "Arthur Hayes",
+    "work": "Deutsche BankAssociate2008-2011"
+  },
+  {
+    "id": 11,
+    "person_name": "Arthur Hayes",
+    "work": "CitiDelta One Trader2011-2013"
+  },
+  {
+    "id": 12,
+    "person_name": "Dan Larimer",
+    "work": "Phoenix IntegrationSoftware Engineer2012-2013"
+  },
+  {
+    "id": 13,
+    "person_name": "Dan Larimer",
+    "work": "Invectus InnocationsCEO2013-2015"
+  },
+  {
+    "id": 14,
+    "person_name": "Dan Larimer",
+    "work": "Cryptonomex Inc.CEO2015-2016"
+  },
+  {
+    "id": 15,
+    "person_name": "Dan Larimer",
+    "work": "BitShares Creator2013-2016"
+  },
+  {
+    "id": 16,
+    "person_name": "Dan Larimer",
+    "work": "Steemit CTO2016-2017"
+  },
+  {
+    "id": 17,
+    "person_name": "Rahul Sood",
+    "work": "Hewlett-PackardCTO -HP Global Gaming & Advanced Computing2006-2010"
+  },
+  {
+    "id": 18,
+    "person_name": "Rahul Sood",
+    "work": "MicrosoftGM / Partner Microsoft Ventures2013-2014"
+  },
+  {
+    "id": 19,
+    "person_name": "Erik Voorhees",
+    "work": "Better HomesCommunications Manager2008-2009"
+  },
+  {
+    "id": 20,
+    "person_name": "Erik Voorhees",
+    "work": "Podium GroupProject Manager2010-2011"
+  },
+  {
+    "id": 21,
+    "person_name": "Erik Voorhees",
+    "work": "BitInstantHead of Marketing2012-2013"
+  },
+  {
+    "id": 22,
+    "person_name": "Erik Voorhees",
+    "work": "SatoshiDICEFounder & CEO2012-2013"
+  },
+  {
+    "id": 23,
+    "person_name": "Erik Voorhees",
+    "work": "CoinapultCo-Founder2013"
+  },
+  {
+    "id": 24,
+    "person_name": "Tone Vays",
+    "work": "MSCI Inc.VP Operations2010-2012"
+  },
+  {
+    "id": 25,
+    "person_name": "Tone Vays",
+    "work": "Axioma -Inc.Senior Financial Analyst2012-2015"
+  },
+  {
+    "id": 26,
+    "person_name": "Tone Vays",
+    "work": "CoinTelegraphResearch Analyst / Writer2014-2015"
+  },
+  {
+    "id": 27,
+    "person_name": "Tone Vays",
+    "work": "Brave New CoinHead of Research2015-2016"
+  },
+  {
+    "id": 28,
+    "person_name": "Meltem Demirors",
+    "work": "Dow ChemicalAnalyst2007"
+  },
+  {
+    "id": 29,
+    "person_name": "Meltem Demirors",
+    "work": "Tradax EnergyAnalyst2008-2009"
+  },
+  {
+    "id": 30,
+    "person_name": "Meltem Demirors",
+    "work": "Deloitte ConsultingStrategy Consultant2009-2013"
+  },
+  {
+    "id": 31,
+    "person_name": "Meltem Demirors",
+    "work": "ExxonMobilCorporate Treasury2014"
+  },
+  {
+    "id": 32,
+    "person_name": "Meltem Demirors",
+    "work": "Digital Currency Group Vice President2015-2018"
+  },
+  {
+    "id": 33,
+    "person_name": "Olaf Carlson-Wee",
+    "work": "Coinbase Head of Risk & Product Manager2013-2016"
+  },
+  {
+    "id": 34,
+    "person_name": "Olaf Carlson-Wee",
+    "work": "Cryptographic FinancialFounder & Managing Member2016-2017"
+  },
+  {
+    "id": 35,
+    "person_name": "Jesse Proudman",
+    "work": "Blue Box GroupFounder & CTO2014-2015"
+  },
+  {
+    "id": 36,
+    "person_name": "Jesse Proudman",
+    "work": "IBMDistinguished Engineer2015-2017"
+  },
+  {
+    "id": 37,
+    "person_name": "Joey Krug",
+    "work": "Dark Paradise StudiosGame Developer2014"
+  },
+  {
+    "id": 38,
+    "person_name": "Joey Krug",
+    "work": "MariPoSFounder2014"
+  },
+  {
+    "id": 39,
+    "person_name": "Joey Krug",
+    "work": "Augment PartnersFounding Board Member2016-2018"
+  },
+  {
+    "id": 40,
+    "person_name": "Tyler Winklevoss",
+    "work": "ConnectU.comCo-Founder2003-2008"
+  },
+  {
+    "id": 41,
+    "person_name": "Tyler Winklevoss",
+    "work": "USRowingOlympian2006-2011"
+  },
+  {
+    "id": 42,
+    "person_name": "Cameron Winklevoss",
+    "work": "ConnectU.comCo-Founder2002-2008"
+  },
+  {
+    "id": 43,
+    "person_name": "Cameron Winklevoss",
+    "work": "USRowingOlympian2006-2011"
+  },
+  {
+    "id": 44,
+    "person_name": "Robert Mao",
+    "work": "MicrosoftSenior Software Development Engineer2007-2013"
+  },
+  {
+    "id": 45,
+    "person_name": "Robert Mao",
+    "work": "MicrosoftResearch Software Development Engineer2010-2013"
+  },
+  {
+    "id": 46,
+    "person_name": "Robert Mao",
+    "work": "Seattle Entrepreneurship ClubCo-Founder -Chairman of Board2010-2013"
+  },
+  {
+    "id": 47,
+    "person_name": "Robert Mao",
+    "work": "PixoMobileCo-Founder & CEO2013-2017"
+  },
+  {
+    "id": 48,
+    "person_name": "Robert Mao",
+    "work": "W3C HTML Working GroupInvited Expert2007-2018"
+  },
+  {
+    "id": 49,
+    "person_name": "Charlie Shrem",
+    "work": "DailyCheckout IncDirector of Operations -Co-Founder2009-2012"
+  },
+  {
+    "id": 50,
+    "person_name": "Charlie Shrem",
+    "work": "BitInstant.com -LLCFounder & CEO2011-2014"
+  },
+  {
+    "id": 51,
+    "person_name": "Charlie Shrem",
+    "work": "EVRPartner2013-2014"
+  },
+  {
+    "id": 52,
+    "person_name": "Charlie Shrem",
+    "work": "Jaxx Blockchain InterfaceCOO2017"
+  },
+  {
+    "id": 53,
+    "person_name": "Charlie Shrem",
+    "work": "DecentralCOO2017"
+  },
+  {
+    "id": 54,
+    "person_name": "David Chaum",
+    "work": "International Association for Cryptologic ResearchFounder1982"
+  },
+  {
+    "id": 55,
+    "person_name": "David Chaum",
+    "work": "DigiCashFounder1990"
+  },
+  {
+    "id": 56,
+    "person_name": "Nick Szabo",
+    "work": "Bit GoldCreator1998"
+  },
+  {
+    "id": 57,
+    "person_name": "Jeremy Allaire",
+    "work": "Allaire CorporationCo-Founder & CTO -"
+  },
+  {
+    "id": 58,
+    "person_name": "Jeremy Allaire",
+    "work": "MarcomediaChief Technology Officer2001-2003"
+  },
+  {
+    "id": 59,
+    "person_name": "Jeremy Allaire",
+    "work": "General Catalyst PartnersEntrepreneur in Residence2003-2004"
+  },
+  {
+    "id": 60,
+    "person_name": "Jeremy Allaire",
+    "work": "BrightcoveFounder -Chairman and CEO2004-2016"
+  },
+  {
+    "id": 61,
+    "person_name": "Will Warren",
+    "work": "UCSD Coordinated Robotics LabUndergraduate Student Researcher2012-2013"
+  },
+  {
+    "id": 62,
+    "person_name": "Will Warren",
+    "work": "Los Alamos National LaboratoryPost Baccalaureate Research2013-2014"
+  },
+  {
+    "id": 63,
+    "person_name": "Will Warren",
+    "work": "Los Alamos National LaboratoryGraduate Research Assistant2015-2016"
+  },
+  {
+    "id": 64,
+    "person_name": "Will Warren",
+    "work": "Basic Attention Token Technical Advisor2017"
+  },
+  {
+    "id": 65,
+    "person_name": "Willy Woo",
+    "work": "ForbesContributing Writer2017"
+  },
+  {
+    "id": 66,
+    "person_name": "Willy Woo",
+    "work": "He3LabsAdvisor2017-2019"
+  },
+  {
+    "id": 67,
+    "person_name": "Brendan Eich",
+    "work": "Silicon GraphicsSoftware Engineer1985-1992"
+  },
+  {
+    "id": 68,
+    "person_name": "Brendan Eich",
+    "work": "MicroUnitySoftware Engineer1992-1995"
+  },
+  {
+    "id": 69,
+    "person_name": "Brendan Eich",
+    "work": "NetscapePrincipal Engineer / Chief Architect1995-2003"
+  },
+  {
+    "id": 70,
+    "person_name": "Brendan Eich",
+    "work": "MozillaChief Architect2003-2005"
+  },
+  {
+    "id": 71,
+    "person_name": "Brendan Eich",
+    "work": "MozillaCTO2005-2013"
+  },
+  {
+    "id": 72,
+    "person_name": "Brendan Eich",
+    "work": "MozillaCTO and SVP Engineering2013-2014"
+  },
+  {
+    "id": 73,
+    "person_name": "Brendan Eich",
+    "work": "MozillaCEO2014"
+  },
+  {
+    "id": 74,
+    "person_name": "Adam Back",
+    "work": "PI CorporationSecurity Architect & Co-Founder -"
+  },
+  {
+    "id": 75,
+    "person_name": "Adam Back",
+    "work": "EMCChief Info Sec Officer -"
+  },
+  {
+    "id": 76,
+    "person_name": "Anthony Pompliano",
+    "work": "US ArmySergeant2006-2012"
+  },
+  {
+    "id": 77,
+    "person_name": "Anthony Pompliano",
+    "work": "Snapchat -Inc.Growth2015"
+  },
+  {
+    "id": 78,
+    "person_name": "Anthony Pompliano",
+    "work": "FacebookProduct Manager2014-2015"
+  },
+  {
+    "id": 79,
+    "person_name": "Anthony Pompliano",
+    "work": "Full Tilt CapitalManaging Partner2016-2018"
+  },
+  {
+    "id": 80,
+    "person_name": "Linda Xie",
+    "work": "AIGRisk Analyst2012-2014"
+  },
+  {
+    "id": 81,
+    "person_name": "Linda Xie",
+    "work": "Coinbase Product Manager2014-2017"
+  },
+  {
+    "id": 82,
+    "person_name": "Neeraj K. Agrawal",
+    "work": "Research AssistantThe Gifford Foundation2009-2010"
+  },
+  {
+    "id": 83,
+    "person_name": "Neeraj K. Agrawal",
+    "work": "VERSIGNCorporate Communications Manager2014"
+  },
+  {
+    "id": 84,
+    "person_name": "Galia Benartzi",
+    "work": "MytopiaVP Business Development2005-2008"
+  },
+  {
+    "id": 85,
+    "person_name": "Galia Benartzi",
+    "work": "Particle Code IncCo-Founder & CEO2010-2011"
+  },
+  {
+    "id": 86,
+    "person_name": "Galia Benartzi",
+    "work": "Founders FundVenture Partner2012-2013"
+  },
+  {
+    "id": 87,
+    "person_name": "Brian Kelly",
+    "work": "Shelter Harbor CapitalManaging Member & Co-Founder2011-2013"
+  },
+  {
+    "id": 88,
+    "person_name": "Laura Shin",
+    "work": "LearnVest -Inc.Senior Editor2011-2013"
+  },
+  {
+    "id": 89,
+    "person_name": "Laura Shin",
+    "work": "CBS InteractiveFeatures Editor2011-2014"
+  },
+  {
+    "id": 90,
+    "person_name": "Laura Shin",
+    "work": "ForbesSenior Editor2017-2018"
+  },
+  {
+    "id": 91,
+    "person_name": "Tuur Demeester",
+    "work": "Goldonomic.beEditor2010-2011"
+  },
+  {
+    "id": 92,
+    "person_name": "Tuur Demeester",
+    "work": "MacroTrends.beEditor2011-2013"
+  },
+  {
+    "id": 93,
+    "person_name": "Tuur Demeester",
+    "work": "Adamant ResearchEditor in Chief2005-2017"
+  },
+  {
+    "id": 94,
+    "person_name": "Barry Silbert",
+    "work": "Houlihan LokeyAssociate1998-2004"
+  },
+  {
+    "id": 95,
+    "person_name": "Barry Silbert",
+    "work": "Restricted Stock PartnersCEO2004-2008"
+  },
+  {
+    "id": 96,
+    "person_name": "Barry Silbert",
+    "work": "SecondMarket -Inc.Founder & Chairman2014-2015"
+  },
+  {
+    "id": 97,
+    "person_name": "Nouriel Roubini",
+    "work": "Yale UniversityAssociate Professor of Economics1988-1995"
+  },
+  {
+    "id": 98,
+    "person_name": "Nouriel Roubini",
+    "work": "Roubini Global EconomicsChairman2004-2012"
+  },
+  {
+    "id": 99,
+    "person_name": "Jeff Garzik",
+    "work": "CNNWeb Developer1995-1997"
+  },
+  {
+    "id": 100,
+    "person_name": "Jeff Garzik",
+    "work": "Red HatPrincipal Software Engineer2002-2013"
+  },
+  {
+    "id": 101,
+    "person_name": "Jeff Garzik",
+    "work": "exMULTI -Inc.CEO2011-2013"
+  },
+  {
+    "id": 102,
+    "person_name": "Jeff Garzik",
+    "work": "Bitpay Wallet Bitcoin Core Developer2013-2014"
+  },
+  {
+    "id": 103,
+    "person_name": "Jeff Garzik",
+    "work": "Dunvegas Space SystemsFounder2012-2015"
+  },
+  {
+    "id": 104,
+    "person_name": "Amber Baldet",
+    "work": "Blackwire LLCManaging Partner2005-2009"
+  },
+  {
+    "id": 105,
+    "person_name": "Amber Baldet",
+    "work": "CapcoSenior Consultant2009-2012"
+  },
+  {
+    "id": 106,
+    "person_name": "Amber Baldet",
+    "work": "J.P. MorganExecutive Director2012-2018"
+  },
+  {
+    "id": 107,
+    "person_name": "Jesse Powell",
+    "work": "Lewt -Inc.Co-Founder & CEO2001-2011"
+  },
+  {
+    "id": 108,
+    "person_name": "Jesse Powell",
+    "work": "Internet Ventures & HoldingsCo-Founder & CEO2006-2011"
+  },
+  {
+    "id": 109,
+    "person_name": "Bill Barhydt",
+    "work": "Boom Financial -Inc.President -CEO & Founder2007-2016"
+  },
+  {
+    "id": 110,
+    "person_name": "Andy Cheung",
+    "work": "Alibaba.comSales & Operations Manager2010-2011"
+  },
+  {
+    "id": 111,
+    "person_name": "Andy Cheung",
+    "work": "Groupon of Hong KongCEO2015-2016"
+  },
+  {
+    "id": 112,
+    "person_name": "Andy Cheung",
+    "work": "iClick Interactive Asia LtdHead of Hong Kong2016-2017"
+  },
+  {
+    "id": 113,
+    "person_name": "Wei Zhou",
+    "work": "Zhaopin LimitedCFO2008-2009"
+  },
+  {
+    "id": 114,
+    "person_name": "Wei Zhou",
+    "work": "Charm Communications IncCFO2009-2013"
+  },
+  {
+    "id": 115,
+    "person_name": "Wei Zhou",
+    "work": "GrindrVice Chairman2017-2018"
+  },
+  {
+    "id": 116,
+    "person_name": "Luis Cuende",
+    "work": "TelefonicaFirefox OS Developer2014"
+  },
+  {
+    "id": 117,
+    "person_name": "Luis Cuende",
+    "work": "StamperyCo-Founder & CTO2014-2016"
+  },
+  {
+    "id": 118,
+    "person_name": "Michael Moro",
+    "work": "SecondMarket -Inc.DIrector2008-2015"
+  },
+  {
+    "id": 119,
+    "person_name": "Chris Burniske",
+    "work": "ARK Investment Management -LLCBlockchain Products Lead2014-2017"
+  },
+  {
+    "id": 120,
+    "person_name": "Hal Finney",
+    "work": "Green Hills SoftwareSoftware Engineer1990-1996"
+  },
+  {
+    "id": 121,
+    "person_name": "Hal Finney",
+    "work": "PGP IncorporatedSenior Software Engineer1996-1998"
+  },
+  {
+    "id": 122,
+    "person_name": "Hal Finney",
+    "work": "Network AssociatesSenior Software Engineer1998-2004"
+  },
+  {
+    "id": 123,
+    "person_name": "Hal Finney",
+    "work": "McAfeeCryptographic Software Engineer2000-2004"
+  },
+  {
+    "id": 124,
+    "person_name": "Hal Finney",
+    "work": "PGP CorporationSenior Cryptographic Engineer2004-2011"
+  },
+  {
+    "id": 125,
+    "person_name": "Nikolay Storonsky",
+    "work": "Lehman BrothersEquity Derivatives Trader2006-2008"
+  },
+  {
+    "id": 126,
+    "person_name": "Nikolay Storonsky",
+    "work": "Credit SuisseEquity Derivatives Trader2008-2013"
+  },
+  {
+    "id": 127,
+    "person_name": "Jacobo Toll-Messia",
+    "work": "Project ManagerCapital One2005"
+  },
+  {
+    "id": 128,
+    "person_name": "Jacobo Toll-Messia",
+    "work": "Project ManagerLogica2005-2006"
+  },
+  {
+    "id": 129,
+    "person_name": "Jacobo Toll-Messia",
+    "work": "Program ManagerEpsis2006-2008"
+  },
+  {
+    "id": 130,
+    "person_name": "Jacobo Toll-Messia",
+    "work": "IBM Global Business ServicesManaging Consultant2008-2010"
+  },
+  {
+    "id": 131,
+    "person_name": "Tim Coulter",
+    "work": "NoteAppFounder2010-2014"
+  },
+  {
+    "id": 132,
+    "person_name": "Tim Coulter",
+    "work": "LayerVaultQA Engineer2013-2015"
+  },
+  {
+    "id": 133,
+    "person_name": "Min Kim",
+    "work": "Deutche BankInvestment Banker2005-2009"
+  },
+  {
+    "id": 134,
+    "person_name": "Min Kim",
+    "work": "IVELA GlobalFounder2009-2012"
+  },
+  {
+    "id": 135,
+    "person_name": "Min Kim",
+    "work": "Tapas MediaCOO2012-2015"
+  },
+  {
+    "id": 136,
+    "person_name": "Min Kim",
+    "work": "DAYLI Financial GroupCSO2015-2018"
+  },
+  {
+    "id": 137,
+    "person_name": "Jonathan G. Blanco",
+    "work": "TF LabsCo-Founder -"
+  },
+  {
+    "id": 138,
+    "person_name": "Kristy-Leigh Minehan",
+    "work": "Genesis Mining Directory of Technology2015-2017"
+  },
+  {
+    "id": 139,
+    "person_name": "Kristy-Leigh Minehan",
+    "work": "Blockchain Consulting BmbHCryptographic Engineer2016-2018"
+  },
+  {
+    "id": 140,
+    "person_name": "Kristy-Leigh Minehan",
+    "work": "OhGodACompanyBoss Lady2013-2018"
+  },
+  {
+    "id": 141,
+    "person_name": "Dave Pulis",
+    "work": "University of MaltaVisiting Lecturer2007-2010"
+  },
+  {
+    "id": 142,
+    "person_name": "Dave Pulis",
+    "work": "SSNEDAdministrator2009-2013"
+  },
+  {
+    "id": 143,
+    "person_name": "Dave Pulis",
+    "work": "EXANTEInstitutional Trading2013-2018"
+  },
+  {
+    "id": 144,
+    "person_name": "Kate Mitselmakher",
+    "work": "Gartner InvestVenture Capital & Private Equity2012-2014"
+  },
+  {
+    "id": 145,
+    "person_name": "Chris Jones",
+    "work": "Blockchain SeattleCo-Founder2017-2018"
+  },
+  {
+    "id": 146,
+    "person_name": "Chris Jones",
+    "work": "ChartercoinCo-Founder2017-2018"
+  },
+  {
+    "id": 147,
+    "person_name": "Chris Jones",
+    "work": "Dragonchain CMO2019"
+  },
+  {
+    "id": 148,
+    "person_name": "Charles Hoskinson",
+    "work": "Invictus Innovations Inc.CEO & Co-Founder2013"
+  },
+  {
+    "id": 149,
+    "person_name": "Charles Hoskinson",
+    "work": "Ethereum Foundation CEO2013-2014"
+  },
+  {
+    "id": 150,
+    "person_name": "Kory Hoang",
+    "work": "Lehrer Financial Innovations -Inc.Research Analyst -"
+  },
+  {
+    "id": 151,
+    "person_name": "Kory Hoang",
+    "work": "PitchBook DataPrivate Equity Data Analyst2017"
+  },
+  {
+    "id": 152,
+    "person_name": "Spencer Dinwiddie",
+    "work": "Detroit PistonsProfessional Athlete2014-2016"
+  },
+  {
+    "id": 153,
+    "person_name": "Spencer Dinwiddie",
+    "work": "Chicago BullsProfessional Athlete2016"
+  },
+  {
+    "id": 154,
+    "person_name": "Michael Arrington",
+    "work": "AchexCo-Founder1999-2001"
+  },
+  {
+    "id": 155,
+    "person_name": "Michael Arrington",
+    "work": "TechCrunchFounder & Editor2005-2011"
+  },
+  {
+    "id": 156,
+    "person_name": "Taylor Monahan",
+    "work": "MyEtherWallet Founder2015-2018"
+  },
+  {
+    "id": 157,
+    "person_name": "Edward Moncada",
+    "work": "Unveil LLCCo-Founder2010-2012"
+  },
+  {
+    "id": 158,
+    "person_name": "Edward Moncada",
+    "work": "DatablockCo-Founder2017-2018"
+  },
+  {
+    "id": 159,
+    "person_name": "Edward Moncada",
+    "work": "Dash DASH Foundation Board Member2014-2018"
+  },
+  {
+    "id": 160,
+    "person_name": "Adam White",
+    "work": "Lawrence Livermore National LaboratoryTechnical Scholar2004-2006"
+  },
+  {
+    "id": 161,
+    "person_name": "Adam White",
+    "work": "United States Air ForceFlight Test Engineer2006-2011"
+  },
+  {
+    "id": 162,
+    "person_name": "Adam White",
+    "work": "Bain & CompanyConsultant2012"
+  },
+  {
+    "id": 163,
+    "person_name": "Adam White",
+    "work": "Activision BlizzardProduct Manager2013"
+  },
+  {
+    "id": 164,
+    "person_name": "Adam White",
+    "work": "Coinbase Vice President & General Manager2016-2018"
+  },
+  {
+    "id": 165,
+    "person_name": "Fred Ehrsam",
+    "work": "Duke Universityassembling DNA Nanostructures Research -"
+  },
+  {
+    "id": 166,
+    "person_name": "Fred Ehrsam",
+    "work": "Goldman Sachs Trader2010-2012"
+  },
+  {
+    "id": 167,
+    "person_name": "Fred Ehrsam",
+    "work": "Coinbase Co-Founder2012-2017"
+  },
+  {
+    "id": 168,
+    "person_name": "Kosala Hemachandra",
+    "work": "Blockchains -LLCChief Blockchains Officer2018"
+  },
+  {
+    "id": 169,
+    "person_name": "Michael Novogratz",
+    "work": "Goldman Sachs Partner1991-2002"
+  },
+  {
+    "id": 170,
+    "person_name": "Michael Novogratz",
+    "work": "Fortress Investment GroupCIO -Macro Fund2002-2015"
+  },
+  {
+    "id": 171,
+    "person_name": "David Marcus",
+    "work": "GTN TelecomFounder -Chairman & CEO1996-2000"
+  },
+  {
+    "id": 172,
+    "person_name": "David Marcus",
+    "work": "echo6Chairman2006-2008"
+  },
+  {
+    "id": 173,
+    "person_name": "David Marcus",
+    "work": "ZongFounder and CEO2008-2011"
+  },
+  {
+    "id": 174,
+    "person_name": "David Marcus",
+    "work": "PayPalPresident2012-2014"
+  },
+  {
+    "id": 175,
+    "person_name": "David Marcus",
+    "work": "Coinbase Member Board of Directors2017-2018"
+  },
+  {
+    "id": 176,
+    "person_name": "David Marcus",
+    "work": "Tipping Point CommunityMember Board of Directors2017-2019"
+  },
+  {
+    "id": 177,
+    "person_name": "Su Zhu",
+    "work": "Flow TradersTrader2009-2011"
+  },
+  {
+    "id": 178,
+    "person_name": "Su Zhu",
+    "work": "Deutsche BankTrader2011-2012"
+  },
+  {
+    "id": 179,
+    "person_name": "Alex Krüger",
+    "work": "Credit Lyonnaise Securities Asia (CLSA)Equity Research1999"
+  },
+  {
+    "id": 180,
+    "person_name": "Alex Krüger",
+    "work": "Ministry of EconomyEconomist2000-2002"
+  },
+  {
+    "id": 181,
+    "person_name": "Alex Krüger",
+    "work": "Noboa GroupDirector2003-2010"
+  },
+  {
+    "id": 182,
+    "person_name": "Alex Krüger",
+    "work": "HSBC BankInstitutional Sales Trader -Global Banking & Markets2011-2013"
+  },
+  {
+    "id": 183,
+    "person_name": "Ryan Sean Adams",
+    "work": "Vivus SoftwareVice President & Principal2003-2009"
+  },
+  {
+    "id": 184,
+    "person_name": "Ryan Sean Adams",
+    "work": "IntalgentCEO2009-2010"
+  },
+  {
+    "id": 185,
+    "person_name": "Ryan Sean Adams",
+    "work": "MeddiusVice President of Sales2016-2017"
+  },
+  {
+    "id": 186,
+    "person_name": "Ryan Sean Adams",
+    "work": "Premier Inc.Vice President -Integrated Platform & Analyticcs2016-2017"
+  },
+  {
+    "id": 187,
+    "person_name": "John McAfee",
+    "work": "McAfeeCEO & Founder1987-1994"
+  },
+  {
+    "id": 188,
+    "person_name": "Lawrence Lerner",
+    "work": "GENPACT LLCVice President and Global Head of Quality and Testing -"
+  },
+  {
+    "id": 189,
+    "person_name": "Lawrence Lerner",
+    "work": "Ameritas TechnologiesVice President Consulting Services2013-2014"
+  },
+  {
+    "id": 190,
+    "person_name": "Lawrence Lerner",
+    "work": "LEVLStrategy and Technology2015-2016"
+  },
+  {
+    "id": 191,
+    "person_name": "Lawrence Lerner",
+    "work": "FrontFundrBoard Advisor2015-2017"
+  },
+  {
+    "id": 192,
+    "person_name": "Charlie Lee",
+    "work": "Kana CommunicationsSoftware Engineer2000-2003"
+  },
+  {
+    "id": 193,
+    "person_name": "Charlie Lee",
+    "work": "Guidewire SoftwareSenior Software Engineer2003-2007"
+  },
+  {
+    "id": 194,
+    "person_name": "Charlie Lee",
+    "work": "GoogleSoftware Engineer2007-2013"
+  },
+  {
+    "id": 195,
+    "person_name": "Charlie Lee",
+    "work": "Coinbase Director of Engineering2015-2017"
+  },
+  {
+    "id": 196,
+    "person_name": "Vitalik Buterin",
+    "work": "NextThought -LLCDeveloper Intern2012"
+  },
+  {
+    "id": 197,
+    "person_name": "Vitalik Buterin",
+    "work": "Bitcoin MagazineWriter2011-2014"
+  },
+  {
+    "id": 198,
+    "person_name": "Da Hongfei",
+    "work": "IntPass ConsultingCEO2005-2013"
+  },
+  {
+    "id": 199,
+    "person_name": "Travis Kling",
+    "work": "KPMGTransaction Service Associate2007"
+  },
+  {
+    "id": 200,
+    "person_name": "Travis Kling",
+    "work": "Simmons & Company InternationalCorporate Finance Analyst2008-2010"
+  },
+  {
+    "id": 201,
+    "person_name": "Travis Kling",
+    "work": "Magnetar CapitalEnergy Analyst2011-2015"
+  },
+  {
+    "id": 202,
+    "person_name": "Travis Kling",
+    "work": "Point72 Asset ManagementPortfolio Manager2015-2017"
+  },
+  {
+    "id": 203,
+    "person_name": "Caitlin Long",
+    "work": "Morgan StanleyManaging Director2007-2016"
+  },
+  {
+    "id": 204,
+    "person_name": "Caitlin Long",
+    "work": "Symbiont.ioChairman of the Board & President2016-2018"
+  },
+  {
+    "id": 205,
+    "person_name": "Caitlin Long",
+    "work": "Wyoming Blockchain CoalitionCo-Founder2017-2019"
+  },
+  {
+    "id": 206,
+    "person_name": "Sasha Ivanov",
+    "work": "Intelligence UnitradeFounder & CEO2009-2016"
+  },
+  {
+    "id": 207,
+    "person_name": "Paolo Ardoino",
+    "work": "FinclusterPartner2012-2015"
+  },
+  {
+    "id": 208,
+    "person_name": "Jean-Louis van der Velde",
+    "work": "Amos Ltd.Managing Director1995-1999"
+  },
+  {
+    "id": 209,
+    "person_name": "Jean-Louis van der Velde",
+    "work": "Tuxia GmbHCSO & Co-Founder1999-2002"
+  },
+  {
+    "id": 210,
+    "person_name": "Jean-Louis van der Velde",
+    "work": "PAG Asia Inc.CEO2006-2012"
+  },
+  {
+    "id": 211,
+    "person_name": "James Todaro",
+    "work": "Kresge Eye InstitutePhysician2015-2018"
+  },
+  {
+    "id": 212,
+    "person_name": "Jay Clayton",
+    "work": "Sullivan & Cromwell LLPPartner -"
+  },
+  {
+    "id": 213,
+    "person_name": "Jay Clayton",
+    "work": "University of Pennsylvania Law SchoolLecturer in Law and Adjunct Professor2009-2017"
+  },
+  {
+    "id": 214,
+    "person_name": "Dominik Schiener",
+    "work": "FileyyFounder & CEO2012-2013"
+  },
+  {
+    "id": 215,
+    "person_name": "Dominik Schiener",
+    "work": "Bithaus GmbHCo-Founder2014-2015"
+  },
+  {
+    "id": 216,
+    "person_name": "Dominik Schiener",
+    "work": "Finhaus Ltd.Co-Founder2015-2016"
+  },
+  {
+    "id": 217,
+    "person_name": "Ari Paul",
+    "work": "Susquehanna International Group -LLPDerivatives Trader2006-2010"
+  },
+  {
+    "id": 218,
+    "person_name": "Ari Paul",
+    "work": "The University of ChicagoPortfolio Manager2016-2017"
+  },
+  {
+    "id": 219,
+    "person_name": "Jack Lu",
+    "work": "XeroxSoftware Architect2010"
+  },
+  {
+    "id": 220,
+    "person_name": "Jack Lu",
+    "work": "Hewlett-PackardSr. Software Architect2010-2014"
+  },
+  {
+    "id": 221,
+    "person_name": "Jack Lu",
+    "work": "Factom Co-Founder & CTO2014-2016"
+  },
+  {
+    "id": 222,
+    "person_name": "Alex Mashinsky",
+    "work": "Inseego Corp.CEO & Board Member2014-2015"
+  },
+  {
+    "id": 223,
+    "person_name": "Alex Mashinsky",
+    "work": "Transit WirelessFounder & Chairman2003-2016"
+  },
+  {
+    "id": 224,
+    "person_name": "Changpeng Zhao",
+    "work": "BloombergHead of Tradebook Futures Development2001-2005"
+  },
+  {
+    "id": 225,
+    "person_name": "Changpeng Zhao",
+    "work": "PartnerFusion Systems2005-2013"
+  },
+  {
+    "id": 226,
+    "person_name": "Changpeng Zhao",
+    "work": "BlockchainHead of Development2013-2014"
+  },
+  {
+    "id": 227,
+    "person_name": "Changpeng Zhao",
+    "work": "BijieTechFounder2015-2017"
+  },
+  {
+    "id": 228,
+    "person_name": "Cal Evans",
+    "work": "The Cryptocurrency AcademyFounderOct 2017 - Mar 2018"
+  },
+  {
+    "id": 229,
+    "person_name": "Yi He",
+    "work": "China Travel TV ChannelTV AnchorApr 2012 - 2014"
+  },
+  {
+    "id": 230,
+    "person_name": "Yi He",
+    "work": "OKCoinCo-FounderMar 2014 - July 2015"
+  },
+  {
+    "id": 231,
+    "person_name": "Rune Christensen",
+    "work": "Try ChinaCo-Founder2011-2014"
+  },
+  {
+    "id": 232,
+    "person_name": "Steven Becker",
+    "work": "Penryth Global Securities LendingHead of Risk and Product Development2001-2002"
+  },
+  {
+    "id": 233,
+    "person_name": "Steven Becker",
+    "work": "PSG Investment BankInterest Rate Derivatives Trader2002-2003"
+  },
+  {
+    "id": 234,
+    "person_name": "Steven Becker",
+    "work": "Polus CapitalExecutive Director/CEO and Shareholder2003-2012"
+  },
+  {
+    "id": 235,
+    "person_name": "Kathleen Breitman",
+    "work": "AccentureStategy2014-2016"
+  },
+  {
+    "id": 236,
+    "person_name": "Kathleen Breitman",
+    "work": "R3 Sr. Stategy Associate2016"
+  },
+  {
+    "id": 237,
+    "person_name": "Pat Larsen",
+    "work": "US NavyHelicopter Pilot2002-2011"
+  },
+  {
+    "id": 238,
+    "person_name": "Pat Larsen",
+    "work": "Lincoln InternationalAssociate -M&A2011-2012"
+  },
+  {
+    "id": 239,
+    "person_name": "Pat Larsen",
+    "work": "Profitics -Inc.VP of Business Development2012-2014"
+  },
+  {
+    "id": 240,
+    "person_name": "Pat Larsen",
+    "work": "AmazonSr. Vendor Manager -Licensed Sports2015"
+  },
+  {
+    "id": 241,
+    "person_name": "Pat Larsen",
+    "work": "Cathay FenixDirector -Foreign Manufacturer Sales2015-2016"
+  },
+  {
+    "id": 242,
+    "person_name": "Pat Larsen",
+    "work": "Vets In TechCommunity Directory2015-2016"
+  },
+  {
+    "id": 243,
+    "person_name": "Gregory Klumov",
+    "work": "Matrix AdvisorsDeputy CEO / Investment Director2016-2017"
+  },
+  {
+    "id": 244,
+    "person_name": "Joost Jager",
+    "work": "MeteoGroup NederlandLeader Developer Artificial Intelligence2016-2017"
+  },
+  {
+    "id": 245,
+    "person_name": "Joost Jager",
+    "work": "UltimakerSoftware Developer / Product Owner2017-2018"
+  },
+  {
+    "id": 246,
+    "person_name": "Will Harborne",
+    "work": "Intellisense.ioProcess Modeling and Optimization2016"
+  },
+  {
+    "id": 247,
+    "person_name": "Will Harborne",
+    "work": "IBM Blockchain IT Consultant and Blockchain2016-2017"
+  },
+  {
+    "id": 248,
+    "person_name": "Will Harborne",
+    "work": "Bitfinex Projects Lead (Blockchain/Ethereum) -"
+  },
+  {
+    "id": 249,
+    "person_name": "Kyle Samani",
+    "work": "PristineCo-Founder & CEO2013-2015"
+  },
+  {
+    "id": 250,
+    "person_name": "Narek Gevorgyan",
+    "work": "Bartly (acquired by reKindness)CTO & Co-Founder2015-2016"
+  },
+  {
+    "id": 251,
+    "person_name": "Narek Gevorgyan",
+    "work": "OffParse.comCEO & Co-Founder2016-2017"
+  },
+  {
+    "id": 252,
+    "person_name": "Narek Gevorgyan",
+    "work": "InommaCEO & Co-Founder2013-2017"
+  },
+  {
+    "id": 253,
+    "person_name": "Sergey Nazarov",
+    "work": "ExistLocal Inc.Co-Founder & CEO2009-2011"
+  },
+  {
+    "id": 254,
+    "person_name": "Sergey Nazarov",
+    "work": "QED CapitalGeneral Partner2011-2014"
+  },
+  {
+    "id": 255,
+    "person_name": "Sergey Nazarov",
+    "work": "CryptaMailCo-Founder & CEO2014"
+  },
+  {
+    "id": 256,
+    "person_name": "Sergey Nazarov",
+    "work": "Secure Asset ExchangeCo-Founder & CEO2014-2016"
+  },
+  {
+    "id": 257,
+    "person_name": "Richie Lai",
+    "work": "MicrosoftSecurity Engineer2000-2003"
+  },
+  {
+    "id": 258,
+    "person_name": "Richie Lai",
+    "work": "MicrosoftPrincipal Development Manager2003-2009"
+  },
+  {
+    "id": 259,
+    "person_name": "Richie Lai",
+    "work": "QualysDirector of Vulnerability Research2009-2010"
+  },
+  {
+    "id": 260,
+    "person_name": "Richie Lai",
+    "work": "AmazonSenior Security Manager2013-2017"
+  },
+  {
+    "id": 261,
+    "person_name": "Matej Michalko",
+    "work": "CoinsultingCo-Founder & CEODec 2013 - Mar 2015"
+  },
+  {
+    "id": 262,
+    "person_name": "Matej Michalko",
+    "work": "Blockchain R&D HubCo-Founder Chairman of the BoardOct 2016 - Aug 2017"
+  },
+  {
+    "id": 263,
+    "person_name": "Farbood Nivi",
+    "work": "GrockitFounder2006-2012"
+  },
+  {
+    "id": 264,
+    "person_name": "Bobby Lee",
+    "work": "Walmart -China e-CommerceVP of Technology2011-2012"
+  },
+  {
+    "id": 265,
+    "person_name": "Bobby Lee",
+    "work": "Standford Club of ShanghaiBoard Member -Treasurerer2011-2014"
+  },
+  {
+    "id": 266,
+    "person_name": "Bobby Lee",
+    "work": "BTCCCo-Founder and CEO2013-2018"
+  },
+  {
+    "id": 267,
+    "person_name": "Jeffrey Wilcke",
+    "work": "Agile PandasPanda"
+  },
+  {
+    "id": 268,
+    "person_name": "Jeffrey Wilcke",
+    "work": "StudyFlowCTRTFM"
+  },
+  {
+    "id": 269,
+    "person_name": "Jeffrey Wilcke",
+    "work": "Ethereum Co-Founder2013-2018"
+  },
+  {
+    "id": 270,
+    "person_name": "Anthony Di lorio",
+    "work": "KryptokitCEO & Founder2013-2015"
+  },
+  {
+    "id": 271,
+    "person_name": "Anthony Di lorio",
+    "work": "Ethereum Co-Founder2013-2015"
+  },
+  {
+    "id": 272,
+    "person_name": "Anthony Di lorio",
+    "work": "MaRS Discovery DistrictAdvisor to Fintech Cluster2015-2016"
+  },
+  {
+    "id": 273,
+    "person_name": "Anthony Di lorio",
+    "work": "Toronto Stock ExchangeChief Digital Officer2016"
+  },
+  {
+    "id": 274,
+    "person_name": "Gavin Anderson",
+    "work": "Gravity SwitchCode monkey2004-2007"
+  },
+  {
+    "id": 275,
+    "person_name": "Gavin Anderson",
+    "work": "University of Massachusetts AmherstSoftware Guy2007-2009"
+  },
+  {
+    "id": 276,
+    "person_name": "Gavin Anderson",
+    "work": "TruCoinLead Core Bitcoin Developer2011"
+  },
+  {
+    "id": 277,
+    "person_name": "Pierre Rochard",
+    "work": "DeloitteSecuritization Consultant2013-2014"
+  },
+  {
+    "id": 278,
+    "person_name": "Pierre Rochard",
+    "work": "Bitpay Wallet Staff Accountant2014-2015"
+  },
+  {
+    "id": 279,
+    "person_name": "Pierre Rochard",
+    "work": "Hudson River TradingSenior Accountant / Programmer2015-2016"
+  },
+  {
+    "id": 280,
+    "person_name": "Emin Gün Sirer",
+    "work": "bloXroute LabsFounder2017-2019"
+  },
+  {
+    "id": 281,
+    "person_name": "Manish Kataria",
+    "work": "CognizantStrategy Consultant2014-2018"
+  },
+  {
+    "id": 282,
+    "person_name": "Jimmy Song",
+    "work": "Armory Technologies -Inc.VP of Engineering2014-2016"
+  },
+  {
+    "id": 283,
+    "person_name": "Jimmy Song",
+    "work": "Paxos Standard Principal Architect2016-2018"
+  },
+  {
+    "id": 284,
+    "person_name": "Julian Kopald",
+    "work": "SpartanFounder2006-2013"
+  },
+  {
+    "id": 285,
+    "person_name": "Julian Kopald",
+    "work": "1FX Pay - Founder2013-2019"
+  },
+  {
+    "id": 286,
+    "person_name": "Kristina Lucrezia Cornèr",
+    "work": "Global Entrepreneurship NetworkSenior Manager for Partnerships and PR2012-2014"
+  },
+  {
+    "id": 287,
+    "person_name": "Kristina Lucrezia Cornèr",
+    "work": "Union of Entreprises for Energy Efficiency and EcologyCommunications Manager2011-2016"
+  },
+  {
+    "id": 288,
+    "person_name": "Steve Ehrlich",
+    "work": "Honos Financial -LLCCEO2013"
+  },
+  {
+    "id": 289,
+    "person_name": "Ivan Liljeqvist",
+    "work": "FramgångspoddenSoftware Developer2016-2017"
+  },
+  {
+    "id": 290,
+    "person_name": "Ivan Liljeqvist",
+    "work": "SOON appSoftware Developer2017"
+  },
+  {
+    "id": 291,
+    "person_name": "Virgil Griffith",
+    "work": "TorokenTechnical Product Manager2014"
+  },
+  {
+    "id": 292,
+    "person_name": "Virgil Griffith",
+    "work": "National University of SingaporeResearch Fellow2015-2016"
+  },
+  {
+    "id": 293,
+    "person_name": "Virgil Griffith",
+    "work": "Singapore-MIT Alliance for Research & Technology CentrePostdoctoral Fellow2016-2017"
+  },
+  {
+    "id": 294,
+    "person_name": "Brad Garlinghouse",
+    "work": "HightailCEO2012-2014"
+  },
+  {
+    "id": 295,
+    "person_name": "Brad Garlinghouse",
+    "work": "Ancestry.comBoard Member2013-2016"
+  },
+  {
+    "id": 296,
+    "person_name": "Brad Garlinghouse",
+    "work": "Tonic HealthBoard Member2011-2016"
+  },
+  {
+    "id": 297,
+    "person_name": "Brad Garlinghouse",
+    "work": "AnimotoBoard Member2012-2017"
+  },
+  {
+    "id": 298,
+    "person_name": "Roger Ver",
+    "work": "Memory DealersCEO1999-2012"
+  },
+  {
+    "id": 299,
+    "person_name": "Brendan Blumer",
+    "work": "GamecliffFounder2001-2005"
+  },
+  {
+    "id": 300,
+    "person_name": "Brendan Blumer",
+    "work": "Okay.comFounder2009-2013"
+  },
+  {
+    "id": 301,
+    "person_name": "Brendan Blumer",
+    "work": "ii5CEO & Founder2013-2017"
+  },
+  {
+    "id": 302,
+    "person_name": "Peter McCormack",
+    "work": "Evolving Media NetworkManging Director2007-2009"
+  },
+  {
+    "id": 303,
+    "person_name": "Peter McCormack",
+    "work": "Rapier UKHead of Digital2009-2012"
+  },
+  {
+    "id": 304,
+    "person_name": "Peter McCormack",
+    "work": "Bantr.tvCEO2010-2015"
+  },
+  {
+    "id": 305,
+    "person_name": "Peter McCormack",
+    "work": "McCormack & MorrisonPartner2009-2016"
+  },
+  {
+    "id": 306,
+    "person_name": "Adam Todd",
+    "work": "BetfairTrader2002-2009"
+  },
+  {
+    "id": 307,
+    "person_name": "Adam Todd",
+    "work": "RacingTraders.comCEO & Founder2004-2009"
+  },
+  {
+    "id": 308,
+    "person_name": "Adam Todd",
+    "work": "EWMReal Estate Marketing2011-2014"
+  },
+  {
+    "id": 309,
+    "person_name": "Mahbod Moghadam",
+    "work": "Dewey & LeBoeuf LLPAttorney2008-2009"
+  },
+  {
+    "id": 310,
+    "person_name": "Mahbod Moghadam",
+    "work": "GENIUSCo-founder2009-2014"
+  },
+  {
+    "id": 311,
+    "person_name": "Mahbod Moghadam",
+    "work": "Everipedia Co-founder & Chief Community Officer2015-2019"
+  },
+  {
+    "id": 312,
+    "person_name": "Andrew Yang",
+    "work": "Davis Polk & Wardwell LLPAssociate1999-2000"
+  },
+  {
+    "id": 313,
+    "person_name": "Andrew Yang",
+    "work": "Stargiving.comCo-Founder -President2000-2001"
+  },
+  {
+    "id": 314,
+    "person_name": "Andrew Yang",
+    "work": "Crisp WirelssVice President2001-2002"
+  },
+  {
+    "id": 315,
+    "person_name": "Andrew Yang",
+    "work": "Manhattan GMATCEO -President -Managing Director2006-2011"
+  },
+  {
+    "id": 316,
+    "person_name": "David Schwartz",
+    "work": "CardiophonicsPartner1992-1995"
+  },
+  {
+    "id": 317,
+    "person_name": "David Schwartz",
+    "work": "Internet Gateway ConnectionsDirector of Network Services1995-1996"
+  },
+  {
+    "id": 318,
+    "person_name": "David Schwartz",
+    "work": "Worldwide Internet SolutionsSenior Network Engineer1996-1998"
+  },
+  {
+    "id": 319,
+    "person_name": "David Schwartz",
+    "work": "WebMaster IncroporatedCTO2001-2011"
+  },
+  {
+    "id": 320,
+    "person_name": "Kelly Loeffler",
+    "work": "William BlairEquity Research Associate1999-2001"
+  },
+  {
+    "id": 321,
+    "person_name": "Kelly Loeffler",
+    "work": "The Crossroads GroupInvestor Relations2001-2002"
+  },
+  {
+    "id": 322,
+    "person_name": "Kelly Loeffler",
+    "work": "Intercontinental ExchangeChief Communications & Marketing Officer2002-2018"
+  },
+  {
+    "id": 323,
+    "person_name": "Justin Sunerok",
+    "work": "Crypto Fantasy SportsBlockchain Engineer2016"
+  },
+  {
+    "id": 324,
+    "person_name": "Anthony Xie",
+    "work": "BEDCManagement Consultant2015-2016"
+  },
+  {
+    "id": 325,
+    "person_name": "Anthony Xie",
+    "work": "VidyardGrowth Engineer2016-2018"
+  },
+  {
+    "id": 326,
+    "person_name": "Ben Delo",
+    "work": "JPMorgan Vice President2012-2015"
+  },
+  {
+    "id": 327,
+    "person_name": "Vignesh Sundaresan",
+    "work": "Bitaccess Inc.CEO2013-2016"
+  },
+  {
+    "id": 328,
+    "person_name": "Camila Russo",
+    "work": "International News ReporterEl Mercurio2007-2008"
+  },
+  {
+    "id": 329,
+    "person_name": "Camila Russo",
+    "work": "BloombergEmerging Markets Reporter2011-2015"
+  },
+  {
+    "id": 330,
+    "person_name": "Camila Russo",
+    "work": "BloombergEuropean Stocks Reporter2015-2016"
+  },
+  {
+    "id": 331,
+    "person_name": "Camila Russo",
+    "work": "BloombergMarkets Blogger2016-2019"
+  },
+  {
+    "id": 332,
+    "person_name": "Soravis Srinawakoon",
+    "work": "EricssonSoftware Engineer2012"
+  },
+  {
+    "id": 333,
+    "person_name": "Soravis Srinawakoon",
+    "work": "Stanford UniversityTeaching Assistant2012-2014"
+  },
+  {
+    "id": 334,
+    "person_name": "Soravis Srinawakoon",
+    "work": "The Boston Consulting GroupManagement Consultant2015-2017"
+  },
+  {
+    "id": 335,
+    "person_name": "Lennix Lai",
+    "work": "CASH Financial Services Group (00510.HK) - Director -Strategic Business Development2014-2015"
+  },
+  {
+    "id": 336,
+    "person_name": "Lennix Lai",
+    "work": "CASH Financial Services Group (00510.HK) - Responsible Officer2015-2017"
+  },
+  {
+    "id": 337,
+    "person_name": "Samson Mow",
+    "work": "Sitemasher CorporationBusiness and Operations Manager2007-2009"
+  },
+  {
+    "id": 338,
+    "person_name": "Samson Mow",
+    "work": "UbisoftDirector of Production2009-2011"
+  },
+  {
+    "id": 339,
+    "person_name": "Samson Mow",
+    "work": "BTCCCOO2015-2017"
+  },
+  {
+    "id": 340,
+    "person_name": "Jed McCaleb",
+    "work": "MetaMachineFounder & CTO2000-2005"
+  },
+  {
+    "id": 341,
+    "person_name": "Jed McCaleb",
+    "work": "Code CollectiveFounder2007-2009"
+  },
+  {
+    "id": 342,
+    "person_name": "Jed McCaleb",
+    "work": "Mt. Gox Co-Founder2007-2014"
+  },
+  {
+    "id": 343,
+    "person_name": "Jed McCaleb",
+    "work": "Ripple Founder2011-2013"
+  },
+  {
+    "id": 344,
+    "person_name": "Andreas Antonopoulos",
+    "work": "Greenwich Technology PartnersSecurity Practice Lead2001-2002"
+  },
+  {
+    "id": 345,
+    "person_name": "Andreas Antonopoulos",
+    "work": "ThruPoint -Inc.Director2002-2003"
+  },
+  {
+    "id": 346,
+    "person_name": "Andreas Antonopoulos",
+    "work": "Nemeretes ResearchPartner2003-2011"
+  },
+  {
+    "id": 347,
+    "person_name": "Balaji Srinivasan",
+    "work": "Andreessen Horowitz Board Partner2015-2018"
+  },
+  {
+    "id": 348,
+    "person_name": "Balaji Srinivasan",
+    "work": "Earn.comCEO & Co-Founder2017-2018"
+  },
+  {
+    "id": 349,
+    "person_name": "Balaji Srinivasan",
+    "work": "Coinbase CTO2018-2019"
+  },
+  {
+    "id": 350,
+    "person_name": "Simon Yu",
+    "work": "AmazonFinancial Analyst Intern2012-2013"
+  },
+  {
+    "id": 351,
+    "person_name": "Simon Yu",
+    "work": "KeyBankSenior Credit Risk Analyst2014-2015"
+  },
+  {
+    "id": 352,
+    "person_name": "Gavin Wood",
+    "work": "OxLegalDirector of Technology2013-2014"
+  },
+  {
+    "id": 353,
+    "person_name": "Gavin Wood",
+    "work": "Ethereum Foundation Co-Founder and CTO2013-2015"
+  },
+  {
+    "id": 354,
+    "person_name": "Jesus Rodriguez",
+    "work": "TwoConnectChief Architect2007-2008"
+  },
+  {
+    "id": 355,
+    "person_name": "Jesus Rodriguez",
+    "work": "Tellago StudiosCEO & Co-Founder2010-2012"
+  },
+  {
+    "id": 356,
+    "person_name": "Jesus Rodriguez",
+    "work": "Tellago -IncManaging Partner2008-2015"
+  },
+  {
+    "id": 357,
+    "person_name": "W. Scott Stornetta",
+    "work": "Columbia High SchoolAP Calculus / AP Computer Science Teacher2006-2018"
+  },
+  {
+    "id": 358,
+    "person_name": "W. Scott Stornetta",
+    "work": "First Digital CapitalChief Scientist2018"
+  },
+  {
+    "id": 359,
+    "person_name": "J. Christopher Giancarlo",
+    "work": "Giancarlo & GleibermanPartner1992-1997"
+  },
+  {
+    "id": 360,
+    "person_name": "J. Christopher Giancarlo",
+    "work": "Thelen Reid Brown Ryaysman & Steiner LLPPartner1997-2000"
+  },
+  {
+    "id": 361,
+    "person_name": "J. Christopher Giancarlo",
+    "work": "Fenics SoftwareVice President and Legal Counsel2000-20001"
+  },
+  {
+    "id": 362,
+    "person_name": "J. Christopher Giancarlo",
+    "work": "GFI Group Inc.Executive Vice President2001-2014"
+  },
+  {
+    "id": 363,
+    "person_name": "Arry Yu",
+    "work": "GiftStarterCEO | Co-Founder2014-2017"
+  },
+  {
+    "id": 364,
+    "person_name": "Joe Roets",
+    "work": "Symbiont.ioSenior Vice President - Engineering2014-2015"
+  },
+  {
+    "id": 365,
+    "person_name": "Joe Roets",
+    "work": "The Walt Disney CompanySr. Software Architect / Principal Blockchain Arcitect2014-2017"
+  },
+  {
+    "id": 366,
+    "person_name": "Joe Roets",
+    "work": "Bloq -Inc.Principal Blockchain Architect2017"
+  },
+  {
+    "id": 367,
+    "person_name": "Carlos Domingo",
+    "work": "duChief New Business and Innovation Officer2015-2017"
+  },
+  {
+    "id": 368,
+    "person_name": "Carlos Domingo",
+    "work": "Dubai Angel InvestorsFounding Member and Investment Committee Member2016-2018"
+  },
+  {
+    "id": 369,
+    "person_name": "Carlos Domingo",
+    "work": "TechStarsEntrepreneur In Residence2017-2018"
+  },
+  {
+    "id": 370,
+    "person_name": "Lili Zhao",
+    "work": "VETRIAdvisor2017-2018"
+  },
+  {
+    "id": 371,
+    "person_name": "Lili Zhao",
+    "work": "MedMira Inc.Board Member at MedMira2018"
+  },
+  {
+    "id": 372,
+    "person_name": "Lili Zhao",
+    "work": "Crypto Valley AssociationMember of the Board of Directors2019-2020"
+  },
+  {
+    "id": 373,
+    "person_name": "Udi Wertheimer",
+    "work": "eBayFull Stack Software Engineer2014-2015"
+  },
+  {
+    "id": 374,
+    "person_name": "Udi Wertheimer",
+    "work": "PayPalFull Stack Software Engineer2015-2016"
+  },
+  {
+    "id": 375,
+    "person_name": "Udi Wertheimer",
+    "work": "ColuBlockchain Research Lead2016-2017"
+  },
+  {
+    "id": 376,
+    "person_name": "Raoul Pal",
+    "work": "NatWest MarketsDirector1995-1998"
+  },
+  {
+    "id": 377,
+    "person_name": "Raoul Pal",
+    "work": "Goldman Sachs Head of European Hedge Fund Sales1997-2001"
+  },
+  {
+    "id": 378,
+    "person_name": "Raoul Pal",
+    "work": "GLG PartnersPortfolio Manager2001-2004"
+  },
+  {
+    "id": 379,
+    "person_name": "Philip Salter",
+    "work": "BSI Business Systems Integration AGSoftware Developer2012-2014"
+  },
+  {
+    "id": 380,
+    "person_name": "Philip Salter",
+    "work": "Blockchain Consulting GmbHHead of Mining Operations2016-2019"
+  },
+  {
+    "id": 381,
+    "person_name": "Ryan Selkis",
+    "work": "TBI ConsultingFounder2013-2014"
+  },
+  {
+    "id": 382,
+    "person_name": "Ryan Selkis",
+    "work": "Digital Currency Group Director of Growth2014-2016"
+  },
+  {
+    "id": 383,
+    "person_name": "Ryan Selkis",
+    "work": "CoinDeskManaging Director2016-2017"
+  },
+  {
+    "id": 384,
+    "person_name": "Adam Cochran",
+    "work": "Dogecoin Marketing & Community2014-2015"
+  },
+  {
+    "id": 385,
+    "person_name": "Carylyne Chan",
+    "work": "Singapore Management UniversityResearch and Teaching Assistant2012-2014"
+  },
+  {
+    "id": 386,
+    "person_name": "Carylyne Chan",
+    "work": "AGT InternationalWater Business Unit2014"
+  },
+  {
+    "id": 387,
+    "person_name": "Carylyne Chan",
+    "work": "KeyReplyCo-Founder & COO2014-2018"
+  },
+  {
+    "id": 388,
+    "person_name": "Ross Ulbricht",
+    "work": "Pennsylvania State UniversityGraduate Research Assistant2006-2008"
+  },
+  {
+    "id": 389,
+    "person_name": "Ross Ulbricht",
+    "work": "Good Wagon BooksCEO2010-2011"
+  },
+  {
+    "id": 390,
+    "person_name": "Sam Bankman-Fried",
+    "work": "Jane StreetTrader2014-2017"
+  },
+  {
+    "id": 391,
+    "person_name": "Sam Bankman-Fried",
+    "work": "The Centre for Effective AltruismDirector of Development2017"
+  },
+  {
+    "id": 392,
+    "person_name": "Lynn Liss",
+    "work": "ICO Impact GroupFounding Partner2018"
+  },
+  {
+    "id": 393,
+    "person_name": "Jay Hao",
+    "work": "Amedia NetworksVP Engineering -"
+  },
+  {
+    "id": 394,
+    "person_name": "Jay Hao",
+    "work": "Unichip TechnologyCEO -"
+  },
+  {
+    "id": 395,
+    "person_name": "Jay Hao",
+    "work": "Nurotech IncChairman -"
+  },
+  {
+    "id": 396,
+    "person_name": "Jay Hao",
+    "work": "Zhejiang Youwei Optical Electronics Inc VP Marketing -"
+  },
+  {
+    "id": 397,
+    "person_name": "Jay Hao",
+    "work": "Hormones live IncChairman -"
+  },
+  {
+    "id": 398,
+    "person_name": "Jay Hao",
+    "work": "Shenzhen Unicorn Software IncChairman -"
+  },
+  {
+    "id": 399,
+    "person_name": "Alysa Xu",
+    "work": "International Trust Company Limited2013 - 2016"
+  },
+  {
+    "id": 400,
+    "person_name": "Alysa Xu",
+    "work": "Investment Division Zhongrong Assistant General Manager of the Private Equity -"
+  },
+  {
+    "id": 401,
+    "person_name": "Alysa Xu",
+    "work": "Tianfeng Securities Blockchain Research CenterResearch Head2016 - 2019"
+  },
+  {
+    "id": 402,
+    "person_name": "Joel Edgerton",
+    "work": "MUSAION INCFounder and CEO2006-2007"
+  },
+  {
+    "id": 403,
+    "person_name": "Joel Edgerton",
+    "work": "BNP ParibasGlobal Head of CIB Due Diligence - KYC2012-2014"
+  },
+  {
+    "id": 404,
+    "person_name": "Joel Edgerton",
+    "work": "BNP Paribas CardifCOO / CDO2014-2019"
+  },
+  {
+    "id": 405,
+    "person_name": "Ethan Vera",
+    "work": "Goldman Sachs Investment Banking Analyst2018-2019"
+  },
+  {
+    "id": 406,
+    "person_name": "John deVadoss",
+    "work": "Microsoft DigitalGeneral Manager2011-2016"
+  },
+  {
+    "id": 407,
+    "person_name": "John deVadoss",
+    "work": "text11Co-Founder2016-2018"
+  },
+  {
+    "id": 408,
+    "person_name": "John deVadoss",
+    "work": "buildpulseCTO2018"
+  },
+  {
+    "id": 409,
+    "person_name": "Brian Armstrong",
+    "work": "IBMInterm Team Lead2003"
+  },
+  {
+    "id": 410,
+    "person_name": "Brian Armstrong",
+    "work": "Deloitte & ToucheConsultant2005"
+  },
+  {
+    "id": 411,
+    "person_name": "Brian Armstrong",
+    "work": "UniversityTutor.comCEO & Founder2003-2012"
+  },
+  {
+    "id": 412,
+    "person_name": "Brian Armstrong",
+    "work": "AirBnBSoftware Engineer2011-2012"
+  },
+  {
+    "id": 413,
+    "person_name": "Ken Kodama",
+    "work": "K2 G.K.Founder & CEO2010-2012"
+  },
+  {
+    "id": 414,
+    "person_name": "Ken Kodama",
+    "work": "Attain Corporation Co. Ltd.Founder & CEO2014-2015"
+  },
+  {
+    "id": 415,
+    "person_name": "Dawn Song",
+    "work": "Carnegie Mellon UniversityProfessor2002-2007"
+  },
+  {
+    "id": 416,
+    "person_name": "Avi Felman",
+    "work": "CryptoSlate Analyst2018"
+  },
+  {
+    "id": 417,
+    "person_name": "Ajit Tripathi",
+    "work": "ConsenSys Partner -Fintech2017-2019"
+  },
+  {
+    "id": 418,
+    "person_name": "Sanja Kon",
+    "work": "VodafoneSalesforce Project Manager2011-2013"
+  },
+  {
+    "id": 419,
+    "person_name": "Sanja Kon",
+    "work": "eBay for BusinessHead of European Partner Development2017-2018"
+  },
+  {
+    "id": 420,
+    "person_name": "Sanja Kon",
+    "work": "PayPalHead of Marketplaces and Large Enterprise Partnerships - UK2018"
+  },
+  {
+    "id": 421,
+    "person_name": "Dan Held",
+    "work": "ZeroBlockCo-Founder2013"
+  },
+  {
+    "id": 422,
+    "person_name": "Dan Held",
+    "work": "Blockchain -Inc. Director of Product2013-2014"
+  },
+  {
+    "id": 423,
+    "person_name": "Dan Held",
+    "work": "ChangeTipLead Mobile Product Manager2014-2015"
+  },
+  {
+    "id": 424,
+    "person_name": "Dan Held",
+    "work": "UberGlobal Data2017"
+  },
+  {
+    "id": 425,
+    "person_name": "Dan Held",
+    "work": "InterchangeDirector Of Business Development2017-2019"
+  },
+  {
+    "id": 426,
+    "person_name": "David Zacks",
+    "work": "JPMorgan Vice-President Compliance Manager2012-2014"
+  },
+  {
+    "id": 427,
+    "person_name": "David Zacks",
+    "work": "AirbnbPayments Compliance Program Manager2014-2016"
+  },
+  {
+    "id": 428,
+    "person_name": "David Zacks",
+    "work": "YapstoneDirector of Payment Operations2016-2018"
+  },
+  {
+    "id": 429,
+    "person_name": "David Zacks",
+    "work": "AukaHead of Risk -Compliance & Payments Operations2018-2020"
+  },
+  {
+    "id": 430,
+    "person_name": "Justin Sun",
+    "work": "Ripple Chief Representative Advisor2013-2016"
+  },
+  {
+    "id": 431,
+    "person_name": "Huy Nguyen",
+    "work": "Cisco SystemsSoftware Engineer2009-2012"
+  },
+  {
+    "id": 432,
+    "person_name": "Huy Nguyen",
+    "work": "GoogleStaff Software Engineer2012"
+  },
+  {
+    "id": 433,
+    "person_name": "Ran Neuner",
+    "work": "The Creative CounselCEO2001-2018"
+  },
+  {
+    "id": 434,
+    "person_name": "Mitchell Moos",
+    "work": "CryptoSlate Editorial Manager2018-2019"
+  },
+  {
+    "id": 435,
+    "person_name": "Ben Zhou",
+    "work": "Greater China General Manager2010-2017"
+  },
+  {
+    "id": 436,
+    "person_name": "Mati Greenspan",
+    "work": "GoodCoinEconomic Consultant2017-2018"
+  },
+  {
+    "id": 437,
+    "person_name": "Mati Greenspan",
+    "work": "eToro Senior Market Analyst2012-2019"
+  },
+  {
+    "id": 438,
+    "person_name": "Nicholas Merten",
+    "work": "Sales Data Management InterniAccess -Inc.2015"
+  },
+  {
+    "id": 439,
+    "person_name": "Andrew Fai",
+    "work": "Asia Blockchain SummitFounder2017-2021"
+  },
+  {
+    "id": 440,
+    "person_name": "Joseph Lubin",
+    "work": "Goldman Sachs VP Technology -Private Wealth Management Division1999-2001"
+  },
+  {
+    "id": 441,
+    "person_name": "Joseph Lubin",
+    "work": "Blacksmith TechnologiesDirector2001-2003"
+  },
+  {
+    "id": 442,
+    "person_name": "Joseph Lubin",
+    "work": "SyNerG MusicCEO2012-2014"
+  },
+  {
+    "id": 443,
+    "person_name": "Milo McCloud",
+    "work": "GB Alpine SkiingAthlete -"
+  },
+  {
+    "id": 444,
+    "person_name": "Paul Burnham",
+    "work": "Toyota GBCorporate Manager -"
+  },
+  {
+    "id": 445,
+    "person_name": "Nicholas Gregory",
+    "work": "JPMorgan Vice President -Global Risk2013-2015"
+  },
+  {
+    "id": 446,
+    "person_name": "Nicholas Gregory",
+    "work": "Liquid OceanCTO2015-2017"
+  },
+  {
+    "id": 447,
+    "person_name": "Nicholas Fett",
+    "work": "US BLSEconomist2011-2015"
+  },
+  {
+    "id": 448,
+    "person_name": "Nicholas Fett",
+    "work": "US CFTCResearch2015-2017"
+  },
+  {
+    "id": 449,
+    "person_name": "Nicholas Fett",
+    "work": "DaxiaCEO2017-2018"
+  },
+  {
+    "id": 450,
+    "person_name": "Atul Ajoy",
+    "work": "ChromataFounder & CEO -"
+  },
+  {
+    "id": 451,
+    "person_name": "Adam Levy",
+    "work": "linx4Marketing and Communications Manager2019"
+  },
+  {
+    "id": 452,
+    "person_name": "Adam Levy",
+    "work": "Draper Goren Holm Operations Manager2018-2021"
+  },
+  {
+    "id": 453,
+    "person_name": "Brett Harrison",
+    "work": "Citadel SecuritiesHead of ETF TechnologySep 2019 - Feb 2021"
+  },
+  {
+    "id": 454,
+    "person_name": "Brett Harrison",
+    "work": "Citadel SecuritiesHead of Semi-Systematic TechnologyFeb 2021 - May 2021"
+  },
+  {
+    "id": 455,
+    "person_name": "Sandeep Nailwal",
+    "work": "ScopeWeaver.comCofounder & CEOMar 2016 - Oct 2017"
+  },
+  {
+    "id": 456,
+    "person_name": "Sandeep Nailwal",
+    "work": "Polygon Chief Operations OfficerNov 2017 - Dec 2021"
+  },
+  {
+    "id": 457,
+    "person_name": "Dominic Williams",
+    "work": "Mirror LabsCrypto enzymeMar 2015 - Jun 201"
+  },
+  {
+    "id": 458,
+    "person_name": "Dominic Williams",
+    "work": "String Labs -IncPresident & CTOJun 2015 - Feb 2018"
+  },
+  {
+    "id": 459,
+    "person_name": "Do Kwon",
+    "work": "Anyfi -Inc.Founder & CEOJan 2016 - Oct 2017"
+  },
+  {
+    "id": 460,
+    "person_name": "Matt Huang",
+    "work": "Hotspots -Inc.Founder/CEO2010 - 2012"
+  },
+  {
+    "id": 461,
+    "person_name": "Matt Huang",
+    "work": "TwitterAds2012 - 2014"
+  },
+  {
+    "id": 462,
+    "person_name": "Matt Huang",
+    "work": "Sequoia CapitalPartner2004 - 2018"
+  },
+  {
+    "id": 463,
+    "person_name": "Bill Shihara",
+    "work": "MicrosoftLead Program Manager2011-2011"
+  },
+  {
+    "id": 464,
+    "person_name": "Bill Shihara",
+    "work": "BlackBerryManager -Security Engineering2013-2014"
+  },
+  {
+    "id": 465,
+    "person_name": "Bill Shihara",
+    "work": "AmazonManager -Security Engineering2014-2016"
+  },
+  {
+    "id": 466,
+    "person_name": "Catherine Coley",
+    "work": "Morgan StanleyForeign Exchange Sales & Trading2014-2016"
+  },
+  {
+    "id": 467,
+    "person_name": "Catherine Coley",
+    "work": "Silicon Valley BankForeign Exchange Advisor2016-2017"
+  },
+  {
+    "id": 468,
+    "person_name": "Catherine Coley",
+    "work": "Ripple Head of XRP Institutional Liquidity2017-2019"
+  },
+  {
+    "id": 469,
+    "person_name": "Maxi Kuan",
+    "work": "C ChannelGreat China Area Director / ConsultantApr 2015 - Jan 2018"
+  },
+  {
+    "id": 470,
+    "person_name": "Maxi Kuan",
+    "work": "XY-STAR Entertainment Ltd.Co-Founder / COOApr 2017 - Mar 2020"
+  },
+  {
+    "id": 471,
+    "person_name": "Maxi Kuan",
+    "work": "RIZAP AsiaMarketing SpecialistJun 2019 - Jun 2020"
+  },
+  {
+    "id": 472,
+    "person_name": "Maxi Kuan",
+    "work": "iKalaSenior ConsultantApr 2018 - Mar 2021"
+  },
+  {
+    "id": 473,
+    "person_name": "Kathryn Haun",
+    "work": "Sidley Austin LLPAttorney2001 - 2006"
+  },
+  {
+    "id": 474,
+    "person_name": "Kathryn Haun",
+    "work": "U.S. Department of JusticeNational Security Division (Counsel to the AAG)2006 - 2007"
+  },
+  {
+    "id": 475,
+    "person_name": "Kathryn Haun",
+    "work": "U.S. Department of JusticeCounselor to the Attorney GeneralAug 2007 - Nov 2008"
+  },
+  {
+    "id": 476,
+    "person_name": "Kathryn Haun",
+    "work": "U.S. Department of JusticeAssistant U.S. Attorney & Digital Currency CoordinatorSep 2006 - May 2017"
+  },
+  {
+    "id": 477,
+    "person_name": "Kris Marszalek",
+    "work": "YIYI Hong Kong LimitedCo-founder & CEONov 2009 - Jul 2010"
+  },
+  {
+    "id": 478,
+    "person_name": "Kris Marszalek",
+    "work": "BEECRAZYCo-founder & CEOJul 2010 - Mar 2014"
+  },
+  {
+    "id": 479,
+    "person_name": "Kris Marszalek",
+    "work": "iBuy Group LimitedCOOApr 2014 - Aug 2014"
+  },
+  {
+    "id": 480,
+    "person_name": "Kris Marszalek",
+    "work": "EnsogoCEOAug 2014 - Jun 2016"
+  },
+  {
+    "id": 481,
+    "person_name": "Erick Pinos",
+    "work": "MIT Media LabResearcher -Digital Currency InitiativeOct 2017 - May 2018"
+  },
+  {
+    "id": 482,
+    "person_name": "Erick Pinos",
+    "work": "MIT Bitcoin ClubPresidentOct 2017 - Sep 2018"
+  },
+  {
+    "id": 483,
+    "person_name": "Erick Pinos",
+    "work": "Game Theory GroupLead ResearcherFeb 2018 - Sep 2018"
+  },
+  {
+    "id": 484,
+    "person_name": "Mark Karpelès",
+    "work": "Mt. Gox CEO -"
+  },
+  {
+    "id": 485,
+    "person_name": "Mark Karpelès",
+    "work": "London Trust MediaCTOJan 2018 - Oct 2019"
+  },
+  {
+    "id": 486,
+    "person_name": "Arthur Cheong",
+    "work": "JST CapitalCryptoasset Trading StrategistJun 2019 - Sep 2019"
+  },
+  {
+    "id": 487,
+    "person_name": "Arthur Cheong",
+    "work": "Zilliqa Vice President -Growth & StrategySep 2019 - Feb 2020"
+  },
+  {
+    "id": 488,
+    "person_name": "Elnaz Sarraf",
+    "work": "E Design GroupCreative DirectorSep 2008 - May 2012"
+  },
+  {
+    "id": 489,
+    "person_name": "Elnaz Sarraf",
+    "work": "Creative i Advertising & Interactive MediaDesign and DevelopmentJan 2013 - Aug 2013"
+  },
+  {
+    "id": 490,
+    "person_name": "Elnaz Sarraf",
+    "work": "iBabyCo-FounderNov 2013 - Mar 2019"
+  },
+  {
+    "id": 491,
+    "person_name": "Elnaz Sarraf",
+    "work": "World Business Angels Investment ForumSenator - Representing U.S.Jul 2020 - Feb 2022"
+  },
+  {
+    "id": 492,
+    "person_name": "Cathie Wood",
+    "work": "Capital GroupAssistant Economist1977 - 1980"
+  },
+  {
+    "id": 493,
+    "person_name": "Cathie Wood",
+    "work": "Jennison Associates LLCManaging Director1980 - 1998"
+  },
+  {
+    "id": 494,
+    "person_name": "Cathie Wood",
+    "work": "Tupelo Capital ServicesLimited Partner1998 - 2001"
+  },
+  {
+    "id": 495,
+    "person_name": "Cathie Wood",
+    "work": "AllianceBernsteinChief Investment Officer2001 - 2013"
+  },
+  {
+    "id": 496,
+    "person_name": "Sam Trabucco",
+    "work": "Susquehanna International Group -LLP (SIG)Trading InternJun 2014 - Aug 2014"
+  },
+  {
+    "id": 497,
+    "person_name": "Sam Trabucco",
+    "work": "Susquehanna International Group -LLP (SIG)TraderAug 2015 - Aug 2017"
+  },
+  {
+    "id": 498,
+    "person_name": "Devin Finzer",
+    "work": "Wikimedia FoundationAnalytics InternMay 2010 - Aug 2010"
+  },
+  {
+    "id": 499,
+    "person_name": "Devin Finzer",
+    "work": "GoogleSoftware Engineer Intern -Google Cloud PlatformMay 2011 - Aug 2011"
+  },
+  {
+    "id": 500,
+    "person_name": "Devin Finzer",
+    "work": "Flipboard Inc.Software Engineer InternJun 2012 - Aug 2012"
+  },
+  {
+    "id": 501,
+    "person_name": "Devin Finzer",
+    "work": "PinterestSoftware EngineerAug 2013 - Mar 2015"
+  },
+  {
+    "id": 502,
+    "person_name": "Devin Finzer",
+    "work": "Iris LabsCo-FounderApr 2015 - Jul 2015"
+  },
+  {
+    "id": 503,
+    "person_name": "Devin Finzer",
+    "work": "ClaimdogCo-FounderApr 2015 - Jun 2016"
+  },
+  {
+    "id": 504,
+    "person_name": "Devin Finzer",
+    "work": "Credit KarmaEngineering ManagerJun 2016 - Dec 2017"
+  },
+  {
+    "id": 505,
+    "person_name": "Marius van der Wijden",
+    "work": "Perun NetworkCo-Visionaire/DeveloperJan 2018 - Feb 2020"
+  },
+  {
+    "id": 506,
+    "person_name": "Marius van der Wijden",
+    "work": "Bulb UGSenior ConsultantFeb 2018 - Feb 2020"
+  },
+  {
+    "id": 507,
+    "person_name": "Marius van der Wijden",
+    "work": "SM² NetworkCo-FounderMar 2018 - Feb 2020"
+  },
+  {
+    "id": 508,
+    "person_name": "Marius van der Wijden",
+    "work": "EthminerOpen Source DeveloperJul 2017 - Jan 2021"
+  },
+  {
+    "id": 509,
+    "person_name": "Alex Atallah",
+    "work": "DormlinkCo-FounderNov 2010 - Jun 2011"
+  },
+  {
+    "id": 510,
+    "person_name": "Alex Atallah",
+    "work": "Apple Inc.Software EngineerJun 2011 - Sep 2011"
+  },
+  {
+    "id": 511,
+    "person_name": "Alex Atallah",
+    "work": "hostess.fm -Inc.CTOApr 2013 - Sep 2013"
+  },
+  {
+    "id": 512,
+    "person_name": "Alex Atallah",
+    "work": "Palantir TechnologiesForward Deployed EngineerMay 2012 - Jul 2014"
+  },
+  {
+    "id": 513,
+    "person_name": "Alex Atallah",
+    "work": "ZugataLead Frontend EngineerJan 2015 - Jan 2016"
+  },
+  {
+    "id": 514,
+    "person_name": "Alex Atallah",
+    "work": "Whatsgoodly Inc.CTOFeb 2016 - Sep 2017"
+  },
+  {
+    "id": 515,
+    "person_name": "Shakil Khan",
+    "work": "Buy.at LeadsManaging Director and FounderMar 2006 - Aug 2008"
+  },
+  {
+    "id": 516,
+    "person_name": "Shakil Khan",
+    "work": "PathHead of Special ProjectsApr 2012 - Dec 2012"
+  },
+  {
+    "id": 517,
+    "person_name": "Shakil Khan",
+    "work": "SummlyAdvisor to Founder and InvestorNov 2011 - Mar 2013"
+  },
+  {
+    "id": 518,
+    "person_name": "Shakil Khan",
+    "work": "BitstripsAdvisorOct 2013 - 2015"
+  },
+  {
+    "id": 519,
+    "person_name": "Shakil Khan",
+    "work": "Top10 Investor2010 - Dec 2015"
+  },
+  {
+    "id": 520,
+    "person_name": "Shakil Khan",
+    "work": "YPlanInvestorMay 2013 - 2016"
+  },
+  {
+    "id": 521,
+    "person_name": "Shakil Khan",
+    "work": "CoinDesk FounderApr 2013 - Jan 2016"
+  },
+  {
+    "id": 522,
+    "person_name": "Shakil Khan",
+    "work": "HuminInvestor2014 - Mar 2016"
+  },
+  {
+    "id": 523,
+    "person_name": "Shakil Khan",
+    "work": "HelloInvestor & Advisor to FounderDec 2012 - 2017"
+  },
+  {
+    "id": 524,
+    "person_name": "Shakil Khan",
+    "work": "Cronologics CorporationInvestorDec 2014 - 2017"
+  },
+  {
+    "id": 525,
+    "person_name": "Shakil Khan",
+    "work": "inviInvestor2012 - 2018"
+  },
+  {
+    "id": 526,
+    "person_name": "Shakil Khan",
+    "work": "WaygoInvestorMar 2013 - Ma 2018"
+  },
+  {
+    "id": 527,
+    "person_name": "Shakil Khan",
+    "work": "DuedilInvestorApr 2012 - 2019"
+  },
+  {
+    "id": 528,
+    "person_name": "Shakil Khan",
+    "work": "Student.comCo-Founder2014 - 2019"
+  },
+  {
+    "id": 529,
+    "person_name": "Shakil Khan",
+    "work": "Spring Inc.Investor2014 - 2019"
+  },
+  {
+    "id": 530,
+    "person_name": "Shakil Khan",
+    "work": "Meerkat - Live Stream VideoInvestorMar 2015 - 2019"
+  },
+  {
+    "id": 531,
+    "person_name": "Shakil Khan",
+    "work": "ManyInvestorAug 2018 - Jan 2020"
+  },
+  {
+    "id": 532,
+    "person_name": "Shakil Khan",
+    "work": "SecondMarketInvestor2010 - 2021"
+  },
+  {
+    "id": 533,
+    "person_name": "Shakil Khan",
+    "work": "BitpayInvestor2012 - 2021"
+  },
+  {
+    "id": 534,
+    "person_name": "Shakil Khan",
+    "work": "SkiftInvestor2013 - 2021"
+  },
+  {
+    "id": 535,
+    "person_name": "Shakil Khan",
+    "work": "EVA Automation -Inc.Investor2014 - 2021"
+  },
+  {
+    "id": 536,
+    "person_name": "Shakil Khan",
+    "work": "This Saves LivesInvestor2014 - 2021"
+  },
+  {
+    "id": 537,
+    "person_name": "Tom Brady",
+    "work": "New England PatriotsProfessional Athlete / Quarterback2000 - 2019"
+  },
+  {
+    "id": 538,
+    "person_name": "Michael Ippolito",
+    "work": "MKS InstrumentsMarketing AnalystJun 2015 - Aug 2015"
+  },
+  {
+    "id": 539,
+    "person_name": "Michael Ippolito",
+    "work": "Applied Value GroupAnalystAug 2016 - Apr 2017"
+  },
+  {
+    "id": 540,
+    "person_name": "Michael Ippolito",
+    "work": "Applied Value GroupConsultantApr 2017 - Jun 2018"
+  },
+  {
+    "id": 541,
+    "person_name": "Michael McCaffrey",
+    "work": "Goldman Sachs Strategic Capital Group - MBDMay 2013 - Jun 2013"
+  },
+  {
+    "id": 542,
+    "person_name": "Michael McCaffrey",
+    "work": "CitiInvestment BankingJun 2017 - Sep 2018"
+  },
+  {
+    "id": 543,
+    "person_name": "Michael McCaffrey",
+    "work": "The Block Chief of Staff -Director of OperationsSep 2018 - Oct 2019"
+  },
+  {
+    "id": 544,
+    "person_name": "Michael McCaffrey",
+    "work": "The Block COOOct 2019 - Apr 2020"
+  },
+  {
+    "id": 545,
+    "person_name": "Cynthia Lummis",
+    "work": "Wyoming Supreme CourtLaw Clerk1985 - 1986"
+  },
+  {
+    "id": 546,
+    "person_name": "Cynthia Lummis",
+    "work": "Private Practice AttorneyAttorney1986 - 1988"
+  },
+  {
+    "id": 547,
+    "person_name": "Cynthia Lummis",
+    "work": "Wyoming Office of the GovernorGeneral Counsel1986 - 1988"
+  },
+  {
+    "id": 548,
+    "person_name": "Cynthia Lummis",
+    "work": "Wyoming Office of State Lands and InvestmentsDirector -Interim1997 - 1988"
+  },
+  {
+    "id": 549,
+    "person_name": "Cynthia Lummis",
+    "work": "Wiederspahn -Lummis and Liepas PCAttorney1988 - 2007"
+  },
+  {
+    "id": 550,
+    "person_name": "Cynthia Lummis",
+    "work": "State of WyomingTreasurerJan 1999 - Jan 2017"
+  },
+  {
+    "id": 551,
+    "person_name": "Cynthia Lummis",
+    "work": "Donald J. Trump Presidential Transition TeamVice ChairDec 2016 - Jan 2017"
+  },
+  {
+    "id": 552,
+    "person_name": "Cynthia Lummis",
+    "work": "U.S. House of RepresentativesMember -At-Large Congressional District of WyomingJan 2009 - Jan 2017"
+  },
+  {
+    "id": 553,
+    "person_name": "Harry Horsfall",
+    "work": "Simba SleepGrowth MarketerApr 2017 - Jul 2017"
+  },
+  {
+    "id": 554,
+    "person_name": "Harry Horsfall",
+    "work": "MousMarketing ManagerJul 2017 - Jun 2018"
+  },
+  {
+    "id": 555,
+    "person_name": "Harry Horsfall",
+    "work": "HKD MusicCo-FounderSep 2011 - Sep 2018"
+  },
+  {
+    "id": 556,
+    "person_name": "Harry Horsfall",
+    "work": "The Global Association for Blockchain and CryptocurrencyRegional Board DirectorNov 2018 - Jan 2021"
+  },
+  {
+    "id": 557,
+    "person_name": "Harry Horsfall",
+    "work": "LunoEvents Marketing ExecutiveJun 2018 - Jun 2019"
+  },
+  {
+    "id": 558,
+    "person_name": "Harry Horsfall",
+    "work": "LunoVideo & Events LeadFeb 2019 - Nov 2019"
+  },
+  {
+    "id": 559,
+    "person_name": "Harry Horsfall",
+    "work": "LunoDigital Media LeadJun 2019 - Dec 2020"
+  },
+  {
+    "id": 560,
+    "person_name": "Harry Horsfall",
+    "work": "LunoManager - Multimedia & EventsDec 2020 - Jun 2021"
+  },
+  {
+    "id": 561,
+    "person_name": "Jay Cassano",
+    "work": "Fast CompanyContributing WriterMar 2013 - Mar 2014"
+  },
+  {
+    "id": 562,
+    "person_name": "Jay Cassano",
+    "work": "Fast CompanyStaff WriterMar 2014 - Jul 2015"
+  },
+  {
+    "id": 563,
+    "person_name": "Jay Cassano",
+    "work": "Data & Society Research InstituteJournalist-in-ResidenceJun 2017 - Feb 2018"
+  },
+  {
+    "id": 564,
+    "person_name": "Jay Cassano",
+    "work": "SludgeInvestigative JournalistMar 2018 - Nov 2018"
+  },
+  {
+    "id": 565,
+    "person_name": "Jay Cassano",
+    "work": "Cointelegraph Consulting EditorAug 2019 - Oct 2019"
+  },
+  {
+    "id": 566,
+    "person_name": "Jay Cassano",
+    "work": "Cointelegraph Editor-in-ChiefOct 2019 - Sep 2020"
+  },
+  {
+    "id": 567,
+    "person_name": "Fred Wilson",
+    "work": "Euclid PartnersAssociate1987 - 1991"
+  },
+  {
+    "id": 568,
+    "person_name": "Fred Wilson",
+    "work": "Euclid PartnersGeneral Partner1991 - 1996"
+  },
+  {
+    "id": 569,
+    "person_name": "Esteban Ordano",
+    "work": "Bitpay Wallet Software EngineerAug 2014 - Apr 2015"
+  },
+  {
+    "id": 570,
+    "person_name": "Esteban Ordano",
+    "work": "Smart Contract SolutionsFounderJun 2015 - Apr 2016"
+  },
+  {
+    "id": 571,
+    "person_name": "Esteban Ordano",
+    "work": "Polygon AdvisorApr 2019 - Jan 2021"
+  },
+  {
+    "id": 572,
+    "person_name": "Esteban Ordano",
+    "work": "Decentraland FounderMay 2017 - Apr 2020"
+  },
+  {
+    "id": 573,
+    "person_name": "Ari Meilich",
+    "work": "CRVMarket Research AnalystFeb 2015 - Dec 2015"
+  },
+  {
+    "id": 574,
+    "person_name": "Ari Meilich",
+    "work": "BenchriseCo-FounderJan 2016 - Aug 2017"
+  },
+  {
+    "id": 575,
+    "person_name": "Ari Meilich",
+    "work": "Decentraland Co-Founder and Project LeadAug 2017 - Apr 2020"
+  },
+  {
+    "id": 576,
+    "person_name": "Brian Fu",
+    "work": "EaglePicher Medical Power -Corp.Junior Mechanical Designer -Production DevelopmentMay 2006 - Sep 2006"
+  },
+  {
+    "id": 577,
+    "person_name": "Brian Fu",
+    "work": "Sulzer Pumps Inc.Junior Designer -Engineering DepartmentMay 2007 - Sep 2007"
+  },
+  {
+    "id": 578,
+    "person_name": "Brian Fu",
+    "work": "BloombergAnalytics RepresentativeFeb 2009 - Jul 2009"
+  },
+  {
+    "id": 579,
+    "person_name": "Brian Fu",
+    "work": "Standard CharteredInternational Graduate -FX StructuringAug 2009 - Jul 2011"
+  },
+  {
+    "id": 580,
+    "person_name": "Brian Fu",
+    "work": "Standard CharteredAssociate Director -Commercial Real Estate -Industries GroupJul 2011 - Apr 2016"
+  },
+  {
+    "id": 581,
+    "person_name": "Brian Fu",
+    "work": "Silk Road Finance CorporationVice PresidentMay 2016 - Apr 2019"
+  },
+  {
+    "id": 582,
+    "person_name": "Brian Fu",
+    "work": "China Merchants CapitalVice PresidentMay 2019 - Jan 2022"
+  },
+  {
+    "id": 583,
+    "person_name": "Jane Ma",
+    "work": "Barnard CollegeSales AssociateMay 2013 - Apr 2015"
+  },
+  {
+    "id": 584,
+    "person_name": "Jane Ma",
+    "work": "Credit SuisseIB Rotational Program AnalystJul 2015 - Apr 2016"
+  },
+  {
+    "id": 585,
+    "person_name": "Jane Ma",
+    "work": "Credit SuissePortfolio Solutions AnalystApr 2016 - Jul 2017"
+  },
+  {
+    "id": 586,
+    "person_name": "Jane Ma",
+    "work": "DeliverooOperations ManagerNov 2017 - Feb 2020"
+  },
+  {
+    "id": 587,
+    "person_name": "Jane Ma",
+    "work": "DeliverooBusiness Strategy LeadFeb 2020 - Aug 2021"
+  },
+  {
+    "id": 588,
+    "person_name": "Jane Ma",
+    "work": "Evercare HealthHead of ProjectsSep 2021 - Jan 2022"
+  },
+  {
+    "id": 589,
+    "person_name": "Janet Yellen",
+    "work": "The White HouseChair of the Council of Economic Advisers1997 - 1999"
+  },
+  {
+    "id": 590,
+    "person_name": "Janet Yellen",
+    "work": "Federal Reserve BoardPresident of the Federal Reserve Bank of San Francisco2004 - 2010"
+  },
+  {
+    "id": 591,
+    "person_name": "Janet Yellen",
+    "work": "Board of Governors of the Federal Reserve BoardVice Chair of the Federal Reserve2010 - 2014"
+  },
+  {
+    "id": 592,
+    "person_name": "Janet Yellen",
+    "work": "Board of Governors of the Federal Reserve BoardChair of the Federal Reserve2014 - 2018"
+  },
+  {
+    "id": 593,
+    "person_name": "Janet Yellen",
+    "work": "Federal Reserve BoardMember of the Federal Reserve Board of Governors\t2010 - 2018"
+  }
+]

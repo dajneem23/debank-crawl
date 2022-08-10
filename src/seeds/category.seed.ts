@@ -1,25 +1,52 @@
 import { Connection } from 'typeorm';
 import { Factory, Seeder } from 'typeorm-seeding';
-import { CategoryModel } from '../models/category.model';
+import { CategoryModel } from '../models';
 import Logger from '../core/logger';
 import { CATEGORY_TYPE } from '../types/Common';
-const logger = new Logger('countrySeed');
+import product_category from '../data/crypto_slate/json/product_category.json';
+import categories_event from '../data/categories_event.json';
+import categories_crypto from '../data/categories_crypto_asset.json';
+import { match } from 'assert';
+const logger = new Logger('CategorySeed');
 export default class CategorySeed implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     logger.debug('[run:start]');
-    // logger.info('[running]', { data });
-    const rows = 20;
-    const categoriesTypes = [CATEGORY_TYPE.EVENT, CATEGORY_TYPE.WIKIBLOCK, CATEGORY_TYPE.LISTENING];
-    const categoryModels = Array.from(Array(rows), (_) => {
-      return {
-        title: (Math.random() + 1).toString(36).substring(7),
-        type: categoriesTypes[Math.floor(Math.random() * categoriesTypes.length)],
-        weight: Math.floor(Math.random() * 20),
-        createdAt: new Date(),
-      };
+    const categories = [];
+    categories.push(
+      ...product_category.map((item) => {
+        return {
+          title: item.category,
+          type: CATEGORY_TYPE.WIKIBLOCK,
+          weight: Math.floor(Math.random() * 100),
+          createdAt: new Date(),
+        };
+      }),
+      ...categories_event.map((item) => {
+        return {
+          title: item.title,
+          weight: Math.floor(Math.random() * 100),
+          type: CATEGORY_TYPE.EVENT,
+          createdAt: new Date(),
+        };
+      }),
+      ...categories_crypto.map((item) => {
+        return {
+          title: item.title,
+          weight: Math.floor(Math.random() * 100),
+          type: CATEGORY_TYPE.WIKIBLOCK,
+          createdAt: new Date(),
+        };
+      }),
+    );
+    const uniqueCategories = categories.filter((item, index, self) => {
+      return (
+        self.findIndex((t) => {
+          return t.title === item.title;
+        }) === index
+      );
     });
-    logger.info('[running]', { categoryModels });
-    await connection.createQueryBuilder().insert().into(CategoryModel).values(categoryModels).execute();
+    logger.info('[running]', { uniqueCategories });
+    await connection.createQueryBuilder().insert().into(CategoryModel).values(uniqueCategories).execute();
     logger.debug('[run:end]');
   }
 }

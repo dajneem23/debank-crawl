@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { EventModel } from './event.model';
+import { EventModel, CompanyModel } from '../models';
 @Entity('country', { synchronize: true })
 export class CountryModel {
   // id - primary id unique
@@ -11,6 +11,9 @@ export class CountryModel {
 
   @OneToMany(() => EventModel, (event) => event.country)
   events: EventModel[];
+
+  @OneToMany(() => CompanyModel, (company) => company.country)
+  companies: CompanyModel[];
 
   @Column('varchar', { name: 'code', length: 255, unique: true })
   code: string;

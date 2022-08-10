@@ -1,6 +1,6 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, EventType, Sponsor, Agenda, BaseQuery } from '@/types/Common';
-import { PhoneNumberPattern } from '@/utils/common';
+import { ORDER, EventType } from '@/types/Common';
+import { ObjectIdPattern, PhoneNumberPattern } from '@/utils/common';
 export const query = validate({
   [Segments.QUERY]: Joi.object({
     page: Joi.number().default(1).min(1).required(),
@@ -22,15 +22,15 @@ export const query = validate({
     cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
   }),
 });
-export const getRelated = validate({
+export const queryRelated = validate({
   [Segments.QUERY]: Joi.object({
     page: Joi.number().default(1).min(1).required(),
 
-    perPage: Joi.number().default(10).min(1).required(),
+    per_page: Joi.number().default(10).min(1).required(),
 
-    sortBy: Joi.string(),
+    sort_by: Joi.string(),
 
-    sortOrder: Joi.string()
+    sort_order: Joi.string()
       .default(ORDER.ASC)
       .valid(...Object.values(ORDER)),
 
@@ -38,16 +38,22 @@ export const getRelated = validate({
 
     category: Joi.string(),
 
-    cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
+    // cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
   }),
 });
 export const create = validate({
   [Segments.BODY]: Joi.object({
-    type: Joi.string().valid(...Object.values(EventType)),
+    type: Joi.string()
+      .valid(...Object.values(EventType))
+      .required(),
 
     name: Joi.string(),
 
     email: Joi.string().email(),
+
+    trending: Joi.boolean(),
+
+    significant: Joi.boolean(),
 
     website: Joi.string(),
 
@@ -66,21 +72,15 @@ export const create = validate({
 
     end_date: Joi.date(),
 
-    categories: Joi.array().items(Joi.string()),
+    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
     country: Joi.string(),
 
     //array id of persons
-    speakers: Joi.array().items(Joi.string()),
+    speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
     //array id of persons
-    sponsors: Joi.array().items(
-      Joi.object({
-        id: Joi.string(),
-        name: Joi.string(),
-        type: Joi.string(),
-      }),
-    ),
+    sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
     tel: Joi.string().regex(PhoneNumberPattern),
 
     avatar: Joi.string(),

@@ -15,7 +15,6 @@ export class TeamModel {
     this._collection = db.collection<Team>(COLLECTION_NAME);
     Promise.all([
       // Unique ID
-      this._collection.createIndex('id', { unique: true }),
 
       this._collection.createIndex('name', { unique: false }),
     ]).catch((err) => {

@@ -20,7 +20,6 @@ import VerificationTokenService from '@/modules/verificationToken/verificationTo
 import { Filter } from 'mongodb';
 import { DIRedisClient } from '@/loaders/redisClientLoader';
 import { RedisClientType } from 'redis';
-import { REDIS_TEMPORARY_BLOCKLIST_KEY } from '@/modules/auth/auth.constant';
 
 @Service()
 export default class AuthService {

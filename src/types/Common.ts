@@ -1,4 +1,5 @@
-import { type } from 'os';
+import { omitBy, isNull } from 'lodash';
+import { Filter, ObjectId } from 'mongodb';
 
 export interface BaseQuery {
   page?: number;
@@ -58,6 +59,12 @@ export type BaseModel = {
 
   updated_by?: string;
 
+  deleted_by?: string;
+
+  deleted_at?: Date;
+
+  deleted?: boolean;
+
   // Record created at
   created_at?: Date;
   // Record updated at
@@ -102,6 +109,12 @@ export type BaseInformationModel = {
   created_by?: string;
 
   updated_by?: string;
+
+  deleted_by?: string;
+
+  deleted_at?: Date;
+
+  deleted?: boolean;
 
   // Record created at
   created_at?: Date;
@@ -166,4 +179,18 @@ export type Sponsor = {
 export type Agenda = {
   time?: Date;
   description?: string;
+};
+
+export const defaultFilter = {
+  deleted: false,
+};
+
+export const toMongoFilter = ({ _id, nullable = false, ...filter }: any): Filter<any> => {
+  if (_id && !ObjectId.isValid(_id)) {
+    throw new Error('Invalid ObjectId');
+  }
+  const _idFilter = _id ? { _id: new ObjectId(_id) } : {};
+  return nullable
+    ? { ..._idFilter, ...filter, ...defaultFilter }
+    : omitBy({ ..._idFilter, ...filter, ...defaultFilter }, isNull);
 };

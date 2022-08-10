@@ -4,7 +4,7 @@ export type AppErrorLocale = 'vi' | 'en';
 
 export type AppErrorJSON = {
   message: string;
-  code: string | null;
+  code: string | number | null;
   status: number;
   details?: Array<{ path: string; message: string }>;
   isPublic?: boolean;
@@ -28,7 +28,7 @@ export class AppError extends Error {
     super(err.message);
     this.name = this.constructor.name;
     this.message = err.message;
-    this.code = err.code || null;
+    this.code = err.code || err.status || 500;
     this.status = err.status || httpStatusCode.INTERNAL_SERVER_ERROR;
     this.details = err.details || [];
     this.isPublic = err.isPublic || false;

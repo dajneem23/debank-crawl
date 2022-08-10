@@ -15,7 +15,7 @@ export class CountryModel {
     this._collection = db.collection<Country>(COLLECTION_NAME);
     Promise.all([
       // Unique ID
-      this._collection.createIndex('id', { unique: true }),
+
       // Unique code
       this._collection.createIndex('code', { unique: true }),
     ]).catch((err) => {

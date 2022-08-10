@@ -15,7 +15,7 @@ export default class AddressModel {
     this._collection = client.db().collection<UserAddress>(COLLECTION_NAME);
     Promise.all([
       // Unique ID
-      this._collection.createIndex('id', { unique: true }),
+
       // Geospatial Indexes
       this._collection.createIndex({ mongodb_geo: '2dsphere' }),
     ]).catch((err) => {

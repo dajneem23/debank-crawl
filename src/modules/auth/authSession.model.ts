@@ -13,10 +13,7 @@ export default class AuthSessionModel {
 
   constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
     this._collection = db.collection<AuthSession>(COLLECTION_NAME);
-    Promise.all([
-      this._collection.createIndex('id', { unique: true }),
-      this._collection.createIndex('expires', { expireAfterSeconds: 0 }),
-    ]).catch((err) => {
+    Promise.all([this._collection.createIndex('expires', { expireAfterSeconds: 0 })]).catch((err) => {
       this.logger.error(err);
     });
   }

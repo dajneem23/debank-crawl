@@ -15,7 +15,6 @@ export default class EmailSubscriptionModel {
     this._collection = client.db().collection<EmailSubscription>(COLLECTION_NAME);
     Promise.all([
       // Unique ID
-      this._collection.createIndex('id', { unique: true }),
     ]).catch((err) => {
       this.logger.error(err);
     });

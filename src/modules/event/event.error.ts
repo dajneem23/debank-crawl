@@ -4,7 +4,7 @@ import AppError, { AppErrorJSON } from '@/core/errors/AppError';
 const errors = Object.freeze({
   EVENT_NOT_FOUND: {
     message: 'Event not found',
-    code: '4001',
+    code: '5001',
     status: httpStatusCode.NOT_FOUND,
     isPublic: true,
     locales: {
@@ -14,7 +14,7 @@ const errors = Object.freeze({
   },
   EVENT_ALREADY_EXIST: {
     message: 'Event already exist',
-    code: '4002',
+    code: '5002',
     status: httpStatusCode.CONFLICT,
     isPublic: true,
     locales: {

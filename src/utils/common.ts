@@ -37,10 +37,10 @@ export const throwErr = (err: Error | any): void => {
  * Get filter and query from Express request query
  */
 export const buildQueryFilter = <T>(reqQuery: BaseQuery & T) => {
-  const { page, perPage, sortBy, sortOrder, q, ...filter } = reqQuery;
+  const { page, per_page, sort_by, sort_order, ...filter } = reqQuery;
   return {
     filter,
-    query: { page, perPage, sortBy, sortOrder, q },
+    query: { page, per_page, sort_by, sort_order },
   };
 };
 
@@ -56,4 +56,11 @@ export const removeLeadingZeroFromString = (name: string) => {
   const regex = new RegExp('^0+(?!$)', 'g');
   const arr = name.split(' ');
   return arr.map((txt) => txt.replace(regex, '')).join(' ');
+};
+
+/**
+ * Convert Bytes to Megabytes
+ */
+export const convertBytesToMB = (bytes: number) => {
+  return bytes / 1024 / 1024;
 };

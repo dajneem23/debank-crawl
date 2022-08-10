@@ -1,76 +1,48 @@
-import { BaseQuery } from '@/types/Common';
+export type UserStatus = 'active' | 'inactive' | 'suspended';
 
-export type AuthResponse = {
-  accessToken: string;
-  refreshToken?: string;
-};
-export type AuthRequest = {
+export type UserRole = 'admin' | 'user';
+
+export type Gender = 'male' | 'female' | 'other';
+
+export type User = {
+  // User ID
+  id: string;
+  // Full name
+  full_name: string;
+  _full_name_alias?: string[];
+  // Email
   email: string;
-  password: string;
-};
-export type UserResponse = {
-  name?: string;
-  email?: string;
-  language?: string;
-  translation_source_languages?: string;
-  translation_target_languages?: string;
-  username?: string;
-  first_name?: string;
-  last_name?: string;
-  about?: string;
-  location?: string;
-  website?: string;
-  avatar?: string;
-  role?: Role;
-  roleId?: string;
-};
-export type Role = {
-  id: string;
-  code: string;
-  name: string;
-  description: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
-export type UserRequest = {
-  id?: string;
-  name?: string;
-  email?: string;
+  // Email verified
+  email_verified: boolean;
+  // Phone number (e.g. +84909******)
+  phone: string;
+  // User roles (e.g. ["user", "admin"])
+  roles: Array<UserRole>;
+  // User avatar
+  picture?: string;
+  // Gender
+  gender?: Gender;
+  // Date of birth (E.g. 1990-01-31)
+  dob?: string;
+  // Encrypted login password
   password?: string;
-  language?: string;
-  translation_source_languages?: string;
-  translation_target_languages?: string;
-  username?: string;
-  first_name?: string;
-  last_name?: string;
-  about?: string;
-  location?: string;
-  website?: string;
-  avatar?: string;
-  role_id?: string;
+  // Status
+  status: UserStatus;
+  // Subscribed email subscription
+  subscribed_email_subscription?: boolean;
+  // User metadata
+  metadata?: {
+    // A note by admin
+    admin_note?: string;
+  };
+  // Date and time user was created
+  created_at: Date;
+  // Date and time user was last updated
+  updated_at: Date;
 };
 
-export interface UserQuery extends BaseQuery {
-  id?: string;
-  name?: string;
-  email?: string;
-  password?: string;
-  language?: string;
-  translation_source_languages?: string;
-  translation_target_languages?: string;
-  username?: string;
-  first_name?: string;
-  last_name?: string;
-  about?: string;
-  location?: string;
-  website?: string;
-  avatar?: string;
-  role_id?: string;
-}
-export type UserParams = {
-  id: string;
-};
+export type CreateUpdateUserInput = Pick<User, 'full_name' | 'email' | 'phone' | 'password' | 'picture'>;
 
-export type SubscribeRequest = {
-  categories: Array<string>;
-};
+export type UserOutput = Omit<User, 'password'>;
+
+export type UserPublicResponse = Pick<User, 'id' | 'full_name' | 'picture'>;

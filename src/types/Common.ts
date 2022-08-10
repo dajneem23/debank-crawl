@@ -1,12 +1,12 @@
 export interface BaseQuery {
   page?: number;
-  perPage?: number;
-  sortBy?: string;
-  sortOrder?: 'DESC' | 'ASC';
+  per_page?: number;
+  sort_by?: string;
+  sort_order?: 'desc' | 'asc';
   q?: string;
 }
 
-export type PaginationResult<T> = { totalCount: number; items: T[] };
+export type PaginationResult<T> = { total_count: number; items: T[] };
 
 export type CurrencyCode = 'VND' | 'USD';
 

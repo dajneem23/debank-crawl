@@ -1,15 +1,12 @@
 import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut } from '@/utils/common';
-import { alphabetSize12, alphabetSize6 } from '@/utils/randomString';
-import { AuthError } from '@/modules/auth/auth.error';
+import { alphabetSize12 } from '@/utils/randomString';
 import { SystemError } from '@/core/errors/CommonError';
 import { EventModel, Event, EventInput, EventOutput } from '.';
 import { Filter } from 'mongodb';
-import { BaseQuery, PaginationResult, toMongoFilter } from '@/types/Common';
+import { toMongoFilter } from '@/types/Common';
 import AuthSessionModel from '@/modules/auth/authSession.model';
-import { generateTextAlias } from '@/utils/text';
-import httpStatus from 'http-status';
 import { EventError } from './event.error';
 
 @Service()
@@ -184,7 +181,7 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toOutPut({ data: { total_count, items, code: httpStatus.OK } });
+      return toOutPut({ data: { total_count, items } });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -221,7 +218,7 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toOutPut({ data: { total_count, items, code: httpStatus.OK } });
+      return toOutPut({ data: { total_count, items } });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -257,7 +254,7 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toOutPut({ data: { total_count, items, code: httpStatus.OK } });
+      return toOutPut({ data: { total_count, items } });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;

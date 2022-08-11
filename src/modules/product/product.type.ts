@@ -11,7 +11,9 @@ export interface Product extends BaseInformationModel {
 
   software_license: string;
 
-  features?: Array<Feature>;
+  features?: Array<string>;
+
+  ccys?: Array<string>;
 
   token: string;
 

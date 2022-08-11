@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CATEGORY_TYPE } from '../types/Common';
 import product_category from '../data/crypto_slate/json/product_category.json';
 import categories_event from '../data/categories_event.json';
@@ -5,13 +6,11 @@ import categories_crypto from '../data/categories_crypto_asset.json';
 import mongoDBLoader from '@/loaders/mongoDBLoader';
 import { countCollection } from '@/utils/common';
 export const CategorySeed = async () => {
-  /* eslint-disable no-console */
-
-  console.log('Running category seed');
   const db = await mongoDBLoader();
   const collection = db.collection('categories');
   const count = await countCollection(collection);
   if (!count) {
+    console.log('Running category seed');
     const categories = [];
     categories.push(
       ...product_category.map((item) => {

@@ -424,7 +424,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-10T05:26:07.365Z",
-    "modified": "2022-08-11T07:57:00.940Z",
+    "modified": "2022-08-11T08:25:36.959Z",
     "headers": [],
     "params": [
       {
@@ -864,7 +864,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-10T07:43:25.920Z",
-    "modified": "2022-08-11T08:06:56.859Z",
+    "modified": "2022-08-11T08:25:41.675Z",
     "headers": [],
     "params": [
       {
@@ -907,7 +907,7 @@
     "method": "PUT",
     "sortNum": 0,
     "created": "2022-08-10T09:58:36.787Z",
-    "modified": "2022-08-11T08:03:16.051Z",
+    "modified": "2022-08-11T08:25:27.147Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -955,7 +955,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-11T04:17:34.444Z",
-    "modified": "2022-08-11T08:06:19.528Z",
+    "modified": "2022-08-11T08:25:24.413Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -965,7 +965,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"4123123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-08-15 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62f34779748a03976e2a9d03\"\n        \n    ],\n    \"country\": \"us\"\n}",
+      "raw": "{\n    \"name\": \"4123123123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-08-15 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62f34779748a03976e2a9d03\"\n        \n    ],\n    \"country\": \"us\"\n}",
       "form": []
     },
     "tests": []
@@ -1130,7 +1130,7 @@
     "method": "DELETE",
     "sortNum": 0,
     "created": "2022-08-11T06:07:01.098Z",
-    "modified": "2022-08-11T06:07:47.585Z",
+    "modified": "2022-08-11T08:25:32.434Z",
     "headers": [],
     "params": [],
     "auth": {
@@ -1148,7 +1148,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-11T07:17:14.868Z",
-    "modified": "2022-08-11T07:24:43.930Z",
+    "modified": "2022-08-11T08:25:30.263Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -1162,7 +1162,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-11T07:47:50.906Z",
-    "modified": "2022-08-11T08:12:08.215Z",
+    "modified": "2022-08-11T08:25:38.667Z",
     "headers": [],
     "params": [
       {
@@ -1263,7 +1263,7 @@
     "method": "PATCH",
     "sortNum": 0,
     "created": "2022-08-11T08:06:29.365Z",
-    "modified": "2022-08-11T08:06:29.388Z",
+    "modified": "2022-08-11T08:25:35.333Z",
     "headers": [],
     "params": [],
     "body": {

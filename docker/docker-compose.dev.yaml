@@ -9,8 +9,8 @@ services:
       - MONGO_INITDB_DATABASE= "${DB_NAME}"
       # - MONGO_INITDB_ROOT_USERNAME= "${DB_USERNAME}"
       # - MONGO_INITDB_ROOT_PASSWORD= "${DB_PASSWORD}"
-    volumes:
-      - ./db/mongo:/data/db
+    # volumes:
+    #   - ./db/mongo:/data/db
     restart: always
   redis:
     image: redis:6-alpine

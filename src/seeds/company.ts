@@ -12,7 +12,7 @@ import company_support from '../data/crypto_slate/json/company_support.json';
 
 export const CompanySeed = async () => {
   /* eslint-disable no-console */
-  console.log('Running companies seed');
+
   const db = await mongoDBLoader();
   const collection = db.collection('companies');
   const count = await countCollection(collection);
@@ -106,6 +106,9 @@ export const CompanySeed = async () => {
   );
   // console.log(companies.find((company) => company.products.length > 1));
   if (!count) {
+    console.log('Running companies seed');
+    // console.log(companies.find((company) => company.products.length > 1));
+
     console.log('Inserting companies', companies.length);
     await collection.insertMany(companies);
   }

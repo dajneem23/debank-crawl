@@ -9,7 +9,7 @@
     "data": [
       {
         "name": "host",
-        "value": "{{APP_HOST}}:{{APP_PORT}}/{{API_PREFIX}}"
+        "value": "{{APP_HOST}}:{{APP_PORT}}/{{API_PREFIX}}/v1"
       }
     ],
     "envFile": "thunder.env"

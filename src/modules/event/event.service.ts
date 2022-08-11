@@ -1,14 +1,12 @@
 import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12, alphabetSize6 } from '@/utils/randomString';
-import { AuthError } from '@/modules/auth/auth.error';
+import { alphabetSize12 } from '@/utils/randomString';
 import { SystemError } from '@/core/errors/CommonError';
 import { EventModel, Event, EventInput, EventOutput } from '.';
 import { Filter } from 'mongodb';
-import { BaseQuery, PaginationResult, toMongoFilter } from '@/types/Common';
+import { toMongoFilter } from '@/types/Common';
 import AuthSessionModel from '@/modules/auth/authSession.model';
-import { generateTextAlias } from '@/utils/text';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
 

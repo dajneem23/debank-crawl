@@ -8,33 +8,34 @@ export const SectorSeed = async () => {
   const db = await mongoDBLoader();
   const collection = db.collection('sectors');
   const count = await countCollection(collection);
-  const sectors = [];
-  sectors.push(
-    ...company_sector.map((item) => {
-      return {
-        title: item.sector,
-        weight: Math.floor(Math.random() * 100),
-        created_at: new Date(),
-        updated_at: new Date(),
-      };
-    }),
-    ...token_sector.map((item) => {
-      return {
-        title: item.sector,
-        weight: Math.floor(Math.random() * 100),
-        created_at: new Date(),
-        updated_at: new Date(),
-      };
-    }),
-  );
-  const uniqueSectors = sectors.filter((item, index, self) => {
-    return (
-      self.findIndex((t) => {
-        return t.title === item.title;
-      }) === index
-    );
-  });
   if (!count) {
+    const sectors = [];
+    sectors.push(
+      ...company_sector.map((item) => {
+        return {
+          title: item.sector,
+          weight: Math.floor(Math.random() * 100),
+          created_at: new Date(),
+          updated_at: new Date(),
+        };
+      }),
+      ...token_sector.map((item) => {
+        return {
+          title: item.sector,
+          weight: Math.floor(Math.random() * 100),
+          created_at: new Date(),
+          updated_at: new Date(),
+        };
+      }),
+    );
+    const uniqueSectors = sectors.filter((item, index, self) => {
+      return (
+        self.findIndex((t) => {
+          return t.title === item.title;
+        }) === index
+      );
+    });
+
     console.log('Inserting sectors', uniqueSectors.length);
     await collection.insertMany(uniqueSectors);
   }

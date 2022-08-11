@@ -8,7 +8,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-08-09T09:38:56.534Z",
-    "modified": "2022-08-11T08:06:19.527Z",
+    "modified": "2022-08-11T08:25:24.412Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -18,7 +18,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"4123123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-08-15 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62f34779748a03976e2a9d03\"\n        \n    ],\n    \"country\": \"us\"\n}",
+      "raw": "{\n    \"name\": \"4123123123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-08-15 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62f34779748a03976e2a9d03\"\n        \n    ],\n    \"country\": \"us\"\n}",
       "form": []
     },
     "tests": []

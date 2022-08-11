@@ -120,9 +120,9 @@ export const $pagination = ({
   condition: any[];
 }) => {
   // Convert _id to ObjectId
-  Object.keys($match).map((key) => {
-    return ($match[key] = /_id/.test(key) && !$match[key].$in ? new ObjectId($match[key]) : $match[key]);
-  });
+  Object.keys($match).map(
+    (key) => ($match[key] = /_id/.test(key) && !$match[key].$in ? new ObjectId($match[key]) : $match[key]),
+  );
   return [
     {
       $match,

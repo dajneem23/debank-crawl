@@ -137,11 +137,14 @@ export class EventService {
    **/
   async update({ _id, updateEvent, subject }: EventInput): Promise<EventOutput> {
     try {
+      const { categories, speakers } = updateEvent;
       const { value: event } = await this.eventModel.collection.findOneAndUpdate(
         $toMongoFilter({ _id }),
         {
           $set: {
             ...updateEvent,
+            ...(categories && { categories: $toObjectId(categories) }),
+            ...(speakers && { speakers: $toObjectId(speakers) }),
             updated_at: new Date(),
             ...(subject && { updated_by: subject }),
           },

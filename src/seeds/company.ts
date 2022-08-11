@@ -78,9 +78,7 @@ export const CompanySeed = async () => {
         portfolios: company_portfolio
           .filter((portfolio) => portfolio.company_name == name)
           .map((company) => {
-            return {
-              company: company.portfolio,
-            };
+            return company.portfolio;
           }),
         sectors: company_sector
           .filter((company) => company.company_name == name)

@@ -9,7 +9,7 @@ import { JWTPayload } from '@/modules/auth/authSession.type';
 
 @Service()
 @Controller('/')
-export default class AuthController {
+export class AuthController {
   @Inject()
   private authService: AuthService;
 

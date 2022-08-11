@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { BaseQuery } from '@/types/Common';
 import { isNull, omitBy, pick } from 'lodash';
+import { any } from 'bluebird';
 /**
  * Get runtime config from "process" Nodejs
  */
@@ -72,10 +73,40 @@ export const PhoneNumberPattern = /^\+?[0-9]{1,3}?[0-9]{8,12}$/;
 
 export const ObjectIdPattern = /^[0-9a-fA-F]{24}$/;
 
-export const toOutPut = ({ data, nullable = false }: { data: object | any; nullable?: boolean }) => {
-  const { _id: id, ...rest } = data;
-
-  return nullable ? { id, ...rest } : omitBy({ id, ...rest }, isNull);
+export const toOutPut = ({
+  item,
+  keys = Object.keys(item),
+  nullable = false,
+}: {
+  item: object | any;
+  keys?: string[];
+  nullable?: boolean;
+}): {
+  [key: string]: any;
+} => {
+  const { _id: id, ...rest } = item;
+  return pick(nullable ? { id, ...rest } : omitBy({ id, ...rest }, isNull), keys);
+};
+export const toPagingOutput = ({
+  items,
+  count,
+  keys,
+  nullable = false,
+}: {
+  items: object | any;
+  count: number;
+  keys: string[];
+  nullable?: boolean;
+}): {
+  total_count: number;
+  items: {
+    [key: string]: any;
+  };
+} => {
+  return {
+    total_count: count,
+    items: items.flatMap((item: any) => toOutPut({ item, keys, nullable })),
+  };
 };
 export const pickKeys = <T, K extends keyof T>(obj: T, keys: K[]) => {
   return pick(obj, keys) as Pick<T, K>;

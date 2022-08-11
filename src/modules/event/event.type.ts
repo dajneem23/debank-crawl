@@ -15,7 +15,7 @@ export interface Event extends BaseInformationModel {
 
   email?: string;
 
-  agenda?: Array<Agenda>;
+  agendas?: Array<Agenda>;
 
   location?: object; // Map API
 
@@ -73,11 +73,12 @@ export type EventInput = {
   updateEvent?: Event;
   filter?: EventQuery;
   query?: BaseQuery;
+  subject?: string;
 };
 
 export type EventOutput = {
   code?: number;
   result?: Event | any;
-  totalCount?: number;
+  total_count?: number;
   data?: Array<Event>;
 };

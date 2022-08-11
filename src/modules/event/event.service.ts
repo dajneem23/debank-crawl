@@ -1,6 +1,6 @@
 import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut } from '@/utils/common';
+import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12, alphabetSize6 } from '@/utils/randomString';
 import { AuthError } from '@/modules/auth/auth.error';
 import { SystemError } from '@/core/errors/CommonError';
@@ -9,8 +9,8 @@ import { Filter } from 'mongodb';
 import { BaseQuery, PaginationResult, toMongoFilter } from '@/types/Common';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { generateTextAlias } from '@/utils/text';
-import httpStatus from 'http-status';
 import { EventError } from './event.error';
+import AuthService from '../auth/auth.service';
 
 @Service()
 export class EventService {
@@ -22,11 +22,44 @@ export class EventService {
   @Inject()
   private authSessionModel: AuthSessionModel;
 
+  @Inject()
+  private authService: AuthService;
+
   /**
    * A bridge allows another service access to the Model layer
    */
   get collection() {
     return this.eventModel.collection;
+  }
+
+  get outputKeys() {
+    return [
+      'id',
+      'name',
+      'introduction',
+      'tel',
+      'email',
+      'about',
+      'avatar',
+      'agendas',
+      'location',
+      'start_date',
+      'end_date',
+      'country',
+      'speakers',
+      'sponsors',
+      'facebook',
+      'twitter',
+      'website',
+      'instagram',
+      'linkedin',
+      'github',
+      'medium',
+      'youtube',
+      'website',
+      'blog',
+      'reddit',
+    ];
   }
 
   /**
@@ -36,26 +69,22 @@ export class EventService {
     return alphabetSize12();
   }
 
-  private NUM_OF_EVENTS = {
-    DEFAULT: 10,
-    TRENDING: 2,
-  };
   /**
    *  Create new event
    * @param newEvent - New event
    * @returns {Promise<EventOutput>} - Created event
    */
-  async create({ newEvent }: EventInput): Promise<EventOutput> {
+  async create({ newEvent, subject }: EventInput): Promise<EventOutput> {
     try {
-      // Check duplicated
-      // Create user
       const now = new Date();
       const event: Event = {
         ...newEvent,
         deleted: false,
+        ...(subject && { created_by: subject }),
         created_at: now,
         updated_at: now,
       };
+      // Check duplicated
       const isDuplicated = await this.eventModel.collection.countDocuments({
         name: event.name,
         created_at: { $lte: getDateTime({ hour: 1 }) },
@@ -69,7 +98,7 @@ export class EventService {
         throwErr(new SystemError(`MongoDB insertOne() failed! Payload: ${JSON.stringify(newEvent)}`));
       }
       this.logger.debug('[create:success]', { event });
-      return toOutPut({ data: event });
+      return toOutPut({ item: event, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[create:error]', err.message);
       throw err;
@@ -79,10 +108,11 @@ export class EventService {
    * Update event
    * @param id - Event ID
    * @param updateEvent - Update event
+   * @param updateUser - User who update event
    * @returns { Promise<EventOutput> } - Updated event
    *
    **/
-  async update({ _id, updateEvent }: EventInput): Promise<EventOutput> {
+  async update({ _id, updateEvent, subject }: EventInput): Promise<EventOutput> {
     try {
       const { value: event } = await this.eventModel.collection.findOneAndUpdate(
         toMongoFilter({ _id }),
@@ -90,13 +120,14 @@ export class EventService {
           $set: {
             ...updateEvent,
             updated_at: new Date(),
+            ...(subject && { updated_by: subject }),
           },
         },
         { returnDocument: 'after' },
       );
       if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
       this.logger.debug('[update:success]', { event });
-      return toOutPut({ data: event });
+      return toOutPut({ item: event, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[update:error]', err.message);
       throw err;
@@ -105,9 +136,10 @@ export class EventService {
   /**
    * Delete event by ID
    * @param id - Event ID
-   * @returns { Promise<EventOutput> } - Deleted event
+   * @param deleteUser - User who delete event
+   * @returns { Promise<void> } - Deleted event
    */
-  async delete({ _id }: EventInput): Promise<EventOutput> {
+  async delete({ _id, subject }: EventInput): Promise<void> {
     try {
       const { value: event } = await this.eventModel.collection.findOneAndUpdate(
         toMongoFilter({ _id }),
@@ -115,13 +147,13 @@ export class EventService {
           $set: {
             deleted: true,
             deleted_at: new Date(),
+            ...(subject && { deleted_by: subject }),
           },
         },
         { returnDocument: 'after' },
       );
       if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
       this.logger.debug('[delete:success]', { event });
-      return toOutPut({ data: event });
     } catch (err) {
       this.logger.error('[delete:error]', err.message);
       throw err;
@@ -137,17 +169,17 @@ export class EventService {
       const event = await this.eventModel.collection.findOne(toMongoFilter({ _id }));
       if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
       this.logger.debug('[get:success]', { event });
-      return toOutPut({ data: event });
+      return toOutPut({ item: event, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
     }
   }
 
-  async queryRelatedEvent({ filter, query }: EventInput): Promise<EventOutput> {
+  async getRelatedEvent({ filter, query }: EventInput): Promise<EventOutput> {
     try {
       const { q, category, ...otherFilter } = filter;
-      const { per_page, page, sort_by, sort_order } = query;
+      const { per_page, page, sort_order } = query;
       const categoryFilter = category
         ? {
             categories: { $in: Array.isArray(category) ? category : [category] },
@@ -184,15 +216,15 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toOutPut({ data: { total_count, items, code: httpStatus.OK } });
+      return toPagingOutput({ items, count: total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
     }
   }
-  async queryTrendingEvent({ filter, query }: EventInput): Promise<EventOutput> {
+  async getTrendingEvent({ query }: EventInput): Promise<EventOutput> {
     try {
-      const { q, per_page, page, sort_by, sort_order } = query;
+      const { q, per_page, sort_order } = query;
       const eventFilter: Filter<any> = {
         $or: [{ trending: true }, { type: 'virtual' }],
         $and: [{ start_date: { $gte: new Date() } }],
@@ -200,7 +232,8 @@ export class EventService {
       const [
         {
           total_count: [{ total_count } = { total_count: 0 }],
-          ...items
+          trending,
+          virtual,
         },
       ] = (await this.eventModel.collection
         .aggregate([
@@ -219,17 +252,17 @@ export class EventService {
           },
         ])
         .toArray()) as any[];
-
+      const items = [...trending, ...virtual];
       this.logger.debug('[get:success]', { total_count, items });
-      return toOutPut({ data: { total_count, items, code: httpStatus.OK } });
+      return toPagingOutput({ items, count: total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
     }
   }
-  async querySignificantEvent({ filter, query }: EventInput): Promise<EventOutput> {
+  async getSignificantEvent({ query }: EventInput): Promise<EventOutput> {
     try {
-      const { q, per_page, page, sort_by, sort_order } = query;
+      const { q, per_page, page, sort_order } = query;
       const eventFilter: Filter<any> = {
         start_date: { $gte: new Date() },
         significant: true,
@@ -237,7 +270,7 @@ export class EventService {
       const [
         {
           total_count: [{ total_count } = { total_count: 0 }],
-          ...items
+          items,
         },
       ] = (await this.eventModel.collection
         .aggregate([
@@ -257,7 +290,7 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toOutPut({ data: { total_count, items, code: httpStatus.OK } });
+      return toPagingOutput({ items, count: total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;

@@ -117,9 +117,9 @@ export default class AuthService {
         throwErr(new AuthError('INCORRECT_LOGIN_ID_OR_PASSWORD'));
       }
       // Check whitelist roles
-      if (!intersection(user.roles, whiteListRoles).length) {
-        throwErr(new AuthError('PERMISSION_DENIED'));
-      }
+      // if (!intersection(user.roles, whiteListRoles).length) {
+      //   throwErr(new AuthError('PERMISSION_DENIED'));
+      // }
       // Check account suspended
       if (user.status === 'suspended') {
         throwErr(new AuthError('ACCOUNT_SUSPENDED'));

@@ -1,5 +1,5 @@
 import { CountrySeed } from './country';
-import { EventSeed } from './event';
+// import { EventSeed } from './event';
 import { CategorySeed } from './category';
 import { SectorSeed } from './sector';
 import { PersonSeed } from './person';
@@ -10,7 +10,7 @@ export default async () => {
   await CategorySeed();
   await SectorSeed();
   await CountrySeed();
-  await EventSeed();
+  // await EventSeed();
   await PersonSeed();
   await ProductSeed();
   await CompanySeed();

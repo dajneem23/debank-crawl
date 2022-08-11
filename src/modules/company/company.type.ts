@@ -12,7 +12,7 @@ export interface Company extends BaseInformationModel {
 
   country?: string;
 
-  features?: Array<Feature>;
+  features?: Array<string>;
 
   services?: Array<Service>;
 
@@ -34,4 +34,8 @@ export interface Company extends BaseInformationModel {
   galleries?: Array<Gallery>;
 
   crypto_currencies?: Array<string>;
+
+  portfolios?: Array<string>;
+
+  ccys?: Array<string>;
 }

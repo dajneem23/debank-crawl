@@ -2,8 +2,8 @@
   "name": "sv-backend",
   "version": "1.0.1",
   "private": true,
-  "description": "ShareViet.vn Backend",
-  "author": "Mobytelab <development@mobytelab.com>",
+  "description": "1fox.vn Backend",
+  "author": "Mobytelab <development@1fox.com>",
   "engines": {
     "node": ">=16"
   },
@@ -14,7 +14,8 @@
     "type-check": "tsc --pretty --noEmit --skipLibCheck",
     "lint": "eslint .",
     "fix": "eslint --fix .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "seed": ""
   },
   "lint-staged": {
     "./**/*.{js,ts}": [

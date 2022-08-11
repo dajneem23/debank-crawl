@@ -164,7 +164,7 @@
     "method": "PUT",
     "sortNum": 0,
     "created": "2022-08-10T03:29:59.105Z",
-    "modified": "2022-08-10T04:13:36.370Z",
+    "modified": "2022-08-10T09:58:28.934Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -424,7 +424,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-10T05:26:07.365Z",
-    "modified": "2022-08-10T05:51:03.614Z",
+    "modified": "2022-08-10T10:23:36.430Z",
     "headers": [],
     "params": [
       {
@@ -438,8 +438,14 @@
         "isPath": false
       },
       {
-        "name": "skip",
-        "value": "",
+        "name": "q",
+        "value": "12312sadf32",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "category",
+        "value": "2",
         "isDisabled": true,
         "isPath": false
       }
@@ -886,6 +892,30 @@
     "modified": "2022-08-10T07:45:35.607Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "83f70d36-f8d7-4c11-b11c-f039031a0360",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/62f33e4e067104d1abeefeca",
+    "url": "http://localhost:8084/api/v1/events/62f33e4e067104d1abeefeca",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2022-08-10T09:58:36.787Z",
+    "modified": "2022-08-10T09:58:36.808Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\":\"update1\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

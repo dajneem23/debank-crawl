@@ -24,4 +24,8 @@ export interface Coin extends BaseInformationModel {
   open_source: boolean;
 
   hardware_wallet: boolean;
+
+  wallets: string[];
+
+  exchanges: string[];
 }

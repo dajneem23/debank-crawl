@@ -28,11 +28,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Event.Put",
-    "url": "{{host}}/events/62f37e24363f43a2b8b5aec3",
+    "url": "http://localhost:8084/api/v1/events/62f33e4e067104d1abeefeca",
     "method": "PUT",
     "sortNum": 20000,
     "created": "2022-08-09T11:01:50.110Z",
-    "modified": "2022-08-10T09:56:18.362Z",
+    "modified": "2022-08-10T09:58:36.807Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -80,11 +80,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Query Related",
-    "url": "http://localhost:8084/api/v1/events/related/?page=1&per_page=3&q=12312sadf32",
+    "url": "http://localhost:8084/api/v1/events/related/?page=1&per_page=3",
     "method": "GET",
     "sortNum": 50000,
     "created": "2022-08-10T04:37:03.847Z",
-    "modified": "2022-08-10T06:53:23.765Z",
+    "modified": "2022-08-10T10:21:47.622Z",
     "headers": [],
     "params": [
       {
@@ -100,6 +100,7 @@
       {
         "name": "q",
         "value": "12312sadf32",
+        "isDisabled": true,
         "isPath": false
       },
       {

@@ -7,7 +7,7 @@ export interface Person extends BaseInformationModel {
 
   position?: Array<PersonPosition>;
 
-  work?: Array<PersonWork>;
+  works?: Array<PersonWork>;
 
   educations?: Array<PersonEducation>;
 }

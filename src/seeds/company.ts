@@ -107,8 +107,6 @@ export const CompanySeed = async () => {
   // console.log(companies.find((company) => company.products.length > 1));
   if (!count) {
     console.log('Running companies seed');
-    // console.log(companies.find((company) => company.products.length > 1));
-
     console.log('Inserting companies', companies.length);
     await collection.insertMany(companies);
   }

@@ -75,7 +75,7 @@ export const ObjectIdPattern = /^[0-9a-fA-F]{24}$/;
 
 export const toOutPut = ({
   item,
-  keys = Object.keys(item),
+  keys = ['id', ...Object.keys(item)],
   nullable = false,
 }: {
   item: object | any;

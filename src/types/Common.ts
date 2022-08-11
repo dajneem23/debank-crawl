@@ -184,13 +184,3 @@ export type Agenda = {
 export const defaultFilter = {
   deleted: false,
 };
-
-export const toMongoFilter = ({ _id, nullable = false, ...filter }: any): Filter<any> => {
-  if (_id && !ObjectId.isValid(_id)) {
-    throw new Error('Invalid ObjectId');
-  }
-  const _idFilter = _id ? { _id: new ObjectId(_id) } : {};
-  return nullable
-    ? { ..._idFilter, ...filter, ...defaultFilter }
-    : omitBy({ ..._idFilter, ...filter, ...defaultFilter }, isNull);
-};

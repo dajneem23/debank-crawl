@@ -955,7 +955,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-11T04:17:34.444Z",
-    "modified": "2022-08-11T08:25:24.413Z",
+    "modified": "2022-08-11T11:09:35.130Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -965,7 +965,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"4123123123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-08-15 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62f34779748a03976e2a9d03\"\n        \n    ],\n    \"country\": \"us\"\n}",
+      "raw": "{\n    \"name\": \"qweq123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-08-15 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62f47ce953f3412bdb33903f\",\n        \"62f47ce953f3412bdb339040\"\n        \n    ],\n    \"speakers\":[\n        \"62f47cea53f3412bdb3391f5\",\n        \"62f47cea53f3412bdb3391f8\"\n        ],\n    \"country\": \"us\"\n}",
       "form": []
     },
     "tests": []
@@ -1148,7 +1148,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-11T07:17:14.868Z",
-    "modified": "2022-08-11T08:25:30.263Z",
+    "modified": "2022-08-11T09:01:10.589Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -1275,6 +1275,90 @@
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lcXJqdGpYYVNFMCIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwMTk1NDY2LCJleHAiOjE2NjEwNTk0NjZ9.d6XWK1naJIb6ubIO8DXUr13zZwdeKjAg5p6wrVVu0to"
     },
+    "tests": []
+  },
+  {
+    "_id": "b74a7217-4f9d-4c58-a5c6-815e2ea3b6ed",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/62f4c5b2a78066f4c7a02518",
+    "url": "http://localhost:8084/api/v1/events/62f4c5b2a78066f4c7a02518",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-11T09:02:54.315Z",
+    "modified": "2022-08-11T10:56:34.189Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "ac2ea7dd-f6c4-4cde-bd56-c01cea8157b8",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/62f4defec749a205d81d9b30",
+    "url": "http://localhost:8084/api/v1/events/62f4defec749a205d81d9b30",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-11T10:56:49.779Z",
+    "modified": "2022-08-11T11:07:59.273Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "c56efe76-15a5-4912-a74d-05a88c71088f",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/62f4defec749a205d81d9b302",
+    "url": "http://localhost:8084/api/v1/events/62f4defec749a205d81d9b302",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-11T10:57:21.082Z",
+    "modified": "2022-08-11T10:57:21.098Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "7a43e39d-56e4-4477-8ccc-06457fb3f8bd",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/62f4defec749a205d81d9b31",
+    "url": "http://localhost:8084/api/v1/events/62f4defec749a205d81d9b31",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-11T10:57:24.024Z",
+    "modified": "2022-08-11T10:57:45.951Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "117d780d-9a7d-442b-8d66-9589c9bcacd8",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/62f4e24e27e27f0da3a847e7",
+    "url": "http://localhost:8084/api/v1/events/62f4e24e27e27f0da3a847e7",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-11T11:08:16.652Z",
+    "modified": "2022-08-11T11:08:55.828Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "9484089d-9e9a-422b-8f10-fe4c971bf0f9",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/62f4e36fbdc840710bbf720c",
+    "url": "http://localhost:8084/api/v1/events/62f4e36fbdc840710bbf720c",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-11T11:09:51.149Z",
+    "modified": "2022-08-11T11:13:22.992Z",
+    "headers": [],
+    "params": [],
     "tests": []
   }
 ]

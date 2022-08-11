@@ -5,10 +5,11 @@ import { alphabetSize12 } from '@/utils/randomString';
 import { SystemError } from '@/core/errors/CommonError';
 import { EventModel, Event, EventInput, EventOutput } from '.';
 import { Filter } from 'mongodb';
-import { toMongoFilter } from '@/types/Common';
+import { $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
+import { $lookup, $toObjectId, $pagination } from '@/utils/mongoDB';
 
 @Service()
 export class EventService {
@@ -59,6 +60,27 @@ export class EventService {
       'reddit',
     ];
   }
+  get lookups() {
+    return {
+      speakers: $lookup({
+        from: 'persons',
+        refFrom: '_id',
+        refTo: 'speakers',
+        select: 'name',
+        reName: 'speakers',
+        operation: '$in',
+      }),
+      sponsors: {},
+      categories: $lookup({
+        from: 'categories',
+        refFrom: '_id',
+        refTo: 'categories',
+        select: 'title',
+        reName: 'categories',
+        operation: '$in',
+      }),
+    };
+  }
 
   /**
    * Generate ID
@@ -75,8 +97,11 @@ export class EventService {
   async create({ newEvent, subject }: EventInput): Promise<EventOutput> {
     try {
       const now = new Date();
+      const { categories, speakers } = newEvent;
       const event: Event = {
         ...newEvent,
+        ...(categories && { categories: $toObjectId(categories) }),
+        ...(speakers && { speakers: $toObjectId(speakers) }),
         deleted: false,
         ...(subject && { created_by: subject }),
         created_at: now,
@@ -113,7 +138,7 @@ export class EventService {
   async update({ _id, updateEvent, subject }: EventInput): Promise<EventOutput> {
     try {
       const { value: event } = await this.eventModel.collection.findOneAndUpdate(
-        toMongoFilter({ _id }),
+        $toMongoFilter({ _id }),
         {
           $set: {
             ...updateEvent,
@@ -140,7 +165,7 @@ export class EventService {
   async delete({ _id, subject }: EventInput): Promise<void> {
     try {
       const { value: event } = await this.eventModel.collection.findOneAndUpdate(
-        toMongoFilter({ _id }),
+        $toMongoFilter({ _id }),
         {
           $set: {
             deleted: true,
@@ -164,10 +189,25 @@ export class EventService {
    */
   async getById({ _id }: EventInput): Promise<EventOutput> {
     try {
-      const event = await this.eventModel.collection.findOne(toMongoFilter({ _id }));
-      if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
+      const [{ event } = { event: {} }] = (await this.eventModel.collection
+        .aggregate([
+          { $match: $toMongoFilter({ _id }) },
+          this.lookups.categories,
+          this.lookups.speakers,
+          {
+            $facet: {
+              event: [{ $limit: 1 }],
+            },
+          },
+          {
+            $unwind: '$event',
+          },
+        ])
+        .toArray()) as any[];
+
+      if (!!!event) throwErr(new EventError('EVENT_NOT_FOUND'));
       this.logger.debug('[get:success]', { event });
-      return toOutPut({ item: event, keys: this.outputKeys });
+      return toOutPut({ item: event });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -200,7 +240,7 @@ export class EventService {
         .aggregate([
           {
             $match: {
-              ...toMongoFilter(eventFilter),
+              ...$toMongoFilter(eventFilter),
             },
           },
           { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
@@ -237,7 +277,7 @@ export class EventService {
         .aggregate([
           {
             $match: {
-              ...toMongoFilter(eventFilter),
+              ...$toMongoFilter(eventFilter),
             },
           },
           { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
@@ -274,7 +314,7 @@ export class EventService {
         .aggregate([
           {
             $match: {
-              ...toMongoFilter(eventFilter),
+              ...$toMongoFilter(eventFilter),
             },
           },
           { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },

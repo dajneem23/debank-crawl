@@ -48,6 +48,7 @@ export enum CATEGORY_TYPE {
   EVENT = 'event',
   CRYPTO_ASSET = 'crypto_asset',
   PERSON = 'person',
+  SECTOR = 'sector',
 }
 export type BaseModel = {
   _id?: string;

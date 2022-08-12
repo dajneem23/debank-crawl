@@ -12,7 +12,12 @@ export const CoinSeed = async () => {
   const db = await mongoDBLoader();
   const collection = db.collection('coins');
   const count = await $countCollection({ collection });
-  const sectors = await db.collection('sectors').find({}).toArray();
+  const sectors = await db
+    .collection('categories')
+    .find({
+      type: 'sector',
+    })
+    .toArray();
   if (!count) {
     const coins = [];
     coins.push(

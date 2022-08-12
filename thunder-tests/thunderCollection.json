@@ -24,7 +24,7 @@
       "headers": [],
       "auth": {
         "type": "bearer",
-        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lcXJqdGpYYVNFMCIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE2NjAxOTUwMDQsImV4cCI6MTY2MTA1OTAwNH0.1ygdzPhVnQirUuLuzKvn4_J5XBjVzywecM6NwSQ3Mcg"
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRSTXZtQUF5S3FTeSIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE2NjAyNzA5NTYsImV4cCI6MTY2MTEzNDk1Nn0.s_2oQ46kR7KAWpgrCFsYDO5GP9C2hqoQS_f_11V9EkE"
       },
       "tests": []
     }

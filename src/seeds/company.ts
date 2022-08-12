@@ -16,7 +16,12 @@ export const CompanySeed = async () => {
   const collection = db.collection('companies');
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  const sectors = await db.collection('sectors').find({}).toArray();
+  const sectors = await db
+    .collection('categories')
+    .find({
+      type: 'sector',
+    })
+    .toArray();
   const products = await db.collection('products').find({}).toArray();
   const companies = [];
   companies.push(

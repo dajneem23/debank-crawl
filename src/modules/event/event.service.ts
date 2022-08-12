@@ -10,6 +10,7 @@ import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
 import { $lookup, $toObjectId, $pagination, $checkListIdExist } from '@/utils/mongoDB';
+import { isNil, omit } from 'lodash';
 
 @Service()
 export class EventService {
@@ -79,6 +80,14 @@ export class EventService {
         reName: 'categories',
         operation: '$in',
       }),
+      user: $lookup({
+        from: 'users',
+        refFrom: '_id',
+        refTo: 'created_by',
+        select: 'full_name avatar',
+        reName: 'author',
+        operation: '$eq',
+      }),
     };
   }
 
@@ -110,8 +119,8 @@ export class EventService {
       }
       const event: Event = {
         ...newEvent,
-        ...(categories && { categories: $toObjectId(categories) }),
-        ...(speakers && { speakers: $toObjectId(speakers) }),
+        categories: categories ? $toObjectId(categories) : [],
+        speakers: speakers ? $toObjectId(speakers) : [],
         deleted: false,
         ...(subject && { created_by: subject }),
         created_at: now,
@@ -212,25 +221,23 @@ export class EventService {
    */
   async getById({ _id }: EventInput): Promise<EventOutput> {
     try {
-      const [{ event } = { event: {} }] = (await this.eventModel.collection
+      const [event] = await this.eventModel.collection
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
           this.lookups.speakers,
+          this.lookups.user,
           {
-            $facet: {
-              event: [{ $limit: 1 }],
-            },
+            $limit: 1,
           },
-          {
-            $unwind: '$event',
-          },
+          // {
+          //   $unwind: '$author',
+          // },
         ])
-        .toArray()) as any[];
-
-      if (!!!event) throwErr(new EventError('EVENT_NOT_FOUND'));
+        .toArray();
+      if (isNil(event)) throwErr(new EventError('EVENT_NOT_FOUND'));
       this.logger.debug('[get:success]', { event });
-      return toOutPut({ item: event });
+      return omit(toOutPut({ item: event }), ['deleted', 'updated_at']);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;

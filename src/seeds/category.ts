@@ -4,11 +4,11 @@ import product_category from '../data/crypto_slate/json/product_category.json';
 import categories_event from '../data/categories_event.json';
 import categories_crypto from '../data/categories_crypto_asset.json';
 import mongoDBLoader from '@/loaders/mongoDBLoader';
-import { $toObjectId, $countCollection } from '@/utils/mongoDB';
+import { $countCollection } from '@/utils/mongoDB';
 export const CategorySeed = async () => {
   const db = await mongoDBLoader();
   const collection = db.collection('categories');
-  const count = await $countCollection(collection);
+  const count = await $countCollection({ collection });
   if (!count) {
     console.log('Running category seed');
     const categories = [];

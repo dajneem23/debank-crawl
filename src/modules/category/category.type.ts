@@ -8,7 +8,6 @@ export interface Category extends BaseModel {
   weight?: number;
   // type
   type?: CATEGORY_TYPE;
-  // createdAt
 }
 export type CategoryParams = {
   id: string;

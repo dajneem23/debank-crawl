@@ -8,7 +8,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-08-09T09:38:56.534Z",
-    "modified": "2022-08-11T11:03:31.597Z",
+    "modified": "2022-08-12T04:04:17.592Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -18,7 +18,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"qweq123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-08-15 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62f47ce953f3412bdb33903f\"\n        \n    ],\n    \"speakers\":[\n        \"62f47cea53f3413bdb3391f5\"\n        ],\n    \"country\": \"us\"\n}",
+      "raw": "{\n    \"name\": \"qweq1231\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-08-15 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62f5cd6398f6d86d7bc95a3b\"\n        \n    ],\n    \"speakers\":[\"62f5cd6398f6d86d7bc95bf0\"],\n    \n    \"country\": \"us\"\n}",
       "form": []
     },
     "tests": []
@@ -32,7 +32,7 @@
     "method": "PUT",
     "sortNum": 20000,
     "created": "2022-08-09T11:01:50.110Z",
-    "modified": "2022-08-11T11:28:11.890Z",
+    "modified": "2022-08-12T02:28:02.669Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -42,7 +42,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"update1\",\n    \"speakers\":[\n        \"62f47cea53f3412bdb3391f5\"]\n}",
+      "raw": "{\n    \"name\":\"update1\",\n      \"categories\": [\n            \"62f47ce953f3412bdb339052\"\n    ]\n}",
       "form": []
     },
     "tests": []
@@ -52,11 +52,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Event.getById",
-    "url": "{{host}}/events/62f5b9ddd8eddfce35f5b19c",
+    "url": "{{host}}/events/62f5d14197d143360323575d",
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-08-10T02:50:57.347Z",
-    "modified": "2022-08-12T02:34:58.655Z",
+    "modified": "2022-08-12T04:04:26.271Z",
     "headers": [],
     "params": [],
     "tests": []

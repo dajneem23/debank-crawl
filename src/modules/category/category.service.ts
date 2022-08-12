@@ -175,7 +175,7 @@ export class CategoryService {
    * Query category
    *
    */
-  async query({ _filter, _query }: BaseServiceInput): Promise<any> {
+  async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { type } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
@@ -193,7 +193,7 @@ export class CategoryService {
         )
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, count: total_count, keys: ['created_at', ...this.outputKeys] });
+      return toPagingOutput({ items, count: total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;

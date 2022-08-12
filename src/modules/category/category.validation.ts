@@ -35,14 +35,8 @@ export const CategoryValidation = {
         .default(ORDER.ASC)
         .valid(...Object.values(ORDER)),
       type: [
-        Joi.string()
-          .valid(...Object.values(CATEGORY_TYPE))
-          .required(),
-        Joi.array().items(
-          Joi.string()
-            .valid(...Object.values(CATEGORY_TYPE))
-            .required(),
-        ),
+        Joi.string().valid(...Object.values(CATEGORY_TYPE)),
+        Joi.array().items(Joi.string().valid(...Object.values(CATEGORY_TYPE))),
       ],
     }),
   }),

@@ -171,10 +171,13 @@ export class CategoryService {
     }
   }
 
-  /*
-   * Query category
+  /**
+   *  Query category
+   * @param {any} _filter
+   * @param {BaseQuery} _query
+   * @returns {Promise<BaseServiceOutput>}
    *
-   */
+   **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { type } = _filter;

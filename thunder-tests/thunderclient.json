@@ -4,11 +4,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Event.POST",
-    "url": "{{host}}/v1/events",
+    "url": "{{host}}/events",
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-08-09T09:38:56.534Z",
-    "modified": "2022-08-11T11:03:31.597Z",
+    "modified": "2022-08-12T02:24:29.772Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -28,11 +28,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Event.Put",
-    "url": "http://localhost:8084/api/v1/events/62f4e36fbdc840710bbf720c",
+    "url": "{{host}}/events/62f5b9ddd8eddfce35f5b19c",
     "method": "PUT",
     "sortNum": 20000,
     "created": "2022-08-09T11:01:50.110Z",
-    "modified": "2022-08-11T11:28:11.890Z",
+    "modified": "2022-08-12T02:28:02.669Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -52,11 +52,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Event.getById",
-    "url": "http://localhost:8084/api/v1/events/62f4e36fbdc840710bbf720c",
+    "url": "{{host}}/events/62f5b9ddd8eddfce35f5b19c",
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-08-10T02:50:57.347Z",
-    "modified": "2022-08-11T11:09:51.163Z",
+    "modified": "2022-08-12T02:34:58.655Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -197,11 +197,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
     "name": "create User",
-    "url": "{{host}}/v1/auth/register",
+    "url": "{{host}}/auth/register",
     "method": "POST",
     "sortNum": 90000,
     "created": "2022-08-11T04:54:01.623Z",
-    "modified": "2022-08-11T05:05:28.216Z",
+    "modified": "2022-08-12T02:22:36.062Z",
     "headers": [],
     "params": [],
     "body": {
@@ -215,17 +215,40 @@
     "_id": "6c78e210-2c3c-4da3-99f2-4e946fa11c36",
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
-    "name": "Event patch trending",
-    "url": "{{host}}/v1/events/62f4b87bafc9baa3896c63c8/significant",
+    "name": "Event patch significant",
+    "url": "{{host}}/events/62f5b9ddd8eddfce35f5b19c/significant",
     "method": "PATCH",
     "sortNum": 45000,
     "created": "2022-08-11T05:12:36.639Z",
-    "modified": "2022-08-11T08:06:29.387Z",
+    "modified": "2022-08-12T02:39:42.783Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
       "raw": "{\n    \"significant\":true\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lcXJqdGpYYVNFMCIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwMTk1NDY2LCJleHAiOjE2NjEwNTk0NjZ9.d6XWK1naJIb6ubIO8DXUr13zZwdeKjAg5p6wrVVu0to"
+    },
+    "tests": []
+  },
+  {
+    "_id": "63c1e046-68a9-441f-ac6e-bf02b373c10e",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "name": "set event trending",
+    "url": "{{host}}/events/62f5b9ddd8eddfce35f5b19c/trending",
+    "method": "PATCH",
+    "sortNum": 47500,
+    "created": "2022-08-12T02:53:51.717Z",
+    "modified": "2022-08-12T02:54:50.440Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"trending\":true\n}",
       "form": []
     },
     "auth": {

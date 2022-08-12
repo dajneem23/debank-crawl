@@ -49,6 +49,9 @@ export enum CATEGORY_TYPE {
   CRYPTO_ASSET = 'crypto_asset',
   PERSON = 'person',
   SECTOR = 'sector',
+  PRODUCT = 'product',
+  COMPANY_SECTOR = 'company_sector',
+  TOKEN_SECTOR = 'token_sector',
 }
 export type BaseModel = {
   _id?: string;

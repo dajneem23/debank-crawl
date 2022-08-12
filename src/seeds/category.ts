@@ -19,7 +19,7 @@ export const CategorySeed = async () => {
         return {
           title: item.sector,
           weight: Math.floor(Math.random() * 100),
-          type: CATEGORY_TYPE.SECTOR,
+          type: CATEGORY_TYPE.COMPANY_SECTOR,
           created_at: new Date(),
           updated_at: new Date(),
         };
@@ -28,7 +28,7 @@ export const CategorySeed = async () => {
         return {
           title: item.sector,
           weight: Math.floor(Math.random() * 100),
-          type: CATEGORY_TYPE.SECTOR,
+          type: CATEGORY_TYPE.TOKEN_SECTOR,
           created_at: new Date(),
           updated_at: new Date(),
         };
@@ -47,7 +47,7 @@ export const CategorySeed = async () => {
       ...product_category.map((item) => {
         return {
           title: item.category,
-          type: CATEGORY_TYPE.WIKIBLOCK,
+          type: CATEGORY_TYPE.PRODUCT,
           weight: Math.floor(Math.random() * 100),
           created_at: new Date(),
           updated_at: new Date(),

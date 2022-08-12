@@ -1,6 +1,6 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
-import { countCollection } from '@/utils/common';
 import { WorkType } from '@/types/Common';
+import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 import crypto_peoples from '../data/crypto_slate/json/crypto_people.json';
 import people_previous_work from '../data/crypto_slate/json/people_previous_work.json';
 import people_current_work from '../data/crypto_slate/json/people_current_work.json';
@@ -10,7 +10,7 @@ export const PersonSeed = async () => {
   console.log('Running person seed');
   const db = await mongoDBLoader();
   const collection = db.collection('persons');
-  const count = await countCollection(collection);
+  const count = await $countCollection({ collection });
   if (!count) {
     const peoples = [];
     peoples.push(

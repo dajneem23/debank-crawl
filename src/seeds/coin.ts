@@ -1,18 +1,17 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
-import { countCollection } from '@/utils/common';
 import crypto_project from '../data/crypto_slate/json/crypto_project.json';
 import token_sector from '../data/crypto_slate/json/token_sector.json';
 import token_wallet from '../data/crypto_slate/json/token_wallet.json';
 import token_team from '../data/crypto_slate/json/token_team.json';
 import token_exchange from '../data/crypto_slate/json/token_exchange.json';
-import { $toObjectId } from '@/utils/mongoDB';
+import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 
 export const CoinSeed = async () => {
   /* eslint-disable no-console */
 
   const db = await mongoDBLoader();
   const collection = db.collection('coins');
-  const count = await countCollection(collection);
+  const count = await $countCollection({ collection });
   const sectors = await db.collection('sectors').find({}).toArray();
   if (!count) {
     const coins = [];

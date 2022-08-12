@@ -1,5 +1,4 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
-import { countCollection } from '@/utils/common';
 import crypto_company from '../data/crypto_slate/json/crypto_company.json';
 import company_feature from '../data/crypto_slate/json/company_feature.json';
 import company_gallery from '../data/crypto_slate/json/company_gallery.json';
@@ -9,13 +8,13 @@ import company_portfolio from '../data/crypto_slate/json/company_portfolio.json'
 import company_sector from '../data/crypto_slate/json/company_sector.json';
 import company_product from '../data/crypto_slate/json/company_product.json';
 import company_support from '../data/crypto_slate/json/company_support.json';
-import { $toObjectId } from '@/utils/mongoDB';
+import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 export const CompanySeed = async () => {
   /* eslint-disable no-console */
 
   const db = await mongoDBLoader();
   const collection = db.collection('companies');
-  const count = await countCollection(collection);
+  const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
   const sectors = await db.collection('sectors').find({}).toArray();
   const products = await db.collection('products').find({}).toArray();

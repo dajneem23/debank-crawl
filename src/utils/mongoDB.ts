@@ -1,6 +1,6 @@
-import { Filter, ObjectId, ReadPreference, TransactionOptions, WithTransactionCallback } from 'mongodb';
+import { Filter, ObjectId, ReadPreference, TransactionOptions, WithTransactionCallback, Collection } from 'mongodb';
 import { Container } from 'typedi';
-import { DIMongoClient } from '@/loaders/mongoDBLoader';
+import mongoDBLoader, { DIMongoClient } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
 import { isNull, omitBy } from 'lodash';
 import { defaultFilter } from '@/types/Common';
@@ -123,6 +123,7 @@ export const $query = function ({
  * @param {Array} pipeline - pipeline query
  * @param {Array} lookups - lookups query
  * @param {Array} condition - condition query
+ * @param {Array} more -
  * @returns
  */
 export const $pagination = ({
@@ -130,11 +131,13 @@ export const $pagination = ({
   pipeline,
   lookups,
   condition,
+  more,
 }: {
   $match: any;
   pipeline: any[];
   lookups: any[];
   condition: any[];
+  more: any[];
 }) => {
   // Convert _id to ObjectId
   Object.keys($match).forEach(
@@ -146,7 +149,7 @@ export const $pagination = ({
     },
     ...(!!lookups && [...lookups]),
     ...(!!condition && [...condition]),
-
+    ...(!!more && [...more]),
     {
       $facet: {
         total_count: [
@@ -172,7 +175,7 @@ export const $toObjectId = (ids: any[]) => ids.map((id) => new ObjectId(id));
  *
  * @param {string} _id - ObjectId: id of the document
  * @param {Boolean} nullable - Boolean : true if nullable
- * @returns {Object} - {_id: ObjectId ,..filter}
+ * @returns {Object} - {_id: ObjectId ,..filter,...defaultFilter}
  */
 export const $toMongoFilter = ({ _id, nullable = false, ...filter }: any): Filter<any> => {
   if (_id && !ObjectId.isValid(_id)) {
@@ -182,4 +185,33 @@ export const $toMongoFilter = ({ _id, nullable = false, ...filter }: any): Filte
   return nullable
     ? { ..._idFilter, ...filter, ...defaultFilter }
     : omitBy({ ..._idFilter, ...filter, ...defaultFilter }, isNull);
+};
+export const $checkDocumentExist = async ({ collection, filter }: { collection: string; filter?: Filter<any> }) => {
+  const db = await mongoDBLoader();
+  const collectionExist = db.collection(collection);
+  const count = await collectionExist.countDocuments(filter);
+  return !!count;
+};
+export const $countCollection = async ({ collection, filter }: { collection?: Collection; filter?: Filter<any> }) => {
+  return await (
+    await collection.find(filter).toArray()
+  ).length;
+};
+
+export const $checkListIdExist = async ({
+  collection,
+  listId,
+  filter,
+}: {
+  collection: string;
+  listId: string[] | ObjectId[];
+  filter?: Filter<any>;
+}) => {
+  const db = await mongoDBLoader();
+  const collectionExist = db.collection(collection);
+  const count = await collectionExist.countDocuments({
+    _id: { $in: $toObjectId(listId) },
+    ...filter,
+  });
+  return !!count;
 };

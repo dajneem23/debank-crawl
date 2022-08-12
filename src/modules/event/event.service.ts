@@ -9,7 +9,7 @@ import { $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $checkListIdExist } from '@/utils/mongoDB';
 
 @Service()
 export class EventService {
@@ -98,6 +98,16 @@ export class EventService {
     try {
       const now = new Date();
       const { categories, speakers } = newEvent;
+      const categoriesIdExist =
+        !!categories && categories.length > 0
+          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          : true;
+      const speakerIdExist =
+        !!speakers && speakers.length > 0 ? await $checkListIdExist({ collection: 'persons', listId: speakers }) : true;
+
+      if (!(categoriesIdExist && speakerIdExist)) {
+        throwErr(new EventError('INPUT_INVALID'));
+      }
       const event: Event = {
         ...newEvent,
         ...(categories && { categories: $toObjectId(categories) }),
@@ -138,6 +148,16 @@ export class EventService {
   async update({ _id, updateEvent, subject }: EventInput): Promise<EventOutput> {
     try {
       const { categories, speakers } = updateEvent;
+      const categoriesIdExist =
+        !!categories && categories.length > 0
+          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          : true;
+      const speakerIdExist =
+        !!speakers && speakers.length > 0 ? await $checkListIdExist({ collection: 'persons', listId: speakers }) : true;
+
+      if (!(categoriesIdExist && speakerIdExist)) {
+        throwErr(new EventError('INPUT_INVALID'));
+      }
       const { value: event } = await this.eventModel.collection.findOneAndUpdate(
         $toMongoFilter({ _id }),
         {

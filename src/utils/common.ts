@@ -124,7 +124,3 @@ export const getDateTime = ({
 }) => {
   return new Date(date + hour * 3600000 + minute * 60000 + second * 1000);
 };
-
-export const countCollection = async (collection: any) => {
-  return await collection.countDocuments();
-};

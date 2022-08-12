@@ -1,6 +1,3 @@
-import { omitBy, isNull } from 'lodash';
-import { Filter, ObjectId } from 'mongodb';
-
 export interface BaseQuery {
   page?: number;
   per_page?: number;
@@ -103,7 +100,6 @@ export type BaseInformationModel = {
   website?: string;
 
   blog?: string;
-
   reddit?: string;
 
   created_by?: string;

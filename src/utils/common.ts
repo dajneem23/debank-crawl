@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { BaseQuery } from '@/types/Common';
-
+import { isNull, omitBy, pick } from 'lodash';
+import { any } from 'bluebird';
 /**
  * Get runtime config from "process" Nodejs
  */
@@ -63,4 +64,63 @@ export const removeLeadingZeroFromString = (name: string) => {
  */
 export const convertBytesToMB = (bytes: number) => {
   return bytes / 1024 / 1024;
+};
+export type KeysOfType<O, T> = {
+  [K in keyof O]: O[K] extends T ? K : never;
+}[keyof O];
+
+export const PhoneNumberPattern = /^\+?[0-9]{1,3}?[0-9]{8,12}$/;
+
+export const ObjectIdPattern = /^[0-9a-fA-F]{24}$/;
+
+export const toOutPut = ({
+  item,
+  keys = ['id', ...Object.keys(item)],
+  nullable = false,
+}: {
+  item: object | any;
+  keys?: string[];
+  nullable?: boolean;
+}): {
+  [key: string]: any;
+} => {
+  const { _id: id, ...rest } = item;
+  return pick(nullable ? { id, ...rest } : omitBy({ id, ...rest }, isNull), keys);
+};
+export const toPagingOutput = ({
+  items,
+  count,
+  keys,
+  nullable = false,
+}: {
+  items: object | any;
+  count: number;
+  keys: string[];
+  nullable?: boolean;
+}): {
+  total_count: number;
+  items: {
+    [key: string]: any;
+  };
+} => {
+  return {
+    total_count: count,
+    items: items.flatMap((item: any) => toOutPut({ item, keys, nullable })),
+  };
+};
+export const pickKeys = <T, K extends keyof T>(obj: T, keys: K[]) => {
+  return pick(obj, keys) as Pick<T, K>;
+};
+export const getDateTime = ({
+  date = Date.now(),
+  hour = 0,
+  minute = 0,
+  second = 0,
+}: {
+  date?: number;
+  hour?: number;
+  minute?: number;
+  second?: number;
+}) => {
+  return new Date(date + hour * 3600000 + minute * 60000 + second * 1000);
 };

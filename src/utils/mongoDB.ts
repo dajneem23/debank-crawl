@@ -1,7 +1,9 @@
-import { ReadPreference, TransactionOptions, WithTransactionCallback } from 'mongodb';
+import { Filter, ObjectId, ReadPreference, TransactionOptions, WithTransactionCallback, Collection } from 'mongodb';
 import { Container } from 'typedi';
-import { DIMongoClient } from '@/loaders/mongoDBLoader';
+import mongoDBLoader, { DIMongoClient } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
+import { isNull, omitBy } from 'lodash';
+import { defaultFilter } from '@/types/Common';
 
 const transactionOptions: TransactionOptions = {
   readPreference: ReadPreference.primary,
@@ -35,4 +37,181 @@ export const withMongoTransaction = async (fn: WithTransactionCallback) => {
     await session.endSession();
     logger.debug('[session:end]');
   }
+};
+/**
+ *
+ * @param from -
+ * @param refFrom -
+ * @param refTo
+ * @param select
+ * @param reName
+ * @param condition
+ * @param operation
+ * @returns
+ */
+export const $lookup = ({
+  from,
+  refFrom,
+  refTo,
+  select,
+  reName,
+  condition,
+  operation = '$eq',
+}: {
+  from: string;
+  refFrom: string;
+  refTo: string;
+  select: string;
+  reName: string;
+  operation?: string;
+  condition?: object;
+}) => ({
+  $lookup: {
+    from,
+    let: {
+      [refTo]: `$${refTo}`,
+    },
+    pipeline: [
+      {
+        $match: {
+          $expr: {
+            [operation]: [`$${refFrom}`, `$$${refTo}`],
+          },
+          ...(!!condition && {
+            ...condition,
+          }),
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          id: '$_id',
+          ...select.split(/[,\s]/).reduce((previous: any, current: any) => {
+            previous[current] = 1;
+            return previous;
+          }, {}),
+        },
+      },
+    ],
+    as: reName,
+  },
+});
+
+export const $query = function ({
+  $match,
+  pipeline,
+}: {
+  $match: {
+    [key: string]: any;
+  };
+  pipeline: any[];
+}) {
+  // eslint-disable-next-line array-callback-return
+  Object.keys($match).forEach((key) => {
+    $match[key] = /_id/.test(key) && $match[key] && $match[key].length === 24 ? new ObjectId($match[key]) : $match[key];
+  });
+  return [
+    {
+      $match,
+    },
+    ...pipeline,
+  ];
+};
+/**
+ *
+ * @param {string} $match - $match query
+ * @param {Array} pipeline - pipeline query
+ * @param {Array} lookups - lookups query
+ * @param {Array} condition - condition query
+ * @param {Array} more -
+ * @returns
+ */
+export const $pagination = ({
+  $match,
+  pipeline,
+  lookups,
+  condition,
+  more,
+}: {
+  $match: any;
+  pipeline: any[];
+  lookups: any[];
+  condition: any[];
+  more: any[];
+}) => {
+  // Convert _id to ObjectId
+  Object.keys($match).forEach(
+    (key) => ($match[key] = /_id/.test(key) && !$match[key].$in ? new ObjectId($match[key]) : $match[key]),
+  );
+  return [
+    {
+      $match,
+    },
+    ...(!!lookups && [...lookups]),
+    ...(!!condition && [...condition]),
+    ...(!!more && [...more]),
+    {
+      $facet: {
+        total_count: [
+          {
+            $count: 'total_count',
+          },
+        ],
+        items: pipeline,
+      },
+    },
+    { $project: { result: { $concatArrays: ['$total_count', '$items'] } } },
+    { $unwind: '$result' },
+    { $replaceRoot: { newRoot: '$result' } },
+  ];
+};
+/**
+ * Convert array of string to array of ObjectId
+ * @param {string[]} ids - Array of string ids
+ * @returns Array of ObjectIds
+ */
+export const $toObjectId = (ids: any[]) => ids.map((id) => new ObjectId(id));
+/**
+ *
+ * @param {string} _id - ObjectId: id of the document
+ * @param {Boolean} nullable - Boolean : true if nullable
+ * @returns {Object} - {_id: ObjectId ,..filter,...defaultFilter}
+ */
+export const $toMongoFilter = ({ _id, nullable = false, ...filter }: any): Filter<any> => {
+  if (_id && !ObjectId.isValid(_id)) {
+    throw new Error('Invalid ObjectId');
+  }
+  const _idFilter = _id ? { _id: new ObjectId(_id) } : {};
+  return nullable
+    ? { ..._idFilter, ...filter, ...defaultFilter }
+    : omitBy({ ..._idFilter, ...filter, ...defaultFilter }, isNull);
+};
+export const $checkDocumentExist = async ({ collection, filter }: { collection: string; filter?: Filter<any> }) => {
+  const db = await mongoDBLoader();
+  const collectionExist = db.collection(collection);
+  const count = await collectionExist.countDocuments(filter);
+  return !!count;
+};
+export const $countCollection = async ({ collection, filter }: { collection?: Collection; filter?: Filter<any> }) => {
+  return await (
+    await collection.find(filter).toArray()
+  ).length;
+};
+
+export const $checkListIdExist = async ({
+  collection,
+  listId,
+  filter,
+}: {
+  collection: string;
+  listId: string[] | ObjectId[];
+  filter?: Filter<any>;
+}) => {
+  const db = await mongoDBLoader();
+  const collectionExist = db.collection(collection);
+  const count = await collectionExist.countDocuments({
+    _id: { $in: $toObjectId(listId) },
+    ...filter,
+  });
+  return !!count;
 };

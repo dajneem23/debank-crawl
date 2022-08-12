@@ -10,6 +10,8 @@ import 'reflect-metadata';
     (await import('./loaders/loggerLoader')).default();
     // Database (mongodb)
     await (await import('./loaders/mongoDBLoader')).default();
+    // seed data
+    // await (await import('./seeds/index')).default();
     // Caching (Redis)
     await (await import('./loaders/redisClientLoader')).default();
     // Express application
@@ -26,7 +28,7 @@ import 'reflect-metadata';
   - Version: ${app.get('version')}
   - Environment: ${app.get('env')}
   - Host: ${app.get('host')}:${app.get('port')}
-  - Database (Postgres): ${app.get('db_name')}
+  - Database (Mongodb): wikiblock
 #################################################################
       `);
     });

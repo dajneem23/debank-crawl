@@ -8,7 +8,7 @@ import Logger from '@/core/logger';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { throwErr } from '@/utils/common';
 import { AuthError } from '@/modules/auth/auth.error';
-import UserService from '@/modules/user/user.service';
+import { UserService } from '@/modules/user/user.service';
 import { toUserOutput } from '@/modules/user/user.util';
 import { AuthSession, BearerTokens, JWTPayload, RegisterInput } from '@/modules/auth/authSession.type';
 import { User, UserOutput, UserRole } from '@/modules/user/user.type';
@@ -20,7 +20,6 @@ import VerificationTokenService from '@/modules/verificationToken/verificationTo
 import { Filter } from 'mongodb';
 import { DIRedisClient } from '@/loaders/redisClientLoader';
 import { RedisClientType } from 'redis';
-import { REDIS_TEMPORARY_BLOCKLIST_KEY } from '@/modules/auth/auth.constant';
 
 @Service()
 export default class AuthService {
@@ -118,9 +117,9 @@ export default class AuthService {
         throwErr(new AuthError('INCORRECT_LOGIN_ID_OR_PASSWORD'));
       }
       // Check whitelist roles
-      if (!intersection(user.roles, whiteListRoles).length) {
-        throwErr(new AuthError('PERMISSION_DENIED'));
-      }
+      // if (!intersection(user.roles, whiteListRoles).length) {
+      //   throwErr(new AuthError('PERMISSION_DENIED'));
+      // }
       // Check account suspended
       if (user.status === 'suspended') {
         throwErr(new AuthError('ACCOUNT_SUSPENDED'));

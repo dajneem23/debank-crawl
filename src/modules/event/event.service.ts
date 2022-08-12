@@ -82,7 +82,7 @@ export class EventService {
       }),
       user: $lookup({
         from: 'users',
-        refFrom: '_id',
+        refFrom: 'id',
         refTo: 'created_by',
         select: 'full_name avatar',
         reName: 'author',
@@ -230,9 +230,9 @@ export class EventService {
           {
             $limit: 1,
           },
-          // {
-          //   $unwind: '$author',
-          // },
+          {
+            $unwind: '$author',
+          },
         ])
         .toArray();
       if (isNil(event)) throwErr(new EventError('EVENT_NOT_FOUND'));

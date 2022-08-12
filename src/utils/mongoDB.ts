@@ -56,7 +56,7 @@ export const $lookup = ({
   select,
   reName,
   condition,
-  operation = ' $eq',
+  operation = '$eq',
 }: {
   from: string;
   refFrom: string;

@@ -28,11 +28,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Event.Put",
-    "url": "http://localhost:8084/api/v1/events/62f33e4e067104d1abeefeca",
+    "url": "http://localhost:8084/api/v1/events/62f4e36fbdc840710bbf720c",
     "method": "PUT",
     "sortNum": 20000,
     "created": "2022-08-09T11:01:50.110Z",
-    "modified": "2022-08-11T04:26:12.228Z",
+    "modified": "2022-08-11T11:28:11.890Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -42,7 +42,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"update1\"\n}",
+      "raw": "{\n    \"name\":\"update1\",\n      \"categories\": [\n            \"62f47ce953f3412bdb339052\"\n    ]\n}",
       "form": []
     },
     "tests": []

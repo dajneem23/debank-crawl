@@ -907,7 +907,7 @@
     "method": "PUT",
     "sortNum": 0,
     "created": "2022-08-10T09:58:36.787Z",
-    "modified": "2022-08-11T08:25:27.147Z",
+    "modified": "2022-08-11T11:28:01.214Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -917,7 +917,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"update1\"\n}",
+      "raw": "{\n    \"name\":\"update1\",\n      \"categories\": [\n            \"62f47ce953f3412bdb339052\"\n    ],\n}",
       "form": []
     },
     "tests": []
@@ -1359,6 +1359,30 @@
     "modified": "2022-08-11T11:13:22.992Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "620c407e-ac46-4d02-a70d-cd059f4fcd63",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/62f4e36fbdc840710bbf720c",
+    "url": "http://localhost:8084/api/v1/events/62f4e36fbdc840710bbf720c",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2022-08-11T11:28:11.841Z",
+    "modified": "2022-08-11T11:28:11.891Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\":\"update1\",\n      \"categories\": [\n            \"62f47ce953f3412bdb339052\"\n    ]\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

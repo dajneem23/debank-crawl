@@ -5,6 +5,8 @@ import token_sector from '../data/crypto_slate/json/token_sector.json';
 import token_wallet from '../data/crypto_slate/json/token_wallet.json';
 import token_team from '../data/crypto_slate/json/token_team.json';
 import token_exchange from '../data/crypto_slate/json/token_exchange.json';
+import { $toObjectId } from '@/utils/mongoDB';
+
 export const CoinSeed = async () => {
   /* eslint-disable no-console */
 
@@ -67,13 +69,15 @@ export const CoinSeed = async () => {
           explorer,
           white_paper,
           website,
-          sectors: token_sector
-            .filter((company) => company.token_name == name)
-            .map((sector) => {
-              return sectors.find((_sector) => {
-                return _sector.title == sector.sector;
-              })?._id;
-            }),
+          sectors: $toObjectId(
+            token_sector
+              .filter((company) => company.token_name == name)
+              .map((sector) => {
+                return sectors.find((_sector) => {
+                  return _sector.title == sector.sector;
+                })?._id;
+              }),
+          ),
           wallets: token_wallet
             .filter((wallet) => wallet.token_name == name)
             .map((coin) => {

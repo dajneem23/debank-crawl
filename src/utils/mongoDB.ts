@@ -38,7 +38,17 @@ export const withMongoTransaction = async (fn: WithTransactionCallback) => {
     logger.debug('[session:end]');
   }
 };
-
+/**
+ *
+ * @param from -
+ * @param refFrom -
+ * @param refTo
+ * @param select
+ * @param reName
+ * @param condition
+ * @param operation
+ * @returns
+ */
 export const $lookup = ({
   from,
   refFrom,
@@ -97,7 +107,7 @@ export const $query = function ({
   pipeline: any[];
 }) {
   // eslint-disable-next-line array-callback-return
-  Object.keys($match).map((key) => {
+  Object.keys($match).forEach((key) => {
     $match[key] = /_id/.test(key) && $match[key] && $match[key].length === 24 ? new ObjectId($match[key]) : $match[key];
   });
   return [
@@ -107,7 +117,14 @@ export const $query = function ({
     ...pipeline,
   ];
 };
-
+/**
+ *
+ * @param {string} $match - $match query
+ * @param {Array} pipeline - pipeline query
+ * @param {Array} lookups - lookups query
+ * @param {Array} condition - condition query
+ * @returns
+ */
 export const $pagination = ({
   $match,
   pipeline,
@@ -120,7 +137,7 @@ export const $pagination = ({
   condition: any[];
 }) => {
   // Convert _id to ObjectId
-  Object.keys($match).map(
+  Object.keys($match).forEach(
     (key) => ($match[key] = /_id/.test(key) && !$match[key].$in ? new ObjectId($match[key]) : $match[key]),
   );
   return [
@@ -145,9 +162,18 @@ export const $pagination = ({
     { $replaceRoot: { newRoot: '$result' } },
   ];
 };
-
+/**
+ * Convert array of string to array of ObjectId
+ * @param {string[]} ids - Array of string ids
+ * @returns Array of ObjectIds
+ */
 export const $toObjectId = (ids: any[]) => ids.map((id) => new ObjectId(id));
-
+/**
+ *
+ * @param {string} _id - ObjectId: id of the document
+ * @param {Boolean} nullable - Boolean : true if nullable
+ * @returns {Object} - {_id: ObjectId ,..filter}
+ */
 export const $toMongoFilter = ({ _id, nullable = false, ...filter }: any): Filter<any> => {
   if (_id && !ObjectId.isValid(_id)) {
     throw new Error('Invalid ObjectId');

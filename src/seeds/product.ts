@@ -6,6 +6,8 @@ import product_gallery from '../data/crypto_slate/json/product_gallery.json';
 import product_ccy from '../data/crypto_slate/json/product_ccy.json';
 import product_team from '../data/crypto_slate/json/product_team.json';
 import product_categories from '../data/crypto_slate/json/product_category.json';
+import { $toObjectId } from '@/utils/mongoDB';
+
 export const ProductSeed = async () => {
   /* eslint-disable no-console */
   console.log('Running product seed');
@@ -88,13 +90,15 @@ export const ProductSeed = async () => {
             .map((team) => {
               return team.team;
             }),
-          categories: product_categories
-            .filter((product) => product.product_name == name)
-            .map((category) => {
-              return categories.find((_category) => {
-                return _category.title == category.category;
-              })?._id;
-            }),
+          categories: $toObjectId(
+            product_categories
+              .filter((product) => product.product_name == name)
+              .map((category) => {
+                return categories.find((_category) => {
+                  return _category.title == category.category;
+                })?._id;
+              }),
+          ),
           created_at: new Date(),
           updated_at: new Date(),
         };

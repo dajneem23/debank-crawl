@@ -9,7 +9,7 @@ import company_portfolio from '../data/crypto_slate/json/company_portfolio.json'
 import company_sector from '../data/crypto_slate/json/company_sector.json';
 import company_product from '../data/crypto_slate/json/company_product.json';
 import company_support from '../data/crypto_slate/json/company_support.json';
-
+import { $toObjectId } from '@/utils/mongoDB';
 export const CompanySeed = async () => {
   /* eslint-disable no-console */
 
@@ -80,25 +80,29 @@ export const CompanySeed = async () => {
           .map((company) => {
             return company.portfolio;
           }),
-        sectors: company_sector
-          .filter((company) => company.company_name == name)
-          .map((sector) => {
-            return sectors.find((_sector) => {
-              return _sector.title == sector.sector;
-            })?._id;
-          }),
+        sectors: $toObjectId(
+          company_sector
+            .filter((company) => company.company_name == name)
+            .map((sector) => {
+              return sectors.find((_sector) => {
+                return _sector.title == sector.sector;
+              })?._id;
+            }),
+        ),
         supports: company_support
           .filter((support) => support.company_name == name)
           .map((support) => {
             return support.support;
           }),
-        products: company_product
-          .filter((company) => company.company_name == name)
-          .map((product) => {
-            return products.find((_product) => {
-              return _product.name == product.product;
-            })?._id;
-          }),
+        products: $toObjectId(
+          company_product
+            .filter((company) => company.company_name == name)
+            .map((product) => {
+              return products.find((_product) => {
+                return _product.name == product.product;
+              })?._id;
+            }),
+        ),
         created_at: new Date(),
         updated_at: new Date(),
       };

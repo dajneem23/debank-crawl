@@ -98,6 +98,7 @@ export const ProductSeed = async () => {
                 })?._id;
               }),
           ),
+          deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
         };

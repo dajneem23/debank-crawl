@@ -30,6 +30,7 @@ export const PersonSeed = async () => {
           about: person.about,
           medium: person.medium,
           reddit: person.reddit,
+          deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
           works: [

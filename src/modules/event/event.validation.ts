@@ -5,11 +5,11 @@ export const query = validate({
   [Segments.QUERY]: Joi.object({
     page: Joi.number().default(1).min(1).required(),
 
-    perPage: Joi.number().default(10).min(1).required(),
+    per_page: Joi.number().default(10).min(1).required(),
 
-    sortBy: Joi.string(),
+    sort_by: Joi.string(),
 
-    sortOrder: Joi.string()
+    sort_order: Joi.string()
       .default(ORDER.ASC)
       .valid(...Object.values(ORDER)),
 

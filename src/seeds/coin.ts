@@ -101,6 +101,7 @@ export const CoinSeed = async () => {
             .map((team) => {
               return team.team;
             }),
+          deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
         };

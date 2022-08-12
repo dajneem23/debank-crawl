@@ -20,6 +20,7 @@ export const CategorySeed = async () => {
           title: item.sector,
           weight: Math.floor(Math.random() * 100),
           type: CATEGORY_TYPE.COMPANY_SECTOR,
+          deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
         };
@@ -30,6 +31,7 @@ export const CategorySeed = async () => {
           weight: Math.floor(Math.random() * 100),
           type: CATEGORY_TYPE.TOKEN_SECTOR,
           created_at: new Date(),
+          deleted: false,
           updated_at: new Date(),
         };
       }),
@@ -49,6 +51,7 @@ export const CategorySeed = async () => {
           title: item.category,
           type: CATEGORY_TYPE.PRODUCT,
           weight: Math.floor(Math.random() * 100),
+          deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
         };
@@ -59,6 +62,7 @@ export const CategorySeed = async () => {
           weight: Math.floor(Math.random() * 100),
           type: CATEGORY_TYPE.EVENT,
           created_at: new Date(),
+          deleted: false,
           updated_at: new Date(),
         };
       }),
@@ -67,6 +71,7 @@ export const CategorySeed = async () => {
           title: item.title,
           weight: Math.floor(Math.random() * 100),
           type: CATEGORY_TYPE.CRYPTO_ASSET,
+          deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
         };

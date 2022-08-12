@@ -56,20 +56,19 @@ export enum CATEGORY_TYPE {
 export type BaseModel = {
   _id?: string;
 
+  updated_by?: string;
+
+  updated_at?: Date;
+
   created_by?: string;
 
-  updated_by?: string;
+  created_at?: Date;
 
   deleted_by?: string;
 
   deleted_at?: Date;
 
   deleted?: boolean;
-
-  // Record created at
-  created_at?: Date;
-  // Record updated at
-  updated_at?: Date;
 };
 
 export type BaseInformationModel = {
@@ -183,4 +182,18 @@ export type Agenda = {
 
 export const defaultFilter = {
   deleted: false,
+};
+export type BaseServiceInput = {
+  _id?: string;
+  _content: object | any;
+  _subject?: string;
+  _query?: BaseQuery;
+  _filter?: any;
+};
+
+export type BaseServiceOutput = {
+  code?: number;
+  result?: Event | any;
+  total_count?: number;
+  data?: Array<any>;
 };

@@ -8,7 +8,7 @@ import Logger from '@/core/logger';
 export const COLLECTION_NAME = 'categories';
 
 @Service()
-export default class CategoryModel {
+export class CategoryModel {
   private readonly _collection;
 
   constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {

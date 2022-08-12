@@ -14,6 +14,7 @@ export const CountrySeed = async () => {
         return {
           name: item.name.common,
           code: item.cca2,
+          deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
         };

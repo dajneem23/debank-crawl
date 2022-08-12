@@ -127,17 +127,19 @@ export const $query = function ({
  * @returns
  */
 export const $pagination = ({
-  $match,
-  pipeline,
+  items,
   lookups,
   condition,
   more,
+  $match = {},
+  $sort,
 }: {
-  $match: any;
-  pipeline: any[];
-  lookups: any[];
-  condition: any[];
-  more: any[];
+  $match?: any;
+  $sort?: any;
+  items?: any[];
+  lookups?: any[];
+  condition?: any;
+  more?: any[];
 }) => {
   // Convert _id to ObjectId
   Object.keys($match).forEach(
@@ -147,9 +149,7 @@ export const $pagination = ({
     {
       $match,
     },
-    ...(!!lookups && [...lookups]),
-    ...(!!condition && [...condition]),
-    ...(!!more && [...more]),
+    // ...(!!lookups && [...lookups]),
     {
       $facet: {
         total_count: [
@@ -157,13 +157,28 @@ export const $pagination = ({
             $count: 'total_count',
           },
         ],
-        items: pipeline,
+        ...((items && {
+          items,
+        }) || {
+          items: [],
+        }),
       },
     },
+    ...(($sort && [
+      {
+        $sort,
+      },
+    ]) || [
+      {
+        $sort: {
+          created_at: 1,
+        },
+      },
+    ]),
     { $project: { result: { $concatArrays: ['$total_count', '$items'] } } },
     { $unwind: '$result' },
     { $replaceRoot: { newRoot: '$result' } },
-  ];
+  ].filter(Boolean);
 };
 /**
  * Convert array of string to array of ObjectId

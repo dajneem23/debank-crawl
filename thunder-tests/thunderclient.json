@@ -328,5 +328,108 @@
       }
     ],
     "tests": []
+  },
+  {
+    "_id": "db7309ae-1ef5-4bab-8953-98b176773f76",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "name": "create",
+    "url": "{{host}}/companies/62f9c5a3d425e71c21e069aa",
+    "method": "PUT",
+    "sortNum": 150000,
+    "created": "2022-08-15T02:16:39.681Z",
+    "modified": "2022-08-15T04:58:15.861Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\":\"compan1\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef116\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
+    },
+    "tests": []
+  },
+  {
+    "_id": "1e0bbd77-8694-4821-8e29-4c19783c512e",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "name": "get By ID",
+    "url": "{{host}}/companies/62f9cf5ad425e71c21e08b1c",
+    "method": "GET",
+    "sortNum": 160000,
+    "created": "2022-08-15T04:04:09.825Z",
+    "modified": "2022-08-15T04:45:29.767Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "d4bd17cd-5598-42fa-a834-bfaef4e93ec5",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "name": "query",
+    "url": "{{host}}/companies/?page=1&per_page=2",
+    "method": "GET",
+    "sortNum": 170000,
+    "created": "2022-08-15T04:46:38.237Z",
+    "modified": "2022-08-15T04:48:23.740Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "94989b85-1bca-47b1-9b22-725e49fce87e",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "name": "delete",
+    "url": "{{host}}/companies/62f9cf5ad425e71c21e08b1c",
+    "method": "DELETE",
+    "sortNum": 180000,
+    "created": "2022-08-15T04:51:08.658Z",
+    "modified": "2022-08-15T04:54:05.399Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
+    },
+    "tests": []
+  },
+  {
+    "_id": "344324df-a0d0-4954-8b38-b738ba2a8940",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "name": "update",
+    "url": "{{host}}/companies/62f9c5a3d425e71c21e069aa",
+    "method": "PUT",
+    "sortNum": 190000,
+    "created": "2022-08-15T04:57:02.453Z",
+    "modified": "2022-08-15T04:59:40.095Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\":\"company11\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef119\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
+    },
+    "tests": []
   }
 ]

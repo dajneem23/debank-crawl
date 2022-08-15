@@ -72,13 +72,19 @@ export type KeysOfType<O, T> = {
 export const PhoneNumberPattern = /^\+?[0-9]{1,3}?[0-9]{8,12}$/;
 
 export const ObjectIdPattern = /^[0-9a-fA-F]{24}$/;
-
+/**
+ *
+ * @param item
+ * @param  {Array} [keys = ['id', ...Object.keys(item)]]
+ * @param {boolean} [nullable = false]
+ * @returns {any}
+ */
 export const toOutPut = ({
   item,
   keys = ['id', ...Object.keys(item)],
   nullable = false,
 }: {
-  item: object | any;
+  item: any;
   keys?: string[];
   nullable?: boolean;
 }): {
@@ -87,14 +93,22 @@ export const toOutPut = ({
   const { _id: id, ...rest } = item;
   return pick(nullable ? { id, ...rest } : omitBy({ id, ...rest }, isNull), keys);
 };
+/**
+ *
+ * @param {Array} items
+ * @param {count} count
+ * @param {Array} [keys = ['id', ...Object.keys(item)]]
+ * @param {boolean} [nullable = false]
+ * @returns {Object} {items: Array, total_count: number}
+ */
 export const toPagingOutput = ({
   items,
-  count,
+  total_count,
   keys,
   nullable = false,
 }: {
-  items: object | any;
-  count: number;
+  items: any;
+  total_count: number;
   keys: string[];
   nullable?: boolean;
 }): {
@@ -104,7 +118,7 @@ export const toPagingOutput = ({
   };
 } => {
   return {
-    total_count: count,
+    total_count: total_count,
     items: items.flatMap((item: any) => toOutPut({ item, keys, nullable })),
   };
 };

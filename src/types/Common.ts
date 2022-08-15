@@ -185,10 +185,20 @@ export const defaultFilter = {
 };
 export type BaseServiceInput = {
   _id?: string;
-  _content: object | any;
+  _content: {
+    [key: string]: any;
+  };
   _subject?: string;
-  _query?: BaseQuery;
-  _filter?: any;
+  _query?: {
+    page?: number;
+    per_page?: number;
+    sort_by?: string;
+    sort_order?: 'desc' | 'asc';
+  };
+  _filter?: {
+    q: string;
+    [key: string]: any;
+  };
 };
 
 export type BaseServiceOutput = {

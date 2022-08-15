@@ -182,10 +182,11 @@ export const $pagination = ({
 };
 /**
  * Convert array of string to array of ObjectId
- * @param {string[]} ids - Array of string ids
- * @returns Array of ObjectIds
+ * @param {string[]  or string } ids - Array of string ids or id
+ * @returns Array of ObjectIds or ObjectId
  */
-export const $toObjectId = (ids: any[]) => ids.map((id) => new ObjectId(id));
+export const $toObjectId = (ids: any): any =>
+  Array.isArray(ids) ? ids.map((id) => new ObjectId(id)) : new ObjectId(ids);
 /**
  *
  * @param {string} _id - ObjectId: id of the document
@@ -228,5 +229,5 @@ export const $checkListIdExist = async ({
     _id: { $in: $toObjectId(listId) },
     ...filter,
   });
-  return !!count;
+  return count === listId.length;
 };

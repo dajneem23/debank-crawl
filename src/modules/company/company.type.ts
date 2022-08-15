@@ -3,11 +3,12 @@ import { BaseInformationModel, Feature, Gallery, Service } from '@/types/Common'
 export interface Company extends BaseInformationModel {
   name: string;
 
-  directors?: string;
+  director?: string;
+
   //map location
   headquarter?: object;
 
-  //array id of persons
+  //array id of teams
   teams?: Array<string>;
 
   country?: string;
@@ -25,14 +26,11 @@ export interface Company extends BaseInformationModel {
   //array id of product
   products?: Array<string>;
 
-  //array id of sector
-  sector?: Array<string>;
-
   //array id of categories
   categories?: Array<string>;
 
   galleries?: Array<Gallery>;
-
+  //array id of coins
   crypto_currencies?: Array<string>;
 
   portfolios?: Array<string>;

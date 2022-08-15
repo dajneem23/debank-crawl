@@ -284,7 +284,7 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toPagingOutput({ items, count: total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -322,7 +322,7 @@ export class EventService {
         .toArray()) as any[];
       const items = [...trending, ...virtual];
       this.logger.debug('[get:success]', { total_count, items });
-      return toPagingOutput({ items, count: total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -358,7 +358,7 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toPagingOutput({ items, count: total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;

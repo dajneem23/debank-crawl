@@ -7,7 +7,6 @@ import { Filter } from 'mongodb';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter } from '@/utils/mongoDB';
-import { isNil, omit, rest } from 'lodash';
 import { CategoryModel, CategoryError, CategoryOutput, Category } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 
@@ -16,7 +15,7 @@ export class CategoryService {
   private logger = new Logger('CategoryService');
 
   @Inject()
-  private categoryModel: CategoryModel;
+  private model: CategoryModel;
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -32,7 +31,7 @@ export class CategoryService {
    * A bridge allows another service access to the Model layer
    */
   get collection() {
-    return this.categoryModel.collection;
+    return this.model.collection;
   }
 
   get outputKeys() {
@@ -54,17 +53,15 @@ export class CategoryService {
   async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
       const now = new Date();
-      const { title, weight, type } = _content;
+      const { title } = _content;
       const {
         ok,
         lastErrorObject: { updatedExisting },
-      } = await this.categoryModel.collection.findOneAndUpdate(
+      } = await this.model.collection.findOneAndUpdate(
         { title },
         {
           $setOnInsert: {
-            title,
-            weight,
-            type,
+            ..._content,
             deleted: false,
             ...(_subject && { created_by: _subject }),
             created_at: now,
@@ -103,7 +100,7 @@ export class CategoryService {
       const {
         ok,
         lastErrorObject: { updatedExisting },
-      } = await this.categoryModel.collection.findOneAndUpdate(
+      } = await this.model.collection.findOneAndUpdate(
         $toMongoFilter({ _id }),
         {
           $set: {
@@ -143,7 +140,7 @@ export class CategoryService {
       const {
         ok,
         lastErrorObject: { updatedExisting },
-      } = await this.categoryModel.collection.findOneAndUpdate(
+      } = await this.model.collection.findOneAndUpdate(
         $toMongoFilter({ _id }),
         {
           $set: {
@@ -182,7 +179,7 @@ export class CategoryService {
     try {
       const { type } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
-      const [{ total_count }, ...items] = await this.categoryModel.collection
+      const [{ total_count }, ...items] = await this.model.collection
         .aggregate(
           $pagination({
             $match: {
@@ -196,7 +193,7 @@ export class CategoryService {
         )
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, count: total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;

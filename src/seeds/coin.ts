@@ -73,7 +73,7 @@ export const CoinSeed = async () => {
           explorer,
           white_paper,
           website,
-          sectors: $toObjectId(
+          categories: $toObjectId(
             token_sector
               .filter((company) => company.token_name == name)
               .map((sector) => {

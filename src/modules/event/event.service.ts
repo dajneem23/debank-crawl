@@ -231,9 +231,11 @@ export class EventService {
           {
             $limit: 1,
           },
-          // {
-          //   $unwind: '$author',
-          // },
+          {
+            $set: {
+              author: { $first: '$author' },
+            },
+          },
         ])
         .toArray();
       if (isNil(event)) throwErr(new EventError('EVENT_NOT_FOUND'));

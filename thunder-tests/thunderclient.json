@@ -613,11 +613,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
     "name": "getByID",
-    "url": "{{host}}/coin/62fb29c4dd4fe349334bdb4f",
+    "url": "{{host}}/persons/62fb29c0dd4fe349334b8daa",
     "method": "GET",
     "sortNum": 210000,
     "created": "2022-08-16T03:54:19.850Z",
-    "modified": "2022-08-16T07:32:07.485Z",
+    "modified": "2022-08-16T08:23:50.824Z",
     "headers": [],
     "params": [],
     "auth": {

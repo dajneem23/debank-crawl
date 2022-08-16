@@ -274,11 +274,13 @@ export class PersonService {
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
           this.lookups.user,
-          // {
-          //   $unwind: '$author',
-          // },
           {
             $limit: 1,
+          },
+          {
+            $set: {
+              author: { $first: '$author' },
+            },
           },
         ])
         .toArray();

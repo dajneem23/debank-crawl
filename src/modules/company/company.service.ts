@@ -363,9 +363,11 @@ export class CompanyService {
           this.lookups.projects,
           this.lookups.crypto_currencies,
           this.lookups.countries,
-          // {
-          //   $unwind: '$author',
-          // },
+          {
+            $set: {
+              author: { $first: '$author' },
+            },
+          },
           {
             $limit: 1,
           },

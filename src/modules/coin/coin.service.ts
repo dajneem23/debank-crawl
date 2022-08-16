@@ -272,9 +272,11 @@ export class CoinService {
           {
             $limit: 1,
           },
-          // {
-          //   $unwind: '$author',
-          // },
+          {
+            $set: {
+              author: { $first: '$author' },
+            },
+          },
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));

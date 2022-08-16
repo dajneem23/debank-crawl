@@ -1594,9 +1594,12 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-16T05:24:07.617Z",
-    "modified": "2022-08-16T07:05:01.313Z",
+    "modified": "2022-08-16T08:23:50.827Z",
     "headers": [],
     "params": [],
+    "auth": {
+      "type": "bearer"
+    },
     "tests": []
   },
   {
@@ -1782,7 +1785,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-16T07:32:07.475Z",
-    "modified": "2022-08-16T07:32:22.188Z",
+    "modified": "2022-08-16T08:15:37.533Z",
     "headers": [],
     "params": [],
     "auth": {
@@ -2043,6 +2046,40 @@
     "modified": "2022-08-16T08:08:05.553Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "f9906dc9-1e1b-4a18-99f0-62311161fd8a",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/persons/62fb29c4dd4fe349334bdb4f",
+    "url": "{{host}}/persons/62fb29c4dd4fe349334bdb4f",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-16T08:15:47.783Z",
+    "modified": "2022-08-16T08:15:56.301Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer"
+    },
+    "tests": []
+  },
+  {
+    "_id": "78858f33-a14e-4f34-9ff8-f899cb405470",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/persons/62fb29c0dd4fe349334b8dab",
+    "url": "{{host}}/persons/62fb29c0dd4fe349334b8dab",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-16T08:23:32.868Z",
+    "modified": "2022-08-16T08:23:32.886Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer"
+    },
     "tests": []
   }
 ]

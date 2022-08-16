@@ -1,26 +1,26 @@
 import { Inject, Service } from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Company, CompanyService } from '.';
-import { CompanyValidation } from './company.validation';
+import { Product, ProductService } from '.';
+import { ProductValidation } from './product.validation';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 @Service()
-@Controller('/companies')
-export class CompanyController {
+@Controller('/products')
+export class ProductController {
   @Inject()
-  private service: CompanyService;
+  private service: ProductService;
 
-  @Post('/', [CompanyValidation.create, protectPrivateAPI()])
+  @Post('/', [ProductValidation.create, protectPrivateAPI()])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Body()
-    _body: Company,
+    _body: Product,
   ) {
     const result = await this.service.create({
       _content: _body,
@@ -29,40 +29,40 @@ export class CompanyController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [CompanyValidation.update, protectPrivateAPI()])
+  @Put('/:id', [ProductValidation.update, protectPrivateAPI()])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Params() _params: { id: string },
     @Body()
-    _body: Company,
+    body: Product,
   ) {
     const result = await this.service.update({
       _id: _params.id,
-      _content: _body,
+      _content: body,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [CompanyValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [ProductValidation.delete, protectPrivateAPI()])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Params() _params: { id: string },
     @Body()
-    _body: Company,
+    body: Product,
   ) {
     const result = await this.service.delete({
       _id: _params.id,
-      _content: _body,
+      _content: body,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/', [CompanyValidation.query])
+  @Get('/', [ProductValidation.query])
   async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
@@ -71,7 +71,7 @@ export class CompanyController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/:id', [CompanyValidation.getById])
+  @Get('/:id', [ProductValidation.getById])
   async getById(
     @Res() _res: Response,
     @Req() _req: Request,

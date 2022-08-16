@@ -9,6 +9,9 @@ export interface Product extends BaseInformationModel {
 
   crypto_currencies?: Array<string>;
 
+  //array id of categories
+  categories?: Array<string>;
+
   software_license: string;
 
   features?: Array<string>;

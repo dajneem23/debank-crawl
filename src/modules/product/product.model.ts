@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { Product } from './product.type';
 
-export const COLLECTION_NAME = 'products';
+const COLLECTION_NAME = 'products';
 
 @Service()
 export class ProductModel {

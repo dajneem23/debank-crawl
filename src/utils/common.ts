@@ -71,6 +71,10 @@ export type KeysOfType<O, T> = {
 
 export const PhoneNumberPattern = /^\+?[0-9]{1,3}?[0-9]{8,12}$/;
 
+/**
+ *  ObjectId pattern
+ * ex: ObjectId("5c8f8f8f8f8f8f8f8f8f8f8")
+ */
 export const ObjectIdPattern = /^[0-9a-fA-F]{24}$/;
 /**
  *

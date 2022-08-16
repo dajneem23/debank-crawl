@@ -2,28 +2,20 @@ import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import AuthSessionModel from '@/modules/auth/authSession.model';
-import AuthService from '../auth/auth.service';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $checkListIdExist } from '@/utils/mongoDB';
-import { CompanyModel, CompanyError } from '.';
+import { ProductError, ProductModel } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 
 @Service()
-export class CompanyService {
-  private logger = new Logger('CompanyService');
+export class ProductService {
+  private logger = new Logger('ProductService');
 
   @Inject()
-  private model: CompanyModel;
-
-  @Inject()
-  private authSessionModel: AuthSessionModel;
-
-  @Inject()
-  private authService: AuthService;
+  private model: ProductModel;
 
   private error(msg: any) {
-    return new CompanyError(msg);
+    return new ProductError(msg);
   }
 
   /**
@@ -55,22 +47,6 @@ export class CompanyService {
    */
   get lookups(): any {
     return {
-      products: $lookup({
-        from: 'products',
-        refFrom: '_id',
-        refTo: 'products',
-        select: 'name',
-        reName: 'products',
-        operation: '$in',
-      }),
-      projects: $lookup({
-        from: 'projects',
-        refFrom: '_id',
-        refTo: 'projects',
-        select: 'name',
-        reName: 'projects',
-        operation: '$in',
-      }),
       categories: $lookup({
         from: 'categories',
         refFrom: '_id',
@@ -138,40 +114,19 @@ export class CompanyService {
     try {
       const now = new Date();
       const { name } = _content;
-      const { teams, categories, projects, products, crypto_currencies, director, country } = _content;
+      const { categories, crypto_currencies, director } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $checkListIdExist({ collection: 'categories', listId: categories })
-          : true;
-      const projectIdExist =
-        !!projects && projects.length > 0
-          ? await $checkListIdExist({ collection: 'projects', listId: projects })
-          : true;
-      const productIdExist =
-        !!products && products.length > 0
-          ? await $checkListIdExist({ collection: 'products', listId: products })
           : true;
       const coinIdExist =
         !!crypto_currencies && crypto_currencies.length > 0
           ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
           : true;
-      const teamIdExist =
-        !!teams && teams.length > 0 ? await $checkListIdExist({ collection: 'teams', listId: teams }) : true;
       const directorIdExist = !!director
         ? await $checkListIdExist({ collection: 'persons', listId: [director] })
         : true;
-      const countryIdExist = !!country ? await $checkListIdExist({ collection: 'countries', listId: [country] }) : true;
-      if (
-        !(
-          categoriesIdExist &&
-          projectIdExist &&
-          productIdExist &&
-          coinIdExist &&
-          directorIdExist &&
-          countryIdExist &&
-          teamIdExist
-        )
-      ) {
+      if (!(categoriesIdExist && coinIdExist && directorIdExist)) {
         throwErr(this.error('INPUT_INVALID'));
       }
       const {
@@ -186,12 +141,8 @@ export class CompanyService {
           $setOnInsert: {
             ..._content,
             categories: categories ? $toObjectId(categories) : [],
-            projects: projects ? $toObjectId(projects) : [],
-            teams: teams ? $toObjectId(teams) : [],
-            products: products ? $toObjectId(products) : [],
-            crypto_currencies: crypto_currencies ? $toObjectId(crypto_currencies) : [],
             director: director ? $toObjectId(director) : '',
-            country: country ? $toObjectId(country) : '',
+            crypto_currencies: crypto_currencies ? $toObjectId(crypto_currencies) : [],
             deleted: false,
             ...(_subject && { created_by: _subject }),
             created_at: now,
@@ -222,49 +173,28 @@ export class CompanyService {
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Company>}
+   * @returns {Promise<Product>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      const { teams, categories, projects, products, crypto_currencies, director, country } = _content;
+
+      const { categories, crypto_currencies, director } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $checkListIdExist({ collection: 'categories', listId: categories })
-          : true;
-      const projectIdExist =
-        !!projects && projects.length > 0
-          ? await $checkListIdExist({ collection: 'projects', listId: projects })
-          : true;
-      const productIdExist =
-        !!products && products.length > 0
-          ? await $checkListIdExist({ collection: 'products', listId: products })
           : true;
       const coinIdExist =
         !!crypto_currencies && crypto_currencies.length > 0
           ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
           : true;
-      const teamIdExist =
-        !!teams && teams.length > 0 ? await $checkListIdExist({ collection: 'teams', listId: teams }) : true;
       const directorIdExist = !!director
         ? await $checkListIdExist({ collection: 'persons', listId: [director] })
         : true;
-      const countryIdExist = !!country ? await $checkListIdExist({ collection: 'countries', listId: [country] }) : true;
-      if (
-        !(
-          categoriesIdExist &&
-          projectIdExist &&
-          productIdExist &&
-          coinIdExist &&
-          directorIdExist &&
-          countryIdExist &&
-          teamIdExist
-        )
-      ) {
+      if (!(categoriesIdExist && coinIdExist && directorIdExist)) {
         throwErr(this.error('INPUT_INVALID'));
       }
       const {
-        value,
         ok,
         lastErrorObject: { updatedExisting },
       } = await this.model.collection.findOneAndUpdate(
@@ -273,12 +203,8 @@ export class CompanyService {
           $set: {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
-            ...(projects && { projects: $toObjectId(projects) }),
-            ...(teams && { teams: $toObjectId(teams) }),
-            ...(products && { products: $toObjectId(products) }),
+            director: director ? $toObjectId(director) : '',
             ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
-            ...(director && { director: $toObjectId(director) }),
-            ...(country && { country: $toObjectId(country) }),
             ...(_subject && { created_by: _subject }),
             updated_at: now,
           },
@@ -312,7 +238,6 @@ export class CompanyService {
     try {
       const now = new Date();
       const {
-        value,
         ok,
         lastErrorObject: { updatedExisting },
       } = await this.model.collection.findOneAndUpdate(
@@ -385,21 +310,14 @@ export class CompanyService {
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
-          this.lookups.directors,
           this.lookups.user,
-          this.lookups.teams,
-          this.lookups.products,
-          this.lookups.projects,
           this.lookups.crypto_currencies,
-          this.lookups.countries,
+          this.lookups.directors,
           {
             $limit: 1,
           },
           {
             $unwind: '$author',
-          },
-          {
-            $unwind: '$director',
           },
         ])
         .toArray();

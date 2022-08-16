@@ -109,8 +109,11 @@ export const CompanySeed = async () => {
               }),
           ),
           deleted: false,
+          crypto_currencies: [],
+          projects: [],
           created_at: new Date(),
           updated_at: new Date(),
+          created_by: 'admin',
         };
       }),
     );

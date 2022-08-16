@@ -1,25 +1,25 @@
 import { Inject, Service } from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Company, CompanyService, CompanyValidation } from '.';
+import { Coin, CoinService, CoinValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 @Service()
-@Controller('/companies')
-export class CompanyController {
+@Controller('/coins')
+export class CoinController {
   @Inject()
-  private service: CompanyService;
+  private service: CoinService;
 
-  @Post('/', [CompanyValidation.create, protectPrivateAPI()])
+  @Post('/', [CoinValidation.create, protectPrivateAPI()])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Body()
-    _body: Company,
+    _body: Coin,
   ) {
     const result = await this.service.create({
       _content: _body,
@@ -28,40 +28,40 @@ export class CompanyController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [CompanyValidation.update, protectPrivateAPI()])
+  @Put('/:id', [CoinValidation.update, protectPrivateAPI()])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Params() _params: { id: string },
     @Body()
-    _body: Company,
+    body: Coin,
   ) {
     const result = await this.service.update({
       _id: _params.id,
-      _content: _body,
+      _content: body,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [CompanyValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [CoinValidation.delete, protectPrivateAPI()])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Params() _params: { id: string },
     @Body()
-    _body: Company,
+    body: Coin,
   ) {
     const result = await this.service.delete({
       _id: _params.id,
-      _content: _body,
+      _content: body,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/', [CompanyValidation.query])
+  @Get('/', [CoinValidation.query])
   async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
@@ -70,7 +70,7 @@ export class CompanyController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/:id', [CompanyValidation.getById])
+  @Get('/:id', [CoinValidation.getById])
   async getById(
     @Res() _res: Response,
     @Req() _req: Request,

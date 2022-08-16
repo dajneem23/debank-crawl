@@ -71,14 +71,6 @@ export class ProductService {
         reName: 'teams',
         operation: '$in',
       }),
-      directors: $lookup({
-        from: 'persons',
-        refFrom: '_id',
-        refTo: 'director',
-        select: 'name avatar',
-        reName: 'director',
-        operation: '$eq',
-      }),
       crypto_currencies: $lookup({
         from: 'coins',
         refFrom: '_id',
@@ -114,7 +106,7 @@ export class ProductService {
     try {
       const now = new Date();
       const { name } = _content;
-      const { categories, crypto_currencies, director } = _content;
+      const { categories, crypto_currencies } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $checkListIdExist({ collection: 'categories', listId: categories })
@@ -123,10 +115,8 @@ export class ProductService {
         !!crypto_currencies && crypto_currencies.length > 0
           ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
           : true;
-      const directorIdExist = !!director
-        ? await $checkListIdExist({ collection: 'persons', listId: [director] })
-        : true;
-      if (!(categoriesIdExist && coinIdExist && directorIdExist)) {
+
+      if (!(categoriesIdExist && coinIdExist)) {
         throwErr(this.error('INPUT_INVALID'));
       }
       const {
@@ -141,7 +131,6 @@ export class ProductService {
           $setOnInsert: {
             ..._content,
             categories: categories ? $toObjectId(categories) : [],
-            director: director ? $toObjectId(director) : '',
             crypto_currencies: crypto_currencies ? $toObjectId(crypto_currencies) : [],
             deleted: false,
             ...(_subject && { created_by: _subject }),
@@ -179,7 +168,7 @@ export class ProductService {
     try {
       const now = new Date();
 
-      const { categories, crypto_currencies, director } = _content;
+      const { categories, crypto_currencies } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $checkListIdExist({ collection: 'categories', listId: categories })
@@ -188,10 +177,8 @@ export class ProductService {
         !!crypto_currencies && crypto_currencies.length > 0
           ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
           : true;
-      const directorIdExist = !!director
-        ? await $checkListIdExist({ collection: 'persons', listId: [director] })
-        : true;
-      if (!(categoriesIdExist && coinIdExist && directorIdExist)) {
+
+      if (!(categoriesIdExist && coinIdExist)) {
         throwErr(this.error('INPUT_INVALID'));
       }
       const {
@@ -203,7 +190,6 @@ export class ProductService {
           $set: {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
-            director: director ? $toObjectId(director) : '',
             ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
             ...(_subject && { created_by: _subject }),
             updated_at: now,
@@ -300,9 +286,9 @@ export class ProductService {
     }
   }
   /**
-   * Get event by ID
-   * @param id - Event ID
-   * @returns { Promise<BaseServiceOutput> } - Event
+   * Get product by ID
+   * @param id - product ID
+   * @returns { Promise<BaseServiceOutput> } - product
    */
   async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -312,7 +298,6 @@ export class ProductService {
           this.lookups.categories,
           this.lookups.user,
           this.lookups.crypto_currencies,
-          this.lookups.directors,
           {
             $limit: 1,
           },

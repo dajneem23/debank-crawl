@@ -104,6 +104,7 @@ export const CoinSeed = async () => {
           deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
+          created_by: 'admin',
         };
       }),
     );

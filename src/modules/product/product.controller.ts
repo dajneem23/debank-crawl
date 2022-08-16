@@ -1,8 +1,7 @@
 import { Inject, Service } from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Product, ProductService } from '.';
-import { ProductValidation } from './product.validation';
+import { Product, ProductService, ProductValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';

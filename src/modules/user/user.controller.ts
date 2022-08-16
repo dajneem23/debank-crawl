@@ -1,10 +1,9 @@
 import { Inject, Service } from 'typedi';
 import httpStatusCode from 'http-status';
 import { Auth, Body, Controller, Get, Params, Put, Post, Patch, Query, Res, Delete } from '@/utils/expressDecorators';
-import { UserService } from '.';
+import { UserService, userValidation } from '.';
 import { Response } from 'express';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
-import * as userValidation from './user.validation';
 import { JWTPayload } from '@/modules/auth/authSession.type';
 import { buildQueryFilter } from '@/utils/common';
 import AuthService from '@/modules/auth/auth.service';

@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { VerificationToken } from '@/modules/verificationToken/verificationToken.type';
 
-export const COLLECTION_NAME = 'verification-tokens';
+const COLLECTION_NAME = 'verification-tokens';
 
 @Service()
 export default class VerificationTokenModel {

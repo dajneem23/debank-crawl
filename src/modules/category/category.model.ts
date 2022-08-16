@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import { Category } from '.';
 import Logger from '@/core/logger';
 
-export const COLLECTION_NAME = 'categories';
+const COLLECTION_NAME = 'categories';
 
 @Service()
 export class CategoryModel {

@@ -16,6 +16,7 @@ export const CountrySeed = async () => {
           code: item.cca2,
           deleted: false,
           created_at: new Date(),
+          created_by: 'admin',
           updated_at: new Date(),
         };
       }),

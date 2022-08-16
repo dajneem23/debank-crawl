@@ -33,6 +33,8 @@ export const PersonSeed = async () => {
           deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
+          created_by: 'admin',
+          categories: [],
           works: [
             ...people_previous_work
               .filter((work) => {

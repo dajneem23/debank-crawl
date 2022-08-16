@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { Person } from './person.type';
 
-export const COLLECTION_NAME = 'persons';
+const COLLECTION_NAME = 'persons';
 
 @Service()
 export class PersonModel {

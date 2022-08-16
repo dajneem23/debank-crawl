@@ -14,8 +14,7 @@ import {
   Auth,
 } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Event, EventFilter, EventService, EventInput } from '.';
-import * as EventValidation from './event.validation';
+import { Event, EventFilter, EventService, EventInput, EventValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';

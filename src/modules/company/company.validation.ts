@@ -6,7 +6,7 @@ export const CompanyValidation = {
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
 
-      director: Joi.string().regex(ObjectIdPattern),
+      director: Joi.string(),
       //map location
       headquarter: Joi.object(),
 
@@ -44,7 +44,7 @@ export const CompanyValidation = {
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
 
-      director: Joi.string().regex(ObjectIdPattern),
+      director: Joi.string(),
       //map location
       headquarter: Joi.object(),
 

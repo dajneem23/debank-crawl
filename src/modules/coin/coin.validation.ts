@@ -1,12 +1,12 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, CATEGORY_TYPE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
-export const ProductValidation = {
+export const CoinValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
 
-      director: Joi.string(),
+      director: Joi.string().regex(ObjectIdPattern),
 
       contract_addresses: Joi.object(),
 
@@ -42,7 +42,7 @@ export const ProductValidation = {
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
 
-      director: Joi.string(),
+      director: Joi.string().regex(ObjectIdPattern),
 
       contract_addresses: Joi.object(),
 

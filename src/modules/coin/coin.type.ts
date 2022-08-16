@@ -7,6 +7,8 @@ export interface Coin extends BaseInformationModel {
 
   unique_key: string;
 
+  categories?: Array<string>;
+
   blockchain: string;
 
   hash_algorithm: string;

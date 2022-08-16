@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { EmailSubscription } from './emailSubscription.type';
 
-export const COLLECTION_NAME = 'email_subscriptions';
+const COLLECTION_NAME = 'email_subscriptions';
 
 @Service()
 export default class EmailSubscriptionModel {

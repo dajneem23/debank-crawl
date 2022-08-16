@@ -23,6 +23,7 @@ export const CategorySeed = async () => {
           deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
+          created_by: 'admin',
         };
       }),
       ...token_sector.map((item) => {
@@ -33,6 +34,7 @@ export const CategorySeed = async () => {
           created_at: new Date(),
           deleted: false,
           updated_at: new Date(),
+          created_by: 'admin',
         };
       }),
     );
@@ -54,6 +56,7 @@ export const CategorySeed = async () => {
           deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
+          created_by: 'admin',
         };
       }),
       ...categories_event.map((item) => {
@@ -64,6 +67,7 @@ export const CategorySeed = async () => {
           created_at: new Date(),
           deleted: false,
           updated_at: new Date(),
+          created_by: 'admin',
         };
       }),
       ...categories_crypto.map((item) => {
@@ -74,6 +78,7 @@ export const CategorySeed = async () => {
           deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
+          created_by: 'admin',
         };
       }),
       ...uniqueSectors,

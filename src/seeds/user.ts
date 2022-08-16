@@ -12,9 +12,10 @@ export const UserSeed = async () => {
     const user = {
       full_name: 'admin',
       email: 'admin@gmail.com',
-      password: hashedPassword,
+      password: (await hashedPassword).toString(),
       phone: '12345678',
       id: 'admin',
+      roles: ['admin'],
     };
     console.log('Inserting user');
     await collection.insertOne(user);

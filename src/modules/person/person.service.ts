@@ -242,7 +242,7 @@ export class PersonService {
     try {
       const { q } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
-      const [{ total_count }, ...items] = await this.model.collection
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate(
           $pagination({
             $match: {
@@ -274,9 +274,9 @@ export class PersonService {
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
           this.lookups.user,
-          {
-            $unwind: '$author',
-          },
+          // {
+          //   $unwind: '$author',
+          // },
           {
             $limit: 1,
           },

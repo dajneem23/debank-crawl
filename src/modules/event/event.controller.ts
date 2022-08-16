@@ -19,6 +19,7 @@ import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
+import { BaseQuery, BaseServiceInput } from '@/types';
 @Service()
 @Controller('/events')
 export class EventController {
@@ -33,9 +34,9 @@ export class EventController {
     body: Event,
   ) {
     const result = await this.eventService.create({
-      newEvent: body,
-      subject: _auth.id,
-    } as EventInput);
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
   }
   @Put('/:id', [EventValidation.update, protect()])
@@ -49,27 +50,27 @@ export class EventController {
   ) {
     const result = await this.eventService.update({
       _id: params.id,
-      subject: _auth.id,
-      updateEvent: body,
-    } as EventInput);
+      _subject: _auth.id,
+      _content: body,
+    } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/related', [EventValidation.getRelated])
   async getRelatedEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getRelatedEvent({ filter, query } as EventInput);
+    const result = await this.eventService.getRelatedEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/trending', [EventValidation.getTrending])
   async getTrendingEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getTrendingEvent({ filter, query } as EventInput);
+    const result = await this.eventService.getTrendingEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/significant', [EventValidation.getSignificant])
   async getSignificantEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getSignificantEvent({ filter, query } as EventInput);
+    const result = await this.eventService.getSignificantEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
 
@@ -84,7 +85,16 @@ export class EventController {
   ) {
     const result = await this.eventService.getById({
       _id: params.id,
-    } as EventInput);
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/', [EventValidation.query])
+  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.eventService.query({
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Delete('/:id', [EventValidation.deleteById, protectPrivateAPI()])
@@ -96,8 +106,8 @@ export class EventController {
   ) {
     await this.eventService.delete({
       _id: params.id,
-      subject: _auth.id,
-    } as EventInput);
+      _subject: _auth.id,
+    } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
@@ -114,11 +124,11 @@ export class EventController {
   ) {
     const result = await this.eventService.update({
       _id: params.id,
-      updateEvent: {
+      _content: {
         trending: body.trending,
       },
       subject: _auth.id,
-    } as EventInput);
+    } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
 
@@ -135,11 +145,11 @@ export class EventController {
   ) {
     const result = await this.eventService.update({
       _id: params.id,
-      updateEvent: {
+      _content: {
         significant: body.significant,
       },
-      subject: _auth.id,
-    } as EventInput);
+      _subject: _auth.id,
+    } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
 }

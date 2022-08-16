@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { Coin } from './coin.type';
 
-const COLLECTION_NAME = 'teams';
+const COLLECTION_NAME = 'coins';
 
 @Service()
 export class CoinModel {

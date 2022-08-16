@@ -5,7 +5,7 @@ import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $checkListIdExist } from '@/utils/mongoDB';
 import { CoinError, CoinModel } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
-import { isNil, omit } from 'lodash';
+import { isNil, omit, rest } from 'lodash';
 
 @Service()
 export class CoinService {
@@ -29,16 +29,19 @@ export class CoinService {
     return [
       'id',
       'name',
-      'director',
-      'country',
-      'headquarter',
+      'token_id',
+      'unique_key',
       'categories',
-      'galleries',
-      'crypto_currencies',
-      'portfolios',
-      'features',
-      'services',
-      'ccys',
+      'blockchain',
+      'hash_algorithm',
+      'org_structure',
+      'explorer',
+      'white_paper',
+      'development_status',
+      'open_source',
+      'hardware_wallet',
+      'wallets',
+      'exchanges',
       'author',
     ];
   }
@@ -230,7 +233,7 @@ export class CoinService {
     try {
       const { q } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
-      const [{ total_count }, ...items] = await this.model.collection
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate(
           $pagination({
             $match: {
@@ -261,7 +264,7 @@ export class CoinService {
    */
   async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const [item] = await this.model.collection
+      const item = await this.model.collection
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
@@ -269,9 +272,9 @@ export class CoinService {
           {
             $limit: 1,
           },
-          {
-            $unwind: '$author',
-          },
+          // {
+          //   $unwind: '$author',
+          // },
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));

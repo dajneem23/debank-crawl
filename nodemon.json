@@ -1,6 +1,6 @@
 {
   "watch": ["env.local.json", "src", "tsconfig.json"],
-  "ignore": ["**/*.test.ts", "**/*.spec.ts"],
+  "ignore": ["**/*.test.ts", "**/*.spec.ts", "**/*.model.ts"],
   "ext": "js,ts,json,yaml",
   "exec": "ts-node -r tsconfig-paths/register ./src/server.ts"
 }

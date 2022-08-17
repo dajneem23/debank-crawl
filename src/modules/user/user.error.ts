@@ -1,55 +1,32 @@
 import httpStatusCode from 'http-status';
 import AppError, { AppErrorJSON } from '@/core/errors/AppError';
 
-export const errors = Object.freeze({
-  USER_PASS_NOT_MATCH: {
-    message: 'Unauthorized!',
-    code: '1001',
-    status: httpStatusCode.UNAUTHORIZED,
-    isPublic: true,
-    locales: {
-      vi: 'Email và mật khẩu không đúng',
-      en: 'Email or Password does not match',
-    },
-  },
-  LOGIN_FAIL: {
-    message: 'Login Failed!',
-    code: '1001',
-    status: httpStatusCode.UNAUTHORIZED,
-    isPublic: true,
-    locales: {
-      vi: 'Đăng nhập không thành công',
-      en: 'Login faild',
-    },
-  },
-  UNAUTHORIZED: {
-    message: 'Unauthorized!',
-    code: '1001',
-    status: httpStatusCode.UNAUTHORIZED,
-    isPublic: true,
-    locales: {
-      vi: 'Đăng nhập không thành công',
-      en: 'Unauthorized',
-    },
-  },
+const errors = Object.freeze({
   USER_NOT_FOUND: {
-    message: 'User not found',
-    code: '1001',
+    message: 'User does not exist',
+    code: null,
     status: httpStatusCode.NOT_FOUND,
     isPublic: true,
     locales: {
-      vi: 'Tài khoản không tồn tại',
-      en: 'User not found',
+      vi: 'Người dùng không tồn tại',
     },
   },
-  USER_ALREADY_EXIST: {
-    message: 'User already exist',
-    code: '1002',
-    status: httpStatusCode.CONFLICT,
+  EMAIL_ALREADY_VERIFIED: {
+    message: 'Email is already verified',
+    code: null,
+    status: httpStatusCode.BAD_REQUEST,
     isPublic: true,
     locales: {
-      vi: 'Tài khoản đã tồn tại',
-      en: 'User already exist',
+      vi: 'Email đã được xác thực',
+    },
+  },
+  CANNOT_DELETE_ADMIN_ACCOUNT: {
+    message: 'Cannot delete Admin account',
+    code: null,
+    status: httpStatusCode.BAD_REQUEST,
+    isPublic: true,
+    locales: {
+      vi: 'Không thể xóa tài khoản Admin',
     },
   },
 });

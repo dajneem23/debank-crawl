@@ -4,7 +4,7 @@ env:
   BACKUP_DIR: .
 
 vars:
-  DC_PROJECT: 1fox-infra
+  DC_PROJECT: 1fox-wikiblock
   ENV_FILE: docker.env
 
 dotenv: ['docker.env']
@@ -66,3 +66,13 @@ tasks:
     desc: Destroy all Docker Compose services.
     cmds:
       - docker-compose -p {{.DC_PROJECT}} --env-file {{.ENV_FILE}} -f docker-compose.dev.yaml down -v
+
+  docker_recreate:
+    desc: Recreate all Docker Compose services a.
+    cmds:
+      - docker-compose -p {{.DC_PROJECT}} --env-file {{.ENV_FILE}} -f docker-compose.dev.yaml down -v && docker-compose -p {{.DC_PROJECT}} --env-file {{.ENV_FILE}} -f docker-compose.dev.yaml up --remove-orphans -d
+
+  db_create:
+    desc: Recreate all Docker Compose services a.
+    cmds:
+      - yarn migration:generate && yarn migration:run

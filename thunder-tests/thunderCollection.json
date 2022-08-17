@@ -1,0 +1,67 @@
+[
+  {
+    "_id": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "colName": "wikiblock",
+    "created": "2022-08-09T04:07:44.294Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+        "name": "event",
+        "containerId": "",
+        "created": "2022-08-10T02:27:59.101Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+        "name": "User",
+        "containerId": "",
+        "created": "2022-08-11T04:50:05.371Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "d2b1367a-a9f4-4209-94f9-25f538511db5",
+        "name": "category",
+        "containerId": "",
+        "created": "2022-08-12T05:05:03.987Z",
+        "sortNum": 30000
+      },
+      {
+        "_id": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+        "name": "company",
+        "containerId": "",
+        "created": "2022-08-15T02:16:33.686Z",
+        "sortNum": 40000
+      },
+      {
+        "_id": "d648cc53-04e8-4fe4-82f3-3e3475bbcc85",
+        "name": "product",
+        "containerId": "",
+        "created": "2022-08-16T02:16:34.266Z",
+        "sortNum": 50000
+      },
+      {
+        "_id": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
+        "name": "person",
+        "containerId": "",
+        "created": "2022-08-16T03:54:19.848Z",
+        "sortNum": 60000
+      },
+      {
+        "_id": "8cb843d1-5282-47a9-a330-b1ba219304df",
+        "name": "Coin",
+        "containerId": "",
+        "created": "2022-08-16T07:22:34.598Z",
+        "sortNum": 70000
+      }
+    ],
+    "settings": {
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lcXJqdGpYYVNFMCIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE2NjAxOTUwMDQsImV4cCI6MTY2MTA1OTAwNH0.1ygdzPhVnQirUuLuzKvn4_J5XBjVzywecM6NwSQ3Mcg"
+      },
+      "tests": []
+    }
+  }
+]

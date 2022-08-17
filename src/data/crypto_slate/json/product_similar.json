@@ -1,0 +1,8187 @@
+[
+  {
+    "id": 1,
+    "product_name": "Delta",
+    "similar_name": "TradingView"
+  },
+  {
+    "id": 2,
+    "product_name": "Delta",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 3,
+    "product_name": "Delta",
+    "similar_name": "Blockfolio"
+  },
+  {
+    "id": 4,
+    "product_name": "Delta",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 5,
+    "product_name": "Delta",
+    "similar_name": "Coinpaprika"
+  },
+  {
+    "id": 6,
+    "product_name": "Delta",
+    "similar_name": "CoinMarketCap"
+  },
+  {
+    "id": 7,
+    "product_name": "Delta",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 8,
+    "product_name": "Delta",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 9,
+    "product_name": "Delta",
+    "similar_name": "MarketGod Trading"
+  },
+  {
+    "id": 10,
+    "product_name": "Delta",
+    "similar_name": "Ohio Bitcoin"
+  },
+  {
+    "id": 11,
+    "product_name": "TREZOR ONE White",
+    "similar_name": "KeepKey"
+  },
+  {
+    "id": 12,
+    "product_name": "TREZOR ONE White",
+    "similar_name": "TREZOR Model T"
+  },
+  {
+    "id": 13,
+    "product_name": "TREZOR ONE White",
+    "similar_name": "Ledger Blue"
+  },
+  {
+    "id": 14,
+    "product_name": "TREZOR ONE White",
+    "similar_name": "Digital BitBox"
+  },
+  {
+    "id": 15,
+    "product_name": "TREZOR ONE White",
+    "similar_name": "Ledger Nano S"
+  },
+  {
+    "id": 16,
+    "product_name": "Coygo",
+    "similar_name": "Bitbuy App"
+  },
+  {
+    "id": 17,
+    "product_name": "Coygo",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 18,
+    "product_name": "Coygo",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 19,
+    "product_name": "Coygo",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 20,
+    "product_name": "Coygo",
+    "similar_name": "eToro"
+  },
+  {
+    "id": 21,
+    "product_name": "Coygo",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 22,
+    "product_name": "Coygo",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 23,
+    "product_name": "Coygo",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 24,
+    "product_name": "Coygo",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 25,
+    "product_name": "Coygo",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 26,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "CoinTiger"
+  },
+  {
+    "id": 27,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 28,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 29,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 30,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 31,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 32,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "Coygo"
+  },
+  {
+    "id": 33,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 34,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "Abra"
+  },
+  {
+    "id": 35,
+    "product_name": "Amplify Brokerage",
+    "similar_name": "Quadency"
+  },
+  {
+    "id": 36,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 37,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 38,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "Coinpaprika"
+  },
+  {
+    "id": 39,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "Blockfolio"
+  },
+  {
+    "id": 40,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 41,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "MarketGod Trading"
+  },
+  {
+    "id": 42,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "CoinMarketCap"
+  },
+  {
+    "id": 43,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 44,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "TradingView"
+  },
+  {
+    "id": 45,
+    "product_name": "Ohio Bitcoin",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 46,
+    "product_name": "Blockchain Explorer",
+    "similar_name": "Seiza"
+  },
+  {
+    "id": 47,
+    "product_name": "Blockchain Explorer",
+    "similar_name": "DragonGlass"
+  },
+  {
+    "id": 48,
+    "product_name": "Blockchain Explorer",
+    "similar_name": "Etherscan"
+  },
+  {
+    "id": 49,
+    "product_name": "Etherscan",
+    "similar_name": "DragonGlass"
+  },
+  {
+    "id": 50,
+    "product_name": "Etherscan",
+    "similar_name": "Blockchain Explorer"
+  },
+  {
+    "id": 51,
+    "product_name": "Etherscan",
+    "similar_name": "Seiza"
+  },
+  {
+    "id": 52,
+    "product_name": "Seiza",
+    "similar_name": "DragonGlass"
+  },
+  {
+    "id": 53,
+    "product_name": "Seiza",
+    "similar_name": "Etherscan"
+  },
+  {
+    "id": 54,
+    "product_name": "Seiza",
+    "similar_name": "Blockchain Explorer"
+  },
+  {
+    "id": 55,
+    "product_name": "Sheetcoin",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 56,
+    "product_name": "Sheetcoin",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 57,
+    "product_name": "Sheetcoin",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 58,
+    "product_name": "Sheetcoin",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 59,
+    "product_name": "Sheetcoin",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 60,
+    "product_name": "Sheetcoin",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 61,
+    "product_name": "Sheetcoin",
+    "similar_name": "Augur"
+  },
+  {
+    "id": 62,
+    "product_name": "Sheetcoin",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 63,
+    "product_name": "Sheetcoin",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 64,
+    "product_name": "Sheetcoin",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 65,
+    "product_name": "RollerCoin",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 66,
+    "product_name": "RollerCoin",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 67,
+    "product_name": "RollerCoin",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 68,
+    "product_name": "RollerCoin",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 69,
+    "product_name": "RollerCoin",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 70,
+    "product_name": "RollerCoin",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 71,
+    "product_name": "RollerCoin",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 72,
+    "product_name": "RollerCoin",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 73,
+    "product_name": "RollerCoin",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 74,
+    "product_name": "RollerCoin",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 75,
+    "product_name": "Bitpie",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 76,
+    "product_name": "Bitpie",
+    "similar_name": "Status"
+  },
+  {
+    "id": 77,
+    "product_name": "Bitpie",
+    "similar_name": "Jaxx Liberty"
+  },
+  {
+    "id": 78,
+    "product_name": "Bitpie",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 79,
+    "product_name": "Bitpie",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 80,
+    "product_name": "Bitpie",
+    "similar_name": "Bitcoin Wallet"
+  },
+  {
+    "id": 81,
+    "product_name": "Bitpie",
+    "similar_name": "Bitpay Wallet"
+  },
+  {
+    "id": 82,
+    "product_name": "Bitpie",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 83,
+    "product_name": "Bitpie",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 84,
+    "product_name": "Bitpie",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 85,
+    "product_name": "Bexplus",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 86,
+    "product_name": "Bexplus",
+    "similar_name": "Coygo"
+  },
+  {
+    "id": 87,
+    "product_name": "Bexplus",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 88,
+    "product_name": "Bexplus",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 89,
+    "product_name": "Bexplus",
+    "similar_name": "eToro"
+  },
+  {
+    "id": 90,
+    "product_name": "Bexplus",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 91,
+    "product_name": "Bexplus",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 92,
+    "product_name": "Bexplus",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 93,
+    "product_name": "Bexplus",
+    "similar_name": "Abra"
+  },
+  {
+    "id": 94,
+    "product_name": "Bexplus",
+    "similar_name": "CryptoTrader"
+  },
+  {
+    "id": 95,
+    "product_name": "Temporal",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 96,
+    "product_name": "Temporal",
+    "similar_name": "MakerDAO"
+  },
+  {
+    "id": 97,
+    "product_name": "Temporal",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 98,
+    "product_name": "Temporal",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 99,
+    "product_name": "Temporal",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 100,
+    "product_name": "Temporal",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 101,
+    "product_name": "Temporal",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 102,
+    "product_name": "Temporal",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 103,
+    "product_name": "Temporal",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 104,
+    "product_name": "Temporal",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 105,
+    "product_name": "Prodoge",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 106,
+    "product_name": "Prodoge",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 107,
+    "product_name": "Prodoge",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 108,
+    "product_name": "Prodoge",
+    "similar_name": "Monarch"
+  },
+  {
+    "id": 109,
+    "product_name": "Prodoge",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 110,
+    "product_name": "Prodoge",
+    "similar_name": "StakedWallet"
+  },
+  {
+    "id": 111,
+    "product_name": "Prodoge",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 112,
+    "product_name": "Prodoge",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 113,
+    "product_name": "Prodoge",
+    "similar_name": "Exodus"
+  },
+  {
+    "id": 114,
+    "product_name": "Prodoge",
+    "similar_name": "BRD"
+  },
+  {
+    "id": 115,
+    "product_name": "OAS Chain",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 116,
+    "product_name": "OAS Chain",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 117,
+    "product_name": "OAS Chain",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 118,
+    "product_name": "OAS Chain",
+    "similar_name": "CryptoGirl"
+  },
+  {
+    "id": 119,
+    "product_name": "OAS Chain",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 120,
+    "product_name": "OAS Chain",
+    "similar_name": "Uniswap"
+  },
+  {
+    "id": 121,
+    "product_name": "OAS Chain",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 122,
+    "product_name": "OAS Chain",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 123,
+    "product_name": "OAS Chain",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 124,
+    "product_name": "OAS Chain",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 125,
+    "product_name": "Haven",
+    "similar_name": "ChainFlix"
+  },
+  {
+    "id": 126,
+    "product_name": "Haven",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 127,
+    "product_name": "Haven",
+    "similar_name": "TronChat"
+  },
+  {
+    "id": 128,
+    "product_name": "Haven",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 129,
+    "product_name": "Haven",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 130,
+    "product_name": "Haven",
+    "similar_name": "Coins.ph"
+  },
+  {
+    "id": 131,
+    "product_name": "Haven",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 132,
+    "product_name": "Haven",
+    "similar_name": "Monarch"
+  },
+  {
+    "id": 133,
+    "product_name": "Haven",
+    "similar_name": "Xapo"
+  },
+  {
+    "id": 134,
+    "product_name": "Haven",
+    "similar_name": "Bettergram"
+  },
+  {
+    "id": 135,
+    "product_name": "Crypto Pro",
+    "similar_name": "CoinMarketCap"
+  },
+  {
+    "id": 136,
+    "product_name": "Crypto Pro",
+    "similar_name": "Ohio Bitcoin"
+  },
+  {
+    "id": 137,
+    "product_name": "Crypto Pro",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 138,
+    "product_name": "Crypto Pro",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 139,
+    "product_name": "Crypto Pro",
+    "similar_name": "Blockfolio"
+  },
+  {
+    "id": 140,
+    "product_name": "Crypto Pro",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 141,
+    "product_name": "Crypto Pro",
+    "similar_name": "TradingView"
+  },
+  {
+    "id": 142,
+    "product_name": "Crypto Pro",
+    "similar_name": "Coinpaprika"
+  },
+  {
+    "id": 143,
+    "product_name": "Crypto Pro",
+    "similar_name": "MarketGod Trading"
+  },
+  {
+    "id": 144,
+    "product_name": "Crypto Pro",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 145,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 146,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 147,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "CryptoTrader"
+  },
+  {
+    "id": 148,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "CoinTiger"
+  },
+  {
+    "id": 149,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "Coygo"
+  },
+  {
+    "id": 150,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 151,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 152,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 153,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 154,
+    "product_name": "Algomate Trading Platform",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 155,
+    "product_name": "BC.Game",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 156,
+    "product_name": "BC.Game",
+    "similar_name": "XPet"
+  },
+  {
+    "id": 157,
+    "product_name": "BC.Game",
+    "similar_name": "Everipedia"
+  },
+  {
+    "id": 158,
+    "product_name": "BC.Game",
+    "similar_name": "CryptoCrystal"
+  },
+  {
+    "id": 159,
+    "product_name": "BC.Game",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 160,
+    "product_name": "BC.Game",
+    "similar_name": "CryptoGirl"
+  },
+  {
+    "id": 161,
+    "product_name": "BC.Game",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 162,
+    "product_name": "BC.Game",
+    "similar_name": "Wizards.one"
+  },
+  {
+    "id": 163,
+    "product_name": "BC.Game",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 164,
+    "product_name": "BC.Game",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 165,
+    "product_name": "Meme Factory",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 166,
+    "product_name": "Meme Factory",
+    "similar_name": "Ether Kingdoms"
+  },
+  {
+    "id": 167,
+    "product_name": "Meme Factory",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 168,
+    "product_name": "Meme Factory",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 169,
+    "product_name": "Meme Factory",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 170,
+    "product_name": "Meme Factory",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 171,
+    "product_name": "Meme Factory",
+    "similar_name": "Temporal"
+  },
+  {
+    "id": 172,
+    "product_name": "Meme Factory",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 173,
+    "product_name": "Meme Factory",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 174,
+    "product_name": "Meme Factory",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 175,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "Coinomi"
+  },
+  {
+    "id": 176,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 177,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "BRD"
+  },
+  {
+    "id": 178,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 179,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 180,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 181,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 182,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 183,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 184,
+    "product_name": "Yoroi Wallet",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 185,
+    "product_name": "Daedalus",
+    "similar_name": "Xapo"
+  },
+  {
+    "id": 186,
+    "product_name": "Daedalus",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 187,
+    "product_name": "Daedalus",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 188,
+    "product_name": "Daedalus",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 189,
+    "product_name": "Daedalus",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 190,
+    "product_name": "Daedalus",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 191,
+    "product_name": "Daedalus",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 192,
+    "product_name": "Daedalus",
+    "similar_name": "Omise"
+  },
+  {
+    "id": 193,
+    "product_name": "Daedalus",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 194,
+    "product_name": "Daedalus",
+    "similar_name": "Bitpay Wallet"
+  },
+  {
+    "id": 195,
+    "product_name": "Quadency",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 196,
+    "product_name": "Quadency",
+    "similar_name": "CryptoTrader"
+  },
+  {
+    "id": 197,
+    "product_name": "Quadency",
+    "similar_name": "Robinhood"
+  },
+  {
+    "id": 198,
+    "product_name": "Quadency",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 199,
+    "product_name": "Quadency",
+    "similar_name": "Axsonex"
+  },
+  {
+    "id": 200,
+    "product_name": "Quadency",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 201,
+    "product_name": "Quadency",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 202,
+    "product_name": "Quadency",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 203,
+    "product_name": "Quadency",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 204,
+    "product_name": "Quadency",
+    "similar_name": "CoinTiger"
+  },
+  {
+    "id": 205,
+    "product_name": "Cashbackcloud",
+    "similar_name": "Robinhood"
+  },
+  {
+    "id": 206,
+    "product_name": "Cashbackcloud",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 207,
+    "product_name": "Cashbackcloud",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 208,
+    "product_name": "Cashbackcloud",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 209,
+    "product_name": "Cashbackcloud",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 210,
+    "product_name": "Cashbackcloud",
+    "similar_name": "eToro"
+  },
+  {
+    "id": 211,
+    "product_name": "Cashbackcloud",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 212,
+    "product_name": "Cashbackcloud",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 213,
+    "product_name": "Cashbackcloud",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 214,
+    "product_name": "Cashbackcloud",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 215,
+    "product_name": "XPet",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 216,
+    "product_name": "XPet",
+    "similar_name": "Wizards.one"
+  },
+  {
+    "id": 217,
+    "product_name": "XPet",
+    "similar_name": "Everipedia"
+  },
+  {
+    "id": 218,
+    "product_name": "XPet",
+    "similar_name": "GP Casino"
+  },
+  {
+    "id": 219,
+    "product_name": "XPet",
+    "similar_name": "PandaFun"
+  },
+  {
+    "id": 220,
+    "product_name": "XPet",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 221,
+    "product_name": "XPet",
+    "similar_name": "MonsterEOS.io"
+  },
+  {
+    "id": 222,
+    "product_name": "XPet",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 223,
+    "product_name": "MonsterEOS.io",
+    "similar_name": "GP Casino"
+  },
+  {
+    "id": 224,
+    "product_name": "MonsterEOS.io",
+    "similar_name": "Wizards.one"
+  },
+  {
+    "id": 225,
+    "product_name": "MonsterEOS.io",
+    "similar_name": "PandaFun"
+  },
+  {
+    "id": 226,
+    "product_name": "MonsterEOS.io",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 227,
+    "product_name": "MonsterEOS.io",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 228,
+    "product_name": "MonsterEOS.io",
+    "similar_name": "XPet"
+  },
+  {
+    "id": 229,
+    "product_name": "MonsterEOS.io",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 230,
+    "product_name": "MonsterEOS.io",
+    "similar_name": "Everipedia"
+  },
+  {
+    "id": 231,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 232,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 233,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 234,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "Augur"
+  },
+  {
+    "id": 235,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 236,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 237,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 238,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 239,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 240,
+    "product_name": "Ether Kingdoms",
+    "similar_name": "CryptoGirl"
+  },
+  {
+    "id": 241,
+    "product_name": "PandaFun",
+    "similar_name": "Wizards.one"
+  },
+  {
+    "id": 242,
+    "product_name": "PandaFun",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 243,
+    "product_name": "PandaFun",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 244,
+    "product_name": "PandaFun",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 245,
+    "product_name": "PandaFun",
+    "similar_name": "XPet"
+  },
+  {
+    "id": 246,
+    "product_name": "PandaFun",
+    "similar_name": "Everipedia"
+  },
+  {
+    "id": 247,
+    "product_name": "PandaFun",
+    "similar_name": "GP Casino"
+  },
+  {
+    "id": 248,
+    "product_name": "PandaFun",
+    "similar_name": "MonsterEOS.io"
+  },
+  {
+    "id": 249,
+    "product_name": "EvolutionLand",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 250,
+    "product_name": "EvolutionLand",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 251,
+    "product_name": "EvolutionLand",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 252,
+    "product_name": "EvolutionLand",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 253,
+    "product_name": "EvolutionLand",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 254,
+    "product_name": "EvolutionLand",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 255,
+    "product_name": "EvolutionLand",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 256,
+    "product_name": "EvolutionLand",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 257,
+    "product_name": "EvolutionLand",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 258,
+    "product_name": "EvolutionLand",
+    "similar_name": "Minds"
+  },
+  {
+    "id": 259,
+    "product_name": "Cash App",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 260,
+    "product_name": "Cash App",
+    "similar_name": "Xapo"
+  },
+  {
+    "id": 261,
+    "product_name": "Cash App",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 262,
+    "product_name": "Cash App",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 263,
+    "product_name": "Cash App",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 264,
+    "product_name": "Cash App",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 265,
+    "product_name": "Cash App",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 266,
+    "product_name": "Cash App",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 267,
+    "product_name": "Cash App",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 268,
+    "product_name": "Cash App",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 269,
+    "product_name": "Ethermium",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 270,
+    "product_name": "Ethermium",
+    "similar_name": "Axsonex"
+  },
+  {
+    "id": 271,
+    "product_name": "Ethermium",
+    "similar_name": "Robinhood"
+  },
+  {
+    "id": 272,
+    "product_name": "Ethermium",
+    "similar_name": "Quadency"
+  },
+  {
+    "id": 273,
+    "product_name": "Ethermium",
+    "similar_name": "CoinTiger"
+  },
+  {
+    "id": 274,
+    "product_name": "Ethermium",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 275,
+    "product_name": "Ethermium",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 276,
+    "product_name": "Ethermium",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 277,
+    "product_name": "Ethermium",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 278,
+    "product_name": "Ethermium",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 279,
+    "product_name": "Fishbank",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 280,
+    "product_name": "Fishbank",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 281,
+    "product_name": "Fishbank",
+    "similar_name": "0x"
+  },
+  {
+    "id": 282,
+    "product_name": "Fishbank",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 283,
+    "product_name": "Fishbank",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 284,
+    "product_name": "Fishbank",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 285,
+    "product_name": "Fishbank",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 286,
+    "product_name": "Fishbank",
+    "similar_name": "RollerCoin"
+  },
+  {
+    "id": 287,
+    "product_name": "Fishbank",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 288,
+    "product_name": "Fishbank",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 289,
+    "product_name": "CryptoRome",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 290,
+    "product_name": "CryptoRome",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 291,
+    "product_name": "CryptoRome",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 292,
+    "product_name": "CryptoRome",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 293,
+    "product_name": "CryptoRome",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 294,
+    "product_name": "CryptoRome",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 295,
+    "product_name": "CryptoRome",
+    "similar_name": "Uniswap"
+  },
+  {
+    "id": 296,
+    "product_name": "CryptoRome",
+    "similar_name": "Augur"
+  },
+  {
+    "id": 297,
+    "product_name": "CryptoRome",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 298,
+    "product_name": "CryptoRome",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 299,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 300,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "OWNR Wallet"
+  },
+  {
+    "id": 301,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "AnkerPay"
+  },
+  {
+    "id": 302,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 303,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 304,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "Exodus"
+  },
+  {
+    "id": 305,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 306,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 307,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "Monarch"
+  },
+  {
+    "id": 308,
+    "product_name": "BTC.com Wallet App",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 309,
+    "product_name": "Circle Invest",
+    "similar_name": "Robinhood"
+  },
+  {
+    "id": 310,
+    "product_name": "Circle Invest",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 311,
+    "product_name": "Circle Invest",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 312,
+    "product_name": "Circle Invest",
+    "similar_name": "Status"
+  },
+  {
+    "id": 313,
+    "product_name": "Circle Invest",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 314,
+    "product_name": "Circle Invest",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 315,
+    "product_name": "Circle Invest",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 316,
+    "product_name": "Circle Invest",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 317,
+    "product_name": "Circle Invest",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 318,
+    "product_name": "Circle Invest",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 319,
+    "product_name": "Crypt-Oink",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 320,
+    "product_name": "Crypt-Oink",
+    "similar_name": "MakerDAO"
+  },
+  {
+    "id": 321,
+    "product_name": "Crypt-Oink",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 322,
+    "product_name": "Crypt-Oink",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 323,
+    "product_name": "Crypt-Oink",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 324,
+    "product_name": "Crypt-Oink",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 325,
+    "product_name": "Crypt-Oink",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 326,
+    "product_name": "Crypt-Oink",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 327,
+    "product_name": "Crypt-Oink",
+    "similar_name": "Augur"
+  },
+  {
+    "id": 328,
+    "product_name": "Crypt-Oink",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 329,
+    "product_name": "Everipedia",
+    "similar_name": "XPet"
+  },
+  {
+    "id": 330,
+    "product_name": "Everipedia",
+    "similar_name": "PandaFun"
+  },
+  {
+    "id": 331,
+    "product_name": "Everipedia",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 332,
+    "product_name": "Everipedia",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 333,
+    "product_name": "Everipedia",
+    "similar_name": "MonsterEOS.io"
+  },
+  {
+    "id": 334,
+    "product_name": "Everipedia",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 335,
+    "product_name": "Everipedia",
+    "similar_name": "GP Casino"
+  },
+  {
+    "id": 336,
+    "product_name": "Everipedia",
+    "similar_name": "Wizards.one"
+  },
+  {
+    "id": 337,
+    "product_name": "EOS Knights",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 338,
+    "product_name": "EOS Knights",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 339,
+    "product_name": "EOS Knights",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 340,
+    "product_name": "EOS Knights",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 341,
+    "product_name": "EOS Knights",
+    "similar_name": "CryptoCrystal"
+  },
+  {
+    "id": 342,
+    "product_name": "EOS Knights",
+    "similar_name": "MonsterEOS.io"
+  },
+  {
+    "id": 343,
+    "product_name": "EOS Knights",
+    "similar_name": "XPet"
+  },
+  {
+    "id": 344,
+    "product_name": "EOS Knights",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 345,
+    "product_name": "EOS Knights",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 346,
+    "product_name": "EOS Knights",
+    "similar_name": "SPADESBOOM"
+  },
+  {
+    "id": 347,
+    "product_name": "TronChat",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 348,
+    "product_name": "TronChat",
+    "similar_name": "ChainFlix"
+  },
+  {
+    "id": 349,
+    "product_name": "TronChat",
+    "similar_name": "Bettergram"
+  },
+  {
+    "id": 350,
+    "product_name": "TronChat",
+    "similar_name": "Vitae.co"
+  },
+  {
+    "id": 351,
+    "product_name": "TronChat",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 352,
+    "product_name": "TronChat",
+    "similar_name": "Status"
+  },
+  {
+    "id": 353,
+    "product_name": "uPort",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 354,
+    "product_name": "uPort",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 355,
+    "product_name": "uPort",
+    "similar_name": "Xapo"
+  },
+  {
+    "id": 356,
+    "product_name": "uPort",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 357,
+    "product_name": "uPort",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 358,
+    "product_name": "uPort",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 359,
+    "product_name": "uPort",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 360,
+    "product_name": "uPort",
+    "similar_name": "Jaxx Liberty"
+  },
+  {
+    "id": 361,
+    "product_name": "uPort",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 362,
+    "product_name": "uPort",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 363,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 364,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 365,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 366,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 367,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 368,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 369,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 370,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 371,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 372,
+    "product_name": "Crypto Space Commander",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 373,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 374,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 375,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 376,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 377,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 378,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "Ether Kingdoms"
+  },
+  {
+    "id": 379,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 380,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "0x"
+  },
+  {
+    "id": 381,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 382,
+    "product_name": "MLB Crypto Baseball",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 383,
+    "product_name": "CryptoCrystal",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 384,
+    "product_name": "CryptoCrystal",
+    "similar_name": "RollerCoin"
+  },
+  {
+    "id": 385,
+    "product_name": "CryptoCrystal",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 386,
+    "product_name": "CryptoCrystal",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 387,
+    "product_name": "CryptoCrystal",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 388,
+    "product_name": "CryptoCrystal",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 389,
+    "product_name": "CryptoCrystal",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 390,
+    "product_name": "CryptoCrystal",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 391,
+    "product_name": "CryptoCrystal",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 392,
+    "product_name": "CryptoCrystal",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 393,
+    "product_name": "Minds",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 394,
+    "product_name": "Minds",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 395,
+    "product_name": "Minds",
+    "similar_name": "Ether Kingdoms"
+  },
+  {
+    "id": 396,
+    "product_name": "Minds",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 397,
+    "product_name": "Minds",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 398,
+    "product_name": "Minds",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 399,
+    "product_name": "Minds",
+    "similar_name": "EvolutionLand"
+  },
+  {
+    "id": 400,
+    "product_name": "Minds",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 401,
+    "product_name": "Minds",
+    "similar_name": "CryptoGirl"
+  },
+  {
+    "id": 402,
+    "product_name": "Minds",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 403,
+    "product_name": "CryptoCities",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 404,
+    "product_name": "CryptoCities",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 405,
+    "product_name": "CryptoCities",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 406,
+    "product_name": "CryptoCities",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 407,
+    "product_name": "CryptoCities",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 408,
+    "product_name": "CryptoCities",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 409,
+    "product_name": "CryptoCities",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 410,
+    "product_name": "CryptoCities",
+    "similar_name": "CryptoCrystal"
+  },
+  {
+    "id": 411,
+    "product_name": "CryptoCities",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 412,
+    "product_name": "CryptoCities",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 413,
+    "product_name": "Everdragons",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 414,
+    "product_name": "Everdragons",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 415,
+    "product_name": "Everdragons",
+    "similar_name": "Ether Kingdoms"
+  },
+  {
+    "id": 416,
+    "product_name": "Everdragons",
+    "similar_name": "Augur"
+  },
+  {
+    "id": 417,
+    "product_name": "Everdragons",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 418,
+    "product_name": "Everdragons",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 419,
+    "product_name": "Everdragons",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 420,
+    "product_name": "Everdragons",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 421,
+    "product_name": "Everdragons",
+    "similar_name": "EvolutionLand"
+  },
+  {
+    "id": 422,
+    "product_name": "Everdragons",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 423,
+    "product_name": "Decentraland",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 424,
+    "product_name": "Decentraland",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 425,
+    "product_name": "Decentraland",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 426,
+    "product_name": "Decentraland",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 427,
+    "product_name": "Decentraland",
+    "similar_name": "EvolutionLand"
+  },
+  {
+    "id": 428,
+    "product_name": "Decentraland",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 429,
+    "product_name": "Decentraland",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 430,
+    "product_name": "Decentraland",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 431,
+    "product_name": "Decentraland",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 432,
+    "product_name": "Decentraland",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 433,
+    "product_name": "BRD",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 434,
+    "product_name": "BRD",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 435,
+    "product_name": "BRD",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 436,
+    "product_name": "BRD",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 437,
+    "product_name": "BRD",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 438,
+    "product_name": "BRD",
+    "similar_name": "StakedWallet"
+  },
+  {
+    "id": 439,
+    "product_name": "BRD",
+    "similar_name": "Bitcoin Wallet"
+  },
+  {
+    "id": 440,
+    "product_name": "BRD",
+    "similar_name": "Exodus"
+  },
+  {
+    "id": 441,
+    "product_name": "BRD",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 442,
+    "product_name": "BRD",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 443,
+    "product_name": "LandSecrets",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 444,
+    "product_name": "LandSecrets",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 445,
+    "product_name": "LandSecrets",
+    "similar_name": "MakerDAO"
+  },
+  {
+    "id": 446,
+    "product_name": "LandSecrets",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 447,
+    "product_name": "LandSecrets",
+    "similar_name": "OAS Chain"
+  },
+  {
+    "id": 448,
+    "product_name": "LandSecrets",
+    "similar_name": "0x"
+  },
+  {
+    "id": 449,
+    "product_name": "LandSecrets",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 450,
+    "product_name": "LandSecrets",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 451,
+    "product_name": "LandSecrets",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 452,
+    "product_name": "LandSecrets",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 453,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 454,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "AnkerPay"
+  },
+  {
+    "id": 455,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 456,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "StakedWallet"
+  },
+  {
+    "id": 457,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 458,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 459,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "Monarch"
+  },
+  {
+    "id": 460,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 461,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 462,
+    "product_name": "Electrum Bitcoin Wallet",
+    "similar_name": "SwirlWallet"
+  },
+  {
+    "id": 463,
+    "product_name": "Tenta Browser",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 464,
+    "product_name": "Tenta Browser",
+    "similar_name": "Status"
+  },
+  {
+    "id": 465,
+    "product_name": "Tenta Browser",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 466,
+    "product_name": "Tenta Browser",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 467,
+    "product_name": "Tenta Browser",
+    "similar_name": "Brave Browser"
+  },
+  {
+    "id": 468,
+    "product_name": "CoinTiger",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 469,
+    "product_name": "CoinTiger",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 470,
+    "product_name": "CoinTiger",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 471,
+    "product_name": "CoinTiger",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 472,
+    "product_name": "CoinTiger",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 473,
+    "product_name": "CoinTiger",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 474,
+    "product_name": "CoinTiger",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 475,
+    "product_name": "CoinTiger",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 476,
+    "product_name": "CoinTiger",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 477,
+    "product_name": "CoinTiger",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 478,
+    "product_name": "Livepeer",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 479,
+    "product_name": "Livepeer",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 480,
+    "product_name": "Livepeer",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 481,
+    "product_name": "Livepeer",
+    "similar_name": "Uniswap"
+  },
+  {
+    "id": 482,
+    "product_name": "Livepeer",
+    "similar_name": "0x"
+  },
+  {
+    "id": 483,
+    "product_name": "Livepeer",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 484,
+    "product_name": "Livepeer",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 485,
+    "product_name": "Livepeer",
+    "similar_name": "EvolutionLand"
+  },
+  {
+    "id": 486,
+    "product_name": "Livepeer",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 487,
+    "product_name": "Livepeer",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 488,
+    "product_name": "GreenAddress",
+    "similar_name": "Coinomi"
+  },
+  {
+    "id": 489,
+    "product_name": "GreenAddress",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 490,
+    "product_name": "GreenAddress",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 491,
+    "product_name": "GreenAddress",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 492,
+    "product_name": "GreenAddress",
+    "similar_name": "Jaxx Liberty"
+  },
+  {
+    "id": 493,
+    "product_name": "GreenAddress",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 494,
+    "product_name": "GreenAddress",
+    "similar_name": "Coins.ph"
+  },
+  {
+    "id": 495,
+    "product_name": "GreenAddress",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 496,
+    "product_name": "GreenAddress",
+    "similar_name": "Status"
+  },
+  {
+    "id": 497,
+    "product_name": "GreenAddress",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 498,
+    "product_name": "CryptoSoccr",
+    "similar_name": "OAS Chain"
+  },
+  {
+    "id": 499,
+    "product_name": "CryptoSoccr",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 500,
+    "product_name": "CryptoSoccr",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 501,
+    "product_name": "CryptoSoccr",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 502,
+    "product_name": "CryptoSoccr",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 503,
+    "product_name": "CryptoSoccr",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 504,
+    "product_name": "CryptoSoccr",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 505,
+    "product_name": "CryptoSoccr",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 506,
+    "product_name": "CryptoSoccr",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 507,
+    "product_name": "CryptoSoccr",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 508,
+    "product_name": "Chibi Fighters",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 509,
+    "product_name": "Chibi Fighters",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 510,
+    "product_name": "Chibi Fighters",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 511,
+    "product_name": "Chibi Fighters",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 512,
+    "product_name": "Chibi Fighters",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 513,
+    "product_name": "Chibi Fighters",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 514,
+    "product_name": "Chibi Fighters",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 515,
+    "product_name": "Chibi Fighters",
+    "similar_name": "EvolutionLand"
+  },
+  {
+    "id": 516,
+    "product_name": "Chibi Fighters",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 517,
+    "product_name": "Chibi Fighters",
+    "similar_name": "RollerCoin"
+  },
+  {
+    "id": 518,
+    "product_name": "GP Casino",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 519,
+    "product_name": "GP Casino",
+    "similar_name": "MonsterEOS.io"
+  },
+  {
+    "id": 520,
+    "product_name": "GP Casino",
+    "similar_name": "Everipedia"
+  },
+  {
+    "id": 521,
+    "product_name": "GP Casino",
+    "similar_name": "PandaFun"
+  },
+  {
+    "id": 522,
+    "product_name": "GP Casino",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 523,
+    "product_name": "GP Casino",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 524,
+    "product_name": "GP Casino",
+    "similar_name": "XPet"
+  },
+  {
+    "id": 525,
+    "product_name": "GP Casino",
+    "similar_name": "Wizards.one"
+  },
+  {
+    "id": 526,
+    "product_name": "Panda Earth",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 527,
+    "product_name": "Panda Earth",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 528,
+    "product_name": "Panda Earth",
+    "similar_name": "SPADESBOOM"
+  },
+  {
+    "id": 529,
+    "product_name": "Panda Earth",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 530,
+    "product_name": "Panda Earth",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 531,
+    "product_name": "Panda Earth",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 532,
+    "product_name": "Panda Earth",
+    "similar_name": "0x"
+  },
+  {
+    "id": 533,
+    "product_name": "Panda Earth",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 534,
+    "product_name": "Panda Earth",
+    "similar_name": "Ether Kingdoms"
+  },
+  {
+    "id": 535,
+    "product_name": "Panda Earth",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 536,
+    "product_name": "Digital BitBox",
+    "similar_name": "KeepKey"
+  },
+  {
+    "id": 537,
+    "product_name": "Digital BitBox",
+    "similar_name": "Ledger Nano S"
+  },
+  {
+    "id": 538,
+    "product_name": "Digital BitBox",
+    "similar_name": "TREZOR Model T"
+  },
+  {
+    "id": 539,
+    "product_name": "Digital BitBox",
+    "similar_name": "TREZOR ONE White"
+  },
+  {
+    "id": 540,
+    "product_name": "Digital BitBox",
+    "similar_name": "Ledger Blue"
+  },
+  {
+    "id": 541,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "Coinomi"
+  },
+  {
+    "id": 542,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 543,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 544,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 545,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 546,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "BRD"
+  },
+  {
+    "id": 547,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 548,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 549,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 550,
+    "product_name": "Bitpay Wallet",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 551,
+    "product_name": "Axie Infinity",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 552,
+    "product_name": "Axie Infinity",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 553,
+    "product_name": "Axie Infinity",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 554,
+    "product_name": "Axie Infinity",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 555,
+    "product_name": "Axie Infinity",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 556,
+    "product_name": "Axie Infinity",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 557,
+    "product_name": "Axie Infinity",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 558,
+    "product_name": "Axie Infinity",
+    "similar_name": "Uniswap"
+  },
+  {
+    "id": 559,
+    "product_name": "Axie Infinity",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 560,
+    "product_name": "Axie Infinity",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 561,
+    "product_name": "Abra",
+    "similar_name": "Axsonex"
+  },
+  {
+    "id": 562,
+    "product_name": "Abra",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 563,
+    "product_name": "Abra",
+    "similar_name": "Bitbuy App"
+  },
+  {
+    "id": 564,
+    "product_name": "Abra",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 565,
+    "product_name": "Abra",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 566,
+    "product_name": "Abra",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 567,
+    "product_name": "Abra",
+    "similar_name": "CryptoTrader"
+  },
+  {
+    "id": 568,
+    "product_name": "Abra",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 569,
+    "product_name": "Abra",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 570,
+    "product_name": "Abra",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 571,
+    "product_name": "MyCrypto",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 572,
+    "product_name": "MyCrypto",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 573,
+    "product_name": "MyCrypto",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 574,
+    "product_name": "MyCrypto",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 575,
+    "product_name": "MyCrypto",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 576,
+    "product_name": "MyCrypto",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 577,
+    "product_name": "MyCrypto",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 578,
+    "product_name": "MyCrypto",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 579,
+    "product_name": "MyCrypto",
+    "similar_name": "StakedWallet"
+  },
+  {
+    "id": 580,
+    "product_name": "MyCrypto",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 581,
+    "product_name": "CryptoGirl",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 582,
+    "product_name": "CryptoGirl",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 583,
+    "product_name": "CryptoGirl",
+    "similar_name": "Ether Kingdoms"
+  },
+  {
+    "id": 584,
+    "product_name": "CryptoGirl",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 585,
+    "product_name": "CryptoGirl",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 586,
+    "product_name": "CryptoGirl",
+    "similar_name": "OAS Chain"
+  },
+  {
+    "id": 587,
+    "product_name": "CryptoGirl",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 588,
+    "product_name": "CryptoGirl",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 589,
+    "product_name": "CryptoGirl",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 590,
+    "product_name": "CryptoGirl",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 591,
+    "product_name": "Xapo",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 592,
+    "product_name": "Xapo",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 593,
+    "product_name": "Xapo",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 594,
+    "product_name": "Xapo",
+    "similar_name": "Bitcoin Wallet"
+  },
+  {
+    "id": 595,
+    "product_name": "Xapo",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 596,
+    "product_name": "Xapo",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 597,
+    "product_name": "Xapo",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 598,
+    "product_name": "Xapo",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 599,
+    "product_name": "Xapo",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 600,
+    "product_name": "Xapo",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 601,
+    "product_name": "CryptoTrader",
+    "similar_name": "Coygo"
+  },
+  {
+    "id": 602,
+    "product_name": "CryptoTrader",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 603,
+    "product_name": "CryptoTrader",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 604,
+    "product_name": "CryptoTrader",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 605,
+    "product_name": "CryptoTrader",
+    "similar_name": "Quadency"
+  },
+  {
+    "id": 606,
+    "product_name": "CryptoTrader",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 607,
+    "product_name": "CryptoTrader",
+    "similar_name": "Robinhood"
+  },
+  {
+    "id": 608,
+    "product_name": "CryptoTrader",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 609,
+    "product_name": "CryptoTrader",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 610,
+    "product_name": "CryptoTrader",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 611,
+    "product_name": "0xUniverse",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 612,
+    "product_name": "0xUniverse",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 613,
+    "product_name": "0xUniverse",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 614,
+    "product_name": "0xUniverse",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 615,
+    "product_name": "0xUniverse",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 616,
+    "product_name": "0xUniverse",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 617,
+    "product_name": "0xUniverse",
+    "similar_name": "Apsis Online"
+  },
+  {
+    "id": 618,
+    "product_name": "0xUniverse",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 619,
+    "product_name": "0xUniverse",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 620,
+    "product_name": "0xUniverse",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 621,
+    "product_name": "ETH.TOWN",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 622,
+    "product_name": "ETH.TOWN",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 623,
+    "product_name": "ETH.TOWN",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 624,
+    "product_name": "ETH.TOWN",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 625,
+    "product_name": "ETH.TOWN",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 626,
+    "product_name": "ETH.TOWN",
+    "similar_name": "RollerCoin"
+  },
+  {
+    "id": 627,
+    "product_name": "ETH.TOWN",
+    "similar_name": "Apsis Online"
+  },
+  {
+    "id": 628,
+    "product_name": "ETH.TOWN",
+    "similar_name": "SPADESBOOM"
+  },
+  {
+    "id": 629,
+    "product_name": "ETH.TOWN",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 630,
+    "product_name": "ETH.TOWN",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 631,
+    "product_name": "Etheremon",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 632,
+    "product_name": "Etheremon",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 633,
+    "product_name": "Etheremon",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 634,
+    "product_name": "Etheremon",
+    "similar_name": "CryptoGirl"
+  },
+  {
+    "id": 635,
+    "product_name": "Etheremon",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 636,
+    "product_name": "Etheremon",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 637,
+    "product_name": "Etheremon",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 638,
+    "product_name": "Etheremon",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 639,
+    "product_name": "Etheremon",
+    "similar_name": "CryptoCrystal"
+  },
+  {
+    "id": 640,
+    "product_name": "Etheremon",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 641,
+    "product_name": "Robinhood",
+    "similar_name": "eToro"
+  },
+  {
+    "id": 642,
+    "product_name": "Robinhood",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 643,
+    "product_name": "Robinhood",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 644,
+    "product_name": "Robinhood",
+    "similar_name": "Abra"
+  },
+  {
+    "id": 645,
+    "product_name": "Robinhood",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 646,
+    "product_name": "Robinhood",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 647,
+    "product_name": "Robinhood",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 648,
+    "product_name": "Robinhood",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 649,
+    "product_name": "Robinhood",
+    "similar_name": "Quadency"
+  },
+  {
+    "id": 650,
+    "product_name": "Robinhood",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 651,
+    "product_name": "Coinbase App",
+    "similar_name": "Bitbuy App"
+  },
+  {
+    "id": 652,
+    "product_name": "Coinbase App",
+    "similar_name": "CryptoTrader"
+  },
+  {
+    "id": 653,
+    "product_name": "Coinbase App",
+    "similar_name": "CoinTiger"
+  },
+  {
+    "id": 654,
+    "product_name": "Coinbase App",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 655,
+    "product_name": "Coinbase App",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 656,
+    "product_name": "Coinbase App",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 657,
+    "product_name": "Coinbase App",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 658,
+    "product_name": "Coinbase App",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 659,
+    "product_name": "Coinbase App",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 660,
+    "product_name": "Coinbase App",
+    "similar_name": "Abra"
+  },
+  {
+    "id": 661,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 662,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 663,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 664,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 665,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 666,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 667,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 668,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 669,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 670,
+    "product_name": "XFX Radeon RX 580 GTS XXX Edition",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 671,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 672,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 673,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 674,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Antminer Z9"
+  },
+  {
+    "id": 675,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 676,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 677,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Antminer L3++ (580 MH/s)"
+  },
+  {
+    "id": 678,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 679,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 680,
+    "product_name": "Innosilicon S11 SiaMaster",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 681,
+    "product_name": "Antminer T9+",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 682,
+    "product_name": "Antminer T9+",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 683,
+    "product_name": "Antminer T9+",
+    "similar_name": "Antminer Z9"
+  },
+  {
+    "id": 684,
+    "product_name": "Antminer T9+",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 685,
+    "product_name": "Antminer T9+",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 686,
+    "product_name": "Antminer T9+",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 687,
+    "product_name": "Antminer T9+",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 688,
+    "product_name": "Antminer T9+",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 689,
+    "product_name": "Antminer T9+",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 690,
+    "product_name": "Antminer T9+",
+    "similar_name": "Innosilicon A9 ZMaster"
+  },
+  {
+    "id": 691,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 692,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 693,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 694,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 695,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 696,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 697,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Antminer Z9"
+  },
+  {
+    "id": 698,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Antminer D3 (19.3 GH/s)"
+  },
+  {
+    "id": 699,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Antminer T9+"
+  },
+  {
+    "id": 700,
+    "product_name": "Canaan Avalon 841",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 701,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 702,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 703,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Innosilicon A9 ZMaster"
+  },
+  {
+    "id": 704,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 705,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 706,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 707,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 708,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Antminer L3++ (580 MH/s)"
+  },
+  {
+    "id": 709,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 710,
+    "product_name": "Canaan Avalon 821",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 711,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 712,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 713,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 714,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 715,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 716,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 717,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 718,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 719,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 720,
+    "product_name": "Sapphire Radeon Tri-X R9 290X",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 721,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 722,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 723,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 724,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 725,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 726,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 727,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 728,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 729,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 730,
+    "product_name": "Nvidia GeForce GTX 970",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 731,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 732,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 733,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 734,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 735,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 736,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 737,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 738,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 739,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 740,
+    "product_name": "ASUS Mining RX 470 4G Graphics Card",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 741,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 742,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 743,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 944,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Antminer Z9"
+  },
+  {
+    "id": 744,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 745,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 746,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 747,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 748,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 749,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 750,
+    "product_name": "Gigabyte GeForce GTX 1070 8GB Windforce",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 751,
+    "product_name": "Peepeth",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 752,
+    "product_name": "Peepeth",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 753,
+    "product_name": "Peepeth",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 754,
+    "product_name": "Peepeth",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 755,
+    "product_name": "Peepeth",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 756,
+    "product_name": "Peepeth",
+    "similar_name": "Bettergram"
+  },
+  {
+    "id": 757,
+    "product_name": "Peepeth",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 758,
+    "product_name": "Peepeth",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 759,
+    "product_name": "Peepeth",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 760,
+    "product_name": "Peepeth",
+    "similar_name": "Uniswap"
+  },
+  {
+    "id": 761,
+    "product_name": "Bettergram",
+    "similar_name": "Vitae.co"
+  },
+  {
+    "id": 762,
+    "product_name": "Bettergram",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 763,
+    "product_name": "Bettergram",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 764,
+    "product_name": "Bettergram",
+    "similar_name": "ChainFlix"
+  },
+  {
+    "id": 765,
+    "product_name": "Bettergram",
+    "similar_name": "Status"
+  },
+  {
+    "id": 766,
+    "product_name": "Bettergram",
+    "similar_name": "TronChat"
+  },
+  {
+    "id": 767,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 768,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 769,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 770,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 771,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 772,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 773,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 774,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 775,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 776,
+    "product_name": "Gigabyte GTX 1060 Windforce 3GB",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 777,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 778,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 779,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 780,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 781,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 782,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Antminer D3 (19.3 GH/s)"
+  },
+  {
+    "id": 783,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 784,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 785,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Antminer Z9"
+  },
+  {
+    "id": 786,
+    "product_name": "Innosilicon A9 ZMaster",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 787,
+    "product_name": "KeepKey",
+    "similar_name": "TREZOR Model T"
+  },
+  {
+    "id": 788,
+    "product_name": "KeepKey",
+    "similar_name": "TREZOR ONE White"
+  },
+  {
+    "id": 789,
+    "product_name": "KeepKey",
+    "similar_name": "Digital BitBox"
+  },
+  {
+    "id": 790,
+    "product_name": "KeepKey",
+    "similar_name": "Ledger Blue"
+  },
+  {
+    "id": 791,
+    "product_name": "KeepKey",
+    "similar_name": "Ledger Nano S"
+  },
+  {
+    "id": 792,
+    "product_name": "CryptoBots",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 793,
+    "product_name": "CryptoBots",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 794,
+    "product_name": "CryptoBots",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 795,
+    "product_name": "CryptoBots",
+    "similar_name": "0x"
+  },
+  {
+    "id": 796,
+    "product_name": "CryptoBots",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 797,
+    "product_name": "CryptoBots",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 798,
+    "product_name": "CryptoBots",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 799,
+    "product_name": "CryptoBots",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 800,
+    "product_name": "CryptoBots",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 801,
+    "product_name": "CryptoBots",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 802,
+    "product_name": "Augur",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 803,
+    "product_name": "Augur",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 804,
+    "product_name": "Augur",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 805,
+    "product_name": "Augur",
+    "similar_name": "0x"
+  },
+  {
+    "id": 806,
+    "product_name": "Augur",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 807,
+    "product_name": "Augur",
+    "similar_name": "Temporal"
+  },
+  {
+    "id": 808,
+    "product_name": "Augur",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 809,
+    "product_name": "Augur",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 810,
+    "product_name": "Augur",
+    "similar_name": "Minds"
+  },
+  {
+    "id": 811,
+    "product_name": "Augur",
+    "similar_name": "EvolutionLand"
+  },
+  {
+    "id": 812,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 813,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 814,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 815,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Antminer T9+"
+  },
+  {
+    "id": 816,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 817,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 818,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Innosilicon A9 ZMaster"
+  },
+  {
+    "id": 819,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 820,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 821,
+    "product_name": "Antminer D3 (19.3 GH/s)",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 822,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 823,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Antminer L3++ (580 MH/s)"
+  },
+  {
+    "id": 824,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 825,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 826,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 827,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 828,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Innosilicon A9 ZMaster"
+  },
+  {
+    "id": 829,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 830,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 831,
+    "product_name": "Antminer S9 (14 TH/s)",
+    "similar_name": "Antminer T9+"
+  },
+  {
+    "id": 832,
+    "product_name": "Antminer D3",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 833,
+    "product_name": "Antminer D3",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 834,
+    "product_name": "Antminer D3",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 835,
+    "product_name": "Antminer D3",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 836,
+    "product_name": "Antminer D3",
+    "similar_name": "Antminer T9+"
+  },
+  {
+    "id": 837,
+    "product_name": "Antminer D3",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 838,
+    "product_name": "Antminer D3",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 839,
+    "product_name": "Antminer D3",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 840,
+    "product_name": "Antminer D3",
+    "similar_name": "Innosilicon A9 ZMaster"
+  },
+  {
+    "id": 841,
+    "product_name": "Antminer D3",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 842,
+    "product_name": "Blockfolio",
+    "similar_name": "Ohio Bitcoin"
+  },
+  {
+    "id": 843,
+    "product_name": "Blockfolio",
+    "similar_name": "Coinpaprika"
+  },
+  {
+    "id": 844,
+    "product_name": "Blockfolio",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 845,
+    "product_name": "Blockfolio",
+    "similar_name": "CoinMarketCap"
+  },
+  {
+    "id": 846,
+    "product_name": "Blockfolio",
+    "similar_name": "TradingView"
+  },
+  {
+    "id": 847,
+    "product_name": "Blockfolio",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 848,
+    "product_name": "Blockfolio",
+    "similar_name": "MarketGod Trading"
+  },
+  {
+    "id": 849,
+    "product_name": "Blockfolio",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 850,
+    "product_name": "Blockfolio",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 851,
+    "product_name": "Blockfolio",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 852,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 853,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 854,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 855,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 856,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 857,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 858,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 859,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 860,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 861,
+    "product_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 862,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 863,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 864,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 865,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 866,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 867,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 868,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 869,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 870,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 871,
+    "product_name": "Nvidia GeForce GTX 1070 Founders Edition",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 872,
+    "product_name": "0x",
+    "similar_name": "EvolutionLand"
+  },
+  {
+    "id": 873,
+    "product_name": "0x",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 874,
+    "product_name": "0x",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 875,
+    "product_name": "0x",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 876,
+    "product_name": "0x",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 877,
+    "product_name": "0x",
+    "similar_name": "Uniswap"
+  },
+  {
+    "id": 878,
+    "product_name": "0x",
+    "similar_name": "MakerDAO"
+  },
+  {
+    "id": 879,
+    "product_name": "0x",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 880,
+    "product_name": "0x",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 881,
+    "product_name": "0x",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 882,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 883,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 884,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 885,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 886,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 887,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 888,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 889,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 890,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 891,
+    "product_name": "AMD Radeon RX 480",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 892,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 893,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 894,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 895,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "RollerCoin"
+  },
+  {
+    "id": 896,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 897,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "Apsis Online"
+  },
+  {
+    "id": 898,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 899,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 900,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 901,
+    "product_name": "Altcoin Fantasy",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 902,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 903,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 904,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "MSI Radeon RX 470 MINER 8G"
+  },
+  {
+    "id": 905,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 906,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 907,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 908,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 909,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 910,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 911,
+    "product_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 912,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition"
+  },
+  {
+    "id": 913,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "Gigabyte GeForce GTX 1070 8GB Windforce"
+  },
+  {
+    "id": 914,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "AMD Radeon RX 480"
+  },
+  {
+    "id": 915,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "XFX Radeon RX 580 GTS XXX Edition"
+  },
+  {
+    "id": 916,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "Gigabyte GTX 1060 Windforce 3GB"
+  },
+  {
+    "id": 917,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "ASUS Mining RX 470 4G Graphics Card"
+  },
+  {
+    "id": 918,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "Nvidia GeForce GTX 970"
+  },
+  {
+    "id": 919,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition"
+  },
+  {
+    "id": 920,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "Sapphire Radeon Tri-X R9 290X"
+  },
+  {
+    "id": 921,
+    "product_name": "MSI Radeon RX 470 MINER 8G",
+    "similar_name": "Nvidia GeForce GTX 1070 Founders Edition"
+  },
+  {
+    "id": 922,
+    "product_name": "MyEtherWallet",
+    "similar_name": "Coins.ph"
+  },
+  {
+    "id": 923,
+    "product_name": "MyEtherWallet",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 924,
+    "product_name": "MyEtherWallet",
+    "similar_name": "Electrum Bitcoin Wallet"
+  },
+  {
+    "id": 925,
+    "product_name": "MyEtherWallet",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 926,
+    "product_name": "MyEtherWallet",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 927,
+    "product_name": "MyEtherWallet",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 928,
+    "product_name": "MyEtherWallet",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 929,
+    "product_name": "MyEtherWallet",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 930,
+    "product_name": "MyEtherWallet",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 931,
+    "product_name": "MyEtherWallet",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 932,
+    "product_name": "Antminer E3",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 933,
+    "product_name": "Antminer E3",
+    "similar_name": "Antminer T9+"
+  },
+  {
+    "id": 934,
+    "product_name": "Antminer E3",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 935,
+    "product_name": "Antminer E3",
+    "similar_name": "Antminer L3++ (580 MH/s)"
+  },
+  {
+    "id": 936,
+    "product_name": "Antminer E3",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 937,
+    "product_name": "Antminer E3",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 938,
+    "product_name": "Antminer E3",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 939,
+    "product_name": "Antminer E3",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 940,
+    "product_name": "Antminer E3",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 941,
+    "product_name": "Antminer E3",
+    "similar_name": "Innosilicon A9 ZMaster"
+  },
+  {
+    "id": 942,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 943,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 945,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Antminer T9+"
+  },
+  {
+    "id": 946,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 947,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Antminer D3 (19.3 GH/s)"
+  },
+  {
+    "id": 948,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 949,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 950,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Innosilicon A9 ZMaster"
+  },
+  {
+    "id": 951,
+    "product_name": "Antminer X3 (220 kH/s)",
+    "similar_name": "Antminer L3++ (580 MH/s)"
+  },
+  {
+    "id": 952,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 953,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 954,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Antminer T9+"
+  },
+  {
+    "id": 955,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Antminer D3 (19.3 GH/s)"
+  },
+  {
+    "id": 956,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Antminer Z9"
+  },
+  {
+    "id": 957,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 958,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 959,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 960,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 961,
+    "product_name": "Antminer L3++ (580 MH/s)",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 962,
+    "product_name": "Antminer Z9",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 963,
+    "product_name": "Antminer Z9",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 964,
+    "product_name": "Antminer Z9",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 965,
+    "product_name": "Antminer Z9",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 966,
+    "product_name": "Antminer Z9",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 967,
+    "product_name": "Antminer Z9",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 968,
+    "product_name": "Antminer Z9",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 969,
+    "product_name": "Antminer Z9",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 970,
+    "product_name": "Antminer Z9",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 971,
+    "product_name": "Antminer Z9",
+    "similar_name": "Antminer D3 (19.3 GH/s)"
+  },
+  {
+    "id": 972,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 973,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 974,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 975,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Antminer L3++ (580 MH/s)"
+  },
+  {
+    "id": 976,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 977,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Innosilicon A9 ZMaster"
+  },
+  {
+    "id": 978,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 979,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 980,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 981,
+    "product_name": "Antminer Z9 mini",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 982,
+    "product_name": "HyperDragons",
+    "similar_name": "CryptoCrystal"
+  },
+  {
+    "id": 983,
+    "product_name": "HyperDragons",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 984,
+    "product_name": "HyperDragons",
+    "similar_name": "Uniswap"
+  },
+  {
+    "id": 985,
+    "product_name": "HyperDragons",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 986,
+    "product_name": "HyperDragons",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 987,
+    "product_name": "HyperDragons",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 988,
+    "product_name": "HyperDragons",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 989,
+    "product_name": "HyperDragons",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 990,
+    "product_name": "HyperDragons",
+    "similar_name": "Temporal"
+  },
+  {
+    "id": 991,
+    "product_name": "HyperDragons",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 992,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 993,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "CryptoGirl"
+  },
+  {
+    "id": 994,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 995,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "0x"
+  },
+  {
+    "id": 996,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 997,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 998,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 999,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "Gods Unchained"
+  },
+  {
+    "id": 1000,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 1001,
+    "product_name": "Blockchain Cuties",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 1002,
+    "product_name": "Gods Unchained",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 1003,
+    "product_name": "Gods Unchained",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 1004,
+    "product_name": "Gods Unchained",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 1005,
+    "product_name": "Gods Unchained",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 1006,
+    "product_name": "Gods Unchained",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 1007,
+    "product_name": "Gods Unchained",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 1008,
+    "product_name": "Gods Unchained",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 1009,
+    "product_name": "Gods Unchained",
+    "similar_name": "MakerDAO"
+  },
+  {
+    "id": 1010,
+    "product_name": "Gods Unchained",
+    "similar_name": "Uniswap"
+  },
+  {
+    "id": 1011,
+    "product_name": "Gods Unchained",
+    "similar_name": "Ethereum Name Service"
+  },
+  {
+    "id": 1012,
+    "product_name": "Fomo3D",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 1013,
+    "product_name": "Fomo3D",
+    "similar_name": "Augur"
+  },
+  {
+    "id": 1014,
+    "product_name": "Fomo3D",
+    "similar_name": "OAS Chain"
+  },
+  {
+    "id": 1015,
+    "product_name": "Fomo3D",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 1016,
+    "product_name": "Fomo3D",
+    "similar_name": "Minds"
+  },
+  {
+    "id": 1017,
+    "product_name": "Fomo3D",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 1018,
+    "product_name": "Fomo3D",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 1019,
+    "product_name": "Fomo3D",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 1020,
+    "product_name": "Fomo3D",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 1021,
+    "product_name": "Fomo3D",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 1022,
+    "product_name": "CryptoKitties",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 1023,
+    "product_name": "CryptoKitties",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 1024,
+    "product_name": "CryptoKitties",
+    "similar_name": "0x"
+  },
+  {
+    "id": 1025,
+    "product_name": "CryptoKitties",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 1026,
+    "product_name": "CryptoKitties",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 1027,
+    "product_name": "CryptoKitties",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 1028,
+    "product_name": "CryptoKitties",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 1029,
+    "product_name": "CryptoKitties",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 1030,
+    "product_name": "CryptoKitties",
+    "similar_name": "Apsis Online"
+  },
+  {
+    "id": 1031,
+    "product_name": "CryptoKitties",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 1032,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 1033,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Antminer T9+"
+  },
+  {
+    "id": 1034,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Antminer D3 (19.3 GH/s)"
+  },
+  {
+    "id": 1035,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 1036,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Antminer L3+ (504 MH/s)"
+  },
+  {
+    "id": 1037,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 1038,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 1039,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Antminer Z9"
+  },
+  {
+    "id": 1040,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 1041,
+    "product_name": "A5 DashMaster",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 1042,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Antminer D3"
+  },
+  {
+    "id": 1043,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "A5 DashMaster"
+  },
+  {
+    "id": 1044,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Antminer S9 (14 TH/s)"
+  },
+  {
+    "id": 1045,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Canaan Avalon 821"
+  },
+  {
+    "id": 1046,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Antminer Z9 mini"
+  },
+  {
+    "id": 1047,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Innosilicon S11 SiaMaster"
+  },
+  {
+    "id": 1048,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Canaan Avalon 841"
+  },
+  {
+    "id": 1049,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Antminer X3 (220 kH/s)"
+  },
+  {
+    "id": 1050,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Antminer Z9"
+  },
+  {
+    "id": 1051,
+    "product_name": "Antminer L3+ (504 MH/s)",
+    "similar_name": "Antminer E3"
+  },
+  {
+    "id": 1052,
+    "product_name": "TREZOR Model T",
+    "similar_name": "Ledger Blue"
+  },
+  {
+    "id": 1053,
+    "product_name": "TREZOR Model T",
+    "similar_name": "Ledger Nano S"
+  },
+  {
+    "id": 1054,
+    "product_name": "TREZOR Model T",
+    "similar_name": "KeepKey"
+  },
+  {
+    "id": 1055,
+    "product_name": "TREZOR Model T",
+    "similar_name": "TREZOR ONE White"
+  },
+  {
+    "id": 1056,
+    "product_name": "TREZOR Model T",
+    "similar_name": "Digital BitBox"
+  },
+  {
+    "id": 1057,
+    "product_name": "Axsonex",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 1058,
+    "product_name": "Axsonex",
+    "similar_name": "CoinTiger"
+  },
+  {
+    "id": 1059,
+    "product_name": "Axsonex",
+    "similar_name": "CryptoTrader"
+  },
+  {
+    "id": 1060,
+    "product_name": "Axsonex",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 1061,
+    "product_name": "Axsonex",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 1062,
+    "product_name": "Axsonex",
+    "similar_name": "Coygo"
+  },
+  {
+    "id": 1063,
+    "product_name": "Axsonex",
+    "similar_name": "Bitbuy App"
+  },
+  {
+    "id": 1064,
+    "product_name": "Axsonex",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1065,
+    "product_name": "Axsonex",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 1066,
+    "product_name": "Axsonex",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 1067,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 1068,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "OAS Chain"
+  },
+  {
+    "id": 1069,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "Augur"
+  },
+  {
+    "id": 1070,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 1071,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 1072,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "Meme Factory"
+  },
+  {
+    "id": 1073,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "MLB Crypto Baseball"
+  },
+  {
+    "id": 1074,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 1075,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 1076,
+    "product_name": "MegaCryptoPolis",
+    "similar_name": "MakerDAO"
+  },
+  {
+    "id": 1077,
+    "product_name": "ETH Birds",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 1078,
+    "product_name": "ETH Birds",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 1079,
+    "product_name": "ETH Birds",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 1080,
+    "product_name": "ETH Birds",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 1081,
+    "product_name": "ETH Birds",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 1082,
+    "product_name": "ETH Birds",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 1083,
+    "product_name": "ETH Birds",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 1084,
+    "product_name": "ETH Birds",
+    "similar_name": "SPADESBOOM"
+  },
+  {
+    "id": 1085,
+    "product_name": "ETH Birds",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 1086,
+    "product_name": "ETH Birds",
+    "similar_name": "MegaCryptoPolis"
+  },
+  {
+    "id": 1087,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 1088,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 1089,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 1090,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "Minds"
+  },
+  {
+    "id": 1091,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 1092,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "Ether Kingdoms"
+  },
+  {
+    "id": 1093,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 1094,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 1095,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 1096,
+    "product_name": "Ethereum Name Service",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 1097,
+    "product_name": "Steemit",
+    "similar_name": "NBA Topshots"
+  },
+  {
+    "id": 1098,
+    "product_name": "Steemit",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 1099,
+    "product_name": "Steemit",
+    "similar_name": "UFC Strike"
+  },
+  {
+    "id": 1100,
+    "product_name": "Steemit",
+    "similar_name": "ChainFlix"
+  },
+  {
+    "id": 1101,
+    "product_name": "Wizards.one",
+    "similar_name": "GP Casino"
+  },
+  {
+    "id": 1102,
+    "product_name": "Wizards.one",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 1103,
+    "product_name": "Wizards.one",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 1104,
+    "product_name": "Wizards.one",
+    "similar_name": "MonsterEOS.io"
+  },
+  {
+    "id": 1105,
+    "product_name": "Wizards.one",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 1106,
+    "product_name": "Wizards.one",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 1107,
+    "product_name": "Wizards.one",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 1108,
+    "product_name": "Wizards.one",
+    "similar_name": "Everipedia"
+  },
+  {
+    "id": 1109,
+    "product_name": "Wizards.one",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 1110,
+    "product_name": "Wizards.one",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 1111,
+    "product_name": "ZBG App",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1112,
+    "product_name": "ZBG App",
+    "similar_name": "Quadency"
+  },
+  {
+    "id": 1113,
+    "product_name": "ZBG App",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 1114,
+    "product_name": "ZBG App",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 1115,
+    "product_name": "ZBG App",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 1116,
+    "product_name": "ZBG App",
+    "similar_name": "Bitbuy App"
+  },
+  {
+    "id": 1117,
+    "product_name": "ZBG App",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 1118,
+    "product_name": "ZBG App",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 1119,
+    "product_name": "ZBG App",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 1120,
+    "product_name": "ZBG App",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 1121,
+    "product_name": "Omise",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1122,
+    "product_name": "Omise",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 1123,
+    "product_name": "Omise",
+    "similar_name": "Bitcoin Wallet"
+  },
+  {
+    "id": 1124,
+    "product_name": "Omise",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 1125,
+    "product_name": "Omise",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 1126,
+    "product_name": "Omise",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1127,
+    "product_name": "Omise",
+    "similar_name": "BRD"
+  },
+  {
+    "id": 1128,
+    "product_name": "Omise",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1129,
+    "product_name": "Omise",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 1130,
+    "product_name": "Omise",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1131,
+    "product_name": "MarketGod Trading",
+    "similar_name": "Ohio Bitcoin"
+  },
+  {
+    "id": 1132,
+    "product_name": "MarketGod Trading",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 1133,
+    "product_name": "MarketGod Trading",
+    "similar_name": "TradingView"
+  },
+  {
+    "id": 1134,
+    "product_name": "MarketGod Trading",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1135,
+    "product_name": "MarketGod Trading",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 1136,
+    "product_name": "MarketGod Trading",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 1137,
+    "product_name": "MarketGod Trading",
+    "similar_name": "Blockfolio"
+  },
+  {
+    "id": 1138,
+    "product_name": "MarketGod Trading",
+    "similar_name": "CoinMarketCap"
+  },
+  {
+    "id": 1139,
+    "product_name": "MarketGod Trading",
+    "similar_name": "Coinpaprika"
+  },
+  {
+    "id": 1140,
+    "product_name": "MarketGod Trading",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 1141,
+    "product_name": "CryptoCompare",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1142,
+    "product_name": "CryptoCompare",
+    "similar_name": "TradingView"
+  },
+  {
+    "id": 1143,
+    "product_name": "CryptoCompare",
+    "similar_name": "MarketGod Trading"
+  },
+  {
+    "id": 1144,
+    "product_name": "CryptoCompare",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 1145,
+    "product_name": "CryptoCompare",
+    "similar_name": "Coinpaprika"
+  },
+  {
+    "id": 1146,
+    "product_name": "CryptoCompare",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 1147,
+    "product_name": "CryptoCompare",
+    "similar_name": "CoinMarketCap"
+  },
+  {
+    "id": 1148,
+    "product_name": "CryptoCompare",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 1149,
+    "product_name": "CryptoCompare",
+    "similar_name": "Ohio Bitcoin"
+  },
+  {
+    "id": 1150,
+    "product_name": "CryptoCompare",
+    "similar_name": "Blockfolio"
+  },
+  {
+    "id": 1151,
+    "product_name": "Coinomi",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 1152,
+    "product_name": "Coinomi",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 1153,
+    "product_name": "Coinomi",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 1154,
+    "product_name": "Coinomi",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 1155,
+    "product_name": "Coinomi",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 1156,
+    "product_name": "Coinomi",
+    "similar_name": "Bitcoin Wallet"
+  },
+  {
+    "id": 1157,
+    "product_name": "Coinomi",
+    "similar_name": "Monarch"
+  },
+  {
+    "id": 1158,
+    "product_name": "Coinomi",
+    "similar_name": "Jaxx Liberty"
+  },
+  {
+    "id": 1159,
+    "product_name": "Coinomi",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 1160,
+    "product_name": "Coinomi",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1161,
+    "product_name": "ZB App",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 1162,
+    "product_name": "ZB App",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 1163,
+    "product_name": "ZB App",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1164,
+    "product_name": "ZB App",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 1165,
+    "product_name": "ZB App",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 1166,
+    "product_name": "ZB App",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1167,
+    "product_name": "ZB App",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 1168,
+    "product_name": "ZB App",
+    "similar_name": "Coygo"
+  },
+  {
+    "id": 1169,
+    "product_name": "ZB App",
+    "similar_name": "Axsonex"
+  },
+  {
+    "id": 1170,
+    "product_name": "ZB App",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 1171,
+    "product_name": "HodlBot",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1172,
+    "product_name": "HodlBot",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 1173,
+    "product_name": "HodlBot",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 1174,
+    "product_name": "HodlBot",
+    "similar_name": "Quadency"
+  },
+  {
+    "id": 1175,
+    "product_name": "HodlBot",
+    "similar_name": "Axsonex"
+  },
+  {
+    "id": 1176,
+    "product_name": "HodlBot",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 1177,
+    "product_name": "HodlBot",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 1178,
+    "product_name": "HodlBot",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 1179,
+    "product_name": "HodlBot",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 1180,
+    "product_name": "HodlBot",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1181,
+    "product_name": "LocalCryptos",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 1182,
+    "product_name": "LocalCryptos",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 1183,
+    "product_name": "LocalCryptos",
+    "similar_name": "EvolutionLand"
+  },
+  {
+    "id": 1184,
+    "product_name": "LocalCryptos",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 1185,
+    "product_name": "LocalCryptos",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 1186,
+    "product_name": "LocalCryptos",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 1187,
+    "product_name": "LocalCryptos",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 1188,
+    "product_name": "LocalCryptos",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 1189,
+    "product_name": "LocalCryptos",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 1190,
+    "product_name": "LocalCryptos",
+    "similar_name": "Ether Kingdoms"
+  },
+  {
+    "id": 1191,
+    "product_name": "StakedWallet",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 1192,
+    "product_name": "StakedWallet",
+    "similar_name": "Coins.ph"
+  },
+  {
+    "id": 1193,
+    "product_name": "StakedWallet",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 1194,
+    "product_name": "StakedWallet",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1195,
+    "product_name": "StakedWallet",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 1196,
+    "product_name": "StakedWallet",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 1197,
+    "product_name": "StakedWallet",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1198,
+    "product_name": "StakedWallet",
+    "similar_name": "OWNR Wallet"
+  },
+  {
+    "id": 1199,
+    "product_name": "StakedWallet",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 1200,
+    "product_name": "StakedWallet",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1201,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 1202,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 1203,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 1204,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "BRD"
+  },
+  {
+    "id": 1205,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 1206,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1207,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "OWNR Wallet"
+  },
+  {
+    "id": 1208,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "Bitcoin Wallet"
+  },
+  {
+    "id": 1209,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 1210,
+    "product_name": "Jaxx Liberty",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 1211,
+    "product_name": "AnkerPay",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 1212,
+    "product_name": "AnkerPay",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 1213,
+    "product_name": "AnkerPay",
+    "similar_name": "OWNR Wallet"
+  },
+  {
+    "id": 1214,
+    "product_name": "AnkerPay",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1215,
+    "product_name": "AnkerPay",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1216,
+    "product_name": "AnkerPay",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1217,
+    "product_name": "AnkerPay",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 1218,
+    "product_name": "AnkerPay",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 1219,
+    "product_name": "AnkerPay",
+    "similar_name": "Bitpay Wallet"
+  },
+  {
+    "id": 1220,
+    "product_name": "AnkerPay",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 1221,
+    "product_name": "CoinMarketCap",
+    "similar_name": "Blockfolio"
+  },
+  {
+    "id": 1222,
+    "product_name": "CoinMarketCap",
+    "similar_name": "TradingView"
+  },
+  {
+    "id": 1223,
+    "product_name": "CoinMarketCap",
+    "similar_name": "Ohio Bitcoin"
+  },
+  {
+    "id": 1224,
+    "product_name": "CoinMarketCap",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1225,
+    "product_name": "CoinMarketCap",
+    "similar_name": "MarketGod Trading"
+  },
+  {
+    "id": 1226,
+    "product_name": "CoinMarketCap",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 1227,
+    "product_name": "CoinMarketCap",
+    "similar_name": "Coinpaprika"
+  },
+  {
+    "id": 1228,
+    "product_name": "CoinMarketCap",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 1229,
+    "product_name": "CoinMarketCap",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 1230,
+    "product_name": "CoinMarketCap",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 1231,
+    "product_name": "Vitae.co",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 1232,
+    "product_name": "Vitae.co",
+    "similar_name": "ChainFlix"
+  },
+  {
+    "id": 1233,
+    "product_name": "Vitae.co",
+    "similar_name": "TronChat"
+  },
+  {
+    "id": 1234,
+    "product_name": "Vitae.co",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 1235,
+    "product_name": "Vitae.co",
+    "similar_name": "Bettergram"
+  },
+  {
+    "id": 1236,
+    "product_name": "Vitae.co",
+    "similar_name": "Status"
+  },
+  {
+    "id": 1237,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 1238,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1239,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 1240,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1241,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 1242,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1243,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1244,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 1245,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "OWNR Wallet"
+  },
+  {
+    "id": 1246,
+    "product_name": "Blockchain Wallet",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 1247,
+    "product_name": "Ledger Nano S",
+    "similar_name": "Ledger Blue"
+  },
+  {
+    "id": 1248,
+    "product_name": "Ledger Nano S",
+    "similar_name": "Digital BitBox"
+  },
+  {
+    "id": 1249,
+    "product_name": "Ledger Nano S",
+    "similar_name": "KeepKey"
+  },
+  {
+    "id": 1250,
+    "product_name": "Ledger Nano S",
+    "similar_name": "TREZOR Model T"
+  },
+  {
+    "id": 1251,
+    "product_name": "Ledger Nano S",
+    "similar_name": "TREZOR ONE White"
+  },
+  {
+    "id": 1252,
+    "product_name": "Plark",
+    "similar_name": "Bitpay Wallet"
+  },
+  {
+    "id": 1253,
+    "product_name": "Plark",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1254,
+    "product_name": "Plark",
+    "similar_name": "Electrum Bitcoin Wallet"
+  },
+  {
+    "id": 1255,
+    "product_name": "Plark",
+    "similar_name": "OWNR Wallet"
+  },
+  {
+    "id": 1256,
+    "product_name": "Plark",
+    "similar_name": "Exodus"
+  },
+  {
+    "id": 1257,
+    "product_name": "Plark",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 1258,
+    "product_name": "Plark",
+    "similar_name": "Coins.ph"
+  },
+  {
+    "id": 1259,
+    "product_name": "Plark",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 1260,
+    "product_name": "Plark",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 1261,
+    "product_name": "Plark",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1262,
+    "product_name": "Coinpaprika",
+    "similar_name": "Ohio Bitcoin"
+  },
+  {
+    "id": 1263,
+    "product_name": "Coinpaprika",
+    "similar_name": "Blockfolio"
+  },
+  {
+    "id": 1264,
+    "product_name": "Coinpaprika",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 1265,
+    "product_name": "Coinpaprika",
+    "similar_name": "MarketGod Trading"
+  },
+  {
+    "id": 1266,
+    "product_name": "Coinpaprika",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 1267,
+    "product_name": "Coinpaprika",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1268,
+    "product_name": "Coinpaprika",
+    "similar_name": "TradingView"
+  },
+  {
+    "id": 1269,
+    "product_name": "Coinpaprika",
+    "similar_name": "CoinMarketCap"
+  },
+  {
+    "id": 1270,
+    "product_name": "Coinpaprika",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 1271,
+    "product_name": "Coinpaprika",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 1272,
+    "product_name": "MakerDAO",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 1273,
+    "product_name": "MakerDAO",
+    "similar_name": "Livepeer"
+  },
+  {
+    "id": 1274,
+    "product_name": "MakerDAO",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 1275,
+    "product_name": "MakerDAO",
+    "similar_name": "Decentraland"
+  },
+  {
+    "id": 1276,
+    "product_name": "MakerDAO",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 1277,
+    "product_name": "MakerDAO",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 1278,
+    "product_name": "MakerDAO",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 1279,
+    "product_name": "MakerDAO",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 1280,
+    "product_name": "MakerDAO",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 1281,
+    "product_name": "MakerDAO",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 1282,
+    "product_name": "Opera",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 1283,
+    "product_name": "Opera",
+    "similar_name": "OWNR Wallet"
+  },
+  {
+    "id": 1284,
+    "product_name": "Opera",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 1285,
+    "product_name": "Opera",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 1286,
+    "product_name": "Opera",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 1287,
+    "product_name": "Opera",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1288,
+    "product_name": "Opera",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1289,
+    "product_name": "Opera",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1290,
+    "product_name": "Opera",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 1291,
+    "product_name": "Opera",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 1292,
+    "product_name": "TradingView",
+    "similar_name": "Ohio Bitcoin"
+  },
+  {
+    "id": 1293,
+    "product_name": "TradingView",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1294,
+    "product_name": "TradingView",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 1295,
+    "product_name": "TradingView",
+    "similar_name": "Coinpaprika"
+  },
+  {
+    "id": 1296,
+    "product_name": "TradingView",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 1297,
+    "product_name": "TradingView",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 1298,
+    "product_name": "TradingView",
+    "similar_name": "CoinStats"
+  },
+  {
+    "id": 1299,
+    "product_name": "TradingView",
+    "similar_name": "Blockfolio"
+  },
+  {
+    "id": 1300,
+    "product_name": "TradingView",
+    "similar_name": "MarketGod Trading"
+  },
+  {
+    "id": 1301,
+    "product_name": "TradingView",
+    "similar_name": "CoinMarketCap"
+  },
+  {
+    "id": 1302,
+    "product_name": "Bitamp",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 1303,
+    "product_name": "Bitamp",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1304,
+    "product_name": "Bitamp",
+    "similar_name": "Monarch"
+  },
+  {
+    "id": 1305,
+    "product_name": "Bitamp",
+    "similar_name": "Jaxx Liberty"
+  },
+  {
+    "id": 1306,
+    "product_name": "Bitamp",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 1307,
+    "product_name": "Bitamp",
+    "similar_name": "Coinomi"
+  },
+  {
+    "id": 1308,
+    "product_name": "Bitamp",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 1309,
+    "product_name": "Bitamp",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 1310,
+    "product_name": "Bitamp",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 1311,
+    "product_name": "Bitamp",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 1312,
+    "product_name": "ChainFlix",
+    "similar_name": "Peepeth"
+  },
+  {
+    "id": 1313,
+    "product_name": "ChainFlix",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 1314,
+    "product_name": "ChainFlix",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 1315,
+    "product_name": "ChainFlix",
+    "similar_name": "Bettergram"
+  },
+  {
+    "id": 1316,
+    "product_name": "ChainFlix",
+    "similar_name": "Steemit"
+  },
+  {
+    "id": 1317,
+    "product_name": "ChainFlix",
+    "similar_name": "Status"
+  },
+  {
+    "id": 1318,
+    "product_name": "ChainFlix",
+    "similar_name": "UFC Strike"
+  },
+  {
+    "id": 1319,
+    "product_name": "ChainFlix",
+    "similar_name": "Vitae.co"
+  },
+  {
+    "id": 1320,
+    "product_name": "ChainFlix",
+    "similar_name": "TronChat"
+  },
+  {
+    "id": 1321,
+    "product_name": "ChainFlix",
+    "similar_name": "NBA Topshots"
+  },
+  {
+    "id": 1322,
+    "product_name": "CryptoView",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 1323,
+    "product_name": "CryptoView",
+    "similar_name": "Bitbuy App"
+  },
+  {
+    "id": 1324,
+    "product_name": "CryptoView",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 1325,
+    "product_name": "CryptoView",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 1326,
+    "product_name": "CryptoView",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 1327,
+    "product_name": "CryptoView",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 1328,
+    "product_name": "CryptoView",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 1329,
+    "product_name": "CryptoView",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 1330,
+    "product_name": "CryptoView",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 1331,
+    "product_name": "CryptoView",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1332,
+    "product_name": "SPADESBOOM",
+    "similar_name": "Alchemy Toys"
+  },
+  {
+    "id": 1333,
+    "product_name": "SPADESBOOM",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 1334,
+    "product_name": "SPADESBOOM",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 1335,
+    "product_name": "SPADESBOOM",
+    "similar_name": "ETH.TOWN"
+  },
+  {
+    "id": 1336,
+    "product_name": "SPADESBOOM",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 1337,
+    "product_name": "SPADESBOOM",
+    "similar_name": "Chibi Fighters"
+  },
+  {
+    "id": 1338,
+    "product_name": "SPADESBOOM",
+    "similar_name": "LandSecrets"
+  },
+  {
+    "id": 1339,
+    "product_name": "SPADESBOOM",
+    "similar_name": "0xUniverse"
+  },
+  {
+    "id": 1340,
+    "product_name": "SPADESBOOM",
+    "similar_name": "Axie Infinity"
+  },
+  {
+    "id": 1341,
+    "product_name": "SPADESBOOM",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 1342,
+    "product_name": "1xBit",
+    "similar_name": "XPet"
+  },
+  {
+    "id": 1343,
+    "product_name": "1xBit",
+    "similar_name": "PandaFun"
+  },
+  {
+    "id": 1344,
+    "product_name": "1xBit",
+    "similar_name": "Wizards.one"
+  },
+  {
+    "id": 1345,
+    "product_name": "1xBit",
+    "similar_name": "GP Casino"
+  },
+  {
+    "id": 1346,
+    "product_name": "1xBit",
+    "similar_name": "Everipedia"
+  },
+  {
+    "id": 1347,
+    "product_name": "1xBit",
+    "similar_name": "MonsterEOS.io"
+  },
+  {
+    "id": 1348,
+    "product_name": "1xBit",
+    "similar_name": "EOS Knights"
+  },
+  {
+    "id": 1349,
+    "product_name": "1xBit",
+    "similar_name": "ChainFlix"
+  },
+  {
+    "id": 1350,
+    "product_name": "1xBit",
+    "similar_name": "Steemit"
+  },
+  {
+    "id": 1351,
+    "product_name": "1xBit",
+    "similar_name": "BC.Game"
+  },
+  {
+    "id": 1352,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "Crypto Pro"
+  },
+  {
+    "id": 1353,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 1354,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 1355,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 1356,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "CryptoCompare"
+  },
+  {
+    "id": 1357,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 1358,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 1359,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 1360,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 1361,
+    "product_name": "SwissBorg Wealth App",
+    "similar_name": "Delta"
+  },
+  {
+    "id": 1362,
+    "product_name": "Coins.ph",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1363,
+    "product_name": "Coins.ph",
+    "similar_name": "Xapo"
+  },
+  {
+    "id": 1364,
+    "product_name": "Coins.ph",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1365,
+    "product_name": "Coins.ph",
+    "similar_name": "Omise"
+  },
+  {
+    "id": 1366,
+    "product_name": "Coins.ph",
+    "similar_name": "AnkerPay"
+  },
+  {
+    "id": 1367,
+    "product_name": "Coins.ph",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1368,
+    "product_name": "Coins.ph",
+    "similar_name": "StakedWallet"
+  },
+  {
+    "id": 1369,
+    "product_name": "Coins.ph",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 1370,
+    "product_name": "Coins.ph",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 1371,
+    "product_name": "Coins.ph",
+    "similar_name": "Monarch"
+  },
+  {
+    "id": 1372,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "Status"
+  },
+  {
+    "id": 1373,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 1374,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 1375,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 1376,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 1377,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 1378,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1379,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1380,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "Monarch"
+  },
+  {
+    "id": 1381,
+    "product_name": "Bitcoin Wallet",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 1382,
+    "product_name": "Monarch",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 1383,
+    "product_name": "Monarch",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 1384,
+    "product_name": "Monarch",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 1385,
+    "product_name": "Monarch",
+    "similar_name": "Bitpay Wallet"
+  },
+  {
+    "id": 1386,
+    "product_name": "Monarch",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1387,
+    "product_name": "Monarch",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 1388,
+    "product_name": "Monarch",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 1389,
+    "product_name": "Monarch",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 1390,
+    "product_name": "Monarch",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 1391,
+    "product_name": "Monarch",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 1392,
+    "product_name": "Xapa Wallet",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 1393,
+    "product_name": "Xapa Wallet",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1394,
+    "product_name": "Xapa Wallet",
+    "similar_name": "Bitpay Wallet"
+  },
+  {
+    "id": 1395,
+    "product_name": "Xapa Wallet",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 1396,
+    "product_name": "Xapa Wallet",
+    "similar_name": "BRD"
+  },
+  {
+    "id": 1397,
+    "product_name": "Xapa Wallet",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1398,
+    "product_name": "Xapa Wallet",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1399,
+    "product_name": "Xapa Wallet",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1400,
+    "product_name": "Xapa Wallet",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 1401,
+    "product_name": "Xapa Wallet",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 1402,
+    "product_name": "Status",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 1403,
+    "product_name": "Status",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 1404,
+    "product_name": "Status",
+    "similar_name": "Jaxx Liberty"
+  },
+  {
+    "id": 1405,
+    "product_name": "Status",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 1406,
+    "product_name": "Status",
+    "similar_name": "Coins.ph"
+  },
+  {
+    "id": 1407,
+    "product_name": "Status",
+    "similar_name": "Coinomi"
+  },
+  {
+    "id": 1408,
+    "product_name": "Status",
+    "similar_name": "Omise"
+  },
+  {
+    "id": 1409,
+    "product_name": "Status",
+    "similar_name": "MyCrypto"
+  },
+  {
+    "id": 1410,
+    "product_name": "Status",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 1411,
+    "product_name": "Status",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 1412,
+    "product_name": "Enjin Wallet",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1413,
+    "product_name": "Enjin Wallet",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 1414,
+    "product_name": "Enjin Wallet",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1415,
+    "product_name": "Enjin Wallet",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 1416,
+    "product_name": "Enjin Wallet",
+    "similar_name": "StakedWallet"
+  },
+  {
+    "id": 1417,
+    "product_name": "Enjin Wallet",
+    "similar_name": "Bitpay Wallet"
+  },
+  {
+    "id": 1418,
+    "product_name": "Enjin Wallet",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 1419,
+    "product_name": "Enjin Wallet",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 1420,
+    "product_name": "Enjin Wallet",
+    "similar_name": "Jaxx Liberty"
+  },
+  {
+    "id": 1421,
+    "product_name": "Enjin Wallet",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1422,
+    "product_name": "CitoWise",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1423,
+    "product_name": "CitoWise",
+    "similar_name": "BRD"
+  },
+  {
+    "id": 1424,
+    "product_name": "CitoWise",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1425,
+    "product_name": "CitoWise",
+    "similar_name": "Omise"
+  },
+  {
+    "id": 1426,
+    "product_name": "CitoWise",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1427,
+    "product_name": "CitoWise",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 1428,
+    "product_name": "CitoWise",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1429,
+    "product_name": "CitoWise",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1430,
+    "product_name": "CitoWise",
+    "similar_name": "Exodus"
+  },
+  {
+    "id": 1431,
+    "product_name": "CitoWise",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 1432,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "Exodus"
+  },
+  {
+    "id": 1433,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "Xapo"
+  },
+  {
+    "id": 1434,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 1435,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 1436,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 1437,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 1438,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1439,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 1440,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "AnkerPay"
+  },
+  {
+    "id": 1441,
+    "product_name": "Coinbase Wallet",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 1442,
+    "product_name": "Edge Wallet",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1443,
+    "product_name": "Edge Wallet",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 1444,
+    "product_name": "Edge Wallet",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 1445,
+    "product_name": "Edge Wallet",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 1446,
+    "product_name": "Edge Wallet",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 1447,
+    "product_name": "Edge Wallet",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1448,
+    "product_name": "Edge Wallet",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 1449,
+    "product_name": "Edge Wallet",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1450,
+    "product_name": "Edge Wallet",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1451,
+    "product_name": "Edge Wallet",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1452,
+    "product_name": "Uniswap",
+    "similar_name": "CryptoRome"
+  },
+  {
+    "id": 1453,
+    "product_name": "Uniswap",
+    "similar_name": "Temporal"
+  },
+  {
+    "id": 1454,
+    "product_name": "Uniswap",
+    "similar_name": "Augur"
+  },
+  {
+    "id": 1455,
+    "product_name": "Uniswap",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 1456,
+    "product_name": "Uniswap",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 1457,
+    "product_name": "Uniswap",
+    "similar_name": "LocalCryptos"
+  },
+  {
+    "id": 1458,
+    "product_name": "Uniswap",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 1459,
+    "product_name": "Uniswap",
+    "similar_name": "OAS Chain"
+  },
+  {
+    "id": 1460,
+    "product_name": "Uniswap",
+    "similar_name": "CryptoSoccr"
+  },
+  {
+    "id": 1461,
+    "product_name": "Uniswap",
+    "similar_name": "Sheetcoin"
+  },
+  {
+    "id": 1462,
+    "product_name": "DragonGlass",
+    "similar_name": "Etherscan"
+  },
+  {
+    "id": 1463,
+    "product_name": "DragonGlass",
+    "similar_name": "Seiza"
+  },
+  {
+    "id": 1464,
+    "product_name": "DragonGlass",
+    "similar_name": "Blockchain Explorer"
+  },
+  {
+    "id": 1465,
+    "product_name": "SwirlWallet",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1466,
+    "product_name": "SwirlWallet",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 1467,
+    "product_name": "SwirlWallet",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 1468,
+    "product_name": "SwirlWallet",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 1469,
+    "product_name": "SwirlWallet",
+    "similar_name": "Bitpay Wallet"
+  },
+  {
+    "id": 1470,
+    "product_name": "SwirlWallet",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 1471,
+    "product_name": "SwirlWallet",
+    "similar_name": "BRD"
+  },
+  {
+    "id": 1472,
+    "product_name": "SwirlWallet",
+    "similar_name": "Coinomi"
+  },
+  {
+    "id": 1473,
+    "product_name": "SwirlWallet",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1474,
+    "product_name": "SwirlWallet",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 1475,
+    "product_name": "Alchemy Toys",
+    "similar_name": "ETH Birds"
+  },
+  {
+    "id": 1476,
+    "product_name": "Alchemy Toys",
+    "similar_name": "CryptoCities"
+  },
+  {
+    "id": 1477,
+    "product_name": "Alchemy Toys",
+    "similar_name": "RollerCoin"
+  },
+  {
+    "id": 1478,
+    "product_name": "Alchemy Toys",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 1479,
+    "product_name": "Alchemy Toys",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 1480,
+    "product_name": "Alchemy Toys",
+    "similar_name": "CryptoBots"
+  },
+  {
+    "id": 1481,
+    "product_name": "Alchemy Toys",
+    "similar_name": "Fishbank"
+  },
+  {
+    "id": 1482,
+    "product_name": "Alchemy Toys",
+    "similar_name": "Everdragons"
+  },
+  {
+    "id": 1483,
+    "product_name": "Alchemy Toys",
+    "similar_name": "Apsis Online"
+  },
+  {
+    "id": 1484,
+    "product_name": "Alchemy Toys",
+    "similar_name": "HyperDragons"
+  },
+  {
+    "id": 1485,
+    "product_name": "Bitbuy App",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 1486,
+    "product_name": "Bitbuy App",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 1487,
+    "product_name": "Bitbuy App",
+    "similar_name": "eToro"
+  },
+  {
+    "id": 1488,
+    "product_name": "Bitbuy App",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 1489,
+    "product_name": "Bitbuy App",
+    "similar_name": "Axsonex"
+  },
+  {
+    "id": 1490,
+    "product_name": "Bitbuy App",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 1491,
+    "product_name": "Bitbuy App",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 1492,
+    "product_name": "Bitbuy App",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 1493,
+    "product_name": "Bitbuy App",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1494,
+    "product_name": "Bitbuy App",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 1495,
+    "product_name": "Digifox",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1496,
+    "product_name": "Digifox",
+    "similar_name": "Haven"
+  },
+  {
+    "id": 1497,
+    "product_name": "Digifox",
+    "similar_name": "Xapo"
+  },
+  {
+    "id": 1498,
+    "product_name": "Digifox",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 1499,
+    "product_name": "Digifox",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 1500,
+    "product_name": "Digifox",
+    "similar_name": "Abra"
+  },
+  {
+    "id": 1501,
+    "product_name": "Digifox",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1502,
+    "product_name": "Digifox",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 1503,
+    "product_name": "Digifox",
+    "similar_name": "Bitpie"
+  },
+  {
+    "id": 1504,
+    "product_name": "Digifox",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 1505,
+    "product_name": "eToro",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 1506,
+    "product_name": "eToro",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 1507,
+    "product_name": "eToro",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 1508,
+    "product_name": "eToro",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1509,
+    "product_name": "eToro",
+    "similar_name": "Quadency"
+  },
+  {
+    "id": 1510,
+    "product_name": "eToro",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 1511,
+    "product_name": "eToro",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 1512,
+    "product_name": "eToro",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 1513,
+    "product_name": "eToro",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 1514,
+    "product_name": "eToro",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 1515,
+    "product_name": "Bybit App",
+    "similar_name": "Axsonex"
+  },
+  {
+    "id": 1516,
+    "product_name": "Bybit App",
+    "similar_name": "CoinTiger"
+  },
+  {
+    "id": 1517,
+    "product_name": "Bybit App",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 1518,
+    "product_name": "Bybit App",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 1519,
+    "product_name": "Bybit App",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 1520,
+    "product_name": "Bybit App",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 1521,
+    "product_name": "Bybit App",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 1522,
+    "product_name": "Bybit App",
+    "similar_name": "WunderTrading"
+  },
+  {
+    "id": 1523,
+    "product_name": "Bybit App",
+    "similar_name": "Coinbase App"
+  },
+  {
+    "id": 1524,
+    "product_name": "Bybit App",
+    "similar_name": "MoonPay"
+  },
+  {
+    "id": 1525,
+    "product_name": "Ledger Blue",
+    "similar_name": "Ledger Nano S"
+  },
+  {
+    "id": 1526,
+    "product_name": "Ledger Blue",
+    "similar_name": "TREZOR Model T"
+  },
+  {
+    "id": 1527,
+    "product_name": "Ledger Blue",
+    "similar_name": "KeepKey"
+  },
+  {
+    "id": 1528,
+    "product_name": "Ledger Blue",
+    "similar_name": "Digital BitBox"
+  },
+  {
+    "id": 1529,
+    "product_name": "Ledger Blue",
+    "similar_name": "TREZOR ONE White"
+  },
+  {
+    "id": 1530,
+    "product_name": "Exodus",
+    "similar_name": "MyEtherWallet"
+  },
+  {
+    "id": 1531,
+    "product_name": "Exodus",
+    "similar_name": "StakedWallet"
+  },
+  {
+    "id": 1532,
+    "product_name": "Exodus",
+    "similar_name": "SwirlWallet"
+  },
+  {
+    "id": 1533,
+    "product_name": "Exodus",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 1534,
+    "product_name": "Exodus",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 1535,
+    "product_name": "Exodus",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1536,
+    "product_name": "Exodus",
+    "similar_name": "Ronin Wallet"
+  },
+  {
+    "id": 1537,
+    "product_name": "Exodus",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 1538,
+    "product_name": "Exodus",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1539,
+    "product_name": "Exodus",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 1540,
+    "product_name": "Binance App",
+    "similar_name": "Coins.ph"
+  },
+  {
+    "id": 1541,
+    "product_name": "Binance App",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 1542,
+    "product_name": "Binance App",
+    "similar_name": "Coygo"
+  },
+  {
+    "id": 1543,
+    "product_name": "Binance App",
+    "similar_name": "Xapo"
+  },
+  {
+    "id": 1544,
+    "product_name": "Binance App",
+    "similar_name": "Status"
+  },
+  {
+    "id": 1545,
+    "product_name": "Binance App",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 1546,
+    "product_name": "Binance App",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 1547,
+    "product_name": "Binance App",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 1548,
+    "product_name": "Binance App",
+    "similar_name": "Coinbase Wallet"
+  },
+  {
+    "id": 1549,
+    "product_name": "Binance App",
+    "similar_name": "Ethermium"
+  },
+  {
+    "id": 1550,
+    "product_name": "Trust Wallet",
+    "similar_name": "Xapa Wallet"
+  },
+  {
+    "id": 1551,
+    "product_name": "Trust Wallet",
+    "similar_name": "MetaMask"
+  },
+  {
+    "id": 1552,
+    "product_name": "Trust Wallet",
+    "similar_name": "Prodoge"
+  },
+  {
+    "id": 1553,
+    "product_name": "Trust Wallet",
+    "similar_name": "Omise"
+  },
+  {
+    "id": 1554,
+    "product_name": "Trust Wallet",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 1555,
+    "product_name": "Trust Wallet",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 1556,
+    "product_name": "Trust Wallet",
+    "similar_name": "uPort"
+  },
+  {
+    "id": 1557,
+    "product_name": "Trust Wallet",
+    "similar_name": "SwirlWallet"
+  },
+  {
+    "id": 1558,
+    "product_name": "Trust Wallet",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 1559,
+    "product_name": "Trust Wallet",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1560,
+    "product_name": "Apsis Online",
+    "similar_name": "Crypt-Oink"
+  },
+  {
+    "id": 1561,
+    "product_name": "Apsis Online",
+    "similar_name": "CryptoKitties"
+  },
+  {
+    "id": 1562,
+    "product_name": "Apsis Online",
+    "similar_name": "Etheremon"
+  },
+  {
+    "id": 1563,
+    "product_name": "Apsis Online",
+    "similar_name": "Fomo3D"
+  },
+  {
+    "id": 1564,
+    "product_name": "Apsis Online",
+    "similar_name": "Wizards.one"
+  },
+  {
+    "id": 1565,
+    "product_name": "Apsis Online",
+    "similar_name": "SPADESBOOM"
+  },
+  {
+    "id": 1566,
+    "product_name": "Apsis Online",
+    "similar_name": "Blockchain Cuties"
+  },
+  {
+    "id": 1567,
+    "product_name": "Apsis Online",
+    "similar_name": "Altcoin Fantasy"
+  },
+  {
+    "id": 1568,
+    "product_name": "Apsis Online",
+    "similar_name": "Crypto Space Commander"
+  },
+  {
+    "id": 1569,
+    "product_name": "Apsis Online",
+    "similar_name": "Panda Earth"
+  },
+  {
+    "id": 1570,
+    "product_name": "WunderTrading",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 1571,
+    "product_name": "WunderTrading",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1572,
+    "product_name": "WunderTrading",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 1573,
+    "product_name": "WunderTrading",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 1574,
+    "product_name": "WunderTrading",
+    "similar_name": "SwissBorg Wealth App"
+  },
+  {
+    "id": 1575,
+    "product_name": "WunderTrading",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 1576,
+    "product_name": "WunderTrading",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1577,
+    "product_name": "WunderTrading",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 1578,
+    "product_name": "WunderTrading",
+    "similar_name": "Abra"
+  },
+  {
+    "id": 1579,
+    "product_name": "WunderTrading",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 1580,
+    "product_name": "Coinbase Pro",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 1581,
+    "product_name": "Coinbase Pro",
+    "similar_name": "CryptoView"
+  },
+  {
+    "id": 1582,
+    "product_name": "Coinbase Pro",
+    "similar_name": "Digifox"
+  },
+  {
+    "id": 1583,
+    "product_name": "Coinbase Pro",
+    "similar_name": "Robinhood"
+  },
+  {
+    "id": 1584,
+    "product_name": "Coinbase Pro",
+    "similar_name": "Algomate Trading Platform"
+  },
+  {
+    "id": 1585,
+    "product_name": "Coinbase Pro",
+    "similar_name": "Abra"
+  },
+  {
+    "id": 1586,
+    "product_name": "Coinbase Pro",
+    "similar_name": "Axsonex"
+  },
+  {
+    "id": 1587,
+    "product_name": "Coinbase Pro",
+    "similar_name": "ZBG App"
+  },
+  {
+    "id": 1588,
+    "product_name": "Coinbase Pro",
+    "similar_name": "Bybit App"
+  },
+  {
+    "id": 1589,
+    "product_name": "Coinbase Pro",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1590,
+    "product_name": "MetaMask",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 1591,
+    "product_name": "MetaMask",
+    "similar_name": "Jaxx Liberty"
+  },
+  {
+    "id": 1592,
+    "product_name": "MetaMask",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1593,
+    "product_name": "MetaMask",
+    "similar_name": "Trust Wallet"
+  },
+  {
+    "id": 1594,
+    "product_name": "MetaMask",
+    "similar_name": "Blockchain Wallet"
+  },
+  {
+    "id": 1595,
+    "product_name": "MetaMask",
+    "similar_name": "Coinomi"
+  },
+  {
+    "id": 1596,
+    "product_name": "MetaMask",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1597,
+    "product_name": "MetaMask",
+    "similar_name": "GreenAddress"
+  },
+  {
+    "id": 1598,
+    "product_name": "MetaMask",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 1599,
+    "product_name": "MetaMask",
+    "similar_name": "Electrum Bitcoin Wallet"
+  },
+  {
+    "id": 1600,
+    "product_name": "Ronin Wallet",
+    "similar_name": "XDEFI Wallet"
+  },
+  {
+    "id": 1601,
+    "product_name": "Ronin Wallet",
+    "similar_name": "CitoWise"
+  },
+  {
+    "id": 1602,
+    "product_name": "Ronin Wallet",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1603,
+    "product_name": "Ronin Wallet",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1604,
+    "product_name": "Ronin Wallet",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1605,
+    "product_name": "Ronin Wallet",
+    "similar_name": "Cash App"
+  },
+  {
+    "id": 1606,
+    "product_name": "Ronin Wallet",
+    "similar_name": "Coinomi"
+  },
+  {
+    "id": 1607,
+    "product_name": "Ronin Wallet",
+    "similar_name": "SwirlWallet"
+  },
+  {
+    "id": 1608,
+    "product_name": "Ronin Wallet",
+    "similar_name": "Coins.ph"
+  },
+  {
+    "id": 1609,
+    "product_name": "Ronin Wallet",
+    "similar_name": "Electrum Bitcoin Wallet"
+  },
+  {
+    "id": 1610,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Enjin Wallet"
+  },
+  {
+    "id": 1611,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Plark"
+  },
+  {
+    "id": 1612,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Exodus"
+  },
+  {
+    "id": 1613,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Edge Wallet"
+  },
+  {
+    "id": 1614,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Daedalus"
+  },
+  {
+    "id": 1615,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1616,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "BTC.com Wallet App"
+  },
+  {
+    "id": 1617,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Yoroi Wallet"
+  },
+  {
+    "id": 1618,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Opera"
+  },
+  {
+    "id": 1619,
+    "product_name": "XDEFI Wallet",
+    "similar_name": "Bitamp"
+  },
+  {
+    "id": 1620,
+    "product_name": "MoonPay",
+    "similar_name": "Circle Invest"
+  },
+  {
+    "id": 1621,
+    "product_name": "MoonPay",
+    "similar_name": "ZB App"
+  },
+  {
+    "id": 1622,
+    "product_name": "MoonPay",
+    "similar_name": "Quadency"
+  },
+  {
+    "id": 1623,
+    "product_name": "MoonPay",
+    "similar_name": "Cashbackcloud"
+  },
+  {
+    "id": 1624,
+    "product_name": "MoonPay",
+    "similar_name": "CryptoTrader"
+  },
+  {
+    "id": 1625,
+    "product_name": "MoonPay",
+    "similar_name": "Bexplus"
+  },
+  {
+    "id": 1626,
+    "product_name": "MoonPay",
+    "similar_name": "Coinbase Pro"
+  },
+  {
+    "id": 1627,
+    "product_name": "MoonPay",
+    "similar_name": "Binance App"
+  },
+  {
+    "id": 1628,
+    "product_name": "MoonPay",
+    "similar_name": "Amplify Brokerage"
+  },
+  {
+    "id": 1629,
+    "product_name": "MoonPay",
+    "similar_name": "HodlBot"
+  },
+  {
+    "id": 1630,
+    "product_name": "NBA Topshots",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 1631,
+    "product_name": "NBA Topshots",
+    "similar_name": "ChainFlix"
+  },
+  {
+    "id": 1632,
+    "product_name": "NBA Topshots",
+    "similar_name": "Steemit"
+  },
+  {
+    "id": 1633,
+    "product_name": "NBA Topshots",
+    "similar_name": "UFC Strike"
+  },
+  {
+    "id": 1634,
+    "product_name": "UFC Strike",
+    "similar_name": "1xBit"
+  },
+  {
+    "id": 1635,
+    "product_name": "UFC Strike",
+    "similar_name": "NBA Topshots"
+  },
+  {
+    "id": 1636,
+    "product_name": "UFC Strike",
+    "similar_name": "Steemit"
+  },
+  {
+    "id": 1637,
+    "product_name": "UFC Strike",
+    "similar_name": "ChainFlix"
+  }
+]

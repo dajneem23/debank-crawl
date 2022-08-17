@@ -1,8 +1,17 @@
 version: "3"
 
 services:
-  postgres:
-    image: bitnami/postgresql:14
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - ${DB_PORT}:27017
+    environment:
+      - MONGO_INITDB_DATABASE= "${DB_NAME}"
+      # - MONGO_INITDB_ROOT_USERNAME= "${DB_USERNAME}"
+      # - MONGO_INITDB_ROOT_PASSWORD= "${DB_PASSWORD}"
+    # volumes:
+    #   - ./db/mongo:/data/db
     restart: always
     environment:
       POSTGRESQL_USERNAME: "${DB_USERNAME}"

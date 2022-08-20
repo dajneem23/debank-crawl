@@ -76,6 +76,8 @@ export type BaseInformationModel = {
 
   verified?: boolean;
 
+  sponsored?: boolean;
+
   tel?: string;
 
   email?: string;
@@ -83,6 +85,8 @@ export type BaseInformationModel = {
   avatar?: string;
 
   about?: string;
+
+  short_description?: string;
 
   twitter?: string;
 
@@ -103,7 +107,14 @@ export type BaseInformationModel = {
   website?: string;
 
   blog?: string;
+
   reddit?: string;
+
+  gitter?: string;
+
+  bitcoin_talk?: string;
+
+  rocket_chat?: string;
 
   created_by?: string;
 
@@ -127,16 +138,6 @@ export type Feature = {
 };
 
 export type Service = {
-  title: string;
-  description: string;
-};
-
-export type Gallery = {
-  name: string;
-  url: string;
-};
-
-export type CCY = {
   title: string;
   description: string;
 };

@@ -15,27 +15,63 @@ export const ProductValidation = {
       //array id of categories
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-      software_license: Joi.string(),
-
       features: Joi.array().items(Joi.string()),
-
-      ccys: Joi.array().items(Joi.string()),
 
       token: Joi.string(),
 
-      ios_app: Joi.string(),
+      apps: Joi.array().items(Joi.object()),
 
-      google_play_app: Joi.string(),
+      supports: Joi.array().items(Joi.object()),
 
-      chrome_extension: Joi.string(),
+      galleries: Joi.array().items(Joi.string()),
 
-      mac_app: Joi.string(),
+      informations: Joi.array().items(Joi.object()),
 
-      linux_app: Joi.string(),
+      team: Joi.array().items(Joi.object()),
 
-      windows_app: Joi.string(),
+      parent_company: Joi.string(),
 
-      wiki: Joi.string(),
+      team_location: Joi.string(),
+
+      location: Joi.string(),
+
+      research_papers: Joi.array().items(Joi.object()),
+
+      sponsored: Joi.boolean(),
+
+      short_description: Joi.string(),
+
+      twitter: Joi.string(),
+
+      telegram: Joi.string(),
+
+      facebook: Joi.string(),
+
+      instagram: Joi.string(),
+
+      linkedin: Joi.string(),
+
+      github: Joi.string(),
+
+      medium: Joi.string(),
+
+      youtube: Joi.string(),
+
+      website: Joi.string(),
+
+      blog: Joi.string(),
+
+      email: Joi.string(),
+
+      tel: Joi.string(),
+
+      about: Joi.string(),
+
+      avatar: Joi.string(),
+
+      rocket_chat: Joi.string(),
+
+      bitcoin_talk: Joi.string(),
     }),
   }),
   update: validate({
@@ -55,23 +91,61 @@ export const ProductValidation = {
 
       features: Joi.array().items(Joi.string()),
 
-      ccys: Joi.array().items(Joi.string()),
-
       token: Joi.string(),
 
-      ios_app: Joi.string(),
+      apps: Joi.array().items(Joi.object()),
 
-      google_play_app: Joi.string(),
+      supports: Joi.array().items(Joi.object()),
 
-      chrome_extension: Joi.string(),
+      galleries: Joi.array().items(Joi.string()),
 
-      mac_app: Joi.string(),
+      informations: Joi.array().items(Joi.object()),
 
-      linux_app: Joi.string(),
+      team: Joi.array().items(Joi.object()),
 
-      windows_app: Joi.string(),
+      parent_company: Joi.string(),
 
-      wiki: Joi.string(),
+      team_location: Joi.string(),
+
+      location: Joi.string(),
+
+      research_papers: Joi.array().items(Joi.object()),
+
+      sponsored: Joi.boolean(),
+
+      short_description: Joi.string(),
+
+      twitter: Joi.string(),
+
+      telegram: Joi.string(),
+
+      facebook: Joi.string(),
+
+      instagram: Joi.string(),
+
+      linkedin: Joi.string(),
+
+      github: Joi.string(),
+
+      medium: Joi.string(),
+
+      youtube: Joi.string(),
+
+      website: Joi.string(),
+
+      blog: Joi.string(),
+
+      email: Joi.string(),
+
+      tel: Joi.string(),
+
+      about: Joi.string(),
+
+      avatar: Joi.string(),
+
+      rocket_chat: Joi.string(),
+
+      bitcoin_talk: Joi.string(),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),

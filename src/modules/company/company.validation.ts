@@ -11,7 +11,6 @@ export const CompanyValidation = {
       headquarter: Joi.object(),
 
       //array id of persons
-      teams: Joi.array().items(Joi.string()),
 
       country: Joi.string(),
 
@@ -37,7 +36,49 @@ export const CompanyValidation = {
 
       portfolios: Joi.array().items(Joi.string()),
 
-      ccys: Joi.array().items(Joi.string()),
+      research_papers: Joi.array().items(Joi.object()),
+
+      sponsored: Joi.boolean(),
+
+      location: Joi.string(),
+
+      supports: Joi.array().items(Joi.object()),
+
+      team: Joi.array().items(Joi.object()),
+
+      short_description: Joi.string(),
+
+      twitter: Joi.string(),
+
+      telegram: Joi.string(),
+
+      facebook: Joi.string(),
+
+      instagram: Joi.string(),
+
+      linkedin: Joi.string(),
+
+      github: Joi.string(),
+
+      medium: Joi.string(),
+
+      youtube: Joi.string(),
+
+      website: Joi.string(),
+
+      blog: Joi.string(),
+
+      email: Joi.string(),
+
+      tel: Joi.string(),
+
+      about: Joi.string(),
+
+      avatar: Joi.string(),
+
+      rocket_chat: Joi.string(),
+
+      bitcoin_talk: Joi.string(),
     }),
   }),
   update: validate({
@@ -49,7 +90,6 @@ export const CompanyValidation = {
       headquarter: Joi.object(),
 
       //array id of persons
-      teams: Joi.array().items(Joi.string()),
 
       country: Joi.string(),
 
@@ -75,7 +115,49 @@ export const CompanyValidation = {
 
       portfolios: Joi.array().items(Joi.string()),
 
-      ccys: Joi.array().items(Joi.string()),
+      location: Joi.string(),
+
+      supports: Joi.array().items(Joi.object()),
+
+      team: Joi.array().items(Joi.object()),
+
+      research_papers: Joi.array().items(Joi.object()),
+
+      sponsored: Joi.boolean(),
+
+      short_description: Joi.string(),
+
+      twitter: Joi.string(),
+
+      telegram: Joi.string(),
+
+      facebook: Joi.string(),
+
+      instagram: Joi.string(),
+
+      linkedin: Joi.string(),
+
+      github: Joi.string(),
+
+      medium: Joi.string(),
+
+      youtube: Joi.string(),
+
+      website: Joi.string(),
+
+      blog: Joi.string(),
+
+      email: Joi.string(),
+
+      tel: Joi.string(),
+
+      about: Joi.string(),
+
+      avatar: Joi.string(),
+
+      rocket_chat: Joi.string(),
+
+      bitcoin_talk: Joi.string(),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),

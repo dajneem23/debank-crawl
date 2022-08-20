@@ -49,12 +49,12 @@ export class PersonService {
         reName: 'author',
         operation: '$eq',
       }),
-      teams: $lookup({
-        from: 'teams',
+      team: $lookup({
+        from: 'team',
         refFrom: '_id',
-        refTo: 'teams',
+        refTo: 'team',
         select: 'name avatar',
-        reName: 'teams',
+        reName: 'team',
         operation: '$in',
       }),
       directors: $lookup({

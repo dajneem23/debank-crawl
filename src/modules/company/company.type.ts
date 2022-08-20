@@ -1,15 +1,13 @@
-import { BaseInformationModel, Feature, Gallery, Service } from '@/types/Common';
+import { BaseInformationModel, Feature, Service } from '@/types/Common';
 
 export interface Company extends BaseInformationModel {
   name: string;
 
   director?: string;
-
   //map location
   headquarter?: object;
 
-  //array id of teams
-  teams?: Array<string>;
+  location?: string;
 
   country?: string;
 
@@ -29,11 +27,16 @@ export interface Company extends BaseInformationModel {
   //array id of categories
   categories?: Array<string>;
 
-  galleries?: Array<Gallery>;
+  galleries?: Array<string>;
+
   //array id of coins
   crypto_currencies?: Array<string>;
 
   portfolios?: Array<string>;
 
-  ccys?: Array<string>;
+  supports?: Array<object>;
+
+  team?: Array<object>;
+
+  research_papers?: Array<object>;
 }

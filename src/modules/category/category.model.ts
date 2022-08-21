@@ -14,10 +14,8 @@ export class CategoryModel {
   constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
     this._collection = db.collection<Category>(COLLECTION_NAME);
     Promise.all([
-      // Unique ID
-
-      // Unique title
       this._collection.createIndex('title', { unique: true }),
+      this._collection.createIndex('name', { unique: true }),
     ]).catch((err) => {
       this.logger.error(err);
     });

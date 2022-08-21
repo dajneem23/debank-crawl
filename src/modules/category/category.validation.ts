@@ -5,6 +5,8 @@ export const CategoryValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
       title: Joi.string().required(),
+      name: Joi.string().required(),
+      acronym: Joi.string(),
       weight: Joi.number().required(),
       type: Joi.string()
         .valid(...Object.values(CATEGORY_TYPE))
@@ -15,6 +17,8 @@ export const CategoryValidation = {
     [Segments.BODY]: Joi.object({
       title: Joi.string(),
       weight: Joi.number(),
+      name: Joi.string(),
+      acronym: Joi.string(),
       type: Joi.string().valid(...Object.values(CATEGORY_TYPE)),
     }),
     [Segments.PARAMS]: Joi.object({

@@ -1,0 +1,166 @@
+[
+  {
+    "web-scraper-order": "1661091474-8",
+    "web-scraper-start-url": "https://cryptoslate.com/academia/",
+    "news": [
+      {
+        "news": "Academia"
+      },
+      {
+        "news": "Adoption"
+      },
+      {
+        "news": "Analysis"
+      },
+      {
+        "news": "Banking"
+      },
+      {
+        "news": "Blocklight"
+      },
+      {
+        "news": "CBDCs"
+      },
+      {
+        "news": "Censorship"
+      },
+      {
+        "news": "Crime"
+      },
+      {
+        "news": "Culture"
+      },
+      {
+        "news": "DeFi"
+      },
+      {
+        "news": "Derivatives"
+      },
+      {
+        "news": "Earnings"
+      },
+      {
+        "news": "Exchanges"
+      },
+      {
+        "news": "GameFi"
+      },
+      {
+        "news": "Hacks"
+      },
+      {
+        "news": "Interviews"
+      },
+      {
+        "news": "Investments"
+      },
+      {
+        "news": "Layer2"
+      },
+      {
+        "news": "Legal"
+      },
+      {
+        "news": "Lending"
+      },
+      {
+        "news": "Macro"
+      },
+      {
+        "news": "Memecoins"
+      },
+      {
+        "news": "Merge"
+      },
+      {
+        "news": "Metaverse"
+      },
+      {
+        "news": "Mining"
+      },
+      {
+        "news": "NFTs"
+      },
+      {
+        "news": "Opinion"
+      },
+      {
+        "news": "Partnerships"
+      },
+      {
+        "news": "People"
+      },
+      {
+        "news": "Politics"
+      },
+      {
+        "news": "Press Releases"
+      },
+      {
+        "news": "Privacy"
+      },
+      {
+        "news": "Regulation"
+      },
+      {
+        "news": "Research"
+      },
+      {
+        "news": "Sports"
+      },
+      {
+        "news": "Staking"
+      },
+      {
+        "news": "Taxes"
+      },
+      {
+        "news": "Trading"
+      },
+      {
+        "news": "Wallets"
+      },
+      {
+        "news": "Web3"
+      }
+    ],
+    "crypto-news": [
+      {
+        "crypto-news": "Bitcoin"
+      },
+      {
+        "crypto-news": "Ethereum"
+      },
+      {
+        "crypto-news": "Stablecoins"
+      },
+      {
+        "crypto-news": "XRP"
+      },
+      {
+        "crypto-news": "Cardano"
+      },
+      {
+        "crypto-news": "Solana"
+      },
+      {
+        "crypto-news": "Cosmos"
+      },
+      {
+        "crypto-news": "Dogecoin"
+      },
+      {
+        "crypto-news": "Polkadot"
+      },
+      {
+        "crypto-news": "Polygon"
+      },
+      {
+        "crypto-news": "Avalanche"
+      },
+      {
+        "crypto-news": "NEAR Protocol"
+      }
+    ]
+  }
+]

@@ -1,0 +1,575 @@
+[
+  {
+    "web-scraper-order": "1661091225-7",
+    "web-scraper-start-url": "https://cryptoslate.com/cryptos",
+    "views": [
+      {
+        "views": "📶 Coin Rankings"
+      },
+      {
+        "views": "⛓ Token Rankings 0.00%"
+      },
+      {
+        "views": "📈 Biggest Gainers"
+      },
+      {
+        "views": "📉 Biggest Losers"
+      },
+      {
+        "views": "📊 Highest Volume"
+      },
+      {
+        "views": "🆕 Recently Added"
+      }
+    ],
+    "applications": [
+      {
+        "applications": "🏢 CEX 2.22%"
+      },
+      {
+        "applications": "🖥 Computing -0.09%"
+      },
+      {
+        "applications": "💸 DeFi 0.37%"
+      },
+      {
+        "applications": "💻 Deflationary -21.98%"
+      },
+      {
+        "applications": "🕸 DEX 0.28%"
+      },
+      {
+        "applications": "🔢 Derivatives 0.00%"
+      },
+      {
+        "applications": "🤖 EVM 2.03%"
+      },
+      {
+        "applications": "🗃 Filesharing -0.09%"
+      },
+      {
+        "applications": "🎮 Gaming -0.74%"
+      },
+      {
+        "applications": "🗳 Governance -0.04%"
+      },
+      {
+        "applications": "🆔 Identity -0.99%"
+      },
+      {
+        "applications": "💰 Interest Earning 0.00%"
+      },
+      {
+        "applications": "🖼 NFT -0.37%"
+      },
+      {
+        "applications": "🔮 Oracle 0.50%"
+      },
+      {
+        "applications": "🕶 Privacy 2.14%"
+      },
+      {
+        "applications": "📑 Smart Contracts -0.64%"
+      },
+      {
+        "applications": "💵 Stablecoin -0.02%"
+      },
+      {
+        "applications": "☁️ Storage -0.21%"
+      },
+      {
+        "applications": "🚜 Yield Farming -0.02%"
+      }
+    ],
+    "consensus": [
+      {
+        "consensus": "⛏ Proof of Work 0.20%"
+      },
+      {
+        "consensus": "♻️ Proof of Stake 0.66%"
+      },
+      {
+        "consensus": "👨‍💻 Delegated PoS 1.07%"
+      },
+      {
+        "consensus": "💻 Masternode Coins -0.18%"
+      }
+    ],
+    "sectors": [
+      {
+        "sectors": "📢 Advertising -0.01%"
+      },
+      {
+        "sectors": "🤖 AI 1.82%"
+      },
+      {
+        "sectors": "🎨 Art -1.21%"
+      },
+      {
+        "sectors": "📂 Business Service 0.06%"
+      },
+      {
+        "sectors": "🌲 Cannabis 8.52%"
+      },
+      {
+        "sectors": "❤️ Charity 0.19%"
+      },
+      {
+        "sectors": "📡 Communication -1.24%"
+      },
+      {
+        "sectors": "🤩 Content Creation -0.62%"
+      },
+      {
+        "sectors": "👫 Crowdfunding 2.72%"
+      },
+      {
+        "sectors": "🔐 Cybersecurity 1.88%"
+      },
+      {
+        "sectors": "💳 Debit Cards -1.84%"
+      },
+      {
+        "sectors": "🛒 eCommerce -1.10%"
+      },
+      {
+        "sectors": "📚 Education 0.04%"
+      },
+      {
+        "sectors": "⚡️ Energy 8.11%"
+      },
+      {
+        "sectors": "🎥 Entertainment -0.04%"
+      },
+      {
+        "sectors": "💱 Exchange 1.96%"
+      },
+      {
+        "sectors": "⚽️ Fan Tokens 5.25%"
+      },
+      {
+        "sectors": "🎰 Gambling -0.43%"
+      },
+      {
+        "sectors": "🏥 Healthcare -0.55%"
+      },
+      {
+        "sectors": "☂️ Insurance -0.64%"
+      },
+      {
+        "sectors": "🏠 IoT -0.12%"
+      },
+      {
+        "sectors": "💼 Jobs 0.87%"
+      },
+      {
+        "sectors": "💰 Lending/Borrowing -0.93%"
+      },
+      {
+        "sectors": "🏪 Marketplace -0.51%"
+      },
+      {
+        "sectors": "📰 Media -1.79%"
+      },
+      {
+        "sectors": "🐕 Meme -1.58%"
+      },
+      {
+        "sectors": "👾 Metaverse -0.76%"
+      },
+      {
+        "sectors": "🔮 Prediction -2.59%"
+      },
+      {
+        "sectors": "🏡 Real Estate -3.91%"
+      },
+      {
+        "sectors": "💬 Social -0.49%"
+      },
+      {
+        "sectors": "️⚽️ Sports 0.49%"
+      },
+      {
+        "sectors": "✈️ Transportation -1.48%"
+      },
+      {
+        "sectors": "🏝 Travel -1.51%"
+      },
+      {
+        "sectors": "😱 Virtual Reality -0.19%"
+      },
+      {
+        "sectors": "🎁 Wrapped Tokens 1.60%"
+      },
+      {
+        "sectors": "☠️ Abandoned -2.04%"
+      }
+    ],
+    "consensus-span": [
+      {
+        "consensus-span": "0.20%"
+      },
+      {
+        "consensus-span": "0.66%"
+      },
+      {
+        "consensus-span": "1.07%"
+      },
+      {
+        "consensus-span": "-0.18%"
+      }
+    ],
+    "sectors-span": [
+      {
+        "sectors-span": "-0.01%"
+      },
+      {
+        "sectors-span": "1.82%"
+      },
+      {
+        "sectors-span": "-1.21%"
+      },
+      {
+        "sectors-span": "0.06%"
+      },
+      {
+        "sectors-span": "8.52%"
+      },
+      {
+        "sectors-span": "0.19%"
+      },
+      {
+        "sectors-span": "-1.24%"
+      },
+      {
+        "sectors-span": "-0.62%"
+      },
+      {
+        "sectors-span": "2.72%"
+      },
+      {
+        "sectors-span": "1.88%"
+      },
+      {
+        "sectors-span": "-1.84%"
+      },
+      {
+        "sectors-span": "-1.10%"
+      },
+      {
+        "sectors-span": "0.04%"
+      },
+      {
+        "sectors-span": "8.11%"
+      },
+      {
+        "sectors-span": "-0.04%"
+      },
+      {
+        "sectors-span": "1.96%"
+      },
+      {
+        "sectors-span": "5.25%"
+      },
+      {
+        "sectors-span": "-0.43%"
+      },
+      {
+        "sectors-span": "-0.55%"
+      },
+      {
+        "sectors-span": "-0.64%"
+      },
+      {
+        "sectors-span": "-0.12%"
+      },
+      {
+        "sectors-span": "0.87%"
+      },
+      {
+        "sectors-span": "-0.93%"
+      },
+      {
+        "sectors-span": "-0.51%"
+      },
+      {
+        "sectors-span": "-1.79%"
+      },
+      {
+        "sectors-span": "-1.58%"
+      },
+      {
+        "sectors-span": "-0.76%"
+      },
+      {
+        "sectors-span": "-2.59%"
+      },
+      {
+        "sectors-span": "-3.91%"
+      },
+      {
+        "sectors-span": "-0.49%"
+      },
+      {
+        "sectors-span": "0.49%"
+      },
+      {
+        "sectors-span": "-1.48%"
+      },
+      {
+        "sectors-span": "-1.51%"
+      },
+      {
+        "sectors-span": "-0.19%"
+      },
+      {
+        "sectors-span": "1.60%"
+      },
+      {
+        "sectors-span": "-2.04%"
+      }
+    ],
+    "applications-span": [
+      {
+        "applications-span": "2.22%"
+      },
+      {
+        "applications-span": "-0.09%"
+      },
+      {
+        "applications-span": "0.37%"
+      },
+      {
+        "applications-span": "-21.98%"
+      },
+      {
+        "applications-span": "0.28%"
+      },
+      {
+        "applications-span": "0.00%"
+      },
+      {
+        "applications-span": "2.03%"
+      },
+      {
+        "applications-span": "-0.09%"
+      },
+      {
+        "applications-span": "-0.74%"
+      },
+      {
+        "applications-span": "-0.04%"
+      },
+      {
+        "applications-span": "-0.99%"
+      },
+      {
+        "applications-span": "0.00%"
+      },
+      {
+        "applications-span": "-0.37%"
+      },
+      {
+        "applications-span": "0.50%"
+      },
+      {
+        "applications-span": "2.14%"
+      },
+      {
+        "applications-span": "-0.64%"
+      },
+      {
+        "applications-span": "-0.02%"
+      },
+      {
+        "applications-span": "-0.21%"
+      },
+      {
+        "applications-span": "-0.02%"
+      }
+    ],
+    "blockchains": [
+      {
+        "blockchains": "Algorand -0.01%"
+      },
+      {
+        "blockchains": "Ardor -0.35%"
+      },
+      {
+        "blockchains": "Avalanche -0.01%"
+      },
+      {
+        "blockchains": "Binance Chain 1.92%"
+      },
+      {
+        "blockchains": "BitShares 0.04%"
+      },
+      {
+        "blockchains": "Cardano 1.90%"
+      },
+      {
+        "blockchains": "Celo 0.08%"
+      },
+      {
+        "blockchains": "Cosmos -0.77%"
+      },
+      {
+        "blockchains": "Chiliz 3.00%"
+      },
+      {
+        "blockchains": "EOS -0.01%"
+      },
+      {
+        "blockchains": "Ethereum 0.00%"
+      },
+      {
+        "blockchains": "Huobi 1.16%"
+      },
+      {
+        "blockchains": "ICON -0.86%"
+      },
+      {
+        "blockchains": "Klaytn -1.46%"
+      },
+      {
+        "blockchains": "Kusama 2.63%"
+      },
+      {
+        "blockchains": "NEM 12.89%"
+      },
+      {
+        "blockchains": "Neo -1.48%"
+      },
+      {
+        "blockchains": "Nxt -1.30%"
+      },
+      {
+        "blockchains": "Omni -0.01%"
+      },
+      {
+        "blockchains": "Ontology -10.05%"
+      },
+      {
+        "blockchains": "Polygon -0.11%"
+      },
+      {
+        "blockchains": "Qtum -0.95%"
+      },
+      {
+        "blockchains": "Solana -0.23%"
+      },
+      {
+        "blockchains": "Stellar -0.01%"
+      },
+      {
+        "blockchains": "Terra -0.03%"
+      },
+      {
+        "blockchains": "Tron 0.02%"
+      },
+      {
+        "blockchains": "VeChain -0.05%"
+      },
+      {
+        "blockchains": "VeChainThor -1.68%"
+      },
+      {
+        "blockchains": "Waves 0.92%"
+      }
+    ],
+    "blockchains-span": [
+      {
+        "blockchains-span": "-0.01%"
+      },
+      {
+        "blockchains-span": "-0.35%"
+      },
+      {
+        "blockchains-span": "-0.01%"
+      },
+      {
+        "blockchains-span": "1.92%"
+      },
+      {
+        "blockchains-span": "0.04%"
+      },
+      {
+        "blockchains-span": "1.90%"
+      },
+      {
+        "blockchains-span": "0.08%"
+      },
+      {
+        "blockchains-span": "-0.77%"
+      },
+      {
+        "blockchains-span": "3.00%"
+      },
+      {
+        "blockchains-span": "-0.01%"
+      },
+      {
+        "blockchains-span": "0.00%"
+      },
+      {
+        "blockchains-span": "1.16%"
+      },
+      {
+        "blockchains-span": "-0.86%"
+      },
+      {
+        "blockchains-span": "-1.46%"
+      },
+      {
+        "blockchains-span": "2.63%"
+      },
+      {
+        "blockchains-span": "12.89%"
+      },
+      {
+        "blockchains-span": "-1.48%"
+      },
+      {
+        "blockchains-span": "-1.30%"
+      },
+      {
+        "blockchains-span": "-0.01%"
+      },
+      {
+        "blockchains-span": "-10.05%"
+      },
+      {
+        "blockchains-span": "-0.11%"
+      },
+      {
+        "blockchains-span": "-0.95%"
+      },
+      {
+        "blockchains-span": "-0.23%"
+      },
+      {
+        "blockchains-span": "-0.01%"
+      },
+      {
+        "blockchains-span": "-0.03%"
+      },
+      {
+        "blockchains-span": "0.02%"
+      },
+      {
+        "blockchains-span": "-0.05%"
+      },
+      {
+        "blockchains-span": "-1.68%"
+      },
+      {
+        "blockchains-span": "0.92%"
+      }
+    ],
+    "views-span": [
+      {
+        "views-span": "0.00%"
+      }
+    ]
+  }
+]

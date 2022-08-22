@@ -9,7 +9,7 @@ import { $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $checkListIdExist } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $queryByList } from '@/utils/mongoDB';
 import { isNil, omit } from 'lodash';
 import { BaseServiceInput, BaseServiceOutput } from '@/types';
 
@@ -62,6 +62,9 @@ export class EventService {
       'reddit',
     ];
   }
+  get queryOutputKeys() {
+    return ['id', 'name', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
+  }
   get lookups() {
     return {
       speakers: $lookup({
@@ -89,9 +92,30 @@ export class EventService {
         reName: 'author',
         operation: '$eq',
       }),
+      country: $lookup({
+        from: 'countries',
+        refFrom: 'code',
+        refTo: 'country',
+        select: 'name code',
+        reName: 'country',
+        operation: '$eq',
+      }),
     };
   }
-
+  get $set() {
+    return {
+      country: {
+        $set: {
+          country: { $first: '$country' },
+        },
+      },
+      author: {
+        $set: {
+          author: { $first: '$author' },
+        },
+      },
+    };
+  }
   /**
    * Generate ID
    */
@@ -107,21 +131,25 @@ export class EventService {
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      const { categories, speakers } = _content;
+      const { categories, speakers, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
-          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       const speakerIdExist =
-        !!speakers && speakers.length > 0 ? await $checkListIdExist({ collection: 'persons', listId: speakers }) : true;
+        !!speakers && speakers.length > 0 ? await $queryByList({ collection: 'persons', values: speakers }) : true;
 
-      if (!(categoriesIdExist && speakerIdExist)) {
+      const countryIdExist = !!country
+        ? await $queryByList({ collection: 'countries', values: [country], key: 'code' })
+        : true;
+      if (!(categoriesIdExist && speakerIdExist && countryIdExist)) {
         throwErr(new EventError('INPUT_INVALID'));
       }
       const event: Event = {
         ..._content,
         categories: categories ? $toObjectId(categories) : [],
         speakers: speakers ? $toObjectId(speakers) : [],
+        country: country || '',
         deleted: false,
         ...(_subject && { created_by: _subject }),
         created_at: now,
@@ -157,15 +185,18 @@ export class EventService {
    **/
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { categories, speakers } = _content;
+      const { categories, speakers, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
-          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       const speakerIdExist =
-        !!speakers && speakers.length > 0 ? await $checkListIdExist({ collection: 'persons', listId: speakers }) : true;
+        !!speakers && speakers.length > 0 ? await $queryByList({ collection: 'persons', values: speakers }) : true;
 
-      if (!(categoriesIdExist && speakerIdExist)) {
+      const countryIdExist = !!country
+        ? await $queryByList({ collection: 'countries', values: [country], key: 'code' })
+        : true;
+      if (!(categoriesIdExist && speakerIdExist && countryIdExist)) {
         throwErr(new EventError('INPUT_INVALID'));
       }
       const { value: event } = await this.model.collection.findOneAndUpdate(
@@ -175,6 +206,7 @@ export class EventService {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
             ...(speakers && { speakers: $toObjectId(speakers) }),
+            country: country || '',
             updated_at: new Date(),
             ...(_subject && { updated_by: _subject }),
           },
@@ -227,14 +259,12 @@ export class EventService {
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
           this.lookups.speakers,
+          this.lookups.country,
+          this.$set.country,
           this.lookups.user,
+          this.$set.author,
           {
             $limit: 1,
-          },
-          {
-            $set: {
-              author: { $first: '$author' },
-            },
           },
         ])
         .toArray();
@@ -271,6 +301,8 @@ export class EventService {
         },
       ] = (await this.model.collection
         .aggregate([
+          this.lookups.country,
+          this.$set.country,
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -287,7 +319,7 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -309,6 +341,8 @@ export class EventService {
         },
       ] = (await this.model.collection
         .aggregate([
+          this.lookups.country,
+          this.$set.country,
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -326,7 +360,7 @@ export class EventService {
         .toArray()) as any[];
       const items = [...trending, ...virtual];
       this.logger.debug('[get:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -347,6 +381,8 @@ export class EventService {
         },
       ] = (await this.model.collection
         .aggregate([
+          this.lookups.country,
+          this.$set.country,
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -363,7 +399,7 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('[get:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -394,18 +430,24 @@ export class EventService {
         }),
       };
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate(
-          $pagination({
+        .aggregate([
+          this.lookups.country,
+          this.$set.country,
+          ...$pagination({
             $match: {
               ...$toMongoFilter(eventFilter),
             },
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
-        )
+        ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        keys: this.queryOutputKeys,
+      });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;

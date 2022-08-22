@@ -2,7 +2,7 @@ import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $checkListIdExist } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
 import { ProductError, ProductModel } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
@@ -88,7 +88,20 @@ export class ProductService {
       }),
     };
   }
-
+  get $set() {
+    return {
+      country: {
+        $set: {
+          country: { $first: '$country' },
+        },
+      },
+      author: {
+        $set: {
+          author: { $first: '$author' },
+        },
+      },
+    };
+  }
   /**
    * Generate ID
    */
@@ -108,11 +121,11 @@ export class ProductService {
       const { categories, crypto_currencies } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
-          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       const coinIdExist =
         !!crypto_currencies && crypto_currencies.length > 0
-          ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
+          ? await $queryByList({ collection: 'coins', values: crypto_currencies })
           : true;
 
       if (!(categoriesIdExist && coinIdExist)) {
@@ -170,11 +183,11 @@ export class ProductService {
       const { categories, crypto_currencies } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
-          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       const coinIdExist =
         !!crypto_currencies && crypto_currencies.length > 0
-          ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
+          ? await $queryByList({ collection: 'coins', values: crypto_currencies })
           : true;
 
       if (!(categoriesIdExist && coinIdExist)) {
@@ -300,11 +313,7 @@ export class ProductService {
           {
             $limit: 1,
           },
-          {
-            $set: {
-              author: { $first: '$author' },
-            },
-          },
+          this.$set.author,
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));

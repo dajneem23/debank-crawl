@@ -4,1913 +4,1913 @@
     "type": "event",
     "name": "eng",
     "acronym": "eng",
-    "weight": 27,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 1
   },
   {
     "title": "All Events",
     "type": "event",
     "name": "all_events",
     "acronym": "ae",
-    "weight": 4,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 2
   },
   {
     "title": "Workshop",
     "type": "event",
     "name": "workshop",
     "acronym": "workshop",
-    "weight": 55,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 3
   },
   {
     "title": "Conference",
     "type": "event",
     "name": "conference",
     "acronym": "conference",
-    "weight": 70,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 4
   },
   {
     "title": "Summit",
     "type": "event",
     "name": "summit",
     "acronym": "summit",
-    "weight": 71,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 5
   },
   {
     "title": "Expo",
     "type": "event",
     "name": "expo",
     "acronym": "expo",
-    "weight": 4,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 6
   },
   {
     "title": "Meetup",
     "type": "event",
     "name": "meetup",
     "acronym": "meetup",
-    "weight": 81,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 7
   },
   {
     "title": "Hackathon",
     "type": "event",
     "name": "hackathon",
     "acronym": "hackathon",
-    "weight": 9,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 8
   },
   {
     "title": "Drinks Party",
     "type": "event",
     "name": "drinks_party",
     "acronym": "dp",
-    "weight": 29,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.562Z",
-    "updated_at": "2022-08-21T18:49:43.562Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 9
   },
   {
     "title": "Other",
     "type": "event",
     "name": "other",
     "acronym": "other",
-    "weight": 72,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 10
   },
   {
     "title": "DeFi",
     "type": "crypto_asset",
     "name": "defi",
     "acronym": "defi",
-    "weight": 27,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 11
   },
   {
     "title": "NFTs",
     "type": "crypto_asset",
     "name": "nfts",
     "acronym": "nfts",
-    "weight": 45,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 12
   },
   {
     "title": "Smart contracts",
     "type": "crypto_asset",
     "name": "smart_contracts",
     "acronym": "sc",
-    "weight": 38,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 13
   },
   {
     "title": "Oracle",
     "type": "crypto_asset",
     "name": "oracle",
     "acronym": "oracle",
-    "weight": 73,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 14
   },
   {
     "title": "Masternodes",
     "type": "crypto_asset",
     "name": "masternodes",
     "acronym": "masternodes",
-    "weight": 75,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 15
   },
   {
     "title": "dPoS",
     "type": "crypto_asset",
     "name": "dpos",
     "acronym": "dpos",
-    "weight": 25,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 16
   },
   {
     "title": "PoS",
     "type": "crypto_asset",
     "name": "pos",
     "acronym": "pos",
-    "weight": 51,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 17
   },
   {
     "title": "PoW",
     "type": "crypto_asset",
     "name": "pow",
     "acronym": "pow",
-    "weight": 91,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 18
   },
   {
     "title": "Stablecoins",
     "type": "crypto_asset",
     "name": "stablecoins",
     "acronym": "stablecoins",
-    "weight": 42,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 19
   },
   {
     "title": "Privacy",
     "type": "crypto_asset",
     "name": "privacy",
     "acronym": "privacy",
-    "weight": 9,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 20
   },
   {
     "title": "Interoperability",
     "type": "crypto_asset",
     "name": "interoperability",
     "acronym": "interoperability",
-    "weight": 30,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 21
   },
   {
     "title": "Leveraged Tokens",
     "type": "crypto_asset",
     "name": "leveraged_tokens",
     "acronym": "lt",
-    "weight": 18,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 22
   },
   {
     "title": "AMM",
     "type": "crypto_asset",
     "name": "amm",
     "acronym": "amm",
-    "weight": 5,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 23
   },
   {
     "title": "DEX",
     "type": "crypto_asset",
     "name": "dex",
     "acronym": "dex",
-    "weight": 9,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 24
   },
   {
     "title": "CEX",
     "type": "crypto_asset",
     "name": "cex",
     "acronym": "cex",
-    "weight": 46,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 25
   },
   {
     "title": "Yield Farming",
     "type": "crypto_asset",
     "name": "yield_farming",
     "acronym": "yf",
-    "weight": 61,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 26
   },
   {
     "title": "Academia",
     "type": "news",
     "name": "academia",
     "acronym": "academia",
-    "weight": 37,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 27
   },
   {
     "title": "Adoption",
     "type": "news",
     "name": "adoption",
     "acronym": "adoption",
-    "weight": 51,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 28
   },
   {
     "title": "Analysis",
     "type": "news",
     "name": "analysis",
     "acronym": "analysis",
-    "weight": 0,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 29
   },
   {
     "title": "Banking",
     "type": "news",
     "name": "banking",
     "acronym": "banking",
-    "weight": 34,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 30
   },
   {
     "title": "Blocklight",
     "type": "news",
     "name": "blocklight",
     "acronym": "blocklight",
-    "weight": 95,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 31
   },
   {
     "title": "CBDCs",
     "type": "news",
     "name": "cbdcs",
     "acronym": "cbdcs",
-    "weight": 38,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 32
   },
   {
     "title": "Censorship",
     "type": "news",
     "name": "censorship",
     "acronym": "censorship",
-    "weight": 28,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 33
   },
   {
     "title": "Crime",
     "type": "news",
     "name": "crime",
     "acronym": "crime",
-    "weight": 90,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 34
   },
   {
     "title": "Culture",
     "type": "news",
     "name": "culture",
     "acronym": "culture",
-    "weight": 10,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 35
   },
   {
     "title": "Derivatives",
     "type": "news",
     "name": "derivatives",
     "acronym": "derivatives",
-    "weight": 32,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 36
   },
   {
     "title": "Earnings",
     "type": "news",
     "name": "earnings",
     "acronym": "earnings",
-    "weight": 77,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 37
   },
   {
     "title": "Exchanges",
     "type": "news",
     "name": "exchanges",
     "acronym": "exchanges",
-    "weight": 37,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 38
   },
   {
     "title": "GameFi",
     "type": "news",
     "name": "gamefi",
     "acronym": "gamefi",
-    "weight": 94,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 39
   },
   {
     "title": "Hacks",
     "type": "news",
     "name": "hacks",
     "acronym": "hacks",
-    "weight": 82,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 40
   },
   {
     "title": "Interviews",
     "type": "news",
     "name": "interviews",
     "acronym": "interviews",
-    "weight": 3,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 41
   },
   {
     "title": "Investments",
     "type": "news",
     "name": "investments",
     "acronym": "investments",
-    "weight": 32,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 42
   },
   {
     "title": "Layer2",
     "type": "news",
     "name": "layer2",
     "acronym": "layer2",
-    "weight": 77,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 43
   },
   {
     "title": "Legal",
     "type": "news",
     "name": "legal",
     "acronym": "legal",
-    "weight": 58,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 44
   },
   {
     "title": "Lending",
     "type": "news",
     "name": "lending",
     "acronym": "lending",
-    "weight": 13,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 45
   },
   {
     "title": "Macro",
     "type": "news",
     "name": "macro",
     "acronym": "macro",
-    "weight": 28,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 46
   },
   {
     "title": "Memecoins",
     "type": "news",
     "name": "memecoins",
     "acronym": "memecoins",
-    "weight": 98,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 47
   },
   {
     "title": "Merge",
     "type": "news",
     "name": "merge",
     "acronym": "merge",
-    "weight": 88,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 48
   },
   {
     "title": "Metaverse",
     "type": "news",
     "name": "metaverse",
     "acronym": "metaverse",
-    "weight": 58,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 49
   },
   {
     "title": "Mining",
     "type": "news",
     "name": "mining",
     "acronym": "mining",
-    "weight": 67,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 50
   },
   {
     "title": "Opinion",
     "type": "news",
     "name": "opinion",
     "acronym": "opinion",
-    "weight": 66,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 51
   },
   {
     "title": "Partnerships",
     "type": "news",
     "name": "partnerships",
     "acronym": "partnerships",
-    "weight": 74,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 52
   },
   {
     "title": "People",
     "type": "news",
     "name": "people",
     "acronym": "people",
-    "weight": 41,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 53
   },
   {
     "title": "Politics",
     "type": "news",
     "name": "politics",
     "acronym": "politics",
-    "weight": 49,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 54
   },
   {
     "title": "Press Releases",
     "type": "news",
     "name": "press_releases",
     "acronym": "pr",
-    "weight": 89,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 55
   },
   {
     "title": "Regulation",
     "type": "news",
     "name": "regulation",
     "acronym": "regulation",
-    "weight": 73,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 56
   },
   {
     "title": "Research",
     "type": "news",
     "name": "research",
     "acronym": "research",
-    "weight": 65,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 57
   },
   {
     "title": "Sports",
     "type": "news",
     "name": "sports",
     "acronym": "sports",
-    "weight": 2,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 58
   },
   {
     "title": "Staking",
     "type": "news",
     "name": "staking",
     "acronym": "staking",
-    "weight": 3,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 59
   },
   {
     "title": "Taxes",
     "type": "news",
     "name": "taxes",
     "acronym": "taxes",
-    "weight": 93,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 60
   },
   {
     "title": "Trading",
     "type": "news",
     "name": "trading",
     "acronym": "trading",
-    "weight": 73,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 61
   },
   {
     "title": "Wallets",
     "type": "news",
     "name": "wallets",
     "acronym": "wallets",
-    "weight": 25,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 62
   },
   {
     "title": "Web3",
     "type": "news",
     "name": "web3",
     "acronym": "web3",
-    "weight": 29,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 63
   },
   {
     "title": "Algorand",
     "type": "blockchain",
     "name": "algorand",
     "acronym": "algorand",
-    "weight": 46,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 64
   },
   {
     "title": "Ardor",
     "type": "blockchain",
     "name": "ardor",
     "acronym": "ardor",
-    "weight": 26,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 65
   },
   {
     "title": "Avalanche",
     "type": "blockchain",
     "name": "avalanche",
     "acronym": "avalanche",
-    "weight": 54,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 66
   },
   {
     "title": "Binance Chain",
     "type": "blockchain",
     "name": "binance_chain",
     "acronym": "bc",
-    "weight": 34,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 67
   },
   {
     "title": "BitShares",
     "type": "blockchain",
     "name": "bitshares",
     "acronym": "bitshares",
-    "weight": 23,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 68
   },
   {
     "title": "Cardano",
     "type": "blockchain",
     "name": "cardano",
     "acronym": "cardano",
-    "weight": 72,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 69
   },
   {
     "title": "Celo",
     "type": "blockchain",
     "name": "celo",
     "acronym": "celo",
-    "weight": 32,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 70
   },
   {
     "title": "Cosmos",
     "type": "blockchain",
     "name": "cosmos",
     "acronym": "cosmos",
-    "weight": 88,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 71
   },
   {
     "title": "Chiliz",
     "type": "blockchain",
     "name": "chiliz",
     "acronym": "chiliz",
-    "weight": 47,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 72
   },
   {
     "title": "EOS",
     "type": "blockchain",
     "name": "eos",
     "acronym": "eos",
-    "weight": 55,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 73
   },
   {
     "title": "Ethereum",
     "type": "blockchain",
     "name": "ethereum",
     "acronym": "ethereum",
-    "weight": 76,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 74
   },
   {
     "title": "Huobi",
     "type": "blockchain",
     "name": "huobi",
     "acronym": "huobi",
-    "weight": 94,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 75
   },
   {
     "title": "ICON",
     "type": "blockchain",
     "name": "icon",
     "acronym": "icon",
-    "weight": 44,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 76
   },
   {
     "title": "Klaytn",
     "type": "blockchain",
     "name": "klaytn",
     "acronym": "klaytn",
-    "weight": 27,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 77
   },
   {
     "title": "Kusama",
     "type": "blockchain",
     "name": "kusama",
     "acronym": "kusama",
-    "weight": 36,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 78
   },
   {
     "title": "NEM",
     "type": "blockchain",
     "name": "nem",
     "acronym": "nem",
-    "weight": 97,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 79
   },
   {
     "title": "Neo",
     "type": "blockchain",
     "name": "neo",
     "acronym": "neo",
-    "weight": 79,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 80
   },
   {
     "title": "Nxt",
     "type": "blockchain",
     "name": "nxt",
     "acronym": "nxt",
-    "weight": 72,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 81
   },
   {
     "title": "Omni",
     "type": "blockchain",
     "name": "omni",
     "acronym": "omni",
-    "weight": 54,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 82
   },
   {
     "title": "Ontology",
     "type": "blockchain",
     "name": "ontology",
     "acronym": "ontology",
-    "weight": 71,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 83
   },
   {
     "title": "Polygon",
     "type": "blockchain",
     "name": "polygon",
     "acronym": "polygon",
-    "weight": 20,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 84
   },
   {
     "title": "Qtum",
     "type": "blockchain",
     "name": "qtum",
     "acronym": "qtum",
-    "weight": 67,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 85
   },
   {
     "title": "Solana",
     "type": "blockchain",
     "name": "solana",
     "acronym": "solana",
-    "weight": 79,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 86
   },
   {
     "title": "Stellar",
     "type": "blockchain",
     "name": "stellar",
     "acronym": "stellar",
-    "weight": 57,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 87
   },
   {
     "title": "Terra",
     "type": "blockchain",
     "name": "terra",
     "acronym": "terra",
-    "weight": 82,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 88
   },
   {
     "title": "Tron",
     "type": "blockchain",
     "name": "tron",
     "acronym": "tron",
-    "weight": 85,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 89
   },
   {
     "title": "VeChain",
     "type": "blockchain",
     "name": "vechain",
     "acronym": "vechain",
-    "weight": 53,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 90
   },
   {
     "title": "VeChainThor",
     "type": "blockchain",
     "name": "vechainthor",
     "acronym": "vechainthor",
-    "weight": 22,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 91
   },
   {
     "title": "Waves",
     "type": "blockchain",
     "name": "waves",
     "acronym": "waves",
-    "weight": 81,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 92
   },
   {
     "title": "Computing",
     "type": "application",
     "name": "computing",
     "acronym": "computing",
-    "weight": 97,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 93
   },
   {
     "title": "Deflationary",
     "type": "application",
     "name": "deflationary",
     "acronym": "deflationary",
-    "weight": 49,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 94
   },
   {
     "title": "EVM",
     "type": "application",
     "name": "evm",
     "acronym": "evm",
-    "weight": 81,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 95
   },
   {
     "title": "Filesharing",
     "type": "application",
     "name": "filesharing",
     "acronym": "filesharing",
-    "weight": 2,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 96
   },
   {
     "title": "Gaming",
     "type": "application",
     "name": "gaming",
     "acronym": "gaming",
-    "weight": 50,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 97
   },
   {
     "title": "Governance",
     "type": "application",
     "name": "governance",
     "acronym": "governance",
-    "weight": 27,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 98
   },
   {
     "title": "Identity",
     "type": "application",
     "name": "identity",
     "acronym": "identity",
-    "weight": 47,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 99
   },
   {
     "title": "Interest Earning",
     "type": "application",
     "name": "interest_earning",
     "acronym": "ie",
-    "weight": 52,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 100
   },
   {
     "title": "NFT",
     "type": "application",
     "name": "nft",
     "acronym": "nft",
-    "weight": 16,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 101
   },
   {
     "title": "Stablecoin",
     "type": "application",
     "name": "stablecoin",
     "acronym": "stablecoin",
-    "weight": 90,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 102
   },
   {
     "title": "Storage",
     "type": "application",
     "name": "storage",
     "acronym": "storage",
-    "weight": 53,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 103
   },
   {
     "title": "Masternode Coins",
     "type": "consensus",
     "name": "masternode_coins",
     "acronym": "mc",
-    "weight": 82,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 104
   },
   {
     "title": "Advertising",
     "type": "crypto",
     "name": "advertising",
     "acronym": "advertising",
-    "weight": 79,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 105
   },
   {
     "title": "AI",
     "type": "crypto",
     "name": "ai",
     "acronym": "ai",
-    "weight": 44,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 106
   },
   {
     "title": "Art",
     "type": "crypto",
     "name": "art",
     "acronym": "art",
-    "weight": 51,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 107
   },
   {
     "title": "Business Service",
     "type": "crypto",
     "name": "business_service",
     "acronym": "bs",
-    "weight": 52,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 108
   },
   {
     "title": "Cannabis",
     "type": "crypto",
     "name": "cannabis",
     "acronym": "cannabis",
-    "weight": 95,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 109
   },
   {
     "title": "Charity",
     "type": "crypto",
     "name": "charity",
     "acronym": "charity",
-    "weight": 82,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 110
   },
   {
     "title": "Communication",
     "type": "crypto",
     "name": "communication",
     "acronym": "communication",
-    "weight": 9,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 111
   },
   {
     "title": "Content Creation",
     "type": "crypto",
     "name": "content_creation",
     "acronym": "cc",
-    "weight": 53,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 112
   },
   {
     "title": "Crowdfunding",
     "type": "crypto",
     "name": "crowdfunding",
     "acronym": "crowdfunding",
-    "weight": 33,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 113
   },
   {
     "title": "Cybersecurity",
     "type": "crypto",
     "name": "cybersecurity",
     "acronym": "cybersecurity",
-    "weight": 10,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 114
   },
   {
     "title": "Debit Cards",
     "type": "crypto",
     "name": "debit_cards",
     "acronym": "dc",
-    "weight": 74,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 115
   },
   {
     "title": "eCommerce",
     "type": "crypto",
     "name": "ecommerce",
     "acronym": "ecommerce",
-    "weight": 92,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 116
   },
   {
     "title": "Education",
     "type": "crypto",
     "name": "education",
     "acronym": "education",
-    "weight": 93,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 117
   },
   {
     "title": "Energy",
     "type": "crypto",
     "name": "energy",
     "acronym": "energy",
-    "weight": 83,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 118
   },
   {
     "title": "Entertainment",
     "type": "crypto",
     "name": "entertainment",
     "acronym": "entertainment",
-    "weight": 61,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 119
   },
   {
     "title": "Exchange",
     "type": "crypto",
     "name": "exchange",
     "acronym": "exchange",
-    "weight": 70,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 120
   },
   {
     "title": "Fan Tokens",
     "type": "crypto",
     "name": "fan_tokens",
     "acronym": "ft",
-    "weight": 86,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 121
   },
   {
     "title": "Gambling",
     "type": "crypto",
     "name": "gambling",
     "acronym": "gambling",
-    "weight": 75,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 122
   },
   {
     "title": "Healthcare",
     "type": "crypto",
     "name": "healthcare",
     "acronym": "healthcare",
-    "weight": 53,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 123
   },
   {
     "title": "Insurance",
     "type": "crypto",
     "name": "insurance",
     "acronym": "insurance",
-    "weight": 89,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 124
   },
   {
     "title": "IoT",
     "type": "crypto",
     "name": "iot",
     "acronym": "iot",
-    "weight": 96,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 125
   },
   {
     "title": "Jobs",
     "type": "crypto",
     "name": "jobs",
     "acronym": "jobs",
-    "weight": 33,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 126
   },
   {
     "title": "LendingBorrowing",
     "type": "crypto",
     "name": "lendingborrowing",
     "acronym": "lendingborrowing",
-    "weight": 41,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 127
   },
   {
     "title": "Marketplace",
     "type": "crypto",
     "name": "marketplace",
     "acronym": "marketplace",
-    "weight": 44,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 128
   },
   {
     "title": "Media",
     "type": "crypto",
     "name": "media",
     "acronym": "media",
-    "weight": 26,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 129
   },
   {
     "title": "Meme",
     "type": "crypto",
     "name": "meme",
     "acronym": "meme",
-    "weight": 48,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 130
   },
   {
     "title": "Prediction",
     "type": "crypto",
     "name": "prediction",
     "acronym": "prediction",
-    "weight": 12,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 131
   },
   {
     "title": "Real Estate",
     "type": "crypto",
     "name": "real_estate",
     "acronym": "re",
-    "weight": 86,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 132
   },
   {
     "title": "Social",
     "type": "crypto",
     "name": "social",
     "acronym": "social",
-    "weight": 83,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 133
   },
   {
     "title": "Transportation",
     "type": "crypto",
     "name": "transportation",
     "acronym": "transportation",
-    "weight": 96,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 134
   },
   {
     "title": "Travel",
     "type": "crypto",
     "name": "travel",
     "acronym": "travel",
-    "weight": 79,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 135
   },
   {
     "title": "Virtual Reality",
     "type": "crypto",
     "name": "virtual_reality",
     "acronym": "vr",
-    "weight": 52,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 136
   },
   {
     "title": "Wrapped Tokens",
     "type": "crypto",
     "name": "wrapped_tokens",
     "acronym": "wt",
-    "weight": 84,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 137
   },
   {
     "title": "Abandoned",
     "type": "crypto",
     "name": "abandoned",
     "acronym": "abandoned",
-    "weight": 71,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:41.996Z",
+    "updated_at": "2022-08-22T02:47:41.996Z",
+    "created_by": "admin",
+    "weight": 138
   },
   {
     "title": "People Directory",
     "type": "person",
     "name": "people_directory",
     "acronym": "pd",
-    "weight": 32,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 139
   },
   {
     "title": "Athletes",
     "type": "person",
     "name": "athletes",
     "acronym": "athletes",
-    "weight": 16,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 140
   },
   {
     "title": "Bitcoin Maxis",
     "type": "person",
     "name": "bitcoin_maxis",
     "acronym": "bm",
-    "weight": 41,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 141
   },
   {
     "title": "Celebrities",
     "type": "person",
     "name": "celebrities",
     "acronym": "celebrities",
-    "weight": 31,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 142
   },
   {
     "title": "Cosmos Eco",
     "type": "person",
     "name": "cosmos_eco",
     "acronym": "ce",
-    "weight": 24,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 143
   },
   {
     "title": "Founders",
     "type": "person",
     "name": "founders",
     "acronym": "founders",
-    "weight": 12,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 144
   },
   {
     "title": "Economists",
     "type": "person",
     "name": "economists",
     "acronym": "economists",
-    "weight": 84,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 145
   },
   {
     "title": "Ethereum Eco",
     "type": "person",
     "name": "ethereum_eco",
     "acronym": "ee",
-    "weight": 9,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 146
   },
   {
     "title": "Executives",
     "type": "person",
     "name": "executives",
     "acronym": "executives",
-    "weight": 92,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 147
   },
   {
     "title": "Influencers",
     "type": "person",
     "name": "influencers",
     "acronym": "influencers",
-    "weight": 97,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 148
   },
   {
     "title": "Investors",
     "type": "person",
     "name": "investors",
     "acronym": "investors",
-    "weight": 60,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 149
   },
   {
     "title": "Market Analysts",
     "type": "person",
     "name": "market_analysts",
     "acronym": "ma",
-    "weight": 15,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 150
   },
   {
     "title": "NFT Artists",
     "type": "person",
     "name": "nft_artists",
     "acronym": "na",
-    "weight": 3,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 151
   },
   {
     "title": "Politicians",
     "type": "person",
     "name": "politicians",
     "acronym": "politicians",
-    "weight": 76,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 152
   },
   {
     "title": "Programmers",
     "type": "person",
     "name": "programmers",
     "acronym": "programmers",
-    "weight": 12,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 153
   },
   {
     "title": "Regulators",
     "type": "person",
     "name": "regulators",
     "acronym": "regulators",
-    "weight": 85,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 154
   },
   {
     "title": "Company Directory",
     "type": "company",
     "name": "company_directory",
     "acronym": "cd",
-    "weight": 52,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 155
   },
   {
     "title": "Accelerators",
     "type": "company",
     "name": "accelerators",
     "acronym": "accelerators",
-    "weight": 90,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 156
   },
   {
     "title": "Advisory",
     "type": "company",
     "name": "advisory",
     "acronym": "advisory",
-    "weight": 87,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 157
   },
   {
     "title": "Asset Management",
     "type": "company",
     "name": "asset_management",
     "acronym": "am",
-    "weight": 49,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 158
   },
   {
     "title": "Brokers",
     "type": "company",
     "name": "brokers",
     "acronym": "brokers",
-    "weight": 19,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 159
   },
   {
     "title": "Development",
     "type": "company",
     "name": "development",
     "acronym": "development",
-    "weight": 90,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 160
   },
   {
     "title": "Manufacturing",
     "type": "company",
     "name": "manufacturing",
     "acronym": "manufacturing",
-    "weight": 63,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 161
   },
   {
     "title": "Marketing",
     "type": "company",
     "name": "marketing",
     "acronym": "marketing",
-    "weight": 89,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 162
   },
   {
     "title": "NFT Marketplaces",
     "type": "company",
     "name": "nft_marketplaces",
     "acronym": "nm",
-    "weight": 35,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 163
   },
   {
     "title": "Nonprofits",
     "type": "company",
     "name": "nonprofits",
     "acronym": "nonprofits",
-    "weight": 88,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 164
   },
   {
     "title": "Retail",
     "type": "company",
     "name": "retail",
     "acronym": "retail",
-    "weight": 39,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 165
   },
   {
     "title": "Software",
     "type": "company",
     "name": "software",
     "acronym": "software",
-    "weight": 50,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 166
   },
   {
     "title": "Venture Capital",
     "type": "company",
     "name": "venture_capital",
     "acronym": "vc",
-    "weight": 46,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 167
   },
   {
     "title": "Blockchain Explorers",
     "type": "product",
     "name": "blockchain_explorers",
     "acronym": "be",
-    "weight": 5,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 168
   },
   {
     "title": "Social App",
     "type": "product",
     "name": "social_app",
     "acronym": "sa",
-    "weight": 41,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 169
   },
   {
     "title": "Games",
     "type": "product",
     "name": "games",
     "acronym": "games",
-    "weight": 77,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 170
   },
   {
     "title": "Hard Wallets",
     "type": "product",
     "name": "hard_wallets",
     "acronym": "hw",
-    "weight": 0,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 171
   },
   {
     "title": "Price Tracking Apps",
     "type": "product",
     "name": "price_tracking apps",
     "acronym": "pta",
-    "weight": 15,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 172
   },
   {
     "title": "Trading Apps",
     "type": "product",
     "name": "trading_apps",
     "acronym": "ta",
-    "weight": 53,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 173
   },
   {
     "title": "technology",
     "type": "company",
     "name": "technology",
     "acronym": "technology",
-    "weight": 87,
     "deleted": false,
-    "created_at": "2022-08-21T18:49:43.563Z",
-    "updated_at": "2022-08-21T18:49:43.563Z",
-    "created_by": "admin"
+    "created_at": "2022-08-22T02:47:42.002Z",
+    "updated_at": "2022-08-22T02:47:42.002Z",
+    "created_by": "admin",
+    "weight": 174
   }
 ]

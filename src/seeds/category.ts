@@ -135,7 +135,6 @@ export const CategorySeed = async () => {
               return list.length > 1 ? word[0] : list.slice(0, 1);
             })
             .join(''),
-          weight: Math.floor(Math.random() * 100),
           deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
@@ -151,6 +150,12 @@ export const CategorySeed = async () => {
             return t.acronym === item.acronym;
           }) === index
         );
+      })
+      .map((item, index) => {
+        return {
+          ...item,
+          weight: index + 1,
+        };
       });
     console.log('Inserting categories', uniqueCategories.length);
     fs.writeFileSync(

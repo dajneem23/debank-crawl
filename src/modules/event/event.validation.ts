@@ -16,6 +16,8 @@ export const query = validate({
     q: Joi.string(),
 
     category: Joi.string(),
+
+    type: Joi.string(),
   }),
 });
 export const getRelated = validate({

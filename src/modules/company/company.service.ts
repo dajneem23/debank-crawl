@@ -4,7 +4,7 @@ import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common'
 import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $checkListIdExist } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
 import { CompanyModel, CompanyError } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
@@ -120,7 +120,20 @@ export class CompanyService {
       }),
     };
   }
-
+  get $set() {
+    return {
+      country: {
+        $set: {
+          country: { $first: '$country' },
+        },
+      },
+      author: {
+        $set: {
+          author: { $first: '$author' },
+        },
+      },
+    };
+  }
   /**
    * Generate ID
    */
@@ -140,23 +153,18 @@ export class CompanyService {
       const { team, categories, projects, products, crypto_currencies, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
-          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       const projectIdExist =
-        !!projects && projects.length > 0
-          ? await $checkListIdExist({ collection: 'projects', listId: projects })
-          : true;
+        !!projects && projects.length > 0 ? await $queryByList({ collection: 'projects', values: projects }) : true;
       const productIdExist =
-        !!products && products.length > 0
-          ? await $checkListIdExist({ collection: 'products', listId: products })
-          : true;
+        !!products && products.length > 0 ? await $queryByList({ collection: 'products', values: products }) : true;
       const coinIdExist =
         !!crypto_currencies && crypto_currencies.length > 0
-          ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
+          ? await $queryByList({ collection: 'coins', values: crypto_currencies })
           : true;
-      const teamIdExist =
-        !!team && team.length > 0 ? await $checkListIdExist({ collection: 'team', listId: team }) : true;
-      const countryIdExist = !!country ? await $checkListIdExist({ collection: 'countries', listId: [country] }) : true;
+      const teamIdExist = !!team && team.length > 0 ? await $queryByList({ collection: 'team', values: team }) : true;
+      const countryIdExist = !!country ? await $queryByList({ collection: 'countries', values: [country] }) : true;
       if (!(categoriesIdExist && projectIdExist && productIdExist && coinIdExist && countryIdExist && teamIdExist)) {
         throwErr(this.error('INPUT_INVALID'));
       }
@@ -215,23 +223,18 @@ export class CompanyService {
       const { team, categories, projects, products, crypto_currencies, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
-          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       const projectIdExist =
-        !!projects && projects.length > 0
-          ? await $checkListIdExist({ collection: 'projects', listId: projects })
-          : true;
+        !!projects && projects.length > 0 ? await $queryByList({ collection: 'projects', values: projects }) : true;
       const productIdExist =
-        !!products && products.length > 0
-          ? await $checkListIdExist({ collection: 'products', listId: products })
-          : true;
+        !!products && products.length > 0 ? await $queryByList({ collection: 'products', values: products }) : true;
       const coinIdExist =
         !!crypto_currencies && crypto_currencies.length > 0
-          ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
+          ? await $queryByList({ collection: 'coins', values: crypto_currencies })
           : true;
-      const teamIdExist =
-        !!team && team.length > 0 ? await $checkListIdExist({ collection: 'team', listId: team }) : true;
-      const countryIdExist = !!country ? await $checkListIdExist({ collection: 'countries', listId: [country] }) : true;
+      const teamIdExist = !!team && team.length > 0 ? await $queryByList({ collection: 'team', values: team }) : true;
+      const countryIdExist = !!country ? await $queryByList({ collection: 'countries', values: [country] }) : true;
       if (!(categoriesIdExist && projectIdExist && productIdExist && coinIdExist && countryIdExist && teamIdExist)) {
         throwErr(this.error('INPUT_INVALID'));
       }
@@ -362,11 +365,7 @@ export class CompanyService {
           this.lookups.projects,
           this.lookups.crypto_currencies,
           this.lookups.countries,
-          {
-            $set: {
-              author: { $first: '$author' },
-            },
-          },
+          this.$set.author,
           {
             $limit: 1,
           },

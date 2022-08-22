@@ -8,7 +8,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-08-09T09:38:56.534Z",
-    "modified": "2022-08-16T09:24:33.514Z",
+    "modified": "2022-08-22T03:08:49.241Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -18,7 +18,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"event1\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-20 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"virtual\",\n    \"categories\": [\n        \"62fb29c0dd4fe349334b8c01\",\n        \"62fb29c0dd4fe349334b8c01\",\n        \"62fb29c0dd4fe349334b8c04\"\n        \n    ],\n    \"speakers\":[\n        \"62fb29c0dd4fe349334b8daa\"\n        ],\n    \"country\": \"us\"\n}",
+      "raw": "{\n    \"name\": \"event67\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-20 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"PW\"\n}",
       "form": []
     },
     "auth": {
@@ -784,13 +784,25 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "query",
-    "url": "http://localhost:8084/api/v1/events/",
+    "url": "http://localhost:8084/api/v1/events/?type=offline",
     "method": "GET",
     "sortNum": 240000,
     "created": "2022-08-16T07:54:50.696Z",
-    "modified": "2022-08-16T09:23:16.703Z",
+    "modified": "2022-08-22T03:08:16.327Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "type",
+        "value": "offline",
+        "isPath": false
+      },
+      {
+        "name": "category",
+        "value": "6302ee4e8ff66b9d1f7fdd17",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

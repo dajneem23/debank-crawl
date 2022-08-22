@@ -126,6 +126,12 @@ export const create = validate({
     blog: Joi.string(),
 
     reddit: Joi.string(),
+
+    subscribers: Joi.array().items(Joi.string().email()),
+
+    slide: Joi.string(),
+
+    recap: Joi.string(),
   }),
 });
 export const update = validate({
@@ -187,6 +193,12 @@ export const update = validate({
     blog: Joi.string(),
 
     reddit: Joi.string(),
+
+    subscribers: Joi.array().items(Joi.string().email()),
+
+    slide: Joi.string(),
+
+    recap: Joi.string(),
   }),
   [Segments.PARAMS]: Joi.object({
     id: Joi.string().regex(ObjectIdPattern),
@@ -219,5 +231,14 @@ export const updateSignificant = validate({
   }),
   [Segments.BODY]: Joi.object({
     significant: Joi.boolean().required(),
+  }),
+});
+
+export const subscribe = validate({
+  [Segments.PARAMS]: Joi.object({
+    id: Joi.string().regex(ObjectIdPattern),
+  }),
+  [Segments.BODY]: Joi.object({
+    subscribers: [Joi.array().items(Joi.string().email()), Joi.string().email()],
   }),
 });

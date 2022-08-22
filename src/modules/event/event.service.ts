@@ -125,13 +125,14 @@ export class EventService {
 
   /**
    *  Create new event
-   * @param newEvent - New event
+   * @param _content - New event
+   * @param _subject - User who create event
    * @returns {Promise<EventOutput>} - Created event
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      const { categories, speakers, country } = _content;
+      const { categories, speakers, country, subscribers } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
@@ -150,6 +151,7 @@ export class EventService {
         categories: categories ? $toObjectId(categories) : [],
         speakers: speakers ? $toObjectId(speakers) : [],
         country: country || '',
+        subscribers: subscribers || [],
         deleted: false,
         ...(_subject && { created_by: _subject }),
         created_at: now,
@@ -178,14 +180,14 @@ export class EventService {
   /**
    * Update event
    * @param id - Event ID
-   * @param updateEvent - Update event
-   * @param updateUser - User who update event
+   * @param _content - Update event
+   * @param _subject - User who update event
    * @returns { Promise<EventOutput> } - Updated event
    *
    **/
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { categories, speakers, country } = _content;
+      const { categories, speakers, country, slide, recap, subscribers } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
@@ -207,6 +209,7 @@ export class EventService {
             ...(categories && { categories: $toObjectId(categories) }),
             ...(speakers && { speakers: $toObjectId(speakers) }),
             country: country || '',
+            subscribers: subscribers || [],
             updated_at: new Date(),
             ...(_subject && { updated_by: _subject }),
           },
@@ -214,6 +217,11 @@ export class EventService {
         { returnDocument: 'after' },
       );
       if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
+      if (slide || recap) {
+        // Send mail to subscribers
+        const { subscribers } = event;
+        this.logger.info('[send mail]', { subscribers });
+      }
       this.logger.debug('[update:success]', { event });
       return toOutPut({ item: event, keys: this.outputKeys });
     } catch (err) {
@@ -223,8 +231,8 @@ export class EventService {
   }
   /**
    * Delete event by ID
-   * @param id - Event ID
-   * @param deleteUser - User who delete event
+   * @param _id - Event ID
+   * @param _subject - User who delete event
    * @returns { Promise<void> } - Deleted event
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
@@ -249,7 +257,7 @@ export class EventService {
   }
   /**
    * Get event by ID
-   * @param id - Event ID
+   * @param _id - Event ID
    * @returns { Promise<EventOutput> } - Event
    */
   async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
@@ -450,6 +458,44 @@ export class EventService {
       });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
+      throw err;
+    }
+  }
+  /**
+   * Update event
+   * @param id - Event ID
+   * @param _content - Update event
+   * @param _subject - User who update event
+   * @returns { Promise<EventOutput> } - Updated event
+   *
+   **/
+  async subscribe({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { subscribers } = _content;
+
+      const { value: event } = await this.model.collection.findOneAndUpdate(
+        $toMongoFilter({ _id }),
+        {
+          $set: {
+            updated_at: new Date(),
+            ...(_subject && { updated_by: _subject }),
+          },
+          $addToSet: {
+            subscribers: Array.isArray(subscribers) ? { $each: subscribers } : subscribers,
+          },
+        },
+        { returnDocument: 'after' },
+      );
+      if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
+      if (subscribers) {
+        // Send mail to subscribers
+        const { subscribers } = event;
+        this.logger.info('[send mail]', { subscribers });
+      }
+      this.logger.debug('[update:success]', { event });
+      return toOutPut({ item: event, keys: ['subscribers'] });
+    } catch (err) {
+      this.logger.error('[update:error]', err.message);
       throw err;
     }
   }

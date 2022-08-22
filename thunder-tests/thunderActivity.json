@@ -132,7 +132,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-12T03:42:01.167Z",
-    "modified": "2022-08-22T03:16:55.735Z",
+    "modified": "2022-08-22T04:14:30.987Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -142,7 +142,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"event67123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"LC\"\n}",
+      "raw": "{\n    \"name\": \"event612312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"LC\"\n}",
       "form": []
     },
     "auth": {
@@ -160,7 +160,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-12T05:28:53.899Z",
-    "modified": "2022-08-16T07:59:57.042Z",
+    "modified": "2022-08-22T03:40:40.777Z",
     "headers": [],
     "params": [],
     "body": {
@@ -2151,6 +2151,158 @@
         "isPath": false
       }
     ],
+    "tests": []
+  },
+  {
+    "_id": "8f57d5be-a9a5-47b0-ba39-99e8f6417e3f",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/6302ec02ce9220bf7c7717bd",
+    "url": "http://localhost:8084/api/v1/events/6302ec02ce9220bf7c7717bd",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2022-08-22T03:40:31.672Z",
+    "modified": "2022-08-22T03:44:09.666Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"recap\":\"http://localhost/:8084\",\n    \"subscribers\":[\"wqeqwe\"]\n    \n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTEzOTY0MCwiZXhwIjoxNjYyMDAzNjQwfQ.1pFcXsvPhW0LWcSKtmlUFgIhT9Txi-5bKeoi7B0tly4"
+    },
+    "tests": []
+  },
+  {
+    "_id": "3f92045e-09b8-40f1-9537-518ded22c28f",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/v1/events/6302fb4aae5eeea5573e3d00/subscribe",
+    "url": "{{host}}/v1/events/6302fb4aae5eeea5573e3d00/subscribe",
+    "method": "PATCH",
+    "sortNum": 0,
+    "created": "2022-08-22T04:10:53.845Z",
+    "modified": "2022-08-22T04:11:17.336Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"subscriber\":\"dajneem23@gmail.com\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "oauth2"
+    },
+    "tests": []
+  },
+  {
+    "_id": "b8c152bf-2c7e-4e6b-86e3-658a14eb2cdd",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}events/6302ec02ce9220bf7c7717bd",
+    "url": "{{host}}events/6302ec02ce9220bf7c7717bd",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2022-08-22T04:12:19.755Z",
+    "modified": "2022-08-22T04:12:21.334Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"recap\":\"http://localhost/:8084\",\n    \"subscribers\":[\"wqeqwe\"]\n    \n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTEzOTY0MCwiZXhwIjoxNjYyMDAzNjQwfQ.1pFcXsvPhW0LWcSKtmlUFgIhT9Txi-5bKeoi7B0tly4"
+    },
+    "tests": []
+  },
+  {
+    "_id": "f3010d89-978f-4b6f-a7da-7ce0cb9e9327",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/events/6302ec02ce9220bf7c7717bd",
+    "url": "{{host}}/events/6302ec02ce9220bf7c7717bd",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2022-08-22T04:12:24.425Z",
+    "modified": "2022-08-22T04:12:24.455Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"recap\":\"http://localhost/:8084\",\n    \"subscribers\":[\"wqeqwe\"]\n    \n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTEzOTY0MCwiZXhwIjoxNjYyMDAzNjQwfQ.1pFcXsvPhW0LWcSKtmlUFgIhT9Txi-5bKeoi7B0tly4"
+    },
+    "tests": []
+  },
+  {
+    "_id": "15001f54-2daf-4b74-842c-9d0d3193f8a2",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/events/6302fb4aae5eeea5573e3d00/subscribe",
+    "url": "{{host}}/events/6302fb4aae5eeea5573e3d00/subscribe",
+    "method": "PATCH",
+    "sortNum": 0,
+    "created": "2022-08-22T04:12:36.760Z",
+    "modified": "2022-08-22T04:14:46.605Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"subscribers\":\"dajneem234@gmail.com\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTEzOTY0MCwiZXhwIjoxNjYyMDAzNjQwfQ.1pFcXsvPhW0LWcSKtmlUFgIhT9Txi-5bKeoi7B0tly4"
+    },
+    "tests": []
+  },
+  {
+    "_id": "1d0c0d09-1161-46cc-9292-717633a9bc19",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/events/630302a64fb743770f0f8a60/subscribe",
+    "url": "{{host}}/events/630302a64fb743770f0f8a60/subscribe",
+    "method": "PATCH",
+    "sortNum": 0,
+    "created": "2022-08-22T04:14:49.950Z",
+    "modified": "2022-08-22T04:21:33.420Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"subscribers\":\"dajneem2345@gmail.com\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTEzOTY0MCwiZXhwIjoxNjYyMDAzNjQwfQ.1pFcXsvPhW0LWcSKtmlUFgIhT9Txi-5bKeoi7B0tly4"
+    },
     "tests": []
   }
 ]

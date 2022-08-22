@@ -308,12 +308,12 @@ export class ProductService {
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
-          this.lookups.user,
           this.lookups.crypto_currencies,
+          this.lookups.user,
+          this.$set.author,
           {
             $limit: 1,
           },
-          this.$set.author,
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));

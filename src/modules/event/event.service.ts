@@ -301,8 +301,6 @@ export class EventService {
         },
       ] = (await this.model.collection
         .aggregate([
-          this.lookups.country,
-          this.$set.country,
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -315,6 +313,8 @@ export class EventService {
               items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
             },
           },
+          this.lookups.country,
+          this.$set.country,
         ])
         .toArray()) as any[];
 
@@ -341,8 +341,6 @@ export class EventService {
         },
       ] = (await this.model.collection
         .aggregate([
-          this.lookups.country,
-          this.$set.country,
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -356,6 +354,8 @@ export class EventService {
               virtual: [{ $match: { type: 'virtual' } }, { $limit: +per_page }],
             },
           },
+          this.lookups.country,
+          this.$set.country,
         ])
         .toArray()) as any[];
       const items = [...trending, ...virtual];
@@ -381,8 +381,6 @@ export class EventService {
         },
       ] = (await this.model.collection
         .aggregate([
-          this.lookups.country,
-          this.$set.country,
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -395,6 +393,8 @@ export class EventService {
               items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
             },
           },
+          this.lookups.country,
+          this.$set.country,
         ])
         .toArray()) as any[];
 
@@ -431,8 +431,6 @@ export class EventService {
       };
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate([
-          this.lookups.country,
-          this.$set.country,
           ...$pagination({
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -440,6 +438,8 @@ export class EventService {
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
+          this.lookups.country,
+          this.$set.country,
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });

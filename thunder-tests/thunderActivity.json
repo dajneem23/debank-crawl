@@ -132,7 +132,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-12T03:42:01.167Z",
-    "modified": "2022-08-22T03:08:49.244Z",
+    "modified": "2022-08-22T03:16:55.735Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -142,7 +142,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"event67\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-20 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"PW\"\n}",
+      "raw": "{\n    \"name\": \"event67123\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"LC\"\n}",
       "form": []
     },
     "auth": {
@@ -1777,9 +1777,28 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-16T08:07:36.038Z",
-    "modified": "2022-08-22T02:21:24.769Z",
+    "modified": "2022-08-22T03:17:59.764Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "type",
+        "value": "offline",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "category",
+        "value": "6302ee4e8ff66b9d1f7fdd17",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "country",
+        "value": "LC",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
@@ -2034,6 +2053,101 @@
         "name": "category",
         "value": "6302ee4e8ff66b9d1f7fdd17",
         "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "3d153e46-1d8f-4cb7-bd37-491ed59cb290",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/?type=offline&country=PW",
+    "url": "http://localhost:8084/api/v1/events/?type=offline&country=PW",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T03:14:04.635Z",
+    "modified": "2022-08-22T03:14:22.326Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "type",
+        "value": "offline",
+        "isPath": false
+      },
+      {
+        "name": "category",
+        "value": "6302ee4e8ff66b9d1f7fdd17",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "country",
+        "value": "PW",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "fa611831-f30d-4ab8-af8e-e3155ccf2a88",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/?country=PW",
+    "url": "http://localhost:8084/api/v1/events/?country=PW",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T03:14:32.726Z",
+    "modified": "2022-08-22T03:16:23.238Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "type",
+        "value": "offline",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "category",
+        "value": "6302ee4e8ff66b9d1f7fdd17",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "country",
+        "value": "PW",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "5dda23c4-712d-4fa5-baf3-d7ade6a147e3",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8084/api/v1/events/?country=LC",
+    "url": "http://localhost:8084/api/v1/events/?country=LC",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T03:17:00.611Z",
+    "modified": "2022-08-22T03:18:36.170Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "type",
+        "value": "offline",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "category",
+        "value": "6302ee4e8ff66b9d1f7fdd17",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "country",
+        "value": "LC",
         "isPath": false
       }
     ],

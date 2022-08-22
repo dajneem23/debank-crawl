@@ -8,7 +8,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-08-09T09:38:56.534Z",
-    "modified": "2022-08-22T03:43:06.683Z",
+    "modified": "2022-08-22T06:17:16.490Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -18,7 +18,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"event612312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"LC\"\n}",
+      "raw": "{\n    \"name\": \"event6132312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"LC\"\n}",
       "form": []
     },
     "auth": {
@@ -758,11 +758,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
     "name": "query",
-    "url": "{{host}}/coins/?page=1&per_page=5&q=qweqwe",
+    "url": "{{host}}/coins/?page=1&per_page=2",
     "method": "GET",
     "sortNum": 230000,
     "created": "2022-08-16T07:22:34.602Z",
-    "modified": "2022-08-16T08:26:38.846Z",
+    "modified": "2022-08-22T09:28:16.481Z",
     "headers": [],
     "params": [
       {
@@ -772,12 +772,13 @@
       },
       {
         "name": "per_page",
-        "value": "5",
+        "value": "2",
         "isPath": false
       },
       {
         "name": "q",
         "value": "qweqwe",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -836,6 +837,54 @@
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTEzOTY0MCwiZXhwIjoxNjYyMDAzNjQwfQ.1pFcXsvPhW0LWcSKtmlUFgIhT9Txi-5bKeoi7B0tly4"
     },
+    "tests": []
+  },
+  {
+    "_id": "ed6e22a2-3f93-45ba-af81-dfa2fa1bde7a",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
+    "name": "create",
+    "url": "{{host}}/news",
+    "method": "POST",
+    "sortNum": 260000,
+    "created": "2022-08-22T07:41:46.420Z",
+    "modified": "2022-08-22T08:34:06.221Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"slug\": \"52x123zxasd\",\n    \"contents\": [\n        {\n            \"title\": \"asd\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"asdads\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTE1NDM5OSwiZXhwIjoxNjYyMDE4Mzk5fQ.2LdkeZvU8wr3BvTmnGnDk3eBeayZ-dKZ9KUq24NJOx8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "4595b62f-5175-45e9-a858-cca77b07816f",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
+    "name": "query",
+    "url": "{{host}}/news?lang=eng&per_page=2",
+    "method": "GET",
+    "sortNum": 270000,
+    "created": "2022-08-22T08:29:26.925Z",
+    "modified": "2022-08-22T10:59:25.844Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "eng",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

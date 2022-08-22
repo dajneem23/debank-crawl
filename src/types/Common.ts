@@ -74,9 +74,7 @@ export type BaseModel = {
   deleted?: boolean;
 };
 
-export type BaseInformationModel = {
-  _id?: string;
-
+export interface BaseInformationModel extends BaseModel {
   verified?: boolean;
 
   sponsored?: boolean;
@@ -118,22 +116,7 @@ export type BaseInformationModel = {
   bitcoin_talk?: string;
 
   rocket_chat?: string;
-
-  created_by?: string;
-
-  updated_by?: string;
-
-  deleted_by?: string;
-
-  deleted_at?: Date;
-
-  deleted?: boolean;
-
-  // Record created at
-  created_at?: Date;
-  // Record updated at
-  updated_at?: Date;
-};
+}
 
 export type Feature = {
   title: string;

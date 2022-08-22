@@ -53,6 +53,13 @@
         "containerId": "",
         "created": "2022-08-16T07:22:34.598Z",
         "sortNum": 70000
+      },
+      {
+        "_id": "3498b314-eab0-4869-ba2b-41ae29479763",
+        "name": "news",
+        "containerId": "",
+        "created": "2022-08-22T07:41:36.767Z",
+        "sortNum": 90000
       }
     ],
     "settings": {

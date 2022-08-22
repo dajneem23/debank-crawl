@@ -65,7 +65,7 @@ export class EventService {
   get queryOutputKeys() {
     return ['id', 'name', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
   }
-  get lookups() {
+  get $lookups() {
     return {
       speakers: $lookup({
         from: 'persons',
@@ -265,11 +265,11 @@ export class EventService {
       const [event] = await this.model.collection
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
-          this.lookups.categories,
-          this.lookups.speakers,
-          this.lookups.country,
+          this.$lookups.categories,
+          this.$lookups.speakers,
+          this.$lookups.country,
           this.$set.country,
-          this.lookups.user,
+          this.$lookups.user,
           this.$set.author,
           {
             $limit: 1,
@@ -321,7 +321,7 @@ export class EventService {
               items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
             },
           },
-          this.lookups.country,
+          this.$lookups.country,
           this.$set.country,
         ])
         .toArray()) as any[];
@@ -362,7 +362,7 @@ export class EventService {
               virtual: [{ $match: { type: 'virtual' } }, { $limit: +per_page }],
             },
           },
-          this.lookups.country,
+          this.$lookups.country,
           this.$set.country,
         ])
         .toArray()) as any[];
@@ -401,7 +401,7 @@ export class EventService {
               items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
             },
           },
-          this.lookups.country,
+          this.$lookups.country,
           this.$set.country,
         ])
         .toArray()) as any[];
@@ -446,7 +446,7 @@ export class EventService {
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
-          this.lookups.country,
+          this.$lookups.country,
           this.$set.country,
         ])
         .toArray();

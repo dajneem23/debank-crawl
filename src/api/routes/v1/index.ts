@@ -10,6 +10,7 @@ import {
   ProductController,
   PersonController,
   CoinController,
+  NewsController,
 } from '@/modules';
 
 const route = Router();
@@ -26,5 +27,6 @@ export default (app: Application) => {
     ProductController,
     PersonController,
     CoinController,
+    NewsController,
   ]);
 };

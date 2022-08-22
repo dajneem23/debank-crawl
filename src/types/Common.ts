@@ -174,6 +174,11 @@ export enum SponsorType {
   COMPANY = 'company',
   PERSON = 'person',
 }
+export enum MediaType {
+  IMAGE = 'image',
+  VIDEO = 'video',
+  AUDIO = 'audio',
+}
 export type Sponsor = {
   id: string;
   name?: string;

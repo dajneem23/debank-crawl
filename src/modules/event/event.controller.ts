@@ -24,7 +24,7 @@ import { BaseQuery, BaseServiceInput } from '@/types';
 @Controller('/events')
 export class EventController {
   @Inject()
-  private eventService: EventService;
+  private service: EventService;
   @Post('/', [EventValidation.create, protect()])
   async create(
     @Res() _res: Response,
@@ -33,7 +33,7 @@ export class EventController {
     @Body()
     _body: Event,
   ) {
-    const result = await this.eventService.create({
+    const result = await this.service.create({
       _content: _body,
       _subject: _auth.id,
     } as BaseServiceInput);
@@ -48,7 +48,7 @@ export class EventController {
     _body: Event,
     @Params() _params: { id: string },
   ) {
-    const result = await this.eventService.update({
+    const result = await this.service.update({
       _id: _params.id,
       _subject: _auth.id,
       _content: _body,
@@ -58,19 +58,19 @@ export class EventController {
   @Get('/related', [EventValidation.getRelated])
   async getRelatedEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getRelatedEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getRelatedEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/trending', [EventValidation.getTrending])
   async getTrendingEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getTrendingEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getTrendingEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/significant', [EventValidation.getSignificant])
   async getSignificantEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getSignificantEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getSignificantEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
 
@@ -83,7 +83,7 @@ export class EventController {
       id: string;
     },
   ) {
-    const result = await this.eventService.getById({
+    const result = await this.service.getById({
       _id: _params.id,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
@@ -91,7 +91,7 @@ export class EventController {
   @Get('/', [EventValidation.query])
   async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.query({
+    const result = await this.service.query({
       _filter: filter,
       _query: query,
     } as BaseServiceInput);
@@ -104,7 +104,7 @@ export class EventController {
     @Auth() _auth: JWTPayload,
     @Params() _params: { id: string },
   ) {
-    await this.eventService.delete({
+    await this.service.delete({
       _id: _params.id,
       _subject: _auth.id,
     } as BaseServiceInput);
@@ -122,7 +122,7 @@ export class EventController {
     },
     @Params() _params: { id: string },
   ) {
-    const result = await this.eventService.update({
+    const result = await this.service.update({
       _id: _params.id,
       _content: _body,
       subject: _auth.id,
@@ -141,7 +141,7 @@ export class EventController {
     },
     @Params() _params: { id: string },
   ) {
-    const result = await this.eventService.update({
+    const result = await this.service.update({
       _id: _params.id,
       _content: _body,
       _subject: _auth.id,
@@ -159,7 +159,7 @@ export class EventController {
     },
     @Params() _params: { id: string },
   ) {
-    const result = await this.eventService.subscribe({
+    const result = await this.service.subscribe({
       _id: _params.id,
       _content: _body,
       _subject: _auth.id,

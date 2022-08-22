@@ -39,6 +39,13 @@ export interface Event extends BaseInformationModel {
   slide?: string;
 
   recap?: string;
+
+  banners?: Array<string>;
+
+  media?: Array<{
+    type: string;
+    url: string;
+  }>;
 }
 export interface EventQuery extends BaseQuery, EventFilter {
   name?: string;

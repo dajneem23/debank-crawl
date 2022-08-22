@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, EventType } from '@/types/Common';
+import { ORDER, EventType, MediaType } from '@/types/Common';
 import { ObjectIdPattern, PhoneNumberPattern } from '@/utils/common';
 export const query = validate({
   [Segments.QUERY]: Joi.object({
@@ -132,6 +132,17 @@ export const create = validate({
     slide: Joi.string(),
 
     recap: Joi.string(),
+
+    banners: Joi.array().items(Joi.string()),
+
+    media: Joi.array().items(
+      Joi.object({
+        type: Joi.string()
+          .valid(...Object.values(MediaType))
+          .required(),
+        url: Joi.string().required(),
+      }),
+    ),
   }),
 });
 export const update = validate({
@@ -199,6 +210,17 @@ export const update = validate({
     slide: Joi.string(),
 
     recap: Joi.string(),
+
+    banners: Joi.array().items(Joi.string()),
+
+    media: Joi.array().items(
+      Joi.object({
+        type: Joi.string()
+          .valid(...Object.values(MediaType))
+          .required(),
+        url: Joi.string().required(),
+      }),
+    ),
   }),
   [Segments.PARAMS]: Joi.object({
     id: Joi.string().regex(ObjectIdPattern),

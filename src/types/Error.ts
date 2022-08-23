@@ -12,7 +12,7 @@ export const CommonError = {
     },
   },
   DATABASE_ERROR: {
-    message: 'Data base error',
+    message: 'Database error',
     code: '500',
     status: httpStatusCode.INTERNAL_SERVER_ERROR,
     isPublic: true,

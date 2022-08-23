@@ -387,8 +387,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      // return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
-      return { total_count, items } as BaseServiceOutput;
+      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;

@@ -132,7 +132,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-12T03:42:01.167Z",
-    "modified": "2022-08-22T04:14:30.987Z",
+    "modified": "2022-08-22T06:17:16.492Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -142,7 +142,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"event612312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"LC\"\n}",
+      "raw": "{\n    \"name\": \"event6132312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"LC\"\n}",
       "form": []
     },
     "auth": {
@@ -160,7 +160,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-12T05:28:53.899Z",
-    "modified": "2022-08-22T03:40:40.777Z",
+    "modified": "2022-08-22T07:46:39.854Z",
     "headers": [],
     "params": [],
     "body": {
@@ -1298,7 +1298,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-16T05:00:02.881Z",
-    "modified": "2022-08-16T07:19:14.014Z",
+    "modified": "2022-08-22T11:19:43.531Z",
     "headers": [],
     "params": [
       {
@@ -1601,7 +1601,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-16T07:33:06.599Z",
-    "modified": "2022-08-16T08:26:30.965Z",
+    "modified": "2022-08-22T09:28:01.473Z",
     "headers": [],
     "params": [
       {
@@ -1612,6 +1612,12 @@
       {
         "name": "per_page",
         "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "qweqwe",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1890,7 +1896,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-16T08:26:38.797Z",
-    "modified": "2022-08-16T08:26:39.785Z",
+    "modified": "2022-08-22T09:27:58.157Z",
     "headers": [],
     "params": [
       {
@@ -2303,6 +2309,196 @@
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTEzOTY0MCwiZXhwIjoxNjYyMDAzNjQwfQ.1pFcXsvPhW0LWcSKtmlUFgIhT9Txi-5bKeoi7B0tly4"
     },
+    "tests": []
+  },
+  {
+    "_id": "64a376c1-88e3-4eb5-b0b8-2458e6014d7c",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news",
+    "url": "{{host}}/news",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T07:46:31.327Z",
+    "modified": "2022-08-22T09:15:49.360Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "eng",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "bee9a391-69f7-46d3-95b0-9d032a88344a",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news",
+    "url": "{{host}}/news",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-08-22T07:46:35.774Z",
+    "modified": "2022-08-22T11:34:26.205Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"slug\": \"52x123zxasd\",\n    \"contents\": [\n        {\n            \"title\": \"asd\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"asdads\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTE1NDM5OSwiZXhwIjoxNjYyMDE4Mzk5fQ.2LdkeZvU8wr3BvTmnGnDk3eBeayZ-dKZ9KUq24NJOx8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "7c1fe898-cc9a-4e39-96cf-fade7d58046c",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news?lang=vi",
+    "url": "{{host}}/news?lang=vi",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T08:29:36.666Z",
+    "modified": "2022-08-22T10:03:44.290Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "ca557a60-9e63-4324-8e35-85274fdc5fb6",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news?lang=eng",
+    "url": "{{host}}/news?lang=eng",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T08:50:38.858Z",
+    "modified": "2022-08-22T09:15:44.193Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "eng",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "a9f05664-6bb5-40a1-97e1-5260ce353a1e",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/coins/?page=1&per_page=2",
+    "url": "{{host}}/coins/?page=1&per_page=2",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T09:28:15.465Z",
+    "modified": "2022-08-22T09:29:20.579Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "qweqwe",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "ebbe80d4-6759-4256-b040-2b534aba0fa0",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news?lang=vi&per_page=2",
+    "url": "{{host}}/news?lang=vi&per_page=2",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T10:03:58.285Z",
+    "modified": "2022-08-22T10:57:27.036Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "f7074852-2d4c-4391-8a5b-bff710c51865",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news?lang=eng&per_page=2",
+    "url": "{{host}}/news?lang=eng&per_page=2",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T10:58:55.727Z",
+    "modified": "2022-08-22T11:42:28.672Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "eng",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "2953f5c1-3abb-41b7-b869-7931162c31d2",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news?lang=engaz&per_page=2",
+    "url": "{{host}}/news?lang=engaz&per_page=2",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-22T10:58:58.020Z",
+    "modified": "2022-08-22T10:58:58.041Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "engaz",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

@@ -44,7 +44,7 @@ export class ProductService {
   /**
    *  Lookups
    */
-  get lookups(): any {
+  get $lookups(): any {
     return {
       categories: $lookup({
         from: 'categories',
@@ -88,7 +88,7 @@ export class ProductService {
       }),
     };
   }
-  get $set() {
+  get $sets() {
     return {
       country: {
         $set: {
@@ -307,10 +307,10 @@ export class ProductService {
       const [item] = await this.model.collection
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
-          this.lookups.categories,
-          this.lookups.crypto_currencies,
-          this.lookups.user,
-          this.$set.author,
+          this.$lookups.categories,
+          this.$lookups.crypto_currencies,
+          this.$lookups.user,
+          this.$sets.author,
           {
             $limit: 1,
           },

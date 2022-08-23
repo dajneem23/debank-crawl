@@ -52,7 +52,7 @@ export class CompanyService {
   /**
    *  Lookups
    */
-  get lookups(): any {
+  get $lookups(): any {
     return {
       products: $lookup({
         from: 'products',
@@ -120,7 +120,7 @@ export class CompanyService {
       }),
     };
   }
-  get $set() {
+  get $sets() {
     return {
       country: {
         $set: {
@@ -358,14 +358,14 @@ export class CompanyService {
       const [item] = await this.model.collection
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
-          this.lookups.categories,
-          this.lookups.user,
-          this.lookups.team,
-          this.lookups.products,
-          this.lookups.projects,
-          this.lookups.crypto_currencies,
-          this.lookups.countries,
-          this.$set.author,
+          this.$lookups.categories,
+          this.$lookups.user,
+          this.$lookups.team,
+          this.$lookups.products,
+          this.$lookups.projects,
+          this.$lookups.crypto_currencies,
+          this.$lookups.countries,
+          this.$sets.author,
           {
             $limit: 1,
           },

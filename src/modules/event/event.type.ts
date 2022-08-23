@@ -1,5 +1,5 @@
 import { BaseInformationModel, EventType, Agenda, BaseQuery } from '@/types/Common';
-import { Join, ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 export interface Event extends BaseInformationModel {
   // id - primary id unique

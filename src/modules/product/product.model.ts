@@ -16,7 +16,7 @@ export class ProductModel {
     Promise.all([
       // Unique ID
 
-      this._collection.createIndex('name', { unique: false }),
+      this._collection.createIndex('name', { unique: true }),
     ]).catch((err) => {
       this.logger.error(err);
     });

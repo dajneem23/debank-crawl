@@ -128,18 +128,22 @@ export const $query = function ({
  */
 export const $pagination = ({
   items,
-  lookups,
+  $lookups,
   condition,
-  more,
+  $more,
+  $projects,
+  $sets,
   $match = {},
   $sort,
 }: {
   $match?: any;
   $sort?: any;
+  $projects?: any[];
+  $sets?: any[];
   items?: any[];
-  lookups?: any[];
+  $lookups?: any[];
   condition?: any;
-  more?: any[];
+  $more?: any[];
 }) => {
   // Convert _id to ObjectId
   Object.keys($match).forEach(
@@ -149,7 +153,10 @@ export const $pagination = ({
     {
       $match,
     },
-    // ...(!!lookups && [...lookups]),
+    ...((!!$lookups && [...$lookups]) || []),
+    ...((!!$sets && [...$sets]) || []),
+    ...((!!$projects && [...$projects]) || []),
+    ...((!!$more && [...$more]) || []),
     {
       $facet: {
         total_count: [
@@ -175,7 +182,11 @@ export const $pagination = ({
         },
       },
     ]),
-    { $project: { result: { $concatArrays: ['$total_count', '$items'] } } },
+    {
+      $project: {
+        result: { $concatArrays: ['$total_count', '$items'] },
+      },
+    },
     { $unwind: '$result' },
     { $replaceRoot: { newRoot: '$result' } },
   ].filter(Boolean);
@@ -234,4 +245,22 @@ export const $queryByList = async ({
     ...filter,
   });
   return count === values.length;
+};
+
+export const $flatObject = (obj: any, root: any) => {
+  const result = {} as any;
+  Object.keys(obj).forEach((key: string) => {
+    if (typeof obj[key] === 'object') {
+      Object.assign(result, $flatObject(obj[key], root));
+    } else {
+      result[key] = obj[key];
+    }
+  });
+  return result;
+};
+export const $keysToProject = (keys: string[], root?: any) => {
+  return keys.reduce((previous: any, current: string) => {
+    previous[current] = root ? `${root}.${current}` : 1;
+    return previous;
+  }, {});
 };

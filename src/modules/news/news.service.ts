@@ -6,6 +6,8 @@ import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysT
 import { NewsError, NewsModel } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit, rest } from 'lodash';
+import { UserModel, UserError } from '../index';
+import { ObjectId } from 'mongodb';
 
 @Service()
 export class NewsService {
@@ -13,6 +15,13 @@ export class NewsService {
 
   @Inject()
   private model: NewsModel;
+
+  @Inject()
+  private userModel: UserModel;
+
+  private userErrors(err: any) {
+    return new UserError(err);
+  }
 
   private error(msg: any) {
     return new NewsError(msg);
@@ -53,6 +62,14 @@ export class NewsService {
         select: 'full_name avatar',
         reName: 'author',
         operation: '$eq',
+      }),
+      news: $lookup({
+        from: 'news',
+        refFrom: 'categories',
+        refTo: 'followings',
+        select: 'title',
+        reName: 'news',
+        operation: '$in',
       }),
     };
   }
@@ -310,6 +327,70 @@ export class NewsService {
       return omit(toOutPut({ item }), ['deleted', 'updated_at']);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
+      throw err;
+    }
+  }
+  /**
+   * Get related news
+   * @param {ObjectId} _id
+   * @param {BaseQuery} _query
+   * @param {} _filter
+   * @returns {Promise<BaseServiceOutput>}
+   */
+  async getRelated({ _id, _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang } = _filter;
+      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const user = await this.userModel.collection.findOne({ id: _id });
+      if (isNil(user)) throwErr(this.userErrors('USER_NOT_FOUND'));
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
+        .aggregate([
+          ...$pagination({
+            $match: {
+              $and: [
+                { 'contents.lang': lang },
+                {
+                  categories: {
+                    $in: Array.isArray(user.followings) ? user.followings : [],
+                  },
+                },
+              ],
+            },
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  contents: {
+                    $filter: {
+                      input: '$contents',
+                      as: 'content',
+                      cond: {
+                        $eq: ['$$content.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.contents,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.childKeys, '$contents'),
+                },
+              },
+            ],
+            ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      this.logger.debug('[query:success]', { total_count, items });
+      // return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+      return { total_count, items } as BaseServiceOutput;
+    } catch (err) {
+      this.logger.error('[query:error]', err.message);
       throw err;
     }
   }

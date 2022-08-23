@@ -35,3 +35,9 @@ Desktop.ini
 
 #Docker volumes
 /docker/db
+
+#seeds
+src/seeds/data/*.json
+
+# Tests
+thunder-tests/thunderActivity.json

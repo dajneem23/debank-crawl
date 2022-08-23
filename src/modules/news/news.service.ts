@@ -39,7 +39,7 @@ export class NewsService {
   }
 
   get outputKeys() {
-    return ['id', 'slug', 'photos', 'categories', 'author', 'created_at'];
+    return ['id', 'slug', 'photos', 'categories', 'author', 'number_relate_article', 'created_at'];
   }
 
   /**
@@ -354,6 +354,9 @@ export class NewsService {
                     $in: Array.isArray(user.followings) ? user.followings : [],
                   },
                 },
+                {
+                  deleted: false,
+                },
               ],
             },
             $projects: [
@@ -382,6 +385,66 @@ export class NewsService {
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      this.logger.debug('[query:success]', { total_count, items });
+      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+    } catch (err) {
+      this.logger.error('[query:error]', err.message);
+      throw err;
+    }
+  }
+  /**
+   * Get important news
+   * @param {ObjectId} _id
+   * @param {BaseQuery} _query
+   * @param {} _filter
+   * @returns {Promise<BaseServiceOutput>}
+   */
+  async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang } = _filter;
+      const { page = 1, per_page } = _query;
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
+        .aggregate([
+          ...$pagination({
+            $match: {
+              $and: [
+                { 'contents.lang': lang },
+                {
+                  deleted: false,
+                },
+              ],
+            },
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  contents: {
+                    $filter: {
+                      input: '$contents',
+                      as: 'content',
+                      cond: {
+                        $eq: ['$$content.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.contents,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.childKeys, '$contents'),
+                },
+              },
+            ],
+            //number_relate_article more bigger more important
+            $sort: { number_relate_article: -1 },
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])

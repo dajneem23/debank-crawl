@@ -5,29 +5,27 @@ export interface Coin extends BaseInformationModel {
 
   token_id: string;
 
-  unique_key: string;
-
   categories?: Array<string>;
-
-  blockchain: string;
-
-  hash_algorithm: string;
-
-  org_structure: string;
 
   explorer: string;
 
-  white_paper: string;
+  stack_exchange: string;
 
-  consensus: string;
+  blockchains: Array<string>;
 
-  development_status: DEVELOPMENT_STATUS;
-
-  open_source: boolean;
-
-  hardware_wallet: boolean;
+  whitepaper: string;
 
   wallets: string[];
 
   exchanges: string[];
+
+  technologies: object[];
+
+  services: object[];
+
+  features: object[];
+
+  team: object[];
+
+  ico: object[];
 }

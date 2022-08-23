@@ -12,25 +12,21 @@ export interface Product extends BaseInformationModel {
   //array id of categories
   categories?: Array<string>;
 
-  software_license: string;
-
   features?: Array<string>;
-
-  ccys?: Array<string>;
 
   token: string;
 
-  ios_app: string;
+  apps: Array<object>;
 
-  google_play_app: string;
+  supports: Array<object>;
 
-  chrome_extension: string;
+  galleries: Array<string>;
 
-  mac_app: string;
+  informations: Array<object>;
 
-  linux_app: string;
+  team: Array<object>;
 
-  windows_app: string;
+  parent_company: string;
 
-  wiki: string;
+  team_location: string;
 }

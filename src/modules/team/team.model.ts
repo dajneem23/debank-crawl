@@ -5,7 +5,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { Team } from './team.type';
 
-const COLLECTION_NAME = 'teams';
+const COLLECTION_NAME = 'team';
 
 @Service()
 export class TeamModel {

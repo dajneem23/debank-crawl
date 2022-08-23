@@ -19,8 +19,6 @@ export class CoinModel {
       this._collection.createIndex('name', { unique: false }),
 
       this._collection.createIndex('token_id', { unique: false }),
-
-      this._collection.createIndex('unique_key', { unique: false }),
     ]).catch((err) => {
       this.logger.error(err);
     });

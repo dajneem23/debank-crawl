@@ -46,7 +46,6 @@ export class CompanyService {
       'portfolios',
       'features',
       'services',
-      'ccys',
       'author',
     ];
   }
@@ -87,12 +86,12 @@ export class CompanyService {
         reName: 'author',
         operation: '$eq',
       }),
-      teams: $lookup({
-        from: 'teams',
+      team: $lookup({
+        from: 'team',
         refFrom: '_id',
-        refTo: 'teams',
+        refTo: 'team',
         select: 'name avatar',
-        reName: 'teams',
+        reName: 'team',
         operation: '$in',
       }),
       directors: $lookup({
@@ -138,7 +137,7 @@ export class CompanyService {
     try {
       const now = new Date();
       const { name } = _content;
-      const { teams, categories, projects, products, crypto_currencies, country } = _content;
+      const { team, categories, projects, products, crypto_currencies, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $checkListIdExist({ collection: 'categories', listId: categories })
@@ -156,7 +155,7 @@ export class CompanyService {
           ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
           : true;
       const teamIdExist =
-        !!teams && teams.length > 0 ? await $checkListIdExist({ collection: 'teams', listId: teams }) : true;
+        !!team && team.length > 0 ? await $checkListIdExist({ collection: 'team', listId: team }) : true;
       const countryIdExist = !!country ? await $checkListIdExist({ collection: 'countries', listId: [country] }) : true;
       if (!(categoriesIdExist && projectIdExist && productIdExist && coinIdExist && countryIdExist && teamIdExist)) {
         throwErr(this.error('INPUT_INVALID'));
@@ -174,7 +173,7 @@ export class CompanyService {
             ..._content,
             categories: categories ? $toObjectId(categories) : [],
             projects: projects ? $toObjectId(projects) : [],
-            teams: teams ? $toObjectId(teams) : [],
+            team: team ? $toObjectId(team) : [],
             products: products ? $toObjectId(products) : [],
             crypto_currencies: crypto_currencies ? $toObjectId(crypto_currencies) : [],
             country: country ? $toObjectId(country) : '',
@@ -213,7 +212,7 @@ export class CompanyService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      const { teams, categories, projects, products, crypto_currencies, country } = _content;
+      const { team, categories, projects, products, crypto_currencies, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $checkListIdExist({ collection: 'categories', listId: categories })
@@ -231,7 +230,7 @@ export class CompanyService {
           ? await $checkListIdExist({ collection: 'coins', listId: crypto_currencies })
           : true;
       const teamIdExist =
-        !!teams && teams.length > 0 ? await $checkListIdExist({ collection: 'teams', listId: teams }) : true;
+        !!team && team.length > 0 ? await $checkListIdExist({ collection: 'team', listId: team }) : true;
       const countryIdExist = !!country ? await $checkListIdExist({ collection: 'countries', listId: [country] }) : true;
       if (!(categoriesIdExist && projectIdExist && productIdExist && coinIdExist && countryIdExist && teamIdExist)) {
         throwErr(this.error('INPUT_INVALID'));
@@ -247,7 +246,7 @@ export class CompanyService {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
             ...(projects && { projects: $toObjectId(projects) }),
-            ...(teams && { teams: $toObjectId(teams) }),
+            ...(team && { team: $toObjectId(team) }),
             ...(products && { products: $toObjectId(products) }),
             ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
             ...(country && { country: $toObjectId(country) }),
@@ -358,7 +357,7 @@ export class CompanyService {
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
           this.lookups.user,
-          this.lookups.teams,
+          this.lookups.team,
           this.lookups.products,
           this.lookups.projects,
           this.lookups.crypto_currencies,

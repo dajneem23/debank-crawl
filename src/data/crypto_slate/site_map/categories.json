@@ -1,0 +1,46 @@
+{
+  "_id": "categories",
+  "startUrl": ["https://cryptoslate.com/coins/"],
+  "selectors": [
+    {
+      "id": "coin-categories",
+      "parentSelectors": ["_root"],
+      "type": "SelectorGroup",
+      "selector": "#menu-coins-main-menu a",
+      "delay": 0,
+      "extractAttribute": ""
+    },
+    {
+      "id": "coin-sectors",
+      "parentSelectors": ["_root"],
+      "type": "SelectorGroup",
+      "selector": "#menu-crypto-categories-menu a",
+      "delay": 0,
+      "extractAttribute": ""
+    },
+    {
+      "id": "people-categories",
+      "parentSelectors": ["_root"],
+      "type": "SelectorGroup",
+      "selector": "#menu-people-categories a",
+      "delay": 0,
+      "extractAttribute": ""
+    },
+    {
+      "id": "company-categories",
+      "parentSelectors": ["_root"],
+      "type": "SelectorGroup",
+      "selector": "#menu-company-category-menu a",
+      "delay": 0,
+      "extractAttribute": ""
+    },
+    {
+      "id": "product-categories",
+      "parentSelectors": ["_root"],
+      "type": "SelectorGroup",
+      "selector": "#menu-product-category-menu a",
+      "delay": 0,
+      "extractAttribute": ""
+    }
+  ]
+}

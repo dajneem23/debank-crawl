@@ -17,7 +17,7 @@ export class PersonModel {
       // Unique ID
 
       // Unique name
-      this._collection.createIndex('name', { unique: true }),
+      this._collection.createIndex('name', { unique: false }),
     ]).catch((err) => {
       this.logger.error(err);
     });

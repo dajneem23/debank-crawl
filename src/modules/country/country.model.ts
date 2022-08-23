@@ -17,7 +17,7 @@ export class CountryModel {
       // Unique ID
 
       // Unique code
-      this._collection.createIndex('code', { unique: true }),
+      this._collection.createIndex('code', { unique: false }),
     ]).catch((err) => {
       this.logger.error(err);
     });

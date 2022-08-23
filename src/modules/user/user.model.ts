@@ -17,7 +17,7 @@ export default class UserModel {
       // Unique ID
 
       // Unique Email
-      this._collection.createIndex('email', { unique: true }),
+      this._collection.createIndex('email', { unique: false }),
     ]).catch((err) => {
       this.logger.error(err);
     });

@@ -15,7 +15,6 @@ export class EventModel {
     this._collection = db.collection<Event>(COLLECTION_NAME);
     Promise.all([
       // Unique ID
-
       this._collection.createIndex('name', { unique: false }),
     ]).catch((err) => {
       this.logger.error(err);

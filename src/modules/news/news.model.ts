@@ -15,7 +15,7 @@ export class NewsModel {
     this._collection = db.collection<News>(COLLECTION_NAME);
     Promise.all([
       // Unique ID
-      this._collection.createIndex('slug', { unique: true }),
+      this._collection.createIndex('slug', { unique: false }),
       this._collection.createIndex('contents.lang', { unique: false }),
       this._collection.createIndex('contents.headings', { unique: false }),
     ]).catch((err) => {

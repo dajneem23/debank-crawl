@@ -1,0 +1,86 @@
+{
+  "_id": "cryptos-categories",
+  "startUrl": ["https://cryptoslate.com/cryptos"],
+  "selectors": [
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "views",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Views')   +  ul li >a",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "applications",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Applications')   +  ul li >a",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "consensus",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Consensus')   +  ul li >a",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "sectors",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Sectors')   +  ul li >a",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "consensus-span",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Consensus')   +  ul li >a span",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "sectors-span",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Sectors')   +  ul li >a span",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "applications-span",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Applications')   +  ul li >a span",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "blockchains",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Blockchains')   +  ul li >a",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "blockchains-span",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Blockchains')   +  ul li >a span",
+      "type": "SelectorGroup"
+    },
+    {
+      "delay": 0,
+      "extractAttribute": "",
+      "id": "views-span",
+      "parentSelectors": ["_root"],
+      "selector": "h5:contains('Views')   +  ul li >a span",
+      "type": "SelectorGroup"
+    }
+  ]
+}

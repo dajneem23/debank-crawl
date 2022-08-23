@@ -2,7 +2,7 @@ import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $checkListIdExist } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
 import { CoinError, CoinModel } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit, rest } from 'lodash';
@@ -68,7 +68,20 @@ export class CoinService {
       }),
     };
   }
-
+  get $set() {
+    return {
+      country: {
+        $set: {
+          country: { $first: '$country' },
+        },
+      },
+      author: {
+        $set: {
+          author: { $first: '$author' },
+        },
+      },
+    };
+  }
   /**
    * Generate ID
    */
@@ -88,7 +101,7 @@ export class CoinService {
       const { categories } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
-          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          ? await $queryByList({ collection: 'categories', values: categories })
           : true;
 
       if (!categoriesIdExist) {
@@ -145,7 +158,7 @@ export class CoinService {
       const { categories } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
-          ? await $checkListIdExist({ collection: 'categories', listId: categories })
+          ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       if (!categoriesIdExist) {
         throwErr(this.error('INPUT_INVALID'));
@@ -269,13 +282,9 @@ export class CoinService {
           { $match: $toMongoFilter({ _id }) },
           this.lookups.categories,
           this.lookups.user,
+          this.$set.author,
           {
             $limit: 1,
-          },
-          {
-            $set: {
-              author: { $first: '$author' },
-            },
           },
         ])
         .toArray();

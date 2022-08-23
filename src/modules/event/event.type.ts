@@ -1,5 +1,5 @@
 import { BaseInformationModel, EventType, Agenda, BaseQuery } from '@/types/Common';
-import { ObjectId } from 'mongodb';
+import { Join, ObjectId } from 'mongodb';
 
 export interface Event extends BaseInformationModel {
   // id - primary id unique
@@ -33,6 +33,19 @@ export interface Event extends BaseInformationModel {
 
   //array id of persons
   sponsors?: Array<ObjectId>;
+
+  subscribers?: Array<string>;
+
+  slide?: string;
+
+  recap?: string;
+
+  banners?: Array<string>;
+
+  media?: Array<{
+    type: string;
+    url: string;
+  }>;
 }
 export interface EventQuery extends BaseQuery, EventFilter {
   name?: string;

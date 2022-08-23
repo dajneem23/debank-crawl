@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, EventType } from '@/types/Common';
+import { ORDER, EventType, MediaType } from '@/types/Common';
 import { ObjectIdPattern, PhoneNumberPattern } from '@/utils/common';
 export const query = validate({
   [Segments.QUERY]: Joi.object({
@@ -16,6 +16,10 @@ export const query = validate({
     q: Joi.string(),
 
     category: Joi.string(),
+
+    type: Joi.string(),
+
+    country: Joi.string(),
   }),
 });
 export const getRelated = validate({
@@ -122,6 +126,23 @@ export const create = validate({
     blog: Joi.string(),
 
     reddit: Joi.string(),
+
+    subscribers: Joi.array().items(Joi.string().email()),
+
+    slide: Joi.string(),
+
+    recap: Joi.string(),
+
+    banners: Joi.array().items(Joi.string()),
+
+    media: Joi.array().items(
+      Joi.object({
+        type: Joi.string()
+          .valid(...Object.values(MediaType))
+          .required(),
+        url: Joi.string().required(),
+      }),
+    ),
   }),
 });
 export const update = validate({
@@ -183,6 +204,23 @@ export const update = validate({
     blog: Joi.string(),
 
     reddit: Joi.string(),
+
+    subscribers: Joi.array().items(Joi.string().email()),
+
+    slide: Joi.string(),
+
+    recap: Joi.string(),
+
+    banners: Joi.array().items(Joi.string()),
+
+    media: Joi.array().items(
+      Joi.object({
+        type: Joi.string()
+          .valid(...Object.values(MediaType))
+          .required(),
+        url: Joi.string().required(),
+      }),
+    ),
   }),
   [Segments.PARAMS]: Joi.object({
     id: Joi.string().regex(ObjectIdPattern),
@@ -215,5 +253,14 @@ export const updateSignificant = validate({
   }),
   [Segments.BODY]: Joi.object({
     significant: Joi.boolean().required(),
+  }),
+});
+
+export const subscribe = validate({
+  [Segments.PARAMS]: Joi.object({
+    id: Joi.string().regex(ObjectIdPattern),
+  }),
+  [Segments.BODY]: Joi.object({
+    subscribers: [Joi.array().items(Joi.string().email()), Joi.string().email()],
   }),
 });

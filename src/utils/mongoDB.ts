@@ -182,7 +182,7 @@ export const $pagination = ({
 };
 /**
  * Convert array of string to array of ObjectId
- * @param {string[]  or string } ids - Array of string ids or id
+ * @param {Array} ids - Array of string ids or id
  * @returns Array of ObjectIds or ObjectId
  */
 export const $toObjectId = (ids: any): any =>
@@ -214,20 +214,24 @@ export const $countCollection = async ({ collection, filter }: { collection?: Co
   ).length;
 };
 
-export const $checkListIdExist = async ({
+export const $queryByList = async ({
   collection,
-  listId,
+  values,
+  key = '_id',
   filter,
+  operation = '$in',
 }: {
   collection: string;
-  listId: string[] | ObjectId[];
+  key?: string;
+  operation?: string;
+  values: string[] | ObjectId[];
   filter?: Filter<any>;
 }) => {
   const db = await mongoDBLoader();
   const collectionExist = db.collection(collection);
   const count = await collectionExist.countDocuments({
-    _id: { $in: $toObjectId(listId) },
+    [key]: { [operation]: key == '_id' ? $toObjectId(values) : values },
     ...filter,
   });
-  return count === listId.length;
+  return count === values.length;
 };

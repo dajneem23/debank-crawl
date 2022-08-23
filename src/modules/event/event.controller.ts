@@ -14,7 +14,7 @@ import {
   Auth,
 } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Event, EventFilter, EventService, EventInput, EventValidation } from '.';
+import { Event, EventFilter, EventService, EventValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
@@ -24,17 +24,17 @@ import { BaseQuery, BaseServiceInput } from '@/types';
 @Controller('/events')
 export class EventController {
   @Inject()
-  private eventService: EventService;
+  private service: EventService;
   @Post('/', [EventValidation.create, protect()])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Body()
-    body: Event,
+    _body: Event,
   ) {
-    const result = await this.eventService.create({
-      _content: body,
+    const result = await this.service.create({
+      _content: _body,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
@@ -45,32 +45,32 @@ export class EventController {
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Body()
-    body: Event,
-    @Params() params: { id: string },
+    _body: Event,
+    @Params() _params: { id: string },
   ) {
-    const result = await this.eventService.update({
-      _id: params.id,
+    const result = await this.service.update({
+      _id: _params.id,
       _subject: _auth.id,
-      _content: body,
+      _content: _body,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/related', [EventValidation.getRelated])
   async getRelatedEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getRelatedEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getRelatedEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/trending', [EventValidation.getTrending])
   async getTrendingEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getTrendingEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getTrendingEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/significant', [EventValidation.getSignificant])
   async getSignificantEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.getSignificantEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getSignificantEvent({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
 
@@ -79,19 +79,19 @@ export class EventController {
     @Res() _res: Response,
     @Req() _req: Request,
     @Params()
-    params: {
+    _params: {
       id: string;
     },
   ) {
-    const result = await this.eventService.getById({
-      _id: params.id,
+    const result = await this.service.getById({
+      _id: _params.id,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/', [EventValidation.query])
   async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.eventService.query({
+    const result = await this.service.query({
       _filter: filter,
       _query: query,
     } as BaseServiceInput);
@@ -102,10 +102,10 @@ export class EventController {
     @Res() _res: Response,
     @Req() _req: Request,
     @Auth() _auth: JWTPayload,
-    @Params() params: { id: string },
+    @Params() _params: { id: string },
   ) {
-    await this.eventService.delete({
-      _id: params.id,
+    await this.service.delete({
+      _id: _params.id,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
@@ -117,16 +117,14 @@ export class EventController {
     @Req() _req: Request,
     @Auth() _auth: JWTPayload,
     @Body()
-    body: {
+    _body: {
       trending: boolean;
     },
-    @Params() params: { id: string },
+    @Params() _params: { id: string },
   ) {
-    const result = await this.eventService.update({
-      _id: params.id,
-      _content: {
-        trending: body.trending,
-      },
+    const result = await this.service.update({
+      _id: _params.id,
+      _content: _body,
       subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
@@ -138,16 +136,32 @@ export class EventController {
     @Req() _req: Request,
     @Auth() _auth: JWTPayload,
     @Body()
-    body: {
+    _body: {
       significant: boolean;
     },
-    @Params() params: { id: string },
+    @Params() _params: { id: string },
   ) {
-    const result = await this.eventService.update({
-      _id: params.id,
-      _content: {
-        significant: body.significant,
-      },
+    const result = await this.service.update({
+      _id: _params.id,
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Patch('/:id/subscribe', [EventValidation.subscribe, protectPrivateAPI()])
+  async subscribe(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Auth() _auth: JWTPayload,
+    @Body()
+    _body: {
+      significant: boolean;
+    },
+    @Params() _params: { id: string },
+  ) {
+    const result = await this.service.subscribe({
+      _id: _params.id,
+      _content: _body,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);

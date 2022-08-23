@@ -4,6 +4,10 @@ import { BaseModel } from '@/types/Common';
 export interface Category extends BaseModel {
   // title
   title?: string;
+
+  name?: string;
+
+  acronym?: string;
   // weight
   weight?: number;
   // type
@@ -13,6 +17,7 @@ export type CategoryParams = {
   id: string;
 };
 export interface CategoryFilter extends BaseQuery {
+  name?: string;
   title?: string;
   weight?: number;
   type?: CATEGORY_TYPE;

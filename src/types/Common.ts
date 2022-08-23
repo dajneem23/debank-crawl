@@ -46,12 +46,15 @@ export enum CATEGORY_TYPE {
   LISTENING = 'listening',
   WIKIBLOCK = 'wikiblock',
   EVENT = 'event',
+  NEWS = 'news',
+  BLOCKCHAIN = 'blockchain',
+  APPLICATION = 'application',
+  CONSENSUS = 'consensus',
   CRYPTO_ASSET = 'crypto_asset',
   PERSON = 'person',
-  SECTOR = 'sector',
   PRODUCT = 'product',
-  COMPANY_SECTOR = 'company_sector',
-  TOKEN_SECTOR = 'token_sector',
+  COMPANY = 'company',
+  CRYPTO = 'crypto',
 }
 export type BaseModel = {
   _id?: string;
@@ -170,6 +173,11 @@ export enum EventType {
 export enum SponsorType {
   COMPANY = 'company',
   PERSON = 'person',
+}
+export enum MediaType {
+  IMAGE = 'image',
+  VIDEO = 'video',
+  AUDIO = 'audio',
 }
 export type Sponsor = {
   id: string;

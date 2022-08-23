@@ -160,7 +160,7 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-12T05:28:53.899Z",
-    "modified": "2022-08-22T07:46:39.854Z",
+    "modified": "2022-08-23T03:31:29.416Z",
     "headers": [],
     "params": [],
     "body": {
@@ -179,12 +179,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-12T05:29:43.475Z",
-    "modified": "2022-08-16T07:16:48.194Z",
+    "modified": "2022-08-23T09:04:41.983Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"full_name\":\"thanh1\",\n    \"email\":\"thanh1@gmail.com\",\n    \"password\":\"12345asd\",\n    \"phone\":\"1231232321\"\n}",
+      "raw": "{\n    \"full_name\":\"thanh1\",\n    \"email\":\"th22an22222h1@gmail.com\",\n    \"password\":\"12345asd\",\n    \"phone\":\"1231232321\"\n}",
       "form": []
     },
     "tests": []
@@ -2341,12 +2341,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-08-22T07:46:35.774Z",
-    "modified": "2022-08-22T11:34:26.205Z",
+    "modified": "2022-08-23T09:20:18.809Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"slug\": \"52x123zxasd\",\n    \"contents\": [\n        {\n            \"title\": \"asd\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"asdads\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "raw": "{\n    \"slug\": \"444442131234\",\n    \"categories\": [\n        \"630446723ee0ec7f347dc848\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"asd\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"asdads\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -2384,12 +2384,18 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-22T08:50:38.858Z",
-    "modified": "2022-08-22T09:15:44.193Z",
+    "modified": "2022-08-23T09:10:39.247Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
         "value": "eng",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -2460,7 +2466,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-08-22T10:58:55.727Z",
-    "modified": "2022-08-22T11:42:28.672Z",
+    "modified": "2022-08-23T09:06:28.262Z",
     "headers": [],
     "params": [
       {
@@ -2499,6 +2505,116 @@
         "isPath": false
       }
     ],
+    "tests": []
+  },
+  {
+    "_id": "b0ba3d58-e6ea-4306-bc74-a3b26985a4dc",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/users/category/follow",
+    "url": "{{host}}/users/category/follow",
+    "method": "PATCH",
+    "sortNum": 0,
+    "created": "2022-08-23T03:31:48.928Z",
+    "modified": "2022-08-23T04:02:34.219Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"id\":\"630446723ee0ec7f347dc83a\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
+    },
+    "tests": []
+  },
+  {
+    "_id": "6f34e1e2-f145-4180-ab24-66f19b31a01f",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news/related/?lang=eng&per_page=2",
+    "url": "{{host}}/news/related/?lang=eng&per_page=2",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-23T03:40:46.481Z",
+    "modified": "2022-08-23T09:24:54.499Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "eng",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
+    },
+    "tests": []
+  },
+  {
+    "_id": "0248788f-ab08-4411-8bb4-72048193039a",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news/related/?lang=vi&per_page=2",
+    "url": "{{host}}/news/related/?lang=vi&per_page=2",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-23T04:02:39.627Z",
+    "modified": "2022-08-23T09:19:11.313Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
+    },
+    "tests": []
+  },
+  {
+    "_id": "62c90322-2c21-487b-b32c-8f3b21c3f08f",
+    "colId": "history",
+    "containerId": "",
+    "name": "{{host}}/news/related/?lang=eng&per_page=1",
+    "url": "{{host}}/news/related/?lang=eng&per_page=1",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-08-23T09:19:22.247Z",
+    "modified": "2022-08-23T09:24:44.080Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "eng",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "1",
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
+    },
     "tests": []
   }
 ]

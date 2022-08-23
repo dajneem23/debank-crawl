@@ -4,12 +4,12 @@ import { throwErr } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { AuthError } from '@/modules/auth/auth.error';
 import { SystemError } from '@/core/errors/CommonError';
-import UserModel from './user.model';
+import { UserModel } from './user.model';
 import { CreateUpdateUserInput, User, UserOutput } from './user.type';
 import { toUserOutput } from './user.util';
 import { UserError } from '@/modules/user/user.error';
 import { DEFAULT_USER_PICTURE } from '@/config/constants';
-import { Filter } from 'mongodb';
+import { Filter, ObjectId } from 'mongodb';
 import { BaseQuery, PaginationResult } from '@/types/Common';
 import { withMongoTransaction } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
@@ -228,6 +228,36 @@ export class UserService {
       this.logger.debug('[deleteAccount:success]', { userId });
     } catch (err) {
       this.logger.error('[deleteAccount:error]', err);
+      throw err;
+    }
+  }
+  async followCategory(id: string, categoryId: string) {
+    try {
+      const {
+        value: user,
+        ok,
+        lastErrorObject: { updatedExisting },
+      } = await this.userModel.collection.findOneAndUpdate(
+        { id },
+        {
+          $set: {
+            updated_at: new Date(),
+          },
+          $addToSet: {
+            followings: new ObjectId(categoryId),
+          },
+        },
+        { returnDocument: 'after' },
+      );
+      if (!updatedExisting) throwErr(new UserError('USER_NOT_FOUND'));
+      if (!ok)
+        throwErr(new SystemError(`MongoDB findOneAndUpdate() failed! Payload: ${JSON.stringify({ id, categoryId })}`));
+      this.logger.debug('[update:success]', { email: user.email });
+      return {
+        followings: user.followings,
+      };
+    } catch (err) {
+      this.logger.error('[update:error]', err.message);
       throw err;
     }
   }

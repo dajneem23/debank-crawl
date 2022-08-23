@@ -9,6 +9,8 @@ export interface News extends BaseModel {
 
   source: string;
 
+  number_relate_article?: number;
+
   contents: Array<{
     title: string;
     summary: string;

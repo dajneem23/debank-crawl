@@ -8,7 +8,7 @@ import { User } from './user.type';
 const COLLECTION_NAME = 'users';
 
 @Service()
-export default class UserModel {
+export class UserModel {
   private readonly _collection;
 
   constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {

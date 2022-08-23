@@ -1,6 +1,6 @@
 import httpStatusCode from 'http-status';
 import AppError, { AppErrorJSON } from '@/core/errors/AppError';
-import { CommonError } from '@/types/error';
+import { CommonError } from '@/types/Error';
 const errors = Object.freeze({
   NOT_FOUND: {
     message: 'Product not found',

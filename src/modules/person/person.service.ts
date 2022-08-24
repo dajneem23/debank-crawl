@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
-import { PersonError, PersonModel } from '.';
+import { PersonError, PersonModel, _person } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 
@@ -125,12 +125,10 @@ export class PersonService {
         },
         {
           $setOnInsert: {
+            ..._person,
             ..._content,
             categories: categories ? $toObjectId(categories) : [],
-            deleted: false,
             ...(_subject && { created_by: _subject }),
-            created_at: now,
-            updated_at: now,
           },
         },
         {

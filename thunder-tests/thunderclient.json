@@ -8,7 +8,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-08-09T09:38:56.534Z",
-    "modified": "2022-08-22T06:17:16.490Z",
+    "modified": "2022-08-24T02:01:26.332Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -18,7 +18,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"event6132312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"6302ee4e8ff66b9d1f7fdd17\"\n        \n    ],\n    \"speakers\":[\n        \"63027e47fed20d9edc251eff\"\n        ],\n    \"country\": \"LC\"\n}",
+      "raw": "{\n    \"name\": \"event6132312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"630446723ee0ec7f347dc82e\"\n        \n    ],\n    \"speakers\":[\n        \"630446733ee0ec7f347dc9d6\"\n        ],\n    \"country\": \"KW\",\n    \"location\":{\n        \"x\":123,\n        \"y\":321\n    },\n    \"banners\":[\n        \"https://scontent.fsgn4-1.fna.fbcdn.net/v/t45.5328-4/266912006_7004962392907601_7058505901429689231_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c48759&_nc_ohc=2twX-VL8EkIAX-4Si3e&_nc_ht=scontent.fsgn4-1.fna&oh=00_AT9wjNhgQJO6nPHD_5syB-ypgiq9lzFlWtfIAwi8z3j8PA&oe=630ACDBF\"\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -60,11 +60,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Event.getById",
-    "url": "{{host}}/events/62fb4dfdf55bc3527a8f79b9",
+    "url": "{{host}}/events/630586765926396fd4d17b4d",
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-08-10T02:50:57.347Z",
-    "modified": "2022-08-22T04:12:13.487Z",
+    "modified": "2022-08-24T02:01:40.448Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -848,12 +848,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-22T07:41:46.420Z",
-    "modified": "2022-08-23T09:51:30.318Z",
+    "modified": "2022-08-24T03:05:15.253Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"slug\": \"6\",\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630446723ee0ec7f347dc848\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"asd\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"asdads\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "raw": "{\n    \"slug\": \"asd\",\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630446723ee0ec7f347dc848\"\n    ],\n    \"source\":\"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\":[\n    \"Weiss Crypto Ratings\",\n    \"Ava Labs\",\n    \"ShapeShift\"\n    ],\n    \"coin_tags\":[\n        \"CFX\",\n        \"NIX\"\n    ],\n    \"keywords\":[\n        \"trending\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"asd\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"asdads\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {

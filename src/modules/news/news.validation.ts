@@ -23,6 +23,16 @@ export const NewsValidation = {
           summary: Joi.string().required(),
         }),
       ),
+
+      stars: Joi.number(),
+
+      views: Joi.number(),
+
+      keywords: Joi.array().items(Joi.string()),
+
+      company_tags: Joi.array().items(Joi.string()),
+
+      coin_tags: Joi.array().items(Joi.string()),
     }),
   }),
   update: validate({
@@ -46,6 +56,14 @@ export const NewsValidation = {
           summary: Joi.string(),
         }),
       ),
+
+      views: Joi.number(),
+
+      keywords: Joi.array().items(Joi.string()),
+
+      company_tags: Joi.array().items(Joi.string()),
+
+      coin_tags: Joi.array().items(Joi.string()),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
@@ -71,6 +89,7 @@ export const NewsValidation = {
         .valid(...Object.values(ORDER)),
       q: Joi.string(),
       lang: Joi.string().required(),
+      category: [Joi.array().items(Joi.string()), Joi.string()],
     }),
   }),
   getRelated: validate({

@@ -47,6 +47,7 @@ export enum CATEGORY_TYPE {
   WIKIBLOCK = 'wikiblock',
   EVENT = 'event',
   NEWS = 'news',
+  RELATED_NEWS = 'related_news',
   BLOCKCHAIN = 'blockchain',
   APPLICATION = 'application',
   CONSENSUS = 'consensus',

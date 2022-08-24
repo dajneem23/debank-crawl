@@ -29,3 +29,13 @@ export type PersonEducation = {
   title?: string;
   description?: string;
 };
+export const _person: Person = {
+  name: '',
+  categories: [],
+  position: [],
+  works: [],
+  educations: [],
+  deleted: false,
+  created_at: new Date(),
+  updated_at: new Date(),
+};

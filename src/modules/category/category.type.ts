@@ -36,3 +36,13 @@ export type CategoryOutput = {
   total_count?: number;
   data?: Array<Category>;
 };
+export const _category: Category = {
+  title: '',
+  name: '',
+  acronym: '',
+  weight: 0,
+  type: CATEGORY_TYPE.NEWS,
+  deleted: false,
+  created_at: new Date(),
+  updated_at: new Date(),
+};

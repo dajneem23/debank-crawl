@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { SystemError } from '@/core/errors/CommonError';
-import { EventModel, Event, EventInput, EventOutput } from '.';
+import { EventModel, Event, EventInput, EventOutput, _event } from '.';
 import { Filter } from 'mongodb';
 import { $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
@@ -71,7 +71,7 @@ export class EventService {
         from: 'persons',
         refFrom: '_id',
         refTo: 'speakers',
-        select: 'name',
+        select: 'name avatar',
         reName: 'speakers',
         operation: '$in',
       }),
@@ -147,15 +147,13 @@ export class EventService {
         throwErr(new EventError('INPUT_INVALID'));
       }
       const event: Event = {
+        ..._event,
         ..._content,
         categories: categories ? $toObjectId(categories) : [],
         speakers: speakers ? $toObjectId(speakers) : [],
         country: country || '',
         subscribers: subscribers || [],
-        deleted: false,
         ...(_subject && { created_by: _subject }),
-        created_at: now,
-        updated_at: now,
       };
       // Check duplicated
       const isDuplicated = await this.model.collection.countDocuments({

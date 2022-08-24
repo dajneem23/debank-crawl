@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { NewsError, NewsModel } from '.';
+import { NewsError, NewsModel, _news } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit, rest } from 'lodash';
 import { UserModel, UserError } from '../index';
@@ -39,7 +39,20 @@ export class NewsService {
   }
 
   get outputKeys() {
-    return ['id', 'slug', 'photos', 'categories', 'author', 'number_relate_article', 'created_at'];
+    return [
+      'id',
+      'slug',
+      'company_tags',
+      'coin_tags',
+      'keywords',
+      'photos',
+      'views',
+      'star',
+      'categories',
+      'author',
+      'number_relate_article',
+      'created_at',
+    ];
   }
 
   /**
@@ -127,12 +140,9 @@ export class NewsService {
         },
         {
           $setOnInsert: {
+            ..._news,
             ..._content,
-            categories: categories ? $toObjectId(categories) : [],
-            deleted: false,
             ...(_subject && { created_by: _subject }),
-            created_at: now,
-            updated_at: now,
           },
         },
         {
@@ -254,13 +264,16 @@ export class NewsService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
+      const { q, lang, category } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate([
           ...$pagination({
             $match: {
               $and: [{ 'contents.lang': lang }],
+              ...(category && {
+                $or: [{ categories: { $in: Array.isArray(category) ? category : [category] } }],
+              }),
               ...(q && {
                 $or: [{ 'contents.title': { $regex: q, $options: 'i' } }],
               }),

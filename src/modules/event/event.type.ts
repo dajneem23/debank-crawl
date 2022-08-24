@@ -4,11 +4,11 @@ import { ObjectId } from 'mongodb';
 export interface Event extends BaseInformationModel {
   // id - primary id unique
 
-  type?: EventType;
+  type?: EventType | any;
 
-  trending?: true;
+  trending?: boolean;
 
-  significant?: true;
+  significant?: boolean;
 
   name?: string;
 
@@ -95,4 +95,28 @@ export type EventOutput = {
   result?: Event | any;
   total_count?: number;
   data?: Array<Event>;
+};
+export const _event: Event = {
+  type: '',
+  trending: false,
+  significant: false,
+  name: '',
+  introduction: '',
+  email: '',
+  agendas: [],
+  location: {},
+  start_date: new Date(),
+  end_date: new Date(),
+  categories: [],
+  country: '',
+  speakers: [],
+  sponsors: [],
+  subscribers: [],
+  slide: '',
+  recap: '',
+  banners: [],
+  media: [],
+  deleted: false,
+  created_at: new Date(),
+  updated_at: new Date(),
 };

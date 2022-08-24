@@ -24,6 +24,37 @@ export const PersonValidation = {
           description: Joi.string(),
         }),
       ),
+      twitter: Joi.string(),
+
+      telegram: Joi.string(),
+
+      facebook: Joi.string(),
+
+      instagram: Joi.string(),
+
+      linkedin: Joi.string(),
+
+      github: Joi.string(),
+
+      medium: Joi.string(),
+
+      youtube: Joi.string(),
+
+      website: Joi.string(),
+
+      blog: Joi.string(),
+
+      email: Joi.string(),
+
+      tel: Joi.string(),
+
+      about: Joi.string(),
+
+      avatar: Joi.string(),
+
+      rocket_chat: Joi.string(),
+
+      bitcoin_talk: Joi.string(),
     }),
   }),
   update: validate({
@@ -48,6 +79,38 @@ export const PersonValidation = {
           description: Joi.string(),
         }),
       ),
+
+      twitter: Joi.string(),
+
+      telegram: Joi.string(),
+
+      facebook: Joi.string(),
+
+      instagram: Joi.string(),
+
+      linkedin: Joi.string(),
+
+      github: Joi.string(),
+
+      medium: Joi.string(),
+
+      youtube: Joi.string(),
+
+      website: Joi.string(),
+
+      blog: Joi.string(),
+
+      email: Joi.string(),
+
+      tel: Joi.string(),
+
+      about: Joi.string(),
+
+      avatar: Joi.string(),
+
+      rocket_chat: Joi.string(),
+
+      bitcoin_talk: Joi.string(),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),

@@ -28,7 +28,7 @@ export interface News extends BaseModel {
     title: string;
     summary: string;
     content: string;
-    headings: Array<string>;
+    headings: string[];
     lang: string;
   }>;
 }

@@ -3,13 +3,13 @@ import { BaseInformationModel, WorkType } from '@/types/Common';
 export interface Person extends BaseInformationModel {
   name: string;
 
-  categories?: Array<string>;
+  categories?: string[];
 
-  position?: Array<PersonPosition>;
+  position?: PersonPosition[];
 
-  works?: Array<PersonWork>;
+  works?: PersonWork[];
 
-  educations?: Array<PersonEducation>;
+  educations?: PersonEducation[];
 }
 
 export type PersonPosition = {

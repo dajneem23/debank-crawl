@@ -200,3 +200,54 @@ export type BaseServiceOutput = {
   total_count?: number;
   data?: Array<any>;
 };
+
+export type TeamPerson = {
+  name: string;
+  position: string;
+  contacts: Array<{
+    name: string;
+    url: string;
+  }>;
+};
+export type Support = {
+  name: string;
+  url: string;
+};
+export type ResearchPaper = {
+  title: string;
+  url: string;
+};
+
+export type Technology = {
+  blockchain?: string;
+  hash_algorithm?: string;
+  consensus?: string;
+  'org._structure'?: string;
+  open_source?: string;
+  hardware_wallet?: string;
+  development_status?: string;
+};
+export type IcoDetail = {
+  investor_supply?: string;
+  total_supply?: string;
+  hard_cap?: string;
+  start_date?: string;
+  end_date?: string;
+};
+
+export type ProductInfomation = {
+  'Parent Company'?: string;
+  'Team Location'?: string;
+  Blockchain?: string;
+  Token?: string;
+  Release?: string;
+  'Software License'?: string;
+};
+export type App = {
+  name: string;
+  url: string;
+};
+export type Media = {
+  type: string;
+  url: string;
+};

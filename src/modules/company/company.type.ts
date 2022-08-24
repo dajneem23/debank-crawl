@@ -1,4 +1,4 @@
-import { BaseInformationModel, Feature, Service } from '@/types/Common';
+import { BaseInformationModel, Feature, ResearchPaper, Service, Support, TeamPerson } from '@/types/Common';
 
 export interface Company extends BaseInformationModel {
   name: string;
@@ -11,32 +11,32 @@ export interface Company extends BaseInformationModel {
 
   country?: string;
 
-  features?: Array<string>;
+  features?: string[];
 
   services?: Array<Service>;
 
   //array id of company
-  clients?: Array<string>;
+  clients?: string[];
 
   //array id of project
-  projects?: Array<string>;
+  projects?: string[];
 
   //array id of product
-  products?: Array<string>;
+  products?: string[];
 
   //array id of categories
-  categories?: Array<string>;
+  categories?: string[];
 
-  galleries?: Array<string>;
+  galleries?: string[];
 
   //array id of coins
-  crypto_currencies?: Array<string>;
+  crypto_currencies?: string[];
 
-  portfolios?: Array<string>;
+  portfolios?: string[];
 
-  supports?: Array<object>;
+  supports?: Support[];
 
-  team?: Array<object>;
+  team?: TeamPerson[];
 
-  research_papers?: Array<object>;
+  research_papers?: ResearchPaper[];
 }

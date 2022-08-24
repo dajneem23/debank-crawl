@@ -1,4 +1,4 @@
-import { BaseInformationModel, EventType, Agenda, BaseQuery } from '@/types/Common';
+import { BaseInformationModel, EventType, Agenda, BaseQuery, Media } from '@/types/Common';
 import { ObjectId } from 'mongodb';
 
 export interface Event extends BaseInformationModel {
@@ -24,28 +24,25 @@ export interface Event extends BaseInformationModel {
 
   end_date?: Date;
 
-  categories?: Array<ObjectId>;
+  categories?: ObjectId[];
 
   country?: string;
 
   //array id of persons
-  speakers?: Array<ObjectId>;
+  speakers?: ObjectId[];
 
   //array id of persons
-  sponsors?: Array<ObjectId>;
+  sponsors?: ObjectId[];
 
-  subscribers?: Array<string>;
+  subscribers?: string[];
 
   slide?: string;
 
   recap?: string;
 
-  banners?: Array<string>;
+  banners?: string[];
 
-  media?: Array<{
-    type: string;
-    url: string;
-  }>;
+  media?: Media[];
 }
 export interface EventQuery extends BaseQuery, EventFilter {
   name?: string;
@@ -94,7 +91,7 @@ export type EventOutput = {
   code?: number;
   result?: Event | any;
   total_count?: number;
-  data?: Array<Event>;
+  data?: Event[];
 };
 export const _event: Event = {
   type: '',

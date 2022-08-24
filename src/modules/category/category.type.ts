@@ -41,7 +41,7 @@ export const _category: Category = {
   name: '',
   acronym: '',
   weight: 0,
-  type: CATEGORY_TYPE.NEWS,
+  type: CATEGORY_TYPE.WIKIBLOCK,
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),

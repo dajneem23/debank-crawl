@@ -383,7 +383,7 @@ export class NewsService {
             $match: {
               $and: [{ 'contents.lang': lang }],
               ...(q && {
-                $text: { $search: q },
+                $or: [{ $text: { $search: q } }, { 'contents.title': { $regex: q, $options: 'i' } }],
               }),
             },
             // $search: {
@@ -545,7 +545,8 @@ export class NewsService {
                 },
               },
             ],
-            $sort: { number_relate_article: -1 }, //             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            $sort: { number_relate_article: -1 },
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])
         .toArray();
@@ -557,88 +558,3 @@ export class NewsService {
     }
   }
 }
-//   }
-// =======
-//   /**
-//    * Get important news
-//    * @param {ObjectId} _id
-//    * @param {BaseQuery} _query
-//    * @param {} _filter
-//    * @returns {Promise<BaseServiceOutput>}
-//    */
-//   async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
-//     try {
-//       const { lang } = _filter;
-//       const { page = 1, per_page } = _query;
-// >>>>>>> d4f0b8ccc629f879580fadc9f92fadcfe64ae0e3
-//       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-//         .aggregate([
-//           ...$pagination({
-//             $match: {
-// <<<<<<< HEAD
-//               $and: [{ 'contents.lang': lang }],
-//               ...(q && {
-//                 $text: { $search: q },
-//               }),
-//             },
-//             // $search: {
-//             //   regex: {
-//             //     path: 'contents.title',
-//             //     query: q,
-//             //   },
-//             //   count: per_page,
-//             // },
-//             $lookups: [this.$lookups.user, this.$lookups.categories],
-//             $sets: [this.$sets.country, this.$sets.author],
-// =======
-//               $and: [
-//                 { 'contents.lang': lang },
-//                 {
-//                   deleted: false,
-//                 },
-//               ],
-//             },
-// >>>>>>> d4f0b8ccc629f879580fadc9f92fadcfe64ae0e3
-//             $projects: [
-//               {
-//                 $project: {
-//                   ...$keysToProject(this.outputKeys),
-//                   contents: {
-//                     $filter: {
-//                       input: '$contents',
-//                       as: 'content',
-//                       cond: {
-//                         $eq: ['$$content.lang', lang],
-//                       },
-//                     },
-//                   },
-//                 },
-//               },
-//             ],
-//             $more: [
-//               this.$sets.contents,
-//               {
-//                 $project: {
-//                   ...$keysToProject(this.outputKeys),
-//                   ...$keysToProject(this.childKeys, '$contents'),
-//                 },
-//               },
-//             ],
-// <<<<<<< HEAD
-//             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-// =======
-//             //number_relate_article more bigger more important
-//             $sort: { number_relate_article: -1 },
-// >>>>>>> d4f0b8ccc629f879580fadc9f92fadcfe64ae0e3
-//             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
-//           }),
-//         ])
-//         .toArray();
-//       this.logger.debug('[query:success]', { total_count, items });
-//       return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
-//     } catch (err) {
-//       this.logger.error('[query:error]', err.message);
-//       throw err;
-//     }
-//   }
-// }

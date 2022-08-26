@@ -848,12 +848,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-22T07:41:46.420Z",
-    "modified": "2022-08-24T03:05:15.253Z",
+    "modified": "2022-08-26T19:18:57.330Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"slug\": \"asd\",\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630446723ee0ec7f347dc848\"\n    ],\n    \"source\":\"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\":[\n    \"Weiss Crypto Ratings\",\n    \"Ava Labs\",\n    \"ShapeShift\"\n    ],\n    \"coin_tags\":[\n        \"CFX\",\n        \"NIX\"\n    ],\n    \"keywords\":[\n        \"trending\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"asd\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"asdads\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "raw": "{\n    \"slug\": \"huhu\",\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630902086b72c43940d8fe89\"\n    ],\n    \"source\":\"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\":[\n    \"Weiss Crypto Ratings\",\n    \"Ava Labs\",\n    \"ShapeShift\"\n    ],\n    \"coin_tags\":[\n        \"CFX\",\n        \"NIX\"\n    ],\n    \"keywords\":[\n        \"trending\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -945,7 +945,6 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "important",
-
     "url": "{{host}}/news/important/?lang=eng&per_page=2&page=1",
     "method": "GET",
     "sortNum": 300000,
@@ -1021,21 +1020,22 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "search",
-    "url": "{{host}}/news/search?q=asd&lang=vi",
+    "url": "{{host}}/news/search?q=h&lang=vi&page=1",
     "method": "GET",
     "sortNum": 340000,
     "created": "2022-08-26T18:33:50.549Z",
-    "modified": "2022-08-26T18:41:12.406Z",
+    "modified": "2022-08-26T19:50:06.589Z",
     "headers": [],
     "params": [
       {
         "name": "q",
-        "value": "asd",
+        "value": "h",
         "isPath": false
       },
       {
         "name": "lang",
-        "value": "vi"
+        "value": "vi",
+        "isPath": false
       },
       {
         "name": "page",

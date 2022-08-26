@@ -58,6 +58,19 @@ export class UserController {
     const user = await this.userService.saveNews(auth.id, params.id);
     res.status(httpStatusCode.OK).json(user);
   }
+  @Patch('/users/me/category/:id', [protect()])
+  async followCategory(
+    @Res() res: Response,
+    @Body() body: any,
+    @Params()
+    params: {
+      id: string;
+    },
+    @Auth() auth: JWTPayload,
+  ) {
+    const user = await this.userService.followCategory(auth.id, params.id);
+    res.status(httpStatusCode.OK).json(user);
+  }
 
   // ----------------------------------------------------------------
   // PRIVATE ROUTES
@@ -121,11 +134,6 @@ export class UserController {
   @Patch('/private/users/:id/set-roles', [userValidation.privateSetRoles, protectPrivateAPI()])
   async privateSetUserRoles(@Res() res: Response, @Body() body: any, @Params() params: { id: string }) {
     const user = await this.authService.setUserRoles(params.id, body.roles);
-    res.status(httpStatusCode.OK).json(user);
-  }
-  @Patch('/users/category/follow', [protect()])
-  async followCategory(@Res() res: Response, @Body() body: any, @Auth() auth: JWTPayload) {
-    const user = await this.userService.followCategory(auth.id, body.id);
     res.status(httpStatusCode.OK).json(user);
   }
 }

@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { News, NewsService, NewsValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
-import { protectPrivateAPI } from '@/api/middlewares/protect';
+import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 @Service()
@@ -74,6 +74,26 @@ export class NewsController {
   async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.search({
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/related', [NewsValidation.getRelated, protect()])
+  async getRelated(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.getRelated({
+      _id: _auth.id,
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Get('/important', [NewsValidation.getImportant])
+  async getImportant(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.getImportant({
       _filter: filter,
       _query: query,
     } as BaseServiceInput);

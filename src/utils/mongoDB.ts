@@ -162,6 +162,17 @@ export const $pagination = ({
     ...((!!$sets && [...$sets]) || []),
     ...((!!$projects && [...$projects]) || []),
     ...((!!$more && [...$more]) || []),
+    ...(($sort && [
+      {
+        $sort,
+      },
+    ]) || [
+      {
+        $sort: {
+          created_at: 1,
+        },
+      },
+    ]),
     {
       $facet: {
         total_count: [
@@ -176,17 +187,7 @@ export const $pagination = ({
         }),
       },
     },
-    ...(($sort && [
-      {
-        $sort,
-      },
-    ]) || [
-      {
-        $sort: {
-          created_at: 1,
-        },
-      },
-    ]),
+
     {
       $project: {
         result: { $concatArrays: ['$total_count', '$items'] },

@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongodb';
+
 export type UserStatus = 'active' | 'inactive' | 'suspended';
 
 export type UserRole = 'admin' | 'user';
@@ -43,6 +45,8 @@ export type User = {
   created_at: Date;
   // Date and time user was last updated
   updated_at: Date;
+
+  followings?: ObjectId[];
 };
 
 export type CreateUpdateUserInput = Pick<User, 'full_name' | 'email' | 'phone' | 'password' | 'picture'>;

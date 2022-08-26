@@ -40,7 +40,6 @@ export const CategorySeed = async () => {
         const spans = categories_crypto_2[0]['blockchains-span'].map((span: any) => {
           return span['blockchains-span'];
         });
-        console.log(spans);
         return {
           title: item.blockchains
             .split(' ')

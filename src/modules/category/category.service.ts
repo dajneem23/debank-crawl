@@ -9,6 +9,7 @@ import AuthService from '../auth/auth.service';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, CategoryOutput, Category } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
+import { isNil, omit } from 'lodash';
 
 @Service()
 export class CategoryService {
@@ -196,6 +197,29 @@ export class CategoryService {
       return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
+      throw err;
+    }
+  }
+  /**
+   * Get Category by ID
+   * @param _id - Category ID
+   * @returns { Promise<CategoryOutput> } - Category
+   */
+  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const [category] = await this.model.collection
+        .aggregate([
+          { $match: $toMongoFilter({ _id }) },
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
+      this.logger.debug('[get:success]', { category });
+      return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
+    } catch (err) {
+      this.logger.error('[get:error]', err.message);
       throw err;
     }
   }

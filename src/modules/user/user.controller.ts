@@ -123,4 +123,9 @@ export class UserController {
     const user = await this.authService.setUserRoles(params.id, body.roles);
     res.status(httpStatusCode.OK).json(user);
   }
+  @Patch('/users/category/follow', [protect()])
+  async followCategory(@Res() res: Response, @Body() body: any, @Auth() auth: JWTPayload) {
+    const user = await this.userService.followCategory(auth.id, body.id);
+    res.status(httpStatusCode.OK).json(user);
+  }
 }

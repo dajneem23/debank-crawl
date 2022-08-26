@@ -46,4 +46,9 @@ export const CategoryValidation = {
       ],
     }),
   }),
+  getById: validate({
+    [Segments.PARAMS]: Joi.object({
+      id: Joi.string().regex(ObjectIdPattern),
+    }),
+  }),
 };

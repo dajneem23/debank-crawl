@@ -1,11 +1,12 @@
 import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { NewsError, NewsModel } from '.';
+import { NewsError, NewsModel, _news } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
-import { isNil, omit, rest } from 'lodash';
+import { isNil, omit } from 'lodash';
+import { UserModel, UserError } from '../index';
 
 @Service()
 export class NewsService {
@@ -13,6 +14,13 @@ export class NewsService {
 
   @Inject()
   private model: NewsModel;
+
+  @Inject()
+  private userModel: UserModel;
+
+  private userErrors(err: any) {
+    return new UserError(err);
+  }
 
   private error(msg: any) {
     return new NewsError(msg);
@@ -30,7 +38,20 @@ export class NewsService {
   }
 
   get outputKeys() {
-    return ['id', 'slug', 'photos', 'views', 'categories', 'author', 'created_at'];
+    return [
+      'id',
+      'slug',
+      'company_tags',
+      'coin_tags',
+      'keywords',
+      'photos',
+      'views',
+      'star',
+      'categories',
+      'author',
+      'number_relate_article',
+      'created_at',
+    ];
   }
 
   /**
@@ -53,6 +74,14 @@ export class NewsService {
         select: 'full_name avatar',
         reName: 'author',
         operation: '$eq',
+      }),
+      news: $lookup({
+        from: 'news',
+        refFrom: 'categories',
+        refTo: 'followings',
+        select: 'title',
+        reName: 'news',
+        operation: '$in',
       }),
     };
   }
@@ -110,13 +139,11 @@ export class NewsService {
         },
         {
           $setOnInsert: {
+            ..._news,
             ..._content,
             categories: categories ? $toObjectId(categories) : [],
-            views: 0,
             deleted: false,
             ...(_subject && { created_by: _subject }),
-            created_at: now,
-            updated_at: now,
           },
         },
         {
@@ -238,13 +265,16 @@ export class NewsService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
+      const { q, lang, category } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate([
           ...$pagination({
             $match: {
               $and: [{ 'contents.lang': lang }],
+              ...(category && {
+                $or: [{ categories: { $in: Array.isArray(category) ? category : [category] } }],
+              }),
               ...(q && {
                 $or: [{ 'contents.title': { $regex: q, $options: 'i' } }],
               }),
@@ -343,7 +373,6 @@ export class NewsService {
       throw err;
     }
   }
-
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, lang } = _filter;
@@ -391,6 +420,72 @@ export class NewsService {
                 },
               },
             ],
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      this.logger.debug('[query:success]', { total_count, items });
+      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+    } catch (err) {
+      this.logger.error('[query:error]', err.message);
+      throw err;
+    }
+  }
+
+  /**
+   * Get related news
+   * @param {ObjectId} _id
+   * @param {BaseQuery} _query
+   * @param {} _filter
+   * @returns {Promise<BaseServiceOutput>}
+   */
+  async getRelated({ _id, _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang } = _filter;
+      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const user = await this.userModel.collection.findOne({ id: _id });
+      if (isNil(user)) throwErr(this.userErrors('USER_NOT_FOUND'));
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
+        .aggregate([
+          ...$pagination({
+            $match: {
+              $and: [
+                { 'contents.lang': lang },
+                {
+                  categories: {
+                    $in: Array.isArray(user.followings) ? user.followings : [],
+                  },
+                },
+                {
+                  deleted: false,
+                },
+              ],
+            },
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  contents: {
+                    $filter: {
+                      input: '$contents',
+                      as: 'content',
+                      cond: {
+                        $eq: ['$$content.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.contents,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.childKeys, '$contents'),
+                },
+              },
+            ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
@@ -403,4 +498,147 @@ export class NewsService {
       throw err;
     }
   }
+  /**
+   * Get important news
+   * @param {ObjectId} _id
+   * @param {BaseQuery} _query
+   * @param {} _filter
+   * @returns {Promise<BaseServiceOutput>}
+   */
+  async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang } = _filter;
+      const { page = 1, per_page } = _query;
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
+        .aggregate([
+          ...$pagination({
+            $match: {
+              $and: [
+                { 'contents.lang': lang },
+                {
+                  deleted: false,
+                },
+              ],
+            },
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  contents: {
+                    $filter: {
+                      input: '$contents',
+                      as: 'content',
+                      cond: {
+                        $eq: ['$$content.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.contents,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.childKeys, '$contents'),
+                },
+              },
+            ],
+            $sort: { number_relate_article: -1 }, //             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      this.logger.debug('[query:success]', { total_count, items });
+      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+    } catch (err) {
+      this.logger.error('[query:error]', err.message);
+      throw err;
+    }
+  }
 }
+//   }
+// =======
+//   /**
+//    * Get important news
+//    * @param {ObjectId} _id
+//    * @param {BaseQuery} _query
+//    * @param {} _filter
+//    * @returns {Promise<BaseServiceOutput>}
+//    */
+//   async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+//     try {
+//       const { lang } = _filter;
+//       const { page = 1, per_page } = _query;
+// >>>>>>> d4f0b8ccc629f879580fadc9f92fadcfe64ae0e3
+//       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
+//         .aggregate([
+//           ...$pagination({
+//             $match: {
+// <<<<<<< HEAD
+//               $and: [{ 'contents.lang': lang }],
+//               ...(q && {
+//                 $text: { $search: q },
+//               }),
+//             },
+//             // $search: {
+//             //   regex: {
+//             //     path: 'contents.title',
+//             //     query: q,
+//             //   },
+//             //   count: per_page,
+//             // },
+//             $lookups: [this.$lookups.user, this.$lookups.categories],
+//             $sets: [this.$sets.country, this.$sets.author],
+// =======
+//               $and: [
+//                 { 'contents.lang': lang },
+//                 {
+//                   deleted: false,
+//                 },
+//               ],
+//             },
+// >>>>>>> d4f0b8ccc629f879580fadc9f92fadcfe64ae0e3
+//             $projects: [
+//               {
+//                 $project: {
+//                   ...$keysToProject(this.outputKeys),
+//                   contents: {
+//                     $filter: {
+//                       input: '$contents',
+//                       as: 'content',
+//                       cond: {
+//                         $eq: ['$$content.lang', lang],
+//                       },
+//                     },
+//                   },
+//                 },
+//               },
+//             ],
+//             $more: [
+//               this.$sets.contents,
+//               {
+//                 $project: {
+//                   ...$keysToProject(this.outputKeys),
+//                   ...$keysToProject(this.childKeys, '$contents'),
+//                 },
+//               },
+//             ],
+// <<<<<<< HEAD
+//             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
+// =======
+//             //number_relate_article more bigger more important
+//             $sort: { number_relate_article: -1 },
+// >>>>>>> d4f0b8ccc629f879580fadc9f92fadcfe64ae0e3
+//             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+//           }),
+//         ])
+//         .toArray();
+//       this.logger.debug('[query:success]', { total_count, items });
+//       return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+//     } catch (err) {
+//       this.logger.error('[query:error]', err.message);
+//       throw err;
+//     }
+//   }
+// }

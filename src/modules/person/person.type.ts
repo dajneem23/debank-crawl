@@ -3,13 +3,13 @@ import { BaseInformationModel, WorkType } from '@/types/Common';
 export interface Person extends BaseInformationModel {
   name: string;
 
-  categories?: Array<string>;
+  categories?: string[];
 
-  position?: Array<PersonPosition>;
+  position?: PersonPosition[];
 
-  works?: Array<PersonWork>;
+  works?: PersonWork[];
 
-  educations?: Array<PersonEducation>;
+  educations?: PersonEducation[];
 }
 
 export type PersonPosition = {
@@ -28,4 +28,14 @@ export type PersonWork = {
 export type PersonEducation = {
   title?: string;
   description?: string;
+};
+export const _person: Person = {
+  name: '',
+  categories: [],
+  position: [],
+  works: [],
+  educations: [],
+  deleted: false,
+  created_at: new Date(),
+  updated_at: new Date(),
 };

@@ -70,4 +70,18 @@ export class CategoryController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
+  @Get('/:id', [CategoryValidation.getById])
+  async getById(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const result = await this.service.getById({
+      _id: _params.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
 }

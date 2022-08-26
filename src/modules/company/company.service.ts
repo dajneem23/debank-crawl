@@ -363,7 +363,7 @@ export class CompanyService {
           this.$lookups.team,
           this.$lookups.products,
           this.$lookups.projects,
-          this.$lookups.crypto_currencies,
+          // this.$lookups.crypto_currencies,
           this.$lookups.countries,
           this.$sets.author,
           {

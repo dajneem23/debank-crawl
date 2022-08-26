@@ -386,13 +386,6 @@ export class NewsService {
                 $or: [{ $text: { $search: q } }, { 'contents.title': { $regex: q, $options: 'i' } }],
               }),
             },
-            // $search: {
-            //   regex: {
-            //     path: 'contents.title',
-            //     query: q,
-            //   },
-            //   count: per_page,
-            // },
             $lookups: [this.$lookups.user, this.$lookups.categories],
             $sets: [this.$sets.country, this.$sets.author],
             $projects: [

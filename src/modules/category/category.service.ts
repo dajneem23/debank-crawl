@@ -215,7 +215,7 @@ export class CategoryService {
           },
         ])
         .toArray();
-      if (isNil(event)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
+      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
       this.logger.debug('[get:success]', { category });
       return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
     } catch (err) {

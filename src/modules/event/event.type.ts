@@ -1,14 +1,14 @@
-import { BaseInformationModel, EventType, Agenda, BaseQuery } from '@/types/Common';
+import { BaseInformationModel, EventType, Agenda, BaseQuery, Media } from '@/types/Common';
 import { ObjectId } from 'mongodb';
 
 export interface Event extends BaseInformationModel {
   // id - primary id unique
 
-  type?: EventType;
+  type?: EventType | any;
 
-  trending?: true;
+  trending?: boolean;
 
-  significant?: true;
+  significant?: boolean;
 
   name?: string;
 
@@ -24,28 +24,25 @@ export interface Event extends BaseInformationModel {
 
   end_date?: Date;
 
-  categories?: Array<ObjectId>;
+  categories?: ObjectId[];
 
   country?: string;
 
   //array id of persons
-  speakers?: Array<ObjectId>;
+  speakers?: ObjectId[];
 
   //array id of persons
-  sponsors?: Array<ObjectId>;
+  sponsors?: ObjectId[];
 
-  subscribers?: Array<string>;
+  subscribers?: string[];
 
   slide?: string;
 
   recap?: string;
 
-  banners?: Array<string>;
+  banners?: string[];
 
-  media?: Array<{
-    type: string;
-    url: string;
-  }>;
+  media?: Media[];
 }
 export interface EventQuery extends BaseQuery, EventFilter {
   name?: string;
@@ -94,5 +91,29 @@ export type EventOutput = {
   code?: number;
   result?: Event | any;
   total_count?: number;
-  data?: Array<Event>;
+  data?: Event[];
+};
+export const _event: Event = {
+  type: '',
+  trending: false,
+  significant: false,
+  name: '',
+  introduction: '',
+  email: '',
+  agendas: [],
+  location: {},
+  start_date: new Date(),
+  end_date: new Date(),
+  categories: [],
+  country: '',
+  speakers: [],
+  sponsors: [],
+  subscribers: [],
+  slide: '',
+  recap: '',
+  banners: [],
+  media: [],
+  deleted: false,
+  created_at: new Date(),
+  updated_at: new Date(),
 };

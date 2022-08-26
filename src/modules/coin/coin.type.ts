@@ -1,17 +1,17 @@
-import { BaseInformationModel, DEVELOPMENT_STATUS } from '@/types/Common';
+import { BaseInformationModel, DEVELOPMENT_STATUS, IcoDetail, TeamPerson, Technology } from '@/types/Common';
 
 export interface Coin extends BaseInformationModel {
   name: string;
 
   token_id: string;
 
-  categories?: Array<string>;
+  categories?: string[];
 
   explorer: string;
 
   stack_exchange: string;
 
-  blockchains: Array<string>;
+  blockchains: string[];
 
   whitepaper: string;
 
@@ -19,13 +19,13 @@ export interface Coin extends BaseInformationModel {
 
   exchanges: string[];
 
-  technologies: object[];
+  technologies: Technology[];
 
-  services: object[];
+  services: string[];
 
-  features: object[];
+  features: string[];
 
-  team: object[];
+  team: TeamPerson[];
 
-  ico: object[];
+  ico: IcoDetail[];
 }

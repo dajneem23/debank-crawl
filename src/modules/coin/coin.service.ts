@@ -277,7 +277,7 @@ export class CoinService {
    */
   async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const item = await this.model.collection
+      const [item] = await this.model.collection
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
           this.$lookups.categories,

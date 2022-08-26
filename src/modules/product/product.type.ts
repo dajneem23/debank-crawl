@@ -1,4 +1,12 @@
-import { BaseInformationModel, Feature, ContractAddress } from '@/types/Common';
+import {
+  BaseInformationModel,
+  Feature,
+  ContractAddress,
+  TeamPerson,
+  Support,
+  ProductInfomation,
+  App,
+} from '@/types/Common';
 
 export interface Product extends BaseInformationModel {
   name: string;
@@ -7,26 +15,46 @@ export interface Product extends BaseInformationModel {
 
   contract_addresses: Array<ContractAddress>;
 
-  crypto_currencies?: Array<string>;
+  crypto_currencies?: string[];
 
   //array id of categories
-  categories?: Array<string>;
+  categories?: string[];
 
-  features?: Array<string>;
+  features?: string[];
 
   token: string;
 
-  apps: Array<object>;
+  apps: App[];
 
-  supports: Array<object>;
+  supports: Support[];
 
-  galleries: Array<string>;
+  galleries: string[];
 
-  informations: Array<object>;
+  informations: ProductInfomation[];
 
-  team: Array<object>;
+  team: TeamPerson[];
 
   parent_company: string;
 
   team_location: string;
 }
+
+export const _product: Product = {
+  name: '',
+  director: '',
+  contract_addresses: [],
+  crypto_currencies: [],
+  categories: [],
+  features: [],
+  token: '',
+  apps: [],
+  supports: [],
+  galleries: [],
+  informations: [],
+  team: [],
+  parent_company: '',
+  team_location: '',
+  deleted: false,
+  created_at: new Date(),
+  updated_at: new Date(),
+};

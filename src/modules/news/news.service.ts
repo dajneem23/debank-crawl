@@ -30,7 +30,7 @@ export class NewsService {
   }
 
   get outputKeys() {
-    return ['id', 'slug', 'photos', 'categories', 'author', 'created_at'];
+    return ['id', 'slug', 'photos', 'views', 'categories', 'author', 'created_at'];
   }
 
   /**
@@ -112,6 +112,7 @@ export class NewsService {
           $setOnInsert: {
             ..._content,
             categories: categories ? $toObjectId(categories) : [],
+            views: 0,
             deleted: false,
             ...(_subject && { created_by: _subject }),
             created_at: now,
@@ -294,7 +295,7 @@ export class NewsService {
    */
   async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const item = await this.model.collection
+      const [item] = await this.model.collection
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
           this.$lookups.categories,
@@ -310,6 +311,95 @@ export class NewsService {
       return omit(toOutPut({ item }), ['deleted', 'updated_at']);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
+      throw err;
+    }
+  }
+  async updateViews({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const {
+        ok,
+        value: { views },
+        lastErrorObject: { updatedExisting },
+      } = await this.model.collection.findOneAndUpdate(
+        $toMongoFilter({ _id }),
+        {
+          $inc: { views: 1 },
+        },
+        {
+          upsert: false,
+          returnDocument: 'after',
+        },
+      );
+      if (!ok) {
+        throwErr(this.error('DATABASE_ERROR'));
+      }
+      if (!updatedExisting) {
+        throwErr(this.error('NOT_FOUND'));
+      }
+      this.logger.debug('[update:success]', { _id });
+      return toOutPut({ item: { views } });
+    } catch (err) {
+      this.logger.error('[update:error]', err.message);
+      throw err;
+    }
+  }
+
+  async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { q, lang } = _filter;
+      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
+        .aggregate([
+          ...$pagination({
+            $match: {
+              $and: [{ 'contents.lang': lang }],
+              ...(q && {
+                $text: { $search: q },
+              }),
+            },
+            // $search: {
+            //   regex: {
+            //     path: 'contents.title',
+            //     query: q,
+            //   },
+            //   count: per_page,
+            // },
+            $lookups: [this.$lookups.user, this.$lookups.categories],
+            $sets: [this.$sets.country, this.$sets.author],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  contents: {
+                    $filter: {
+                      input: '$contents',
+                      as: 'content',
+                      cond: {
+                        $eq: ['$$content.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.contents,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.childKeys, '$contents'),
+                },
+              },
+            ],
+            ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      this.logger.debug('[query:success]', { total_count, items });
+      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+    } catch (err) {
+      this.logger.error('[query:error]', err.message);
       throw err;
     }
   }

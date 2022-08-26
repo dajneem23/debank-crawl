@@ -11,7 +11,7 @@ import { UserError } from '@/modules/user/user.error';
 import { DEFAULT_USER_PICTURE } from '@/config/constants';
 import { Filter } from 'mongodb';
 import { BaseQuery, PaginationResult } from '@/types/Common';
-import { withMongoTransaction } from '@/utils/mongoDB';
+import { $queryByList, withMongoTransaction } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import EmailSubscriptionModel from '@/modules/emailSubscription/emailSubscription.model';
 import VerificationTokenModel from '@/modules/verificationToken/verificationToken.model';
@@ -228,6 +228,46 @@ export class UserService {
       this.logger.debug('[deleteAccount:success]', { userId });
     } catch (err) {
       this.logger.error('[deleteAccount:error]', err);
+      throw err;
+    }
+  }
+  async updateFavoriteNews(userId: string, newsId: string) {
+    try {
+      if (!(await $queryByList({ collection: 'news', values: [newsId] }))) {
+        throwErr(new SystemError(`News not found!`));
+      }
+      const { value: user } = await this.userModel.collection.findOneAndUpdate(
+        { id: userId },
+        {
+          $addToSet: { favorite_news: newsId },
+        },
+        { returnDocument: 'after' },
+      );
+      if (!user) throwErr(new UserError('USER_NOT_FOUND'));
+      this.logger.debug('[updateFavoriteNews:success]', { userId, newsId });
+      return toUserOutput({ favorite_news: user.favorite_news } as User);
+    } catch (err) {
+      this.logger.error('[addNews:error]', err);
+      throw err;
+    }
+  }
+  async saveNews(userId: string, newsId: string) {
+    try {
+      if (!(await $queryByList({ collection: 'news', values: [newsId] }))) {
+        throwErr(new SystemError(`News not found!`));
+      }
+      const { value: user } = await this.userModel.collection.findOneAndUpdate(
+        { id: userId },
+        {
+          $addToSet: { saved_news: newsId },
+        },
+        { returnDocument: 'after' },
+      );
+      if (!user) throwErr(new UserError('USER_NOT_FOUND'));
+      this.logger.debug('[saveNews:success]', { userId, newsId });
+      return toUserOutput({ saved_news: user.saved_news } as User);
+    } catch (err) {
+      this.logger.error('[addNews:error]', err);
       throw err;
     }
   }

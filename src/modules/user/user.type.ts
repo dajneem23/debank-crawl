@@ -35,6 +35,10 @@ export type User = {
     // A note by admin
     admin_note?: string;
   };
+
+  saved_news?: string[];
+
+  favorite_news?: string[];
   // Date and time user was created
   created_at: Date;
   // Date and time user was last updated

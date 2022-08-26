@@ -55,6 +55,8 @@ export enum CATEGORY_TYPE {
   PRODUCT = 'product',
   COMPANY = 'company',
   CRYPTO = 'crypto',
+  EXPLORATION = 'exploration',
+  SUB_EXPLORATION = 'sub_exploration',
 }
 export type BaseModel = {
   _id?: string;

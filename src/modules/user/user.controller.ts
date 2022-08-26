@@ -32,6 +32,32 @@ export class UserController {
     const user = await this.userService.update(auth.id, body);
     res.status(httpStatusCode.OK).json(user);
   }
+  @Patch('/users/me/favorite-news/:id', [protect()])
+  async updateFavoriteNews(
+    @Res() res: Response,
+    @Body() body: any,
+    @Params()
+    params: {
+      id: string;
+    },
+    @Auth() auth: JWTPayload,
+  ) {
+    const user = await this.userService.updateFavoriteNews(auth.id, params.id);
+    res.status(httpStatusCode.OK).json(user);
+  }
+  @Patch('/users/me/save-news/:id', [protect()])
+  async saveNews(
+    @Res() res: Response,
+    @Body() body: any,
+    @Params()
+    params: {
+      id: string;
+    },
+    @Auth() auth: JWTPayload,
+  ) {
+    const user = await this.userService.saveNews(auth.id, params.id);
+    res.status(httpStatusCode.OK).json(user);
+  }
 
   // ----------------------------------------------------------------
   // PRIVATE ROUTES

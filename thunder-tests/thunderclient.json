@@ -945,11 +945,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "important",
-    "url": "{{host}}/news/important/?lang=eng&per_page=2",
+    "url": "{{host}}/news/important/?lang=eng&per_page=2&page=1",
     "method": "GET",
     "sortNum": 300000,
     "created": "2022-08-23T09:36:22.369Z",
-    "modified": "2022-08-23T09:53:26.291Z",
+    "modified": "2022-08-24T02:03:47.617Z",
     "headers": [],
     "params": [
       {
@@ -960,6 +960,11 @@
       {
         "name": "per_page",
         "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "page",
+        "value": "1",
         "isPath": false
       }
     ],

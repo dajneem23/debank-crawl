@@ -1,13 +1,12 @@
 import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { NewsError, NewsModel } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
-import { isNil, omit, rest } from 'lodash';
+import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
-import { ObjectId } from 'mongodb';
 
 @Service()
 export class NewsService {

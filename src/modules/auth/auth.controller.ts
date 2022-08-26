@@ -31,7 +31,7 @@ export class AuthController {
    */
   @Post('/auth/login', [authValidation.login])
   async login(@Res() res: Response, @Body() body: any) {
-    const result = await this.authService.loginByIdAndPassword(body.id, body.password);
+    const result = await this.authService.loginByIdAndPassword(body.username, body.password);
     return res.status(httpStatusCode.OK).json(result);
   }
 

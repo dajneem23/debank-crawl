@@ -80,7 +80,7 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/related', [NewsValidation.getRelated])
+  @Get('/related', [NewsValidation.getRelated, protect({ ignoreException: true })])
   async getRelated(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.getRelated({

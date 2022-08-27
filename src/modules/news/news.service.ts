@@ -514,11 +514,12 @@ export class NewsService {
               $and: [
                 { 'contents.lang': lang },
                 ...[
-                  (user && {
-                    categories: {
-                      $in: Array.isArray(user.followings) ? user.followings : [],
-                    },
-                  }) ||
+                  (user &&
+                    user.followings.length && {
+                      categories: {
+                        $in: Array.isArray(user.followings) ? user.followings : [],
+                      },
+                    }) ||
                     {},
                 ],
                 {

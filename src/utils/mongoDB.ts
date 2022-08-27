@@ -134,11 +134,9 @@ export const $pagination = ({
   $projects,
   $sets,
   $match = {},
-  $search = {},
   $sort,
 }: {
   $match?: any;
-  $search?: any;
   $sort?: any;
   $projects?: any[];
   $sets?: any[];
@@ -155,9 +153,6 @@ export const $pagination = ({
     {
       $match,
     },
-    // {
-    //   $search,
-    // },
     ...((!!$lookups && [...$lookups]) || []),
     ...((!!$sets && [...$sets]) || []),
     ...((!!$projects && [...$projects]) || []),

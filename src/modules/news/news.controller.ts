@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Inject, Service } from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
@@ -102,6 +103,48 @@ export class NewsController {
     const result = await this.service.getById({
       _id: _params.id,
     } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
+    _res.status(httpStatus.OK).json({
+      id: '6308fff91cd276b4a1b6d760',
+      slug: 'asd',
+      categories: [{ id: '', name: 'abc' }],
+      coin_tags: [
+        { id: '6308fff91cd276b4a1b6d760', name: 'coin_tags1' },
+        { id: '6308fff91cd276b4a1b6d760', name: 'coin_tags2' },
+        { id: '6308fff91cd276b4a1b6d760', name: 'coin_tags3' },
+      ],
+      company_tags: [
+        { id: '6308fff91cd276b4a1b6d760', name: 'Weiss Crypto Ratings1' },
+        { id: '6308fff91cd276b4a1b6d760', name: 'Weiss Crypto Ratings12' },
+        { id: '6308fff91cd276b4a1b6d760', name: 'Weiss Crypto Ratings13' },
+      ],
+
+      title: 'Mercury Wallet is pitching itself as Bitcoin’s answer to scalability, privacy',
+      lang: 'vi',
+      content: 'chao',
+      headings: ['heading1', 'heading2'],
+      summary: 'tom tat2',
+
+      created_at: '2022-08-26T17:06:23.605Z',
+      created_by: 'admin',
+      deleted: false,
+      keywords: ['trending'],
+      number_relate_article: 6,
+      photos: [
+        'https://i1-vnexpress.vnecdn.net/2022/08/26/Bo-Cong-an-9374-1637833058-jpe-9051-3294-1661523682.jpg?w...',
+      ],
+      product_tags: [
+        { id: '6308fff91cd276b4a1b6d760', name: 'product_tags' },
+        { id: '6308fff91cd276b4a1b6d760', name: 'product_tags2' },
+        { id: '6308fff91cd276b4a1b6d760', name: 'product_tags3' },
+      ],
+      source: 'https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-...',
+      stars: 4,
+      updated_at: '2022-08-26T17:06:23.605Z',
+      views: 54,
+      author: {
+        full_name: 'admin',
+        id: '63048b7e3021583b516c75f8',
+      },
+    });
   }
 }

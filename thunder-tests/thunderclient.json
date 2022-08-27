@@ -848,12 +848,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-22T07:41:46.420Z",
-    "modified": "2022-08-26T19:18:57.330Z",
+    "modified": "2022-08-27T17:17:59.882Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"slug\": \"huhu\",\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630902086b72c43940d8fe89\"\n    ],\n    \"source\":\"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\":[\n    \"Weiss Crypto Ratings\",\n    \"Ava Labs\",\n    \"ShapeShift\"\n    ],\n    \"coin_tags\":[\n        \"CFX\",\n        \"NIX\"\n    ],\n    \"keywords\":[\n        \"trending\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "raw": "{\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630902086b72c43940d8fe89\"\n    ],\n    \"source\":\"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\":[\n    \"630902086b72c43940d8fe8a\"\n    ],\n        \"product_tags\":[\n    \"63090208b12a74bbda063f31\"\n    ],\n    \"coin_tags\":[\n        \"63090208b12a74bbda063f29\"\n    ],\n    \"keywords\":[\n        \"trending\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -893,11 +893,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
     "name": "following",
-    "url": "{{host}}/users/category/follow",
+    "url": "{{host}}/users/me/category/follow/63090208b12a74bbda063f31",
     "method": "PATCH",
     "sortNum": 280000,
     "created": "2022-08-23T03:28:53.641Z",
-    "modified": "2022-08-23T03:58:57.564Z",
+    "modified": "2022-08-27T17:32:11.676Z",
     "headers": [],
     "params": [],
     "body": {
@@ -916,11 +916,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "related",
-    "url": "{{host}}/news/related/?lang=eng&per_page=2",
+    "url": "{{host}}/news/related/?lang=eng",
     "method": "GET",
     "sortNum": 290000,
     "created": "2022-08-23T03:39:22.685Z",
-    "modified": "2022-08-23T09:24:54.496Z",
+    "modified": "2022-08-27T17:15:49.903Z",
     "headers": [],
     "params": [
       {
@@ -931,6 +931,7 @@
       {
         "name": "per_page",
         "value": "2",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -970,13 +971,19 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "getById",
-    "url": "{{host}}/news/63059330c5f5e348e93e0f78",
+    "url": "{{host}}/news/630a521b6b72c43940d93911?lang=vi",
     "method": "GET",
     "sortNum": 310000,
     "created": "2022-08-26T17:38:29.722Z",
-    "modified": "2022-08-26T17:50:54.264Z",
+    "modified": "2022-08-27T17:20:15.586Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
@@ -1043,6 +1050,29 @@
         "isPath": false
       }
     ],
+    "tests": []
+  },
+  {
+    "_id": "fe50df0c-411a-415c-8949-48a0987c6396",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "name": "unfollowing",
+    "url": "{{host}}/users/me/category/unfollow/63090208b12a74bbda063f31",
+    "method": "PATCH",
+    "sortNum": 305000,
+    "created": "2022-08-27T17:32:22.888Z",
+    "modified": "2022-08-27T17:33:07.069Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"id\":\"630446723ee0ec7f347dc823a\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
+    },
     "tests": []
   }
 ]

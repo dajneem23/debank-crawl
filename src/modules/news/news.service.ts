@@ -34,24 +34,30 @@ export class NewsService {
   }
 
   get childKeys() {
-    return ['title', 'lang', 'headings', 'summary'];
+    return ['title', 'slug', 'lang', 'headings', 'summary'];
   }
 
   get outputKeys() {
     return [
       'id',
-      'slug',
-      'company_tags',
-      'coin_tags',
       'keywords',
+      'company_tags',
+      'product_tags',
+      'coin_tags',
       'photos',
       'views',
       'star',
+      'source',
       'categories',
       'author',
       'number_relate_article',
+      'contents',
       'created_at',
     ];
+  }
+
+  get outputQueryKeys() {
+    return ['id', 'slug', 'photos', 'views', 'stars', 'number_relate_article', 'created_at', 'title', 'lang'];
   }
 
   /**
@@ -65,6 +71,30 @@ export class NewsService {
         refTo: 'categories',
         select: 'title type',
         reName: 'categories',
+        operation: '$in',
+      }),
+      coin_tags: $lookup({
+        from: 'categories',
+        refFrom: '_id',
+        refTo: 'coin_tags',
+        select: 'title type',
+        reName: 'coin_tags',
+        operation: '$in',
+      }),
+      company_tags: $lookup({
+        from: 'categories',
+        refFrom: '_id',
+        refTo: 'company_tags',
+        select: 'title type',
+        reName: 'company_tags',
+        operation: '$in',
+      }),
+      product_tags: $lookup({
+        from: 'categories',
+        refFrom: '_id',
+        refTo: 'product_tags',
+        select: 'title type',
+        reName: 'product_tags',
         operation: '$in',
       }),
       user: $lookup({
@@ -119,29 +149,45 @@ export class NewsService {
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      const { slug } = _content;
-      const { categories } = _content;
+      let { contents } = _content;
+      const { categories, coin_tags, company_tags, product_tags } = _content;
       const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
+        !!categories || !!coin_tags || !!company_tags || !!product_tags
+          ? await $queryByList({
+              collection: 'categories',
+              values: [...categories, ...coin_tags, ...company_tags, ...product_tags].filter(Boolean),
+            })
           : true;
 
       if (!categoriesIdExist) {
         throwErr(this.error('INPUT_INVALID'));
       }
+      contents = await Promise.all(
+        contents.map(async (item: any) => {
+          const slug = item.title.replace(/ /g, '-').toLowerCase();
+          return {
+            ...item,
+            slug: (await this.model.collection.findOne({ 'contents.slug': slug })) ? slug + '-' + now.getTime() : slug,
+          };
+        }),
+      );
       const {
         value,
         ok,
         lastErrorObject: { updatedExisting },
       } = await this.model.collection.findOneAndUpdate(
         {
-          slug,
+          'contents.slug': { $in: contents.map((item: any) => item.slug) },
         },
         {
           $setOnInsert: {
             ..._news,
             ..._content,
+            contents,
             categories: categories ? $toObjectId(categories) : [],
+            coin_tags: coin_tags ? $toObjectId(coin_tags) : [],
+            company_tags: company_tags ? $toObjectId(company_tags) : [],
+            product_tags: product_tags ? $toObjectId(product_tags) : [],
             deleted: false,
             ...(_subject && { created_by: _subject }),
           },
@@ -266,12 +312,12 @@ export class NewsService {
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, lang, category } = _filter;
-      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate([
           ...$pagination({
             $match: {
-              $and: [{ 'contents.lang': lang }],
+              $and: [{ 'contents.lang': lang }, { deleted: false }],
               ...(category && {
                 $or: [{ categories: { $in: Array.isArray(category) ? category : [category] } }],
               }),
@@ -312,7 +358,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+      return toPagingOutput({ items, total_count, keys: this.outputQueryKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;
@@ -323,14 +369,38 @@ export class NewsService {
    * @param id - Event ID
    * @returns { Promise<BaseServiceOutput> } - Event
    */
-  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
+      const { lang } = _filter;
       const [item] = await this.model.collection
         .aggregate([
-          { $match: $toMongoFilter({ _id }) },
+          { $match: $toMongoFilter({ _id, 'contents.lang': lang }) },
           this.$lookups.categories,
           this.$lookups.user,
+          this.$lookups.coin_tags,
+          this.$lookups.company_tags,
           this.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              contents: {
+                $filter: {
+                  input: '$contents',
+                  as: 'content',
+                  cond: {
+                    $eq: ['$$content.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.$sets.contents,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...$keysToProject(this.childKeys, '$contents'),
+            },
+          },
           {
             $limit: 1,
           },
@@ -376,7 +446,7 @@ export class NewsService {
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, lang } = _filter;
-      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate([
           ...$pagination({
@@ -432,23 +502,25 @@ export class NewsService {
    * @param {} _filter
    * @returns {Promise<BaseServiceOutput>}
    */
-  async getRelated({ _id, _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getRelated({ _subject, _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { page = 1, per_page, sort_by, sort_order } = _query;
-      const user = await this.userModel.collection.findOne({ id: _id });
-      if (isNil(user)) throwErr(this.userErrors('USER_NOT_FOUND'));
+      const { page = 1, per_page = 10, sort_by = 'created_at', sort_order = 'desc' } = _query;
+      const user = await this.userModel.collection.findOne({ id: _subject });
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate([
           ...$pagination({
             $match: {
               $and: [
                 { 'contents.lang': lang },
-                {
-                  categories: {
-                    $in: Array.isArray(user.followings) ? user.followings : [],
-                  },
-                },
+                ...[
+                  (user && {
+                    categories: {
+                      $in: Array.isArray(user.followings) ? user.followings : [],
+                    },
+                  }) ||
+                    {},
+                ],
                 {
                   deleted: false,
                 },
@@ -485,7 +557,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+      return toPagingOutput({ items, total_count, keys: this.outputQueryKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;
@@ -544,7 +616,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+      return toPagingOutput({ items, total_count, keys: this.outputQueryKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;

@@ -332,6 +332,11 @@ export class CompanyService {
         .aggregate(
           $pagination({
             $match: {
+              $and: [
+                {
+                  deleted: false,
+                },
+              ],
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),

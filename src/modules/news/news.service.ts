@@ -46,7 +46,7 @@ export class NewsService {
       'coin_tags',
       'photos',
       'views',
-      'star',
+      'stars',
       'source',
       'categories',
       'author',

@@ -58,7 +58,7 @@ export class UserController {
     const user = await this.userService.saveNews(auth.id, params.id);
     res.status(httpStatusCode.OK).json(user);
   }
-  @Patch('/users/me/category/:id', [protect()])
+  @Patch('/users/me/category/follow/:id', [protect()])
   async followCategory(
     @Res() res: Response,
     @Body() body: any,
@@ -69,6 +69,19 @@ export class UserController {
     @Auth() auth: JWTPayload,
   ) {
     const user = await this.userService.followCategory(auth.id, params.id);
+    res.status(httpStatusCode.OK).json(user);
+  }
+  @Patch('/users/me/category/unfollow/:id', [protect()])
+  async unfollowCategory(
+    @Res() res: Response,
+    @Body() body: any,
+    @Params()
+    params: {
+      id: string;
+    },
+    @Auth() auth: JWTPayload,
+  ) {
+    const user = await this.userService.unfollowCategory(auth.id, params.id);
     res.status(httpStatusCode.OK).json(user);
   }
 

@@ -273,6 +273,9 @@ export class UserService {
   }
   async followCategory(id: string, categoryId: string) {
     try {
+      if (!(await $queryByList({ collection: 'categories', values: [categoryId] }))) {
+        throwErr(new SystemError(`News not found!`));
+      }
       const {
         value: user,
         ok,
@@ -296,6 +299,92 @@ export class UserService {
       return {
         followings: user.followings,
       };
+    } catch (err) {
+      this.logger.error('[update:error]', err.message);
+      throw err;
+    }
+  }
+  async unfollowCategory(id: string, categoryId: string) {
+    try {
+      const {
+        value: user,
+        ok,
+        lastErrorObject: { updatedExisting },
+      } = await this.userModel.collection.findOneAndUpdate(
+        { id },
+        {
+          $set: {
+            updated_at: new Date(),
+          },
+          $pull: {
+            followings: new ObjectId(categoryId),
+          },
+        },
+        { returnDocument: 'after' },
+      );
+      if (!updatedExisting) throwErr(new UserError('USER_NOT_FOUND'));
+      if (!ok)
+        throwErr(new SystemError(`MongoDB findOneAndUpdate() failed! Payload: ${JSON.stringify({ id, categoryId })}`));
+      this.logger.debug('[update:success]', { email: user.email });
+      return {
+        followings: user.followings,
+      };
+    } catch (err) {
+      this.logger.error('[update:error]', err.message);
+      throw err;
+    }
+  }
+  async push(id: any, ...data: any) {
+    try {
+      const {
+        value: user,
+        ok,
+        lastErrorObject: { updatedExisting },
+      } = await this.userModel.collection.findOneAndUpdate(
+        { id },
+        {
+          $set: {
+            updated_at: new Date(),
+          },
+          $addToSet: {
+            ...data,
+          },
+        },
+        { returnDocument: 'after' },
+      );
+      if (!updatedExisting) throwErr(new UserError('USER_NOT_FOUND'));
+      if (!ok) throwErr(new SystemError(`MongoDB findOneAndUpdate() failed! Payload: ${JSON.stringify({ id, data })}`));
+      if (!user) throwErr(new UserError('USER_NOT_FOUND'));
+      this.logger.debug('[update:success]', { email: user.email });
+      return toUserOutput(user);
+    } catch (err) {
+      this.logger.error('[update:error]', err.message);
+      throw err;
+    }
+  }
+  async pull(id: any, ...data: any) {
+    try {
+      const {
+        value: user,
+        ok,
+        lastErrorObject: { updatedExisting },
+      } = await this.userModel.collection.findOneAndUpdate(
+        { id },
+        {
+          $set: {
+            updated_at: new Date(),
+          },
+          $pull: {
+            ...data,
+          },
+        },
+        { returnDocument: 'after' },
+      );
+      if (!updatedExisting) throwErr(new UserError('USER_NOT_FOUND'));
+      if (!ok) throwErr(new SystemError(`MongoDB findOneAndUpdate() failed! Payload: ${JSON.stringify({ id, data })}`));
+      if (!user) throwErr(new UserError('USER_NOT_FOUND'));
+      this.logger.debug('[update:success]', { email: user.email });
+      return toUserOutput(user);
     } catch (err) {
       this.logger.error('[update:error]', err.message);
       throw err;

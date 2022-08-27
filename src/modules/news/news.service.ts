@@ -414,6 +414,65 @@ export class NewsService {
       throw err;
     }
   }
+  /**
+   *
+   * @param {BaseServiceInput} { _id, _filter }
+   * @returns {Promise<BaseServiceOutput>}
+   * @returns
+   */
+  async getBySlug({ _id, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang } = _filter;
+      const [item] = await this.model.collection
+        .aggregate([
+          {
+            $match: $toMongoFilter({
+              'contents.slug': {
+                $regex: _id,
+                $options: 'i',
+              },
+              'contents.lang': lang,
+            }),
+          },
+          this.$lookups.categories,
+          this.$lookups.user,
+          this.$lookups.coin_tags,
+          this.$lookups.company_tags,
+          this.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              contents: {
+                $filter: {
+                  input: '$contents',
+                  as: 'content',
+                  cond: {
+                    $eq: ['$$content.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.$sets.contents,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...$keysToProject(this.childKeys, '$contents'),
+            },
+          },
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      if (isNil(item)) throwErr(this.error('NOT_FOUND'));
+      this.logger.debug('[get:success]', { item });
+      return omit(toOutPut({ item }), ['deleted', 'updated_at', 'contents']);
+    } catch (err) {
+      this.logger.error('[get:error]', err.message);
+      throw err;
+    }
+  }
   async updateViews({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const {

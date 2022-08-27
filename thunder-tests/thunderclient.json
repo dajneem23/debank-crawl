@@ -923,7 +923,7 @@
     "method": "GET",
     "sortNum": 290000,
     "created": "2022-08-23T03:39:22.685Z",
-    "modified": "2022-08-27T17:53:20.399Z",
+    "modified": "2022-08-27T18:03:39.436Z",
     "headers": [],
     "params": [
       {
@@ -938,10 +938,6 @@
         "isPath": false
       }
     ],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyMjM0MywiZXhwIjoxNjYyNDg2MzQzfQ.rYESc5WhWyvm28EaHI7c3NUzaV_DfGHUYHwh08rTOOk"
-    },
     "tests": []
   },
   {
@@ -974,11 +970,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "getById",
-    "url": "{{host}}/news/630a521b6b72c43940d93911?lang=vi",
+    "url": "{{host}}/news/private/630a521b6b72c43940d93911?lang=vi",
     "method": "GET",
     "sortNum": 310000,
     "created": "2022-08-26T17:38:29.722Z",
-    "modified": "2022-08-27T17:20:15.586Z",
+    "modified": "2022-08-27T18:17:53.014Z",
     "headers": [],
     "params": [
       {
@@ -987,6 +983,10 @@
         "isPath": false
       }
     ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyNDI2MiwiZXhwIjoxNjYyNDg4MjYyfQ.Qsskg9z293UA3Ud-iQupoo7seUrn5KRDhd4AGTpMXLM"
+    },
     "tests": []
   },
   {
@@ -1076,6 +1076,26 @@
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
     },
+    "tests": []
+  },
+  {
+    "_id": "65723818-ca32-449a-ae60-d729a445a1b8",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
+    "name": "getBySlug",
+    "url": "{{host}}/news/huhu/?lang=vi",
+    "method": "GET",
+    "sortNum": 325000,
+    "created": "2022-08-27T18:16:47.654Z",
+    "modified": "2022-08-27T18:21:24.865Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

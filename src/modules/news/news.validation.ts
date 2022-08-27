@@ -84,6 +84,14 @@ export const NewsValidation = {
       lang: Joi.string().required(),
     }),
   }),
+  getBySlug: validate({
+    [Segments.PARAMS]: Joi.object({
+      slug: Joi.string().required(),
+    }),
+    [Segments.QUERY]: Joi.object({
+      lang: Joi.string().required(),
+    }),
+  }),
   query: validate({
     [Segments.QUERY]: Joi.object({
       page: Joi.number().default(1).min(1),

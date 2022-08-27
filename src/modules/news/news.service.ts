@@ -51,7 +51,6 @@ export class NewsService {
       'categories',
       'author',
       'number_relate_article',
-      'contents',
       'created_at',
     ];
   }

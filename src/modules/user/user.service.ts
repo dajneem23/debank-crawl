@@ -274,7 +274,7 @@ export class UserService {
   async followCategory(id: string, categoryId: string) {
     try {
       if (!(await $queryByList({ collection: 'categories', values: [categoryId] }))) {
-        throwErr(new SystemError(`News not found!`));
+        throwErr(new SystemError(`Categories not found!`));
       }
       const {
         value: user,

@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Technology",
+    "type": "company"
+  },
+  {
+    "title": "Analysis",
+    "type": "exploration"
+  },
+  {
+    "title": "Portal",
+    "type": "exploration",
+    "sub_categories": [
+      {
+        "title": "Guidelines",
+        "type": "sub_exploration"
+      },
+      {
+        "title": "Experience",
+        "type": "sub_exploration"
+      },
+      {
+        "title": "Academy",
+        "type": "sub_exploration"
+      }
+    ]
+  },
+  {
+    "title": "For Newbies",
+    "type": "exploration",
+    "sub_categories": [
+      {
+        "title": "How to crypto",
+        "type": "sub_exploration"
+      },
+      {
+        "title": "Glossary",
+        "type": "sub_exploration"
+      }
+    ]
+  },
+  {
+    "title": "Opportunity",
+    "type": "exploration"
+  }
+]

@@ -5,9 +5,10 @@
     "name": "eng",
     "acronym": "eng",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 1
   },
   {
@@ -16,9 +17,10 @@
     "name": "all_events",
     "acronym": "ae",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 2
   },
   {
@@ -27,9 +29,10 @@
     "name": "workshop",
     "acronym": "workshop",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 3
   },
   {
@@ -38,9 +41,10 @@
     "name": "conference",
     "acronym": "conference",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 4
   },
   {
@@ -49,9 +53,10 @@
     "name": "summit",
     "acronym": "summit",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 5
   },
   {
@@ -60,9 +65,10 @@
     "name": "expo",
     "acronym": "expo",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 6
   },
   {
@@ -71,9 +77,10 @@
     "name": "meetup",
     "acronym": "meetup",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 7
   },
   {
@@ -82,9 +89,10 @@
     "name": "hackathon",
     "acronym": "hackathon",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 8
   },
   {
@@ -93,9 +101,10 @@
     "name": "drinks_party",
     "acronym": "dp",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 9
   },
   {
@@ -104,9 +113,10 @@
     "name": "other",
     "acronym": "other",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 10
   },
   {
@@ -115,9 +125,10 @@
     "name": "defi",
     "acronym": "defi",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 11
   },
   {
@@ -126,9 +137,10 @@
     "name": "nfts",
     "acronym": "nfts",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 12
   },
   {
@@ -137,9 +149,10 @@
     "name": "smart_contracts",
     "acronym": "sc",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 13
   },
   {
@@ -148,9 +161,10 @@
     "name": "oracle",
     "acronym": "oracle",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 14
   },
   {
@@ -159,9 +173,10 @@
     "name": "masternodes",
     "acronym": "masternodes",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 15
   },
   {
@@ -170,9 +185,10 @@
     "name": "dpos",
     "acronym": "dpos",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.538Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 16
   },
   {
@@ -181,9 +197,10 @@
     "name": "pos",
     "acronym": "pos",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.538Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 17
   },
   {
@@ -192,9 +209,10 @@
     "name": "pow",
     "acronym": "pow",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 18
   },
   {
@@ -203,9 +221,10 @@
     "name": "stablecoins",
     "acronym": "stablecoins",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 19
   },
   {
@@ -214,9 +233,10 @@
     "name": "privacy",
     "acronym": "privacy",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 20
   },
   {
@@ -225,9 +245,10 @@
     "name": "interoperability",
     "acronym": "interoperability",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 21
   },
   {
@@ -236,9 +257,10 @@
     "name": "leveraged_tokens",
     "acronym": "lt",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 22
   },
   {
@@ -247,9 +269,10 @@
     "name": "amm",
     "acronym": "amm",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 23
   },
   {
@@ -258,9 +281,10 @@
     "name": "dex",
     "acronym": "dex",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 24
   },
   {
@@ -269,9 +293,10 @@
     "name": "cex",
     "acronym": "cex",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 25
   },
   {
@@ -280,9 +305,10 @@
     "name": "yield_farming",
     "acronym": "yf",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 26
   },
   {
@@ -291,9 +317,10 @@
     "name": "academia",
     "acronym": "academia",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 27
   },
   {
@@ -302,9 +329,10 @@
     "name": "adoption",
     "acronym": "adoption",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 28
   },
   {
@@ -313,9 +341,10 @@
     "name": "analysis",
     "acronym": "analysis",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 29
   },
   {
@@ -324,9 +353,10 @@
     "name": "banking",
     "acronym": "banking",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 30
   },
   {
@@ -335,9 +365,10 @@
     "name": "blocklight",
     "acronym": "blocklight",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 31
   },
   {
@@ -346,9 +377,10 @@
     "name": "cbdcs",
     "acronym": "cbdcs",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 32
   },
   {
@@ -357,9 +389,10 @@
     "name": "censorship",
     "acronym": "censorship",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 33
   },
   {
@@ -368,9 +401,10 @@
     "name": "crime",
     "acronym": "crime",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 34
   },
   {
@@ -379,10 +413,23 @@
     "name": "culture",
     "acronym": "culture",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
+    "sub_categories": [],
     "weight": 35
+  },
+  {
+    "title": "DeFi",
+    "type": "news",
+    "name": "defi",
+    "acronym": "defi",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 36
   },
   {
     "title": "Derivatives",
@@ -390,10 +437,11 @@
     "name": "derivatives",
     "acronym": "derivatives",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 36
+    "sub_categories": [],
+    "weight": 37
   },
   {
     "title": "Earnings",
@@ -401,10 +449,11 @@
     "name": "earnings",
     "acronym": "earnings",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 37
+    "sub_categories": [],
+    "weight": 38
   },
   {
     "title": "Exchanges",
@@ -412,10 +461,11 @@
     "name": "exchanges",
     "acronym": "exchanges",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 38
+    "sub_categories": [],
+    "weight": 39
   },
   {
     "title": "GameFi",
@@ -423,10 +473,11 @@
     "name": "gamefi",
     "acronym": "gamefi",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 39
+    "sub_categories": [],
+    "weight": 40
   },
   {
     "title": "Hacks",
@@ -434,10 +485,11 @@
     "name": "hacks",
     "acronym": "hacks",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 40
+    "sub_categories": [],
+    "weight": 41
   },
   {
     "title": "Interviews",
@@ -445,10 +497,11 @@
     "name": "interviews",
     "acronym": "interviews",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 41
+    "sub_categories": [],
+    "weight": 42
   },
   {
     "title": "Investments",
@@ -456,10 +509,11 @@
     "name": "investments",
     "acronym": "investments",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 42
+    "sub_categories": [],
+    "weight": 43
   },
   {
     "title": "Layer2",
@@ -467,10 +521,11 @@
     "name": "layer2",
     "acronym": "layer2",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 43
+    "sub_categories": [],
+    "weight": 44
   },
   {
     "title": "Legal",
@@ -478,10 +533,11 @@
     "name": "legal",
     "acronym": "legal",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 44
+    "sub_categories": [],
+    "weight": 45
   },
   {
     "title": "Lending",
@@ -489,10 +545,11 @@
     "name": "lending",
     "acronym": "lending",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 45
+    "sub_categories": [],
+    "weight": 46
   },
   {
     "title": "Macro",
@@ -500,10 +557,11 @@
     "name": "macro",
     "acronym": "macro",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 46
+    "sub_categories": [],
+    "weight": 47
   },
   {
     "title": "Memecoins",
@@ -511,10 +569,11 @@
     "name": "memecoins",
     "acronym": "memecoins",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 47
+    "sub_categories": [],
+    "weight": 48
   },
   {
     "title": "Merge",
@@ -522,10 +581,11 @@
     "name": "merge",
     "acronym": "merge",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 48
+    "sub_categories": [],
+    "weight": 49
   },
   {
     "title": "Metaverse",
@@ -533,10 +593,11 @@
     "name": "metaverse",
     "acronym": "metaverse",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 49
+    "sub_categories": [],
+    "weight": 50
   },
   {
     "title": "Mining",
@@ -544,10 +605,23 @@
     "name": "mining",
     "acronym": "mining",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 50
+    "sub_categories": [],
+    "weight": 51
+  },
+  {
+    "title": "NFTs",
+    "type": "news",
+    "name": "nfts",
+    "acronym": "nfts",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 52
   },
   {
     "title": "Opinion",
@@ -555,10 +629,11 @@
     "name": "opinion",
     "acronym": "opinion",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 51
+    "sub_categories": [],
+    "weight": 53
   },
   {
     "title": "Partnerships",
@@ -566,10 +641,11 @@
     "name": "partnerships",
     "acronym": "partnerships",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 52
+    "sub_categories": [],
+    "weight": 54
   },
   {
     "title": "People",
@@ -577,10 +653,11 @@
     "name": "people",
     "acronym": "people",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 53
+    "sub_categories": [],
+    "weight": 55
   },
   {
     "title": "Politics",
@@ -588,10 +665,11 @@
     "name": "politics",
     "acronym": "politics",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 54
+    "sub_categories": [],
+    "weight": 56
   },
   {
     "title": "Press Releases",
@@ -599,10 +677,23 @@
     "name": "press_releases",
     "acronym": "pr",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 55
+    "sub_categories": [],
+    "weight": 57
+  },
+  {
+    "title": "Privacy",
+    "type": "news",
+    "name": "privacy",
+    "acronym": "privacy",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 58
   },
   {
     "title": "Regulation",
@@ -610,10 +701,11 @@
     "name": "regulation",
     "acronym": "regulation",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 56
+    "sub_categories": [],
+    "weight": 59
   },
   {
     "title": "Research",
@@ -621,10 +713,11 @@
     "name": "research",
     "acronym": "research",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 57
+    "sub_categories": [],
+    "weight": 60
   },
   {
     "title": "Sports",
@@ -632,10 +725,11 @@
     "name": "sports",
     "acronym": "sports",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 58
+    "sub_categories": [],
+    "weight": 61
   },
   {
     "title": "Staking",
@@ -643,10 +737,11 @@
     "name": "staking",
     "acronym": "staking",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 59
+    "sub_categories": [],
+    "weight": 62
   },
   {
     "title": "Taxes",
@@ -654,10 +749,11 @@
     "name": "taxes",
     "acronym": "taxes",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 60
+    "sub_categories": [],
+    "weight": 63
   },
   {
     "title": "Trading",
@@ -665,10 +761,11 @@
     "name": "trading",
     "acronym": "trading",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 61
+    "sub_categories": [],
+    "weight": 64
   },
   {
     "title": "Wallets",
@@ -676,10 +773,11 @@
     "name": "wallets",
     "acronym": "wallets",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 62
+    "sub_categories": [],
+    "weight": 65
   },
   {
     "title": "Web3",
@@ -687,10 +785,11 @@
     "name": "web3",
     "acronym": "web3",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 63
+    "sub_categories": [],
+    "weight": 66
   },
   {
     "title": "Algorand",
@@ -698,10 +797,11 @@
     "name": "algorand",
     "acronym": "algorand",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 64
+    "sub_categories": [],
+    "weight": 67
   },
   {
     "title": "Ardor",
@@ -709,10 +809,11 @@
     "name": "ardor",
     "acronym": "ardor",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 65
+    "sub_categories": [],
+    "weight": 68
   },
   {
     "title": "Avalanche",
@@ -720,10 +821,11 @@
     "name": "avalanche",
     "acronym": "avalanche",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 66
+    "sub_categories": [],
+    "weight": 69
   },
   {
     "title": "Binance Chain",
@@ -731,10 +833,11 @@
     "name": "binance_chain",
     "acronym": "bc",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 67
+    "sub_categories": [],
+    "weight": 70
   },
   {
     "title": "BitShares",
@@ -742,10 +845,11 @@
     "name": "bitshares",
     "acronym": "bitshares",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 68
+    "sub_categories": [],
+    "weight": 71
   },
   {
     "title": "Cardano",
@@ -753,10 +857,11 @@
     "name": "cardano",
     "acronym": "cardano",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 69
+    "sub_categories": [],
+    "weight": 72
   },
   {
     "title": "Celo",
@@ -764,10 +869,11 @@
     "name": "celo",
     "acronym": "celo",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 70
+    "sub_categories": [],
+    "weight": 73
   },
   {
     "title": "Cosmos",
@@ -775,10 +881,11 @@
     "name": "cosmos",
     "acronym": "cosmos",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 71
+    "sub_categories": [],
+    "weight": 74
   },
   {
     "title": "Chiliz",
@@ -786,10 +893,11 @@
     "name": "chiliz",
     "acronym": "chiliz",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 72
+    "sub_categories": [],
+    "weight": 75
   },
   {
     "title": "EOS",
@@ -797,10 +905,11 @@
     "name": "eos",
     "acronym": "eos",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 73
+    "sub_categories": [],
+    "weight": 76
   },
   {
     "title": "Ethereum",
@@ -808,10 +917,11 @@
     "name": "ethereum",
     "acronym": "ethereum",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 74
+    "sub_categories": [],
+    "weight": 77
   },
   {
     "title": "Huobi",
@@ -819,10 +929,11 @@
     "name": "huobi",
     "acronym": "huobi",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 75
+    "sub_categories": [],
+    "weight": 78
   },
   {
     "title": "ICON",
@@ -830,10 +941,11 @@
     "name": "icon",
     "acronym": "icon",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 76
+    "sub_categories": [],
+    "weight": 79
   },
   {
     "title": "Klaytn",
@@ -841,10 +953,11 @@
     "name": "klaytn",
     "acronym": "klaytn",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 77
+    "sub_categories": [],
+    "weight": 80
   },
   {
     "title": "Kusama",
@@ -852,10 +965,11 @@
     "name": "kusama",
     "acronym": "kusama",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 78
+    "sub_categories": [],
+    "weight": 81
   },
   {
     "title": "NEM",
@@ -863,10 +977,11 @@
     "name": "nem",
     "acronym": "nem",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 79
+    "sub_categories": [],
+    "weight": 82
   },
   {
     "title": "Neo",
@@ -874,10 +989,11 @@
     "name": "neo",
     "acronym": "neo",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 80
+    "sub_categories": [],
+    "weight": 83
   },
   {
     "title": "Nxt",
@@ -885,10 +1001,11 @@
     "name": "nxt",
     "acronym": "nxt",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 81
+    "sub_categories": [],
+    "weight": 84
   },
   {
     "title": "Omni",
@@ -896,10 +1013,11 @@
     "name": "omni",
     "acronym": "omni",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 82
+    "sub_categories": [],
+    "weight": 85
   },
   {
     "title": "Ontology",
@@ -907,10 +1025,11 @@
     "name": "ontology",
     "acronym": "ontology",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 83
+    "sub_categories": [],
+    "weight": 86
   },
   {
     "title": "Polygon",
@@ -918,10 +1037,11 @@
     "name": "polygon",
     "acronym": "polygon",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 84
+    "sub_categories": [],
+    "weight": 87
   },
   {
     "title": "Qtum",
@@ -929,10 +1049,11 @@
     "name": "qtum",
     "acronym": "qtum",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 85
+    "sub_categories": [],
+    "weight": 88
   },
   {
     "title": "Solana",
@@ -940,10 +1061,11 @@
     "name": "solana",
     "acronym": "solana",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 86
+    "sub_categories": [],
+    "weight": 89
   },
   {
     "title": "Stellar",
@@ -951,10 +1073,11 @@
     "name": "stellar",
     "acronym": "stellar",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 87
+    "sub_categories": [],
+    "weight": 90
   },
   {
     "title": "Terra",
@@ -962,10 +1085,11 @@
     "name": "terra",
     "acronym": "terra",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 88
+    "sub_categories": [],
+    "weight": 91
   },
   {
     "title": "Tron",
@@ -973,10 +1097,11 @@
     "name": "tron",
     "acronym": "tron",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 89
+    "sub_categories": [],
+    "weight": 92
   },
   {
     "title": "VeChain",
@@ -984,10 +1109,11 @@
     "name": "vechain",
     "acronym": "vechain",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 90
+    "sub_categories": [],
+    "weight": 93
   },
   {
     "title": "VeChainThor",
@@ -995,10 +1121,11 @@
     "name": "vechainthor",
     "acronym": "vechainthor",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 91
+    "sub_categories": [],
+    "weight": 94
   },
   {
     "title": "Waves",
@@ -1006,10 +1133,23 @@
     "name": "waves",
     "acronym": "waves",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 92
+    "sub_categories": [],
+    "weight": 95
+  },
+  {
+    "title": "CEX",
+    "type": "application",
+    "name": "cex",
+    "acronym": "cex",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 96
   },
   {
     "title": "Computing",
@@ -1017,10 +1157,23 @@
     "name": "computing",
     "acronym": "computing",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 93
+    "sub_categories": [],
+    "weight": 97
+  },
+  {
+    "title": "DeFi",
+    "type": "application",
+    "name": "defi",
+    "acronym": "defi",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 98
   },
   {
     "title": "Deflationary",
@@ -1028,10 +1181,35 @@
     "name": "deflationary",
     "acronym": "deflationary",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 94
+    "sub_categories": [],
+    "weight": 99
+  },
+  {
+    "title": "DEX",
+    "type": "application",
+    "name": "dex",
+    "acronym": "dex",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 100
+  },
+  {
+    "title": "Derivatives",
+    "type": "application",
+    "name": "derivatives",
+    "acronym": "derivatives",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 101
   },
   {
     "title": "EVM",
@@ -1039,10 +1217,11 @@
     "name": "evm",
     "acronym": "evm",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 95
+    "sub_categories": [],
+    "weight": 102
   },
   {
     "title": "Filesharing",
@@ -1050,10 +1229,11 @@
     "name": "filesharing",
     "acronym": "filesharing",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 96
+    "sub_categories": [],
+    "weight": 103
   },
   {
     "title": "Gaming",
@@ -1061,10 +1241,11 @@
     "name": "gaming",
     "acronym": "gaming",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 97
+    "sub_categories": [],
+    "weight": 104
   },
   {
     "title": "Governance",
@@ -1072,10 +1253,11 @@
     "name": "governance",
     "acronym": "governance",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 98
+    "sub_categories": [],
+    "weight": 105
   },
   {
     "title": "Identity",
@@ -1083,10 +1265,11 @@
     "name": "identity",
     "acronym": "identity",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 99
+    "sub_categories": [],
+    "weight": 106
   },
   {
     "title": "Interest Earning",
@@ -1094,10 +1277,11 @@
     "name": "interest_earning",
     "acronym": "ie",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 100
+    "sub_categories": [],
+    "weight": 107
   },
   {
     "title": "NFT",
@@ -1105,10 +1289,47 @@
     "name": "nft",
     "acronym": "nft",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 101
+    "sub_categories": [],
+    "weight": 108
+  },
+  {
+    "title": "Oracle",
+    "type": "application",
+    "name": "oracle",
+    "acronym": "oracle",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 109
+  },
+  {
+    "title": "Privacy",
+    "type": "application",
+    "name": "privacy",
+    "acronym": "privacy",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 110
+  },
+  {
+    "title": "Smart Contracts",
+    "type": "application",
+    "name": "smart_contracts",
+    "acronym": "sc",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 111
   },
   {
     "title": "Stablecoin",
@@ -1116,10 +1337,11 @@
     "name": "stablecoin",
     "acronym": "stablecoin",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 102
+    "sub_categories": [],
+    "weight": 112
   },
   {
     "title": "Storage",
@@ -1127,10 +1349,59 @@
     "name": "storage",
     "acronym": "storage",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.989Z",
-    "updated_at": "2022-08-22T08:17:57.989Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 103
+    "sub_categories": [],
+    "weight": 113
+  },
+  {
+    "title": "Yield Farming",
+    "type": "application",
+    "name": "yield_farming",
+    "acronym": "yf",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 114
+  },
+  {
+    "title": "Proof of Work",
+    "type": "consensus",
+    "name": "proof_of work",
+    "acronym": "pow",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 115
+  },
+  {
+    "title": "Proof of Stake",
+    "type": "consensus",
+    "name": "proof_of stake",
+    "acronym": "pos",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 116
+  },
+  {
+    "title": "Delegated PoS",
+    "type": "consensus",
+    "name": "delegated_pos",
+    "acronym": "dp",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 117
   },
   {
     "title": "Masternode Coins",
@@ -1138,10 +1409,11 @@
     "name": "masternode_coins",
     "acronym": "mc",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 104
+    "sub_categories": [],
+    "weight": 118
   },
   {
     "title": "Advertising",
@@ -1149,10 +1421,11 @@
     "name": "advertising",
     "acronym": "advertising",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 105
+    "sub_categories": [],
+    "weight": 119
   },
   {
     "title": "AI",
@@ -1160,10 +1433,11 @@
     "name": "ai",
     "acronym": "ai",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 106
+    "sub_categories": [],
+    "weight": 120
   },
   {
     "title": "Art",
@@ -1171,10 +1445,11 @@
     "name": "art",
     "acronym": "art",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 107
+    "sub_categories": [],
+    "weight": 121
   },
   {
     "title": "Business Service",
@@ -1182,10 +1457,11 @@
     "name": "business_service",
     "acronym": "bs",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 108
+    "sub_categories": [],
+    "weight": 122
   },
   {
     "title": "Cannabis",
@@ -1193,10 +1469,11 @@
     "name": "cannabis",
     "acronym": "cannabis",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 109
+    "sub_categories": [],
+    "weight": 123
   },
   {
     "title": "Charity",
@@ -1204,10 +1481,11 @@
     "name": "charity",
     "acronym": "charity",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 110
+    "sub_categories": [],
+    "weight": 124
   },
   {
     "title": "Communication",
@@ -1215,10 +1493,11 @@
     "name": "communication",
     "acronym": "communication",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 111
+    "sub_categories": [],
+    "weight": 125
   },
   {
     "title": "Content Creation",
@@ -1226,10 +1505,11 @@
     "name": "content_creation",
     "acronym": "cc",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 112
+    "sub_categories": [],
+    "weight": 126
   },
   {
     "title": "Crowdfunding",
@@ -1237,10 +1517,11 @@
     "name": "crowdfunding",
     "acronym": "crowdfunding",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 113
+    "sub_categories": [],
+    "weight": 127
   },
   {
     "title": "Cybersecurity",
@@ -1248,10 +1529,11 @@
     "name": "cybersecurity",
     "acronym": "cybersecurity",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 114
+    "sub_categories": [],
+    "weight": 128
   },
   {
     "title": "Debit Cards",
@@ -1259,10 +1541,11 @@
     "name": "debit_cards",
     "acronym": "dc",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 115
+    "sub_categories": [],
+    "weight": 129
   },
   {
     "title": "eCommerce",
@@ -1270,10 +1553,11 @@
     "name": "ecommerce",
     "acronym": "ecommerce",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 116
+    "sub_categories": [],
+    "weight": 130
   },
   {
     "title": "Education",
@@ -1281,10 +1565,11 @@
     "name": "education",
     "acronym": "education",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 117
+    "sub_categories": [],
+    "weight": 131
   },
   {
     "title": "Energy",
@@ -1292,10 +1577,11 @@
     "name": "energy",
     "acronym": "energy",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 118
+    "sub_categories": [],
+    "weight": 132
   },
   {
     "title": "Entertainment",
@@ -1303,10 +1589,11 @@
     "name": "entertainment",
     "acronym": "entertainment",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 119
+    "sub_categories": [],
+    "weight": 133
   },
   {
     "title": "Exchange",
@@ -1314,10 +1601,11 @@
     "name": "exchange",
     "acronym": "exchange",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 120
+    "sub_categories": [],
+    "weight": 134
   },
   {
     "title": "Fan Tokens",
@@ -1325,10 +1613,11 @@
     "name": "fan_tokens",
     "acronym": "ft",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 121
+    "sub_categories": [],
+    "weight": 135
   },
   {
     "title": "Gambling",
@@ -1336,10 +1625,11 @@
     "name": "gambling",
     "acronym": "gambling",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 122
+    "sub_categories": [],
+    "weight": 136
   },
   {
     "title": "Healthcare",
@@ -1347,10 +1637,11 @@
     "name": "healthcare",
     "acronym": "healthcare",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 123
+    "sub_categories": [],
+    "weight": 137
   },
   {
     "title": "Insurance",
@@ -1358,10 +1649,11 @@
     "name": "insurance",
     "acronym": "insurance",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 124
+    "sub_categories": [],
+    "weight": 138
   },
   {
     "title": "IoT",
@@ -1369,10 +1661,11 @@
     "name": "iot",
     "acronym": "iot",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 125
+    "sub_categories": [],
+    "weight": 139
   },
   {
     "title": "Jobs",
@@ -1380,10 +1673,11 @@
     "name": "jobs",
     "acronym": "jobs",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 126
+    "sub_categories": [],
+    "weight": 140
   },
   {
     "title": "LendingBorrowing",
@@ -1391,10 +1685,11 @@
     "name": "lendingborrowing",
     "acronym": "lendingborrowing",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 127
+    "sub_categories": [],
+    "weight": 141
   },
   {
     "title": "Marketplace",
@@ -1402,10 +1697,11 @@
     "name": "marketplace",
     "acronym": "marketplace",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 128
+    "sub_categories": [],
+    "weight": 142
   },
   {
     "title": "Media",
@@ -1413,10 +1709,11 @@
     "name": "media",
     "acronym": "media",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 129
+    "sub_categories": [],
+    "weight": 143
   },
   {
     "title": "Meme",
@@ -1424,10 +1721,23 @@
     "name": "meme",
     "acronym": "meme",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 130
+    "sub_categories": [],
+    "weight": 144
+  },
+  {
+    "title": "Metaverse",
+    "type": "crypto",
+    "name": "metaverse",
+    "acronym": "metaverse",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 145
   },
   {
     "title": "Prediction",
@@ -1435,10 +1745,11 @@
     "name": "prediction",
     "acronym": "prediction",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 131
+    "sub_categories": [],
+    "weight": 146
   },
   {
     "title": "Real Estate",
@@ -1446,10 +1757,11 @@
     "name": "real_estate",
     "acronym": "re",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 132
+    "sub_categories": [],
+    "weight": 147
   },
   {
     "title": "Social",
@@ -1457,10 +1769,23 @@
     "name": "social",
     "acronym": "social",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 133
+    "sub_categories": [],
+    "weight": 148
+  },
+  {
+    "title": "Sports",
+    "type": "crypto",
+    "name": "sports",
+    "acronym": "sports",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 149
   },
   {
     "title": "Transportation",
@@ -1468,10 +1793,11 @@
     "name": "transportation",
     "acronym": "transportation",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 134
+    "sub_categories": [],
+    "weight": 150
   },
   {
     "title": "Travel",
@@ -1479,10 +1805,11 @@
     "name": "travel",
     "acronym": "travel",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 135
+    "sub_categories": [],
+    "weight": 151
   },
   {
     "title": "Virtual Reality",
@@ -1490,10 +1817,11 @@
     "name": "virtual_reality",
     "acronym": "vr",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 136
+    "sub_categories": [],
+    "weight": 152
   },
   {
     "title": "Wrapped Tokens",
@@ -1501,10 +1829,11 @@
     "name": "wrapped_tokens",
     "acronym": "wt",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 137
+    "sub_categories": [],
+    "weight": 153
   },
   {
     "title": "Abandoned",
@@ -1512,10 +1841,11 @@
     "name": "abandoned",
     "acronym": "abandoned",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 138
+    "sub_categories": [],
+    "weight": 154
   },
   {
     "title": "People Directory",
@@ -1523,10 +1853,11 @@
     "name": "people_directory",
     "acronym": "pd",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 139
+    "sub_categories": [],
+    "weight": 155
   },
   {
     "title": "Athletes",
@@ -1534,10 +1865,11 @@
     "name": "athletes",
     "acronym": "athletes",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 140
+    "sub_categories": [],
+    "weight": 156
   },
   {
     "title": "Bitcoin Maxis",
@@ -1545,10 +1877,11 @@
     "name": "bitcoin_maxis",
     "acronym": "bm",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 141
+    "sub_categories": [],
+    "weight": 157
   },
   {
     "title": "Celebrities",
@@ -1556,10 +1889,11 @@
     "name": "celebrities",
     "acronym": "celebrities",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 142
+    "sub_categories": [],
+    "weight": 158
   },
   {
     "title": "Cosmos Eco",
@@ -1567,10 +1901,11 @@
     "name": "cosmos_eco",
     "acronym": "ce",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 143
+    "sub_categories": [],
+    "weight": 159
   },
   {
     "title": "Founders",
@@ -1578,10 +1913,11 @@
     "name": "founders",
     "acronym": "founders",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 144
+    "sub_categories": [],
+    "weight": 160
   },
   {
     "title": "Economists",
@@ -1589,10 +1925,11 @@
     "name": "economists",
     "acronym": "economists",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 145
+    "sub_categories": [],
+    "weight": 161
   },
   {
     "title": "Ethereum Eco",
@@ -1600,10 +1937,11 @@
     "name": "ethereum_eco",
     "acronym": "ee",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 146
+    "sub_categories": [],
+    "weight": 162
   },
   {
     "title": "Executives",
@@ -1611,10 +1949,11 @@
     "name": "executives",
     "acronym": "executives",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 147
+    "sub_categories": [],
+    "weight": 163
   },
   {
     "title": "Influencers",
@@ -1622,10 +1961,11 @@
     "name": "influencers",
     "acronym": "influencers",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 148
+    "sub_categories": [],
+    "weight": 164
   },
   {
     "title": "Investors",
@@ -1633,10 +1973,11 @@
     "name": "investors",
     "acronym": "investors",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 149
+    "sub_categories": [],
+    "weight": 165
   },
   {
     "title": "Market Analysts",
@@ -1644,10 +1985,11 @@
     "name": "market_analysts",
     "acronym": "ma",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 150
+    "sub_categories": [],
+    "weight": 166
   },
   {
     "title": "NFT Artists",
@@ -1655,10 +1997,11 @@
     "name": "nft_artists",
     "acronym": "na",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 151
+    "sub_categories": [],
+    "weight": 167
   },
   {
     "title": "Politicians",
@@ -1666,10 +2009,11 @@
     "name": "politicians",
     "acronym": "politicians",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 152
+    "sub_categories": [],
+    "weight": 168
   },
   {
     "title": "Programmers",
@@ -1677,10 +2021,11 @@
     "name": "programmers",
     "acronym": "programmers",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 153
+    "sub_categories": [],
+    "weight": 169
   },
   {
     "title": "Regulators",
@@ -1688,10 +2033,11 @@
     "name": "regulators",
     "acronym": "regulators",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 154
+    "sub_categories": [],
+    "weight": 170
   },
   {
     "title": "Company Directory",
@@ -1699,10 +2045,11 @@
     "name": "company_directory",
     "acronym": "cd",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 155
+    "sub_categories": [],
+    "weight": 171
   },
   {
     "title": "Accelerators",
@@ -1710,10 +2057,11 @@
     "name": "accelerators",
     "acronym": "accelerators",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 156
+    "sub_categories": [],
+    "weight": 172
   },
   {
     "title": "Advisory",
@@ -1721,10 +2069,11 @@
     "name": "advisory",
     "acronym": "advisory",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 157
+    "sub_categories": [],
+    "weight": 173
   },
   {
     "title": "Asset Management",
@@ -1732,10 +2081,11 @@
     "name": "asset_management",
     "acronym": "am",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 158
+    "sub_categories": [],
+    "weight": 174
   },
   {
     "title": "Brokers",
@@ -1743,10 +2093,11 @@
     "name": "brokers",
     "acronym": "brokers",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 159
+    "sub_categories": [],
+    "weight": 175
   },
   {
     "title": "Development",
@@ -1754,10 +2105,59 @@
     "name": "development",
     "acronym": "development",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 160
+    "sub_categories": [],
+    "weight": 176
+  },
+  {
+    "title": "Education",
+    "type": "company",
+    "name": "education",
+    "acronym": "education",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 177
+  },
+  {
+    "title": "Exchanges",
+    "type": "company",
+    "name": "exchanges",
+    "acronym": "exchanges",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 178
+  },
+  {
+    "title": "Legal",
+    "type": "company",
+    "name": "legal",
+    "acronym": "legal",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 179
+  },
+  {
+    "title": "Lending",
+    "type": "company",
+    "name": "lending",
+    "acronym": "lending",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 180
   },
   {
     "title": "Manufacturing",
@@ -1765,10 +2165,11 @@
     "name": "manufacturing",
     "acronym": "manufacturing",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 161
+    "sub_categories": [],
+    "weight": 181
   },
   {
     "title": "Marketing",
@@ -1776,10 +2177,23 @@
     "name": "marketing",
     "acronym": "marketing",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 162
+    "sub_categories": [],
+    "weight": 182
+  },
+  {
+    "title": "Media",
+    "type": "company",
+    "name": "media",
+    "acronym": "media",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 183
   },
   {
     "title": "NFT Marketplaces",
@@ -1787,10 +2201,11 @@
     "name": "nft_marketplaces",
     "acronym": "nm",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 163
+    "sub_categories": [],
+    "weight": 184
   },
   {
     "title": "Nonprofits",
@@ -1798,10 +2213,23 @@
     "name": "nonprofits",
     "acronym": "nonprofits",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 164
+    "sub_categories": [],
+    "weight": 185
+  },
+  {
+    "title": "Research",
+    "type": "company",
+    "name": "research",
+    "acronym": "research",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 186
   },
   {
     "title": "Retail",
@@ -1809,10 +2237,11 @@
     "name": "retail",
     "acronym": "retail",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 165
+    "sub_categories": [],
+    "weight": 187
   },
   {
     "title": "Software",
@@ -1820,10 +2249,11 @@
     "name": "software",
     "acronym": "software",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 166
+    "sub_categories": [],
+    "weight": 188
   },
   {
     "title": "Venture Capital",
@@ -1831,10 +2261,35 @@
     "name": "venture_capital",
     "acronym": "vc",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 167
+    "sub_categories": [],
+    "weight": 189
+  },
+  {
+    "title": "Product Directory",
+    "type": "product",
+    "name": "product_directory",
+    "acronym": "pd",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 190
+  },
+  {
+    "title": "ASIC Miners",
+    "type": "product",
+    "name": "asic_miners",
+    "acronym": "am",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 191
   },
   {
     "title": "Blockchain Explorers",
@@ -1842,10 +2297,11 @@
     "name": "blockchain_explorers",
     "acronym": "be",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 168
+    "sub_categories": [],
+    "weight": 192
   },
   {
     "title": "Social App",
@@ -1853,10 +2309,11 @@
     "name": "social_app",
     "acronym": "sa",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 169
+    "sub_categories": [],
+    "weight": 193
   },
   {
     "title": "Games",
@@ -1864,10 +2321,11 @@
     "name": "games",
     "acronym": "games",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 170
+    "sub_categories": [],
+    "weight": 194
   },
   {
     "title": "Hard Wallets",
@@ -1875,10 +2333,23 @@
     "name": "hard_wallets",
     "acronym": "hw",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 171
+    "sub_categories": [],
+    "weight": 195
+  },
+  {
+    "title": "Mining Cards",
+    "type": "product",
+    "name": "mining_cards",
+    "acronym": "mc",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 196
   },
   {
     "title": "Price Tracking Apps",
@@ -1886,10 +2357,11 @@
     "name": "price_tracking apps",
     "acronym": "pta",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 172
+    "sub_categories": [],
+    "weight": 197
   },
   {
     "title": "Trading Apps",
@@ -1897,20 +2369,82 @@
     "name": "trading_apps",
     "acronym": "ta",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 173
+    "sub_categories": [],
+    "weight": 198
   },
   {
-    "title": "technology",
+    "title": "Wallets",
+    "type": "product",
+    "name": "wallets",
+    "acronym": "wallets",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 199
+  },
+  {
+    "title": "Technology",
     "type": "company",
     "name": "technology",
     "acronym": "technology",
     "deleted": false,
-    "created_at": "2022-08-22T08:17:57.990Z",
-    "updated_at": "2022-08-22T08:17:57.990Z",
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
     "created_by": "admin",
-    "weight": 174
+    "sub_categories": [],
+    "weight": 200
+  },
+  {
+    "title": "Analysis",
+    "type": "exploration",
+    "name": "analysis",
+    "acronym": "analysis",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 201
+  },
+  {
+    "title": "Portal",
+    "type": "exploration",
+    "sub_categories": ["630902086b72c43940d8fe89", "630902086b72c43940d8fe8a", "630902086b72c43940d8fe8b"],
+    "name": "portal",
+    "acronym": "portal",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "weight": 202
+  },
+  {
+    "title": "For Newbies",
+    "type": "exploration",
+    "sub_categories": ["630902086b72c43940d8fe8d", "630902086b72c43940d8fe8c"],
+    "name": "for_newbies",
+    "acronym": "fn",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "weight": 203
+  },
+  {
+    "title": "Opportunity",
+    "type": "exploration",
+    "name": "opportunity",
+    "acronym": "opportunity",
+    "deleted": false,
+    "created_at": "2022-08-26T17:25:28.539Z",
+    "updated_at": "2022-08-26T17:25:28.539Z",
+    "created_by": "admin",
+    "sub_categories": [],
+    "weight": 204
   }
 ]

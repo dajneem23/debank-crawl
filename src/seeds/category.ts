@@ -6,7 +6,7 @@ import categories_crypto from '../data/crypto_slate/json/cryptoasset-categories.
 import categories_news from '../data/crypto_slate/json/news-categories.json';
 import categories_crypto_2 from '../data/crypto_slate/json/crypto-categories.json';
 import categoriesFile from '../data/crypto_slate/json/categories.json';
-import addon_categories from '../data/crypto_slate/json/addon_categories.json';
+import addon_categories from '../data/addon_categories.json';
 // import categories_crypto from '../data/categories_crypto_asset.json';
 import mongoDBLoader from '@/loaders/mongoDBLoader';
 import { $countCollection } from '@/utils/mongoDB';
@@ -110,52 +110,105 @@ export const CategorySeed = async () => {
       }),
       ...addon_categories,
     ];
-    const uniqueCategories = categories
-      .map((item) => {
-        return {
-          ...item,
-          title: item.title
-            .match(/[a-zA-Z0-9_ ]+/g)
-            .join('')
-            .trim(),
-          name: item.title
-            .toLowerCase()
-            .match(/[a-zA-Z0-9_ ]+/g)
-            .join('')
-            .trim()
-            .replace(' ', '_'),
-          acronym: item.title
-            .toLowerCase()
-            .match(/[a-zA-Z0-9_ ]+/g)
-            .join('')
-            .trim()
-            .split(' ')
-            .map((word: any, _: any, list: any) => {
-              return list.length > 1 ? word[0] : list.slice(0, 1);
-            })
-            .join(''),
-          deleted: false,
-          created_at: new Date(),
-          updated_at: new Date(),
-          created_by: 'admin',
-        };
-      })
-      .filter((item, index, self) => {
-        return (
-          self.findIndex((t) => {
-            return t.name === item.name;
-          }) === index &&
-          self.findIndex((t) => {
-            return t.acronym === item.acronym;
-          }) === index
-        );
-      })
-      .map((item, index) => {
-        return {
-          ...item,
-          weight: index + 1,
-        };
-      });
+    const uniqueCategories = await Promise.all(
+      categories
+        .map((item) => {
+          return {
+            ...item,
+            title: item.title
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim(),
+            name: item.title
+              .toLowerCase()
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim()
+              .replace(' ', '_'),
+            acronym: item.title
+              .toLowerCase()
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim()
+              .split(' ')
+              .map((word: any, _: any, list: any) => {
+                return list.length > 1 ? word[0] : list.slice(0, 1);
+              })
+              .join(''),
+            deleted: false,
+            created_at: new Date(),
+            updated_at: new Date(),
+            created_by: 'admin',
+          };
+        })
+        .filter((item, index, self) => {
+          return (
+            self.findIndex((t) => {
+              return t.name === item.name && t.type === item.type;
+            }) === index &&
+            self.findIndex((t) => {
+              return t.acronym === item.acronym && t.type === item.type;
+            }) === index
+          );
+        })
+        .map(async (item: any, index) => {
+          return {
+            ...item,
+            sub_categories:
+              (await Promise.all(
+                item?.sub_categories?.map(async (item: any) => {
+                  return (
+                    await db.collection('categories').findOneAndUpdate(
+                      {
+                        name: {
+                          $regex: item.title
+                            .toLowerCase()
+                            .match(/[a-zA-Z0-9_ ]+/g)
+                            .join('')
+                            .trim()
+                            .replace(' ', '_'),
+                          $options: 'i',
+                        },
+                      },
+                      {
+                        $setOnInsert: {
+                          title: item.title,
+                          type: item.type,
+                          name: item.title
+                            .toLowerCase()
+                            .match(/[a-zA-Z0-9_ ]+/g)
+                            .join('')
+                            .trim()
+                            .replace(' ', '_'),
+                          acronym: item.title
+                            .toLowerCase()
+                            .match(/[a-zA-Z0-9_ ]+/g)
+                            .join('')
+                            .trim()
+                            .split(' ')
+                            .map((word: any, _: any, list: any) => {
+                              return list.length > 1 ? word[0] : list.slice(0, 1);
+                            })
+                            .join(''),
+                          weight: Math.floor(Math.random() * 100),
+                          deleted: false,
+                          created_at: new Date(),
+                          updated_at: new Date(),
+                          created_by: 'admin',
+                        },
+                      },
+                      {
+                        upsert: true,
+                        returnDocument: 'after',
+                      },
+                    )
+                  ).value._id;
+                }) ?? [],
+              )) ?? [],
+            weight: index + 1,
+          };
+        }),
+    );
     console.log('Inserting categories', uniqueCategories.length);
     fs.writeFileSync(
       `${__dirname}/data/categories_final.json`,

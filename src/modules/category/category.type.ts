@@ -7,6 +7,8 @@ export interface Category extends BaseModel {
 
   name?: string;
 
+  sub_categories?: string[];
+
   acronym?: string;
   // weight
   weight?: number;

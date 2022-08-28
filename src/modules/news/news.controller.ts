@@ -71,6 +71,15 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
+  @Get('/search')
+  async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.search({
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
   @Get('/related', [NewsValidation.getRelated, protect()])
   async getRelated(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
     const { filter, query } = buildQueryFilter(_query);

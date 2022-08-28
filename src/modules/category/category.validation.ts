@@ -8,6 +8,7 @@ export const CategoryValidation = {
       name: Joi.string().required(),
       acronym: Joi.string(),
       weight: Joi.number().required(),
+      sub_categories: Joi.array().items(Joi.string().pattern(ObjectIdPattern)),
       type: Joi.string()
         .valid(...Object.values(CATEGORY_TYPE))
         .required(),
@@ -18,6 +19,7 @@ export const CategoryValidation = {
       title: Joi.string(),
       weight: Joi.number(),
       name: Joi.string(),
+      sub_categories: Joi.array().items(Joi.string().pattern(ObjectIdPattern)),
       acronym: Joi.string(),
       type: Joi.string().valid(...Object.values(CATEGORY_TYPE)),
     }),

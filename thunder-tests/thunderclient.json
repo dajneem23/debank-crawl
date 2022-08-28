@@ -723,11 +723,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
     "name": "getByID",
-    "url": "{{host}}/coins/62fb29c1dd4fe349334b9409",
+    "url": "{{host}}/coins/630446743ee0ec7f347dcd13",
     "method": "GET",
     "sortNum": 210000,
     "created": "2022-08-16T07:22:34.600Z",
-    "modified": "2022-08-16T07:35:07.772Z",
+    "modified": "2022-08-25T04:56:58.789Z",
     "headers": [],
     "params": [],
     "auth": {
@@ -848,12 +848,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-22T07:41:46.420Z",
-    "modified": "2022-08-24T03:05:15.253Z",
+    "modified": "2022-08-26T19:18:57.330Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"slug\": \"asd\",\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630446723ee0ec7f347dc848\"\n    ],\n    \"source\":\"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\":[\n    \"Weiss Crypto Ratings\",\n    \"Ava Labs\",\n    \"ShapeShift\"\n    ],\n    \"coin_tags\":[\n        \"CFX\",\n        \"NIX\"\n    ],\n    \"keywords\":[\n        \"trending\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"asd\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"asdads\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "raw": "{\n    \"slug\": \"huhu\",\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630902086b72c43940d8fe89\"\n    ],\n    \"source\":\"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\":[\n    \"Weiss Crypto Ratings\",\n    \"Ava Labs\",\n    \"ShapeShift\"\n    ],\n    \"coin_tags\":[\n        \"CFX\",\n        \"NIX\"\n    ],\n    \"keywords\":[\n        \"trending\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -960,6 +960,81 @@
       {
         "name": "per_page",
         "value": "2",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "42edd823-6a3a-4273-8e8c-fa5b50be0166",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
+    "name": "getById",
+    "url": "{{host}}/news/63059330c5f5e348e93e0f78",
+    "method": "GET",
+    "sortNum": 310000,
+    "created": "2022-08-26T17:38:29.722Z",
+    "modified": "2022-08-26T17:50:54.264Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "a0844735-4885-40aa-9e47-3daec5aea682",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "name": "favorite-news",
+    "url": "{{host}}/users/me/favorite-news/63059330c5f5e348e93e0f78",
+    "method": "PATCH",
+    "sortNum": 330000,
+    "created": "2022-08-26T18:17:11.940Z",
+    "modified": "2022-08-26T18:19:06.435Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTUzNzg0MSwiZXhwIjoxNjYyNDAxODQxfQ.cFxt-0-vXgqt9esGD6OxbeKijtjxbrto8BNst4NpLX0"
+    },
+    "tests": []
+  },
+  {
+    "_id": "16c8bfd4-6f7e-4409-a484-66d9906b6f3f",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "name": "save-news",
+    "url": "{{host}}/users/me/save-news/63059330c5f5e348e93e0f78",
+    "method": "PATCH",
+    "sortNum": 340000,
+    "created": "2022-08-26T18:23:08.472Z",
+    "modified": "2022-08-26T18:23:27.326Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTUzNzg0MSwiZXhwIjoxNjYyNDAxODQxfQ.cFxt-0-vXgqt9esGD6OxbeKijtjxbrto8BNst4NpLX0"
+    },
+    "tests": []
+  },
+  {
+    "_id": "452ad91a-6361-4879-9aa9-dd4ca476e681",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
+    "name": "search",
+    "url": "{{host}}/news/search?q=h&lang=vi&page=1",
+    "method": "GET",
+    "sortNum": 340000,
+    "created": "2022-08-26T18:33:50.549Z",
+    "modified": "2022-08-26T19:50:06.589Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "h",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
         "isPath": false
       },
       {

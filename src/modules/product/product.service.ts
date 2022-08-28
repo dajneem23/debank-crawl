@@ -41,7 +41,7 @@ export class ProductService {
     //   'author',
     // ];
 
-    return Object.keys(_product);
+    return ['id'].concat(Object.keys(_product));
   }
   /**
    *  Lookups

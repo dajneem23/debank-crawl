@@ -7,9 +7,10 @@ import { Filter } from 'mongodb';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter } from '@/utils/mongoDB';
-import { CategoryModel, CategoryError, CategoryOutput, Category } from '.';
+import { CategoryModel, CategoryError, CategoryOutput, Category, _category } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
+import { _product } from '@/modules';
 
 @Service()
 export class CategoryService {
@@ -36,7 +37,8 @@ export class CategoryService {
   }
 
   get outputKeys() {
-    return ['id', 'title', 'weight', 'type'];
+    // return ['id', 'title', 'weight', 'type'];
+    return ['id'].concat(Object.keys(_category));
   }
 
   /**

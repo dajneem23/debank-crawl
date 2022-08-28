@@ -16,7 +16,8 @@ export class CoinModel {
     Promise.all([
       // Unique ID
 
-      this._collection.createIndex('name', { unique: false }),
+      this._collection.createIndex({ name: 'text' }, { unique: false }),
+      this._collection.createIndex({ name: 1 }, { unique: false }),
 
       this._collection.createIndex('token_id', { unique: false }),
     ]).catch((err) => {

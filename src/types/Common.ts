@@ -194,6 +194,7 @@ export type BaseServiceInput = {
     q: string;
     [key: string]: any;
   };
+  _permission?: 'public' | 'private';
 };
 
 export type BaseServiceOutput = {

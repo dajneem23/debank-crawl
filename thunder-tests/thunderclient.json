@@ -1097,5 +1097,174 @@
       }
     ],
     "tests": []
+  },
+  {
+    "_id": "53cfd99a-d35e-4ba7-baef-cde76873f5f7",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "name": "query by admin",
+    "url": "{{host}}/companies/private/?page=1&per_page=2",
+    "method": "GET",
+    "sortNum": 175000,
+    "created": "2022-08-28T13:32:33.731Z",
+    "modified": "2022-08-28T13:33:36.717Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTY5MzU3MiwiZXhwIjoxNjYyNTU3NTcyfQ.oOmNfqZUqbTfaJJCcRHE6vO_6L_qb9VRFWNP8sFAPAQ"
+    },
+    "tests": []
+  },
+  {
+    "_id": "071377f8-4805-47e2-9bc3-7da875acf36c",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "d648cc53-04e8-4fe4-82f3-3e3475bbcc85",
+    "name": "search",
+    "url": "{{host}}/products/search/?page=1&per_page=5&q=bot",
+    "method": "GET",
+    "sortNum": 350000,
+    "created": "2022-08-28T13:44:42.325Z",
+    "modified": "2022-08-28T13:57:26.568Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "bot",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "925c0973-a3cf-432d-aa48-16e97e4e97ae",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
+    "name": "search",
+    "url": "{{host}}/persons/search/?page=1&per_page=5&q=Arry",
+    "method": "GET",
+    "sortNum": 360000,
+    "created": "2022-08-28T13:45:57.492Z",
+    "modified": "2022-08-28T13:46:39.359Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "Arry",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "1d985338-dfc8-4e4e-a7f0-fdaac1e721f3",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "name": "search",
+    "url": "{{host}}/events/search/?q=haid hydra",
+    "method": "GET",
+    "sortNum": 370000,
+    "created": "2022-08-28T13:52:14.472Z",
+    "modified": "2022-08-28T13:53:08.076Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "haid hydra",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "60699c69-aa2c-4ccf-bdb9-ca09c4703b17",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
+    "name": "search",
+    "url": "{{host}}/coins/search/?page=1&per_page=2&q=free coin",
+    "method": "GET",
+    "sortNum": 380000,
+    "created": "2022-08-28T14:00:15.102Z",
+    "modified": "2022-08-28T14:01:19.034Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "free coin",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "0b38a368-5879-470c-bb7c-b0b749b5c750",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "name": "search",
+    "url": "{{host}}/companies/search/?page=1&per_page=2&q=Dapper",
+    "method": "GET",
+    "sortNum": 390000,
+    "created": "2022-08-28T14:04:47.242Z",
+    "modified": "2022-08-28T14:06:00.558Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "Dapper",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]

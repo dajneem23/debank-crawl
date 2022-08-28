@@ -207,7 +207,7 @@ export type BaseServiceOutput = {
 export type TeamPerson = {
   name: string;
   position: string;
-  contacts: Array<{
+  contacts?: Array<{
     name: string;
     url: string;
   }>;

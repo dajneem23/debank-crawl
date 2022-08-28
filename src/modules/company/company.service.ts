@@ -5,7 +5,7 @@ import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
-import { CompanyModel, CompanyError } from '.';
+import { CompanyModel, CompanyError, _company } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 
@@ -34,23 +34,7 @@ export class CompanyService {
   }
 
   get outputKeys() {
-    return [
-      'id',
-      'name',
-      'director',
-      'country',
-      'headquarter',
-      'categories',
-      'galleries',
-      'crypto_currencies',
-      'portfolios',
-      'features',
-      'services',
-      'author',
-      'verified',
-      'location',
-      'short_description',
-    ];
+    return ['id'].concat(Object.keys(_company));
   }
   get publicOutputKeys() {
     return ['id', 'avatar', 'short_description', 'name'];
@@ -186,11 +170,8 @@ export class CompanyService {
           $setOnInsert: {
             ..._content,
             categories: categories ? $toObjectId(categories) : [],
-            projects: projects ? $toObjectId(projects) : [],
             team: team ? $toObjectId(team) : [],
             products: products ? $toObjectId(products) : [],
-            crypto_currencies: crypto_currencies ? $toObjectId(crypto_currencies) : [],
-            country: country ? $toObjectId(country) : '',
             deleted: false,
             ...(_subject && { created_by: _subject }),
             created_at: now,

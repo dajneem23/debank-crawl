@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
-import { ProductError, ProductModel, _product } from '.';
+import { ProductError, ProductModel, _product, Product } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 
@@ -26,20 +26,22 @@ export class ProductService {
   }
 
   get outputKeys() {
-    return [
-      'id',
-      'name',
-      'director',
-      'country',
-      'headquarter',
-      'categories',
-      'galleries',
-      'crypto_currencies',
-      'portfolios',
-      'features',
-      'services',
-      'author',
-    ];
+    // return [
+    //   'id',
+    //   'name',
+    //   'director',
+    //   'country',
+    //   'headquarter',
+    //   'categories',
+    //   'galleries',
+    //   'crypto_currencies',
+    //   'portfolios',
+    //   'features',
+    //   'services',
+    //   'author',
+    // ];
+
+    return Object.keys(_product);
   }
   /**
    *  Lookups

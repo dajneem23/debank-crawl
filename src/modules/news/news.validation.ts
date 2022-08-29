@@ -4,8 +4,6 @@ import { ObjectIdPattern } from '@/utils/common';
 export const NewsValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
-      slug: Joi.string().required(),
-
       photos: Joi.array().items(Joi.string()),
 
       categories: Joi.array().items(Joi.string()),
@@ -30,9 +28,11 @@ export const NewsValidation = {
 
       keywords: Joi.array().items(Joi.string()),
 
-      company_tags: Joi.array().items(Joi.string()),
+      company_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-      coin_tags: Joi.array().items(Joi.string()),
+      coin_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+      product_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
     }),
   }),
   update: validate({
@@ -61,9 +61,11 @@ export const NewsValidation = {
 
       keywords: Joi.array().items(Joi.string()),
 
-      company_tags: Joi.array().items(Joi.string()),
+      company_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-      coin_tags: Joi.array().items(Joi.string()),
+      coin_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+      product_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
@@ -77,6 +79,14 @@ export const NewsValidation = {
   getById: validate({
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
+    }),
+    [Segments.QUERY]: Joi.object({
+      lang: Joi.string().required(),
+    }),
+  }),
+  getBySlug: validate({
+    [Segments.PARAMS]: Joi.object({
+      slug: Joi.string().required(),
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string().required(),
@@ -99,10 +109,10 @@ export const NewsValidation = {
     [Segments.QUERY]: Joi.object({
       page: Joi.number().default(1).min(1),
       per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
+      // sort_by: Joi.string(),
+      // sort_order: Joi.string()
+      //   .default(ORDER.ASC)
+      //   .valid(...Object.values(ORDER)),
       q: Joi.string(),
       lang: Joi.string().required(),
     }),

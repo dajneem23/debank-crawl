@@ -25,6 +25,7 @@ export interface News extends BaseModel {
   number_relate_article?: number;
 
   contents: Array<{
+    slug: string;
     title: string;
     summary: string;
     content: string;

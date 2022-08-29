@@ -253,6 +253,7 @@ export class CoinService {
         .aggregate(
           $pagination({
             $match: {
+              $and: [{ deleted: false }],
               ...(q && {
                 $or: [
                   { name: { $regex: q, $options: 'i' } },

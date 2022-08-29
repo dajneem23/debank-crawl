@@ -6,6 +6,7 @@ import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from 
 import { CoinError, CoinModel } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit, rest } from 'lodash';
+import { _coin } from '@/modules';
 
 @Service()
 export class CoinService {
@@ -26,24 +27,7 @@ export class CoinService {
   }
 
   get outputKeys() {
-    return [
-      'id',
-      'name',
-      'token_id',
-      'about',
-      'categories',
-      'blockchain',
-      'hash_algorithm',
-      'org_structure',
-      'explorer',
-      'white_paper',
-      'development_status',
-      'open_source',
-      'hardware_wallet',
-      'wallets',
-      'exchanges',
-      'author',
-    ];
+    return ['id'].concat(Object.keys(_coin));
   }
   get publicOutputKeys() {
     return ['id', 'name', 'token_id', 'about'];

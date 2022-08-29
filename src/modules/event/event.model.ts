@@ -14,8 +14,8 @@ export class EventModel {
   constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
     this._collection = db.collection<Event>(COLLECTION_NAME);
     Promise.all([
-      // Unique ID
-      this._collection.createIndex('name', { unique: false }),
+      this._collection.createIndex({ name: 'text' }, { unique: false }),
+      this._collection.createIndex({ name: 1 }, { unique: false }),
     ]).catch((err) => {
       this.logger.error(err);
     });

@@ -22,6 +22,21 @@ export const query = validate({
     country: Joi.string(),
   }),
 });
+export const search = validate({
+  [Segments.QUERY]: Joi.object({
+    page: Joi.number().default(1).min(1),
+
+    per_page: Joi.number().default(10).min(1),
+
+    sort_by: Joi.string(),
+
+    sort_order: Joi.string()
+      .default(ORDER.ASC)
+      .valid(...Object.values(ORDER)),
+
+    q: Joi.string().required(),
+  }),
+});
 export const getRelated = validate({
   [Segments.QUERY]: Joi.object({
     page: Joi.number().default(1).min(1).required(),

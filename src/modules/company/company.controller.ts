@@ -61,12 +61,33 @@ export class CompanyController {
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/', [CompanyValidation.query])
-  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+  @Get('/private', [CompanyValidation.query, protectPrivateAPI()])
+  async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
       _filter: filter,
       _query: query,
+      _permission: 'private',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/', [CompanyValidation.query])
+  async getByUser(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.query({
+      _filter: filter,
+      _query: query,
+      _permission: 'public',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/search', [CompanyValidation.search])
+  async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.search({
+      _filter: filter,
+      _query: query,
+      _permission: 'public',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

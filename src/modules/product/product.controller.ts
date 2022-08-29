@@ -70,6 +70,15 @@ export class ProductController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
+  @Get('/search', [ProductValidation.search])
+  async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.search({
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
   @Get('/:id', [ProductValidation.getById])
   async getById(
     @Res() _res: Response,

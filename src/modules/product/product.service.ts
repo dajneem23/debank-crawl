@@ -43,6 +43,10 @@ export class ProductService {
 
     return ['id'].concat(Object.keys(_product));
   }
+
+  get publicOutputKeys() {
+    return ['id', 'name', 'avatar', 'about'];
+  }
   /**
    *  Lookups
    */
@@ -326,6 +330,38 @@ export class ProductService {
       return omit(toOutPut({ item }), ['deleted', 'updated_at']);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
+      throw err;
+    }
+  }
+
+  /**
+   * Search by text index
+   * @param {BaseServiceInput} _filter _query
+   * @returns
+   */
+  async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { q, lang } = _filter;
+      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
+        .aggregate([
+          ...$pagination({
+            $match: {
+              ...(q && {
+                $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
+              }),
+            },
+            $lookups: [this.$lookups.user, this.$lookups.categories],
+            $sets: [this.$sets.country, this.$sets.author],
+
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      this.logger.debug('[query:success]', { total_count, items });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+    } catch (err) {
+      this.logger.error('[query:error]', err.message);
       throw err;
     }
   }

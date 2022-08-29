@@ -78,25 +78,30 @@ export const ProductSeed = async () => {
             rocket_chat:
               (_product.rocket_chat && _product.rocket_chat[0] && _product.rocket_chat[0]['rocket_chat-href']) || '',
 
-            informations: _product.information
+            information: _product.information
               .map((information: any) => {
                 if (!!information['information-title']) {
                   return {
-                    Blockchain: information['information-title'],
+                    blockchain: information['information-title'],
                   };
                 } else {
                   const INFORMATIONS = ['Release', 'Team Location', 'Token', 'Parent Company', 'Software License'];
                   return INFORMATIONS.map((_information) => {
                     if (information['information'].includes(_information)) {
                       return {
-                        [_information]: information['information'].replace(_information, '').trim(),
+                        [_information.toLowerCase().replace(' ', '_')]: information['information']
+                          .replace(_information, '')
+                          .trim(),
                       };
                     }
                   });
                 }
               })
               .flat()
-              .filter(Boolean),
+              .filter(Boolean)
+              .reduce((pIco: any, cIco: any) => {
+                return { ...pIco, ...cIco };
+              }, {}),
             supports: _product.supports.map((support: any) => {
               return {
                 name: support.supports,

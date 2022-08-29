@@ -50,16 +50,22 @@ export const CoinSeed = async () => {
             blockchains: _coin.blockchain_tag.map((blockchain: any) => blockchain.blockchain_tag),
             services: _coin.services.map((service: any) => service.services),
             features: _coin.features.map((feature: any) => feature.features),
-            technologies: _coin.technologies.map((technology: any) => {
-              return _coin.technology_name
-                .map((_technology_name: any) => _technology_name.technology_name)
-                .reduce((pName: any, cName: any) => {
-                  if (technology.technologies?.includes(cName)) {
-                    pName[cName.toLowerCase().replace(' ', '_')] = technology.technologies.replace(cName, '').trim();
-                  }
-                  return pName;
-                }, {});
-            }),
+            technologies: _coin.technologies
+              .map((technology: any) => {
+                return _coin.technology_name
+                  .map((_technology_name: any) => _technology_name.technology_name)
+                  .reduce((pName: any, cName: any) => {
+                    if (technology.technologies?.includes(cName)) {
+                      // pName['key'] = cName.toLowerCase().replace(' ', '_');
+                      // pName['value'] = technology.technologies.replace(cName, '').trim();
+                      pName[cName.toLowerCase().replace(' ', '_')] = technology.technologies.replace(cName, '').trim();
+                    }
+                    return pName;
+                  }, {});
+              })
+              .reduce((pIco: any, cIco: any) => {
+                return { ...pIco, ...cIco };
+              }, {}),
             exchanges: _coin.exchanges.map((exchange: any) => exchange['exchanges-title']),
             wallets: _coin.wallets.map((wallet: any) => wallet['wallets-title']),
             team: _coin.person_name.map((person_name: any) => {
@@ -76,18 +82,24 @@ export const CoinSeed = async () => {
                 name: company['company-title'],
               };
             }),
-            ico: _coin.ico_details.map((ico_detail: any) => {
-              return _coin.ico_name
-                .map((_ico_name: any) => _ico_name.ico_name)
-                .reduce((pName: any, cName: any) => {
-                  if (ico_detail.ico_details?.includes(cName)) {
-                    pName[cName.replace('ICO', '').trim().toLowerCase().replace(' ', '_')] = ico_detail.ico_details
-                      .replace(cName, '')
-                      .trim();
-                  }
-                  return pName;
-                }, {});
-            }),
+            ico: _coin.ico_details
+              .map((ico_detail: any) => {
+                return _coin.ico_name
+                  .map((_ico_name: any) => _ico_name.ico_name)
+                  .reduce((pName: any, cName: any) => {
+                    if (ico_detail.ico_details?.includes(cName)) {
+                      // pName['key'] = cName.replace('ICO', '').trim().toLowerCase();
+                      // pName['value'] = ico_detail.ico_details.replace(cName, '').trim();
+                      pName[cName.replace('ICO', '').trim().toLowerCase().replace(' ', '_')] = ico_detail.ico_details
+                        .replace(cName, '')
+                        .trim();
+                    }
+                    return pName;
+                  }, {});
+              })
+              .reduce((pIco: any, cIco: any) => {
+                return { ...pIco, ...cIco };
+              }, {}),
             deleted: false,
             created_at: new Date(),
             updated_at: new Date(),
@@ -159,7 +171,6 @@ export const CoinSeed = async () => {
           };
         }),
     );
-
     fs.writeFileSync(`${__dirname}/data/coins_final.json`, JSON.stringify(coins));
     // coins = JSON.parse(JSON.stringify(coins).replace(/null/g, '""'));
     console.log('Inserting coins', coins.length);

@@ -15,7 +15,9 @@ export class CategoryModel {
     this._collection = db.collection<Category>(COLLECTION_NAME);
     Promise.all([
       this._collection.createIndex('title', { unique: false }),
+      this._collection.createIndex({ title: 'text' }, { unique: false }),
       this._collection.createIndex('name', { unique: false }),
+      this._collection.createIndex('trans.lang', { unique: false }),
     ]).catch((err) => {
       this.logger.error(err);
     });

@@ -30,6 +30,12 @@ export interface Coin extends BaseInformationModel {
   team: TeamPerson[];
   ico: IcoDetail[];
   companies: [];
+  trans: {
+    lang: string;
+    about?: string;
+    features?: string[];
+    services?: string[];
+  }[];
 }
 
 export const _coin: Coin = {
@@ -65,4 +71,5 @@ export const _coin: Coin = {
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),
+  trans: [],
 };

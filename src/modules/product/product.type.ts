@@ -27,6 +27,10 @@ export interface Product extends BaseInformationModel {
   reddit: string;
   blog: string;
   rocket_chat: string;
+  trans: {
+    lang: string;
+    about?: string;
+  }[];
 }
 
 export const _product: Product = {
@@ -56,6 +60,7 @@ export const _product: Product = {
   reddit: '',
   blog: '',
   rocket_chat: '',
+  trans: [],
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),

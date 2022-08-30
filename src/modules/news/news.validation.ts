@@ -1,9 +1,17 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const NewsValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
+      title: Joi.string().required(),
+
+      content: Joi.string(),
+
+      headings: Joi.array().items(Joi.string()),
+
+      summary: Joi.string(),
+
       photos: Joi.array().items(Joi.string()),
 
       categories: Joi.array().items(Joi.string()),
@@ -12,13 +20,18 @@ export const NewsValidation = {
 
       number_relate_article: Joi.number(),
 
-      contents: Joi.array().items(
+      trans: Joi.array().items(
         Joi.object({
-          title: Joi.string().required(),
-          lang: Joi.string().required(),
-          content: Joi.string().required(),
-          headings: Joi.array().items(Joi.string()).required(),
-          summary: Joi.string().required(),
+          lang: Joi.string()
+            .valid(...Object.values(LANG_CODE))
+            .required()
+            .messages({
+              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+            }),
+          title: Joi.string(),
+          content: Joi.string(),
+          headings: Joi.array().items(Joi.string()),
+          summary: Joi.string(),
         }),
       ),
 
@@ -37,25 +50,38 @@ export const NewsValidation = {
   }),
   update: validate({
     [Segments.BODY]: Joi.object({
-      name: Joi.string().required(),
+      title: Joi.string(),
+
+      content: Joi.string(),
+
+      headings: Joi.array().items(Joi.string()),
+
+      summary: Joi.string(),
 
       photos: Joi.array().items(Joi.string()),
 
       categories: Joi.array().items(Joi.string()),
 
-      number_relate_article: Joi.number(),
-
       source: Joi.string(),
 
-      contents: Joi.array().items(
+      number_relate_article: Joi.number(),
+
+      trans: Joi.array().items(
         Joi.object({
-          title: Joi.string().required(),
-          lang: Joi.string(),
+          lang: Joi.string()
+            .valid(...Object.values(LANG_CODE))
+            .required()
+            .messages({
+              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+            }),
+          title: Joi.string(),
           content: Joi.string(),
           headings: Joi.array().items(Joi.string()),
           summary: Joi.string(),
         }),
       ),
+
+      stars: Joi.number(),
 
       views: Joi.number(),
 
@@ -81,7 +107,11 @@ export const NewsValidation = {
       id: Joi.string().regex(ObjectIdPattern).required(),
     }),
     [Segments.QUERY]: Joi.object({
-      lang: Joi.string().required(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
     }),
   }),
   getBySlug: validate({
@@ -89,7 +119,11 @@ export const NewsValidation = {
       slug: Joi.string().required(),
     }),
     [Segments.QUERY]: Joi.object({
-      lang: Joi.string().required(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
     }),
   }),
   query: validate({
@@ -101,7 +135,11 @@ export const NewsValidation = {
         .default(ORDER.ASC)
         .valid(...Object.values(ORDER)),
       q: Joi.string(),
-      lang: Joi.string().required(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
       category: [Joi.array().items(Joi.string()), Joi.string()],
     }),
   }),
@@ -114,7 +152,11 @@ export const NewsValidation = {
       //   .default(ORDER.ASC)
       //   .valid(...Object.values(ORDER)),
       q: Joi.string(),
-      lang: Joi.string().required(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
     }),
   }),
   getImportant: validate({
@@ -126,7 +168,11 @@ export const NewsValidation = {
         .default(ORDER.ASC)
         .valid(...Object.values(ORDER)),
       q: Joi.string(),
-      lang: Joi.string().required(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
     }),
   }),
 };

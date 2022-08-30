@@ -35,6 +35,12 @@ export interface Company extends BaseInformationModel {
   whitepaper: string;
   short_description: string;
   cryptocurrencies: string[];
+  country?: string;
+  trans: {
+    lang: string;
+    about?: string;
+    short_description?: string;
+  }[];
 }
 
 export const _company: Company = {
@@ -75,4 +81,5 @@ export const _company: Company = {
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),
+  trans: [],
 };

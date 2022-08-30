@@ -10,6 +10,11 @@ export interface Person extends BaseInformationModel {
   works?: PersonWork[];
 
   educations?: PersonEducation[];
+
+  trans: {
+    lang: string;
+    about: string;
+  }[];
 }
 
 export type PersonPosition = {
@@ -35,6 +40,7 @@ export const _person: Person = {
   position: [],
   works: [],
   educations: [],
+  trans: [],
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),

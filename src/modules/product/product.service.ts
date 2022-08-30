@@ -86,7 +86,7 @@ export class ProductService {
       }),
       countries: $lookup({
         from: 'countries',
-        refFrom: '_id',
+        refFrom: 'code',
         refTo: 'country',
         select: 'name',
         reName: 'country',

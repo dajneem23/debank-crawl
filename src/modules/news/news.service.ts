@@ -7,6 +7,7 @@ import { NewsError, NewsModel, _news } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
+import { ObjectId } from 'mongodb';
 
 @Service()
 export class NewsService {
@@ -33,30 +34,31 @@ export class NewsService {
     return this.model.collection;
   }
 
-  get childKeys() {
+  get transKeys() {
     return ['title', 'slug', 'lang', 'headings', 'summary'];
   }
 
   get outputKeys() {
+    return ['id', ...Object.keys(_news), 'author'];
+  }
+
+  get publicOutputKeys() {
     return [
       'id',
-      'keywords',
-      'company_tags',
-      'product_tags',
-      'coin_tags',
+      'title',
+      'slug',
+      'headings',
+      'summary',
+      'slug',
       'photos',
       'views',
       'stars',
-      'source',
-      'categories',
-      'author',
+      'trans',
+      'categories:',
       'number_relate_article',
       'created_at',
+      'author',
     ];
-  }
-
-  get outputQueryKeys() {
-    return ['id', 'slug', 'photos', 'views', 'stars', 'number_relate_article', 'created_at', 'title', 'lang'];
   }
 
   /**
@@ -73,7 +75,7 @@ export class NewsService {
         operation: '$in',
       }),
       coin_tags: $lookup({
-        from: 'categories',
+        from: 'coins',
         refFrom: '_id',
         refTo: 'coin_tags',
         select: 'title type',
@@ -81,7 +83,7 @@ export class NewsService {
         operation: '$in',
       }),
       company_tags: $lookup({
-        from: 'categories',
+        from: 'companies',
         refFrom: '_id',
         refTo: 'company_tags',
         select: 'title type',
@@ -89,7 +91,7 @@ export class NewsService {
         operation: '$in',
       }),
       product_tags: $lookup({
-        from: 'categories',
+        from: 'products',
         refFrom: '_id',
         refTo: 'product_tags',
         select: 'title type',
@@ -126,9 +128,9 @@ export class NewsService {
           author: { $first: '$author' },
         },
       },
-      contents: {
+      trans: {
         $set: {
-          contents: { $first: '$contents' },
+          trans: { $first: '$trans' },
         },
       },
     };
@@ -148,45 +150,70 @@ export class NewsService {
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      let { contents } = _content;
-      const { categories, coin_tags, company_tags, product_tags } = _content;
-      const categoriesIdExist =
-        !!categories || !!coin_tags || !!company_tags || !!product_tags
-          ? await $queryByList({
-              collection: 'categories',
-              values: [...categories, ...coin_tags, ...company_tags, ...product_tags].filter(Boolean),
-            })
-          : true;
-
-      if (!categoriesIdExist) {
+      let { trans = [] } = _content;
+      const { title } = _content;
+      const { categories = [], coin_tags = [], company_tags = [], product_tags = [] } = _content;
+      const validCategories = categories.length
+        ? await $queryByList({
+            collection: 'categories',
+            values: categories,
+          })
+        : true;
+      const validCoinTags = coin_tags.length
+        ? await $queryByList({
+            collection: 'coins',
+            values: coin_tags,
+          })
+        : true;
+      const validCompanyTags = company_tags.length
+        ? await $queryByList({
+            collection: 'companies',
+            values: company_tags,
+          })
+        : true;
+      const validProductTags = product_tags.length
+        ? await $queryByList({
+            collection: 'products',
+            values: product_tags,
+          })
+        : true;
+      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags)) {
         throwErr(this.error('INPUT_INVALID'));
       }
-      contents = await Promise.all(
-        contents.map(async (item: any) => {
+      trans = await Promise.all(
+        trans.map(async (item: any) => {
           const slug = item.title.replace(/ /g, '-').toLowerCase();
           return {
             ...item,
-            slug: (await this.model.collection.findOne({ 'contents.slug': slug })) ? slug + '-' + now.getTime() : slug,
+            slug: (await this.model.collection.findOne({ $or: [{ 'trans.slug': slug }, { slug }] }))
+              ? slug + '-' + now.getTime()
+              : slug,
           };
         }),
       );
+      const _slug = title.replace(/ /g, '-').toLowerCase();
+      const slug = (await this.model.collection.findOne({ $or: [{ 'trans.slug': _slug }, { slug: _slug }] }))
+        ? _slug + '-' + now.getTime()
+        : _slug;
       const {
         value,
         ok,
         lastErrorObject: { updatedExisting },
       } = await this.model.collection.findOneAndUpdate(
         {
-          'contents.slug': { $in: contents.map((item: any) => item.slug) },
+          'trans.slug': { $in: trans.map((item: any) => item.slug) },
+          slug,
         },
         {
           $setOnInsert: {
             ..._news,
             ..._content,
-            contents,
-            categories: categories ? $toObjectId(categories) : [],
-            coin_tags: coin_tags ? $toObjectId(coin_tags) : [],
-            company_tags: company_tags ? $toObjectId(company_tags) : [],
-            product_tags: product_tags ? $toObjectId(product_tags) : [],
+            trans,
+            slug,
+            ...(categories.length && { categories: $toObjectId(categories) }),
+            ...(product_tags.length && { product_tags: $toObjectId(product_tags) }),
+            ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
+            ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
             deleted: false,
             ...(_subject && { created_by: _subject }),
           },
@@ -220,24 +247,89 @@ export class NewsService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-
-      const { categories } = _content;
-      const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
-          : true;
-      if (!categoriesIdExist) {
+      const { title, trans = [] } = _content;
+      const { categories = [], coin_tags = [], company_tags = [], product_tags = [] } = _content;
+      const validCategories = categories.length
+        ? await $queryByList({
+            collection: 'categories',
+            values: categories,
+          })
+        : true;
+      const validCoinTags = coin_tags.length
+        ? await $queryByList({
+            collection: 'coins',
+            values: coin_tags,
+          })
+        : true;
+      const validCompanyTags = company_tags.length
+        ? await $queryByList({
+            collection: 'companies',
+            values: company_tags,
+          })
+        : true;
+      const validProductTags = product_tags.length
+        ? await $queryByList({
+            collection: 'products',
+            values: product_tags,
+          })
+        : true;
+      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags)) {
         throwErr(this.error('INPUT_INVALID'));
       }
+      const _slug = title?.replace(/ /g, '-').toLowerCase() || false;
       const {
         ok,
+        value,
         lastErrorObject: { updatedExisting },
       } = await this.model.collection.findOneAndUpdate(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
-            ...(categories && { categories: $toObjectId(categories) }),
+            ...(trans.length && {
+              trans: await Promise.all(
+                trans.map(async (item: any) => {
+                  const slug = item.title.replace(/ /g, '-').toLowerCase();
+                  return {
+                    ...item,
+                    slug: (await this.model.collection.findOne({
+                      $or: [{ 'trans.slug': slug }, { slug }],
+                      $and: [
+                        {
+                          _id: {
+                            $not: {
+                              $eq: $toObjectId(_id),
+                            },
+                          },
+                        },
+                      ],
+                    }))
+                      ? slug + '-' + now.getTime()
+                      : slug,
+                  };
+                }),
+              ),
+            }),
+            ...(title && {
+              slug: (await this.model.collection.findOne({
+                $and: [
+                  {
+                    _id: {
+                      $not: {
+                        $eq: $toObjectId(_id),
+                      },
+                    },
+                  },
+                ],
+                $or: [{ 'trans.slug': _slug }, { slug: _slug }],
+              }))
+                ? _slug + '-' + now.getTime()
+                : _slug,
+            }),
+            ...(categories.length && { categories: $toObjectId(categories) }),
+            ...(product_tags.length && { product_tags: $toObjectId(product_tags) }),
+            ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
+            ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
             ...(_subject && { created_by: _subject }),
             updated_at: now,
           },
@@ -316,12 +408,19 @@ export class NewsService {
         .aggregate([
           ...$pagination({
             $match: {
-              $and: [{ 'contents.lang': lang }, { deleted: false }],
+              $and: [
+                {
+                  deleted: false,
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
+                },
+              ],
               ...(category && {
                 $or: [{ categories: { $in: Array.isArray(category) ? category : [category] } }],
               }),
               ...(q && {
-                $or: [{ 'contents.title': { $regex: q, $options: 'i' } }],
+                $or: [{ title: { $regex: q, $options: 'i' } }, { 'trans.title': { $regex: q, $options: 'i' } }],
               }),
             },
             $lookups: [this.$lookups.user, this.$lookups.categories],
@@ -330,9 +429,9 @@ export class NewsService {
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  contents: {
+                  trans: {
                     $filter: {
-                      input: '$contents',
+                      input: '$trans',
                       as: 'content',
                       cond: {
                         $eq: ['$$content.lang', lang],
@@ -343,11 +442,11 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.contents,
+              this.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  ...$keysToProject(this.childKeys, '$contents'),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },
             ],
@@ -357,7 +456,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputQueryKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;
@@ -373,7 +472,14 @@ export class NewsService {
       const { lang } = _filter;
       const [item] = await this.model.collection
         .aggregate([
-          { $match: $toMongoFilter({ _id, 'contents.lang': lang }) },
+          {
+            $match: {
+              ...$toMongoFilter({ _id }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
+          },
           this.$lookups.categories,
           this.$lookups.user,
           this.$lookups.coin_tags,
@@ -382,9 +488,9 @@ export class NewsService {
           {
             $project: {
               ...$keysToProject(this.outputKeys),
-              contents: {
+              trans: {
                 $filter: {
-                  input: '$contents',
+                  input: '$trans',
                   as: 'content',
                   cond: {
                     $eq: ['$$content.lang', lang],
@@ -393,11 +499,11 @@ export class NewsService {
               },
             },
           },
-          this.$sets.contents,
+          this.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
-              ...$keysToProject(this.childKeys, '$contents'),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
             },
           },
           {
@@ -426,11 +532,28 @@ export class NewsService {
         .aggregate([
           {
             $match: $toMongoFilter({
-              'contents.slug': {
-                $regex: _id,
-                $options: 'i',
-              },
-              'contents.lang': lang,
+              $or: [
+                {
+                  'trans.slug': {
+                    $regex: _id,
+                    $options: 'i',
+                  },
+                },
+                {
+                  slug: {
+                    $regex: _id,
+                    $options: 'i',
+                  },
+                },
+              ],
+              $and: [
+                {
+                  deleted: false,
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
+                },
+              ],
             }),
           },
           this.$lookups.categories,
@@ -441,9 +564,9 @@ export class NewsService {
           {
             $project: {
               ...$keysToProject(this.outputKeys),
-              contents: {
+              trans: {
                 $filter: {
-                  input: '$contents',
+                  input: '$trans',
                   as: 'content',
                   cond: {
                     $eq: ['$$content.lang', lang],
@@ -452,11 +575,11 @@ export class NewsService {
               },
             },
           },
-          this.$sets.contents,
+          this.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
-              ...$keysToProject(this.childKeys, '$contents'),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
             },
           },
           {
@@ -466,7 +589,7 @@ export class NewsService {
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
       this.logger.debug('[get:success]', { item });
-      return omit(toOutPut({ item }), ['deleted', 'updated_at', 'contents']);
+      return omit(toOutPut({ item }), ['deleted', 'updated_at', 'trans']);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -509,23 +632,32 @@ export class NewsService {
         .aggregate([
           ...$pagination({
             $match: {
-              $and: [{ 'contents.lang': lang }],
-              ...(q && {
-                $or: [{ $text: { $search: q } }, { 'contents.title': { $regex: q, $options: 'i' } }],
-              }),
+              $and: [
+                {
+                  deleted: false,
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
+                },
+              ],
+              $or: [
+                { $text: { $search: q } },
+                { title: { $regex: q, $options: 'i' } },
+                { 'trans.title': { $regex: q, $options: 'i' } },
+              ],
             },
             $lookups: [this.$lookups.user, this.$lookups.categories],
-            $sets: [this.$sets.country, this.$sets.author],
+            $sets: [this.$sets.author],
             $projects: [
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  contents: {
+                  trans: {
                     $filter: {
-                      input: '$contents',
-                      as: 'content',
+                      input: '$trans',
+                      as: 'trans',
                       cond: {
-                        $eq: ['$$content.lang', lang],
+                        $eq: ['$$trans.lang', lang],
                       },
                     },
                   },
@@ -533,11 +665,12 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.contents,
+              this.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  ...$keysToProject(this.childKeys, '$contents'),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  meta: '$$SEARCH_META',
                 },
               },
             ],
@@ -546,7 +679,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: [...this.outputKeys, ...this.childKeys] });
+      return toPagingOutput({ items, total_count, keys: [...this.publicOutputKeys, 'meta'] });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;
@@ -570,7 +703,12 @@ export class NewsService {
           ...$pagination({
             $match: {
               $and: [
-                { 'contents.lang': lang },
+                ...[
+                  (lang && {
+                    'trans.lang': { $eq: lang },
+                  }) ||
+                    {},
+                ],
                 ...[
                   (user &&
                     user.followings.length && {
@@ -585,16 +723,17 @@ export class NewsService {
                 },
               ],
             },
+            $sets: [this.$sets.author],
             $projects: [
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  contents: {
+                  trans: {
                     $filter: {
-                      input: '$contents',
-                      as: 'content',
+                      input: '$trans',
+                      as: 'trans',
                       cond: {
-                        $eq: ['$$content.lang', lang],
+                        $eq: ['$$trans.lang', lang],
                       },
                     },
                   },
@@ -602,11 +741,11 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.contents,
+              this.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  ...$keysToProject(this.childKeys, '$contents'),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },
             ],
@@ -616,7 +755,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputQueryKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;
@@ -638,9 +777,11 @@ export class NewsService {
           ...$pagination({
             $match: {
               $and: [
-                { 'contents.lang': lang },
                 {
                   deleted: false,
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
                 },
               ],
             },
@@ -648,12 +789,12 @@ export class NewsService {
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  contents: {
+                  trans: {
                     $filter: {
-                      input: '$contents',
-                      as: 'content',
+                      input: '$trans',
+                      as: 'trans',
                       cond: {
-                        $eq: ['$$content.lang', lang],
+                        $eq: ['$$trans.lang', lang],
                       },
                     },
                   },
@@ -661,11 +802,11 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.contents,
+              this.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  ...$keysToProject(this.childKeys, '$contents'),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },
             ],
@@ -675,7 +816,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputQueryKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;

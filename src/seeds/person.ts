@@ -140,6 +140,8 @@ export const PersonSeed = async () => {
                             })
                             .join(''),
                           weight: Math.floor(Math.random() * 100),
+                          trans: [],
+                          sub_categories: [],
                           deleted: false,
                           created_at: new Date(),
                           updated_at: new Date(),

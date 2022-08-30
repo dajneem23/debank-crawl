@@ -254,17 +254,17 @@
     "method": "POST",
     "sortNum": 100000,
     "created": "2022-08-12T05:05:10.489Z",
-    "modified": "2022-08-12T09:39:42.829Z",
+    "modified": "2022-08-29T04:49:38.747Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"title\":\"cat3412312313\",\n    \"weight\":1,\n    \"type\":\"product\"\n}",
+      "raw": "{\n    \"title\":\"cat1\",\n    \"name\":\"cat5\",\n    \"weight\":1,\n    \"type\":\"product\",\n    \"trans\":[\n        {\n            \"lang\":\"vi\",\n            \"title\":\"vietnametitle\",\n            \"name\":\"vietnamnname\"\n        },\n                {\n            \"lang\":\"vi\",\n            \"title\":\"vietnametitle\",\n            \"name\":\"vietnamnname\"\n        }\n]\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Inp2T0ZQdjNiZExGQSIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwMjgyMzg2LCJleHAiOjE2NjExNDYzODZ9.00IUaXcGOw4DIIaa2UlvZIvBOUk7CS0eQYxCcvsNqnM"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
     },
     "tests": []
   },
@@ -314,16 +314,17 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "d2b1367a-a9f4-4209-94f9-25f538511db5",
     "name": "query",
-    "url": "{{host}}/categories/?type=product&type=event",
+    "url": "{{host}}/categories/?type=product&lang=vi",
     "method": "GET",
     "sortNum": 140000,
     "created": "2022-08-12T07:34:28.494Z",
-    "modified": "2022-08-12T09:51:27.979Z",
+    "modified": "2022-08-29T04:54:13.285Z",
     "headers": [],
     "params": [
       {
         "name": "type",
         "value": "product",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -334,7 +335,12 @@
       },
       {
         "name": "type",
-        "value": "event",
+        "value": "product",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
         "isPath": false
       }
     ],
@@ -349,17 +355,17 @@
     "method": "POST",
     "sortNum": 150000,
     "created": "2022-08-15T02:16:39.681Z",
-    "modified": "2022-08-16T02:17:43.298Z",
+    "modified": "2022-08-29T06:41:59.758Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"compan1\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef116\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
+      "raw": "{\n    \"name\": \"compan_5\",\n    \"about\": \"eng about\",\n    \"short_description\": \"eng short des\",\n    \"headquarter\": {\n        \"x\": 1,\n        \"y\": 2\n    },\n    \"features\": [\n        \"order com\"\n    ],\n    \"categories\": [\n        \"630c388d1d1096097586d02b\",\n        \"630c388df212d0e03dff5d6c\"\n    ],\n    \"portfolios\": [\n        \"url1\",\n        \"url2\"\n    ],\n    \"products\": [\n        \"62f6219dbc1c9c949ceef116\",\n        \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\": [\n        \"62f621a3bc1c9c949cef3d49\",\n        \"62f621a3bc1c9c949cef3d4b\"\n    ],\n    \"trans\": [\n        {\n            \"lang\": \"japanese\",\n            \"about\": \"japanese about\",\n            \"short_description\": \"japanese short des\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
     },
     "tests": []
   },
@@ -368,13 +374,19 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
     "name": "get By ID",
-    "url": "{{host}}/companies/62fb29c0dd4fe349334b92c9",
+    "url": "{{host}}/companies/630c4aa21d1096097586e947?lang=123vi",
     "method": "GET",
     "sortNum": 160000,
     "created": "2022-08-15T04:04:09.825Z",
-    "modified": "2022-08-16T05:23:33.690Z",
+    "modified": "2022-08-29T07:12:24.056Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "123vi",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
@@ -382,21 +394,27 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
     "name": "query",
-    "url": "{{host}}/companies/?page=1&per_page=2",
+    "url": "{{host}}/companies/?page=2&per_page=2",
     "method": "GET",
     "sortNum": 170000,
     "created": "2022-08-15T04:46:38.237Z",
-    "modified": "2022-08-15T04:48:23.740Z",
+    "modified": "2022-08-29T11:18:53.553Z",
     "headers": [],
     "params": [
       {
         "name": "page",
-        "value": "1",
+        "value": "2",
         "isPath": false
       },
       {
         "name": "per_page",
         "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -452,12 +470,12 @@
     "method": "POST",
     "sortNum": 200000,
     "created": "2022-08-16T02:17:13.104Z",
-    "modified": "2022-08-16T04:39:38.946Z",
+    "modified": "2022-08-30T03:16:15.473Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"product5\",\n    \"director\":\"62fb1e831d8798f19c7e25a8\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62fb1e831d8798f19c7e23ff\",\n        \"62fb1e831d8798f19c7e23fe\"\n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"crypto_currencies\":[\n    \"62fb1e871d8798f19c7e734b\",\n    \"62fb1e871d8798f19c7e734c\"\n    ]\n    \n}",
+      "raw": "{\n    \"name\": \"product custom1\",\n    \"about\":\"en about\",\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"vi cont\"\n        },\n        {\n            \"lang\": \"cn\",\n            \"about\": \"cn cont\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -684,17 +702,17 @@
     "method": "POST",
     "sortNum": 200000,
     "created": "2022-08-16T07:22:34.598Z",
-    "modified": "2022-08-16T08:27:58.617Z",
+    "modified": "2022-08-29T07:57:21.845Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"coin1\",\n \n    \"categories\":[\n        \"62fb29c0dd4fe349334b8c00\",\n        \"62fb29c0dd4fe349334b8c01\"\n    ]\n    \n}",
+      "raw": "{\n    \"name\": \"coi5\",\n    \"about\": \"en about\",\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"vi about\"\n        },\n        {\n            \"lang\": \"jp\",\n            \"about\": \"jp about\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MDYzNDI2NywiZXhwIjoxNjYxNDk4MjY3fQ.J5o32YS6scmxyeUDcv0DqIRIdTlTe7oL_7F1Htqp8-w"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
     },
     "tests": []
   },
@@ -726,13 +744,19 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
     "name": "getByID",
-    "url": "{{host}}/coins/630446743ee0ec7f347dcd13",
+    "url": "{{host}}/coins/630c71611d1096097587114b?lang=jp",
     "method": "GET",
     "sortNum": 210000,
     "created": "2022-08-16T07:22:34.600Z",
-    "modified": "2022-08-25T04:56:58.789Z",
+    "modified": "2022-08-29T08:12:50.100Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "jp",
+        "isPath": false
+      }
+    ],
     "auth": {
       "type": "bearer"
     },
@@ -765,7 +789,7 @@
     "method": "GET",
     "sortNum": 230000,
     "created": "2022-08-16T07:22:34.602Z",
-    "modified": "2022-08-22T09:28:16.481Z",
+    "modified": "2022-08-29T11:22:02.470Z",
     "headers": [],
     "params": [
       {
@@ -780,7 +804,13 @@
       },
       {
         "name": "q",
-        "value": "qweqwe",
+        "value": "coi4",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "jp",
         "isDisabled": true,
         "isPath": false
       }
@@ -851,12 +881,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-22T07:41:46.420Z",
-    "modified": "2022-08-27T17:17:59.882Z",
+    "modified": "2022-08-29T12:14:15.701Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"number_relate_article\":6,\n    \"categories\": [\n        \"630902086b72c43940d8fe89\"\n    ],\n    \"source\":\"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\":[\n    \"630902086b72c43940d8fe8a\"\n    ],\n        \"product_tags\":[\n    \"63090208b12a74bbda063f31\"\n    ],\n    \"coin_tags\":[\n        \"63090208b12a74bbda063f29\"\n    ],\n    \"keywords\":[\n        \"trending\"\n    ],\n    \"contents\": [\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu\",\n            \"lang\": \"eng\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "raw": "{\n    \"number_relate_article\": 6,\n    \"title\": \"en hello cac ban\",\n    \"summary\": \" en sum\",\n    \"headings\": [\n        \"en head\",\n        \"en head2\"\n    ],\n    \"categories\": [\n        \"630c388d1d1096097586d027\"\n    ],\n    \"source\": \"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\": [\n        \"630c2ca020e694f1dd78f616\"\n    ],\n    \"product_tags\": [\n        \"630c2c9f20e694f1dd78f57c\"\n    ],\n    \"coin_tags\": [\n        \"630c2ca020e694f1dd78f725\"\n    ],\n    \"keywords\": [\n        \"trending\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"vi bài viết\",\n            \"lang\": \"vi\",\n            \"content\": \"vi cont\",\n            \"headings\": [\n                \"vi head\",\n                \"vi head2\"\n            ],\n            \"summary\": \"vi sum\"\n        },\n        {\n            \"title\": \"cn tit\",\n            \"lang\": \"cn\",\n            \"content\": \"cn cont\",\n            \"headings\": [\n                \"cn head\",\n                \"cn head2\"\n            ],\n            \"summary\": \"cn sumn\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -870,22 +900,27 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "query",
-    "url": "{{host}}/news?lang=eng",
+    "url": "{{host}}/news?lang=cn&q=tit",
     "method": "GET",
-    "sortNum": 270000,
+    "sortNum": 285000,
     "created": "2022-08-22T08:29:26.925Z",
-    "modified": "2022-08-23T09:06:38.107Z",
+    "modified": "2022-08-29T11:50:44.875Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
-        "value": "eng",
+        "value": "cn",
         "isPath": false
       },
       {
         "name": "per_page",
-        "value": "2",
+        "value": "",
         "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "tit",
         "isPath": false
       }
     ],
@@ -919,16 +954,17 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "related",
-    "url": "{{host}}/news/related/?lang=eng",
+    "url": "{{host}}/news/related/",
     "method": "GET",
     "sortNum": 290000,
     "created": "2022-08-23T03:39:22.685Z",
-    "modified": "2022-08-27T18:03:39.436Z",
+    "modified": "2022-08-29T12:02:20.974Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
-        "value": "eng",
+        "value": "vi",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -945,16 +981,17 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "important",
-    "url": "{{host}}/news/important/?lang=eng&per_page=2&page=1",
+    "url": "{{host}}/news/important/?per_page=2",
     "method": "GET",
     "sortNum": 300000,
     "created": "2022-08-23T09:36:22.369Z",
-    "modified": "2022-08-24T02:03:47.617Z",
+    "modified": "2022-08-29T12:02:32.918Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
-        "value": "eng",
+        "value": "vi",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -970,11 +1007,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "getById",
-    "url": "{{host}}/news/private/630a521b6b72c43940d93911?lang=vi",
+    "url": "{{host}}/news/private/630ca6ce1d1096097587453b?lang=vi",
     "method": "GET",
     "sortNum": 310000,
     "created": "2022-08-26T17:38:29.722Z",
-    "modified": "2022-08-27T18:17:53.014Z",
+    "modified": "2022-08-29T12:05:10.038Z",
     "headers": [],
     "params": [
       {
@@ -1030,16 +1067,16 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "search",
-    "url": "{{host}}/news/search?q=h&lang=vi&page=1",
+    "url": "{{host}}/news/search?q=cn&lang=vi",
     "method": "GET",
     "sortNum": 340000,
     "created": "2022-08-26T18:33:50.549Z",
-    "modified": "2022-08-26T19:50:06.589Z",
+    "modified": "2022-08-30T03:01:52.716Z",
     "headers": [],
     "params": [
       {
         "name": "q",
-        "value": "h",
+        "value": "cn",
         "isPath": false
       },
       {
@@ -1050,6 +1087,7 @@
       {
         "name": "page",
         "value": "1",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1083,16 +1121,17 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "getBySlug",
-    "url": "{{host}}/news/huhu/?lang=vi",
+    "url": "{{host}}/news/cn-tit-1661773540767/",
     "method": "GET",
     "sortNum": 325000,
     "created": "2022-08-27T18:16:47.654Z",
-    "modified": "2022-08-27T18:21:24.865Z",
+    "modified": "2022-08-29T12:08:45.118Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
-        "value": "vi",
+        "value": "cn",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1103,11 +1142,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
     "name": "query by admin",
-    "url": "{{host}}/companies/private/?page=1&per_page=2",
+    "url": "{{host}}/companies/private/?page=1&per_page=2&q=compan_3",
     "method": "GET",
     "sortNum": 175000,
     "created": "2022-08-28T13:32:33.731Z",
-    "modified": "2022-08-28T13:33:36.717Z",
+    "modified": "2022-08-29T06:47:55.533Z",
     "headers": [],
     "params": [
       {
@@ -1118,6 +1157,11 @@
       {
         "name": "per_page",
         "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "compan_3",
         "isPath": false
       }
     ],
@@ -1212,11 +1256,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
     "name": "search",
-    "url": "{{host}}/coins/search/?page=1&per_page=2&q=free coin",
+    "url": "{{host}}/coins/search/?page=1&per_page=2&q=P",
     "method": "GET",
     "sortNum": 380000,
     "created": "2022-08-28T14:00:15.102Z",
-    "modified": "2022-08-28T14:01:19.034Z",
+    "modified": "2022-08-29T12:41:06.759Z",
     "headers": [],
     "params": [
       {
@@ -1231,7 +1275,13 @@
       },
       {
         "name": "q",
-        "value": "free coin",
+        "value": "P",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1242,11 +1292,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
     "name": "search",
-    "url": "{{host}}/companies/search/?page=1&per_page=2&q=Dapper",
+    "url": "{{host}}/companies/search/?page=1&per_page=2&q=Fy",
     "method": "GET",
     "sortNum": 390000,
     "created": "2022-08-28T14:04:47.242Z",
-    "modified": "2022-08-28T14:06:00.558Z",
+    "modified": "2022-08-30T02:00:22.783Z",
     "headers": [],
     "params": [
       {
@@ -1261,10 +1311,39 @@
       },
       {
         "name": "q",
-        "value": "Dapper",
+        "value": "Fy",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isDisabled": true,
         "isPath": false
       }
     ],
+    "tests": []
+  },
+  {
+    "_id": "58932a48-ed10-4a21-ba67-d8768e78cb41",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
+    "name": "update",
+    "url": "{{host}}/news/630c80bd1d10960975872a07",
+    "method": "PUT",
+    "sortNum": 280000,
+    "created": "2022-08-29T09:03:11.440Z",
+    "modified": "2022-08-29T11:08:05.788Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{  \"title\":\"hello cac ban13\",\n    \n        \"trans\": [\n        {\n            \"title\": \"huhu13\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu45\",\n            \"lang\": \"jp\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTE1NDM5OSwiZXhwIjoxNjYyMDE4Mzk5fQ.2LdkeZvU8wr3BvTmnGnDk3eBeayZ-dKZ9KUq24NJOx8"
+    },
     "tests": []
   }
 ]

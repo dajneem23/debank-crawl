@@ -21,4 +21,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "env.local.json"
+          json: ${{ secrets.MONGO }}
       - run: pm2 restart  wikiblock-backend

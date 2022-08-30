@@ -3,9 +3,6 @@ import { BaseInformationModel, ContractAddress, TeamPerson, Support, ProductInfo
 export interface Product extends BaseInformationModel {
   name: string;
   avatar: string;
-  verified: boolean;
-  sponsored: boolean;
-  about: string;
   contract_addresses: Array<ContractAddress>;
   crypto_currencies?: string[];
   categories?: string[];
@@ -13,20 +10,10 @@ export interface Product extends BaseInformationModel {
   apps: App[];
   supports: Support[];
   galleries: string[];
-  informations: ProductInfomation[];
+  information: ProductInfomation[];
   team: TeamPerson[];
   parent_company: string;
   team_location: string;
-  website: string;
-  facebook: string;
-  telegram: string;
-  twitter: string;
-  youtube: string;
-  discord: string;
-  medium: string;
-  reddit: string;
-  blog: string;
-  rocket_chat: string;
   trans: {
     lang: string;
     about?: string;
@@ -46,7 +33,7 @@ export const _product: Product = {
   apps: [],
   supports: [],
   galleries: [],
-  informations: [],
+  information: [],
   team: [],
   parent_company: '',
   team_location: '',

@@ -14,6 +14,7 @@ export interface Person extends BaseInformationModel {
   trans: {
     lang: string;
     about: string;
+    short_description: string;
   }[];
 }
 
@@ -36,11 +37,29 @@ export type PersonEducation = {
 };
 export const _person: Person = {
   name: '',
+  about: '',
   categories: [],
   position: [],
   works: [],
   educations: [],
   trans: [],
+  verified: false,
+  sponsored: false,
+  avatar: '',
+  website: '',
+  telegram: '',
+  linkedin: '',
+  twitter: '',
+  discord: '',
+  gitter: '',
+  medium: '',
+  bitcoin_talk: '',
+  facebook: '',
+  youtube: '',
+  blog: '',
+  github: '',
+  reddit: '',
+  short_description: '',
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),

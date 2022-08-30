@@ -2,7 +2,7 @@ import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { ProductError, ProductModel, _product, Product } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
@@ -47,6 +47,10 @@ export class ProductService {
   get publicOutputKeys() {
     return ['id', 'name', 'avatar', 'about'];
   }
+
+  get transKeys() {
+    return ['about', 'short_description'];
+  }
   /**
    *  Lookups
    */
@@ -76,14 +80,14 @@ export class ProductService {
         reName: 'team',
         operation: '$in',
       }),
-      crypto_currencies: $lookup({
-        from: 'coins',
-        refFrom: '_id',
-        refTo: 'crypto_currencies',
-        select: 'name token_id',
-        reName: 'crypto_currencies',
-        operation: '$in',
-      }),
+      // crypto_currencies: $lookup({
+      //   from: 'coins',
+      //   refFrom: '_id',
+      //   refTo: 'crypto_currencies',
+      //   select: 'name token_id',
+      //   reName: 'crypto_currencies',
+      //   operation: '$in',
+      // }),
       countries: $lookup({
         from: 'countries',
         refFrom: 'code',
@@ -104,6 +108,11 @@ export class ProductService {
       author: {
         $set: {
           author: { $first: '$author' },
+        },
+      },
+      trans: {
+        $set: {
+          trans: { $first: '$trans' },
         },
       },
     };
@@ -279,7 +288,7 @@ export class ProductService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q } = _filter;
+      const { q, lang } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate(
@@ -288,12 +297,41 @@ export class ProductService {
               $and: [
                 {
                   deleted: false,
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
                 },
               ],
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
             },
+            $lookups: [this.$lookups.categories],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
@@ -311,15 +349,38 @@ export class ProductService {
    * @param id - product ID
    * @returns { Promise<BaseServiceOutput> } - product
    */
-  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
+      const { lang } = _filter;
+
       const [item] = await this.model.collection
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
           this.$lookups.categories,
-          this.$lookups.crypto_currencies,
+          // this.$lookups.crypto_currencies,
           this.$lookups.user,
           this.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
           {
             $limit: 1,
           },
@@ -351,9 +412,32 @@ export class ProductService {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
-            $lookups: [this.$lookups.user, this.$lookups.categories],
-            $sets: [this.$sets.country, this.$sets.author],
-
+            $lookups: [this.$lookups.categories],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])

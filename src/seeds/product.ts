@@ -31,6 +31,7 @@ export const ProductSeed = async () => {
       readDataFromFile({ _collection: 'products' })
         .map((_product: any) => {
           return {
+            trans: [] as any,
             deleted: false,
             created_at: new Date(),
             updated_at: new Date(),

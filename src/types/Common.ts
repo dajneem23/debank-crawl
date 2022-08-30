@@ -106,6 +106,8 @@ export interface BaseInformationModel extends BaseModel {
 
   medium?: string;
 
+  discord?: string;
+
   youtube?: string;
 
   website?: string;

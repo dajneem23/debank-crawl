@@ -17,6 +17,7 @@ export const CompanySeed = async () => {
   if (!count) {
     let companies = readDataFromFile({ _collection: 'companies' }).map((_company: any) => {
       return {
+        trans: [] as any,
         deleted: false,
         created_at: new Date(),
         updated_at: new Date(),

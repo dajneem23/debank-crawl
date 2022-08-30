@@ -26,13 +26,14 @@ export class PersonService {
   }
 
   get outputKeys() {
-    return ['id', 'name', 'categories', 'position', 'works', 'educations', 'author'];
+    // return ['id', 'name', 'categories', 'position', 'works', 'educations', 'author'];
+    return ['id', ...Object.keys(_person)];
   }
   get publicOutputKeys() {
     return ['id', 'name', 'about'];
   }
   get transKeys() {
-    return ['about'];
+    return ['about', 'short_description'];
   }
   /**
    *  Lookups
@@ -319,14 +320,45 @@ export class PersonService {
    * @param id - Event ID
    * @returns { Promise<BaseServiceOutput> } - Event
    */
-  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
+      const { lang } = _filter;
       const [item] = await this.model.collection
         .aggregate([
-          { $match: $toMongoFilter({ _id }) },
+          {
+            $match: {
+              ...$toMongoFilter({
+                _id,
+              }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
+          },
           this.$lookups.categories,
           this.$lookups.user,
           this.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
           {
             $limit: 1,
           },
@@ -353,10 +385,40 @@ export class PersonService {
         .aggregate([
           ...$pagination({
             $match: {
+              deleted: false,
               ...(q && {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
             },
+            $lookups: [this.$lookups.categories],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])

@@ -237,7 +237,7 @@ export class CoinService {
    * @returns {Promise<BaseServiceOutput>}
    *
    **/
-  async query({ _filter, _query, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang, q } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
@@ -417,7 +417,7 @@ export class CoinService {
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return omit(toPagingOutput({ items, total_count, keys: this.publicOutputKeys }));
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;

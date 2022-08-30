@@ -1,4 +1,4 @@
-import { BaseInformationModel, Feature, ResearchPaper, Service, Support, TeamPerson } from '@/types/Common';
+import { BaseInformationModel, ResearchPaper, Support, TeamPerson } from '@/types/Common';
 
 export interface Company extends BaseInformationModel {
   name: string;

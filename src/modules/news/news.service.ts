@@ -53,7 +53,6 @@ export class NewsService {
       'photos',
       'views',
       'stars',
-      'trans',
       'categories:',
       'number_relate_article',
       'created_at',

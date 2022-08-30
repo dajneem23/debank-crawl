@@ -1068,16 +1068,17 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "query",
-    "url": "{{host}}/news?lang=vi&q=triệu",
+    "url": "{{host}}/news?q=triệu",
     "method": "GET",
     "sortNum": 285000,
     "created": "2022-08-30T09:07:12.436Z",
-    "modified": "2022-08-30T09:15:26.417Z",
+    "modified": "2022-08-30T09:56:22.639Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
-        "value": "vi",
+        "value": "en",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -1222,20 +1223,13 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getBySlug",
-    "url": "{{host}}/news/cn-tit-1661773540767/",
+    "url": "{{host}}/news/the-landmark-2-millionth-ens-domain-has-been-minted-as-it-retains-a-top-10-spot-on-opensea's-secondary-market/",
     "method": "GET",
     "sortNum": 325000,
     "created": "2022-08-30T09:07:12.443Z",
-    "modified": "2022-08-30T09:07:12.443Z",
+    "modified": "2022-08-30T09:56:38.077Z",
     "headers": [],
-    "params": [
-      {
-        "name": "lang",
-        "value": "cn",
-        "isDisabled": true,
-        "isPath": false
-      }
-    ],
+    "params": [],
     "tests": []
   },
   {

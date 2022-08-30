@@ -100,8 +100,8 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [NewsValidation.getById, protectPrivateAPI()])
-  async getById(
+  @Get('/:id', [NewsValidation.getById])
+  async getByIdPublic(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
@@ -111,15 +111,32 @@ export class NewsController {
     },
   ) {
     const { filter, query } = buildQueryFilter(_query);
-
     const result = await this.service.getById({
-      _filter: filter,
       _id: _params.id,
+      _filter: filter,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/private/:id', [NewsValidation.getById, protectPrivateAPI()])
+  async getByIdPrivate(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.getById({
+      _id: _params.id,
+      _filter: filter,
+      _permission: 'private',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/:slug', [NewsValidation.getBySlug])
-  async getBySlug(
+  async getBySlugPublic(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
@@ -133,6 +150,25 @@ export class NewsController {
     const result = await this.service.getBySlug({
       _filter: filter,
       _id: _params.slug,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/private/:slug', [NewsValidation.getBySlug, protectPrivateAPI()])
+  async getBySlugPrivate(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      slug: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+
+    const result = await this.service.getBySlug({
+      _filter: filter,
+      _id: _params.slug,
+      _permission: 'private',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

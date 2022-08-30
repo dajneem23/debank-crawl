@@ -4,7 +4,7 @@ import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common'
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { CoinError, CoinModel } from '.';
-import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
+import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit, rest } from 'lodash';
 import { _coin } from '@/modules';
 
@@ -309,7 +309,7 @@ export class CoinService {
    * @param _filter - Filter
    * @returns { Promise<BaseServiceOutput> } - Event
    */
-  async getById({ _id, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
       const [item] = await this.model.collection
@@ -355,7 +355,7 @@ export class CoinService {
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
       this.logger.debug('[get:success]', { item });
-      return omit(toOutPut({ item }), ['deleted', 'updated_at']);
+      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;

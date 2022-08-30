@@ -121,6 +121,10 @@ export interface BaseInformationModel extends BaseModel {
   bitcoin_talk?: string;
 
   rocket_chat?: string;
+
+  video?: string;
+
+  explorer?: string;
 }
 
 export type Feature = {
@@ -265,3 +269,14 @@ export enum LANG_CODE {
   CN = 'cn',
   JP = 'jp',
 }
+
+export const PRIVATE_KEYS = [
+  'updated_at',
+  'created_at',
+  'deleted_at',
+  'deleted_by',
+  'updated_by',
+  'created_by',
+  'deleted',
+  'trans',
+];

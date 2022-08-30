@@ -1,8 +1,9 @@
 [
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.748Z",
-    "updated_at": "2022-08-29T03:03:59.748Z",
+    "created_at": "2022-08-30T08:54:50.669Z",
+    "updated_at": "2022-08-30T08:54:50.669Z",
     "created_by": "admin",
     "name": "BC.Game",
     "avatar": "",
@@ -14,7 +15,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/06/BC.game-galler-3-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/06/BC.game-gallery-2-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ebd"],
     "website": "https://bc.game",
     "facebook": "https://www.facebook.com/bcgamewin",
     "telegram": "https://t.me/bc_game_en",
@@ -36,9 +37,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.749Z",
-    "updated_at": "2022-08-29T03:03:59.749Z",
+    "created_at": "2022-08-30T08:54:50.669Z",
+    "updated_at": "2022-08-30T08:54:50.669Z",
     "created_by": "admin",
     "name": "HodlBot",
     "avatar": "",
@@ -51,7 +53,7 @@
       "HodlBot gives non-accredited investors an easy and inexpensive way to bet on the cryptocurrency market as a whole."
     ],
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2020/03/hodlbot-gallery-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.hodlbot.io/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "https://t.me/joinchat/IjezjhAAC-L4znZ6s3TvJg",
@@ -92,9 +94,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.749Z",
-    "updated_at": "2022-08-29T03:03:59.749Z",
+    "created_at": "2022-08-30T08:54:50.669Z",
+    "updated_at": "2022-08-30T08:54:50.669Z",
     "created_by": "admin",
     "name": "Bitbuy App",
     "avatar": "",
@@ -106,7 +109,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20142%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "http://go.bitbuy.tech/aff_c?offer_id=3&aff_id=1033?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/bitbuyca",
     "telegram": "",
@@ -151,9 +154,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.749Z",
-    "updated_at": "2022-08-29T03:03:59.749Z",
+    "created_at": "2022-08-30T08:54:50.669Z",
+    "updated_at": "2022-08-30T08:54:50.669Z",
     "created_by": "admin",
     "name": "Nvidia GeForce GTX 1070 Ti Founder’s Edition",
     "avatar": "",
@@ -161,7 +165,7 @@
     "sponsored": false,
     "about": "GeForce GTX 10-series graphics cards are powered by Pascal architecture to deliver up to 3X the performance of previous-generation graphics cards. The GeForce GTX 1070 Ti graphics card provides 2432 stream processors and 8 GB of GDDR5 memory.",
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/08/GTX1070_Ti-screenshot-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://www.nvidia.com/en-us/geforce/products/10series/geforce-gtx-1070-ti/?utm_source=cryptoslate",
     "facebook": "http://www.facebook.com/NVIDIAGeForce",
     "telegram": "",
@@ -197,9 +201,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.749Z",
-    "updated_at": "2022-08-29T03:03:59.749Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Ronin Wallet",
     "avatar": "",
@@ -211,7 +216,7 @@
       "Ronin Wallet is a place to stash your digital items and currencies."
     ],
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://wallet.roninchain.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/SkyMavisHQ",
     "telegram": "",
@@ -249,9 +254,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.749Z",
-    "updated_at": "2022-08-29T03:03:59.749Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "ETH Birds",
     "avatar": "",
@@ -259,7 +265,7 @@
     "sponsored": false,
     "about": "ETH Birds is a gaming platform that runs on the Ethreum blockchain with multi-level bonus system. In ETH Birds users can trade and breed their Birds, as well as partake in numerous mini-games and uplevel their faves!",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://ethbirds.co/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/ethbirds",
     "telegram": "https://t.me/ethbirdsOfficial",
@@ -306,9 +312,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.749Z",
-    "updated_at": "2022-08-29T03:03:59.749Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "TronChat",
     "avatar": "",
@@ -320,7 +327,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/TronChat-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/TronChat-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2b5"],
+    "categories": ["630dd055086d932ce3644f29"],
     "website": "https://tronchat.io/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -346,9 +353,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.750Z",
-    "updated_at": "2022-08-29T03:03:59.750Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "StakedWallet",
     "avatar": "",
@@ -359,7 +367,7 @@
       "https://cryptoslate.com/wp-content/uploads/2020/03/StalkedWallet-gallery-1-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2020/03/StalkedWallet-gallery-2-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://stakedwallet.io/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/pg/stakedwallet.io/",
     "telegram": "https://t.me/stakedwallet",
@@ -400,9 +408,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.750Z",
-    "updated_at": "2022-08-29T03:03:59.750Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Axsonex",
     "avatar": "",
@@ -410,7 +419,7 @@
     "sponsored": false,
     "about": "Axsonex is a global trading room which offers cryptocurrency signals, education, market analysis, and more.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.axsonex.com?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/axsonex",
     "telegram": "https://t.me/axsonex",
@@ -436,9 +445,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.750Z",
-    "updated_at": "2022-08-29T03:03:59.750Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Bitamp",
     "avatar": "",
@@ -446,7 +456,7 @@
     "sponsored": false,
     "about": "Bitamp is an open-source, client-side, free Bitcoin wallet that allows you to send and receive Bitcoin securely on the blockchain.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://bit.ly/3cnQM9W?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -476,9 +486,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "BRD",
     "avatar": "",
@@ -489,7 +500,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/BRD-wallet-screenshot-01-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/BRD-wallet-screenshot-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://brd.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/brdhq/",
     "telegram": "https://t.me/BreadApp",
@@ -526,9 +537,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Amplify Brokerage",
     "avatar": "",
@@ -540,7 +552,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "https://cryptoslate.com/wp-content/uploads/2019/11/amplify-gallery-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://amplifyexchange.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/ampexchange/",
     "telegram": "https://t.me/AmplifyExchange",
@@ -583,9 +595,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Fishbank",
     "avatar": "",
@@ -597,7 +610,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/10/Fishbank-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/10/Fishbank-screenshot-03-300x159.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://fishbank.io",
     "facebook": "",
     "telegram": "https://t.me/fishbank_en",
@@ -666,9 +679,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Canaan Avalon 821",
     "avatar": "",
@@ -680,7 +694,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://canaan.io/product/avalonminer-821/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/canaanio/",
     "telegram": "",
@@ -728,9 +742,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Alchemy Toys",
     "avatar": "",
@@ -742,7 +757,7 @@
       "https://cryptoslate.com/wp-content/uploads/2021/05/Alchemy-Toys-gallery-1-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2021/05/Alchemy-Toys-gallery-2-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ebd"],
     "website": "https://alchemy.toys?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -771,9 +786,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Algomate Trading Platform",
     "avatar": "",
@@ -785,7 +801,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/08/Algomate-gallery-2-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/08/Algomate-gallery-3-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://algomate.co/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -843,9 +859,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Bitpay Wallet",
     "avatar": "",
@@ -856,7 +873,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://bitpay.com/wallet?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/BitPayOfficial/",
     "telegram": "",
@@ -920,9 +937,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Bitcoin Wallet",
     "avatar": "",
@@ -936,7 +954,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://polehin.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/polehincom",
     "telegram": "",
@@ -1004,9 +1022,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Ether Kingdoms",
     "avatar": "",
@@ -1014,7 +1033,7 @@
     "sponsored": false,
     "about": "Ether Kingdoms is a cryptocurrency game with Proof Of Stake mining. The game field is a hexagonal grid that contains key game elements – the Castle and mines. The IMP token, or imps, can be mined in the mine. The imps are the Kingdom’s main workers and warriors.",
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/11/Ether-Kingdoms-screenshot-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://imps.me/",
     "facebook": "",
     "telegram": "https://t.me/imptoken",
@@ -1041,9 +1060,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "ChainFlix",
     "avatar": "",
@@ -1054,7 +1074,7 @@
       "ChainFlix is a revolutionary blockchain-based P2P video streaming platform that allows viewers, content creators, and enhancers to monetize their time, contents, and efforts."
     ],
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2020/04/chainflix-gallery-1-300x158.jpg"],
-    "categories": ["630c2c9f1d1096097586bcb6", "630c2c9f20e694f1dd78f2b5"],
+    "categories": ["630dd05a1cd276b4a1d6a535", "630dd055086d932ce3644f29"],
     "website": "http://beta.chainflix.net/",
     "facebook": "https://www.facebook.com/chainflix1",
     "telegram": "https://t.me/ChainFlix",
@@ -1107,9 +1127,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Ledger Blue",
     "avatar": "",
@@ -1121,7 +1142,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Ledger-blue-wallet-image-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Ledger-blue-wallet-image-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e4"],
+    "categories": ["630dd055086d932ce3644f58"],
     "website": "http://bit.ly/CS-Products-LedgerShop?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Ledger/",
     "telegram": "",
@@ -1223,9 +1244,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Robinhood",
     "avatar": "",
@@ -1237,7 +1259,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://robinhood.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/robinhoodapp",
     "telegram": "",
@@ -1283,9 +1305,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Fomo3D",
     "avatar": "",
@@ -1297,7 +1320,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/FOMO3D-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/FOMO3D-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://exitscam.me/play",
     "facebook": "",
     "telegram": "",
@@ -1340,9 +1363,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "CitoWise",
     "avatar": "",
@@ -1353,7 +1377,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://citowise.com/wallet?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/citowise/",
     "telegram": "https://t.me/joinchat/AAAAAEmH0rmkYY_4eop2-Q",
@@ -1461,9 +1485,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Altcoin Fantasy",
     "avatar": "",
@@ -1475,7 +1500,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/altcoin_fantasy-sreenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/altcoin_fantasy-sreenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ebd"],
     "website": "https://altcoinfantasy.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/altcoinfantasy/",
     "telegram": "",
@@ -1509,9 +1534,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.670Z",
+    "updated_at": "2022-08-30T08:54:50.670Z",
     "created_by": "admin",
     "name": "Uniswap",
     "avatar": "",
@@ -1519,7 +1545,7 @@
     "sponsored": false,
     "about": "Designed with simplicity in mind, the Uniswap protocol provides an interface for seamless exchange of ERC20 tokens on Ethereum. By eliminating unnecessary forms of rent extraction and middlemen it allows faster, more efficient exchange. Where it makes tradeoffs, decentralization, censorship resistance, and security are prioritized.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://uniswap.exchange/swap",
     "facebook": "",
     "telegram": "",
@@ -1551,9 +1577,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "ASUS Mining RX 470 4G Graphics Card",
     "avatar": "",
@@ -1565,7 +1592,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://www.asus.com/Graphics-Cards/MINING-RX470-4G/?utm_source=cryptoslate",
     "facebook": "http://www.facebook.com/ASUS",
     "telegram": "",
@@ -1612,9 +1639,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "ZBG App",
     "avatar": "",
@@ -1625,7 +1653,7 @@
       "ZBG’s mobile app is available for iOS and Android. The mobile application supports login with the ZB.COM head exchange account."
     ],
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2020/03/ZBG-gallery-image1-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.zbg.com/appstore?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/ZBGGlobal",
     "telegram": "https://t.me/zbg_official",
@@ -1694,9 +1722,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "KeepKey",
     "avatar": "",
@@ -1708,7 +1737,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20168%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e4"],
+    "categories": ["630dd055086d932ce3644f58"],
     "website": "https://www.keepkey.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/KeepKey-1016630461689566/",
     "telegram": "",
@@ -1788,9 +1817,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CryptoView",
     "avatar": "",
@@ -1807,7 +1837,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.cryptoview.com?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/CryptoViewCom/",
     "telegram": "",
@@ -1842,9 +1872,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CryptoKitties",
     "avatar": "",
@@ -1856,7 +1887,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://www.cryptokitties.co/my-kitties",
     "facebook": "https://www.facebook.com/CryptoKitties/",
     "telegram": "",
@@ -1909,9 +1940,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Cashbackcloud",
     "avatar": "",
@@ -1922,7 +1954,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://cashbackcloud.co/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/cashbackcloud",
     "telegram": "",
@@ -1967,9 +1999,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.751Z",
-    "updated_at": "2022-08-29T03:03:59.751Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Coinbase Wallet",
     "avatar": "",
@@ -1981,7 +2014,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Coinbase-wallet-app-screenshot-02.-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Coinbase-wallet-app-screenshot-03.-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://wallet.coinbase.com/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -2051,9 +2084,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Lenster",
     "avatar": "",
@@ -2061,7 +2095,7 @@
     "sponsored": false,
     "about": "Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol. It is well known in the community as Lens’ first Web3 social experience that acts as the most full-featured way to use Lens Protocol to interact with your social graph. It was created by @yoginth.lens.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f2b5"],
+    "categories": ["630dd055086d932ce3644f29"],
     "website": "https://lenster.xyz/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -2083,9 +2117,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Jaxx Liberty",
     "avatar": "",
@@ -2097,7 +2132,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Jaxx-wallet-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Jaxx-wallet-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://jaxx.io/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -2194,9 +2229,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "LandSecrets",
     "avatar": "",
@@ -2207,7 +2243,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/landsecrets-screenshot-01-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/landsecrets-screenshot-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://landsecrets.io/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Land-Secrets-2096095914008096",
     "telegram": "https://t.me/landsecrets",
@@ -2246,9 +2282,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Coins.ph",
     "avatar": "",
@@ -2260,7 +2297,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/coinsph-wallet-sceenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/coinsph-wallet-sceenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://coins.ph/?utm_source=cryptoslate",
     "facebook": "http://www.facebook.com/coinsph",
     "telegram": "",
@@ -2305,9 +2342,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Exodus",
     "avatar": "",
@@ -2319,7 +2357,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Exodus-wallet-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Exodus-wallet-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://www.exodus.io/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/exodus.io/",
     "telegram": "",
@@ -2445,9 +2483,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "HyperDragons",
     "avatar": "",
@@ -2459,7 +2498,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Hyperdragons-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Hyperdragons-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "http://hyperdragons.alfakingdom.com",
     "facebook": "https://www.facebook.com/MixHyperDragons/",
     "telegram": "",
@@ -2511,9 +2550,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CryptoCities",
     "avatar": "",
@@ -2525,7 +2565,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/CryptoCities-dapp-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/CryptoCities-dapp-screenshot-03-300x152.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://cryptocities.net/world",
     "facebook": "",
     "telegram": "",
@@ -2580,9 +2620,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Keplr",
     "avatar": "",
@@ -2597,7 +2638,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://www.keplr.app/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -2649,9 +2690,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Meme Factory",
     "avatar": "",
@@ -2663,7 +2705,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://memefactory.io/",
     "facebook": "",
     "telegram": "https://t.me/district0x",
@@ -2702,9 +2744,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "MyEtherWallet",
     "avatar": "",
@@ -2715,7 +2758,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/myetherwallet-screenshot-01-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/myetherwallet-screenshot-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://www.myetherwallet.com/",
     "facebook": "https://www.facebook.com/MyEtherWallet/",
     "telegram": "",
@@ -2772,9 +2815,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Gigabyte GeForce GTX 1070 8GB Windforce",
     "avatar": "",
@@ -2786,7 +2830,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://www.gigabyte.com/us/Graphics-Card/GV-N1060WF2-3GD#sp?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/GIGABYTEofficial/",
     "telegram": "",
@@ -2828,9 +2872,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Yoroi Wallet",
     "avatar": "",
@@ -2842,7 +2887,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://yoroi-wallet.com?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/YoroiWallet/",
     "telegram": "https://t.me/CardanoCommunityTechSupport",
@@ -2887,9 +2932,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Livepeer",
     "avatar": "",
@@ -2900,7 +2946,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://livepeer.org",
     "facebook": "https://www.facebook.com/livepeer/",
     "telegram": "",
@@ -3071,9 +3117,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Panda Earth",
     "avatar": "",
@@ -3085,7 +3132,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Panda-Earth-dapp-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Panda-Earth-dapp-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://panda.earth/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/PandaEarth.Official",
     "telegram": "https://twitter.com/panda__earth",
@@ -3130,9 +3177,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Ledger Nano S",
     "avatar": "",
@@ -3144,7 +3192,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Ledger-Nano-S-wallet-image-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Ledger-Nano-S-wallet-image-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e4"],
+    "categories": ["630dd055086d932ce3644f58"],
     "website": "http://bit.ly/CS-Products-LedgerShop?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Ledger/",
     "telegram": "",
@@ -3252,9 +3300,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Antminer X3 (220 kH/s)",
     "avatar": "",
@@ -3264,7 +3313,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -3315,9 +3364,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Innosilicon S11 SiaMaster",
     "avatar": "",
@@ -3328,7 +3378,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "http://www.innosilicon.com/html/s11-miner/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Innosilicon-Technology-Inc-1694270027568664/",
     "telegram": "",
@@ -3361,9 +3411,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Enjin Wallet",
     "avatar": "",
@@ -3374,7 +3425,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://enjinwallet.io/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/enjinsocial",
     "telegram": "https://t.me/enjin_coin",
@@ -3438,9 +3489,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Temporal",
     "avatar": "",
@@ -3452,7 +3504,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/10/temporal-gallery-3-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/10/temporal-gallery-4-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://temporal.cloud/temporal",
     "facebook": "",
     "telegram": "https://t.me/rtradetemporal",
@@ -3526,9 +3578,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CryptoRome",
     "avatar": "",
@@ -3540,7 +3593,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://www.cryptorome.io",
     "facebook": "https://www.facebook.com/CryptoRome/",
     "telegram": "https://t.me/joinchat/HO5pEg4X7AFMoeXYbE-4hg",
@@ -3602,9 +3655,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Blockchain Cuties",
     "avatar": "",
@@ -3616,7 +3670,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Blockchain-cuties-scrrenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Blockchain-cuties-scrrenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://blockchaincuties.com/",
     "facebook": "https://www.facebook.com/blockchaincuties/",
     "telegram": "https://t.me/blockchaincuties_en",
@@ -3731,9 +3785,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CryptoTrader",
     "avatar": "",
@@ -3744,7 +3799,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/CryptoTrader-app-screenshot-01-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/CryptoTrader-app-screenshot-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://cryptotraderapp.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/cryptotraderapp/",
     "telegram": "https://t.me/wearecryptotraders",
@@ -3777,9 +3832,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "EvolutionLand",
     "avatar": "",
@@ -3791,7 +3847,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/11/Evolution-land-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/11/Evolution-land-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://www.evolution.land?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/evolutionland9",
     "telegram": "https://t.me/evolutionland9",
@@ -3813,9 +3869,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "A5 DashMaster",
     "avatar": "",
@@ -3825,7 +3882,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "http://www.innosilicon.com/html/a5-miner/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Innosilicon-Technology-Inc-1694270027568664/",
     "telegram": "",
@@ -3858,9 +3915,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Status",
     "avatar": "",
@@ -3872,7 +3930,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Status_dapp-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Status_dapp-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f1d1096097586bcbc", "630c2c9f20e694f1dd78f2b5", "630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd05a1cd276b4a1d6a54c", "630dd055086d932ce3644f29", "630dd055086d932ce3644ed6"],
     "website": "https://status.im/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/ethstatus",
     "telegram": "",
@@ -3916,9 +3974,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Antminer S9 (14 TH/s)",
     "avatar": "",
@@ -3928,7 +3987,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/?lang=en?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -3965,9 +4024,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Antminer Z9 mini",
     "avatar": "",
@@ -3975,7 +4035,7 @@
     "sponsored": false,
     "about": "Antminer Z9 mini is Bitmain mining equipment. This Equihash miner offers a 10.0k Sol/s mining hashrate that utilizes 247 watts of power usage.",
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/08/Bitmain-Antminer-Z9-mini-image01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -4030,9 +4090,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Edge Wallet",
     "avatar": "",
@@ -4043,7 +4104,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/edge-wallet-app-screenshot-01-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/edge-wallet-app-screenshot-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://edge.app/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "https://t.me/joinchat/AAAAAEG4wXOcIlHhXL2Now",
@@ -4125,9 +4186,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Lens Protocol",
     "avatar": "",
@@ -4139,7 +4201,7 @@
       "Founded by Stani Kulechov, who is also the founder of AAVE (AAVE), Lens Protocol is a social networking product based on blockchain technology. A leading Ethereum-based lending platform."
     ],
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f2b5"],
+    "categories": ["630dd055086d932ce3644f29"],
     "website": "https://lens.xyz/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -4171,9 +4233,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Binance App",
     "avatar": "",
@@ -4184,7 +4247,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261", "630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed5", "630dd055086d932ce3644ed6"],
     "website": "http://bit.ly/CS-Binance?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/binanceexchange",
     "telegram": "https://t.me/BinanceExchange",
@@ -4259,9 +4322,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Antminer D3 (19.3 GH/s)",
     "avatar": "",
@@ -4272,7 +4336,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Bitmain-Antminer-D3-19.3ghs-image-01-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Bitmain-Antminer-D3-19_3ghs-image02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -4335,9 +4399,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Axie Infinity",
     "avatar": "",
@@ -4349,7 +4414,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Axie-Infinity-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Axie-Infinity-screenshot-04-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://axieinfinity.com/",
     "facebook": "https://www.facebook.com/AxieInfinity",
     "telegram": "https://t.me/axieinfinity",
@@ -4465,9 +4530,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "AnkerPay",
     "avatar": "",
@@ -4481,7 +4547,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://ankerpay.com/mobile-wallet/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/AnkerPlatform",
     "telegram": "https://t.me/AnkerPay",
@@ -4517,9 +4583,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Vitae.co",
     "avatar": "",
@@ -4527,7 +4594,7 @@
     "sponsored": false,
     "about": "Vitae.co is a social media rewards website. VITAE is the utility token to enable access to the products and/or services offered by a company. Therefore, Vitae utility tokens are not created to be an investment. Vitae Token was developed for its utility purpose only, to be utilized on the Social Media application.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f2b5"],
+    "categories": ["630dd055086d932ce3644f29"],
     "website": "https://vitae.co/",
     "facebook": "https://www.facebook.com/VitaeToken/",
     "telegram": "https://t.me/joinchat/HGlwexDROijrX3vWfGyvDw",
@@ -4572,9 +4639,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "OAS Chain",
     "avatar": "",
@@ -4582,7 +4650,7 @@
     "sponsored": false,
     "about": "OAS CHAIN is focused on developing special gateways for cryptocurrencies for safe payment, IoT security, and hosting private blockchains. OAS CHAIN has patents to IoT security, private hosting, and payment gateway.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://oaschain.com/oaschain",
     "facebook": "",
     "telegram": "http://t.me/officialoaschain",
@@ -4648,9 +4716,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Blockchain Wallet",
     "avatar": "",
@@ -4661,7 +4730,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://www.blockchain.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/blockchain/",
     "telegram": "",
@@ -4712,9 +4781,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Quadency",
     "avatar": "",
@@ -4726,7 +4796,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://quadency.com/?utm_source=CoListing&utm_medium=Push&utm_campaign=CryptoSlate?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/quadency/",
     "telegram": "https://t.me/joinchat/Fbj0HRHlGePeT8QeV-4uBg",
@@ -4784,9 +4854,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Augur",
     "avatar": "",
@@ -4798,7 +4869,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/augur-dapp-scrrenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/augur-dapp-scrrenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://www.augur.net/?utm_source=cryptoslate",
     "facebook": "https://facebook.com/AugurProject/",
     "telegram": "",
@@ -4865,9 +4936,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.752Z",
-    "updated_at": "2022-08-29T03:03:59.752Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "MyCrypto",
     "avatar": "",
@@ -4879,7 +4951,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/MyCrypto-wallet-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/MyCrypto-wallet-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://mycrypto.com/account?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/mycryptoHQ/",
     "telegram": "",
@@ -4962,9 +5034,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CryptoSoccr",
     "avatar": "",
@@ -4976,7 +5049,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://cryptosoccr.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/CryptoSoccr-1572197626212855",
     "telegram": "https://t.me/joinchat/I3zYlU_y2WL-_Ni9SSGenQ",
@@ -5013,9 +5086,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Ethereum Name Service",
     "avatar": "",
@@ -5026,7 +5100,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://ens.domains/",
     "facebook": "",
     "telegram": "",
@@ -5097,9 +5171,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "AMD Radeon RX 480",
     "avatar": "",
@@ -5107,7 +5182,7 @@
     "sponsored": false,
     "about": "The AMD Radeon™ RX 480 graphics cards features the latest Polaris GPU with 2304 stream processors and 8GB of 8000MHz GDDR5 memory. It competes with heavy weights such as AMD R9 390X but consumes far less power having just a 110W TDP and a single 6-pin power connector.",
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/08/AMD-Radeon-RX-480-image-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://www.amd.com/en/products/graphics/radeon-rx-480?utm_source=cryptoslate",
     "facebook": "http://www.facebook.com/amd",
     "telegram": "",
@@ -5156,9 +5231,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CryptoBots",
     "avatar": "",
@@ -5170,7 +5246,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Cryptobots-dapp-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Cryptobots-dapp-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://cryptobots.me/",
     "facebook": "http://facebook.com/cryptobotsgame",
     "telegram": "http://t.me/cryptobotsgame",
@@ -5234,9 +5310,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Coygo",
     "avatar": "",
@@ -5248,7 +5325,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/12/Coygo-gallery-2-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/12/Coygo-gallery-3-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.coygo.app?ref=cryptoslate-p?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/CoygoHQ/",
     "telegram": "",
@@ -5301,9 +5378,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CoinTiger",
     "avatar": "",
@@ -5315,7 +5393,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.cointiger.com?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/CoinTigerEX",
     "telegram": "https://t.me/Cointiger_en",
@@ -5379,9 +5457,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Antminer L3++ (580 MH/s)",
     "avatar": "",
@@ -5391,7 +5470,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -5445,9 +5524,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Digital BitBox",
     "avatar": "",
@@ -5459,7 +5539,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e4"],
+    "categories": ["630dd055086d932ce3644f58"],
     "website": "https://shiftcrypto.ch/shop?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Shiftcrypto/",
     "telegram": "",
@@ -5523,9 +5603,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Bettergram",
     "avatar": "",
@@ -5537,7 +5618,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Bettergram-app-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2b5"],
+    "categories": ["630dd055086d932ce3644f29"],
     "website": "https://bettergram.io/?utm_source=cryptoslate",
     "facebook": "http://www.facebook.com/bettergramapp",
     "telegram": "http://www.t.me/bettergramapp",
@@ -5571,9 +5652,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "BTC.com Wallet App",
     "avatar": "",
@@ -5585,7 +5667,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://wallet.btc.com/#/setup/register?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/btccom",
     "telegram": "",
@@ -5632,9 +5714,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Minds",
     "avatar": "",
@@ -5646,7 +5729,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/minds-dapp-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/minds-dapp-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://www.minds.com/",
     "facebook": "https://www.facebook.com/mindsdotcom",
     "telegram": "",
@@ -5695,9 +5778,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Cash App",
     "avatar": "",
@@ -5709,7 +5793,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/11/CashApp-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/11/CashApp-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "http://bit.ly/CS-CashApp?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/SquareCash/",
     "telegram": "",
@@ -5758,9 +5842,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Etheremon",
     "avatar": "",
@@ -5772,7 +5857,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/etheremon-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/etheremon-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://www.etheremon.com/my-mons",
     "facebook": "https://www.facebook.com/etheremon",
     "telegram": "https://t.me/myetheremon",
@@ -5843,9 +5928,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "MLB Crypto Baseball",
     "avatar": "",
@@ -5857,7 +5943,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/MLBCrypto-Baseball-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/MLBCrypto-Baseball-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://www.mlbcryptobaseball.com?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/MLBCrypto/",
     "telegram": "https://t.me/MLBCrypto",
@@ -5900,9 +5986,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Sheetcoin",
     "avatar": "",
@@ -5914,7 +6001,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/11/sheetcoin-gallery-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/11/sheetcoin-gallery-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://devpost.com/software/sheetcoin?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -5936,9 +6023,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "GreenAddress",
     "avatar": "",
@@ -5950,7 +6038,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://greenaddress.it/en/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -5992,9 +6080,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Antminer T9+",
     "avatar": "",
@@ -6006,7 +6095,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -6050,9 +6139,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Crypt-Oink",
     "avatar": "",
@@ -6064,7 +6154,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://www.crypt-oink.io/webapp?lang=en#home",
     "facebook": "https://www.facebook.com/CryptOinkJP/",
     "telegram": "",
@@ -6102,9 +6192,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Antminer Z9",
     "avatar": "",
@@ -6114,7 +6205,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/product/detail?pid=00020180731170050305Fh6W40G10602#5074?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -6162,9 +6253,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Bexplus",
     "avatar": "",
@@ -6176,7 +6268,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.bexplus.com/?utm_source=cryptoslate&utm_medium=listing&utm_campaign=1017?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/bexplusglobal/?utm_source=cryptoslate&utm_medium=listing&utm_campaign=1017",
     "telegram": "https://t.me/bexplusexchange?utm_source=cryptoslate&utm_medium=listing&utm_campaign=1017",
@@ -6219,9 +6311,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "CryptoCrystal",
     "avatar": "",
@@ -6233,7 +6326,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ebd"],
     "website": "https://cryptocrystal.io/",
     "facebook": "",
     "telegram": "https://t.me/cryptocrystal_official",
@@ -6276,9 +6369,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "XDEFI Wallet",
     "avatar": "",
@@ -6289,7 +6383,7 @@
       "XDEFI Wallet is a DeFi and NFT wallet for Terra, THORChain, Ethereum, Avalanche, Polygon, Binance Smart Chain, and Bitcoin."
     ],
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2022/03/XDEFI-Wallet-image-1-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://www.xdefi.io/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "https://t.me/xdefi_io",
@@ -6335,9 +6429,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Antminer D3",
     "avatar": "",
@@ -6345,7 +6440,7 @@
     "sponsored": false,
     "about": "Antminer D3 focuses on X11 mining, an algorithm used by the popular Dash cryptocurrency. With a 15 GH/s hashing power, it consumes approximately 1200W.",
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/08/Bitmain-Antminer_D3-screenshot-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/?lang=en?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -6375,9 +6470,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Gigabyte GTX 1080Ti 11GB AORUS EXTREME Edition",
     "avatar": "",
@@ -6388,7 +6484,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://www.gigabyte.com/us/Graphics-Card/GV-N108TAORUS-X-11GD#kf?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/GIGABYTEofficial/",
     "telegram": "",
@@ -6425,9 +6521,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "EOS Knights",
     "avatar": "",
@@ -6439,7 +6536,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/EOS-Knights-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/EOS-Knights-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ebd"],
     "website": "http://eosknights.io/",
     "facebook": "",
     "telegram": "https://t.me/joinchat/IAL3EwvtSVMml_qkYPXbrw",
@@ -6469,9 +6566,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "eToro",
     "avatar": "",
@@ -6482,7 +6580,7 @@
       "eToro is the world’s leading social trading platform, offering a wide array of tools to invest in the capital markets. You can create a portfolio with cryptocurrencies, stocks, commodities, ETFs and more."
     ],
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/08/eToro-app-screenshot-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "http://bit.ly/CS-Etoro-Signup-Crypto?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/etoro",
     "telegram": "",
@@ -6532,9 +6630,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "XFX Radeon RX 580 GTS XXX Edition",
     "avatar": "",
@@ -6546,7 +6645,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/XFX-Radeon-RX-580-GTS-XXX-Edition-image-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/XFX-Radeon-RX-580-GTS-XXX-Edition-image-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "http://xfxforce.com/en-us/products/amd-radeon-rx-500-series/rx-580-gts-8gb-dd-rx-580p8dfd6?utm_source=cryptoslate",
     "facebook": "http://www.facebook.com/xfxus",
     "telegram": "",
@@ -6586,9 +6685,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Haven",
     "avatar": "",
@@ -6599,7 +6699,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2b5", "630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644f29", "630dd055086d932ce3644ed6"],
     "website": "https://gethaven.app/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "https://t.me/GetHavenApp",
@@ -6671,9 +6771,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Wizards.one",
     "avatar": "",
@@ -6685,7 +6786,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/11/Wizards-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/11/Wizards-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ebd"],
     "website": "https://wizards.one?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/wizards.one",
     "telegram": "https://t.me/wizardsone_channel",
@@ -6713,9 +6814,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Innosilicon A9 ZMaster",
     "avatar": "",
@@ -6726,7 +6828,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Innosilicon-A9-ZMaster-social-01-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Innosilicon-A9-ZMaster-social-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "http://www.innosilicon.com/html/a9-miner/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Innosilicon-Technology-Inc-1694270027568664/",
     "telegram": "",
@@ -6760,9 +6862,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "WunderTrading",
     "avatar": "",
@@ -6773,7 +6876,7 @@
       "https://cryptoslate.com/wp-content/uploads/2021/03/wunderbit-trading-gallery-new-1-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2021/03/wunderbit-trading-gallery-new-2-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://wundertrading.com/en?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/wunderbit.co/",
     "telegram": "https://t.me/wb_trading",
@@ -6817,9 +6920,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Trust Wallet",
     "avatar": "",
@@ -6831,7 +6935,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Trust-wallet-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Trust-wallet-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f1d1096097586bcbc", "630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd05a1cd276b4a1d6a54c", "630dd055086d932ce3644ed6"],
     "website": "https://trustwalletapp.com/?utm_source=cryptoslate",
     "facebook": "https://facebook.com/trustwalletapp",
     "telegram": "https://t.me/trustwallet",
@@ -6878,9 +6982,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "SwissBorg Wealth App",
     "avatar": "",
@@ -6888,7 +6993,7 @@
     "sponsored": false,
     "about": "SwissBorg makes it fair, safe, and accessible to invest in your financial future with crypto assets.",
     "galleries": [],
-    "categories": ["630c2c9f1d1096097586bcba", "630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd05a1cd276b4a1d6a53f", "630dd055086d932ce3644ed5"],
     "website": "https://swissborg.com/products/wealth-app?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/swissborg",
     "telegram": "https://t.me/SwissBorgChat",
@@ -6934,9 +7039,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Canaan Avalon 841",
     "avatar": "",
@@ -6948,7 +7054,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://canaan.io/product/avalonminer-841/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -6995,9 +7101,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Brave Browser",
     "avatar": "",
@@ -7008,7 +7115,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f1d1096097586bcbc"],
+    "categories": ["630dd05a1cd276b4a1d6a54c"],
     "website": "http://bit.ly/CS-BraveBrowser?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/BraveSoftware/",
     "telegram": "",
@@ -7071,9 +7178,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Nvidia GeForce GTX 970",
     "avatar": "",
@@ -7081,7 +7189,7 @@
     "sponsored": false,
     "about": "The GeForce® GTX 970 is a high-performance graphics card designed for serious gaming. Powered by new NVIDIA® Maxwell™ architecture, it features advanced technologies and class-leading graphics for incredible gaming experiences.",
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/08/Nvidia-GeForce-GTX-970-image-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://www.geforce.com/hardware/desktop-gpus/geforce-gtx-970?utm_source=cryptoslate",
     "facebook": "http://www.facebook.com/NVIDIAGeForce",
     "telegram": "",
@@ -7123,9 +7231,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "ZB App",
     "avatar": "",
@@ -7137,7 +7246,7 @@
       "https://cryptoslate.com/wp-content/uploads/2020/03/Zp-app-gallery-image-2-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2020/03/Zp-app-gallery-image-3-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.zb.com/download?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/ZBGlobalGroup/",
     "telegram": "https://t.me/ZB_English",
@@ -7178,9 +7287,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "RollerCoin",
     "avatar": "",
@@ -7192,7 +7302,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/11/rollercoin-gallery-1-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/11/rollercoin-gallery-2-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ebd"],
     "website": "https://rollercoin.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/rollercoin/",
     "telegram": "",
@@ -7222,9 +7332,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "OWNR Wallet",
     "avatar": "",
@@ -7232,7 +7343,7 @@
     "sponsored": false,
     "about": "OWNR Wallet is a smart and secure cryptocurrency wallet to store all digital assets. Buy, sell, send, store and exchange crypto in one free app: BTC, BCH, ETH, ERC20 tokens, LTC, Dogecoin, TRON and others. Manage all crypto and Visa prepaid card in a single app, swiftly and simply.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "http://ownrwallet.com/?utm_source=cryptoslate?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/ownrwallet/",
     "telegram": "https://t.me/ownr_wallet_channel",
@@ -7291,9 +7402,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Ethermium",
     "avatar": "",
@@ -7305,7 +7417,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/11/Ethermium-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/11/Ethermium-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ed5"],
     "website": "https://ethermium.com/",
     "facebook": "https://www.facebook.com/ethermium",
     "telegram": "https://telegram.me/EthermiumCom",
@@ -7363,9 +7475,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.671Z",
+    "updated_at": "2022-08-30T08:54:50.671Z",
     "created_by": "admin",
     "name": "Daedalus",
     "avatar": "",
@@ -7373,7 +7486,7 @@
     "sponsored": false,
     "about": "Daedalus is a wallet, developed by IOHK which will allow you to store Cardano (ADA) cryptocurrency. It is an open-source, multi-platform, HD (hierarchical deterministic) wallet, allowing you to create an infinite set of keys from a single seed.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://daedaluswallet.io/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "https://t.me/CardanoAnnouncements/",
@@ -7466,9 +7579,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Crypto Space Commander",
     "avatar": "",
@@ -7480,7 +7594,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/everdragons-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/everdragons-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://www.csc-game.com/",
     "facebook": "https://www.facebook.com/CSCommander/",
     "telegram": "https://t.me/CryptoSpaceCommander",
@@ -7540,9 +7654,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "ETH.TOWN",
     "avatar": "",
@@ -7554,7 +7669,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://eth.town/floors",
     "facebook": "https://facebook.com/eth.town",
     "telegram": "https://t.me/Ethertown",
@@ -7625,9 +7740,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Opera",
     "avatar": "",
@@ -7635,7 +7751,7 @@
     "sponsored": false,
     "about": "Opera is the first major browser to integrate a crypto wallet, enabling seamless access to the emerging web of tomorrow (Web 3). Opera’s wallet will automatically detect and show ERC20 compliant tokens, which some Dapps may use, as an in-game currency for example. Opera will also show any crypto-collectibles you may have (ERC721), sometimes referred to as NFTs.",
     "galleries": [],
-    "categories": ["630c2c9f1d1096097586bcbc", "630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd05a1cd276b4a1d6a54c", "630dd055086d932ce3644ed6"],
     "website": "https://www.opera.com/crypto?utm_source=cryptoslate",
     "facebook": "https://facebook.com/opera",
     "telegram": "",
@@ -7671,9 +7787,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "LocalCryptos",
     "avatar": "",
@@ -7685,7 +7802,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/localethereum-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/localethereum-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://localethereum.com/",
     "facebook": "https://www.facebook.com/localethereumdotcom",
     "telegram": "https://t.me/localethereumdotcom",
@@ -7720,9 +7837,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Xapa Wallet",
     "avatar": "",
@@ -7730,7 +7848,7 @@
     "sponsored": false,
     "about": "With Xapa Wallet, you can easily get access to your account even if you lose your phone or forget your credentials. Security features include:",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://xapawallet.com?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/xapawalletco",
     "telegram": "https://t.me/xapawallet",
@@ -7755,9 +7873,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "0xUniverse",
     "avatar": "",
@@ -7769,7 +7888,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://0xuniverse.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/0xUniverse",
     "telegram": "https://t.me/OxUniverse",
@@ -7839,9 +7958,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Antminer L3+ (504 MH/s)",
     "avatar": "",
@@ -7853,7 +7973,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/?lang=en?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -7897,9 +8017,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "CryptoGirl",
     "avatar": "",
@@ -7911,7 +8032,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Cryptogirl-dapp-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Cryptogirl-dapp-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "http://cryptogirl.game/sign-in",
     "facebook": "https://www.facebook.com/cryptogirl.game/",
     "telegram": "https://t.me/joinchat/GrVmzUpTbDDcEDmsXUcb2A",
@@ -7982,9 +8103,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "MetaMask",
     "avatar": "",
@@ -7992,7 +8114,7 @@
     "sponsored": false,
     "about": "MetaMask is an extension for accessing Ethereum enabled distributed applications or “dApps” in your normal browser. The extension injects the Ethereum web3 API into every website’s javascript context so that DApps can read from the blockchain. MetaMask requires no login and does not store your private keys in any server, instead, they are stored on Chrome and password protected.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://metamask.io/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -8029,9 +8151,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Nvidia GeForce GTX 1070 Founders Edition",
     "avatar": "",
@@ -8039,7 +8162,7 @@
     "sponsored": false,
     "about": "GeForce GTX 10-series graphics cards are powered by Pascal architecture to deliver up to 3X the performance of previous-generation graphics cards. The GeForce GTX 1070 Ti graphics card provides 1920 stream processors and 8 GB of GDDR5 memory.",
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/08/GTX1070-screenshot-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://www.nvidia.com/en-us/geforce/products/10series/geforce-gtx-1070-ti/?utm_source=cryptoslate",
     "facebook": "http://www.facebook.com/NVIDIAGeForce",
     "telegram": "",
@@ -8075,9 +8198,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "TREZOR Model T",
     "avatar": "",
@@ -8089,7 +8213,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/trezor-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/trezor-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e4"],
+    "categories": ["630dd055086d932ce3644f58"],
     "website": "http://bit.ly/CS-Products-TrezorShop?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/BitcoinTrezor/",
     "telegram": "",
@@ -8148,9 +8272,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Prodoge",
     "avatar": "",
@@ -8161,7 +8286,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://prodoge.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/prodogeapp/",
     "telegram": "",
@@ -8200,9 +8325,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Electrum Bitcoin Wallet",
     "avatar": "",
@@ -8214,7 +8340,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/Electrum-wallet-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/Electrum-wallet-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://electrum.org/#home?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -8274,9 +8400,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "MSI Radeon RX 470 MINER 8G",
     "avatar": "",
@@ -8288,7 +8415,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://us.msi.com/Graphics-card/Radeon-RX-470-GAMING-X-8G.html?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -8330,9 +8457,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Bitpie",
     "avatar": "",
@@ -8344,7 +8472,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/10/bitpie-wallet-gallery-03-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/10/bitpie-wallet-gallery-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://bitpie.com/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "https://t.me/BitpieInternational",
@@ -8387,9 +8515,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.753Z",
-    "updated_at": "2022-08-29T03:03:59.753Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "0x",
     "avatar": "",
@@ -8401,7 +8530,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://0xproject.com/portal",
     "facebook": "",
     "telegram": "",
@@ -8493,9 +8622,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Digifox",
     "avatar": "",
@@ -8507,7 +8637,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20225%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20225%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261", "630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed5", "630dd055086d932ce3644ed6"],
     "website": "https://www.digifox.finance/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/digifox.finance/",
     "telegram": "",
@@ -8546,9 +8676,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Monarch",
     "avatar": "",
@@ -8556,7 +8687,7 @@
     "sponsored": false,
     "about": "The Monarch App functions as a digital wallet, where users will be able to store their Bitcoin, Ethereum and all ERC-20 token (NEP-5 tokens support coming soon). The Decentralized Wallet keeps track of all user’s assets and allow users to send and receive payments.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://monarchtoken.io/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/MonarchToken/",
     "telegram": "https://t.me/MonarchToken",
@@ -8635,9 +8766,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "uPort",
     "avatar": "",
@@ -8649,7 +8781,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://www.uport.me?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/uportproject/",
     "telegram": "",
@@ -8687,9 +8819,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Apsis Online",
     "avatar": "",
@@ -8701,7 +8834,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ebd"],
     "website": "http://apsis.online?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "https://t.me/roguecurrency",
@@ -8732,9 +8865,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Plark",
     "avatar": "",
@@ -8746,7 +8880,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/10/Plark-gallery-2-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/10/Plark-gallery-3-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://plark.io?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/plark.io/",
     "telegram": "https://t.me/PlarkWallet",
@@ -8781,9 +8915,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "TREZOR ONE White",
     "avatar": "",
@@ -8795,7 +8930,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e4"],
+    "categories": ["630dd055086d932ce3644f58"],
     "website": "http://bit.ly/CS-Products-TrezorShop?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/BitcoinTrezor/",
     "telegram": "",
@@ -8850,9 +8985,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "SwirlWallet",
     "avatar": "",
@@ -8860,7 +8996,7 @@
     "sponsored": false,
     "about": "SwirlWallet is a multi cryptocurrency wallet where you can store, send and hold cryptocurrencies.",
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://swirlwallet.com/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -8893,9 +9029,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Coinomi",
     "avatar": "",
@@ -8907,7 +9044,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://www.coinomi.com/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "https://t.me/coinomi_official",
@@ -9004,9 +9141,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "MoonPay",
     "avatar": "",
@@ -9017,7 +9155,7 @@
       "MoonPay offers a fast and simple way to buy and sell cryptocurrencies. Buy crypto with credit card, bank transfers or Apple Pay today."
     ],
     "galleries": [],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.moonpay.com/?utm_source=cryptoslate",
     "facebook": "https://m.facebook.com/officialmoonpay/",
     "telegram": "",
@@ -9039,9 +9177,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Tenta Browser",
     "avatar": "",
@@ -9053,7 +9192,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f1d1096097586bcbc"],
+    "categories": ["630dd05a1cd276b4a1d6a54c"],
     "website": "https://tenta.com?utm_source=cryptoslate",
     "facebook": "https://facebook.com/tentabrowser",
     "telegram": "",
@@ -9093,9 +9232,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Abra",
     "avatar": "",
@@ -9106,7 +9246,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "http://bit.ly/CS-Abra-Signup?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/GoAbraGlobal",
     "telegram": "",
@@ -9176,9 +9316,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Decentraland",
     "avatar": "",
@@ -9190,7 +9331,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20175%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://market.decentraland.org/0/0",
     "facebook": "https://www.facebook.com/decentraland/",
     "telegram": "",
@@ -9269,9 +9410,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Peepeth",
     "avatar": "",
@@ -9281,7 +9423,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f2b5"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644f29"],
     "website": "https://peepeth.com/welcome?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -9313,9 +9455,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Xapo",
     "avatar": "",
@@ -9323,7 +9466,7 @@
     "sponsored": false,
     "about": "The Xapo App is a mobile Bitcoin and multi-currency wallet that combines convenience and industry-leading security for managing your Bitcoins and sending money to friends and family instantly all over the world.",
     "galleries": ["https://cryptoslate.com/wp-content/uploads/2018/08/XAPO-screenshot-01-300x158.jpg"],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://xapo.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/xapoapp",
     "telegram": "",
@@ -9359,9 +9502,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Bybit App",
     "avatar": "",
@@ -9373,7 +9517,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261"],
+    "categories": ["630dd055086d932ce3644ed5"],
     "website": "https://www.bybit.com/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bybit",
     "telegram": "https://t.me/BybitEnglish",
@@ -9409,9 +9553,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Antminer E3",
     "avatar": "",
@@ -9421,7 +9566,7 @@
     "galleries": [
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f2e0"],
+    "categories": ["630dd055086d932ce3644f54"],
     "website": "https://shop.bitmain.com/?lang=en?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Bitmain",
     "telegram": "",
@@ -9464,9 +9609,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Sapphire Radeon Tri-X R9 290X",
     "avatar": "",
@@ -9478,7 +9624,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Sapphire-Radeon-Tri-X-R9-290X-image-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Sapphire-Radeon-Tri-X-R9-290X-image-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "http://www.sapphiretech.com/productdetial.asp?pid=640A98CD-0CF0-4191-B75C-CA2800111ADB&lang=eng?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/SapphireTechnology",
     "telegram": "",
@@ -9536,9 +9682,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Everdragons",
     "avatar": "",
@@ -9550,7 +9697,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://everdragons.com/",
     "facebook": "https://www.facebook.com/4LDEverdragons",
     "telegram": "https://t.me/Everdragons",
@@ -9604,9 +9751,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Circle Invest",
     "avatar": "",
@@ -9617,7 +9765,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/09/Circle-invest-screenshot-01-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/09/Circle-invest-screenshot-02-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f261", "630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed5", "630dd055086d932ce3644ed6"],
     "website": "https://www.circle.com/en/invest?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/circle/",
     "telegram": "",
@@ -9684,9 +9832,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Gods Unchained",
     "avatar": "",
@@ -9698,7 +9847,7 @@
       "https://cryptoslate.com/wp-content/uploads/2018/08/Gods-Unchained-screenshot-02-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2018/08/Gods-Unchained-screenshot-03-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://godsunchained.com/",
     "facebook": "",
     "telegram": "",
@@ -9739,9 +9888,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Omise",
     "avatar": "",
@@ -9753,7 +9903,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f262"],
+    "categories": ["630dd055086d932ce3644ed6"],
     "website": "https://www.omise.co/?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/Omise",
     "telegram": "",
@@ -9795,9 +9945,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "MakerDAO",
     "avatar": "",
@@ -9809,7 +9960,7 @@
       "https://cryptoslate.com/wp-content/uploads/2019/06/MakerDAO-gallery-2-300x158.jpg",
       "https://cryptoslate.com/wp-content/uploads/2019/06/MakerDAO-gallery-3-300x158.jpg"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e"],
+    "categories": ["630dd055086d932ce3644ee2"],
     "website": "https://cdp.makerdao.com",
     "facebook": "",
     "telegram": "https://t.me/makerdaoOfficial",
@@ -9890,9 +10041,10 @@
     ]
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Gigabyte GTX 1060 Windforce 3GB",
     "avatar": "",
@@ -9904,7 +10056,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f254"],
+    "categories": ["630dd055086d932ce3644ec8"],
     "website": "https://www.gigabyte.com/us/Graphics-Card/GV-N1060WF2-3GD#sp?utm_source=cryptoslate",
     "facebook": "https://www.facebook.com/GIGABYTEofficial/",
     "telegram": "",
@@ -9946,9 +10098,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "Chibi Fighters",
     "avatar": "",
@@ -9960,7 +10113,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://chibifighters.io/?utm_source=cryptoslate",
     "facebook": "",
     "telegram": "",
@@ -10066,9 +10219,10 @@
     "team": []
   },
   {
+    "trans": [],
     "deleted": false,
-    "created_at": "2022-08-29T03:03:59.754Z",
-    "updated_at": "2022-08-29T03:03:59.754Z",
+    "created_at": "2022-08-30T08:54:50.672Z",
+    "updated_at": "2022-08-30T08:54:50.672Z",
     "created_by": "admin",
     "name": "MegaCryptoPolis",
     "avatar": "",
@@ -10079,7 +10233,7 @@
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E",
       "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20300%20158%22%3E%3C/svg%3E"
     ],
-    "categories": ["630c2c9f20e694f1dd78f26e", "630c2c9f20e694f1dd78f249"],
+    "categories": ["630dd055086d932ce3644ee2", "630dd055086d932ce3644ebd"],
     "website": "https://mcp.town/",
     "facebook": "https://fb.me/megacryptopolis",
     "telegram": "https://t.me/megacryptopolis",

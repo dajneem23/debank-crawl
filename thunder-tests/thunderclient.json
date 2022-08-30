@@ -915,12 +915,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-22T07:41:46.420Z",
-    "modified": "2022-08-30T09:01:58.150Z",
+    "modified": "2022-08-30T10:23:47.067Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [],\n    \"coin_tags\": [],\n    \"product_tags\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
+      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [],\n    \"coin_tags\": [],\n    \"product_tags\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"Limit Break’s DigiDaigaku NFT collection rises by over 100% as firm raises $200m\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Bộ sưu tập NFT của Limit Break’s DigiDaigaku tăng hơn 100% khi công ty huy động được 200 triệu đô la\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -934,16 +934,17 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "query",
-    "url": "{{host}}/news?lang=cn&q=tit",
+    "url": "{{host}}/news",
     "method": "GET",
     "sortNum": 285000,
     "created": "2022-08-22T08:29:26.925Z",
-    "modified": "2022-08-29T11:50:44.875Z",
+    "modified": "2022-08-30T10:24:26.264Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
-        "value": "cn",
+        "value": "vi",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -954,7 +955,8 @@
       },
       {
         "name": "q",
-        "value": "tit",
+        "value": "Limit",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -988,17 +990,16 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "related",
-    "url": "{{host}}/news/related/",
+    "url": "{{host}}/news/related/?lang=vi",
     "method": "GET",
     "sortNum": 290000,
     "created": "2022-08-23T03:39:22.685Z",
-    "modified": "2022-08-29T12:02:20.974Z",
+    "modified": "2022-08-30T09:52:39.282Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
         "value": "vi",
-        "isDisabled": true,
         "isPath": false
       },
       {
@@ -1034,30 +1035,6 @@
         "isPath": false
       }
     ],
-    "tests": []
-  },
-  {
-    "_id": "42edd823-6a3a-4273-8e8c-fa5b50be0166",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
-    "name": "getById",
-    "url": "{{host}}/news/private/630ca6ce1d1096097587453b?lang=vi",
-    "method": "GET",
-    "sortNum": 310000,
-    "created": "2022-08-26T17:38:29.722Z",
-    "modified": "2022-08-29T12:05:10.038Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "lang",
-        "value": "vi",
-        "isPath": false
-      }
-    ],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyNDI2MiwiZXhwIjoxNjYyNDg4MjYyfQ.Qsskg9z293UA3Ud-iQupoo7seUrn5KRDhd4AGTpMXLM"
-    },
     "tests": []
   },
   {
@@ -1101,16 +1078,16 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "search",
-    "url": "{{host}}/news/search?q=cn&lang=vi",
+    "url": "{{host}}/news/search?q=B&lang=vi",
     "method": "GET",
     "sortNum": 340000,
     "created": "2022-08-26T18:33:50.549Z",
-    "modified": "2022-08-30T03:01:52.716Z",
+    "modified": "2022-08-30T10:25:09.365Z",
     "headers": [],
     "params": [
       {
         "name": "q",
-        "value": "cn",
+        "value": "B",
         "isPath": false
       },
       {
@@ -1155,20 +1132,13 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "getBySlug",
-    "url": "{{host}}/news/cn-tit-1661773540767/",
+    "url": "{{host}}/news/the-landmark-2-millionth-ens-domain-has-been-minted-as-it-retains-a-top-10-spot-on-opensea's-secondary-market/",
     "method": "GET",
     "sortNum": 325000,
     "created": "2022-08-27T18:16:47.654Z",
-    "modified": "2022-08-29T12:08:45.118Z",
+    "modified": "2022-08-30T10:00:11.451Z",
     "headers": [],
-    "params": [
-      {
-        "name": "lang",
-        "value": "cn",
-        "isDisabled": true,
-        "isPath": false
-      }
-    ],
+    "params": [],
     "tests": []
   },
   {
@@ -1372,16 +1342,16 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "update",
-    "url": "{{host}}/news/630c80bd1d10960975872a07",
+    "url": "{{host}}/news/630ddf931d1096097587d92f",
     "method": "PUT",
     "sortNum": 280000,
     "created": "2022-08-29T09:03:11.440Z",
-    "modified": "2022-08-29T11:08:05.788Z",
+    "modified": "2022-08-30T10:04:04.356Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{  \"title\":\"hello cac ban13\",\n    \n        \"trans\": [\n        {\n            \"title\": \"huhu13\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu45\",\n            \"lang\": \"jp\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [],\n    \"coin_tags\": [],\n    \"product_tags\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {

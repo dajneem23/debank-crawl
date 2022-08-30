@@ -191,7 +191,7 @@ export class PersonService {
           $set: {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
-            ...(_subject && { created_by: _subject }),
+            ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
         },

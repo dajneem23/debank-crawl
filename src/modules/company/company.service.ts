@@ -226,7 +226,7 @@ export class CompanyService {
             ...(products && { products: $toObjectId(products) }),
             ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
             ...(country && { country: $toObjectId(country) }),
-            ...(_subject && { created_by: _subject }),
+            ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
         },

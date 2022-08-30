@@ -8,7 +8,7 @@ import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Commo
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
 import { ObjectId } from 'mongodb';
-
+import slugify from 'slugify';
 @Service()
 export class NewsService {
   private logger = new Logger('NewsService');
@@ -181,7 +181,10 @@ export class NewsService {
       }
       trans = await Promise.all(
         trans.map(async (item: any) => {
-          const slug = item.title.replace(/ /g, '-').toLowerCase();
+          const slug = slugify(item.title, {
+            trim: true,
+            lower: true,
+          });
           return {
             ...item,
             slug: (await this.model.collection.findOne({ $or: [{ 'trans.slug': slug }, { slug }] }))
@@ -190,7 +193,10 @@ export class NewsService {
           };
         }),
       );
-      const _slug = title.replace(/ /g, '-').toLowerCase();
+      const _slug = slugify(title, {
+        trim: true,
+        lower: true,
+      });
       const slug = (await this.model.collection.findOne({ $or: [{ 'trans.slug': _slug }, { slug: _slug }] }))
         ? _slug + '-' + now.getTime()
         : _slug;
@@ -275,7 +281,12 @@ export class NewsService {
       if (!(validCategories && validCoinTags && validProductTags && validCompanyTags)) {
         throwErr(this.error('INPUT_INVALID'));
       }
-      const _slug = title?.replace(/ /g, '-').toLowerCase() || false;
+      const _slug = title
+        ? slugify(title, {
+            trim: true,
+            lower: true,
+          })
+        : '';
       const {
         ok,
         value,
@@ -288,7 +299,10 @@ export class NewsService {
             ...(trans.length && {
               trans: await Promise.all(
                 trans.map(async (item: any) => {
-                  const slug = item.title.replace(/ /g, '-').toLowerCase();
+                  const slug = slugify(item.title, {
+                    trim: true,
+                    lower: true,
+                  });
                   return {
                     ...item,
                     slug: (await this.model.collection.findOne({
@@ -329,7 +343,7 @@ export class NewsService {
             ...(product_tags.length && { product_tags: $toObjectId(product_tags) }),
             ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
             ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
-            ...(_subject && { created_by: _subject }),
+            ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
         },
@@ -344,8 +358,8 @@ export class NewsService {
       if (!updatedExisting) {
         throwErr(this.error('NOT_FOUND'));
       }
-      this.logger.debug('[update:success]', { _content });
-      return toOutPut({ item: _content, keys: this.outputKeys });
+      this.logger.debug('[update:success]', { value });
+      return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('[update:error]', err.message);
       throw err;

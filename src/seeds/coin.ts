@@ -6,7 +6,7 @@ import mongoDBLoader from '@/loaders/mongoDBLoader';
 // import token_exchange from '../data/crypto_slate/json/token_exchange.json';
 import coinsFile from '../data/crypto_slate/json/coins.json';
 import { createDataFile, readDataFromFile } from './utils';
-import { $toObjectId, $countCollection } from '@/utils/mongoDB';
+import { $countCollection } from '@/utils/mongoDB';
 import fs from 'fs';
 
 //   /* eslint-disable no-console */
@@ -58,7 +58,9 @@ export const CoinSeed = async () => {
                     if (technology.technologies?.includes(cName)) {
                       // pName['key'] = cName.toLowerCase().replace(' ', '_');
                       // pName['value'] = technology.technologies.replace(cName, '').trim();
-                      pName[cName.toLowerCase().replace(' ', '_')] = technology.technologies.replace(cName, '').trim();
+                      pName[cName.toLowerCase().replace(' ', '_').replace('.', '')] = technology.technologies
+                        .replace(cName, '')
+                        .trim();
                     }
                     return pName;
                   }, {});
@@ -90,9 +92,8 @@ export const CoinSeed = async () => {
                     if (ico_detail.ico_details?.includes(cName)) {
                       // pName['key'] = cName.replace('ICO', '').trim().toLowerCase();
                       // pName['value'] = ico_detail.ico_details.replace(cName, '').trim();
-                      pName[cName.replace('ICO', '').trim().toLowerCase().replace(' ', '_')] = ico_detail.ico_details
-                        .replace(cName, '')
-                        .trim();
+                      pName[cName.replaceAll('at ICO', '').replace('ICO', '').trim().toLowerCase().replace(' ', '_')] =
+                        ico_detail.ico_details.replace(cName, '').trim();
                     }
                     return pName;
                   }, {});

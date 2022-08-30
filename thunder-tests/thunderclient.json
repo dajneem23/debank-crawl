@@ -60,11 +60,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
     "name": "Event.getById",
-    "url": "{{host}}/events/630586765926396fd4d17b4d",
+    "url": "{{host}}/events/6304c29aa27add6496e0fc6c",
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-08-10T02:50:57.347Z",
-    "modified": "2022-08-24T02:01:40.448Z",
+    "modified": "2022-08-26T11:35:41.119Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -190,16 +190,13 @@
     "method": "POST",
     "sortNum": 80000,
     "created": "2022-08-11T04:50:12.130Z",
-    "modified": "2022-08-27T17:45:42.544Z",
+    "modified": "2022-08-29T07:55:45.108Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
       "raw": "{\n    \"username\":\"admin@gmail.com\",\n    \"password\":\"admin\"\n}",
       "form": []
-    },
-    "auth": {
-      "type": "bearer"
     },
     "tests": []
   },
@@ -212,12 +209,12 @@
     "method": "POST",
     "sortNum": 90000,
     "created": "2022-08-11T04:54:01.623Z",
-    "modified": "2022-08-27T17:43:36.070Z",
+    "modified": "2022-08-29T07:52:01.399Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"full_name\":\"thanh1\",\n    \"email\":\"th22an222322h1@gmail.com\",\n    \"password\":\"12345asd\",\n    \"phone\":\"1231232321\"\n}",
+      "raw": "{\n    \"full_name\":\"user\",\n    \"email\":\"user@gmail.com\",\n    \"password\":\"123456\",\n    \"phone\":\"12345678\"\n}",
       "form": []
     },
     "tests": []
@@ -777,11 +774,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
     "name": "getByID",
-    "url": "{{host}}/coins/630c71611d1096097587114b?lang=jp",
+    "url": "{{host}}/coins/62fb29c1dd4fe349334b9409",
     "method": "GET",
     "sortNum": 210000,
     "created": "2022-08-16T07:22:34.600Z",
-    "modified": "2022-08-29T08:12:50.100Z",
+    "modified": "2022-08-16T07:35:07.772Z",
     "headers": [],
     "params": [
       {
@@ -914,12 +911,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-22T07:41:46.420Z",
-    "modified": "2022-08-29T12:14:15.701Z",
+    "modified": "2022-08-29T12:19:31.893Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"number_relate_article\": 6,\n    \"title\": \"en hello cac ban\",\n    \"summary\": \" en sum\",\n    \"headings\": [\n        \"en head\",\n        \"en head2\"\n    ],\n    \"categories\": [\n        \"630c388d1d1096097586d027\"\n    ],\n    \"source\": \"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\": [\n        \"630c2ca020e694f1dd78f616\"\n    ],\n    \"product_tags\": [\n        \"630c2c9f20e694f1dd78f57c\"\n    ],\n    \"coin_tags\": [\n        \"630c2ca020e694f1dd78f725\"\n    ],\n    \"keywords\": [\n        \"trending\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"vi bài viết\",\n            \"lang\": \"vi\",\n            \"content\": \"vi cont\",\n            \"headings\": [\n                \"vi head\",\n                \"vi head2\"\n            ],\n            \"summary\": \"vi sum\"\n        },\n        {\n            \"title\": \"cn tit\",\n            \"lang\": \"cn\",\n            \"content\": \"cn cont\",\n            \"headings\": [\n                \"cn head\",\n                \"cn head2\"\n            ],\n            \"summary\": \"cn sumn\"\n        }\n    ]\n}",
+      "raw": "{\n    \"number_relate_article\": 6,\n    \"title\": \"en hello cac ban\",\n    \"summary\": \" en sum\",\n    \"headings\": [\n        \"en head\",\n        \"en head2\"\n    ],\n    \"categories\": [\n        \"630c3de91cd276b4a16cf412\"\n    ],\n    \"source\": \"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\": [\n        \"630c3df02807d1495928269a\"\n    ],\n    \"product_tags\": [\n        \"630c3dee2807d14959282600\"\n    ],\n    \"coin_tags\": [\n        \"630c6ebe1d6a935c6ecf564d\"\n    ],\n    \"keywords\": [\n        \"trending\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"jp tit\",\n            \"lang\": \"jp\",\n            \"content\": \"jp cont\",\n            \"headings\": [\n                \"jp head\",\n                \"jp head2\"\n            ],\n            \"summary\": \"vi sum\"\n        },\n        {\n            \"title\": \"cn tit\",\n            \"lang\": \"cn\",\n            \"content\": \"cn cont\",\n            \"headings\": [\n                \"cn head\",\n                \"cn head2\"\n            ],\n            \"summary\": \"cn sumn\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -933,22 +930,16 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "query",
-    "url": "{{host}}/news?lang=cn&q=tit",
+    "url": "{{host}}/news/search?q=e",
     "method": "GET",
     "sortNum": 285000,
     "created": "2022-08-22T08:29:26.925Z",
-    "modified": "2022-08-29T11:50:44.875Z",
+    "modified": "2022-08-29T12:37:35.631Z",
     "headers": [],
     "params": [
       {
-        "name": "lang",
-        "value": "cn",
-        "isPath": false
-      },
-      {
-        "name": "per_page",
-        "value": "",
-        "isDisabled": true,
+        "name": "q",
+        "value": "e",
         "isPath": false
       },
       {
@@ -964,11 +955,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
     "name": "following",
-    "url": "{{host}}/users/me/category/follow/630902086b72c43940d8fe89",
+    "url": "{{host}}/users/category/follow",
     "method": "PATCH",
     "sortNum": 280000,
     "created": "2022-08-23T03:28:53.641Z",
-    "modified": "2022-08-27T17:55:00.978Z",
+    "modified": "2022-08-23T03:58:57.564Z",
     "headers": [],
     "params": [],
     "body": {
@@ -978,7 +969,7 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyMjM0MywiZXhwIjoxNjYyNDg2MzQzfQ.rYESc5WhWyvm28EaHI7c3NUzaV_DfGHUYHwh08rTOOk"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
     },
     "tests": []
   },
@@ -987,11 +978,11 @@
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
     "name": "related",
-    "url": "{{host}}/news/related/",
+    "url": "{{host}}/news/related/?lang=eng&per_page=2",
     "method": "GET",
     "sortNum": 290000,
     "created": "2022-08-23T03:39:22.685Z",
-    "modified": "2022-08-29T12:02:20.974Z",
+    "modified": "2022-08-23T09:24:54.496Z",
     "headers": [],
     "params": [
       {
@@ -1003,10 +994,13 @@
       {
         "name": "per_page",
         "value": "2",
-        "isDisabled": true,
         "isPath": false
       }
     ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
+    },
     "tests": []
   },
   {
@@ -1031,361 +1025,89 @@
         "name": "per_page",
         "value": "2",
         "isPath": false
+      },
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
       }
     ],
     "tests": []
   },
   {
-    "_id": "42edd823-6a3a-4273-8e8c-fa5b50be0166",
+    "_id": "5cb0de55-923f-485a-a198-ae627f110f2d",
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
-    "name": "getById",
-    "url": "{{host}}/news/private/630ca6ce1d1096097587453b?lang=vi",
+    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "name": "my info",
+    "url": "{{host}}/users/me",
+    "method": "GET",
+    "sortNum": 290000,
+    "created": "2022-08-29T07:49:40.785Z",
+    "modified": "2022-08-29T07:52:17.221Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJJR3NwYnR5YW93ZiIsImVtYWlsIjoidXNlckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZ1bGxfbmFtZSI6InVzZXIiLCJwaWN0dXJlIjoiaHR0cHM6Ly93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9kZWZhdWx0P3M9MjAwJmQ9bXAiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTY2MTc1OTUyMSwiZXhwIjoxNjYyNjIzNTIxfQ.EVnjZ-LGQ9L3FMitOUwX9OLie-7ZWChos8rL-fxt9Lg"
+    },
+    "tests": []
+  },
+  {
+    "_id": "8c3890ee-885f-4baf-9659-79b79a635227",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "name": "[admin] Get user",
+    "url": "{{host}}/private/users",
+    "method": "GET",
+    "sortNum": 300000,
+    "created": "2022-08-29T07:55:14.500Z",
+    "modified": "2022-08-29T07:55:58.514Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc1OTc0NCwiZXhwIjoxNjYyNjIzNzQ0fQ.HdGzyRS-wCAli-GBzapuaXKB4HYzorscCgA1tonj-ck"
+    },
+    "tests": []
+  },
+  {
+    "_id": "7b068bda-935e-47ce-a7c3-6a4958dd1e36",
+    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
+    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "name": "[admin] Get my info",
+    "url": "{{host}}/private/users/me",
     "method": "GET",
     "sortNum": 310000,
-    "created": "2022-08-26T17:38:29.722Z",
-    "modified": "2022-08-29T12:05:10.038Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "lang",
-        "value": "vi",
-        "isPath": false
-      }
-    ],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyNDI2MiwiZXhwIjoxNjYyNDg4MjYyfQ.Qsskg9z293UA3Ud-iQupoo7seUrn5KRDhd4AGTpMXLM"
-    },
-    "tests": []
-  },
-  {
-    "_id": "a0844735-4885-40aa-9e47-3daec5aea682",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
-    "name": "favorite-news",
-    "url": "{{host}}/users/me/favorite-news/63059330c5f5e348e93e0f78",
-    "method": "PATCH",
-    "sortNum": 330000,
-    "created": "2022-08-26T18:17:11.940Z",
-    "modified": "2022-08-26T18:19:06.435Z",
+    "created": "2022-08-29T07:57:10.987Z",
+    "modified": "2022-08-29T07:57:32.525Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTUzNzg0MSwiZXhwIjoxNjYyNDAxODQxfQ.cFxt-0-vXgqt9esGD6OxbeKijtjxbrto8BNst4NpLX0"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc1OTc0NCwiZXhwIjoxNjYyNjIzNzQ0fQ.HdGzyRS-wCAli-GBzapuaXKB4HYzorscCgA1tonj-ck"
     },
     "tests": []
   },
   {
-    "_id": "16c8bfd4-6f7e-4409-a484-66d9906b6f3f",
+    "_id": "5cc38345-9bed-411c-99d1-62ed85c57eb7",
     "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
     "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
-    "name": "save-news",
-    "url": "{{host}}/users/me/save-news/63059330c5f5e348e93e0f78",
-    "method": "PATCH",
-    "sortNum": 340000,
-    "created": "2022-08-26T18:23:08.472Z",
-    "modified": "2022-08-26T18:23:27.326Z",
-    "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTUzNzg0MSwiZXhwIjoxNjYyNDAxODQxfQ.cFxt-0-vXgqt9esGD6OxbeKijtjxbrto8BNst4NpLX0"
-    },
-    "tests": []
-  },
-  {
-    "_id": "452ad91a-6361-4879-9aa9-dd4ca476e681",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
-    "name": "search",
-    "url": "{{host}}/news/search?q=cn&lang=vi",
-    "method": "GET",
-    "sortNum": 340000,
-    "created": "2022-08-26T18:33:50.549Z",
-    "modified": "2022-08-30T03:01:52.716Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "q",
-        "value": "cn",
-        "isPath": false
-      },
-      {
-        "name": "lang",
-        "value": "vi",
-        "isPath": false
-      },
-      {
-        "name": "page",
-        "value": "1",
-        "isDisabled": true,
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "fe50df0c-411a-415c-8949-48a0987c6396",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
-    "name": "unfollowing",
-    "url": "{{host}}/users/me/category/unfollow/63090208b12a74bbda063f31",
-    "method": "PATCH",
-    "sortNum": 305000,
-    "created": "2022-08-27T17:32:22.888Z",
-    "modified": "2022-08-27T17:33:07.069Z",
+    "name": "[admin] Create user",
+    "url": "{{host}}/private/users",
+    "method": "POST",
+    "sortNum": 320000,
+    "created": "2022-08-29T07:58:38.553Z",
+    "modified": "2022-08-29T08:01:20.384Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"id\":\"630446723ee0ec7f347dc823a\"\n}",
+      "raw": "{\n   \"email\": \"HoiVu\",\n    \"phone\": \"0365240627\",\n    \"full_name\": \"Vu Khac Hoi\",\n    \"picture\": \"\",\n    \"gender\": \"male\"\n  \n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
-    },
-    "tests": []
-  },
-  {
-    "_id": "65723818-ca32-449a-ae60-d729a445a1b8",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
-    "name": "getBySlug",
-    "url": "{{host}}/news/cn-tit-1661773540767/",
-    "method": "GET",
-    "sortNum": 325000,
-    "created": "2022-08-27T18:16:47.654Z",
-    "modified": "2022-08-29T12:08:45.118Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "lang",
-        "value": "cn",
-        "isDisabled": true,
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "53cfd99a-d35e-4ba7-baef-cde76873f5f7",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
-    "name": "query by admin",
-    "url": "{{host}}/companies/private/?page=1&per_page=2&q=compan_3",
-    "method": "GET",
-    "sortNum": 175000,
-    "created": "2022-08-28T13:32:33.731Z",
-    "modified": "2022-08-29T06:47:55.533Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "page",
-        "value": "1",
-        "isPath": false
-      },
-      {
-        "name": "per_page",
-        "value": "2",
-        "isPath": false
-      },
-      {
-        "name": "q",
-        "value": "compan_3",
-        "isPath": false
-      }
-    ],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTY5MzU3MiwiZXhwIjoxNjYyNTU3NTcyfQ.oOmNfqZUqbTfaJJCcRHE6vO_6L_qb9VRFWNP8sFAPAQ"
-    },
-    "tests": []
-  },
-  {
-    "_id": "071377f8-4805-47e2-9bc3-7da875acf36c",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d648cc53-04e8-4fe4-82f3-3e3475bbcc85",
-    "name": "search",
-    "url": "{{host}}/products/search/?page=1&per_page=5&q=BC&lang=vi",
-    "method": "GET",
-    "sortNum": 350000,
-    "created": "2022-08-28T13:44:42.325Z",
-    "modified": "2022-08-30T08:04:08.245Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "page",
-        "value": "1",
-        "isPath": false
-      },
-      {
-        "name": "per_page",
-        "value": "5",
-        "isPath": false
-      },
-      {
-        "name": "q",
-        "value": "BC",
-        "isPath": false
-      },
-      {
-        "name": "lang",
-        "value": "vi",
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "925c0973-a3cf-432d-aa48-16e97e4e97ae",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
-    "name": "search",
-    "url": "{{host}}/persons/search/?page=1&per_page=5&q=Arry&lang=vi",
-    "method": "GET",
-    "sortNum": 360000,
-    "created": "2022-08-28T13:45:57.492Z",
-    "modified": "2022-08-30T07:59:00.929Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "page",
-        "value": "1",
-        "isPath": false
-      },
-      {
-        "name": "per_page",
-        "value": "5",
-        "isPath": false
-      },
-      {
-        "name": "q",
-        "value": "Arry",
-        "isPath": false
-      },
-      {
-        "name": "lang",
-        "value": "vi",
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "1d985338-dfc8-4e4e-a7f0-fdaac1e721f3",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
-    "name": "search",
-    "url": "{{host}}/events/search/?q=haid hydra",
-    "method": "GET",
-    "sortNum": 370000,
-    "created": "2022-08-28T13:52:14.472Z",
-    "modified": "2022-08-28T13:53:08.076Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "q",
-        "value": "haid hydra",
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "60699c69-aa2c-4ccf-bdb9-ca09c4703b17",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
-    "name": "search",
-    "url": "{{host}}/coins/search/?page=1&per_page=2&q=P",
-    "method": "GET",
-    "sortNum": 380000,
-    "created": "2022-08-28T14:00:15.102Z",
-    "modified": "2022-08-29T12:41:06.759Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "page",
-        "value": "1",
-        "isPath": false
-      },
-      {
-        "name": "per_page",
-        "value": "2",
-        "isPath": false
-      },
-      {
-        "name": "q",
-        "value": "P",
-        "isPath": false
-      },
-      {
-        "name": "lang",
-        "value": "vi",
-        "isDisabled": true,
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "0b38a368-5879-470c-bb7c-b0b749b5c750",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
-    "name": "search",
-    "url": "{{host}}/companies/search/?page=1&per_page=2&q=Fy",
-    "method": "GET",
-    "sortNum": 390000,
-    "created": "2022-08-28T14:04:47.242Z",
-    "modified": "2022-08-30T02:00:22.783Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "page",
-        "value": "1",
-        "isPath": false
-      },
-      {
-        "name": "per_page",
-        "value": "2",
-        "isPath": false
-      },
-      {
-        "name": "q",
-        "value": "Fy",
-        "isPath": false
-      },
-      {
-        "name": "lang",
-        "value": "vi",
-        "isDisabled": true,
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "58932a48-ed10-4a21-ba67-d8768e78cb41",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
-    "name": "update",
-    "url": "{{host}}/news/630c80bd1d10960975872a07",
-    "method": "PUT",
-    "sortNum": 280000,
-    "created": "2022-08-29T09:03:11.440Z",
-    "modified": "2022-08-29T11:08:05.788Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{  \"title\":\"hello cac ban13\",\n    \n        \"trans\": [\n        {\n            \"title\": \"huhu13\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu45\",\n            \"lang\": \"jp\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTE1NDM5OSwiZXhwIjoxNjYyMDE4Mzk5fQ.2LdkeZvU8wr3BvTmnGnDk3eBeayZ-dKZ9KUq24NJOx8"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc1OTc0NCwiZXhwIjoxNjYyNjIzNzQ0fQ.HdGzyRS-wCAli-GBzapuaXKB4HYzorscCgA1tonj-ck"
     },
     "tests": []
   }

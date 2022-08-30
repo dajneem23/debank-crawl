@@ -7,7 +7,7 @@ export const CompanyValidation = {
       name: Joi.string(),
 
       //map location
-      headquarter: Joi.object(),
+      headquarter: Joi.string(),
 
       //array id of persons
 
@@ -96,7 +96,7 @@ export const CompanyValidation = {
       name: Joi.string(),
 
       //map location
-      headquarter: Joi.object(),
+      headquarter: Joi.string(),
 
       features: Joi.array().items(Joi.string()),
 

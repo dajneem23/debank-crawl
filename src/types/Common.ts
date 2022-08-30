@@ -127,16 +127,6 @@ export interface BaseInformationModel extends BaseModel {
   explorer?: string;
 }
 
-export type Feature = {
-  title: string;
-  description: string;
-};
-
-export type Service = {
-  title: string;
-  description: string;
-};
-
 export enum WorkType {
   CURRENT = 'current',
   PREVIOUS = 'previous',

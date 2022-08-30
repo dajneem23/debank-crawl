@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const CategoryValidation = {
   create: validate({
@@ -12,6 +12,18 @@ export const CategoryValidation = {
       type: Joi.string()
         .valid(...Object.values(CATEGORY_TYPE))
         .required(),
+      trans: Joi.array().items(
+        Joi.object({
+          lang: Joi.string()
+            .valid(...Object.values(LANG_CODE))
+            .required()
+            .messages({
+              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+            }),
+          title: Joi.string(),
+          name: Joi.string(),
+        }),
+      ),
     }),
   }),
   update: validate({
@@ -22,6 +34,18 @@ export const CategoryValidation = {
       sub_categories: Joi.array().items(Joi.string().pattern(ObjectIdPattern)),
       acronym: Joi.string(),
       type: Joi.string().valid(...Object.values(CATEGORY_TYPE)),
+      trans: Joi.array().items(
+        Joi.object({
+          lang: Joi.string()
+            .valid(...Object.values(LANG_CODE))
+            .required()
+            .messages({
+              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+            }),
+          title: Joi.string(),
+          name: Joi.string(),
+        }),
+      ),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
@@ -44,6 +68,11 @@ export const CategoryValidation = {
         Joi.string().valid(...Object.values(CATEGORY_TYPE)),
         Joi.array().items(Joi.string().valid(...Object.values(CATEGORY_TYPE))),
       ],
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
     }),
   }),
   getById: validate({

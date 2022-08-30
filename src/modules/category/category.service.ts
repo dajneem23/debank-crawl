@@ -6,7 +6,7 @@ import { SystemError } from '@/core/errors/CommonError';
 import { Filter } from 'mongodb';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, CategoryOutput, Category, _category } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
@@ -37,10 +37,47 @@ export class CategoryService {
   }
 
   get outputKeys() {
-    // return ['id', 'title', 'weight', 'type'];
-    return ['id'].concat(Object.keys(_category));
+    return ['id', 'title', 'name', 'sub_categories', 'weight'];
   }
 
+  get publicOutputKeys() {
+    return ['id', 'title', 'sub_categories', 'weight'];
+  }
+  get transKeys() {
+    return ['title', 'name'];
+  }
+  get $lookups(): any {
+    return {
+      sub_categories: $lookup({
+        from: 'categories',
+        refFrom: '_id',
+        refTo: 'sub_categories',
+        select: 'title type',
+        reName: 'sub_categories',
+        operation: '$in',
+      }),
+    };
+  }
+
+  get $sets() {
+    return {
+      country: {
+        $set: {
+          country: { $first: '$country' },
+        },
+      },
+      author: {
+        $set: {
+          author: { $first: '$author' },
+        },
+      },
+      trans: {
+        $set: {
+          trans: { $first: '$trans' },
+        },
+      },
+    };
+  }
   /**
    * Generate ID
    */
@@ -56,14 +93,15 @@ export class CategoryService {
   async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
       const now = new Date();
-      const { title } = _content;
+      const { name } = _content;
       const {
         ok,
         lastErrorObject: { updatedExisting },
       } = await this.model.collection.findOneAndUpdate(
-        { title },
+        { name },
         {
           $setOnInsert: {
+            ..._category,
             ..._content,
             deleted: false,
             ...(_subject && { created_by: _subject }),
@@ -108,7 +146,7 @@ export class CategoryService {
         {
           $set: {
             ..._content,
-            ...(_subject && { created_by: _subject }),
+            ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
         },
@@ -180,7 +218,7 @@ export class CategoryService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { type } = _filter;
+      const { type, lang } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate(
@@ -189,7 +227,36 @@ export class CategoryService {
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
               }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
             },
+            $lookups: [this.$lookups.sub_categories],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
@@ -207,11 +274,14 @@ export class CategoryService {
    * @param _id - Category ID
    * @returns { Promise<CategoryOutput> } - Category
    */
-  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
+      const { lang } = _filter;
       const [category] = await this.model.collection
         .aggregate([
-          { $match: $toMongoFilter({ _id }) },
+          {
+            $match: $toMongoFilter({ _id }),
+          },
           {
             $limit: 1,
           },

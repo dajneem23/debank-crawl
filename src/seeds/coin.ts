@@ -101,6 +101,7 @@ export const CoinSeed = async () => {
               .reduce((pIco: any, cIco: any) => {
                 return { ...pIco, ...cIco };
               }, {}),
+            trans: [] as any,
             deleted: false,
             created_at: new Date(),
             updated_at: new Date(),
@@ -153,6 +154,8 @@ export const CoinSeed = async () => {
                               return list.length > 1 ? word[0] : list.slice(0, 1);
                             })
                             .join(''),
+                          trans: [],
+                          sub_categories: [],
                           weight: Math.floor(Math.random() * 100),
                           deleted: false,
                           created_at: new Date(),

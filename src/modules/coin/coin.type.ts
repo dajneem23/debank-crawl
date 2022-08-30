@@ -3,21 +3,6 @@ import { BaseInformationModel, DEVELOPMENT_STATUS, IcoDetail, TeamPerson, Techno
 export interface Coin extends BaseInformationModel {
   name: string;
   token_id: string;
-  about: string;
-  video: string;
-  avatar: string;
-  blog: string;
-  facebook: string;
-  youtube: string;
-  reddit: string;
-  explorer: string;
-  website: string;
-  telegram: string;
-  twitter: string;
-  discord: string;
-  bitcoin_talk: string;
-  gitter: string;
-  medium: string;
   categories?: string[];
   stack_exchange: string;
   blockchains: string[];
@@ -30,6 +15,12 @@ export interface Coin extends BaseInformationModel {
   team: TeamPerson[];
   ico: IcoDetail[];
   companies: [];
+  trans: {
+    lang: string;
+    about?: string;
+    features?: string[];
+    services?: string[];
+  }[];
 }
 
 export const _coin: Coin = {
@@ -62,7 +53,10 @@ export const _coin: Coin = {
   team: [],
   ico: [],
   companies: [],
-  deleted: false,
+  created_by: '',
+  updated_by: '',
   created_at: new Date(),
   updated_at: new Date(),
+  deleted: false,
+  trans: [],
 };

@@ -14,6 +14,12 @@ export interface Category extends BaseModel {
   weight?: number;
   // type
   type?: CATEGORY_TYPE;
+
+  trans: {
+    lang: string;
+    title?: string;
+    name?: string;
+  }[];
 }
 export type CategoryParams = {
   id: string;
@@ -47,4 +53,6 @@ export const _category: Category = {
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),
+  trans: [],
+  sub_categories: [],
 };

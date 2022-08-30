@@ -101,7 +101,7 @@ export class NewsController {
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/private/:id', [NewsValidation.getById, protectPrivateAPI()])
-  async getById(
+  async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
@@ -111,15 +111,15 @@ export class NewsController {
     },
   ) {
     const { filter, query } = buildQueryFilter(_query);
-
     const result = await this.service.getById({
-      _filter: filter,
       _id: _params.id,
+      _filter: filter,
+      _permission: 'private',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/:slug', [NewsValidation.getBySlug])
-  async getBySlug(
+  async getBySlugPublic(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,

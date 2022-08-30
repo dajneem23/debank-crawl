@@ -4,6 +4,14 @@ import { Company } from '../company';
 export interface News extends BaseModel {
   slug: string;
 
+  title: string;
+
+  summary: string;
+
+  content: string;
+
+  headings: string[];
+
   photos: string[];
 
   categories: string[];
@@ -24,17 +32,21 @@ export interface News extends BaseModel {
 
   number_relate_article?: number;
 
-  contents: Array<{
-    slug: string;
+  trans: Array<{
+    lang: string;
     title: string;
+    slug: string;
     summary: string;
     content: string;
     headings: string[];
-    lang: string;
   }>;
 }
 export const _news: News = {
   slug: '',
+  title: '',
+  summary: '',
+  content: '',
+  headings: [],
   photos: [],
   categories: [],
   source: '',
@@ -45,7 +57,7 @@ export const _news: News = {
   product_tags: [],
   stars: 0,
   number_relate_article: 0,
-  contents: [],
+  trans: [],
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),

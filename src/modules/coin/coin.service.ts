@@ -2,9 +2,9 @@ import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { CoinError, CoinModel } from '.';
-import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
+import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit, rest } from 'lodash';
 import { _coin } from '@/modules';
 
@@ -27,10 +27,13 @@ export class CoinService {
   }
 
   get outputKeys() {
-    return ['id'].concat(Object.keys(_coin));
+    return ['id', ...Object.keys(_coin), 'author'];
   }
   get publicOutputKeys() {
-    return ['id', 'name', 'token_id', 'about'];
+    return ['id', 'name', 'token_id', 'about', 'categories', 'avatar'];
+  }
+  get transKeys() {
+    return ['about', 'features', 'services'];
   }
   /**
    *  Lookups
@@ -67,6 +70,11 @@ export class CoinService {
           author: { $first: '$author' },
         },
       },
+      trans: {
+        $set: {
+          trans: { $first: '$trans' },
+        },
+      },
     };
   }
   /**
@@ -86,12 +94,12 @@ export class CoinService {
       const now = new Date();
       const { name } = _content;
       const { categories } = _content;
-      const categoriesIdExist =
+      const validCategories =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
           : true;
 
-      if (!categoriesIdExist) {
+      if (!validCategories) {
         throwErr(this.error('INPUT_INVALID'));
       }
       const {
@@ -143,11 +151,11 @@ export class CoinService {
       const now = new Date();
 
       const { categories } = _content;
-      const categoriesIdExist =
+      const validCategories =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
           : true;
-      if (!categoriesIdExist) {
+      if (!validCategories) {
         throwErr(this.error('INPUT_INVALID'));
       }
       const {
@@ -159,7 +167,7 @@ export class CoinService {
           $set: {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
-            ...(_subject && { created_by: _subject }),
+            ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
         },
@@ -229,15 +237,22 @@ export class CoinService {
    * @returns {Promise<BaseServiceOutput>}
    *
    **/
-  async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q } = _filter;
+      const { lang, q } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate(
           $pagination({
             $match: {
-              $and: [{ deleted: false }],
+              $and: [
+                {
+                  deleted: false,
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
+                },
+              ],
               ...(q && {
                 $or: [
                   { name: { $regex: q, $options: 'i' } },
@@ -246,13 +261,43 @@ export class CoinService {
                 ],
               }),
             },
+            $lookups: [this.$lookups.categories],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         )
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        keys: _permission == 'private' ? this.outputKeys : this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;
@@ -260,17 +305,49 @@ export class CoinService {
   }
   /**
    * Get event by ID
-   * @param id - Event ID
+   * @param _id - Event ID
+   * @param _filter - Filter
    * @returns { Promise<BaseServiceOutput> } - Event
    */
-  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
+      const { lang } = _filter;
       const [item] = await this.model.collection
         .aggregate([
-          { $match: $toMongoFilter({ _id }) },
+          {
+            $match: {
+              ...$toMongoFilter({
+                _id,
+              }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
+          },
           this.$lookups.categories,
           this.$lookups.user,
           this.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
           {
             $limit: 1,
           },
@@ -278,7 +355,7 @@ export class CoinService {
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
       this.logger.debug('[get:success]', { item });
-      return omit(toOutPut({ item }), ['deleted', 'updated_at']);
+      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -297,19 +374,50 @@ export class CoinService {
         .aggregate([
           ...$pagination({
             $match: {
+              $and: [
+                {
+                  deleted: false,
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
+                },
+              ],
               ...(q && {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
-            $lookups: [this.$lookups.user, this.$lookups.categories],
-            $sets: [this.$sets.country, this.$sets.author],
-
+            $lookups: [this.$lookups.categories],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])
         .toArray();
       this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return omit(toPagingOutput({ items, total_count, keys: this.publicOutputKeys }));
     } catch (err) {
       this.logger.error('[query:error]', err.message);
       throw err;

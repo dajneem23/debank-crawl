@@ -23,6 +23,7 @@ export const PersonSeed = async () => {
       readDataFromFile({ _collection: 'persons' })
         .map((_person: any) => {
           return {
+            trans: [] as any,
             deleted: false,
             created_at: new Date(),
             updated_at: new Date(),
@@ -140,6 +141,8 @@ export const PersonSeed = async () => {
                             })
                             .join(''),
                           weight: Math.floor(Math.random() * 100),
+                          trans: [],
+                          sub_categories: [],
                           deleted: false,
                           created_at: new Date(),
                           updated_at: new Date(),

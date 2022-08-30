@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const PersonValidation = {
   create: validate({
@@ -55,6 +55,19 @@ export const PersonValidation = {
       rocket_chat: Joi.string(),
 
       bitcoin_talk: Joi.string(),
+
+      trans: Joi.array().items(
+        Joi.object({
+          lang: Joi.string()
+            .valid(...Object.values(LANG_CODE))
+            .required()
+            .messages({
+              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+            }),
+          about: Joi.string(),
+          short_description: Joi.string(),
+        }),
+      ),
     }),
   }),
   update: validate({
@@ -111,6 +124,19 @@ export const PersonValidation = {
       rocket_chat: Joi.string(),
 
       bitcoin_talk: Joi.string(),
+
+      trans: Joi.array().items(
+        Joi.object({
+          lang: Joi.string()
+            .valid(...Object.values(LANG_CODE))
+            .required()
+            .messages({
+              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+            }),
+          about: Joi.string(),
+          short_description: Joi.string(),
+        }),
+      ),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
@@ -125,6 +151,13 @@ export const PersonValidation = {
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
     }),
+    [Segments.QUERY]: Joi.object({
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+    }),
   }),
   query: validate({
     [Segments.QUERY]: Joi.object({
@@ -135,6 +168,11 @@ export const PersonValidation = {
         .default(ORDER.ASC)
         .valid(...Object.values(ORDER)),
       q: Joi.string(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
     }),
   }),
   search: validate({
@@ -146,6 +184,11 @@ export const PersonValidation = {
         .default(ORDER.ASC)
         .valid(...Object.values(ORDER)),
       q: Joi.string().required(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
     }),
   }),
 };

@@ -2,9 +2,9 @@ import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList } from '@/utils/mongoDB';
+import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { PersonError, PersonModel, _person } from '.';
-import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
+import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 
 @Service()
@@ -26,10 +26,14 @@ export class PersonService {
   }
 
   get outputKeys() {
-    return ['id', 'name', 'categories', 'position', 'works', 'educations', 'author'];
+    // return ['id', 'name', 'categories', 'position', 'works', 'educations', 'author'];
+    return ['id', ...Object.keys(_person)];
   }
   get publicOutputKeys() {
     return ['id', 'name', 'about'];
+  }
+  get transKeys() {
+    return ['about', 'short_description'];
   }
   /**
    *  Lookups
@@ -70,7 +74,7 @@ export class PersonService {
       }),
       countries: $lookup({
         from: 'countries',
-        refFrom: '_id',
+        refFrom: 'code',
         refTo: 'country',
         select: 'name',
         reName: 'country',
@@ -88,6 +92,11 @@ export class PersonService {
       author: {
         $set: {
           author: { $first: '$author' },
+        },
+      },
+      trans: {
+        $set: {
+          trans: { $first: '$trans' },
         },
       },
     };
@@ -182,7 +191,7 @@ export class PersonService {
           $set: {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
-            ...(_subject && { created_by: _subject }),
+            ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
         },
@@ -254,16 +263,46 @@ export class PersonService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q } = _filter;
+      const { q, lang } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate(
           $pagination({
             $match: {
+              deleted: false,
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
             },
+            $lookups: [this.$lookups.categories],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
@@ -281,14 +320,45 @@ export class PersonService {
    * @param id - Event ID
    * @returns { Promise<BaseServiceOutput> } - Event
    */
-  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
+      const { lang } = _filter;
       const [item] = await this.model.collection
         .aggregate([
-          { $match: $toMongoFilter({ _id }) },
+          {
+            $match: {
+              ...$toMongoFilter({
+                _id,
+              }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
+          },
           this.$lookups.categories,
           this.$lookups.user,
           this.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
           {
             $limit: 1,
           },
@@ -296,7 +366,7 @@ export class PersonService {
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
       this.logger.debug('[get:success]', { item });
-      return omit(toOutPut({ item }), ['deleted', 'updated_at']);
+      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;
@@ -315,10 +385,40 @@ export class PersonService {
         .aggregate([
           ...$pagination({
             $match: {
+              deleted: false,
               ...(q && {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
             },
+            $lookups: [this.$lookups.categories],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])

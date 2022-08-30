@@ -1,9 +1,9 @@
 {
-  "name": "sv-backend",
+  "name": "Wikiblock-backend",
   "version": "1.0.1",
   "private": true,
   "description": "1fox.vn Backend",
-  "author": "Mobytelab <development@1fox.com>",
+  "author": "<development@1fox.com>",
   "engines": {
     "node": ">=16"
   },
@@ -55,6 +55,7 @@
     "nanoid": "^3.1.30",
     "redis": "^4.0.6",
     "reflect-metadata": "^0.1.13",
+    "slugify": "^1.6.5",
     "ts-transformer-keys": "^0.4.3",
     "typedi": "^0.10.0"
   },

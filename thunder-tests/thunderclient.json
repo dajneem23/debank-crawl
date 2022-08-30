@@ -1,14 +1,14 @@
 [
   {
-    "_id": "6b41c51f-8bc4-4514-9754-91bbbdf95956",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "31c8f04c-94da-40da-9ad2-6fc356f73bd4",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "Event.POST",
     "url": "{{host}}/events",
     "method": "POST",
     "sortNum": 10000,
-    "created": "2022-08-09T09:38:56.534Z",
-    "modified": "2022-08-24T02:01:26.332Z",
+    "created": "2022-08-30T09:07:12.392Z",
+    "modified": "2022-08-30T09:07:12.392Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -28,15 +28,15 @@
     "tests": []
   },
   {
-    "_id": "a7db7d89-6f43-411f-ac7c-30f93ea1ff19",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "2ef2e264-5056-4139-95b0-f238edd3736c",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "Event.Put",
     "url": "{{host}}/events/6302ec02ce9220bf7c7717bd",
     "method": "PUT",
     "sortNum": 25000,
-    "created": "2022-08-09T11:01:50.110Z",
-    "modified": "2022-08-22T04:12:24.454Z",
+    "created": "2022-08-30T09:07:12.393Z",
+    "modified": "2022-08-30T09:07:12.393Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -56,29 +56,29 @@
     "tests": []
   },
   {
-    "_id": "2676c122-a133-412b-90b2-35ba1b3fbc03",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "99efba49-ba57-4609-a9ab-5096a1b338f5",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "Event.getById",
-    "url": "{{host}}/events/6304c29aa27add6496e0fc6c",
+    "url": "{{host}}/events/630586765926396fd4d17b4d",
     "method": "GET",
     "sortNum": 30000,
-    "created": "2022-08-10T02:50:57.347Z",
-    "modified": "2022-08-26T11:35:41.119Z",
+    "created": "2022-08-30T09:07:12.394Z",
+    "modified": "2022-08-30T09:07:12.394Z",
     "headers": [],
     "params": [],
     "tests": []
   },
   {
-    "_id": "3a3d2377-b5df-4c30-a5e8-44ca1d402483",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "19b81879-2ae1-4188-b66a-bbbc1e85cb94",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "Event.Delete",
     "url": "{{host}}/events/62f49c8058c36cefe83406de",
     "method": "DELETE",
     "sortNum": 40000,
-    "created": "2022-08-10T03:04:47.039Z",
-    "modified": "2022-08-22T04:12:08.295Z",
+    "created": "2022-08-30T09:07:12.395Z",
+    "modified": "2022-08-30T09:07:12.395Z",
     "headers": [],
     "params": [],
     "auth": {
@@ -88,15 +88,38 @@
     "tests": []
   },
   {
-    "_id": "9ba85663-a49c-471b-9136-1ebdc7fc56e1",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "bea3d7f4-1b89-4968-90df-99234c2272f4",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
+    "name": "Event patch trending",
+    "url": "{{host}}/events/62f4b87bafc9baa3896c63c8/significant",
+    "method": "PATCH",
+    "sortNum": 45000,
+    "created": "2022-08-30T09:07:12.396Z",
+    "modified": "2022-08-30T09:07:12.396Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"significant\":true\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lcXJqdGpYYVNFMCIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwMTk1NDY2LCJleHAiOjE2NjEwNTk0NjZ9.d6XWK1naJIb6ubIO8DXUr13zZwdeKjAg5p6wrVVu0to"
+    },
+    "tests": []
+  },
+  {
+    "_id": "d45b6d88-4408-43a2-83b0-fc78f0f6e02c",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "Query Related",
     "url": "{{host}}/events/related/?page=1&per_page=3",
     "method": "GET",
     "sortNum": 50000,
-    "created": "2022-08-10T04:37:03.847Z",
-    "modified": "2022-08-22T04:11:58.087Z",
+    "created": "2022-08-30T09:07:12.397Z",
+    "modified": "2022-08-30T09:07:12.397Z",
     "headers": [],
     "params": [
       {
@@ -125,15 +148,15 @@
     "tests": []
   },
   {
-    "_id": "cf8e40e5-b225-4a12-a0eb-5ccdd4a697cc",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "03076997-2843-49ba-9a3d-86b724878f3d",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "query trending",
     "url": "{{host}}//events/trending/?per_page=10",
     "method": "GET",
     "sortNum": 60000,
-    "created": "2022-08-10T07:10:35.773Z",
-    "modified": "2022-08-22T04:11:52.438Z",
+    "created": "2022-08-30T09:07:12.398Z",
+    "modified": "2022-08-30T09:07:12.398Z",
     "headers": [],
     "params": [
       {
@@ -157,15 +180,15 @@
     "tests": []
   },
   {
-    "_id": "c2997f18-86ac-4baa-9f7f-0ff55943b15a",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "453a20eb-1a42-4e86-91a0-ff047ccce018",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "query significant",
     "url": "{{host}}/events/significant/?page=1&per_page=10",
     "method": "GET",
     "sortNum": 70000,
-    "created": "2022-08-10T07:42:53.763Z",
-    "modified": "2022-08-22T04:11:47.013Z",
+    "created": "2022-08-30T09:07:12.399Z",
+    "modified": "2022-08-30T09:07:12.399Z",
     "headers": [],
     "params": [
       {
@@ -182,15 +205,15 @@
     "tests": []
   },
   {
-    "_id": "e04b7619-abbc-4059-b718-b3acaf8d3ae7",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "_id": "99050e7a-978b-4509-9017-99019931957a",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
     "name": "Login",
     "url": "{{host}}/auth/login",
     "method": "POST",
     "sortNum": 80000,
-    "created": "2022-08-11T04:50:12.130Z",
-    "modified": "2022-08-29T07:55:45.108Z",
+    "created": "2022-08-30T09:07:12.400Z",
+    "modified": "2022-08-30T09:07:12.400Z",
     "headers": [],
     "params": [],
     "body": {
@@ -198,83 +221,63 @@
       "raw": "{\n    \"username\":\"admin@gmail.com\",\n    \"password\":\"admin\"\n}",
       "form": []
     },
+    "auth": {
+      "type": "bearer"
+    },
     "tests": []
   },
   {
-    "_id": "ec30d902-0b9f-480a-a0fb-4e8fbcbf7737",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "_id": "c5bf625c-7f45-474c-b8a4-6eaceb5ca708",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
     "name": "create User",
     "url": "{{host}}/auth/register",
     "method": "POST",
     "sortNum": 90000,
-    "created": "2022-08-11T04:54:01.623Z",
-    "modified": "2022-08-29T07:52:01.399Z",
+    "created": "2022-08-30T09:07:12.401Z",
+    "modified": "2022-08-30T09:07:12.401Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"full_name\":\"user\",\n    \"email\":\"user@gmail.com\",\n    \"password\":\"123456\",\n    \"phone\":\"12345678\"\n}",
+      "raw": "{\n    \"full_name\":\"thanh1\",\n    \"email\":\"th22an222322h1@gmail.com\",\n    \"password\":\"12345asd\",\n    \"phone\":\"1231232321\"\n}",
       "form": []
     },
     "tests": []
   },
   {
-    "_id": "6c78e210-2c3c-4da3-99f2-4e946fa11c36",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
-    "name": "Event patch trending",
-    "url": "{{host}}/events/62f4b87bafc9baa3896c63c8/significant",
-    "method": "PATCH",
-    "sortNum": 45000,
-    "created": "2022-08-11T05:12:36.639Z",
-    "modified": "2022-08-22T04:12:02.544Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"significant\":true\n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lcXJqdGpYYVNFMCIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwMTk1NDY2LCJleHAiOjE2NjEwNTk0NjZ9.d6XWK1naJIb6ubIO8DXUr13zZwdeKjAg5p6wrVVu0to"
-    },
-    "tests": []
-  },
-  {
-    "_id": "dc63e560-abd8-4365-8d03-71bc5ab29ff1",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2b1367a-a9f4-4209-94f9-25f538511db5",
+    "_id": "53145bac-b96a-404a-a1d5-a10640088c7e",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "create",
     "url": "{{host}}/categories",
     "method": "POST",
     "sortNum": 100000,
-    "created": "2022-08-12T05:05:10.489Z",
-    "modified": "2022-08-12T09:39:42.829Z",
+    "created": "2022-08-30T09:07:12.402Z",
+    "modified": "2022-08-30T09:07:12.402Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"title\":\"cat3412312313\",\n    \"weight\":1,\n    \"type\":\"product\"\n}",
+      "raw": "{\n    \"title\":\"cat1\",\n    \"name\":\"cat5\",\n    \"weight\":1,\n    \"type\":\"product\",\n    \"trans\":[\n        {\n            \"lang\":\"vi\",\n            \"title\":\"vietnametitle\",\n            \"name\":\"vietnamnname\"\n        },\n                {\n            \"lang\":\"vi\",\n            \"title\":\"vietnametitle\",\n            \"name\":\"vietnamnname\"\n        }\n]\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Inp2T0ZQdjNiZExGQSIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwMjgyMzg2LCJleHAiOjE2NjExNDYzODZ9.00IUaXcGOw4DIIaa2UlvZIvBOUk7CS0eQYxCcvsNqnM"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
     },
     "tests": []
   },
   {
-    "_id": "32ac4881-f13f-42a6-af04-06a38afa2035",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2b1367a-a9f4-4209-94f9-25f538511db5",
+    "_id": "4015f4d1-6b2f-4721-b003-85af5930642a",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "update",
     "url": "{{host}}/categories/62f6219cbc1c9c949ceeedfe",
     "method": "PUT",
     "sortNum": 110000,
-    "created": "2022-08-12T06:01:29.871Z",
-    "modified": "2022-08-12T09:48:55.021Z",
+    "created": "2022-08-30T09:07:12.403Z",
+    "modified": "2022-08-30T09:07:12.403Z",
     "headers": [],
     "params": [],
     "body": {
@@ -289,15 +292,15 @@
     "tests": []
   },
   {
-    "_id": "0889bd1d-13a9-49df-93f5-bd26a1c1bebc",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2b1367a-a9f4-4209-94f9-25f538511db5",
+    "_id": "e75b5738-ca9f-4cdf-908f-f99b7c670584",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "delete",
     "url": "{{host}}/categories/62f6219cbc1c9c949ceeedfe",
     "method": "DELETE",
     "sortNum": 120000,
-    "created": "2022-08-12T07:32:56.812Z",
-    "modified": "2022-08-12T09:49:16.061Z",
+    "created": "2022-08-30T09:07:12.404Z",
+    "modified": "2022-08-30T09:07:12.404Z",
     "headers": [],
     "params": [],
     "auth": {
@@ -307,20 +310,21 @@
     "tests": []
   },
   {
-    "_id": "9ec807b6-b235-4292-a75a-9ed13a99e8b0",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2b1367a-a9f4-4209-94f9-25f538511db5",
+    "_id": "7d3f008d-9a18-4c49-97d3-0488af0f6752",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "query",
-    "url": "{{host}}/categories/?type=product&type=event",
+    "url": "{{host}}/categories/?type=product&lang=vi",
     "method": "GET",
     "sortNum": 140000,
-    "created": "2022-08-12T07:34:28.494Z",
-    "modified": "2022-08-12T09:51:27.979Z",
+    "created": "2022-08-30T09:07:12.405Z",
+    "modified": "2022-08-30T09:07:12.405Z",
     "headers": [],
     "params": [
       {
         "name": "type",
         "value": "product",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -331,27 +335,55 @@
       },
       {
         "name": "type",
-        "value": "event",
+        "value": "product",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
         "isPath": false
       }
     ],
     "tests": []
   },
   {
-    "_id": "db7309ae-1ef5-4bab-8953-98b176773f76",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "_id": "d60f6b8b-731f-4f03-9941-659bc5b91ac9",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
     "name": "create",
     "url": "{{host}}/companies/",
     "method": "POST",
     "sortNum": 150000,
-    "created": "2022-08-15T02:16:39.681Z",
-    "modified": "2022-08-16T02:17:43.298Z",
+    "created": "2022-08-30T09:07:12.406Z",
+    "modified": "2022-08-30T09:22:29.665Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"compan1\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef116\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
+      "raw": "{\n    \"name\": \"compan_5\",\n    \"about\": \"eng about\",\n    \"short_description\": \"eng short des\",\n    \"headquarter\": {\n        \"x\": 1,\n        \"y\": 2\n    },\n    \"features\": [\n        \"order com\"\n    ],\n    \"categories\": [\n        \"630dd0551cd276b4a1d6a2f9\",\n        \"630dd0551cd276b4a1d6a30f\"\n    ],\n    \"portfolios\": [\n        \"url1\",\n        \"url2\"\n    ],\n    \"products\": [\n        \"630dd05b086d932ce36451f0\",\n        \"630dd05b086d932ce36451f1\"\n    ],\n    \"crypto_currencies\": [\n        \"630dd062086d932ce3645399\",\n        \"630dd062086d932ce364539a\"\n    ],\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"japanese about\",\n            \"short_description\": \"japanese short des\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
+    },
+    "tests": []
+  },
+  {
+    "_id": "9f60360c-ea0e-48c7-8400-9712da51ca67",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
+    "name": "create Copy",
+    "url": "{{host}}/companies/630dd6d51cd276b4a1d860ef",
+    "method": "PUT",
+    "sortNum": 155000,
+    "created": "2022-08-30T09:07:12.407Z",
+    "modified": "2022-08-30T09:23:03.571Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"compan_5\",\n    \"about\": \"eng about\",\n    \"short_description\": \"eng short des\",\n    \"headquarter\": {\n        \"x\": 2,\n        \"y\": 2\n    },\n    \"features\": [\n        \"order com\"\n    ],\n    \"categories\": [\n        \"630dd0551cd276b4a1d6a2f9\",\n        \"630dd0551cd276b4a1d6a30f\"\n    ],\n    \"portfolios\": [\n        \"url1\",\n        \"url2\"\n    ],\n    \"products\": [\n        \"630dd05b086d932ce36451f0\",\n        \"630dd05b086d932ce36451f1\"\n    ],\n    \"crypto_currencies\": [\n        \"630dd062086d932ce3645399\",\n        \"630dd062086d932ce364539a\"\n    ],\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"japanese about\",\n            \"short_description\": \"japanese short des\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -361,408 +393,84 @@
     "tests": []
   },
   {
-    "_id": "1e0bbd77-8694-4821-8e29-4c19783c512e",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "_id": "5ef8ad71-3feb-461a-bb03-01c1c0cad194",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
     "name": "get By ID",
-    "url": "{{host}}/companies/62fb29c0dd4fe349334b92c9",
+    "url": "{{host}}/companies/630c4aa21d1096097586e947?lang=123vi",
     "method": "GET",
     "sortNum": 160000,
-    "created": "2022-08-15T04:04:09.825Z",
-    "modified": "2022-08-16T05:23:33.690Z",
+    "created": "2022-08-30T09:07:12.408Z",
+    "modified": "2022-08-30T09:07:12.408Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "123vi",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
-    "_id": "d4bd17cd-5598-42fa-a834-bfaef4e93ec5",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
+    "_id": "48b4f2ee-d8cd-49a4-9e45-3c6b6b23f6ed",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
+    "name": "get By ID Copy",
+    "url": "{{host}}/companies/private/630dbeb0fbd8194282be55c1",
+    "method": "GET",
+    "sortNum": 165000,
+    "created": "2022-08-30T09:07:12.409Z",
+    "modified": "2022-08-30T09:07:12.409Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
+    },
+    "tests": []
+  },
+  {
+    "_id": "a71c0479-fcc6-4fe4-a105-b728c448b53d",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
     "name": "query",
-    "url": "{{host}}/companies/?page=1&per_page=2",
+    "url": "{{host}}/companies/?page=2&per_page=2",
     "method": "GET",
     "sortNum": 170000,
-    "created": "2022-08-15T04:46:38.237Z",
-    "modified": "2022-08-15T04:48:23.740Z",
+    "created": "2022-08-30T09:07:12.410Z",
+    "modified": "2022-08-30T09:07:12.410Z",
     "headers": [],
     "params": [
       {
         "name": "page",
-        "value": "1",
+        "value": "2",
         "isPath": false
       },
       {
         "name": "per_page",
         "value": "2",
         "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "94989b85-1bca-47b1-9b22-725e49fce87e",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
-    "name": "delete",
-    "url": "{{host}}/companies/62f9cf5ad425e71c21e08b1c",
-    "method": "DELETE",
-    "sortNum": 180000,
-    "created": "2022-08-15T04:51:08.658Z",
-    "modified": "2022-08-15T04:54:05.399Z",
-    "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
-    },
-    "tests": []
-  },
-  {
-    "_id": "344324df-a0d0-4954-8b38-b738ba2a8940",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
-    "name": "update",
-    "url": "{{host}}/companies/62f9c5a3d425e71c21e069aa",
-    "method": "PUT",
-    "sortNum": 190000,
-    "created": "2022-08-15T04:57:02.453Z",
-    "modified": "2022-08-15T04:59:40.095Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"name\":\"company11\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef119\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
-    },
-    "tests": []
-  },
-  {
-    "_id": "8f5e0afb-27d6-4c25-ac22-1b5b30e28f55",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d648cc53-04e8-4fe4-82f3-3e3475bbcc85",
-    "name": "create",
-    "url": "{{host}}/products/",
-    "method": "POST",
-    "sortNum": 200000,
-    "created": "2022-08-16T02:17:13.104Z",
-    "modified": "2022-08-16T04:39:38.946Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"name\":\"product5\",\n    \"director\":\"62fb1e831d8798f19c7e25a8\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62fb1e831d8798f19c7e23ff\",\n        \"62fb1e831d8798f19c7e23fe\"\n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"crypto_currencies\":[\n    \"62fb1e871d8798f19c7e734b\",\n    \"62fb1e871d8798f19c7e734c\"\n    ]\n    \n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
-    },
-    "tests": []
-  },
-  {
-    "_id": "cecb10cd-4118-4fb2-bbaf-0ccd0ad4b858",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5374488e-d76a-43f2-8048-cba0c9cbbf64",
-    "name": "create Copy",
-    "url": "{{host}}/companies/62f9c5a3d425e71c21e069aa",
-    "method": "PUT",
-    "sortNum": 155000,
-    "created": "2022-08-16T02:17:34.054Z",
-    "modified": "2022-08-16T02:17:34.054Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"name\":\"compan1\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef116\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
-    },
-    "tests": []
-  },
-  {
-    "_id": "67443c22-2b71-46ba-98b6-2a1773bdb13d",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d648cc53-04e8-4fe4-82f3-3e3475bbcc85",
-    "name": "PUT",
-    "url": "{{host}}/products/62fb01a9d425e71c21e0f9a8",
-    "method": "PUT",
-    "sortNum": 210000,
-    "created": "2022-08-16T02:34:40.284Z",
-    "modified": "2022-08-16T02:38:39.231Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"name\":\"product5\",\n    \"director\":\"62f6219cbc1c9c949ceeefaf\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
-    },
-    "tests": []
-  },
-  {
-    "_id": "7db3def2-23e5-4efd-8b02-2ad26e1d7a30",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d648cc53-04e8-4fe4-82f3-3e3475bbcc85",
-    "name": "getByID",
-    "url": "{{host}}/products/62fb29c0dd4fe349334b8f12",
-    "method": "GET",
-    "sortNum": 210000,
-    "created": "2022-08-16T02:38:48.887Z",
-    "modified": "2022-08-16T05:24:27.405Z",
-    "headers": [],
-    "params": [],
-    "tests": []
-  },
-  {
-    "_id": "4dede167-415a-4fb6-812c-a70c0357a50e",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d648cc53-04e8-4fe4-82f3-3e3475bbcc85",
-    "name": "delete",
-    "url": "{{host}}/products/62fb01a9d425e71c21e0f9a8",
-    "method": "DELETE",
-    "sortNum": 220000,
-    "created": "2022-08-16T02:40:26.592Z",
-    "modified": "2022-08-16T02:40:43.245Z",
-    "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
-    },
-    "tests": []
-  },
-  {
-    "_id": "9de1ec68-139b-41e0-b81e-db03c647874f",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d648cc53-04e8-4fe4-82f3-3e3475bbcc85",
-    "name": "query",
-    "url": "{{host}}/products/?page=1&per_page=5",
-    "method": "GET",
-    "sortNum": 230000,
-    "created": "2022-08-16T02:57:12.948Z",
-    "modified": "2022-08-16T02:58:02.256Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "page",
-        "value": "1",
-        "isPath": false
       },
       {
-        "name": "per_page",
-        "value": "5",
+        "name": "lang",
+        "value": "vi",
+        "isDisabled": true,
         "isPath": false
       }
     ],
     "tests": []
   },
   {
-    "_id": "c9bd517f-e994-4de8-83cf-3d8bb924ea20",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
-    "name": "create",
-    "url": "{{host}}/persons",
-    "method": "POST",
-    "sortNum": 200000,
-    "created": "2022-08-16T03:54:19.848Z",
-    "modified": "2022-08-16T07:18:00.635Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"name\":\"nguo1\",\n \n    \"categories\":[\n        \"62fb29c0dd4fe349334b8c00\",\n        \"62fb29c0dd4fe349334b8c01\"\n    ]\n    \n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MDYzNDI2NywiZXhwIjoxNjYxNDk4MjY3fQ.J5o32YS6scmxyeUDcv0DqIRIdTlTe7oL_7F1Htqp8-w"
-    },
-    "tests": []
-  },
-  {
-    "_id": "71920adc-1057-4cc4-a0d3-8febac560032",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
-    "name": "PUT",
-    "url": "{{host}}/persons/62fb434c4d2838e5d1a1fdc3",
-    "method": "PUT",
-    "sortNum": 210000,
-    "created": "2022-08-16T03:54:19.849Z",
-    "modified": "2022-08-16T07:12:21.955Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"name\":\"nguoi223\"\n\n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
-    },
-    "tests": []
-  },
-  {
-    "_id": "19059679-ee97-4316-ac51-ff7284a1c84f",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
-    "name": "getByID",
-    "url": "{{host}}/persons/62fb29c0dd4fe349334b8daa",
+    "_id": "2eceb5ce-893c-4348-8c76-ad10cc7f4112",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
+    "name": "query by admin",
+    "url": "{{host}}/companies/private/?page=1&per_page=2&q=compan_3",
     "method": "GET",
-    "sortNum": 210000,
-    "created": "2022-08-16T03:54:19.850Z",
-    "modified": "2022-08-16T08:23:50.824Z",
-    "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer"
-    },
-    "tests": []
-  },
-  {
-    "_id": "15117d2e-5555-4159-9954-87d296aabb38",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
-    "name": "delete",
-    "url": "{{host}}/persons/62fb44a84d2838e5d1a1ff75",
-    "method": "DELETE",
-    "sortNum": 220000,
-    "created": "2022-08-16T03:54:19.851Z",
-    "modified": "2022-08-16T07:19:09.844Z",
-    "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
-    },
-    "tests": []
-  },
-  {
-    "_id": "c1729df3-a654-4366-bf87-04f78c36107f",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "5240cdd1-e29e-4dd2-bf0b-d73fc41fbc34",
-    "name": "query",
-    "url": "{{host}}/persons/?page=1&per_page=5",
-    "method": "GET",
-    "sortNum": 230000,
-    "created": "2022-08-16T03:54:19.852Z",
-    "modified": "2022-08-16T04:30:38.897Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "page",
-        "value": "1",
-        "isPath": false
-      },
-      {
-        "name": "per_page",
-        "value": "5",
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "d7fe2fdb-d774-41f9-ab2c-5209f274621a",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
-    "name": "create",
-    "url": "{{host}}/coins",
-    "method": "POST",
-    "sortNum": 200000,
-    "created": "2022-08-16T07:22:34.598Z",
-    "modified": "2022-08-16T08:27:58.617Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"name\":\"coin1\",\n \n    \"categories\":[\n        \"62fb29c0dd4fe349334b8c00\",\n        \"62fb29c0dd4fe349334b8c01\"\n    ]\n    \n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MDYzNDI2NywiZXhwIjoxNjYxNDk4MjY3fQ.J5o32YS6scmxyeUDcv0DqIRIdTlTe7oL_7F1Htqp8-w"
-    },
-    "tests": []
-  },
-  {
-    "_id": "a79758a5-fdca-4c8b-95f7-4bbad1cd8029",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
-    "name": "PUT",
-    "url": "{{host}}/coin/62fb434c4d2838e5d1a1fdc3coin",
-    "method": "PUT",
-    "sortNum": 210000,
-    "created": "2022-08-16T07:22:34.599Z",
-    "modified": "2022-08-16T08:27:53.391Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n    \"name\":\"coin1\"\n\n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
-    },
-    "tests": []
-  },
-  {
-    "_id": "01d73360-08af-435f-8636-32c449d7efb0",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
-    "name": "getByID",
-    "url": "{{host}}/coins/62fb29c1dd4fe349334b9409",
-    "method": "GET",
-    "sortNum": 210000,
-    "created": "2022-08-16T07:22:34.600Z",
-    "modified": "2022-08-16T07:35:07.772Z",
-    "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer"
-    },
-    "tests": []
-  },
-  {
-    "_id": "9d8e45d2-6926-4741-80a7-8ec0275f1bcc",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
-    "name": "delete",
-    "url": "{{host}}/coins/62fb44a84d2838e5d1a1ff75",
-    "method": "DELETE",
-    "sortNum": 220000,
-    "created": "2022-08-16T07:22:34.601Z",
-    "modified": "2022-08-16T07:35:13.259Z",
-    "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
-    },
-    "tests": []
-  },
-  {
-    "_id": "740b2bfd-0895-4f55-bb3d-0b38d3160eff",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "8cb843d1-5282-47a9-a330-b1ba219304df",
-    "name": "query",
-    "url": "{{host}}/coins/?page=1&per_page=2",
-    "method": "GET",
-    "sortNum": 230000,
-    "created": "2022-08-16T07:22:34.602Z",
-    "modified": "2022-08-22T09:28:16.481Z",
+    "sortNum": 175000,
+    "created": "2022-08-30T09:07:12.411Z",
+    "modified": "2022-08-30T09:07:12.411Z",
     "headers": [],
     "params": [
       {
@@ -777,7 +485,454 @@
       },
       {
         "name": "q",
-        "value": "qweqwe",
+        "value": "compan_3",
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTY5MzU3MiwiZXhwIjoxNjYyNTU3NTcyfQ.oOmNfqZUqbTfaJJCcRHE6vO_6L_qb9VRFWNP8sFAPAQ"
+    },
+    "tests": []
+  },
+  {
+    "_id": "c754445d-b9da-4f2b-95c9-17ddaef7a80a",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
+    "name": "delete",
+    "url": "{{host}}/companies/62f9cf5ad425e71c21e08b1c",
+    "method": "DELETE",
+    "sortNum": 180000,
+    "created": "2022-08-30T09:07:12.412Z",
+    "modified": "2022-08-30T09:07:12.412Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
+    },
+    "tests": []
+  },
+  {
+    "_id": "762aa62f-13da-4f63-ac53-230d6a7a0724",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
+    "name": "update",
+    "url": "{{host}}/companies/62f9c5a3d425e71c21e069aa",
+    "method": "PUT",
+    "sortNum": 190000,
+    "created": "2022-08-30T09:07:12.413Z",
+    "modified": "2022-08-30T09:07:12.413Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\":\"company11\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef119\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNTM3MzA1LCJleHAiOjE2NjE0MDEzMDV9.Fa38cLoROG0vpqJWLMbQtYKg2eHNcntbH6fh4-BROB4"
+    },
+    "tests": []
+  },
+  {
+    "_id": "c573a394-0d2b-4b38-ab06-1dc83eca79de",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
+    "name": "create",
+    "url": "{{host}}/products/",
+    "method": "POST",
+    "sortNum": 200000,
+    "created": "2022-08-30T09:07:12.414Z",
+    "modified": "2022-08-30T09:07:12.414Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"product custom1\",\n    \"about\":\"en about\",\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"vi cont\"\n        },\n        {\n            \"lang\": \"cn\",\n            \"about\": \"cn cont\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
+    },
+    "tests": []
+  },
+  {
+    "_id": "320e57cb-747a-43dc-836a-396565e52808",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
+    "name": "create",
+    "url": "{{host}}/persons",
+    "method": "POST",
+    "sortNum": 200000,
+    "created": "2022-08-30T09:07:12.415Z",
+    "modified": "2022-08-30T09:07:12.415Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\":\"nguo1\",\n \n    \"categories\":[\n        \"62fb29c0dd4fe349334b8c00\",\n        \"62fb29c0dd4fe349334b8c01\"\n    ]\n    \n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MDYzNDI2NywiZXhwIjoxNjYxNDk4MjY3fQ.J5o32YS6scmxyeUDcv0DqIRIdTlTe7oL_7F1Htqp8-w"
+    },
+    "tests": []
+  },
+  {
+    "_id": "026b62ce-f16f-4cce-9b13-c73ed868b566",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "create",
+    "url": "{{host}}/coins",
+    "method": "POST",
+    "sortNum": 200000,
+    "created": "2022-08-30T09:07:12.416Z",
+    "modified": "2022-08-30T09:07:12.416Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"coi5\",\n    \"about\": \"en about\",\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"vi about\"\n        },\n        {\n            \"lang\": \"jp\",\n            \"about\": \"jp about\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
+    },
+    "tests": []
+  },
+  {
+    "_id": "fde46527-88ea-4141-8819-20a7f305fbc9",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
+    "name": "PUT",
+    "url": "{{host}}/products/630dbeaffbd8194282be5529",
+    "method": "PUT",
+    "sortNum": 210000,
+    "created": "2022-08-30T09:07:12.417Z",
+    "modified": "2022-08-30T09:07:12.417Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"Nằm ở trung tâm khu tài chính của Toronto, Bitbuy là sàn giao dịch tiền điện tử hàng đầu của Canada, nơi cả người mới bắt đầu và nhà giao dịch nâng cao đều có thể mua, bán, gửi hoặc rút 7 loại tiền điện tử khác nhau. Người Canada cần một nền tảng đáng tin cậy cung cấp nhiều loại tiền tệ kỹ thuật số, bảo mật hàng đầu, các tùy chọn cấp vốn thuận tiện và dịch vụ khách hàng chưa từng có. Trong tất cả các lĩnh vực này, Bitbuy đều có bạn.\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTg0NTUzMiwiZXhwIjoxNjYyNzA5NTMyfQ.8FhdUYOOiGXTycYfRd3OxIzMSX-3yZKuYrmPVDMtBG8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "03e5e316-f51e-4145-8aff-f64facad324a",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
+    "name": "getByID",
+    "url": "{{host}}/products/630dbeaffbd8194282be5529?lang=vi",
+    "method": "GET",
+    "sortNum": 210000,
+    "created": "2022-08-30T09:07:12.418Z",
+    "modified": "2022-08-30T09:07:12.418Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "a770ff6b-f008-4af5-ba03-c162b9007ecf",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
+    "name": "PUT",
+    "url": "{{host}}/persons/630dbeaffbd8194282be5395",
+    "method": "PUT",
+    "sortNum": 210000,
+    "created": "2022-08-30T09:07:12.419Z",
+    "modified": "2022-08-30T09:07:12.419Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"George Harrap BioGeorge là Giám đốc điều hành và Đồng sáng lập của Bitspark có trụ sở tại Hồng Kông, công ty này cung cấp tiền điện tử cho tất cả mọi người bằng cách hợp nhất các thị trường dựa trên tiền mặt với trải nghiệm kỹ thuật số và các giải pháp phù hợp cho từng loại trong số hơn 180 loại tiền tệ fiat trên thế giới. Bitspark đã đi tiên phong trong việc thanh toán bằng tiền mặt, tiền mặt xuyên biên giới đầu tiên trên thế giới sử dụng blockchain vào năm 2014. Kể từ đó, công ty đã phát triển dịch vụ của mình, hiện bao gồm ứng dụng di động, sàn giao dịch phi tập trung, mạng lưới điểm tiền mặt và ngày càng nhiều các loại stablecoin nội tệ. .George là người sớm áp dụng Bitcoin và công nghệ blockchain, bắt đầu vào đầu năm 2011 và vào năm 2014, thành lập Bitspark với ý định mang lại khả năng tiếp cận tài chính nhiều hơn cho tất cả mọi người, sử dụng tiền điện tử để tạo thành cầu nối giữa thế giới tài chính cũ và mới. và công việc của anh ấy với Bitspark kể từ đó đã được các tổ chức tài chính, chính phủ và giới truyền thông công nhận là người dẫn đầu trong các lĩnh vực blockchain trên toàn cầu với các tổ chức như Goldman Sachs, Citibank, KPMG, Accenture, Nikkei, SCMP, The New York Times, RT và nhiều hơn nữa ngoài việc cố vấn cho chính phủ Hồng Kông và Úc về chính sách Fintech.\",\n            \"short_description\":\"Giám đốc điều hành & Đồng sáng lập tại Bitspark\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTg0NTUzMiwiZXhwIjoxNjYyNzA5NTMyfQ.8FhdUYOOiGXTycYfRd3OxIzMSX-3yZKuYrmPVDMtBG8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "68c4a539-0d8e-446e-a7dc-157332823913",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
+    "name": "getByID",
+    "url": "{{host}}/persons/630dbeaffbd8194282be5395",
+    "method": "GET",
+    "sortNum": 210000,
+    "created": "2022-08-30T09:07:12.420Z",
+    "modified": "2022-08-30T09:07:12.420Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer"
+    },
+    "tests": []
+  },
+  {
+    "_id": "54145899-e2fe-40b9-8b7a-34963207b263",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "PUT",
+    "url": "{{host}}/coin/62fb434c4d2838e5d1a1fdc3coin",
+    "method": "PUT",
+    "sortNum": 210000,
+    "created": "2022-08-30T09:07:12.421Z",
+    "modified": "2022-08-30T09:07:12.421Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\":\"coin1\"\n\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
+    },
+    "tests": []
+  },
+  {
+    "_id": "8edfebdc-0a2a-4f7a-b521-96f2fc3ff27f",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "getByID",
+    "url": "{{host}}/coins/630dbeb0fbd8194282be56d4",
+    "method": "GET",
+    "sortNum": 210000,
+    "created": "2022-08-30T09:07:12.422Z",
+    "modified": "2022-08-30T09:07:12.422Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "jp",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer"
+    },
+    "tests": []
+  },
+  {
+    "_id": "fe4c7670-7194-429d-8203-4c938d315a52",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "getByID by admin",
+    "url": "{{host}}/coins/private/630dbeb0fbd8194282be56d4",
+    "method": "GET",
+    "sortNum": 215000,
+    "created": "2022-08-30T09:07:12.423Z",
+    "modified": "2022-08-30T09:07:12.423Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
+    },
+    "tests": []
+  },
+  {
+    "_id": "b4b6d2c5-d824-4335-abe8-71ff05b8d7ab",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
+    "name": "getByID admin",
+    "url": "{{host}}/persons/private/630dbeaffbd8194282be5393",
+    "method": "GET",
+    "sortNum": 215000,
+    "created": "2022-08-30T09:07:12.424Z",
+    "modified": "2022-08-30T09:07:12.424Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
+    },
+    "tests": []
+  },
+  {
+    "_id": "e2cfd365-66b9-4dd6-b8cc-a34eb32fa9c6",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
+    "name": "delete",
+    "url": "{{host}}/products/62fb01a9d425e71c21e0f9a8",
+    "method": "DELETE",
+    "sortNum": 220000,
+    "created": "2022-08-30T09:07:12.425Z",
+    "modified": "2022-08-30T09:07:12.425Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
+    },
+    "tests": []
+  },
+  {
+    "_id": "08a6aae1-5819-4c47-867c-d799a3445c08",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
+    "name": "delete",
+    "url": "{{host}}/persons/62fb44a84d2838e5d1a1ff75",
+    "method": "DELETE",
+    "sortNum": 220000,
+    "created": "2022-08-30T09:07:12.426Z",
+    "modified": "2022-08-30T09:07:12.426Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
+    },
+    "tests": []
+  },
+  {
+    "_id": "961d1556-ae07-41c0-90c3-fa53d58dba0f",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "delete",
+    "url": "{{host}}/coins/62fb44a84d2838e5d1a1ff75",
+    "method": "DELETE",
+    "sortNum": 220000,
+    "created": "2022-08-30T09:07:12.427Z",
+    "modified": "2022-08-30T09:07:12.427Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
+    },
+    "tests": []
+  },
+  {
+    "_id": "790d3102-06f7-4693-9bdd-7fcbeceb973a",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
+    "name": "query",
+    "url": "{{host}}/products/?page=1&per_page=5&lang=vi&q=BC",
+    "method": "GET",
+    "sortNum": 230000,
+    "created": "2022-08-30T09:07:12.428Z",
+    "modified": "2022-08-30T09:07:12.428Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "BC",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "a5708bdc-aa80-428d-b42d-158ccc1ead92",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
+    "name": "query",
+    "url": "{{host}}/persons/?page=1&per_page=5&lang=vi&q=Arry",
+    "method": "GET",
+    "sortNum": 230000,
+    "created": "2022-08-30T09:07:12.429Z",
+    "modified": "2022-08-30T09:07:12.429Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "Arry",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "1531cbc9-0c59-40c9-8b7c-2b33d895b4f8",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "query",
+    "url": "{{host}}/coins/?page=1&per_page=2",
+    "method": "GET",
+    "sortNum": 230000,
+    "created": "2022-08-30T09:07:12.430Z",
+    "modified": "2022-08-30T09:07:12.430Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "coi4",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "jp",
         "isDisabled": true,
         "isPath": false
       }
@@ -785,15 +940,15 @@
     "tests": []
   },
   {
-    "_id": "299337ed-e7e8-43c8-99d4-42481a29d0d0",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "ce0fb4c1-d60e-4d62-aa2b-dcc9dbaf6177",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "query",
     "url": "{{host}}/events/?country=LC",
     "method": "GET",
     "sortNum": 240000,
-    "created": "2022-08-16T07:54:50.696Z",
-    "modified": "2022-08-22T04:11:40.606Z",
+    "created": "2022-08-30T09:07:12.431Z",
+    "modified": "2022-08-30T09:07:12.431Z",
     "headers": [],
     "params": [
       {
@@ -817,15 +972,15 @@
     "tests": []
   },
   {
-    "_id": "71bfd20a-f8b8-416e-aed3-e11deb156e4c",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "e10b1c0e-b76b-40b8-b04a-c136c8665d3c",
+    "_id": "d88e22e3-72f7-4fb8-9822-72b2c191dd0b",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "subscribe",
     "url": "{{host}}/events/630302a64fb743770f0f8a60/subscribe",
     "method": "PATCH",
     "sortNum": 250000,
-    "created": "2022-08-22T04:09:04.413Z",
-    "modified": "2022-08-22T04:21:33.419Z",
+    "created": "2022-08-30T09:07:12.432Z",
+    "modified": "2022-08-30T09:07:12.432Z",
     "headers": [],
     "params": [],
     "body": {
@@ -840,20 +995,20 @@
     "tests": []
   },
   {
-    "_id": "ed6e22a2-3f93-45ba-af81-dfa2fa1bde7a",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
+    "_id": "2ce7dc04-2e38-4040-a696-146d78b0edc4",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "create",
     "url": "{{host}}/news",
     "method": "POST",
     "sortNum": 260000,
-    "created": "2022-08-22T07:41:46.420Z",
-    "modified": "2022-08-29T12:19:31.893Z",
+    "created": "2022-08-30T09:07:12.433Z",
+    "modified": "2022-08-30T09:07:12.433Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"number_relate_article\": 6,\n    \"title\": \"en hello cac ban\",\n    \"summary\": \" en sum\",\n    \"headings\": [\n        \"en head\",\n        \"en head2\"\n    ],\n    \"categories\": [\n        \"630c3de91cd276b4a16cf412\"\n    ],\n    \"source\": \"https://cryptoslate.com/swift-considered-neutral-on-sanctions-debate-sparked-on-whether-ethereum-is-the-same/\",\n    \"company_tags\": [\n        \"630c3df02807d1495928269a\"\n    ],\n    \"product_tags\": [\n        \"630c3dee2807d14959282600\"\n    ],\n    \"coin_tags\": [\n        \"630c6ebe1d6a935c6ecf564d\"\n    ],\n    \"keywords\": [\n        \"trending\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"jp tit\",\n            \"lang\": \"jp\",\n            \"content\": \"jp cont\",\n            \"headings\": [\n                \"jp head\",\n                \"jp head2\"\n            ],\n            \"summary\": \"vi sum\"\n        },\n        {\n            \"title\": \"cn tit\",\n            \"lang\": \"cn\",\n            \"content\": \"cn cont\",\n            \"headings\": [\n                \"cn head\",\n                \"cn head2\"\n            ],\n            \"summary\": \"cn sumn\"\n        }\n    ]\n}",
+      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [],\n    \"coin_tags\": [],\n    \"product_tags\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -863,35 +1018,15 @@
     "tests": []
   },
   {
-    "_id": "4595b62f-5175-45e9-a858-cca77b07816f",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
-    "name": "query",
-    "url": "{{host}}/news/search?q=e",
-    "method": "GET",
-    "sortNum": 270000,
-    "created": "2022-08-22T08:29:26.925Z",
-    "modified": "2022-08-29T12:37:35.631Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "q",
-        "value": "e",
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "e44ec722-ad37-46c8-bdd2-b9d7d2969cc4",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
+    "_id": "fe6a693a-5341-4dc5-8f28-8f4f1d646206",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
     "name": "following",
-    "url": "{{host}}/users/category/follow",
+    "url": "{{host}}/users/me/category/follow/630902086b72c43940d8fe89",
     "method": "PATCH",
     "sortNum": 280000,
-    "created": "2022-08-23T03:28:53.641Z",
-    "modified": "2022-08-23T03:58:57.564Z",
+    "created": "2022-08-30T09:07:12.434Z",
+    "modified": "2022-08-30T09:07:12.434Z",
     "headers": [],
     "params": [],
     "body": {
@@ -901,25 +1036,107 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyMjM0MywiZXhwIjoxNjYyNDg2MzQzfQ.rYESc5WhWyvm28EaHI7c3NUzaV_DfGHUYHwh08rTOOk"
     },
     "tests": []
   },
   {
-    "_id": "ea6d7996-4e97-4e24-a949-11c2f01227b3",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
-    "name": "related",
-    "url": "{{host}}/news/related/?lang=eng&per_page=2",
+    "_id": "93a50e3c-9258-46f5-ae28-95b013ac01c8",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "update",
+    "url": "{{host}}/news/630c80bd1d10960975872a07",
+    "method": "PUT",
+    "sortNum": 280000,
+    "created": "2022-08-30T09:07:12.435Z",
+    "modified": "2022-08-30T09:07:12.435Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{  \"title\":\"hello cac ban13\",\n    \n        \"trans\": [\n        {\n            \"title\": \"huhu13\",\n            \"lang\": \"vi\",\n            \"content\": \"chao\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"tom tat2\"\n        },\n        {\n            \"title\": \"huhu45\",\n            \"lang\": \"jp\",\n            \"content\": \"hello\",\n            \"headings\": [\n                \"heading1\",\n                \"heading2\"\n            ],\n            \"summary\": \"sumary tat2\"\n        }\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTE1NDM5OSwiZXhwIjoxNjYyMDE4Mzk5fQ.2LdkeZvU8wr3BvTmnGnDk3eBeayZ-dKZ9KUq24NJOx8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "79025d93-f597-4c84-a5e0-b9b5c6fa308c",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "query",
+    "url": "{{host}}/news?q=landmark",
     "method": "GET",
-    "sortNum": 290000,
-    "created": "2022-08-23T03:39:22.685Z",
-    "modified": "2022-08-23T09:24:54.496Z",
+    "sortNum": 285000,
+    "created": "2022-08-30T09:07:12.436Z",
+    "modified": "2022-08-30T10:59:13.211Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
-        "value": "eng",
+        "value": "en",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "landmark",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "ff229fcc-c6b8-481c-be07-03143b5bff3d",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "related",
+    "url": "{{host}}/news/related/?lang=vi",
+    "method": "GET",
+    "sortNum": 290000,
+    "created": "2022-08-30T09:07:12.437Z",
+    "modified": "2022-08-30T09:52:12.283Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "9d09222e-c910-4d7a-947a-7a1dd7f27f6f",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "important",
+    "url": "{{host}}/news/important/?per_page=2",
+    "method": "GET",
+    "sortNum": 300000,
+    "created": "2022-08-30T09:07:12.438Z",
+    "modified": "2022-08-30T09:07:12.438Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -928,6 +1145,25 @@
         "isPath": false
       }
     ],
+    "tests": []
+  },
+  {
+    "_id": "4d3b8030-0842-4889-9630-818354007fa3",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
+    "name": "unfollowing",
+    "url": "{{host}}/users/me/category/unfollow/63090208b12a74bbda063f31",
+    "method": "PATCH",
+    "sortNum": 305000,
+    "created": "2022-08-30T09:07:12.439Z",
+    "modified": "2022-08-30T09:07:12.439Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"id\":\"630446723ee0ec7f347dc823a\"\n}",
+      "form": []
+    },
     "auth": {
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTIyNTQ4OSwiZXhwIjoxNjYyMDg5NDg5fQ.eAEG6USB6f2FY3iTocW59xfjwZ0Racky8bosAqKI0FY"
@@ -935,110 +1171,295 @@
     "tests": []
   },
   {
-    "_id": "7975bd4e-7035-4291-ab7e-23c2cdeb3eac",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "3498b314-eab0-4869-ba2b-41ae29479763",
-    "name": "important",
-    "url": "{{host}}/news/important/?lang=eng&per_page=2&page=1",
+    "_id": "3b88c66c-dd53-4058-8814-d05009ead836",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "getById",
+    "url": "{{host}}/news/private/630dde6c1cd276b4a1da423a",
     "method": "GET",
-    "sortNum": 300000,
-    "created": "2022-08-23T09:36:22.369Z",
-    "modified": "2022-08-24T02:03:47.617Z",
+    "sortNum": 310000,
+    "created": "2022-08-30T09:07:12.441Z",
+    "modified": "2022-08-30T11:01:18.093Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
-        "value": "eng",
+        "value": "en",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyNDI2MiwiZXhwIjoxNjYyNDg4MjYyfQ.Qsskg9z293UA3Ud-iQupoo7seUrn5KRDhd4AGTpMXLM"
+    },
+    "tests": []
+  },
+  {
+    "_id": "683cf617-aa86-4abd-a56e-be12a5926ad5",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "getById admin",
+    "url": "{{host}}/news/private/630ca6ce1d1096097587453b?lang=vi",
+    "method": "GET",
+    "sortNum": 317500,
+    "created": "2022-08-30T09:07:12.442Z",
+    "modified": "2022-08-30T09:07:12.442Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
+    },
+    "tests": []
+  },
+  {
+    "_id": "51f0197c-554c-40fb-ac07-ea11f47de7fa",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "getBySlug",
+    "url": "{{host}}/news/the-landmark-2-millionth-ens-domain-has-been-minted-as-it-retains-a-top-10-spot-on-opensea's-secondary-market/",
+    "method": "GET",
+    "sortNum": 325000,
+    "created": "2022-08-30T09:07:12.443Z",
+    "modified": "2022-08-30T09:56:38.077Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "d4863b82-e97b-4bc7-b685-3f250690bc5b",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
+    "name": "favorite-news",
+    "url": "{{host}}/users/me/favorite-news/63059330c5f5e348e93e0f78",
+    "method": "PATCH",
+    "sortNum": 330000,
+    "created": "2022-08-30T09:07:12.444Z",
+    "modified": "2022-08-30T09:07:12.444Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTUzNzg0MSwiZXhwIjoxNjYyNDAxODQxfQ.cFxt-0-vXgqt9esGD6OxbeKijtjxbrto8BNst4NpLX0"
+    },
+    "tests": []
+  },
+  {
+    "_id": "dbf5d29d-2256-4f2c-b365-6a7ee4146b61",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
+    "name": "save-news",
+    "url": "{{host}}/users/me/save-news/63059330c5f5e348e93e0f78",
+    "method": "PATCH",
+    "sortNum": 340000,
+    "created": "2022-08-30T09:07:12.445Z",
+    "modified": "2022-08-30T09:07:12.445Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTUzNzg0MSwiZXhwIjoxNjYyNDAxODQxfQ.cFxt-0-vXgqt9esGD6OxbeKijtjxbrto8BNst4NpLX0"
+    },
+    "tests": []
+  },
+  {
+    "_id": "ea8db9a4-5068-4e72-8ad4-7eee7c922788",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "search",
+    "url": "{{host}}/news/search?q=trieu&lang=vi",
+    "method": "GET",
+    "sortNum": 340000,
+    "created": "2022-08-30T09:07:12.446Z",
+    "modified": "2022-08-30T11:02:36.602Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "trieu",
         "isPath": false
       },
       {
-        "name": "per_page",
-        "value": "2",
+        "name": "lang",
+        "value": "vi",
         "isPath": false
       },
       {
         "name": "page",
         "value": "1",
+        "isDisabled": true,
         "isPath": false
       }
     ],
     "tests": []
   },
   {
-    "_id": "5cb0de55-923f-485a-a198-ae627f110f2d",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
-    "name": "my info",
-    "url": "{{host}}/users/me",
+    "_id": "6312cbce-5399-44d3-92e8-237ec3407b19",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
+    "name": "search",
+    "url": "{{host}}/products/search/?page=1&per_page=5&q=BC&lang=vi",
     "method": "GET",
-    "sortNum": 290000,
-    "created": "2022-08-29T07:49:40.785Z",
-    "modified": "2022-08-29T07:52:17.221Z",
+    "sortNum": 350000,
+    "created": "2022-08-30T09:07:12.447Z",
+    "modified": "2022-08-30T09:07:12.447Z",
     "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJJR3NwYnR5YW93ZiIsImVtYWlsIjoidXNlckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZ1bGxfbmFtZSI6InVzZXIiLCJwaWN0dXJlIjoiaHR0cHM6Ly93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9kZWZhdWx0P3M9MjAwJmQ9bXAiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTY2MTc1OTUyMSwiZXhwIjoxNjYyNjIzNTIxfQ.EVnjZ-LGQ9L3FMitOUwX9OLie-7ZWChos8rL-fxt9Lg"
-    },
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "BC",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
-    "_id": "8c3890ee-885f-4baf-9659-79b79a635227",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
-    "name": "[admin] Get user",
-    "url": "{{host}}/private/users",
+    "_id": "2d8e19d3-1b58-4146-aa11-36a384417a56",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
+    "name": "search",
+    "url": "{{host}}/persons/search/?page=1&per_page=5&q=Arry&lang=vi",
     "method": "GET",
-    "sortNum": 300000,
-    "created": "2022-08-29T07:55:14.500Z",
-    "modified": "2022-08-29T07:55:58.514Z",
+    "sortNum": 360000,
+    "created": "2022-08-30T09:07:12.448Z",
+    "modified": "2022-08-30T09:07:12.448Z",
     "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc1OTc0NCwiZXhwIjoxNjYyNjIzNzQ0fQ.HdGzyRS-wCAli-GBzapuaXKB4HYzorscCgA1tonj-ck"
-    },
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "5",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "Arry",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
-    "_id": "7b068bda-935e-47ce-a7c3-6a4958dd1e36",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
-    "name": "[admin] Get my info",
-    "url": "{{host}}/private/users/me",
+    "_id": "a53935fc-72d5-41b4-9058-21296366ef1e",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
+    "name": "search",
+    "url": "{{host}}/events/search/?q=haid hydra",
     "method": "GET",
-    "sortNum": 310000,
-    "created": "2022-08-29T07:57:10.987Z",
-    "modified": "2022-08-29T07:57:32.525Z",
+    "sortNum": 370000,
+    "created": "2022-08-30T09:07:12.449Z",
+    "modified": "2022-08-30T09:07:12.449Z",
     "headers": [],
-    "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc1OTc0NCwiZXhwIjoxNjYyNjIzNzQ0fQ.HdGzyRS-wCAli-GBzapuaXKB4HYzorscCgA1tonj-ck"
-    },
+    "params": [
+      {
+        "name": "q",
+        "value": "haid hydra",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
-    "_id": "5cc38345-9bed-411c-99d1-62ed85c57eb7",
-    "colId": "b3eb2ace-1f4c-4eee-be69-1b2fabc949b5",
-    "containerId": "d2758282-23a0-4787-80c7-49389cd2b3f6",
-    "name": "[admin] Create user",
-    "url": "{{host}}/private/users",
-    "method": "POST",
-    "sortNum": 320000,
-    "created": "2022-08-29T07:58:38.553Z",
-    "modified": "2022-08-29T08:01:20.384Z",
+    "_id": "2f9c2dc7-daa7-4508-b4c3-284eb5dd39ab",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "search",
+    "url": "{{host}}/coins/search/?page=1&per_page=2&q=P",
+    "method": "GET",
+    "sortNum": 380000,
+    "created": "2022-08-30T09:07:12.450Z",
+    "modified": "2022-08-30T09:07:12.450Z",
     "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n   \"email\": \"HoiVu\",\n    \"phone\": \"0365240627\",\n    \"full_name\": \"Vu Khac Hoi\",\n    \"picture\": \"\",\n    \"gender\": \"male\"\n  \n}",
-      "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc1OTc0NCwiZXhwIjoxNjYyNjIzNzQ0fQ.HdGzyRS-wCAli-GBzapuaXKB4HYzorscCgA1tonj-ck"
-    },
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "P",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "42479449-b87b-43fc-8b63-53b3121a9940",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
+    "name": "search",
+    "url": "{{host}}/companies/search/?page=1&per_page=2&q=Fy",
+    "method": "GET",
+    "sortNum": 390000,
+    "created": "2022-08-30T09:07:12.451Z",
+    "modified": "2022-08-30T09:07:12.451Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "page",
+        "value": "1",
+        "isPath": false
+      },
+      {
+        "name": "per_page",
+        "value": "2",
+        "isPath": false
+      },
+      {
+        "name": "q",
+        "value": "Fy",
+        "isPath": false
+      },
+      {
+        "name": "lang",
+        "value": "vi",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

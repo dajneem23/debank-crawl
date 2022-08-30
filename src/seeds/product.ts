@@ -31,6 +31,7 @@ export const ProductSeed = async () => {
       readDataFromFile({ _collection: 'products' })
         .map((_product: any) => {
           return {
+            trans: [] as any,
             deleted: false,
             created_at: new Date(),
             updated_at: new Date(),
@@ -228,6 +229,8 @@ export const ProductSeed = async () => {
                               return list.length > 1 ? word[0] : list.slice(0, 1);
                             })
                             .join(''),
+                          trans: [],
+                          sub_categories: [],
                           weight: Math.floor(Math.random() * 100),
                           deleted: false,
                           created_at: new Date(),

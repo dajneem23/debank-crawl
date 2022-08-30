@@ -41,3 +41,4 @@ src/seeds/data/*.json
 
 # Tests
 thunder-tests/thunderActivity.json
+docker/docker.env

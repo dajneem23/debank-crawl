@@ -146,7 +146,7 @@ export class CategoryService {
         {
           $set: {
             ..._content,
-            ...(_subject && { created_by: _subject }),
+            ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
         },

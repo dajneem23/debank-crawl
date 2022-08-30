@@ -1068,11 +1068,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "query",
-    "url": "{{host}}/news?q=triệu",
+    "url": "{{host}}/news?q=landmark",
     "method": "GET",
     "sortNum": 285000,
     "created": "2022-08-30T09:07:12.436Z",
-    "modified": "2022-08-30T09:56:22.639Z",
+    "modified": "2022-08-30T10:59:13.211Z",
     "headers": [],
     "params": [
       {
@@ -1089,7 +1089,7 @@
       },
       {
         "name": "q",
-        "value": "triệu",
+        "value": "landmark",
         "isPath": false
       }
     ],
@@ -1175,16 +1175,17 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getById",
-    "url": "{{host}}/news/private/630dd4e01cd276b4a1d7dbd6?lang=en",
+    "url": "{{host}}/news/private/630dde6c1cd276b4a1da423a",
     "method": "GET",
     "sortNum": 310000,
     "created": "2022-08-30T09:07:12.441Z",
-    "modified": "2022-08-30T09:50:27.034Z",
+    "modified": "2022-08-30T11:01:18.093Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
         "value": "en",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1273,16 +1274,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "search",
-    "url": "{{host}}/news/search?q=cn&lang=vi",
+    "url": "{{host}}/news/search?q=trieu&lang=vi",
     "method": "GET",
     "sortNum": 340000,
     "created": "2022-08-30T09:07:12.446Z",
-    "modified": "2022-08-30T09:07:12.446Z",
+    "modified": "2022-08-30T11:02:36.602Z",
     "headers": [],
     "params": [
       {
         "name": "q",
-        "value": "cn",
+        "value": "trieu",
         "isPath": false
       },
       {

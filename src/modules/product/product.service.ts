@@ -216,7 +216,7 @@ export class ProductService {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
             ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
-            ...(_subject && { created_by: _subject }),
+            ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
         },

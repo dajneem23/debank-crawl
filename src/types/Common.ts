@@ -239,12 +239,12 @@ export type IcoDetail = {
 };
 
 export type ProductInfomation = {
-  'Parent Company'?: string;
-  'Team Location'?: string;
-  Blockchain?: string;
-  Token?: string;
-  Release?: string;
-  'Software License'?: string;
+  parent_company?: string;
+  team_location?: string;
+  blockchain?: string;
+  token?: string;
+  release?: string;
+  software_license?: string;
 };
 export type App = {
   name: string;
@@ -254,3 +254,12 @@ export type Media = {
   type: string;
   url: string;
 };
+
+export enum LANG_CODE {
+  VI = 'vi',
+  // EN = 'en',
+  FR = 'fr',
+  DE = 'de',
+  CN = 'cn',
+  JP = 'jp',
+}

@@ -5,11 +5,11 @@
     "default": true,
     "sortNum": 10000,
     "created": "2022-08-11T04:11:47.069Z",
-    "modified": "2022-08-11T04:17:21.981Z",
+    "modified": "2022-08-29T04:31:46.870Z",
     "data": [
       {
         "name": "host",
-        "value": "{{APP_HOST}}:{{APP_PORT}}/{{API_PREFIX}}/v1"
+        "value": "http://localhost:8082/api/v1"
       }
     ],
     "envFile": "thunder.env"

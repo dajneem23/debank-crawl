@@ -21,4 +21,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn
-      # - run: pm2 restart --name "wikiblock-backend"
+      - run: pm2 stop --name "wikiblock-backend"

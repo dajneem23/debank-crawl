@@ -21,4 +21,13 @@ export const CommonError = {
       en: 'Data base error',
     },
   },
+  PERMISSION_DENIED: {
+    message: 'Permission denied',
+    code: '1003',
+    status: httpStatusCode.UNAUTHORIZED,
+    isPublic: true,
+    locales: {
+      vi: 'Không có quyền này',
+    },
+  },
 };

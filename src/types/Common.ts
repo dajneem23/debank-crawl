@@ -1,3 +1,5 @@
+import { UserRole } from '@/modules';
+
 export interface BaseQuery {
   page?: number;
   per_page?: number;
@@ -195,6 +197,7 @@ export type BaseServiceInput = {
     [key: string]: any;
   };
   _permission?: 'public' | 'private';
+  _role?: UserRole;
 };
 
 export type BaseServiceOutput = {
@@ -266,7 +269,7 @@ export enum LANG_CODE {
 
 export const PRIVATE_KEYS = [
   'updated_at',
-  'created_at',
+  // 'created_at',
   'deleted_at',
   'deleted_by',
   'updated_by',
@@ -275,6 +278,14 @@ export const PRIVATE_KEYS = [
   'trans',
 ];
 
+
+export enum NewsStatus {
+  DRAFT = 'draft',
+  PENDING = 'pending',
+  APPROVE = 'approve',
+  PROCESSING = 'processing',
+  PUBLISHED = 'published',
+}
 export enum FundraisingRound {
   UNKNOWN = 'Unknown',
   PRE_SEED = 'Pre-Seed',
@@ -291,4 +302,5 @@ export enum FundraisingRound {
   SERIES_D = 'Series D',
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
+
 }

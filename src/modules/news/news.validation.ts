@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, NewsStatus } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const NewsValidation = {
   create: validate({
@@ -7,6 +7,8 @@ export const NewsValidation = {
       title: Joi.string().required(),
 
       content: Joi.string(),
+
+      status: Joi.string().valid(...Object.values(NewsStatus)),
 
       headings: Joi.array().items(Joi.string()),
 
@@ -53,6 +55,8 @@ export const NewsValidation = {
       title: Joi.string(),
 
       content: Joi.string(),
+
+      status: Joi.string().valid(...Object.values(NewsStatus)),
 
       headings: Joi.array().items(Joi.string()),
 
@@ -175,4 +179,22 @@ export const NewsValidation = {
         }),
     }),
   }),
+  updateStatus: validate({
+    [Segments.PARAMS]: Joi.object({
+      id: Joi.string().regex(ObjectIdPattern).required(),
+    }),
+    [Segments.QUERY]: Joi.object({
+      status: Joi.string()
+        .default(NewsStatus.DRAFT)
+        .valid(...Object.values(NewsStatus))
+        .required(),
+    }),
+  }),
+};
+
+export const ActionPermission = {
+  'update:status': {
+    user: [NewsStatus.DRAFT, NewsStatus.PROCESSING, NewsStatus.PENDING],
+    admin: [NewsStatus.DRAFT, NewsStatus.PENDING, NewsStatus.APPROVE, NewsStatus.PROCESSING, NewsStatus.PUBLISHED],
+  },
 };

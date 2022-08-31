@@ -3,8 +3,8 @@ import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { NewsError, NewsModel, _news } from '.';
-import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
+import { ActionPermission, NewsError, NewsModel, _news } from '.';
+import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
 import { ObjectId } from 'mongodb';
@@ -101,7 +101,7 @@ export class NewsService {
         from: 'users',
         refFrom: 'id',
         refTo: 'created_by',
-        select: 'full_name avatar',
+        select: 'full_name picture',
         reName: 'author',
         operation: '$eq',
       }),
@@ -292,7 +292,21 @@ export class NewsService {
         value,
         lastErrorObject: { updatedExisting },
       } = await this.model.collection.findOneAndUpdate(
-        $toMongoFilter({ _id }),
+        $toMongoFilter({
+          _id,
+          $or: [
+            {
+              status: {
+                $not: {
+                  $eq: NewsStatus.PROCESSING,
+                },
+              },
+            },
+            {
+              updated_by: _subject,
+            },
+          ],
+        }),
         {
           $set: {
             ..._content,
@@ -365,7 +379,92 @@ export class NewsService {
       throw err;
     }
   }
-
+  /**
+   * Update category
+   * @param _id
+   * @param _content
+   * @param _subject
+   * @returns {Promise<News>}
+   */
+  async updateStatus({ _id, _filter, _subject, _role }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { status } = _filter;
+      const now = new Date();
+      ActionPermission['update:status'][_role].includes(status) || throwErr(this.error('PERMISSION_DENIED'));
+      const {
+        ok,
+        value,
+        lastErrorObject: { updatedExisting },
+      } = await this.model.collection.findOneAndUpdate(
+        $toMongoFilter({
+          _id,
+          $or: [
+            {
+              status: {
+                $not: {
+                  $eq: NewsStatus.PROCESSING,
+                },
+              },
+            },
+            {
+              updated_by: _subject,
+            },
+          ],
+        }),
+        {
+          $set: {
+            status,
+            ...(_subject && { updated_by: _subject }),
+            updated_at: now,
+          },
+        },
+        {
+          upsert: false,
+          returnDocument: 'after',
+        },
+      );
+      if (!ok) {
+        throwErr(this.error('DATABASE_ERROR'));
+      }
+      if (!updatedExisting) {
+        throwErr(this.error('NOT_FOUND'));
+      }
+      this.logger.debug('[update:success]', { status });
+      return toOutPut({ item: { status } });
+    } catch (err) {
+      this.logger.error('[update:error]', err.message);
+      throw err;
+    }
+  }
+  async updateViews({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const {
+        ok,
+        value: { views },
+        lastErrorObject: { updatedExisting },
+      } = await this.model.collection.findOneAndUpdate(
+        $toMongoFilter({ _id }),
+        {
+          $inc: { views: 1 },
+        },
+        {
+          upsert: false,
+          returnDocument: 'after',
+        },
+      );
+      if (!ok) {
+        throwErr(this.error('DATABASE_ERROR'));
+      }
+      if (!updatedExisting) {
+        throwErr(this.error('NOT_FOUND'));
+      }
+      this.logger.debug('[update:success]', { _id });
+      return toOutPut({ item: { views } });
+    } catch (err) {
+      this.logger.error('[update:error]', err.message);
+      throw err;
+    }
+  }
   /**
    * Delete category
    * @param _id
@@ -430,7 +529,9 @@ export class NewsService {
                 },
               ],
               ...(category && {
-                $or: [{ categories: { $in: Array.isArray(category) ? category : [category] } }],
+                $or: [
+                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
+                ],
               }),
               ...(q && {
                 $or: [{ title: { $regex: q, $options: 'i' } }, { 'trans.title': { $regex: q, $options: 'i' } }],
@@ -608,35 +709,7 @@ export class NewsService {
       throw err;
     }
   }
-  async updateViews({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const {
-        ok,
-        value: { views },
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
-        $toMongoFilter({ _id }),
-        {
-          $inc: { views: 1 },
-        },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[update:success]', { _id });
-      return toOutPut({ item: { views } });
-    } catch (err) {
-      this.logger.error('[update:error]', err.message);
-      throw err;
-    }
-  }
+
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, lang } = _filter;

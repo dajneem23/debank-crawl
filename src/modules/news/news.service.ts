@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { ActionPermission, NewsError, NewsModel, _news } from '.';
+import { NewsError, NewsModel, _news } from '.';
 import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
@@ -57,6 +57,7 @@ export class NewsService {
       'number_relate_article',
       'created_at',
       'author',
+      'status',
     ];
   }
 
@@ -390,7 +391,6 @@ export class NewsService {
     try {
       const { status } = _filter;
       const now = new Date();
-      ActionPermission['update:status'][_role].includes(status) || throwErr(this.error('PERMISSION_DENIED'));
       const {
         ok,
         value,
@@ -514,7 +514,7 @@ export class NewsService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, category } = _filter;
+      const { q, lang, category, status } = _filter;
       const { page = 1, per_page = 10, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate([
@@ -535,6 +535,9 @@ export class NewsService {
               }),
               ...(q && {
                 $or: [{ title: { $regex: q, $options: 'i' } }, { 'trans.title': { $regex: q, $options: 'i' } }],
+              }),
+              ...(status && {
+                $eq: { status },
               }),
             },
             $lookups: [this.$lookups.user, this.$lookups.categories],
@@ -850,8 +853,8 @@ export class NewsService {
   /**
    * Get important news
    * @param {ObjectId} _id
-   * @param {BaseQuery} _query
-   * @param {} _filter
+   * @param  _query
+   * @param  _filter
    * @returns {Promise<BaseServiceOutput>}
    */
   async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
@@ -905,6 +908,53 @@ export class NewsService {
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('[query:error]', err.message);
+      throw err;
+    }
+  }
+  /**
+   * Get event by ID
+   * @param id - Event ID
+   * @returns { Promise<BaseServiceOutput> } - Event
+   */
+  async checkNewsStatus({ _id, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const [item] = await this.model.collection
+        .aggregate([
+          {
+            $match: {
+              ...$toMongoFilter({ _id }),
+              $and: [
+                {
+                  status: {
+                    $eq: NewsStatus.PROCESSING,
+                  },
+                  updated_by: {
+                    $not: {
+                      $eq: _subject,
+                    },
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $project: {
+              _id: 1,
+            },
+          },
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      this.logger.debug('[get:success]', { item });
+      return toOutPut({
+        item: {
+          result: isNil(item),
+        },
+      });
+    } catch (err) {
+      this.logger.error('[get:error]', err.message);
       throw err;
     }
   }

@@ -145,6 +145,7 @@ export const NewsValidation = {
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
       category: [Joi.array().items(Joi.string()), Joi.string()],
+      status: Joi.string().valid(...Object.values(NewsStatus)),
     }),
   }),
   getRelated: validate({
@@ -190,11 +191,9 @@ export const NewsValidation = {
         .required(),
     }),
   }),
-};
-
-export const ActionPermission = {
-  'update:status': {
-    user: [NewsStatus.DRAFT, NewsStatus.PROCESSING, NewsStatus.PENDING],
-    admin: [NewsStatus.DRAFT, NewsStatus.PENDING, NewsStatus.APPROVE, NewsStatus.PROCESSING, NewsStatus.PUBLISHED],
-  },
+  PreCheckStatus: validate({
+    [Segments.PARAMS]: Joi.object({
+      id: Joi.string().regex(ObjectIdPattern).required(),
+    }),
+  }),
 };

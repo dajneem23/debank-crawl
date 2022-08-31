@@ -68,12 +68,15 @@ export const convertBytesToMB = (bytes: number) => {
 export type KeysOfType<O, T> = {
   [K in keyof O]: O[K] extends T ? K : never;
 }[keyof O];
-
+/**
+ *  Phone number pattern
+ * @example 1234567890
+ */
 export const PhoneNumberPattern = /^\+?[0-9]{1,3}?[0-9]{8,12}$/;
 
 /**
  *  ObjectId pattern
- * ex: ObjectId("5c8f8f8f8f8f8f8f8f8f8f8")
+ * @example ObjectId("5c8f8f8f8f8f8f8f8f8f8f8")
  */
 export const ObjectIdPattern = /^[0-9a-fA-F]{24}$/;
 /**

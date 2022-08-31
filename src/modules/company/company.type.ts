@@ -1,4 +1,4 @@
-import { BaseInformationModel, ResearchPaper, Support, TeamPerson } from '@/types/Common';
+import { BaseInformationModel, FundraisingRound, ResearchPaper, Support, TeamPerson } from '@/types/Common';
 
 export interface Company extends BaseInformationModel {
   name: string;
@@ -24,6 +24,20 @@ export interface Company extends BaseInformationModel {
     lang: string;
     about?: string;
     short_description?: string;
+  }[];
+  year_founded?: Date;
+  fundraising_rounds: {
+    round_name: string;
+    valuation?: string;
+    description?: string;
+    announcement?: string;
+    amount?: string;
+    anum?: string;
+    total_amount?: string;
+    number_of_rounds?: string;
+    record_id?: string;
+    stage: FundraisingRound;
+    date: Date;
   }[];
 }
 
@@ -65,5 +79,7 @@ export const _company: Company = {
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),
+  year_founded: null,
   trans: [],
+  fundraising_rounds: [],
 };

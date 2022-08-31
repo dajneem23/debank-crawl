@@ -33,7 +33,7 @@ export const PersonSeed = async () => {
                 ? _person.name
                     .replace(_person.verified.replace('Verified Social Credentials', ''), '')
                     .replace('Verified', '')
-                : _person.name,
+                : _person.name.trim(),
             verified: !!_person.verified,
             about: _person.about,
             avatar: _person['avatar-src'],

@@ -78,7 +78,7 @@ export class NewsService {
         from: 'coins',
         refFrom: '_id',
         refTo: 'coin_tags',
-        select: 'name type',
+        select: 'name',
         reName: 'coin_tags',
         operation: '$in',
       }),
@@ -86,7 +86,7 @@ export class NewsService {
         from: 'companies',
         refFrom: '_id',
         refTo: 'company_tags',
-        select: 'name type',
+        select: 'name',
         reName: 'company_tags',
         operation: '$in',
       }),
@@ -94,8 +94,16 @@ export class NewsService {
         from: 'products',
         refFrom: '_id',
         refTo: 'product_tags',
-        select: 'name type',
+        select: 'name',
         reName: 'product_tags',
+        operation: '$in',
+      }),
+      person_tags: $lookup({
+        from: 'persons',
+        refFrom: '_id',
+        refTo: 'person_tags',
+        select: 'name',
+        reName: 'person_tags',
         operation: '$in',
       }),
       user: $lookup({
@@ -152,7 +160,7 @@ export class NewsService {
       const now = new Date();
       let { trans = [] } = _content;
       const { title } = _content;
-      const { categories = [], coin_tags = [], company_tags = [], product_tags = [] } = _content;
+      const { categories = [], coin_tags = [], company_tags = [], product_tags = [], person_tags } = _content;
       const validCategories = categories.length
         ? await $queryByList({
             collection: 'categories',
@@ -177,7 +185,13 @@ export class NewsService {
             values: product_tags,
           })
         : true;
-      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags)) {
+      const validPersonTags = person_tags.length
+        ? await $queryByList({
+            collection: 'persons',
+            values: person_tags,
+          })
+        : true;
+      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags && validPersonTags)) {
         throwErr(this.error('INPUT_INVALID'));
       }
       trans = await Promise.all(
@@ -220,6 +234,7 @@ export class NewsService {
             ...(product_tags.length && { product_tags: $toObjectId(product_tags) }),
             ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
             ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
+            ...(person_tags.length && { person_tags: $toObjectId(person_tags) }),
             deleted: false,
             ...(_subject && { created_by: _subject }),
           },
@@ -254,7 +269,7 @@ export class NewsService {
     try {
       const now = new Date();
       const { title, trans = [] } = _content;
-      const { categories = [], coin_tags = [], company_tags = [], product_tags = [] } = _content;
+      const { categories = [], coin_tags = [], company_tags = [], product_tags = [], person_tags = [] } = _content;
       const validCategories = categories.length
         ? await $queryByList({
             collection: 'categories',
@@ -279,7 +294,13 @@ export class NewsService {
             values: product_tags,
           })
         : true;
-      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags)) {
+      const validPersonTags = person_tags.length
+        ? await $queryByList({
+            collection: 'persons',
+            values: person_tags,
+          })
+        : true;
+      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags && validPersonTags)) {
         throwErr(this.error('INPUT_INVALID'));
       }
       const _slug = title
@@ -358,6 +379,7 @@ export class NewsService {
             ...(product_tags.length && { product_tags: $toObjectId(product_tags) }),
             ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
             ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
+            ...(person_tags.length && { person_tags: $toObjectId(person_tags) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
@@ -601,6 +623,7 @@ export class NewsService {
           this.$lookups.user,
           this.$lookups.coin_tags,
           this.$lookups.company_tags,
+          this.$lookups.person_tags,
           this.$sets.author,
           {
             $project: {
@@ -677,6 +700,7 @@ export class NewsService {
           this.$lookups.user,
           this.$lookups.coin_tags,
           this.$lookups.company_tags,
+          this.$lookups.person_tags,
           this.$sets.author,
           {
             $project: {

@@ -21,7 +21,6 @@ import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
-import { getHighestRole } from '../auth/auth.utils';
 import { permission } from './news.middlewares';
 @Service()
 @Controller('/news')

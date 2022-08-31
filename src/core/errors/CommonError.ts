@@ -21,7 +21,7 @@ export const errors = Object.freeze({
     },
   },
   'common.not_found': {
-    message: 'Not found1',
+    message: 'Not found',
     code: null,
     status: httpStatusCode.NOT_FOUND,
     isPublic: true,

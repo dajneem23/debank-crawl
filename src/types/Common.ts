@@ -62,6 +62,8 @@ export enum CATEGORY_TYPE {
 export type BaseModel = {
   _id?: string;
 
+  record_id?: string;
+
   updated_by?: string;
 
   updated_at?: Date;
@@ -78,6 +80,8 @@ export type BaseModel = {
 };
 
 export interface BaseInformationModel extends BaseModel {
+  // location?: string;
+
   verified?: boolean;
 
   sponsored?: boolean;
@@ -270,3 +274,21 @@ export const PRIVATE_KEYS = [
   'deleted',
   'trans',
 ];
+
+export enum FundraisingRound {
+  UNKNOWN = 'Unknown',
+  PRE_SEED = 'Pre-Seed',
+  SEED = 'Seed',
+  ANGEL = 'angel',
+  INVESTORS = 'investors',
+  BRIDGE = 'Bridge',
+  MEZZABINE = 'Mezzanine',
+  PRE_PUBLIC = 'Pre-Public',
+  PUBLIC = 'Public',
+  SERIES_A = 'Series A',
+  SERIES_B = 'Series B',
+  SERIES_C = 'Series C',
+  SERIES_D = 'Series D',
+  SERIES_E = 'Series E',
+  SERIES_F = 'Series F',
+}

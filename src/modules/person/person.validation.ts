@@ -173,6 +173,7 @@ export const PersonValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
+      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
     }),
   }),
   search: validate({

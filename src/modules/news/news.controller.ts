@@ -1,6 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Inject, Service } from 'typedi';
-import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
+import {
+  Controller,
+  Res,
+  Post,
+  Body,
+  Get,
+  Query,
+  Put,
+  Params,
+  Delete,
+  Req,
+  Auth,
+  Patch,
+} from '@/utils/expressDecorators';
 import { Response } from 'express';
 import { News, NewsService, NewsValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
@@ -8,6 +21,7 @@ import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
+import { getHighestRole } from '../auth/auth.utils';
 @Service()
 @Controller('/news')
 export class NewsController {
@@ -133,6 +147,26 @@ export class NewsController {
     const result = await this.service.getBySlug({
       _filter: filter,
       _id: _params.slug,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Patch('/status/:id', [NewsValidation.updateStatus, protect()])
+  async updateStatus(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Auth() _auth: JWTPayload,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.updateStatus({
+      _filter: filter,
+      _id: _params.id,
+      _role: getHighestRole(_auth.roles),
+      _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

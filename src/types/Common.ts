@@ -1,3 +1,5 @@
+import { UserRole } from '@/modules';
+
 export interface BaseQuery {
   page?: number;
   per_page?: number;
@@ -191,6 +193,7 @@ export type BaseServiceInput = {
     [key: string]: any;
   };
   _permission?: 'public' | 'private';
+  _role?: UserRole;
 };
 
 export type BaseServiceOutput = {
@@ -262,7 +265,7 @@ export enum LANG_CODE {
 
 export const PRIVATE_KEYS = [
   'updated_at',
-  'created_at',
+  // 'created_at',
   'deleted_at',
   'deleted_by',
   'updated_by',
@@ -270,3 +273,11 @@ export const PRIVATE_KEYS = [
   'deleted',
   'trans',
 ];
+
+export enum NewsStatus {
+  DRAFT = 'draft',
+  PENDING = 'pending',
+  APPROVE = 'approve',
+  PROCESSING = 'processing',
+  PUBLISHED = 'published',
+}

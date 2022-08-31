@@ -1,10 +1,12 @@
-import { BaseModel } from '@/types';
+import { BaseModel, NewsStatus } from '@/types';
 import { Company } from '../company';
 
 export interface News extends BaseModel {
   slug: string;
 
   title: string;
+
+  status: NewsStatus;
 
   summary: string;
 
@@ -43,6 +45,7 @@ export interface News extends BaseModel {
 }
 export const _news: News = {
   slug: '',
+  status: NewsStatus.DRAFT,
   title: '',
   summary: '',
   content: '',

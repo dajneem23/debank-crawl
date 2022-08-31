@@ -4,6 +4,11 @@ export type UserStatus = 'active' | 'inactive' | 'suspended';
 
 export type UserRole = 'admin' | 'user';
 
+export const RolesWeight: any = {
+  admin: 100,
+  user: 1,
+};
+
 export type Gender = 'male' | 'female' | 'other';
 
 export type User = {

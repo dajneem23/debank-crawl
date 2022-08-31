@@ -75,7 +75,7 @@ export class CompanyService {
         from: 'users',
         refFrom: 'id',
         refTo: 'created_by',
-        select: 'full_name avatar',
+        select: 'full_name picture',
         reName: 'author',
         operation: '$eq',
       }),
@@ -299,7 +299,7 @@ export class CompanyService {
    **/
   async query({ _filter, _query, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, q } = _filter;
+      const { lang, q, category } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
         .aggregate(
@@ -315,6 +315,11 @@ export class CompanyService {
               ],
               ...(q && {
                 name: { $regex: q, $options: 'i' },
+              }),
+              ...(category && {
+                $or: [
+                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
+                ],
               }),
             },
             $lookups: [this.$lookups.categories],

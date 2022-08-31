@@ -91,7 +91,7 @@ export class EventService {
         from: 'users',
         refFrom: 'id',
         refTo: 'created_by',
-        select: 'full_name avatar',
+        select: 'full_name picture',
         reName: 'author',
         operation: '$eq',
       }),
@@ -292,7 +292,7 @@ export class EventService {
       const { per_page, page, sort_order } = _query;
       const categoryFilter = category
         ? {
-            categories: { $in: Array.isArray(category) ? category : [category] },
+            categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) },
           }
         : {};
       const eventFilter: Filter<any> = {

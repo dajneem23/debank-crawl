@@ -42,7 +42,7 @@ export const ProductSeed = async () => {
                     .replace(_product.verified.replace('Verified Social Credentials', ''), '')
                     .replace('Verified', '')
                     .trim()
-                : _product.name,
+                : _product.name.trim(),
             avatar: !!_product['avatar-src'] ? _product['avatar-src'] : '',
             verified: !!_product.verified,
             sponsored: !!_product.sponsored,

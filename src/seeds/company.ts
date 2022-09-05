@@ -28,7 +28,7 @@ export const CompanySeed = async () => {
                 .replace(_company.verified.replace('Verified Social Credentials', ''), '')
                 .replace('Verified', '')
                 .trim()
-            : _company.name,
+            : _company.name.trim(),
         verified: !!_company.verified,
         about: _company.about,
         video: _company.video,

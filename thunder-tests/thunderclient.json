@@ -1045,16 +1045,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "update",
-    "url": "{{host}}/news/630ddf941d1096097587d934",
+    "url": "{{host}}/news/630ddf931d1096097587d92f",
     "method": "PUT",
     "sortNum": 280000,
     "created": "2022-08-30T09:07:12.435Z",
-    "modified": "2022-08-31T05:22:46.877Z",
+    "modified": "2022-08-31T10:58:34.071Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"categories\": [\n        \"630dbeaf1d1096097587bda8\",\n        \"630dbeaf1d1096097587bda9\"\n    ]\n}",
+      "raw": "{\n    \"person_tags\": [\n        \"630dbeaffbd8194282be5393\",\n        \"630dbeaffbd8194282be5396\"\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -1182,11 +1182,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getById",
-    "url": "{{host}}/news/private/630edebb1cd276b4a11603a7",
+    "url": "{{host}}/news/private/630ddf931d1096097587d92f",
     "method": "GET",
     "sortNum": 310000,
     "created": "2022-08-30T09:07:12.441Z",
-    "modified": "2022-08-31T08:49:45.702Z",
+    "modified": "2022-08-31T10:58:47.182Z",
     "headers": [],
     "params": [],
     "auth": {
@@ -1476,16 +1476,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "update status Copy",
-    "url": "{{host}}/news/status/630edebb1cd276b4a11603a7/?status=processing",
+    "url": "{{host}}/news/status/630ddf941d1096097587d934/?status=published",
     "method": "PATCH",
     "sortNum": 410000,
     "created": "2022-08-31T07:49:36.744Z",
-    "modified": "2022-08-31T08:46:17.495Z",
+    "modified": "2022-08-31T10:36:04.841Z",
     "headers": [],
     "params": [
       {
         "name": "status",
-        "value": "processing",
+        "value": "published",
         "isPath": false
       }
     ],
@@ -1496,42 +1496,21 @@
     "tests": []
   },
   {
-    "_id": "6231b969-5170-4d3e-87a0-9f1f267cd004",
+    "_id": "61b3fa16-41d3-4699-b632-d543778e869a",
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
-    "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
-    "name": "query Copy",
-    "url": "{{host}}/categories/search?q=guid&lang=vi",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "pre-check",
+    "url": "{{host}}/news/pre-check/630ddf941d1096097587d934",
     "method": "GET",
-    "sortNum": 150000,
-    "created": "2022-09-05T08:05:05.689Z",
-    "modified": "2022-09-05T08:08:12.000Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "q",
-        "value": "guid",
-        "isPath": false
-      },
-      {
-        "name": "lang",
-        "value": "vi",
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
-    "_id": "dc3bbd86-bbbe-4d80-8ecc-f1100aba73be",
-    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
-    "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
-    "name": "search",
-    "url": "{{host}}/person/search",
-    "method": "GET",
-    "sortNum": 205000,
-    "created": "2022-09-05T08:09:26.957Z",
-    "modified": "2022-09-05T08:14:38.083Z",
+    "sortNum": 410000,
+    "created": "2022-08-31T09:05:40.781Z",
+    "modified": "2022-08-31T09:09:52.643Z",
     "headers": [],
     "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTkzMDQxMiwiZXhwIjoxNjYyNzk0NDEyfQ.gs6593xEyG6p8m-9C4QiiWT2rxtND0mSdcdqSuzOJB0"
+    },
     "tests": []
   }
 ]

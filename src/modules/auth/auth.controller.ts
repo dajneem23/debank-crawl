@@ -6,6 +6,7 @@ import { Controller, Post, Res, Body, Auth } from '@/utils/expressDecorators';
 import * as authValidation from './auth.validation';
 import { protect } from '@/api/middlewares/protect';
 import { JWTPayload } from '@/modules/auth/authSession.type';
+import { UserRole } from '../user';
 
 @Service()
 @Controller('/')
@@ -102,7 +103,7 @@ export class AuthController {
    */
   @Post('/private/auth/login', [authValidation.login])
   async privateLogin(@Res() res: Response, @Body() body: any) {
-    const result = await this.authService.loginByIdAndPassword(body.id, body.password, ['admin']);
+    const result = await this.authService.loginByIdAndPassword(body.id, body.password, [UserRole.ADMIN]);
     return res.status(httpStatusCode.OK).json(result);
   }
 

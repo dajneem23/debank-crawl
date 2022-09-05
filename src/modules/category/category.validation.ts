@@ -75,6 +75,19 @@ export const CategoryValidation = {
         }),
     }),
   }),
+
+  search: validate({
+    [Segments.QUERY]: Joi.object({
+      page: Joi.number().default(1).min(1),
+      per_page: Joi.number().default(10).min(1),
+      q: Joi.string(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+    }),
+  }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern),

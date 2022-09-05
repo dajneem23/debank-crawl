@@ -1,10 +1,11 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
-import { $toObjectId, $countCollection } from '@/utils/mongoDB';
+import { $countCollection } from '@/utils/mongoDB';
 import bcrypt from 'bcryptjs';
 /* eslint-disable no-console */
 export const UserSeed = async () => {
   console.log('Running event seed');
   const db = await mongoDBLoader();
+
   const collection = db.collection('users');
   const count = await $countCollection({ collection });
   if (!count) {

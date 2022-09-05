@@ -619,7 +619,7 @@ export class NewsService {
           this.$lookups.coin_tags,
           this.$lookups.company_tags,
           this.$lookups.product_tags,
-          this.$lookups.person_tags,
+          // this.$lookups.person_tags,
           this.$sets.author,
           {
             $project: {

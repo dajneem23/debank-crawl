@@ -5,7 +5,7 @@ import { alphabetSize12 } from '@/utils/randomString';
 import { AuthError } from '@/modules/auth/auth.error';
 import { SystemError } from '@/core/errors/CommonError';
 import { UserModel } from './user.model';
-import { CreateUpdateUserInput, User, UserOutput } from './user.type';
+import { CreateUpdateUserInput, User, UserOutput, UserRole } from './user.type';
 import { toUserOutput } from './user.util';
 import { UserError } from '@/modules/user/user.error';
 import { DEFAULT_USER_PICTURE } from '@/config/constants';
@@ -112,7 +112,7 @@ export class UserService {
         picture: userInput.picture || DEFAULT_USER_PICTURE, // Should set a default avatar picture
         id: await UserService.generateID(),
         email_verified: false,
-        roles: ['user'],
+        roles: [UserRole.USER],
         status: 'active',
         created_at: now,
         updated_at: now,
@@ -212,7 +212,7 @@ export class UserService {
         // Delete user
         const { value: user } = await this.userModel.collection.findOneAndDelete({ id: userId }, { session });
         if (!user) throwErr(new UserError('USER_NOT_FOUND'));
-        if (user.roles.includes('admin')) throwErr(new UserError('CANNOT_DELETE_ADMIN_ACCOUNT'));
+        if (user.roles.includes(UserRole.ADMIN)) throwErr(new UserError('CANNOT_DELETE_ADMIN_ACCOUNT'));
         // Delete other parts
         await Promise.all([
           // Delete auth sessions

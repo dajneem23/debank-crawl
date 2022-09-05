@@ -34,7 +34,7 @@ export const search = validate({
       .default(ORDER.ASC)
       .valid(...Object.values(ORDER)),
 
-    q: Joi.string().required(),
+    q: Joi.string().allow('').required(),
   }),
 });
 export const getRelated = validate({

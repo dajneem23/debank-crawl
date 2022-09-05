@@ -278,7 +278,6 @@ export const PRIVATE_KEYS = [
   'trans',
 ];
 
-
 export enum NewsStatus {
   DRAFT = 'draft',
   PENDING = 'pending',
@@ -302,5 +301,4 @@ export enum FundraisingRound {
   SERIES_D = 'Series D',
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
-
 }

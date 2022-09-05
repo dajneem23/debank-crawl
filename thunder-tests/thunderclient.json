@@ -1045,16 +1045,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "update",
-    "url": "{{host}}/news/630ddf941d1096097587d934",
+    "url": "{{host}}/news/630ddf931d1096097587d92f",
     "method": "PUT",
     "sortNum": 280000,
     "created": "2022-08-30T09:07:12.435Z",
-    "modified": "2022-08-31T05:22:46.877Z",
+    "modified": "2022-08-31T10:58:34.071Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"categories\": [\n        \"630dbeaf1d1096097587bda8\",\n        \"630dbeaf1d1096097587bda9\"\n    ]\n}",
+      "raw": "{\n    \"person_tags\": [\n        \"630dbeaffbd8194282be5393\",\n        \"630dbeaffbd8194282be5396\"\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -1068,11 +1068,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "query",
-    "url": "{{host}}/news?category=630dbeaf1d1096097587bda9",
+    "url": "{{host}}/news",
     "method": "GET",
     "sortNum": 285000,
     "created": "2022-08-30T09:07:12.436Z",
-    "modified": "2022-08-31T05:24:23.072Z",
+    "modified": "2022-08-31T08:45:02.392Z",
     "headers": [],
     "params": [
       {
@@ -1096,6 +1096,7 @@
       {
         "name": "category",
         "value": "630dbeaf1d1096097587bda9",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1181,20 +1182,13 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getById",
-    "url": "{{host}}/news/private/630dde6c1cd276b4a1da423a",
+    "url": "{{host}}/news/private/630ddf931d1096097587d92f",
     "method": "GET",
     "sortNum": 310000,
     "created": "2022-08-30T09:07:12.441Z",
-    "modified": "2022-08-30T11:01:18.093Z",
+    "modified": "2022-08-31T10:58:47.182Z",
     "headers": [],
-    "params": [
-      {
-        "name": "lang",
-        "value": "en",
-        "isDisabled": true,
-        "isPath": false
-      }
-    ],
+    "params": [],
     "auth": {
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyNDI2MiwiZXhwIjoxNjYyNDg4MjYyfQ.Qsskg9z293UA3Ud-iQupoo7seUrn5KRDhd4AGTpMXLM"
@@ -1346,31 +1340,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
     "name": "search",
-    "url": "{{host}}/persons/search/?page=1&per_page=5&q=Arry&lang=vi",
+    "url": "{{host}}/persons/search?q=George",
     "method": "GET",
     "sortNum": 360000,
     "created": "2022-08-30T09:07:12.448Z",
-    "modified": "2022-08-30T09:07:12.448Z",
+    "modified": "2022-09-05T08:17:10.544Z",
     "headers": [],
     "params": [
       {
-        "name": "page",
-        "value": "1",
-        "isPath": false
-      },
-      {
-        "name": "per_page",
-        "value": "5",
-        "isPath": false
-      },
-      {
         "name": "q",
-        "value": "Arry",
-        "isPath": false
-      },
-      {
-        "name": "lang",
-        "value": "vi",
+        "value": "George",
         "isPath": false
       }
     ],
@@ -1381,16 +1360,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "search",
-    "url": "{{host}}/events/search/?q=haid hydra",
+    "url": "{{host}}/events/search/?q=",
     "method": "GET",
     "sortNum": 370000,
     "created": "2022-08-30T09:07:12.449Z",
-    "modified": "2022-08-30T09:07:12.449Z",
+    "modified": "2022-09-05T08:19:49.584Z",
     "headers": [],
     "params": [
       {
         "name": "q",
-        "value": "haid hydra",
+        "value": "",
         "isPath": false
       }
     ],
@@ -1473,11 +1452,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "update status",
-    "url": "{{host}}/news/status/630ddf941d1096097587d934/?status=processing",
+    "url": "{{host}}/news/status/630edebb1cd276b4a11603a7/?status=processing",
     "method": "PATCH",
     "sortNum": 400000,
     "created": "2022-08-31T07:14:23.373Z",
-    "modified": "2022-08-31T07:45:04.585Z",
+    "modified": "2022-08-31T08:44:38.516Z",
     "headers": [],
     "params": [
       {
@@ -1497,19 +1476,37 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "update status Copy",
-    "url": "{{host}}/news/status/630ddf941d1096097587d934/?status=processing",
+    "url": "{{host}}/news/status/630ddf941d1096097587d934/?status=published",
     "method": "PATCH",
     "sortNum": 410000,
     "created": "2022-08-31T07:49:36.744Z",
-    "modified": "2022-08-31T07:49:48.156Z",
+    "modified": "2022-08-31T10:36:04.841Z",
     "headers": [],
     "params": [
       {
         "name": "status",
-        "value": "processing",
+        "value": "published",
         "isPath": false
       }
     ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlhTVHJHRll0S2NQNiIsImVtYWlsIjoidGhhbmhAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmdWxsX25hbWUiOiJ0aGFuaDEiLCJwaWN0dXJlIjoiaHR0cHM6Ly93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9kZWZhdWx0P3M9MjAwJmQ9bXAiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTY2MTkzMTQ1NiwiZXhwIjoxNjYyNzk1NDU2fQ.YG186T5CKko8pqZDHxvd7MLUJCfKPEF1T_9kIMu2oAc"
+    },
+    "tests": []
+  },
+  {
+    "_id": "61b3fa16-41d3-4699-b632-d543778e869a",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "pre-check",
+    "url": "{{host}}/news/pre-check/630ddf941d1096097587d934",
+    "method": "GET",
+    "sortNum": 410000,
+    "created": "2022-08-31T09:05:40.781Z",
+    "modified": "2022-08-31T09:09:52.643Z",
+    "headers": [],
+    "params": [],
     "auth": {
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTkzMDQxMiwiZXhwIjoxNjYyNzk0NDEyfQ.gs6593xEyG6p8m-9C4QiiWT2rxtND0mSdcdqSuzOJB0"

@@ -1,14 +1,17 @@
 [
   {
     "title": "Technology",
+    "name": "technology",
     "type": "company"
   },
   {
     "title": "Analysis",
+    "name": "analysis",
     "type": "exploration"
   },
   {
     "title": "Portal",
+    "name": "portal",
     "type": "exploration",
     "sub_categories": [
       {
@@ -27,6 +30,7 @@
   },
   {
     "title": "For Newbies",
+    "name": "for_newbies",
     "type": "exploration",
     "sub_categories": [
       {
@@ -41,6 +45,12 @@
   },
   {
     "title": "Opportunity",
+    "name": "opportunity",
     "type": "exploration"
+  },
+  {
+    "title": "Investor",
+    "name": "investor",
+    "type": "INVESTOR"
   }
 ]

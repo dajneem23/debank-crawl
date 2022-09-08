@@ -60,11 +60,25 @@ export enum CATEGORY_TYPE {
   CRYPTO = 'crypto',
   EXPLORATION = 'exploration',
   SUB_EXPLORATION = 'sub_exploration',
+  INVESTOR = 'investor',
 }
 export type BaseModel = {
   _id?: string;
 
+  foreign_id?: string;
+
   record_id?: string;
+
+  metadata?: {
+    _admin_note?: string;
+    storage?: string;
+  };
+
+  need_review?: boolean;
+
+  review_status?: string;
+
+  reviewed?: boolean;
 
   updated_by?: string;
 
@@ -117,6 +131,8 @@ export interface BaseInformationModel extends BaseModel {
   youtube?: string;
 
   website?: string;
+
+  websites?: string[];
 
   blog?: string;
 
@@ -278,7 +294,6 @@ export const PRIVATE_KEYS = [
   'trans',
 ];
 
-
 export enum NewsStatus {
   DRAFT = 'draft',
   PENDING = 'pending',
@@ -290,8 +305,8 @@ export enum FundraisingRound {
   UNKNOWN = 'Unknown',
   PRE_SEED = 'Pre-Seed',
   SEED = 'Seed',
-  ANGEL = 'angel',
-  INVESTORS = 'investors',
+  ANGEL = 'Angel',
+  INVESTORS = 'Investors',
   BRIDGE = 'Bridge',
   MEZZABINE = 'Mezzanine',
   PRE_PUBLIC = 'Pre-Public',
@@ -302,5 +317,4 @@ export enum FundraisingRound {
   SERIES_D = 'Series D',
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
-
 }

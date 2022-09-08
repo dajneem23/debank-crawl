@@ -7,14 +7,16 @@ import { ProductSeed } from './product';
 import { CompanySeed } from './company';
 import { CoinSeed } from './coin';
 import { UserSeed } from './user';
-export default async () => {
-  await UserSeed();
-  await CategorySeed();
-  // await SectorSeed();
-  await CountrySeed();
-  // await EventSeed();
-  await PersonSeed();
-  await ProductSeed();
-  await CompanySeed();
-  await CoinSeed();
-};
+
+(async () => {
+  (await import('../loaders/loggerLoader')).default();
+  await (await import('../loaders/mongoDBLoader')).default();
+  await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
+  await Promise.all([CompanySeed(), ProductSeed(), PersonSeed(), CoinSeed()]);
+  // await CompanySeed();
+  // await PersonSeed();
+  process.on('exit', () => {
+    console.info('✅ Run seed data successfully');
+  });
+  process.exit(0);
+})();

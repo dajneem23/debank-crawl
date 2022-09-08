@@ -1,16 +1,11 @@
 import { Inject, Service } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { SystemError } from '@/core/errors/CommonError';
-import { Filter } from 'mongodb';
-import AuthSessionModel from '@/modules/auth/authSession.model';
-import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { CategoryModel, CategoryError, CategoryOutput, Category, _category } from '.';
+import { $lookup, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { CategoryModel, CategoryError, CategoryOutput, _category } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-import { _product } from '@/modules';
 
 @Service()
 export class CategoryService {
@@ -18,12 +13,6 @@ export class CategoryService {
 
   @Inject()
   private model: CategoryModel;
-
-  @Inject()
-  private authSessionModel: AuthSessionModel;
-
-  @Inject()
-  private authService: AuthService;
 
   private error(msg: any) {
     return new CategoryError(msg);
@@ -292,6 +281,69 @@ export class CategoryService {
       return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
+      throw err;
+    }
+  }
+
+  /**
+   * Search by text index
+   * @param {BaseServiceInput} _filter _query
+   * @returns
+   */
+  async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { q, lang } = _filter;
+      const { page = 1, per_page = 10 } = _query;
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
+        .aggregate([
+          ...$pagination({
+            $match: {
+              deleted: false,
+              ...(q && {
+                $or: [
+                  { $text: { $search: q } },
+                  {
+                    name: { $regex: q, $options: 'i' },
+                  },
+                ],
+              }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      this.logger.debug('[query:success]', { total_count, items });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+    } catch (err) {
+      this.logger.error('[query:error]', err.message);
       throw err;
     }
   }

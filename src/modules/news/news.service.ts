@@ -6,8 +6,7 @@ import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysT
 import { NewsError, NewsModel, _news } from '.';
 import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-import { UserModel, UserError } from '../index';
-import { ObjectId } from 'mongodb';
+import { UserModel } from '../index';
 import slugify from 'slugify';
 @Service()
 export class NewsService {
@@ -18,10 +17,6 @@ export class NewsService {
 
   @Inject()
   private userModel: UserModel;
-
-  private userErrors(err: any) {
-    return new UserError(err);
-  }
 
   private error(msg: any) {
     return new NewsError(msg);
@@ -35,7 +30,7 @@ export class NewsService {
   }
 
   get transKeys() {
-    return ['title', 'slug', 'lang', 'headings', 'summary'];
+    return ['title', 'slug', 'lang', 'headings', 'summary', 'content'];
   }
 
   get outputKeys() {
@@ -623,6 +618,7 @@ export class NewsService {
           this.$lookups.user,
           this.$lookups.coin_tags,
           this.$lookups.company_tags,
+          this.$lookups.product_tags,
           this.$lookups.person_tags,
           this.$sets.author,
           {
@@ -653,7 +649,7 @@ export class NewsService {
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
       this.logger.debug('[get:success]', { item });
-      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
+      return _permission == 'private' ? omit(toOutPut({ item }), 'trans') : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('[get:error]', err.message);
       throw err;

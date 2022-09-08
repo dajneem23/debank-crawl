@@ -2,9 +2,14 @@ import { ObjectId } from 'mongodb';
 
 export type UserStatus = 'active' | 'inactive' | 'suspended';
 
-export type UserRole = 'admin' | 'user';
+export enum UserRole {
+  SUPER = 'super',
+  ADMIN = 'admin',
+  USER = 'user',
+}
 
 export const RolesWeight: any = {
+  super: 99999,
   admin: 100,
   user: 1,
 };

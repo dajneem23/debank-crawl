@@ -3,7 +3,6 @@ import { BaseInformationModel, DEVELOPMENT_STATUS, IcoDetail, TeamPerson, Techno
 export interface Coin extends BaseInformationModel {
   name: string;
   token_id: string;
-  categories?: string[];
   stack_exchange: string;
   blockchains: string[];
   whitepaper: string;

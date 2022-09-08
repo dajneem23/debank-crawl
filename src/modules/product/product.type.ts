@@ -5,7 +5,6 @@ export interface Product extends BaseInformationModel {
   avatar: string;
   contract_addresses: Array<ContractAddress>;
   crypto_currencies?: string[];
-  categories?: string[];
   features?: string[];
   apps: App[];
   supports: Support[];

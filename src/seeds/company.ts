@@ -5,7 +5,6 @@ import cryptoCompaniesFile from '../data/airtable/Crypto Companies.json';
 import fundraisingRoundsFile from '../data/airtable/Fundraising Rounds - Companies.json';
 import InvestorAirtable from '../data/airtable/investor.json';
 import AngelInvestorAirtable from '../data/airtable/Angel Investors.json';
-import Funds from '../data/airtable/Fundraising Rounds - Funds.json';
 import fs from 'fs';
 import { createDataFile, readDataFromFile } from './utils';
 /* eslint-disable no-console */
@@ -19,7 +18,7 @@ export const CompanySeed = async () => {
   const collection = db.collection('companies');
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  if (!count || true) {
+  if (!count) {
     const companies = readDataFromFile({ _collection: 'companies' }).map((_company: any) => {
       return {
         name:
@@ -405,121 +404,9 @@ export const CompanySeed = async () => {
         return acc;
       }, {});
 
-    const funds = Object.values(
-      (Funds as any).data.rows
-        .map((fund: any) => {
-          const {
-            id,
-            cellValuesByColumnId: {
-              fldH3vfWCGhZQoTT0: round_name,
-              fldsJXOoeuQ9iQpcM: partners = [],
-              fldxtL1WFCMMgh5aR: firms = [],
-              flddZlypzkh4Bv8VM: stage,
-              fldeTAeeyCI1aQZA0: amount = 0,
-              fldfKdIjZ6u7Zh8Yd: post = '',
-              fld6UwhGKLL1xyj7O: { valuesByForeignRowId: _avatars } = {
-                valuesByForeignRowId: {},
-              },
-              fldxtL1WFCMMgh5aR: cryptocurrencies,
-            },
-          } = fund;
-          const avatars = Object.values(_avatars as any[]).flatMap((avatar: any) => {
-            return avatar.map((avatar: any) => {
-              return avatar.url;
-            });
-          });
-          return {
-            id,
-            name: round_name.replace(stage, '').replace('-', '').trim(),
-            avatars,
-            avatar: avatars[0],
-            round_name,
-            stage,
-            partners: partners.map((partner: any) => {
-              return {
-                name: partner.foreignRowDisplayName,
-                foreign_id: partner.foreignRowId,
-              };
-            }),
-            posts: [post],
-            amount,
-            cryptocurrencies: Object.keys(cryptocurrencies?.valuesByForeignRowId || {}).map((key: any) => {
-              return {
-                foreign_id: key,
-                name: cryptocurrencies?.valuesByForeignRowId[key],
-              };
-            }),
-            firms: firms.map((firm: any) => {
-              return {
-                foreign_id: firm.foreignRowId,
-                name: firm.foreignRowDisplayName,
-              };
-            }),
-          };
-        })
-        .reduce((acc: any, fund: any) => {
-          if (!acc[fund.name]) {
-            const { partners, firms, cryptocurrencies, fundraising_rounds = [], amount = 0, ...rest } = fund;
-            acc[fund.name] = {
-              ...rest,
-              total_amount: amount,
-              partners: [...partners, ...fund.partners],
-              firms: [...firms, ...fund.firms],
-              cryptocurrencies: [...cryptocurrencies, ...fund.cryptocurrencies],
-              fundraising_rounds: [
-                ...fundraising_rounds,
-                {
-                  round_id: fund.id,
-                  round_name: fund.round_name,
-                  stage: fund.stage,
-                  amount,
-                },
-              ],
-            };
-          } else {
-            const {
-              partners,
-              firms,
-              cryptocurrencies,
-              fundraising_rounds = [],
-              total_amount = 0,
-              ...rest
-            } = acc[fund.name];
-            acc[fund.name] = {
-              ...rest,
-              total_amount: total_amount + fund.amount,
-              partners: [...partners, ...fund.partners],
-              firms: [...firms, ...fund.firms],
-              cryptocurrencies: [...cryptocurrencies, ...fund.cryptocurrencies],
-              fundraising_rounds: [
-                ...fundraising_rounds,
-                {
-                  round_id: fund.id,
-                  round_name: fund.round_name,
-                  stage: fund.stage,
-                  amount: fund.amount,
-                },
-              ],
-            };
-          }
-          return acc;
-        }, {}),
-    ).map((fund: any) => {
-      const { partners, categories = ['Fund'], firms, ...rest } = fund;
-      return {
-        ...rest,
-        categories,
-        partners: partners.filter((partner: any, index: any, self: any) => {
-          return index === self.findIndex((t: any) => t.foreign_id === partner.foreign_id);
-        }),
-        firms: firms.filter((firm: any, index: any, self: any) => {
-          return index === self.findIndex((t: any) => t.foreign_id === firm.foreign_id);
-        }),
-      };
-    });
     const companies_final = await Promise.all(
       Object.values(
-        [...airtableCompanies, ...companies, ...investors.companies, ...funds].reduce((current: any, item: any) => {
+        [...airtableCompanies, ...companies, ...investors.companies].reduce((current: any, item: any) => {
           const { name, ...rest } = item;
           const lowerName = name.toLowerCase().trim();
           return {
@@ -542,6 +429,7 @@ export const CompanySeed = async () => {
       )
         .map((item: any) => {
           const {
+            id: foreign_id = '',
             need_review = false,
             reviewed = false,
             year_founded = 0,
@@ -559,6 +447,7 @@ export const CompanySeed = async () => {
             clients = [],
             portfolios = [],
             galleries = [],
+            categories = [],
             about = '',
             verified = false,
             headquarter = '',
@@ -586,6 +475,8 @@ export const CompanySeed = async () => {
           } = item;
           return {
             ...rest,
+            foreign_id,
+            categories: [...new Set(categories)],
             year_founded,
             avatars,
             websites,
@@ -704,17 +595,10 @@ export const CompanySeed = async () => {
       companies: companies.length,
       investors: investors.companies.length,
       airtableCompanies: airtableCompanies.length,
-      funds: funds.length,
-      dupticate:
-        companies.length +
-        investors.companies.length +
-        airtableCompanies.length +
-        funds.length -
-        companies_final.length,
+      dupticate: companies.length + investors.companies.length + airtableCompanies.length - companies_final.length,
       final: companies_final.length,
       // airtableUniqueCompanies: airtableUniqueCompanies.length,
     });
-    // fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds).replace(/null/g, '""'));
     // fs.writeFileSync(
     //   `${__dirname}/data/companies_airtable.json`,
     //   JSON.stringify(airtableCompanies).replace(/null/g, '""'),

@@ -24,8 +24,6 @@ export interface Event extends BaseInformationModel {
 
   end_date?: Date;
 
-  categories?: ObjectId[];
-
   country?: string;
 
   //array id of persons

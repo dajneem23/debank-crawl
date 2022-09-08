@@ -1526,5 +1526,57 @@
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTkzMDQxMiwiZXhwIjoxNjYyNzk0NDEyfQ.gs6593xEyG6p8m-9C4QiiWT2rxtND0mSdcdqSuzOJB0"
     },
     "tests": []
+  },
+  {
+    "_id": "522ce1ef-d8f0-410d-b2df-e61fe49ca277",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+    "name": "funds",
+    "url": "{{host}}/funds",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-09-08T09:32:20.625Z",
+    "modified": "2022-09-08T11:08:26.733Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\":\"xxzxzxcxzxc\",\n    \"categories\":[\"6319c04b6beba3b545157039\"]\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "f6609157-32f6-4ac3-be92-e6c077c62d01",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+    "name": "update",
+    "url": "{{host}}/funds/6319c04b6beba3b545157037",
+    "method": "PUT",
+    "sortNum": 20000,
+    "created": "2022-09-08T11:08:07.870Z",
+    "modified": "2022-09-08T11:19:08.691Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \n    \"name\":\"123\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a810ffab-a12e-4209-93b4-f077bd5b73a0",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+    "name": "delete",
+    "url": "{{host}}/funds/6319c04b6beba3b545157039",
+    "method": "DELETE",
+    "sortNum": 440000,
+    "created": "2022-09-08T11:12:50.164Z",
+    "modified": "2022-09-08T11:13:02.029Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

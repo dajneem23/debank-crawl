@@ -306,6 +306,7 @@ export const PersonSeed = async () => {
       }, {}),
     ).map((item: any) => {
       const {
+        id: foreign_id = '',
         need_review = false,
         reviewed = false,
         about = '',
@@ -326,13 +327,17 @@ export const PersonSeed = async () => {
         stack_exchange = '',
         educations = [],
         works = [],
+        categories = [],
         location = '',
         email = '',
         type,
+        metadata = {},
         ...rest
       } = item;
       return {
         ...rest,
+        foreign_id,
+        categories: [...new Set(categories)],
         about,
         short_description,
         avatar,
@@ -353,6 +358,7 @@ export const PersonSeed = async () => {
         works,
         location,
         email,
+        metadata,
         reviewed,
         need_review,
         trans: [] as any,

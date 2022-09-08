@@ -7,14 +7,16 @@ import { ProductSeed } from './product';
 import { CompanySeed } from './company';
 import { CoinSeed } from './coin';
 import { UserSeed } from './user';
+import { FundSeed } from './fund';
 
 (async () => {
   (await import('../loaders/loggerLoader')).default();
   await (await import('../loaders/mongoDBLoader')).default();
-  await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
-  await Promise.all([CompanySeed(), ProductSeed(), PersonSeed(), CoinSeed()]);
+  // await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
+  // await Promise.all([CompanySeed(), ProductSeed(), PersonSeed(), CoinSeed()]);
   // await CompanySeed();
   // await PersonSeed();
+  await FundSeed();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

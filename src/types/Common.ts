@@ -1,4 +1,5 @@
 import { UserRole } from '@/modules';
+import { ObjectId } from 'mongodb';
 
 export interface BaseQuery {
   page?: number;
@@ -96,7 +97,10 @@ export type BaseModel = {
 };
 
 export interface BaseInformationModel extends BaseModel {
+  name?: string;
   // location?: string;
+
+  categories?: ObjectId[];
 
   verified?: boolean;
 
@@ -293,7 +297,12 @@ export const PRIVATE_KEYS = [
   'deleted',
   'trans',
 ];
-
+export type ForeignReLationship = {
+  name: string;
+  foreign_id: string;
+  type?: string;
+  [key: string]: any;
+};
 export enum NewsStatus {
   DRAFT = 'draft',
   PENDING = 'pending',
@@ -318,3 +327,16 @@ export enum FundraisingRound {
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
 }
+export type FundraisingRoundDetail = {
+  round_name: string;
+  valuation?: string;
+  description?: string;
+  announcement?: string;
+  amount?: number;
+  anum?: string;
+  number_of_rounds?: string;
+  record_id?: string;
+  stage: FundraisingRound | string;
+  posts?: string[];
+  date: Date;
+};

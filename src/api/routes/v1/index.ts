@@ -11,6 +11,7 @@ import {
   PersonController,
   CoinController,
   NewsController,
+  FundController,
 } from '@/modules';
 
 const route = Router();
@@ -28,5 +29,6 @@ export default (app: Application) => {
     PersonController,
     CoinController,
     NewsController,
+    FundController,
   ]);
 };

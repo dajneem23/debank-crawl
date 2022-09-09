@@ -221,9 +221,7 @@ export const $checkDocumentExist = async ({ collection, filter }: { collection: 
   return !!count;
 };
 export const $countCollection = async ({ collection, filter }: { collection?: Collection; filter?: Filter<any> }) => {
-  return await (
-    await collection.find(filter).toArray()
-  ).length;
+  return (await collection.find(filter).toArray()).length;
 };
 
 export const $queryByList = async ({

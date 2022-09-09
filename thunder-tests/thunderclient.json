@@ -1536,13 +1536,17 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-09-08T09:32:20.625Z",
-    "modified": "2022-09-09T02:59:55.726Z",
+    "modified": "2022-09-09T10:01:05.903Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
       "raw": "{\n    \"name\":\"13452\",\n    \"categories\":[\"63195cda6beba3b545154714\"]\n}",
       "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MjcxNzUyMiwiZXhwIjoxNjYzNTgxNTIyfQ.ovL4LQhhAL7OcH0QQqXiULqq7NLJt35i_KPCgKUl-90"
     },
     "tests": []
   },

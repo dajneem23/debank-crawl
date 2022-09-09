@@ -16,7 +16,7 @@ import { FundSeed } from './fund';
   // await Promise.all([CompanySeed(), ProductSeed(), PersonSeed(), CoinSeed()]);
   // await CompanySeed();
   // await PersonSeed();
-  await FundSeed();
+  // await FundSeed();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

@@ -22,7 +22,6 @@ import { T } from '@/types';
  * @class BaseModel
  * @description Base model for all models
  */
-@Service()
 export class BaseModel {
   readonly _collection: Collection;
 

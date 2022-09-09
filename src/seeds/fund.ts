@@ -24,6 +24,7 @@ export const FundSeed = async () => {
             fld6UwhGKLL1xyj7O: { valuesByForeignRowId: _avatars } = {
               valuesByForeignRowId: {},
             },
+            cryptocurrencies = [],
           },
         } = fund;
         const avatars = Object.values(_avatars as any[]).flatMap((avatar: any) => {
@@ -38,6 +39,7 @@ export const FundSeed = async () => {
           avatar: avatars[0],
           round_name,
           stage,
+          cryptocurrencies,
           partners: partners.map((partner: any) => {
             return {
               name: partner.foreignRowDisplayName,

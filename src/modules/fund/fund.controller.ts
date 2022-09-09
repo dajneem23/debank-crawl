@@ -12,7 +12,7 @@ import { BaseQuery, BaseServiceInput } from '@/types/Common';
 export class FundController {
   private service = Container.get<FundService>('_fundService');
 
-  @Post('/', [])
+  @Post('/', [FundValidation.create, protectPrivateAPI()])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -27,7 +27,7 @@ export class FundController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [])
+  @Put('/:id', [FundValidation.update, protectPrivateAPI()])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -44,7 +44,7 @@ export class FundController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [])
+  @Delete('/:id', [FundValidation.delete, protectPrivateAPI()])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -60,7 +60,8 @@ export class FundController {
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/')
+
+  @Get('/', [FundValidation.query])
   async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
@@ -69,7 +70,8 @@ export class FundController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/search')
+
+  @Get('/search', [FundValidation.search])
   async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.search({
@@ -78,7 +80,8 @@ export class FundController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/:id')
+
+  @Get('/:id', [FundValidation.getById])
   async getByIdPublic(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -95,7 +98,8 @@ export class FundController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id')
+
+  @Get('/private/:id', [FundValidation.getById, protectPrivateAPI()])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

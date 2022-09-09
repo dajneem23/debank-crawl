@@ -95,12 +95,12 @@ export class CompanyService {
         reName: 'director',
         operation: '$eq',
       }),
-      crypto_currencies: $lookup({
+      cryptocurrencies: $lookup({
         from: 'coins',
         refFrom: '_id',
-        refTo: 'crypto_currencies',
+        refTo: 'cryptocurrencies',
         select: 'name token_id',
-        reName: 'crypto_currencies',
+        reName: 'cryptocurrencies',
         operation: '$in',
       }),
       countries: $lookup({
@@ -148,7 +148,7 @@ export class CompanyService {
     try {
       const now = new Date();
       const { name } = _content;
-      const { team, categories, projects, products, crypto_currencies, country } = _content;
+      const { team, categories, projects, products, cryptocurrencies, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
@@ -203,7 +203,7 @@ export class CompanyService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      const { team, categories, projects, products, crypto_currencies, country } = _content;
+      const { team, categories, projects, products, cryptocurrencies, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
@@ -224,7 +224,7 @@ export class CompanyService {
             ...(projects && { projects: $toObjectId(projects) }),
             ...(team && { team: $toObjectId(team) }),
             ...(products && { products: $toObjectId(products) }),
-            ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
+            ...(cryptocurrencies && { cryptocurrencies: $toObjectId(cryptocurrencies) }),
             ...(country && { country: $toObjectId(country) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,

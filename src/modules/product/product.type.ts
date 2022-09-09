@@ -4,7 +4,7 @@ export interface Product extends BaseInformationModel {
   name: string;
   avatar: string;
   contract_addresses: Array<ContractAddress>;
-  crypto_currencies?: string[];
+  cryptocurrencies?: string[];
   features?: string[];
   apps: App[];
   supports: Support[];
@@ -26,7 +26,7 @@ export const _product: Product = {
   sponsored: false,
   about: '',
   contract_addresses: [],
-  crypto_currencies: [],
+  cryptocurrencies: [],
   categories: [],
   features: [],
   apps: [],

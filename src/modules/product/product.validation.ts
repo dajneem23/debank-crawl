@@ -6,7 +6,7 @@ export const ProductValidation = {
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
       contract_addresses: Joi.array().items(Joi.object()),
-      crypto_currencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
       features: Joi.array().items(Joi.string()),
       apps: Joi.array().items(Joi.object()),
@@ -48,7 +48,7 @@ export const ProductValidation = {
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
       contract_addresses: Joi.array().items(Joi.object()),
-      crypto_currencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
       features: Joi.array().items(Joi.string()),
       apps: Joi.array().items(Joi.object()),

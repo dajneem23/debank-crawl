@@ -17,8 +17,6 @@ import { throwErr } from '@/utils/common';
 import { $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
 import { categoriesValidation } from '@/utils/validation';
 import { T } from '@/types';
-import { Type } from '@aws-sdk/client-s3';
-import { Interface } from 'readline';
 
 /**
  * @class BaseModel
@@ -92,7 +90,7 @@ export class BaseModel {
    * @param {any} Filter - filter
    * @param {any} Body - body
    * @param {FindOneAndUpdateOptions} Options - options
-   * @returns
+   * @returns {Promise<WithId<T> | null> }- WithId<T> | null
    */
   async create(
     { ...filter }: any,
@@ -232,13 +230,13 @@ export class BaseModel {
   }
   /**
    *  Get document
-   *  @param {any[]} aggregate
+   *  @param {any[]} pipeline - pipeline
    *  @param {AggregateOptions} options
    *  @return {Promise<AggregationCursor<T>>} - AggregationCursor
    */
-  get(aggregate: any[] = [], options: AggregateOptions = {}): AggregationCursor<T> {
+  get(pipeline: any[] = [], options: AggregateOptions = {}): AggregationCursor<T> {
     try {
-      return this._collection.aggregate(aggregate, options);
+      return this._collection.aggregate(pipeline, options);
     } catch (err) {
       this.logger.error(`[get:${this._collectionName}:error]`, err.message);
       throw err;

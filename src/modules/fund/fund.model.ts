@@ -2,7 +2,8 @@ import { Service } from 'typedi';
 import { BaseModel } from '../base/base.model';
 import { Fund } from './fund.type';
 import { keys } from 'ts-transformer-keys';
-
+import httpStatusCode from 'http-status';
+import { CommonError } from '@/types/Error';
 /**
  * @class FundModel
  * @extends BaseModel

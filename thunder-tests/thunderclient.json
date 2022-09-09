@@ -360,7 +360,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"compan_5\",\n    \"about\": \"eng about\",\n    \"short_description\": \"eng short des\",\n    \"headquarter\": {\n        \"x\": 1,\n        \"y\": 2\n    },\n    \"features\": [\n        \"order com\"\n    ],\n    \"categories\": [\n        \"630dd0551cd276b4a1d6a2f9\",\n        \"630dd0551cd276b4a1d6a30f\"\n    ],\n    \"portfolios\": [\n        \"url1\",\n        \"url2\"\n    ],\n    \"products\": [\n        \"630dd05b086d932ce36451f0\",\n        \"630dd05b086d932ce36451f1\"\n    ],\n    \"crypto_currencies\": [\n        \"630dd062086d932ce3645399\",\n        \"630dd062086d932ce364539a\"\n    ],\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"japanese about\",\n            \"short_description\": \"japanese short des\"\n        }\n    ]\n}",
+      "raw": "{\n    \"name\": \"compan_5\",\n    \"about\": \"eng about\",\n    \"short_description\": \"eng short des\",\n    \"headquarter\": {\n        \"x\": 1,\n        \"y\": 2\n    },\n    \"features\": [\n        \"order com\"\n    ],\n    \"categories\": [\n        \"630dd0551cd276b4a1d6a2f9\",\n        \"630dd0551cd276b4a1d6a30f\"\n    ],\n    \"portfolios\": [\n        \"url1\",\n        \"url2\"\n    ],\n    \"products\": [\n        \"630dd05b086d932ce36451f0\",\n        \"630dd05b086d932ce36451f1\"\n    ],\n    \"cryptocurrencies\": [\n        \"630dd062086d932ce3645399\",\n        \"630dd062086d932ce364539a\"\n    ],\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"japanese about\",\n            \"short_description\": \"japanese short des\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -383,7 +383,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"compan_5\",\n    \"about\": \"eng about\",\n    \"short_description\": \"eng short des\",\n    \"headquarter\": {\n        \"x\": 2,\n        \"y\": 2\n    },\n    \"features\": [\n        \"order com\"\n    ],\n    \"categories\": [\n        \"630dd0551cd276b4a1d6a2f9\",\n        \"630dd0551cd276b4a1d6a30f\"\n    ],\n    \"portfolios\": [\n        \"url1\",\n        \"url2\"\n    ],\n    \"products\": [\n        \"630dd05b086d932ce36451f0\",\n        \"630dd05b086d932ce36451f1\"\n    ],\n    \"crypto_currencies\": [\n        \"630dd062086d932ce3645399\",\n        \"630dd062086d932ce364539a\"\n    ],\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"japanese about\",\n            \"short_description\": \"japanese short des\"\n        }\n    ]\n}",
+      "raw": "{\n    \"name\": \"compan_5\",\n    \"about\": \"eng about\",\n    \"short_description\": \"eng short des\",\n    \"headquarter\": {\n        \"x\": 2,\n        \"y\": 2\n    },\n    \"features\": [\n        \"order com\"\n    ],\n    \"categories\": [\n        \"630dd0551cd276b4a1d6a2f9\",\n        \"630dd0551cd276b4a1d6a30f\"\n    ],\n    \"portfolios\": [\n        \"url1\",\n        \"url2\"\n    ],\n    \"products\": [\n        \"630dd05b086d932ce36451f0\",\n        \"630dd05b086d932ce36451f1\"\n    ],\n    \"cryptocurrencies\": [\n        \"630dd062086d932ce3645399\",\n        \"630dd062086d932ce364539a\"\n    ],\n    \"trans\": [\n        {\n            \"lang\": \"vi\",\n            \"about\": \"japanese about\",\n            \"short_description\": \"japanese short des\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -527,7 +527,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"company11\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef119\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"crypto_currencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
+      "raw": "{\n    \"name\":\"company11\",\n    \"director\":\"62f6219cbc1c9c949ceeefa5\",\n    \"headquarter\":{\n        \"x\":1,\n        \"y\":2\n    },\n        \n    \"country\":\"62f6219cbc1c9c949ceeeeac\",\n    \"features\":[\n        \"order com\"\n    ],\n    \"categories\":[\n        \"62f6219cbc1c9c949ceeee05\",\n        \"62f6219cbc1c9c949ceeee07\"\n    ],\n    \"portfolios\":[\n        \"url1\",\"url2\"    \n    ],\n    \"ccys\":[\n        \"ccy1\",\"ccy2\"    \n    ],\n    \"products\":[\n    \"62f6219dbc1c9c949ceef119\",\n    \"62f6219dbc1c9c949ceef114\"\n    ],\n    \"cryptocurrencies\":[\n    \"62f621a3bc1c9c949cef3d49\",\n    \"62f621a3bc1c9c949cef3d4b\"\n    ]\n    \n}",
       "form": []
     },
     "auth": {
@@ -1531,7 +1531,7 @@
     "_id": "522ce1ef-d8f0-410d-b2df-e61fe49ca277",
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
-    "name": "funds",
+    "name": "create",
     "url": "{{host}}/funds",
     "method": "POST",
     "sortNum": 10000,

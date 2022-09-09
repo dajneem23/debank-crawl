@@ -34,7 +34,7 @@ export class ProductService {
     //   'headquarter',
     //   'categories',
     //   'galleries',
-    //   'crypto_currencies',
+    //   'cryptocurrencies',
     //   'portfolios',
     //   'features',
     //   'services',
@@ -80,12 +80,12 @@ export class ProductService {
         reName: 'team',
         operation: '$in',
       }),
-      // crypto_currencies: $lookup({
+      // cryptocurrencies: $lookup({
       //   from: 'coins',
       //   refFrom: '_id',
-      //   refTo: 'crypto_currencies',
+      //   refTo: 'cryptocurrencies',
       //   select: 'name token_id',
-      //   reName: 'crypto_currencies',
+      //   reName: 'cryptocurrencies',
       //   operation: '$in',
       // }),
       countries: $lookup({
@@ -133,14 +133,14 @@ export class ProductService {
     try {
       const now = new Date();
       const { name } = _content;
-      const { categories, crypto_currencies } = _content;
+      const { categories, cryptocurrencies } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       const coinIdExist =
-        !!crypto_currencies && crypto_currencies.length > 0
-          ? await $queryByList({ collection: 'coins', values: crypto_currencies })
+        !!cryptocurrencies && cryptocurrencies.length > 0
+          ? await $queryByList({ collection: 'coins', values: cryptocurrencies })
           : true;
 
       if (!(categoriesIdExist && coinIdExist)) {
@@ -159,7 +159,7 @@ export class ProductService {
             ..._product,
             ..._content,
             categories: categories ? $toObjectId(categories) : [],
-            crypto_currencies: crypto_currencies ? $toObjectId(crypto_currencies) : [],
+            cryptocurrencies: cryptocurrencies ? $toObjectId(cryptocurrencies) : [],
             ...(_subject && { created_by: _subject }),
           },
         },
@@ -193,14 +193,14 @@ export class ProductService {
     try {
       const now = new Date();
 
-      const { categories, crypto_currencies } = _content;
+      const { categories, cryptocurrencies } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
           : true;
       const coinIdExist =
-        !!crypto_currencies && crypto_currencies.length > 0
-          ? await $queryByList({ collection: 'coins', values: crypto_currencies })
+        !!cryptocurrencies && cryptocurrencies.length > 0
+          ? await $queryByList({ collection: 'coins', values: cryptocurrencies })
           : true;
 
       if (!(categoriesIdExist && coinIdExist)) {
@@ -215,7 +215,7 @@ export class ProductService {
           $set: {
             ..._content,
             ...(categories && { categories: $toObjectId(categories) }),
-            ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
+            ...(cryptocurrencies && { cryptocurrencies: $toObjectId(cryptocurrencies) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
@@ -364,7 +364,7 @@ export class ProductService {
         .aggregate([
           { $match: $toMongoFilter({ _id }) },
           this.$lookups.categories,
-          // this.$lookups.crypto_currencies,
+          // this.$lookups.cryptocurrencies,
           this.$lookups.user,
           this.$sets.author,
           {

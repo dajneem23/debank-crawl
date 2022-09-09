@@ -67,7 +67,7 @@ export const ProductSeed = async () => {
               !!_product.team_location && _product.team_location[0]
                 ? _product.team_location[0]['team_location'].replace('Team Location', '').trim()
                 : '',
-            crypto_currencies: _product.cryptocurrencies.map(
+            cryptocurrencies: _product.cryptocurrencies.map(
               (cryptocurrency: any) => cryptocurrency['cryptocurrencies-title'],
             ),
             contract_addresses: _product.contract_addresses.map((contract_address: any) => {

@@ -29,7 +29,7 @@ export const CompanyValidation = {
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
-      crypto_currencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       portfolios: Joi.array().items(Joi.string()),
 
@@ -116,7 +116,7 @@ export const CompanyValidation = {
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
-      crypto_currencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       portfolios: Joi.array().items(Joi.string()),
 

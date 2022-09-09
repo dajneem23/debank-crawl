@@ -104,6 +104,8 @@ export interface BaseInformationModel extends BaseModel {
   name?: string;
   // location?: string;
 
+  about?: string;
+
   categories?: ObjectId[];
 
   verified?: boolean;
@@ -115,8 +117,6 @@ export interface BaseInformationModel extends BaseModel {
   email?: string;
 
   avatar?: string;
-
-  about?: string;
 
   short_description?: string;
 

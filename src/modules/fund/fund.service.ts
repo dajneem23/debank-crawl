@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { FundError, FundModel } from '.';
+import { FundError, FundModel, fundErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 
@@ -13,7 +13,7 @@ export class FundService {
 
   private model = Container.get<FundModel>('_fundModel');
 
-  private error(msg: any) {
+  private error(msg: keyof typeof fundErrors) {
     return new FundError(msg);
   }
 
@@ -100,7 +100,7 @@ export class FundService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { name, categories = [] } = _content;
+      const { name, categories = [], trans = [] } = _content;
       const value = await this.model.create(
         {
           name,
@@ -108,6 +108,7 @@ export class FundService {
         {
           ..._content,
           categories,
+          trans,
           ...(_subject && { created_by: _subject }),
         },
       );
@@ -249,7 +250,6 @@ export class FundService {
   async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-
       const [item] = await this.model
         .get([
           { $match: $toMongoFilter({ _id }) },

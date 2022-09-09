@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 export interface Fund extends BaseInformationModel {
   name: string;
 
-  description?: string;
+  about?: string;
 
   type?: string;
 

@@ -13,7 +13,6 @@ const mongoDBLoader = async (): Promise<Db> => {
   const client = await MongoClient.connect(env.MONGO_URI);
   client.on('disconnected', () => logger.warn('MongoDB disconnected'));
   client.on('reconnected', () => logger.success('MongoDB reconnected'));
-
   const db = client.db();
   Container.set(DIMongoClient, client);
   Container.set(DIMongoDB, db);

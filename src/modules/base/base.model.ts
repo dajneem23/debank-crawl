@@ -1,36 +1,56 @@
-import { Collection, Db, IndexDirection, CreateIndexesOptions, FindOneAndUpdateOptions } from 'mongodb';
+import {
+  Collection,
+  Db,
+  IndexDirection,
+  CreateIndexesOptions,
+  FindOneAndUpdateOptions,
+  AggregateOptions,
+  AggregationCursor,
+  WithId,
+} from 'mongodb';
 import Container, { Inject, Service } from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
-import { CommonError } from '@/core/errors/CommonError';
+import { CommonError, errors } from '@/core/errors/CommonError';
 import { throwErr } from '@/utils/common';
 import { $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
 import { categoriesValidation } from '@/utils/validation';
+import { T } from '@/types';
+import { Type } from '@aws-sdk/client-s3';
+import { Interface } from 'readline';
 
+/**
+ * @class BaseModel
+ * @description Base model for all models
+ */
 @Service()
 export class BaseModel {
   readonly _collection: Collection;
 
   readonly _collectionName: string;
 
+  readonly _keys: (string | number | symbol)[];
+
   readonly _defaultFilter = {
     deleted: false,
   };
+  // Get Db instance from DI
+  private db: Db = Container.get(DIMongoDB) as Db;
+  // Get logger Instance from DI
+  private logger: Logger = Container.get(DILogger) as Logger;
 
-  private db = Container.get(DIMongoDB) as Db;
-
-  private logger = Container.get(DILogger) as Logger;
-
-  private error(msg: any) {
+  private error(msg: keyof typeof errors): CommonError {
     return new CommonError(msg);
   }
 
   constructor({
     collectionName,
+    _keys,
     indexes,
   }: {
     collectionName: string;
+    _keys: string[];
     indexes: {
       field: {
         [key: string]: IndexDirection;
@@ -38,6 +58,7 @@ export class BaseModel {
       options?: CreateIndexesOptions;
     }[];
   }) {
+    this._keys = _keys;
     this._collectionName = collectionName;
     this._collection = this.db.collection<any>(collectionName);
     Promise.allSettled(
@@ -54,33 +75,39 @@ export class BaseModel {
           return this._collection.createIndex(field, options);
         },
       ),
-    ).catch((err) => {
-      this.logger.error(err);
+    ).then((results) => {
+      results.forEach((result) => {
+        if (result.status === 'rejected') {
+          this.logger.error(`[createIndex:${this._collectionName}:error]`, result.reason);
+          throwErr(this.error('common.database'));
+        } else {
+          this.logger.debug(`[createIndex:${this._collectionName}:success]`, result.value);
+        }
+      });
     });
   }
 
-  get collection() {
-    return this._collection;
-  }
   /**
-   *
-   * @param Filter - filter
-   * @param Body - body
+   * Create document
+   * @param {any} Filter - filter
+   * @param {any} Body - body
+   * @param {FindOneAndUpdateOptions} Options - options
    * @returns
    */
   async create(
     { ...filter }: any,
     { updated_at = new Date(), created_at = new Date(), deleted = false, created_by, ..._content }: any,
     { upsert = true, returnDocument = 'after', ...options }: FindOneAndUpdateOptions = {},
-  ) {
+  ): Promise<WithId<T> | null> {
     try {
       const { categories = [] } = _content;
       categories.length && (await categoriesValidation($toObjectId(categories)));
+      categories.length && (_content.categories = $toObjectId(categories));
       const {
         value,
         ok,
         lastErrorObject: { updatedExisting },
-      } = await this.collection.findOneAndUpdate(
+      } = await this._collection.findOneAndUpdate(
         { ...filter },
         {
           $setOnInsert: {
@@ -110,19 +137,27 @@ export class BaseModel {
       throw err;
     }
   }
+  /**
+   * Update document
+   * @param {any} - filter
+   * @param {any} - body
+   * @param {FindOneAndUpdateOptions} - options
+   * @returns {Promise<WithId<T> | null>} - WithId<T> | null
+   */
   async update(
     { ...filter }: any,
     { updated_at = new Date(), updated_by, ..._content }: any,
     { upsert = false, returnDocument = 'after', ...options }: FindOneAndUpdateOptions = {},
-  ) {
+  ): Promise<WithId<T> | null> {
     try {
       const { categories = [] } = _content;
       categories.length && (await categoriesValidation($toObjectId(categories)));
+      categories.length && (_content.categories = $toObjectId(categories));
       const {
         value,
         ok,
         lastErrorObject: { updatedExisting },
-      } = await this.collection.findOneAndUpdate(
+      } = await this._collection.findOneAndUpdate(
         $toMongoFilter(filter),
         {
           $set: {
@@ -152,22 +187,22 @@ export class BaseModel {
   }
 
   /**
-   * Delete category
+   * Delete document
    * @param _id
    * @param {ObjectId} deleted_by - user id
-   * @returns {Promise<void>}
+   * @returns {Promise<void>} - void
    */
   async delete(
     { ...filter },
     { deleted_at = new Date(), deleted_by, deleted = true }: any,
     { upsert = false, returnDocument = 'after', ...options }: FindOneAndUpdateOptions = {},
-  ) {
+  ): Promise<void> {
     try {
       const {
         value,
         ok,
         lastErrorObject: { updatedExisting },
-      } = await this.collection.findOneAndUpdate(
+      } = await this._collection.findOneAndUpdate(
         $toMongoFilter(filter),
         {
           $set: {
@@ -192,6 +227,20 @@ export class BaseModel {
       return;
     } catch (err) {
       this.logger.error(`[delete:${this._collectionName}:error]`, err.message);
+      throw err;
+    }
+  }
+  /**
+   *  Get document
+   *  @param {any[]} aggregate
+   *  @param {AggregateOptions} options
+   *  @return {Promise<AggregationCursor<T>>} - AggregationCursor
+   */
+  get(aggregate: any[] = [], options: AggregateOptions = {}): AggregationCursor<T> {
+    try {
+      return this._collection.aggregate(aggregate, options);
+    } catch (err) {
+      this.logger.error(`[get:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }

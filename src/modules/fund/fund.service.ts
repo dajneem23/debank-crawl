@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { FundError, FundModel, _fund, Fund } from '.';
+import { FundError, FundModel } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 
@@ -17,30 +17,8 @@ export class FundService {
     return new FundError(msg);
   }
 
-  /**
-   * A bridge allows another service access to the Model layer
-   */
-  get collection() {
-    return this.model.collection;
-  }
-
-  get outputKeys() {
-    // return [
-    //   'id',
-    //   'name',
-    //   'director',
-    //   'country',
-    //   'headquarter',
-    //   'categories',
-    //   'galleries',
-    //   'crypto_currencies',
-    //   'portfolios',
-    //   'features',
-    //   'services',
-    //   'author',
-    // ];
-
-    return ['id'].concat(Object.keys(_fund));
+  get outputKeys(): typeof this.model._keys {
+    return this.model._keys;
   }
 
   get publicOutputKeys() {
@@ -79,14 +57,6 @@ export class FundService {
         reName: 'team',
         operation: '$in',
       }),
-      // crypto_currencies: $lookup({
-      //   from: 'coins',
-      //   refFrom: '_id',
-      //   refTo: 'crypto_currencies',
-      //   select: 'name token_id',
-      //   reName: 'crypto_currencies',
-      //   operation: '$in',
-      // }),
       countries: $lookup({
         from: 'countries',
         refFrom: 'code',
@@ -210,8 +180,8 @@ export class FundService {
     try {
       const { q, lang, category } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate(
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get(
           $pagination({
             $match: {
               $and: [
@@ -280,11 +250,10 @@ export class FundService {
     try {
       const { lang } = _filter;
 
-      const [item] = await this.model.collection
-        .aggregate([
+      const [item] = await this.model
+        .get([
           { $match: $toMongoFilter({ _id }) },
           this.$lookups.categories,
-          // this.$lookups.crypto_currencies,
           this.$lookups.user,
           this.$sets.author,
           {
@@ -331,8 +300,8 @@ export class FundService {
     try {
       const { q, lang } = _filter;
       const { page = 1, per_page = 10, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               ...(q && {

@@ -1,15 +1,19 @@
-import { Db } from 'mongodb';
-import { Inject, Service } from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
-import { DILogger } from '@/loaders/loggerLoader';
-import Logger from '@/core/logger';
-import { Fund } from './fund.type';
+import { Service } from 'typedi';
 import { BaseModel } from '../base/base.model';
+import { Fund } from './fund.type';
+import { keys } from 'ts-transformer-keys';
+
+/**
+ * @class FundModel
+ * @extends BaseModel
+ * @description Fund model: Fund model for all fund related operations
+ */
 @Service('_fundModel')
 export class FundModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'funds',
+      _keys: keys<Fund>(),
       indexes: [
         {
           field: {

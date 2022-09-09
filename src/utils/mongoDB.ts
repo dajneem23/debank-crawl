@@ -259,7 +259,7 @@ export const $flatObject = (obj: any, root: any) => {
   });
   return result;
 };
-export const $keysToProject = (keys: string[], root?: any) => {
+export const $keysToProject = (keys: (string | number | symbol)[], root?: any) => {
   return keys.reduce((previous: any, current: string) => {
     previous[current] = root ? `${root}.${current}` : 1;
     return previous;

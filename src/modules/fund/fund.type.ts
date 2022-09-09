@@ -1,4 +1,5 @@
 import { BaseInformationModel, FundraisingRoundDetail, ForeignReLationship } from '@/types/Common';
+import { ObjectId } from 'mongodb';
 
 export interface Fund extends BaseInformationModel {
   name: string;

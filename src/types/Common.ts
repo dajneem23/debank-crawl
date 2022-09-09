@@ -11,6 +11,8 @@ export interface BaseQuery {
 
 export type PaginationResult<T> = { total_count: number; items: T[] };
 
+export type T = any;
+
 export type CurrencyCode = 'VND' | 'USD';
 
 export enum LANGUAGE_CODE {
@@ -97,6 +99,8 @@ export type BaseModel = {
 };
 
 export interface BaseInformationModel extends BaseModel {
+  id?: ObjectId;
+
   name?: string;
   // location?: string;
 

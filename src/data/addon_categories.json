@@ -52,5 +52,10 @@
     "title": "Investor",
     "name": "investor",
     "type": "INVESTOR"
+  },
+  {
+    "title": "Funds",
+    "name": "funds",
+    "type": "INVESTOR"
   }
 ]

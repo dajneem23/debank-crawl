@@ -390,7 +390,7 @@ export const PersonSeed = async () => {
     //   JSON.stringify(mergeInvertors).replace(/null/g, '""'),
     // );
     // fs.writeFileSync(`${__dirname}/data/fund_founders.json`, JSON.stringify(fundfouders).replace(/null/g, '""'));
-    fs.writeFileSync(`${__dirname}/data/persons_final.json`, JSON.stringify(persons_final));
+    // fs.writeFileSync(`${__dirname}/data/persons_final.json`, JSON.stringify(persons_final));
     await db.collection('persons').insertMany(persons_final);
   }
 };

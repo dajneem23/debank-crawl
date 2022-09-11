@@ -251,7 +251,7 @@ export const ProductSeed = async () => {
         }),
     );
     console.log('Inserting products', products.length);
-    fs.writeFileSync(`${__dirname}/data/products_final.json`, JSON.stringify(products).replace(/null/g, '""'));
+    // fs.writeFileSync(`${__dirname}/data/products_final.json`, JSON.stringify(products).replace(/null/g, '""'));
     await db.collection('products').insertMany(products);
   }
 };

@@ -11,10 +11,10 @@ import { FundSeed } from './fund';
 
 (async () => {
   (await import('../loaders/loggerLoader')).default();
-  await (await import('../loaders/mongoDBLoader')).default();
-  // await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
+  // await (await import('../loaders/mongoDBLoader')).default();
+  await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
   // await Promise.all([CompanySeed(), ProductSeed(), PersonSeed(), CoinSeed()]);
-  // await CompanySeed();
+  await CompanySeed();
   // await PersonSeed();
   // await FundSeed();
   process.on('exit', () => {

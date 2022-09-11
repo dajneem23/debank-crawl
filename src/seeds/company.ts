@@ -18,7 +18,7 @@ export const CompanySeed = async () => {
   const collection = db.collection('companies');
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  if (count) return;
+  // if (count) return;
   const companies = readDataFromFile({ _collection: 'companies' }).map((_company: any) => {
     return {
       name:
@@ -322,41 +322,43 @@ export const CompanySeed = async () => {
   // const airtableUniqueCompanies = airtableCompanies.filter(
   //   (company: any, index: any, self: any) => index === self.findIndex((t: any) => t.name === company.name),
   // );
-  const angelInvestors = (AngelInvestorAirtable as any).data.rows
-    .map((person: any) => {
-      const {
-        cellValuesByColumnId: {
-          fldjKwS1jKgY2myrS: location = [],
-          fldj5t3yMdaLI3KtM: twitter = '',
-          flduTkjX7gWZXGV9E: linkedin = '',
-          fldJsLm2w5mTLnBuP: avatar = [],
-          fldKYOWLOKiztp8zY: category,
-          fldZYofoqxl8MMpit: company,
-          fldyGkCKPKGZtfAPb: name = 'N/A',
-          fldMXngpMRns0HfyZ: email = '',
-        },
-        id,
-      } = person;
-      return {
-        id,
-        name,
-        location: location[0]?.foreignRowDisplayName || '',
-        avatar: avatar[0]?.url || '',
-        twitter,
-        linkedin,
-        company,
-        email,
-        categories: [category].filter(Boolean),
-        type: 'persons',
-      };
-    })
-    .map((item: any) => {
-      const { id: foreign_id, ...rest } = item;
-      return {
-        foreign_id,
-        ...rest,
-      };
-    });
+  const angelInvestors = await Promise.all(
+    (AngelInvestorAirtable as any).data.rows
+      .map((person: any) => {
+        const {
+          cellValuesByColumnId: {
+            fldjKwS1jKgY2myrS: location = [],
+            fldj5t3yMdaLI3KtM: twitter = '',
+            flduTkjX7gWZXGV9E: linkedin = '',
+            fldJsLm2w5mTLnBuP: avatar = [],
+            fldKYOWLOKiztp8zY: category,
+            fldZYofoqxl8MMpit: company,
+            fldyGkCKPKGZtfAPb: name = 'N/A',
+            fldMXngpMRns0HfyZ: email = '',
+          },
+          id,
+        } = person;
+        return {
+          id,
+          name,
+          location: location[0]?.foreignRowDisplayName || '',
+          avatar: avatar[0]?.url || '',
+          twitter,
+          linkedin,
+          company,
+          email,
+          categories: [category].filter(Boolean),
+          type: 'persons',
+        };
+      })
+      .map(async (item: any) => {
+        const { id: foreign_id, ...rest } = item;
+        return {
+          foreign_id,
+          ...rest,
+        };
+      }),
+  );
   const investors = (InvestorAirtable as any).data.tableDatas[0].rows
     .map((investor: any) => {
       const {
@@ -379,7 +381,7 @@ export const CompanySeed = async () => {
         linkedin,
         email,
         avatar: url,
-        categories: ['Investor'],
+        categories: ['Tnvestor'],
         type,
         need_review: type == 'companies',
       };
@@ -422,7 +424,7 @@ export const CompanySeed = async () => {
     )
       .map((item: any) => {
         const {
-          id: foreign_id = '',
+          foreign_id = '',
           need_review = false,
           reviewed = false,
           year_founded = 0,
@@ -516,13 +518,15 @@ export const CompanySeed = async () => {
           created_by: 'admin',
         };
       })
-      .map(async (item: any) => {
+      .map(async (item: any, index, items: any[]) => {
         return {
           ...item,
           categories: await Promise.all(
-            item.categories.map(async (_category: any): Promise<any> => {
+            item.categories.filter(Boolean).map(async (_category: any): Promise<any> => {
               return (
                 categories.find((category) => {
+                  console.log(_category);
+                  // if (ObjectId.isValid(_category)) _category;
                   return (
                     category.title.toLowerCase() == _category.toLowerCase() ||
                     category.title.toLowerCase().includes(_category.toLowerCase()) ||
@@ -580,8 +584,85 @@ export const CompanySeed = async () => {
               );
             }),
           ),
+          metadata: {
+            ...item.metadata,
+            storage: await Promise.all(
+              item.metadata?.storage?.map(async (storage: any) => {
+                return {
+                  ...storage,
+                  categories: await Promise.all(
+                    storage.categories?.filter(Boolean)?.map(async (_category: any): Promise<any> => {
+                      return (
+                        categories.find((category) => {
+                          return (
+                            category.title.toLowerCase() == _category.toLowerCase() ||
+                            category.title.toLowerCase().includes(_category.toLowerCase()) ||
+                            _category.toLowerCase().includes(category.title.toLowerCase())
+                          );
+                        })?._id ||
+                        (
+                          await db.collection('categories').findOneAndUpdate(
+                            {
+                              name: {
+                                $regex: _category
+                                  .toLowerCase()
+                                  .match(/[a-zA-Z0-9_ ]+/g)
+                                  .join('')
+                                  .trim()
+                                  .replace(' ', '_'),
+                                $options: 'i',
+                              },
+                            },
+                            {
+                              $setOnInsert: {
+                                title: _category,
+                                type: 'company',
+                                name: _category
+                                  .toLowerCase()
+                                  .match(/[a-zA-Z0-9_ ]+/g)
+                                  .join('')
+                                  .trim()
+                                  .replace(' ', '_'),
+                                acronym: _category
+                                  .toLowerCase()
+                                  .match(/[a-zA-Z0-9_ ]+/g)
+                                  .join('')
+                                  .trim()
+                                  .split(' ')
+                                  .map((word: any, _: any, list: any) => {
+                                    return list.length > 1 ? word[0] : list.slice(0, 1);
+                                  })
+                                  .join(''),
+                              },
+                            },
+                            {
+                              upsert: true,
+                              returnDocument: 'after',
+                            },
+                          )
+                        ).value._id
+                      );
+                    }),
+                  ),
+                };
+              }) || [],
+            ),
+          },
+          total_investments: items.reduce((total: any, item: any) => {
+            return (
+              total +
+                item?.investors.reduce((total: any, investor: any) => {
+                  return total + investor?.foreign_id == item.foreign_id ? 1 : 0;
+                }, 0) || 0
+            );
+          }, 0),
         };
       }),
+    // .map((item: any) => {
+    //   return {
+    //     ...item,
+    //   };
+    // }),
   );
 
   console.log('Inserting companies', {
@@ -598,5 +679,5 @@ export const CompanySeed = async () => {
   // );
   // fs.writeFileSync(`${__dirname}/data/companies.json`, JSON.stringify(companies).replace(/null/g, '""'));
   fs.writeFileSync(`${__dirname}/data/companies_final.json`, JSON.stringify(companies_final));
-  await db.collection('companies').insertMany(companies_final);
+  // await db.collection('companies').insertMany(companies_final);
 };

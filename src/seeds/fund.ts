@@ -168,6 +168,6 @@ export const FundSeed = async () => {
         };
       },
     );
-  fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds));
-  // await db.collection('funds').insertMany(funds);
+  // fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds));
+  await db.collection('funds').insertMany(funds);
 };

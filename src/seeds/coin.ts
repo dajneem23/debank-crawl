@@ -175,7 +175,7 @@ export const CoinSeed = async () => {
           };
         }),
     );
-    fs.writeFileSync(`${__dirname}/data/coins_final.json`, JSON.stringify(coins));
+    // fs.writeFileSync(`${__dirname}/data/coins_final.json`, JSON.stringify(coins));
     // coins = JSON.parse(JSON.stringify(coins).replace(/null/g, '""'));
     console.log('Inserting coins', coins.length);
     await db.collection('coins').insertMany(coins);

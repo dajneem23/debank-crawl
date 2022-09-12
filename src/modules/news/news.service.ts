@@ -528,6 +528,7 @@ export class NewsService {
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
       const now = new Date();
+
       const {
         ok,
         lastErrorObject: { updatedExisting },
@@ -548,6 +549,7 @@ export class NewsService {
       if (!ok) {
         throwErr(this.error('DATABASE_ERROR'));
       }
+
       if (!updatedExisting) {
         throwErr(this.error('NOT_FOUND'));
       }

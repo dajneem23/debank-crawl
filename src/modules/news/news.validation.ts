@@ -48,6 +48,7 @@ export const NewsValidation = {
       coin_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       product_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      person_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
     }),
   }),
   update: validate({
@@ -96,6 +97,7 @@ export const NewsValidation = {
       coin_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       product_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      person_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),

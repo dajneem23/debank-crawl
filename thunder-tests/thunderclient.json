@@ -837,11 +837,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
     "name": "query",
-    "url": "{{host}}/products/?page=1&per_page=5&lang=vi&q=BC",
+    "url": "{{host}}/products/?page=1&per_page=5",
     "method": "GET",
     "sortNum": 230000,
     "created": "2022-08-30T09:07:12.428Z",
-    "modified": "2022-08-30T09:07:12.428Z",
+    "modified": "2022-09-12T08:09:09.075Z",
     "headers": [],
     "params": [
       {
@@ -857,11 +857,13 @@
       {
         "name": "lang",
         "value": "vi",
+        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "q",
         "value": "BC",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1003,17 +1005,17 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-30T09:07:12.433Z",
-    "modified": "2022-08-30T09:07:12.433Z",
+    "modified": "2022-09-12T11:46:41.232Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [],\n    \"coin_tags\": [],\n    \"product_tags\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
+      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [],\n    \"coin_tags\": [],\n    \"product_tags\": [],\n    \"person_tags\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTE1NDM5OSwiZXhwIjoxNjYyMDE4Mzk5fQ.2LdkeZvU8wr3BvTmnGnDk3eBeayZ-dKZ9KUq24NJOx8"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2Mjk4MTMyMiwiZXhwIjoxNjYzODQ1MzIyfQ.S4Kgb9_wHy5HmDb_mXUYJxxO_gf7rZRrP-HjaHsiCBk"
     },
     "tests": []
   },
@@ -1394,11 +1396,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
     "name": "search",
-    "url": "{{host}}/coins/search/?page=1&per_page=2&q=P",
+    "url": "{{host}}/coins/search/?page=1&per_page=2&q=bit&lang=vi",
     "method": "GET",
     "sortNum": 380000,
     "created": "2022-08-30T09:07:12.450Z",
-    "modified": "2022-08-30T09:07:12.450Z",
+    "modified": "2022-09-12T11:13:42.062Z",
     "headers": [],
     "params": [
       {
@@ -1413,13 +1415,12 @@
       },
       {
         "name": "q",
-        "value": "P",
+        "value": "bit",
         "isPath": false
       },
       {
         "name": "lang",
         "value": "vi",
-        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1536,17 +1537,13 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-09-08T09:32:20.625Z",
-    "modified": "2022-09-09T10:01:05.903Z",
+    "modified": "2022-09-09T02:59:55.726Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
       "raw": "{\n    \"name\":\"13452\",\n    \"categories\":[\"63195cda6beba3b545154714\"]\n}",
       "form": []
-    },
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MjcxNzUyMiwiZXhwIjoxNjYzNTgxNTIyfQ.ovL4LQhhAL7OcH0QQqXiULqq7NLJt35i_KPCgKUl-90"
     },
     "tests": []
   },

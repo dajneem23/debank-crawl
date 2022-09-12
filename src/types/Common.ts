@@ -302,7 +302,7 @@ export const PRIVATE_KEYS = [
   'trans',
 ];
 export type ForeignReLationship = {
-  name: string;
+  name?: string;
   foreign_id: string;
   type?: string;
   [key: string]: any;

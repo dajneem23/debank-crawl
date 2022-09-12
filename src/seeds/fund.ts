@@ -6,9 +6,10 @@ import fs from 'fs';
 export const FundSeed = async () => {
   const db = await mongoDBLoader();
   const collection = db.collection('funds');
+  const companies = db.collection('companies').find().toArray();
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  if (count) return;
+  // if (count) return;
   const funds = Object.values(
     (Funds as any).data.rows
       .map((fund: any) => {
@@ -146,6 +147,7 @@ export const FundSeed = async () => {
         return {
           ...rest,
           foreign_id,
+          foreign_ids: firms.map((firm: any) => firm.foreign_id),
           about,
           name,
           categories: [...new Set(categories)],
@@ -168,6 +170,6 @@ export const FundSeed = async () => {
         };
       },
     );
-  // fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds));
-  await db.collection('funds').insertMany(funds);
+  fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds));
+  // await db.collection('funds').insertMany(funds);
 };

@@ -837,11 +837,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
     "name": "query",
-    "url": "{{host}}/products/?page=1&per_page=5&lang=vi&q=BC",
+    "url": "{{host}}/products/?page=1&per_page=5&lang=vi",
     "method": "GET",
     "sortNum": 230000,
     "created": "2022-08-30T09:07:12.428Z",
-    "modified": "2022-08-30T09:07:12.428Z",
+    "modified": "2022-09-12T08:11:06.927Z",
     "headers": [],
     "params": [
       {
@@ -862,6 +862,7 @@
       {
         "name": "q",
         "value": "BC",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1003,7 +1004,7 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-30T09:07:12.433Z",
-    "modified": "2022-08-30T09:07:12.433Z",
+    "modified": "2022-09-12T09:19:33.558Z",
     "headers": [],
     "params": [],
     "body": {
@@ -1013,7 +1014,7 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTE1NDM5OSwiZXhwIjoxNjYyMDE4Mzk5fQ.2LdkeZvU8wr3BvTmnGnDk3eBeayZ-dKZ9KUq24NJOx8"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2Mjk3NDI5MiwiZXhwIjoxNjYzODM4MjkyfQ.DFOM8a4Pnc10_HBktDYBoSHq-ZN2BbAvW_7c_pRU-G0"
     },
     "tests": []
   },
@@ -1068,11 +1069,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "query",
-    "url": "{{host}}/news?category=630dbeaf1d1096097587bda9",
+    "url": "{{host}}/news",
     "method": "GET",
     "sortNum": 285000,
     "created": "2022-08-30T09:07:12.436Z",
-    "modified": "2022-08-31T05:24:23.072Z",
+    "modified": "2022-09-12T09:19:42.349Z",
     "headers": [],
     "params": [
       {
@@ -1096,6 +1097,7 @@
       {
         "name": "category",
         "value": "630dbeaf1d1096097587bda9",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1394,11 +1396,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
     "name": "search",
-    "url": "{{host}}/coins/search/?page=1&per_page=2&q=P",
+    "url": "{{host}}/coins/search/?page=1&per_page=2&q=bit",
     "method": "GET",
     "sortNum": 380000,
     "created": "2022-08-30T09:07:12.450Z",
-    "modified": "2022-08-30T09:07:12.450Z",
+    "modified": "2022-09-12T11:13:09.096Z",
     "headers": [],
     "params": [
       {
@@ -1413,7 +1415,7 @@
       },
       {
         "name": "q",
-        "value": "P",
+        "value": "bit",
         "isPath": false
       },
       {
@@ -1615,6 +1617,24 @@
         "isPath": false
       }
     ],
+    "tests": []
+  },
+  {
+    "_id": "802031de-69ef-4366-852e-4b51e6dd4886",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "Delete",
+    "url": "{{host}}/news/631f189deff31dd0028fea38",
+    "method": "DELETE",
+    "sortNum": 470000,
+    "created": "2022-09-12T11:32:09.701Z",
+    "modified": "2022-09-12T11:36:16.519Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2Mjk3NDI5MiwiZXhwIjoxNjYzODM4MjkyfQ.DFOM8a4Pnc10_HBktDYBoSHq-ZN2BbAvW_7c_pRU-G0"
+    },
     "tests": []
   }
 ]

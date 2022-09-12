@@ -160,7 +160,14 @@ export class NewsService {
       const now = new Date();
       let { trans = [] } = _content;
       const { title } = _content;
-      const { categories = [], coin_tags = [], company_tags = [], product_tags = [], person_tags } = _content;
+      const {
+        categories = [],
+        coin_tags = [],
+        company_tags = [],
+        product_tags = [],
+        person_tags = [],
+        event_tags = [],
+      } = _content;
       const validCategories = categories.length
         ? await $queryByList({
             collection: 'categories',
@@ -191,7 +198,15 @@ export class NewsService {
             values: person_tags,
           })
         : true;
-      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags && validPersonTags)) {
+      const validEventTags = person_tags.length
+        ? await $queryByList({
+            collection: 'events',
+            values: event_tags,
+          })
+        : true;
+      if (
+        !(validCategories && validCoinTags && validProductTags && validCompanyTags && validPersonTags && validEventTags)
+      ) {
         throwErr(this.error('INPUT_INVALID'));
       }
       trans = await Promise.all(
@@ -235,6 +250,7 @@ export class NewsService {
             ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
             ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
             ...(person_tags.length && { person_tags: $toObjectId(person_tags) }),
+            ...(event_tags.length && { person_tags: $toObjectId(event_tags) }),
             deleted: false,
             ...(_subject && { created_by: _subject }),
           },
@@ -269,7 +285,14 @@ export class NewsService {
     try {
       const now = new Date();
       const { title, trans = [] } = _content;
-      const { categories = [], coin_tags = [], company_tags = [], product_tags = [], person_tags = [] } = _content;
+      const {
+        categories = [],
+        coin_tags = [],
+        company_tags = [],
+        product_tags = [],
+        person_tags = [],
+        event_tags = [],
+      } = _content;
       const validCategories = categories.length
         ? await $queryByList({
             collection: 'categories',
@@ -300,7 +323,15 @@ export class NewsService {
             values: person_tags,
           })
         : true;
-      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags && validPersonTags)) {
+      const validEventTags = person_tags.length
+        ? await $queryByList({
+            collection: 'events',
+            values: event_tags,
+          })
+        : true;
+      if (
+        !(validCategories && validCoinTags && validProductTags && validCompanyTags && validPersonTags && validEventTags)
+      ) {
         throwErr(this.error('INPUT_INVALID'));
       }
       const _slug = title
@@ -380,6 +411,7 @@ export class NewsService {
             ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
             ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
             ...(person_tags.length && { person_tags: $toObjectId(person_tags) }),
+            ...(event_tags.length && { person_tags: $toObjectId(event_tags) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },

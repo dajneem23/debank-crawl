@@ -1,0 +1,3 @@
+use('wikiblock')
+db.companies.find({}).toArray()
+

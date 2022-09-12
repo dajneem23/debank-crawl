@@ -21,6 +21,28 @@ export interface Fund extends BaseInformationModel {
   partners?: ForeignReLationship[];
 
   firms?: ForeignReLationship[];
+
+  recent_investments?: ForeignReLationship[];
+
+  current_roi?: number;
+
+  ath_roi?: number;
+
+  total_investments?: number;
+
+  investments?: ForeignReLationship[];
+
+  funding?: number;
+
+  typical_project?: string;
+
+  typical_category?: string;
+
+  tier?: number;
+
+  rating?: number;
+
+  assets_allocation?: string;
 }
 
 export const _fund: Fund = {
@@ -34,6 +56,8 @@ export const _fund: Fund = {
   total_amount: 0,
   cryptocurrencies: [],
   fundraising_rounds: [],
+  total_investments: 0,
+  investments: [],
   partners: [],
   firms: [],
   metadata: {},

@@ -194,12 +194,12 @@ export const CompanySeed = async () => {
               ...fldjd43zfXdpAWzaq.map((item: any) => item.foreignRowDisplayName),
               ...fldT0Fasv4hkjwbb3.map((item: any) => item.foreignRowDisplayName),
             ],
-            // projects: projects.map((item: any) => {
-            //   return {
-            //     foreign_id: item.foreignRowId,
-            //     name: item.foreignRowDisplayName,
-            //   };
-            // }),
+            projects: projects.map((item: any) => {
+              return {
+                foreign_id: item.foreignRowId,
+                name: item.foreignRowDisplayName,
+              };
+            }),
           };
         }) || [];
       const fundraising_rounds_ids = fundraising_rounds.map((item: any) => item.round_id);
@@ -381,7 +381,7 @@ export const CompanySeed = async () => {
         linkedin,
         email,
         avatar: url,
-        categories: ['Tnvestor'],
+        categories: ['Investor'],
         type,
         need_review: type == 'companies',
       };
@@ -408,7 +408,34 @@ export const CompanySeed = async () => {
           ...current,
           [lowerName]: {
             ...((current[lowerName] && {
-              ...current[lowerName],
+              ...Object.keys({ ...rest, ...current[lowerName] }).reduce((acc: any, key: any) => {
+                if (
+                  !!current[lowerName][key] ||
+                  (Array.isArray(current[lowerName][key]) && current[lowerName][key].length)
+                ) {
+                  if (Array.isArray(current[lowerName][key])) {
+                    if (Array.isArray(rest[key])) {
+                      acc[key] = [...current[lowerName][key], ...rest[key]];
+                      delete rest[key];
+                    } else {
+                      acc[key] = [...current[lowerName][key]];
+                    }
+                  } else {
+                    acc[key] = current[lowerName][key];
+                  }
+                } else {
+                  if (Array.isArray(rest[key])) {
+                    acc[key] = [...rest[key]];
+                  } else {
+                    acc[key] = rest[key];
+                  }
+                  delete rest[key];
+                }
+                if (acc[key] == rest[key]) {
+                  delete rest[key];
+                }
+                return acc;
+              }, {}),
               metadata: {
                 storage: [
                   ...(current[lowerName].metadata.storage || []),
@@ -424,7 +451,7 @@ export const CompanySeed = async () => {
     )
       .map((item: any) => {
         const {
-          foreign_id = '',
+          foreign_id = null,
           need_review = false,
           reviewed = false,
           year_founded = 0,
@@ -465,6 +492,7 @@ export const CompanySeed = async () => {
           cryptocurrencies = [],
           firms = [],
           avatars = [],
+          projects = [],
           type,
           ...rest
         } = item;
@@ -511,6 +539,7 @@ export const CompanySeed = async () => {
           metadata,
           need_review,
           reviewed,
+          projects,
           trans: [] as any,
           deleted: false,
           created_at: new Date(),
@@ -519,14 +548,19 @@ export const CompanySeed = async () => {
         };
       })
       .map(async (item: any, index, items: any[]) => {
+        const foreign_ids = [
+          ...new Set([
+            item.foreign_id,
+            ...((item?.metadata?.storage || []).map((item: any) => item?.foreign_id) as []),
+          ]),
+        ].filter(Boolean);
+
         return {
           ...item,
           categories: await Promise.all(
             item.categories.filter(Boolean).map(async (_category: any): Promise<any> => {
               return (
                 categories.find((category) => {
-                  console.log(_category);
-                  // if (ObjectId.isValid(_category)) _category;
                   return (
                     category.title.toLowerCase() == _category.toLowerCase() ||
                     category.title.toLowerCase().includes(_category.toLowerCase()) ||
@@ -549,7 +583,7 @@ export const CompanySeed = async () => {
                     {
                       $setOnInsert: {
                         title: _category,
-                        type: 'company',
+                        type: 'person',
                         name: _category
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)
@@ -642,27 +676,36 @@ export const CompanySeed = async () => {
                           )
                         ).value._id
                       );
-                    }),
+                    }) || [],
                   ),
                 };
               }) || [],
             ),
           },
-          total_investments: items.reduce((total: any, item: any) => {
+          total_investments: items.reduce((_total: any, _item: any) => {
             return (
-              total +
-                item?.investors.reduce((total: any, investor: any) => {
-                  return total + investor?.foreign_id == item.foreign_id ? 1 : 0;
-                }, 0) || 0
+              _total +
+              _item.investors?.reduce(
+                (total: any, investor: any) => total + foreign_ids.includes(investor.foreign_id),
+                0,
+              )
             );
           }, 0),
+          investments: items.reduce((_total: any, _item: any) => {
+            return [
+              ..._total,
+              ..._item.investors?.reduce(
+                (total: any, investor: any) => [
+                  ...total,
+                  ...(foreign_ids.includes(investor.foreign_id) ? [_item.foreign_id] : []),
+                ],
+                [],
+              ),
+            ];
+          }, []),
+          foreign_ids,
         };
       }),
-    // .map((item: any) => {
-    //   return {
-    //     ...item,
-    //   };
-    // }),
   );
 
   console.log('Inserting companies', {
@@ -672,6 +715,7 @@ export const CompanySeed = async () => {
     dupticate: companies.length + investors.companies.length + airtableCompanies.length - companies_final.length,
     final: companies_final.length,
     // airtableUniqueCompanies: airtableUniqueCompanies.length,
+    total: companies_final.some((c: any) => c.total_investments),
   });
   // fs.writeFileSync(
   //   `${__dirname}/data/companies_airtable.json`,

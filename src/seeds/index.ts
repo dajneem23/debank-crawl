@@ -13,10 +13,10 @@ import { FundSeed } from './fund';
   (await import('../loaders/loggerLoader')).default();
   // await (await import('../loaders/mongoDBLoader')).default();
   await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
-  // await Promise.all([CompanySeed(), ProductSeed(), PersonSeed(), CoinSeed()]);
+  await Promise.all([CompanySeed(), ProductSeed(), CoinSeed()]);
   // await CompanySeed();
-  // await FundSeed();
-  // await PersonSeed();
+  await FundSeed();
+  await PersonSeed();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

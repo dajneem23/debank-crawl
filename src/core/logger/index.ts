@@ -62,8 +62,6 @@ const _messages = {
   express_success: '[express:success]',
   server_error: '[server:error]',
   server_success: '[server:success]',
-  create_index_error: '[create_index:error]',
-  create_index_success: '[create_index:success]',
   unsuspend_success: '[unsuspend:success]',
   unsuspend_error: '[unsuspend:error]',
   suspend_success: '[suspend:success]',
@@ -108,11 +106,11 @@ export default class Logger {
   }
 
   warn(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.warn(_messages[message] || _messages['default'], ...args);
+    return this.logger.warn(`⚠️${_messages[message]}` || _messages['default'], ...args);
   }
 
   error(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.error(`🔥 ${_messages[message] || _messages['default']}`, ...args);
+    return this.logger.error(`🆘 ${_messages[message] || _messages['default']}`, ...args);
   }
 
   fatal(message: keyof typeof _messages, ...args: any[]): void {

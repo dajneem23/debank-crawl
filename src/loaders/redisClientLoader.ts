@@ -12,7 +12,7 @@ export const redisClientLoader = async () => {
   const client = createClient({ url: env.REDIS_URI });
 
   // Listeners
-  client.on('connect', () => logger.success('success', 'Redis'));
+  client.on('connect', () => logger.success('connected', 'Redis'));
   client.on('error', (err) => logger.error('error', err));
   client.on('reconnecting', () => logger.warn('reconnecting', 'Redis'));
 

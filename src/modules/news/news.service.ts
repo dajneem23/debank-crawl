@@ -288,10 +288,8 @@ export class NewsService {
   }
   /**
    * Update status
-   * @param _id
-   * @param _content
-   * @param _subject
-   * @returns {Promise<News>}
+   * @param {BaseServiceInput} { _id, _content, _subject }
+   * @returns {Promise<BaseServiceOutput>}
    */
   async updateStatus({ _id, _filter, _subject, _role }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -330,12 +328,17 @@ export class NewsService {
       throw err;
     }
   }
-  async updateViews({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  /**
+   *
+   * @param {BaseServiceInput} { _id }
+   * @returns { Promise<BaseServiceOutput> } { item: views }
+   */
+  async updateViews({ _id }: BaseServiceInput, view = 1): Promise<BaseServiceOutput> {
     try {
       const views = await this.model.update(
         $toMongoFilter({ _id }),
         {
-          $inc: { views: 1 },
+          $inc: { views: view },
         },
         {
           upsert: false,

@@ -18,7 +18,7 @@ export const CompanySeed = async () => {
   const collection = db.collection('companies');
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  // if (count) return;
+  if (count) return;
   const companies = readDataFromFile({ _collection: 'companies' }).map((_company: any) => {
     return {
       name:
@@ -722,6 +722,6 @@ export const CompanySeed = async () => {
   //   JSON.stringify(airtableCompanies).replace(/null/g, '""'),
   // );
   // fs.writeFileSync(`${__dirname}/data/companies.json`, JSON.stringify(companies).replace(/null/g, '""'));
-  fs.writeFileSync(`${__dirname}/data/companies_final.json`, JSON.stringify(companies_final));
-  // await db.collection('companies').insertMany(companies_final);
+  // fs.writeFileSync(`${__dirname}/data/companies_final.json`, JSON.stringify(companies_final));
+  await db.collection('companies').insertMany(companies_final);
 };

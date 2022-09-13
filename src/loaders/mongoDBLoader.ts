@@ -16,7 +16,7 @@ const mongoDBLoader = async (): Promise<Db> => {
   const db = client.db();
   Container.set(DIMongoClient, client);
   Container.set(DIMongoDB, db);
-  logger.success('db_success', 'MongoDB');
+  logger.success('connected', 'MongoDB');
 
   return db;
 };

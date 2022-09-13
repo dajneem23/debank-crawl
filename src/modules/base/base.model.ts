@@ -36,7 +36,7 @@ export class BaseModel {
   private db: Db = Container.get(DIMongoDB) as Db;
   // Get logger Instance from DI
   private logger: Logger = Container.get(DILogger) as Logger;
-
+  //init error
   private error(msg: keyof typeof errors): CommonError {
     return new CommonError(msg);
   }
@@ -145,10 +145,10 @@ export class BaseModel {
       if (updatedExisting) {
         throwErr(this.error('common.already_exist'));
       }
-      this.logger.debug(`success`, `[create:${this._collectionName}:success]`, { _content });
+      this.logger.debug('create_success', `[create:${this._collectionName}:success]`, { _content });
       return value;
     } catch (err) {
-      this.logger.error(`error`, `[create:${this._collectionName}:error]`, err.message);
+      this.logger.error('create_error', `[create:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }
@@ -211,10 +211,10 @@ export class BaseModel {
       if (!updatedExisting) {
         throwErr(this.error('common.not_found'));
       }
-      this.logger.debug(`success`, `[update:${this._collectionName}:success]`, { _content });
+      this.logger.debug('update_success', `[update:${this._collectionName}:success]`, { _content });
       return value;
     } catch (err) {
-      this.logger.error(`error`, `[update:${this._collectionName}:error]`, err.message);
+      this.logger.error(`update_error`, `[update:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }
@@ -256,10 +256,10 @@ export class BaseModel {
       if (!updatedExisting) {
         throwErr(this.error('common.not_found'));
       }
-      this.logger.debug('success', `[delete:${this._collectionName}:success]`, { _id: value?._id });
+      this.logger.debug('delete_success', `[delete:${this._collectionName}:success]`, { _id: value?._id });
       return;
     } catch (err) {
-      this.logger.error('error', `[delete:${this._collectionName}:error]`, err.message);
+      this.logger.error('delete_error', `[delete:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }
@@ -273,7 +273,7 @@ export class BaseModel {
     try {
       return this._collection.aggregate(pipeline, options);
     } catch (err) {
-      this.logger.error(`error`, `[get:${this._collectionName}:error]`, err.message);
+      this.logger.error('get_error', `[get:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }

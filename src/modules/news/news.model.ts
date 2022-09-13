@@ -4,35 +4,52 @@ import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { News } from './news.type';
-
-const COLLECTION_NAME = 'news';
-
-@Service()
-export class NewsModel {
-  private readonly _collection;
-
-  constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
-    this._collection = db.collection<News>(COLLECTION_NAME);
-    Promise.all([
-      // Unique ID
-      this._collection.createIndex(
+import { BaseModel } from '../base/base.model';
+import { keys } from 'ts-transformer-keys';
+/**
+ * @class NewsModel
+ * @extends BaseModel
+ * @description News model: News model for all news related operations
+ */
+@Service('_newsModel')
+export class NewsModel extends BaseModel {
+  constructor() {
+    super({
+      collectionName: 'news',
+      _keys: keys<News>(),
+      indexes: [
         {
-          'trans.title': 'text',
-          title: 'text',
+          field: {
+            'trans.title': 'text',
+            title: 'text',
+          },
         },
-        { unique: false },
-      ),
-      this._collection.createIndex({ 'trans.title': 1 }, { unique: false }),
-      this._collection.createIndex({ title: 1 }, { unique: false }),
-      this._collection.createIndex({ 'trans.slug': 1 }, { unique: false }),
-      this._collection.createIndex({ 'trans.lang': 1 }, { unique: false }),
-      this._collection.createIndex({ slug: 1 }, { unique: false }),
-    ]).catch((err) => {
-      this.logger.error(err);
+        {
+          field: {
+            'trans.title': 1,
+          },
+        },
+        {
+          field: {
+            title: 1,
+          },
+        },
+        {
+          field: {
+            'trans.slug': 1,
+          },
+        },
+        {
+          field: {
+            slug: 1,
+          },
+        },
+        {
+          field: {
+            'trans.lang': 1,
+          },
+        },
+      ],
     });
-  }
-
-  get collection() {
-    return this._collection;
   }
 }

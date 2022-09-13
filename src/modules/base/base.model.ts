@@ -15,7 +15,7 @@ import Logger from '@/core/logger';
 import { CommonError, errors } from '@/core/errors/CommonError';
 import { throwErr } from '@/utils/common';
 import { $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
-import { categoriesValidation } from '@/utils/validation';
+import { $refValidation } from '@/utils/validation';
 import { T } from '@/types';
 
 /**
@@ -62,7 +62,7 @@ export class BaseModel {
       indexes.map(
         ({
           field,
-          options,
+          options = {},
         }: {
           field: {
             [key: string]: IndexDirection;
@@ -75,10 +75,10 @@ export class BaseModel {
     ).then((results) => {
       results.forEach((result) => {
         if (result.status === 'rejected') {
-          this.logger.error(`[createIndex:${this._collectionName}:error]`, result.reason);
+          this.logger.error(`error`, `[createIndex:${this._collectionName}:error]`, result.reason);
           throwErr(this.error('common.database'));
         } else {
-          this.logger.debug(`[createIndex:${this._collectionName}:success]`, result.value);
+          this.logger.debug('success', `[createIndex:${this._collectionName}:success]`, result.value);
         }
       });
     });
@@ -97,9 +97,27 @@ export class BaseModel {
     { upsert = true, returnDocument = 'after', ...options }: FindOneAndUpdateOptions = {},
   ): Promise<WithId<T> | null> {
     try {
-      const { categories = [] } = _content;
-      categories.length && (await categoriesValidation($toObjectId(categories)));
+      const {
+        categories = [],
+        event_tags = [],
+        product_tags = [],
+        company_tags = [],
+        person_tags = [],
+        coin_tags = [],
+      } = _content;
+      categories.length && (await $refValidation({ collection: 'categories', list: $toObjectId(categories) }));
       categories.length && (_content.categories = $toObjectId(categories));
+      event_tags.length && (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) }));
+      event_tags.length && (_content.event_tags = $toObjectId(event_tags));
+      product_tags.length && (await $refValidation({ collection: 'products', list: $toObjectId(product_tags) }));
+      product_tags.length && (_content.product_tags = $toObjectId(product_tags));
+      company_tags.length && (await $refValidation({ collection: 'companies', list: $toObjectId(company_tags) }));
+      company_tags.length && (_content.company_tags = $toObjectId(company_tags));
+      person_tags.length && (await $refValidation({ collection: 'persons', list: $toObjectId(person_tags) }));
+      person_tags.length && (_content.person_tags = $toObjectId(person_tags));
+      coin_tags.length && (await $refValidation({ collection: 'coins', list: $toObjectId(coin_tags) }));
+      coin_tags.length && (_content.coin_tags = $toObjectId(coin_tags));
+
       const {
         value,
         ok,
@@ -127,10 +145,10 @@ export class BaseModel {
       if (updatedExisting) {
         throwErr(this.error('common.already_exist'));
       }
-      this.logger.debug(`[create:${this._collectionName}:success]`, { _content });
+      this.logger.debug(`success`, `[create:${this._collectionName}:success]`, { _content });
       return value;
     } catch (err) {
-      this.logger.error(`[create:${this._collectionName}:error]`, err.message);
+      this.logger.error(`error`, `[create:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }
@@ -147,9 +165,27 @@ export class BaseModel {
     { upsert = false, returnDocument = 'after', ...options }: FindOneAndUpdateOptions = {},
   ): Promise<WithId<T> | null> {
     try {
-      const { categories = [] } = _content;
-      categories.length && (await categoriesValidation($toObjectId(categories)));
+      const {
+        categories = [],
+        event_tags = [],
+        product_tags = [],
+        company_tags = [],
+        person_tags = [],
+        coin_tags = [],
+      } = _content;
+      categories.length && (await $refValidation({ collection: 'categories', list: $toObjectId(categories) }));
       categories.length && (_content.categories = $toObjectId(categories));
+      event_tags.length && (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) }));
+      event_tags.length && (_content.event_tags = $toObjectId(event_tags));
+      product_tags.length && (await $refValidation({ collection: 'products', list: $toObjectId(product_tags) }));
+      product_tags.length && (_content.product_tags = $toObjectId(product_tags));
+      company_tags.length && (await $refValidation({ collection: 'companies', list: $toObjectId(company_tags) }));
+      company_tags.length && (_content.company_tags = $toObjectId(company_tags));
+      person_tags.length && (await $refValidation({ collection: 'persons', list: $toObjectId(person_tags) }));
+      person_tags.length && (_content.person_tags = $toObjectId(person_tags));
+      coin_tags.length && (await $refValidation({ collection: 'coins', list: $toObjectId(coin_tags) }));
+      coin_tags.length && (_content.coin_tags = $toObjectId(coin_tags));
+
       const {
         value,
         ok,
@@ -175,10 +211,10 @@ export class BaseModel {
       if (!updatedExisting) {
         throwErr(this.error('common.not_found'));
       }
-      this.logger.debug(`[update:${this._collectionName}:success]`, { _content });
+      this.logger.debug(`success`, `[update:${this._collectionName}:success]`, { _content });
       return value;
     } catch (err) {
-      this.logger.error(`[update:${this._collectionName}:error]`, err.message);
+      this.logger.error(`error`, `[update:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }
@@ -220,10 +256,10 @@ export class BaseModel {
       if (!updatedExisting) {
         throwErr(this.error('common.not_found'));
       }
-      this.logger.debug(`[delete:${this._collectionName}:success]`, { _id: value?._id });
+      this.logger.debug('success', `[delete:${this._collectionName}:success]`, { _id: value?._id });
       return;
     } catch (err) {
-      this.logger.error(`[delete:${this._collectionName}:error]`, err.message);
+      this.logger.error('error', `[delete:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }
@@ -237,7 +273,7 @@ export class BaseModel {
     try {
       return this._collection.aggregate(pipeline, options);
     } catch (err) {
-      this.logger.error(`[get:${this._collectionName}:error]`, err.message);
+      this.logger.error(`error`, `[get:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }

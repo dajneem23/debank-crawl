@@ -1047,21 +1047,21 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "update",
-    "url": "{{host}}/news/630ddf931d1096097587d92f",
+    "url": "{{host}}/news/631ff9c4eff31dd002904f86",
     "method": "PUT",
     "sortNum": 280000,
     "created": "2022-08-30T09:07:12.435Z",
-    "modified": "2022-08-31T10:58:34.071Z",
+    "modified": "2022-09-13T03:45:18.709Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"person_tags\": [\n        \"630dbeaffbd8194282be5393\",\n        \"630dbeaffbd8194282be5396\"\n    ]\n}",
+      "raw": "{\n    \"person_tags\": [\n        \"631f0174f9792ec5eca6476f\",\n        \"631f0174f9792ec5eca64773\"\n    ]\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTE1NDM5OSwiZXhwIjoxNjYyMDE4Mzk5fQ.2LdkeZvU8wr3BvTmnGnDk3eBeayZ-dKZ9KUq24NJOx8"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2Mjk4MTMyMiwiZXhwIjoxNjYzODQ1MzIyfQ.S4Kgb9_wHy5HmDb_mXUYJxxO_gf7rZRrP-HjaHsiCBk"
     },
     "tests": []
   },
@@ -1184,11 +1184,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getById",
-    "url": "{{host}}/news/private/631ff0aeeff31dd0029041f9?lang=vi",
+    "url": "{{host}}/news/private/631ff9c4eff31dd002904f86?lang=vi",
     "method": "GET",
     "sortNum": 310000,
     "created": "2022-08-30T09:07:12.441Z",
-    "modified": "2022-09-13T02:53:50.943Z",
+    "modified": "2022-09-13T03:32:57.622Z",
     "headers": [],
     "params": [
       {
@@ -1208,11 +1208,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getById admin",
-    "url": "{{host}}/news/private/631ff0aeeff31dd0029041f9",
+    "url": "{{host}}/news/private/631ff9c4eff31dd002904f86",
     "method": "GET",
     "sortNum": 317500,
     "created": "2022-08-30T09:07:12.442Z",
-    "modified": "2022-09-13T02:57:58.294Z",
+    "modified": "2022-09-13T03:45:40.857Z",
     "headers": [],
     "params": [],
     "auth": {
@@ -1226,11 +1226,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getBySlug",
-    "url": "{{host}}/news/the-landmark-2-millionth-ens-domain-has-been-minted-as-it-retains-a-top-10-spot-on-opensea's-secondary-market-1663037614644",
+    "url": "{{host}}/news/the-landmark-2-millionth-ens-domain-has-been-minted-as-it-retains-a-top-10-spot-on-opensea's-secondary-market",
     "method": "GET",
     "sortNum": 325000,
     "created": "2022-08-30T09:07:12.443Z",
-    "modified": "2022-09-13T02:56:13.756Z",
+    "modified": "2022-09-13T03:45:53.975Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -1276,16 +1276,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "search",
-    "url": "{{host}}/news/search?q=trieu&lang=vi",
+    "url": "{{host}}/news/search?q=4&lang=vi",
     "method": "GET",
     "sortNum": 340000,
     "created": "2022-08-30T09:07:12.446Z",
-    "modified": "2022-08-30T11:02:36.602Z",
+    "modified": "2022-09-13T03:47:41.041Z",
     "headers": [],
     "params": [
       {
         "name": "q",
-        "value": "trieu",
+        "value": "4",
         "isPath": false
       },
       {
@@ -1538,13 +1538,17 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-09-08T09:32:20.625Z",
-    "modified": "2022-09-09T02:59:55.726Z",
+    "modified": "2022-09-13T03:07:01.648Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"13452\",\n    \"categories\":[\"63195cda6beba3b545154714\"]\n}",
+      "raw": "{\n    \"name\": \"13452\",\n    \"categories\": [\n        \"631f0155eff31dd0028f90e2\"\n    ]\n}",
       "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzAzNzEzMiwiZXhwIjoxNjYzOTAxMTMyfQ.LgMqxkRsDdcF8FKzOgXNTfFYnTJaHpOgIWiwWwSjm_Q"
     },
     "tests": []
   },

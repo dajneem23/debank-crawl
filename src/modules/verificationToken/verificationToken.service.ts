@@ -55,10 +55,10 @@ export default class VerificationTokenService {
           },
         },
       });
-      this.logger.debug('[sendEmailVerification:success]', { email: user.email, token });
+      this.logger.debug('success', '[sendEmailVerification:success]', { email: user.email, token });
       return toVerificationTokenOutput(verificationToken);
     } catch (err) {
-      this.logger.error('[sendEmailVerification:error]', err);
+      this.logger.error('error', '[sendEmailVerification:error]', err);
       throw err;
     }
   }
@@ -94,10 +94,10 @@ export default class VerificationTokenService {
           },
         },
       });
-      this.logger.debug('[sendPasswordReset:success]', { email: user.email, token });
+      this.logger.debug('success', '[sendPasswordReset:success]', { email: user.email, token });
       return toVerificationTokenOutput(verificationToken);
     } catch (err) {
-      this.logger.error('[sendPasswordReset:error]', err);
+      this.logger.error('error', '[sendPasswordReset:error]', err);
       throw err;
     }
   }
@@ -131,10 +131,10 @@ export default class VerificationTokenService {
           },
         },
       });
-      this.logger.debug('[sendConfirmationCode:success]', { email: user.email, token });
+      this.logger.debug('success', '[sendConfirmationCode:success]', { email: user.email, token });
       return toVerificationTokenOutput(verificationToken);
     } catch (err) {
-      this.logger.error('[sendConfirmationCode:error]', err);
+      this.logger.error('error', '[sendConfirmationCode:error]', err);
       throw err;
     }
   }
@@ -146,10 +146,10 @@ export default class VerificationTokenService {
     try {
       const { value: verificationToken } = await this.verificationTokenModel.collection.findOneAndDelete(filter);
       if (!verificationToken) throwErr(new VerificationTokenError('INVALID_VERIFICATION_TOKEN'));
-      this.logger.debug('[delete:success]', { filter });
+      this.logger.debug('success', 'delete_success', { filter });
       return toVerificationTokenOutput(verificationToken);
     } catch (err) {
-      this.logger.error('[delete:error]', err);
+      this.logger.error('error', 'delete_error', err);
       throw err;
     }
   }

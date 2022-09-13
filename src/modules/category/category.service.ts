@@ -120,10 +120,10 @@ export class CategoryService {
       if (updatedExisting) {
         throwErr(this.error('CATEGORY_ALREADY_EXIST'));
       }
-      this.logger.debug('[create:success]', { _content });
+      this.logger.debug('create_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[create:error]', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
@@ -161,10 +161,10 @@ export class CategoryService {
       if (!updatedExisting) {
         throwErr(this.error('CATEGORY_NOT_FOUND'));
       }
-      this.logger.debug('[update:success]', { _content });
+      this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -201,10 +201,10 @@ export class CategoryService {
       if (!updatedExisting) {
         throwErr(this.error('CATEGORY_NOT_FOUND'));
       }
-      this.logger.debug('[delete:success]', { _id });
+      this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
-      this.logger.error('[delete:error]', err.message);
+      this.logger.error('delete_error', err.message);
       throw err;
     }
   }
@@ -262,10 +262,10 @@ export class CategoryService {
           }),
         )
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
@@ -288,10 +288,10 @@ export class CategoryService {
         ])
         .toArray();
       if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
-      this.logger.debug('[get:success]', { category });
+      this.logger.debug('get_success', { category });
       return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }

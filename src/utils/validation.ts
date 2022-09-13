@@ -3,7 +3,6 @@ import { throwErr } from './common';
 import { $queryByList } from './mongoDB';
 import { ValidateError } from '@/core/errors/ValidateError';
 
-export const categoriesValidation = async (categories: []) => {
-  (await $queryByList({ collection: 'categories', values: categories })) ||
-    throwErr(new ValidateError('category:not_found'));
+export const $refValidation = async ({ collection, list }: { collection: string; list: string[] }) => {
+  (await $queryByList({ collection: collection, values: list })) || throwErr(new ValidateError('not_found'));
 };

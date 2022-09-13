@@ -79,11 +79,11 @@ export class MailJob {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', (job: Job<JobData>) => {
-      this.logger.debug('[job:completed]', { id: job.id });
+      this.logger.debug('success', '[job:completed]', { id: job.id });
     });
     // Failed
     worker.on('failed', (job: Job<JobData>, error: Error) => {
-      this.logger.error('[job:error]', { jobId: job.id, error });
+      this.logger.error('error', '[job:error]', { jobId: job.id, error });
     });
   }
 
@@ -93,8 +93,8 @@ export class MailJob {
   addJob(payload: JobData) {
     this.queue
       .add(payload.name, payload)
-      .then((job) => this.logger.debug(`[addJob:success]`, { id: job.id, payload }))
-      .catch((err) => this.logger.error(`[addJob:error]`, err, payload));
+      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
+      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
   }
 
   /**

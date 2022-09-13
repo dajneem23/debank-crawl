@@ -22,10 +22,10 @@ export default class BlocklistService {
         ms(env.JWT_SECRET) / 1000, // Expires (seconds)
         'true',
       );
-      this.logger.debug('[addToTemporaryBlockList:success]', { userId, result });
+      this.logger.debug('success', '[addToTemporaryBlockList:success]', { userId, result });
       return result;
     } catch (err) {
-      this.logger.error('[addToTemporaryBlockList:error]', err.message);
+      this.logger.error('error', '[addToTemporaryBlockList:error]', err.message);
       throw err;
     }
   }
@@ -36,10 +36,10 @@ export default class BlocklistService {
   async removeFromTemporaryBlockList(userId: string) {
     try {
       const result = await this.redisClient.del(`${REDIS_TEMPORARY_BLOCKLIST_KEY}:${userId}`);
-      this.logger.debug('[removeFromTemporaryBlockList:success]', { userId, result });
+      this.logger.debug('delete', '[removeFromTemporaryBlockList:success]', { userId, result });
       return result;
     } catch (err) {
-      this.logger.error('[removeFromTemporaryBlockList:error]', err.message);
+      this.logger.error('error', '[removeFromTemporaryBlockList:error]', err.message);
       throw err;
     }
   }
@@ -52,7 +52,7 @@ export default class BlocklistService {
       const result = await this.redisClient.get(`${REDIS_TEMPORARY_BLOCKLIST_KEY}:${userId}`);
       return !!result;
     } catch (err) {
-      this.logger.error('[isOnTemporaryBlockList:error]', err.message);
+      this.logger.error('error', '[isOnTemporaryBlockList:error]', err.message);
       throw err;
     }
   }

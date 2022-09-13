@@ -28,14 +28,14 @@ export const withMongoTransaction = async (fn: WithTransactionCallback) => {
   const session = mongoClient.startSession();
   try {
     const results = await session.withTransaction(fn, transactionOptions);
-    logger.debug('[session:success]', { results });
+    logger.debug('success', 'session', { results });
     return results;
   } catch (err) {
-    logger.error('[session:error]', err);
+    logger.error('error', 'session', err);
     throw err;
   } finally {
     await session.endSession();
-    logger.debug('[session:end]');
+    logger.debug('end', 'session');
   }
 };
 /**

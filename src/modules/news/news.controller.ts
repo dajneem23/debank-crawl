@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Inject, Service } from 'typedi';
+import Container, { Inject, Service } from 'typedi';
 import {
   Controller,
   Res,
@@ -25,8 +25,7 @@ import { getHighestRole } from '../auth/auth.utils';
 @Service()
 @Controller('/news')
 export class NewsController {
-  @Inject()
-  private service: NewsService;
+  private service = Container.get<NewsService>('_newsService');
 
   @Post('/', [NewsValidation.create, protectPrivateAPI()])
   async create(

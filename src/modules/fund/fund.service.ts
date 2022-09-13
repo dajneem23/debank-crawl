@@ -9,7 +9,7 @@ import { isNil, omit } from 'lodash';
 
 @Service('_fundService')
 export class FundService {
-  private logger = new Logger('FundService');
+  private logger = new Logger('Funds');
 
   private model = Container.get<FundModel>('_fundModel');
 
@@ -112,16 +112,16 @@ export class FundService {
           ...(_subject && { created_by: _subject }),
         },
       );
-      this.logger.debug('[create:success]', { _content });
+      this.logger.debug('create_success', { _content });
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[create:error]123', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
 
   /**
-   * Update category
+   * Update
    * @param _id
    * @param _content
    * @param _subject
@@ -140,16 +140,16 @@ export class FundService {
           ...(_subject && { update_by: _subject }),
         },
       );
-      this.logger.debug('[update:success]', { _content });
+      this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
 
   /**
-   * Delete category
+   * Delete
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
@@ -162,10 +162,10 @@ export class FundService {
           ...(_subject && { update_by: _subject }),
         },
       );
-      this.logger.debug('[delete:success]', { _id });
+      this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
-      this.logger.error('[delete:error]', err.message);
+      this.logger.error('delete_error', err.message);
       throw err;
     }
   }
@@ -233,16 +233,16 @@ export class FundService {
           }),
         )
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
   /**
-   * Get product by ID
-   * @param id - product ID
+   * Get by ID
+   * @param id - ID
    * @param _filter - filter query
    * @param _permission - permission query
    * @returns { Promise<BaseServiceOutput> } - product
@@ -283,10 +283,10 @@ export class FundService {
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
-      this.logger.debug('[get:success]', { item });
+      this.logger.debug('get_success', { item });
       return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -338,10 +338,10 @@ export class FundService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }

@@ -114,7 +114,7 @@ const expressLoader = (): Express => {
   app.use(notFoundHandler);
   app.use(errorHandler);
 
-  logger.success('Express Application loaded');
+  logger.success('connected', 'Express Application');
 
   return app;
 };

@@ -171,10 +171,10 @@ export class EventService {
       if (!acknowledged) {
         throwErr(new SystemError(`MongoDB insertOne() failed! Payload: ${JSON.stringify(_content)}`));
       }
-      this.logger.debug('[create:success]', { event });
+      this.logger.debug('create_success', { event });
       return toOutPut({ item: event, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[create:error]', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
@@ -221,12 +221,12 @@ export class EventService {
       if (slide || recap) {
         // Send mail to subscribers
         const { subscribers } = event;
-        this.logger.info('[send mail]', { subscribers });
+        this.logger.info('success', '[send mail]', { subscribers });
       }
-      this.logger.debug('[update:success]', { event });
+      this.logger.debug('update_success', { event });
       return toOutPut({ item: event, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -250,9 +250,9 @@ export class EventService {
         { returnDocument: 'after' },
       );
       if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
-      this.logger.debug('[delete:success]', { event });
+      this.logger.debug('delete_success', { event });
     } catch (err) {
-      this.logger.error('[delete:error]', err.message);
+      this.logger.error('delete_error', err.message);
       throw err;
     }
   }
@@ -278,10 +278,10 @@ export class EventService {
         ])
         .toArray();
       if (isNil(event)) throwErr(new EventError('EVENT_NOT_FOUND'));
-      this.logger.debug('[get:success]', { event });
+      this.logger.debug('get_success', { event });
       return omit(toOutPut({ item: event }), ['deleted', 'updated_at']);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -327,10 +327,10 @@ export class EventService {
         ])
         .toArray()) as any[];
 
-      this.logger.debug('[get:success]', { total_count, items });
+      this.logger.debug('get_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -368,10 +368,10 @@ export class EventService {
         ])
         .toArray()) as any[];
       const items = [...trending, ...virtual];
-      this.logger.debug('[get:success]', { total_count, items });
+      this.logger.debug('get_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -407,10 +407,10 @@ export class EventService {
         ])
         .toArray()) as any[];
 
-      this.logger.debug('[get:success]', { total_count, items });
+      this.logger.debug('get_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -451,14 +451,14 @@ export class EventService {
           this.$set.country,
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({
         items,
         total_count,
         keys: this.queryOutputKeys,
       });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
@@ -491,12 +491,12 @@ export class EventService {
       if (subscribers) {
         // Send mail to subscribers
         const { subscribers } = event;
-        this.logger.info('[send mail]', { subscribers });
+        this.logger.info('success', 'send mail', { subscribers });
       }
-      this.logger.debug('[update:success]', { event });
+      this.logger.debug('update_success', { event });
       return toOutPut({ item: event, keys: ['subscribers'] });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -523,10 +523,10 @@ export class EventService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }

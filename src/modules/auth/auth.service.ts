@@ -93,10 +93,10 @@ export default class AuthService {
       const user = await this.userService.create({ ...input, password: hashedPassword });
       // Generate new auth session
       const { tokens } = await this.generateAuthSession(user);
-      this.logger.debug('[register:success]', { email: user.email });
+      this.logger.debug('success', '[register:success]', { email: user.email });
       return { user, tokens };
     } catch (err) {
-      this.logger.error('[register:error]', err);
+      this.logger.error('error', '[register:error]', err);
       throw err;
     }
   }
@@ -126,10 +126,10 @@ export default class AuthService {
       }
       // Generate new auth session
       const { tokens } = await this.generateAuthSession(user);
-      this.logger.debug('[loginByPassword:success]');
+      this.logger.debug('success', '[loginByPassword:success]');
       return { user: toUserOutput(user), tokens };
     } catch (err) {
-      this.logger.error('[loginByPassword:error]', err);
+      this.logger.error('error', '[loginByPassword:error]', err);
       throw err;
     }
   }
@@ -155,10 +155,10 @@ export default class AuthService {
         updated_at: now,
       };
       await this.authSessionModel.collection.insertOne(authSession);
-      this.logger.debug('[generateNewAuthSession:success]');
+      this.logger.debug('success', '[generateNewAuthSession:success]');
       return { session: authSession, tokens: bearerTokens };
     } catch (err) {
-      this.logger.error('[generateNewAuthSession:error]', err);
+      this.logger.error('error', '[generateNewAuthSession:error]', err);
       throw err;
     }
   }
@@ -188,10 +188,10 @@ export default class AuthService {
         },
       );
       if (!authSession) throwErr(new AuthError('INVALID_REFRESH_TOKEN'));
-      this.logger.debug('[refreshAuthSession:success]');
+      this.logger.debug('success', '[refreshAuthSession:success]');
       return bearerTokens;
     } catch (err) {
-      this.logger.error('[refreshAuthSession:error]', err);
+      this.logger.error('error', '[refreshAuthSession:error]', err);
       throw err;
     }
   }
@@ -207,9 +207,12 @@ export default class AuthService {
       if (user.email_verified) throwErr(new UserError('EMAIL_ALREADY_VERIFIED'));
       // Generate token and send email
       const verificationToken = await this.verificationTokenService.sendEmailVerification(user, opts);
-      this.logger.debug('[requestEmailVerification:success]', { email: user.email, token: verificationToken.token });
+      this.logger.debug('success', '[requestEmailVerification:success]', {
+        email: user.email,
+        token: verificationToken.token,
+      });
     } catch (err) {
-      this.logger.error('[requestEmailVerification:error]', err);
+      this.logger.error('error', '[requestEmailVerification:error]', err);
       throw err;
     }
   }
@@ -231,10 +234,10 @@ export default class AuthService {
         { $set: { email_verified: true } },
         { returnDocument: 'after' },
       );
-      this.logger.debug('[verifyEmail:success]', { email, token });
+      this.logger.debug('success', '[verifyEmail:success]', { email, token });
       return toUserOutput(user);
     } catch (err) {
-      this.logger.error('[verifyEmail:error]', err);
+      this.logger.error('error', '[verifyEmail:error]', err);
       throw err;
     }
   }
@@ -249,9 +252,9 @@ export default class AuthService {
       if (!user) throwErr(new UserError('USER_NOT_FOUND'));
       // Generate token and send email
       const verificationToken = await this.verificationTokenService.sendPasswordReset(user, opts);
-      this.logger.debug('[requestPasswordReset:success]', { token: verificationToken.token });
+      this.logger.debug('success', '[requestPasswordReset:success]', { token: verificationToken.token });
     } catch (err) {
-      this.logger.error('[requestPasswordReset:error]', err);
+      this.logger.error('error', '[requestPasswordReset:error]', err);
       throw err;
     }
   }
@@ -284,9 +287,9 @@ export default class AuthService {
           },
         },
       });
-      this.logger.debug('[resetPassword:success]', { email });
+      this.logger.debug('success', '[resetPassword:success]', { email });
     } catch (err) {
-      this.logger.error('[resetPassword:error]', err);
+      this.logger.error('error', '[resetPassword:error]', err);
       throw err;
     }
   }
@@ -323,9 +326,9 @@ export default class AuthService {
           },
         },
       });
-      this.logger.debug('[changePassword:success]', { email: user.email });
+      this.logger.debug('success', '[changePassword:success]', { email: user.email });
     } catch (err) {
-      this.logger.error('[changePassword:error]', err);
+      this.logger.error('error', '[changePassword:error]', err);
       throw err;
     }
   }
@@ -336,10 +339,10 @@ export default class AuthService {
   async findAndRemoveAuthSession(filter: Filter<AuthSession>) {
     try {
       const result = await this.authSessionModel.collection.deleteMany(filter);
-      this.logger.debug('[findAndRemoveAuthSession:success]', { result });
+      this.logger.debug('success', '[findAndRemoveAuthSession:success]', { result });
       return result.deletedCount;
     } catch (err) {
-      this.logger.error('[findAndRemoveAuthSession:error]', err);
+      this.logger.error('error', '[findAndRemoveAuthSession:error]', err);
       throw err;
     }
   }
@@ -354,10 +357,10 @@ export default class AuthService {
       const user = await this.userService.update(userId, { roles: uniqRoles });
       // Remove all current auth sessions and force the user to login again
       await this.findAndRemoveAuthSession({ user_id: userId });
-      this.logger.debug('[setUserRoles:success]', { email: user.email, roles });
+      this.logger.debug('success', '[setUserRoles:success]', { email: user.email, roles });
       return user;
     } catch (err) {
-      this.logger.error('[setUserRoles:error]', err.message);
+      this.logger.error('error', '[setUserRoles:error]', err.message);
       throw err;
     }
   }

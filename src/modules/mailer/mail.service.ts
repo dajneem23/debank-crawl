@@ -39,10 +39,10 @@ export default class MailService {
         template,
         'h:X-Mailgun-Variables': JSON.stringify(params),
       });
-      this.logger.debug('[sendByMailgun:success]', { response });
+      this.logger.debug('success', '[sendByMailgun:success]', { response });
       return response;
     } catch (err) {
-      this.logger.error('[sendByMailgun:error]', err);
+      this.logger.error('error', '[sendByMailgun:error]', err);
     }
   }
 

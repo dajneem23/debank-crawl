@@ -7,7 +7,6 @@ import { NewsError, NewsModel, _news } from '.';
 import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
-import { ObjectId } from 'mongodb';
 import slugify from 'slugify';
 @Service()
 export class NewsService {
@@ -114,12 +113,12 @@ export class NewsService {
         reName: 'author',
         operation: '$eq',
       }),
-      news: $lookup({
-        from: 'news',
-        refFrom: 'categories',
-        refTo: 'followings',
-        select: 'title',
-        reName: 'news',
+      event_tags: $lookup({
+        from: 'events',
+        refFrom: '_id',
+        refTo: 'event_tags',
+        select: 'name avatar',
+        reName: 'event_tags',
         operation: '$in',
       }),
     };
@@ -250,7 +249,7 @@ export class NewsService {
             ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
             ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
             ...(person_tags.length && { person_tags: $toObjectId(person_tags) }),
-            ...(event_tags.length && { person_tags: $toObjectId(event_tags) }),
+            ...(event_tags.length && { event_tags: $toObjectId(event_tags) }),
             deleted: false,
             ...(_subject && { created_by: _subject }),
           },
@@ -275,7 +274,7 @@ export class NewsService {
   }
 
   /**
-   * Update category
+   * Update
    * @param _id
    * @param _content
    * @param _subject
@@ -411,7 +410,7 @@ export class NewsService {
             ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
             ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
             ...(person_tags.length && { person_tags: $toObjectId(person_tags) }),
-            ...(event_tags.length && { person_tags: $toObjectId(event_tags) }),
+            ...(event_tags.length && { event_tags: $toObjectId(event_tags) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
@@ -435,7 +434,7 @@ export class NewsService {
     }
   }
   /**
-   * Update category
+   * Update status
    * @param _id
    * @param _content
    * @param _subject
@@ -520,7 +519,7 @@ export class NewsService {
     }
   }
   /**
-   * Delete category
+   * Delete
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
@@ -562,7 +561,7 @@ export class NewsService {
   }
 
   /**
-   *  Query category
+   *  Query
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -658,6 +657,8 @@ export class NewsService {
           this.$lookups.coin_tags,
           this.$lookups.company_tags,
           this.$lookups.person_tags,
+          this.$lookups.product_tags,
+          this.$lookups.event_tags,
           this.$sets.author,
           {
             $project: {
@@ -694,7 +695,7 @@ export class NewsService {
     }
   }
   /**
-   *
+   * Get News by slug
    * @param {BaseServiceInput} { _id, _filter }
    * @returns {Promise<BaseServiceOutput>}
    * @returns
@@ -735,6 +736,8 @@ export class NewsService {
           this.$lookups.coin_tags,
           this.$lookups.company_tags,
           this.$lookups.person_tags,
+          this.$lookups.product_tags,
+          this.$lookups.event_tags,
           this.$sets.author,
           {
             $project: {
@@ -770,7 +773,11 @@ export class NewsService {
       throw err;
     }
   }
-
+  /**
+   * search news
+   * @param {BaseServiceInput} { _id, _filter, _query }
+   * @returns {Promise<BaseServiceOutput>}
+   */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, lang } = _filter;
@@ -911,8 +918,8 @@ export class NewsService {
   /**
    * Get important news
    * @param {ObjectId} _id
-   * @param  _query
-   * @param  _filter
+   * @param {any}  _query
+   * @param {any} _filter
    * @returns {Promise<BaseServiceOutput>}
    */
   async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
@@ -970,9 +977,9 @@ export class NewsService {
     }
   }
   /**
-   * Get event by ID
-   * @param id - Event ID
-   * @returns { Promise<BaseServiceOutput> } - Event
+   *
+   * @param {ObjectId} id -  ID
+   * @returns { Promise<BaseServiceOutput> }
    */
   async checkNewsStatus({ _id, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {

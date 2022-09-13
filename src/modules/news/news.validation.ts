@@ -16,7 +16,7 @@ export const NewsValidation = {
 
       photos: Joi.array().items(Joi.string()),
 
-      categories: Joi.array().items(Joi.string()),
+      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       source: Joi.string(),
 
@@ -50,6 +50,8 @@ export const NewsValidation = {
       product_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       person_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+      event_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
     }),
   }),
   update: validate({
@@ -66,7 +68,7 @@ export const NewsValidation = {
 
       photos: Joi.array().items(Joi.string()),
 
-      categories: Joi.array().items(Joi.string()),
+      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       source: Joi.string(),
 
@@ -100,6 +102,8 @@ export const NewsValidation = {
       product_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       person_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+      event_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),

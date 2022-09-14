@@ -1,19 +1,11 @@
 import { CountrySeed } from './country';
-// import { EventSeed } from './event';
 import { CategorySeed } from './category';
-// import { SectorSeed } from './sector';
 import { PersonSeed, personInvestment, insertPersons } from './person';
 import { ProductSeed, insertProducts } from './product';
 import { CompanySeed, companyInvestment, insertCompanies } from './company';
 import { CoinSeed } from './coin';
 import { UserSeed } from './user';
 import { FundSeed, fundInvestment, insertFunds } from './fund';
-import fs from 'fs';
-// import companies from './data/companies_final.json';
-// import persons from './data/persons_final.json';
-// import funds from './data/funds.json';
-import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
 (async () => {
   (await import('../loaders/loggerLoader')).default();
   await (await import('../loaders/mongoDBLoader')).default();

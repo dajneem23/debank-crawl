@@ -1,22 +1,16 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
 import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 
-// export const ProductSeed = async () => {
-//   /* eslint-disable no-console */
-//   console.log('Running product seed');
-//   const db = await mongoDBLoader();
-//   const collection = db.collection('products');
-//   const count = await $countCollection({ collection });
-//   if (!count) {
-//     const categories = await db.collection('categories').find({}).toArray();
 import fs from 'fs';
 import productsFile from '../data/crypto_slate/json/products.json';
 import { createDataFile, readDataFromFile } from './utils';
-
+import Container from 'typedi';
+import { DIMongoDB } from '@/loaders/mongoDBLoader';
 /* eslint-disable no-console */
 export const ProductSeed = async () => {
   console.log('Running product seed');
-  const db = await mongoDBLoader();
+  const db = Container.get(DIMongoDB);
+
   const collection = db.collection('products');
   const count = await $countCollection({ collection });
   if (count) return;

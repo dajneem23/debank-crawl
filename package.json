@@ -15,7 +15,7 @@
     "lint": "eslint .",
     "fix": "eslint --fix .",
     "prepare": "husky install",
-    "seed": ""
+    "seed": "ts-node -r tsconfig-paths/register src/seeds"
   },
   "lint-staged": {
     "./**/*.{js,ts}": [

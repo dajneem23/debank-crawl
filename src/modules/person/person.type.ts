@@ -3,6 +3,10 @@ import { BaseInformationModel, WorkType } from '@/types/Common';
 export interface Person extends BaseInformationModel {
   name: string;
 
+  first_name?: string;
+
+  last_name?: string;
+
   categories?: string[];
 
   position?: PersonPosition[];

@@ -2,6 +2,9 @@ import mongoDBLoader from '@/loaders/mongoDBLoader';
 import { WorkType } from '@/types';
 import fs from 'fs';
 import peoplesFile from '../data/crypto_slate/json/peoples.json';
+import InvestorAirtable from '../data/airtable/investor.json';
+import AngelInvestorAirtable from '../data/airtable/Angel Investors.json';
+import FundFounders from '../data/airtable/Funds - Founders.json';
 import { createDataFile, readDataFromFile } from './utils';
 import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 /* eslint-disable no-console */
@@ -19,15 +22,10 @@ export const PersonSeed = async () => {
       _file: peoplesFile,
       _key: 'name',
     });
-    const persons = await Promise.all(
+    const persons = (await Promise.all(
       readDataFromFile({ _collection: 'persons' })
         .map((_person: any) => {
           return {
-            trans: [] as any,
-            deleted: false,
-            created_at: new Date(),
-            updated_at: new Date(),
-            created_by: 'admin',
             name:
               _person.verified != 'null' && _person.verified
                 ? _person.name
@@ -160,9 +158,233 @@ export const PersonSeed = async () => {
             ),
           };
         }),
-    );
-    console.log('Inserting persons', persons.length);
-    fs.writeFileSync(`${__dirname}/data/persons_final.json`, JSON.stringify(persons).replace(/null/g, '""'));
-    await db.collection('persons').insertMany(persons);
+    )) as any;
+
+    const angelInvestors = (AngelInvestorAirtable as any).data.rows
+      .map((person: any) => {
+        const {
+          cellValuesByColumnId: {
+            fldjKwS1jKgY2myrS: location = [],
+            fldj5t3yMdaLI3KtM: twitter = '',
+            flduTkjX7gWZXGV9E: linkedin = '',
+            fldJsLm2w5mTLnBuP: avatar = [],
+            fldKYOWLOKiztp8zY: category,
+            fldZYofoqxl8MMpit: company,
+            fldyGkCKPKGZtfAPb: name = 'N/A',
+            fldMXngpMRns0HfyZ: email = '',
+          },
+          id,
+        } = person;
+        return {
+          id,
+          name,
+          location: location[0]?.foreignRowDisplayName || '',
+          avatar: avatar[0]?.url || '',
+          twitter,
+          linkedin,
+          company,
+          email,
+          categories: [categories.find((category: any) => category.name == 'investor')?._id].filter(Boolean),
+          type: 'persons',
+        };
+      })
+      .map((item: any) => {
+        const { id: foreign_id, ...rest } = item;
+        return {
+          foreign_id,
+          ...rest,
+        };
+      });
+    const investors = (InvestorAirtable as any).data.tableDatas[0].rows
+      .map((investor: any) => {
+        const {
+          id,
+          cellValuesByColumnId: {
+            fldNJrXhATbXWYaPV: twitter,
+            fldYxidGVWXbbBlvN: linkedin,
+            fld2kiwtDqHbHa0bk: name,
+            fldgBla8AxoEeCFU8: email = '',
+            fldd6JgLkLn5Zi1QY: [{ url } = { url: '' }] = [],
+          },
+        } = investor;
+        const type = angelInvestors.some((person: any) => person.name.toLowerCase() == name.toLowerCase())
+          ? 'persons'
+          : 'companies';
+        return {
+          id,
+          name,
+          twitter,
+          linkedin,
+          email,
+          avatar: url,
+          categories: ['investor'],
+          type,
+          need_review: type == 'companies',
+        };
+      })
+      .map((item: any) => {
+        const { id: foreign_id, ...rest } = item;
+        return {
+          foreign_id,
+          ...rest,
+        };
+      })
+      .reduce((acc: any, item: any) => {
+        const { type } = item;
+        acc[type] = [...(acc[type] || []), item];
+        return acc;
+      }, {});
+
+    // const mergeInvertors = Object.values(
+    //   [...angelInvestors, ...investors.persons].reduce((current: any, item: any) => {
+    //     const { name, ...rest } = item;
+    //     return {
+    //       ...current,
+    //       [name]: {
+    //         ...((current[name] && {
+    //           ...current[name],
+    //           metadata: {
+    //             storage: [
+    //               ...(current[name].metadata.storage || []),
+    //               {
+    //                 ...rest,
+    //               },
+    //             ],
+    //           },
+    //         }) || { ...item, metadata: {} }),
+    //       },
+    //     };
+    //   }, {}),
+    // );
+    const fundfouders = (FundFounders as any).data.rows.map((person: any) => {
+      const {
+        id,
+        cellValuesByColumnId: {
+          fldqI6w9E04BIe2Ke: name = [],
+          fldTsT4wtJYYxc6xN: twitter = '',
+          fldIScO81Bpyu6Nfn: { valuesByForeignRowId: funds } = {
+            valuesByForeignRowId: {},
+          },
+        },
+      } = person;
+      return {
+        name,
+        id,
+        twitter,
+        funds: Object.values(funds || {}).flatMap((fund: any) => {
+          return fund.map(
+            ({ foreignRowDisplayName, foreignRowId }: { foreignRowDisplayName: string; foreignRowId: string }) => {
+              return {
+                name: foreignRowDisplayName,
+                foreign_id: foreignRowId,
+              };
+            },
+          );
+        }),
+      };
+    });
+    const persons_final = Object.values(
+      [...persons, ...angelInvestors, ...investors.persons, ...fundfouders].reduce((current: any, item: any) => {
+        const { name, ...rest } = item;
+        const lowerName = name.toLowerCase().trim();
+        return {
+          ...current,
+          [lowerName]: {
+            ...((current[lowerName] && {
+              ...current[lowerName],
+              metadata: {
+                storage: [
+                  ...(current[lowerName].metadata.storage || []),
+                  {
+                    ...rest,
+                  },
+                ],
+              },
+            }) || { ...item, metadata: {} }),
+          },
+        };
+      }, {}),
+    ).map((item: any) => {
+      const {
+        need_review = false,
+        reviewed = false,
+        about = '',
+        short_description = '',
+        avatar = '',
+        linkedin = '',
+        twitter = '',
+        discord = '',
+        gitter = '',
+        medium = '',
+        bitcoin_talk = '',
+        facebook = '',
+        youtube = '',
+        blog = '',
+        github = '',
+        reddit = '',
+        explorer = '',
+        stack_exchange = '',
+        educations = [],
+        works = [],
+        location = '',
+        email = '',
+        type,
+        ...rest
+      } = item;
+      return {
+        ...rest,
+        about,
+        short_description,
+        avatar,
+        linkedin,
+        twitter,
+        discord,
+        gitter,
+        medium,
+        bitcoin_talk,
+        facebook,
+        youtube,
+        blog,
+        github,
+        reddit,
+        explorer,
+        stack_exchange,
+        educations,
+        works,
+        location,
+        email,
+        reviewed,
+        need_review,
+        trans: [] as any,
+        deleted: false,
+        created_at: new Date(),
+        updated_at: new Date(),
+        created_by: 'admin',
+      };
+    });
+    console.log('Inserting persons', {
+      angelInvestors: angelInvestors.length,
+      investors_persons: investors.persons.length,
+      investors_companies: investors.companies.length,
+      // mergeInvertors: mergeInvertors.length,
+      fundfouders: fundfouders.length,
+      persons: persons.length,
+      final: persons_final.length,
+      dupticate:
+        persons_final.length - (persons.length + angelInvestors.length + investors.persons.length + fundfouders.length),
+    });
+    // fs.writeFileSync(`${__dirname}/data/persons.json`, JSON.stringify(persons).replace(/null/g, '""'));
+    // fs.writeFileSync(
+    //   `${__dirname}/data/angel_investors_airtable.json`,
+    //   JSON.stringify(angelInvestors).replace(/null/g, '""'),
+    // );
+    // fs.writeFileSync(`${__dirname}/data/investors_airtable.json`, JSON.stringify(investors).replace(/null/g, '""'));
+    // fs.writeFileSync(
+    //   `${__dirname}/data/merge_investors_airtable.json`,
+    //   JSON.stringify(mergeInvertors).replace(/null/g, '""'),
+    // );
+    // fs.writeFileSync(`${__dirname}/data/fund_founders.json`, JSON.stringify(fundfouders).replace(/null/g, '""'));
+    fs.writeFileSync(`${__dirname}/data/persons_final.json`, JSON.stringify(persons_final));
+    await db.collection('persons').insertMany(persons_final);
   }
 };

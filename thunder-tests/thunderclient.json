@@ -1045,16 +1045,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "update",
-    "url": "{{host}}/news/630ddf941d1096097587d934",
+    "url": "{{host}}/news/630ddf931d1096097587d92f",
     "method": "PUT",
     "sortNum": 280000,
     "created": "2022-08-30T09:07:12.435Z",
-    "modified": "2022-08-31T05:22:46.877Z",
+    "modified": "2022-08-31T10:58:34.071Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"categories\": [\n        \"630dbeaf1d1096097587bda8\",\n        \"630dbeaf1d1096097587bda9\"\n    ]\n}",
+      "raw": "{\n    \"person_tags\": [\n        \"630dbeaffbd8194282be5393\",\n        \"630dbeaffbd8194282be5396\"\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -1182,13 +1182,19 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getById",
-    "url": "{{host}}/news/private/6315e1421cd276b4a1bb2eb7",
+    "url": "{{host}}/news/private/630ddf931d1096097587d92f?lang=vi",
     "method": "GET",
     "sortNum": 310000,
     "created": "2022-08-30T09:07:12.441Z",
-    "modified": "2022-09-05T11:46:09.944Z",
+    "modified": "2022-09-05T04:51:09.107Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
     "auth": {
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyNDI2MiwiZXhwIjoxNjYyNDg4MjYyfQ.Qsskg9z293UA3Ud-iQupoo7seUrn5KRDhd4AGTpMXLM"
@@ -1200,19 +1206,13 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "getById admin",
-    "url": "{{host}}/news/private/630edebb1cd276b4a11603a7?lang=vi",
+    "url": "{{host}}/news/private/630ddf931d1096097587d92f",
     "method": "GET",
     "sortNum": 317500,
     "created": "2022-08-30T09:07:12.442Z",
-    "modified": "2022-09-05T11:35:50.262Z",
+    "modified": "2022-09-05T04:49:34.480Z",
     "headers": [],
-    "params": [
-      {
-        "name": "lang",
-        "value": "vi",
-        "isPath": false
-      }
-    ],
+    "params": [],
     "auth": {
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
@@ -1476,16 +1476,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "update status Copy",
-    "url": "{{host}}/news/status/630edebb1cd276b4a11603a7/?status=processing",
+    "url": "{{host}}/news/status/630ddf941d1096097587d934/?status=published",
     "method": "PATCH",
     "sortNum": 410000,
     "created": "2022-08-31T07:49:36.744Z",
-    "modified": "2022-08-31T08:46:17.495Z",
+    "modified": "2022-08-31T10:36:04.841Z",
     "headers": [],
     "params": [
       {
         "name": "status",
-        "value": "processing",
+        "value": "published",
         "isPath": false
       }
     ],

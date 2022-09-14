@@ -26,19 +26,23 @@ export interface Company extends BaseInformationModel {
     short_description?: string;
   }[];
   year_founded?: Date;
+  total_amount?: string;
+  firms?: any[];
   fundraising_rounds: {
     round_name: string;
     valuation?: string;
     description?: string;
     announcement?: string;
-    amount?: string;
+    amount?: number;
     anum?: string;
-    total_amount?: string;
     number_of_rounds?: string;
     record_id?: string;
-    stage: FundraisingRound;
+    stage: FundraisingRound | string;
+    posts?: string[];
     date: Date;
   }[];
+  investors?: any[];
+  _sync?: any[];
 }
 
 export const _company: Company = {

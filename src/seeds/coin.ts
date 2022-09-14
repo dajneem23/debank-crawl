@@ -109,72 +109,6 @@ export const CoinSeed = async () => {
         created_by: 'admin',
       };
     }),
-    // .map(async (item: any) => {
-    //   return {
-    //     ...item,
-    //     categories: await Promise.all(
-    //       item.categories.map(async (_category: any): Promise<any> => {
-    //         return (
-    //           categories.find((category) => {
-    //             return (
-    //               category.title.toLowerCase() == _category.toLowerCase() ||
-    //               category.title.toLowerCase().includes(_category.toLowerCase()) ||
-    //               _category.toLowerCase().includes(category.title.toLowerCase())
-    //             );
-    //           })?._id ||
-    //           (
-    //             await db.collection('categories').findOneAndUpdate(
-    //               {
-    //                 name: {
-    //                   $regex: _category
-    //                     .toLowerCase()
-    //                     .match(/[a-zA-Z0-9_ ]+/g)
-    //                     .join('')
-    //                     .trim()
-    //                     .replace(' ', '_'),
-    //                   $options: 'i',
-    //                 },
-    //               },
-    //               {
-    //                 $setOnInsert: {
-    //                   title: _category,
-    //                   type: 'crypto',
-    //                   name: _category
-    //                     .toLowerCase()
-    //                     .match(/[a-zA-Z0-9_ ]+/g)
-    //                     .join('')
-    //                     .trim()
-    //                     .replace(' ', '_'),
-    //                   acronym: _category
-    //                     .toLowerCase()
-    //                     .match(/[a-zA-Z0-9_ ]+/g)
-    //                     .join('')
-    //                     .trim()
-    //                     .split(' ')
-    //                     .map((word: any, _: any, list: any) => {
-    //                       return list.length > 1 ? word[0] : list.slice(0, 1);
-    //                     })
-    //                     .join(''),
-    //                   trans: [],
-    //                   sub_categories: [],
-    //                   weight: Math.floor(Math.random() * 100),
-    //                   deleted: false,
-    //                   created_at: new Date(),
-    //                   updated_at: new Date(),
-    //                   created_by: 'admin',
-    //                 },
-    //               },
-    //               {
-    //                 upsert: true,
-    //                 returnDocument: 'after',
-    //               },
-    //             )
-    //           ).value._id
-    //         );
-    //       }),
-    //     ),
-    //   };
-    // }),
   );
   fs.writeFileSync(`${__dirname}/data/_coins.json`, JSON.stringify(coins));
   // coins = JSON.parse(JSON.stringify(coins).replace(/null/g, '""'));
@@ -183,6 +117,8 @@ export const CoinSeed = async () => {
 };
 export const insertCoins = async () => {
   const db = Container.get(DIMongoDB);
+  const count = await db.collection('coins').countDocuments();
+  if (count) return;
   const categories = await db.collection('categories').find({}).toArray();
   const coinsFinal = await Promise.all(
     JSON.parse(fs.readFileSync(`${__dirname}/data/_coins.json`, 'utf8') as any).map(async (item: any) => {
@@ -253,4 +189,5 @@ export const insertCoins = async () => {
     }),
   );
   await db.collection('coins').insertMany(coinsFinal);
+  console.log('Inserted coins', coinsFinal.length);
 };

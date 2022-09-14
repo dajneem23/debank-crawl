@@ -4,6 +4,7 @@ import mongoDBLoader from '@/loaders/mongoDBLoader';
 import fs from 'fs';
 import Container, { Inject, Service } from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
+/* eslint-disable no-console */
 export const FundSeed = async () => {
   const db = Container.get(DIMongoDB);
   const collection = db.collection('companies');
@@ -236,7 +237,9 @@ export const fundInvestment = async () => {
 
 export const insertFunds = async () => {
   const db = Container.get(DIMongoDB);
-  // const categories = await db.collection('categories').find({}).toArray();
-  const fundsFinal = fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any;
-  await db.collection('funds').insertMany(JSON.parse(fundsFinal));
+  const count = await db.collection('funds').countDocuments();
+  if (count) return;
+  const fundsFinal = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any);
+  await db.collection('funds').insertMany(fundsFinal);
+  console.log('funds inserted', fundsFinal.length);
 };

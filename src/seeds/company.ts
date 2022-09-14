@@ -562,132 +562,6 @@ export const CompanySeed = async () => {
 
         return {
           ...item,
-
-          // categories: await Promise.all(
-          //   item.categories.filter(Boolean).map(async (_category: any): Promise<any> => {
-          //     return (
-          //       categories.find((category) => {
-          //         return (
-          //           category.title.toLowerCase() == _category.toLowerCase() ||
-          //           category.title.toLowerCase().includes(_category.toLowerCase()) ||
-          //           _category.toLowerCase().includes(category.title.toLowerCase())
-          //         );
-          //       })?._id ||
-          //       (
-          //         await db.collection('categories').findOneAndUpdate(
-          //           {
-          //             name: {
-          //               $regex: _category
-          //                 .toLowerCase()
-          //                 .match(/[a-zA-Z0-9_ ]+/g)
-          //                 .join('')
-          //                 .trim()
-          //                 .replace(' ', '_'),
-          //               $options: 'i',
-          //             },
-          //           },
-          //           {
-          //             $setOnInsert: {
-          //               title: _category,
-          //               type: 'person',
-          //               name: _category
-          //                 .toLowerCase()
-          //                 .match(/[a-zA-Z0-9_ ]+/g)
-          //                 .join('')
-          //                 .trim()
-          //                 .replace(' ', '_'),
-          //               acronym: _category
-          //                 .toLowerCase()
-          //                 .match(/[a-zA-Z0-9_ ]+/g)
-          //                 .join('')
-          //                 .trim()
-          //                 .split(' ')
-          //                 .map((word: any, _: any, list: any) => {
-          //                   return list.length > 1 ? word[0] : list.slice(0, 1);
-          //                 })
-          //                 .join(''),
-          //               trans: [],
-          //               sub_categories: [],
-          //               weight: Math.floor(Math.random() * 100),
-          //               deleted: false,
-          //               created_at: new Date(),
-          //               updated_at: new Date(),
-          //               created_by: 'admin',
-          //             },
-          //           },
-          //           {
-          //             upsert: true,
-          //             returnDocument: 'after',
-          //           },
-          //         )
-          //       ).value._id
-          //     );
-          //   }),
-          // ),
-          // metadata: {
-          //   ...item.metadata,
-          //   storage: await Promise.all(
-          //     item.metadata?.storage?.map(async (storage: any) => {
-          //       return {
-          //         ...storage,
-          //         categories: await Promise.all(
-          //           storage.categories?.filter(Boolean)?.map(async (_category: any): Promise<any> => {
-          //             return (
-          //               categories.find((category) => {
-          //                 return (
-          //                   category.title.toLowerCase() == _category.toLowerCase() ||
-          //                   category.title.toLowerCase().includes(_category.toLowerCase()) ||
-          //                   _category.toLowerCase().includes(category.title.toLowerCase())
-          //                 );
-          //               })?._id ||
-          //               (
-          //                 await db.collection('categories').findOneAndUpdate(
-          //                   {
-          //                     name: {
-          //                       $regex: _category
-          //                         .toLowerCase()
-          //                         .match(/[a-zA-Z0-9_ ]+/g)
-          //                         .join('')
-          //                         .trim()
-          //                         .replace(' ', '_'),
-          //                       $options: 'i',
-          //                     },
-          //                   },
-          //                   {
-          //                     $setOnInsert: {
-          //                       title: _category,
-          //                       type: 'company',
-          //                       name: _category
-          //                         .toLowerCase()
-          //                         .match(/[a-zA-Z0-9_ ]+/g)
-          //                         .join('')
-          //                         .trim()
-          //                         .replace(' ', '_'),
-          //                       acronym: _category
-          //                         .toLowerCase()
-          //                         .match(/[a-zA-Z0-9_ ]+/g)
-          //                         .join('')
-          //                         .trim()
-          //                         .split(' ')
-          //                         .map((word: any, _: any, list: any) => {
-          //                           return list.length > 1 ? word[0] : list.slice(0, 1);
-          //                         })
-          //                         .join(''),
-          //                     },
-          //                   },
-          //                   {
-          //                     upsert: true,
-          //                     returnDocument: 'after',
-          //                   },
-          //                 )
-          //               ).value._id
-          //             );
-          //           }) || [],
-          //         ),
-          //       };
-          //     }) || [],
-          //   ),
-          // },
           total_investments: items.reduce((_total: any, _item: any) => {
             return (
               _total +
@@ -793,6 +667,8 @@ export const companyInvestment = async () => {
 };
 export const insertCompanies = async () => {
   const db = Container.get(DIMongoDB);
+  const count = await db.collection('companies').countDocuments();
+  if (count) return;
   const categories = await db.collection('categories').find({}).toArray();
   const companiesFinal = await Promise.all(
     JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any).map(
@@ -941,4 +817,5 @@ export const insertCompanies = async () => {
     ),
   );
   await db.collection('companies').insertMany(companiesFinal);
+  console.log('companies inserted', companiesFinal.length);
 };

@@ -58,3 +58,9 @@ Updating...
 # Deployment
 
 Updating....
+
+# User Test
+
+`email`: admin@gmail.com
+
+`password`: admin@1foxglobal!123

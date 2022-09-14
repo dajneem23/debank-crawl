@@ -3,7 +3,7 @@ import { CategorySeed } from './category';
 import { PersonSeed, personInvestment, insertPersons } from './person';
 import { ProductSeed, insertProducts } from './product';
 import { CompanySeed, companyInvestment, insertCompanies } from './company';
-import { CoinSeed } from './coin';
+import { CoinSeed, insertCoins } from './coin';
 import { UserSeed } from './user';
 import { FundSeed, fundInvestment, insertFunds } from './fund';
 (async () => {
@@ -24,7 +24,7 @@ import { FundSeed, fundInvestment, insertFunds } from './fund';
   // await insertPersons();
   // await insertCompanies();
   // await insertProducts();
-  await Promise.allSettled([insertCompanies(), insertProducts(), insertPersons(), insertFunds()]);
+  await Promise.allSettled([insertCompanies(), insertProducts(), insertPersons(), insertFunds(), insertCoins()]);
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

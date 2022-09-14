@@ -946,31 +946,13 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "query",
-    "url": "{{host}}/events/?country=LC",
+    "url": "{{host}}/events/",
     "method": "GET",
     "sortNum": 240000,
     "created": "2022-08-30T09:07:12.431Z",
-    "modified": "2022-08-30T09:07:12.431Z",
+    "modified": "2022-09-14T05:47:14.097Z",
     "headers": [],
-    "params": [
-      {
-        "name": "type",
-        "value": "offline",
-        "isDisabled": true,
-        "isPath": false
-      },
-      {
-        "name": "category",
-        "value": "6302ee4e8ff66b9d1f7fdd17",
-        "isDisabled": true,
-        "isPath": false
-      },
-      {
-        "name": "country",
-        "value": "LC",
-        "isPath": false
-      }
-    ],
+    "params": [],
     "tests": []
   },
   {

@@ -563,131 +563,131 @@ export const CompanySeed = async () => {
         return {
           ...item,
 
-          categories: await Promise.all(
-            item.categories.filter(Boolean).map(async (_category: any): Promise<any> => {
-              return (
-                categories.find((category) => {
-                  return (
-                    category.title.toLowerCase() == _category.toLowerCase() ||
-                    category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                    _category.toLowerCase().includes(category.title.toLowerCase())
-                  );
-                })?._id ||
-                (
-                  await db.collection('categories').findOneAndUpdate(
-                    {
-                      name: {
-                        $regex: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replace(' ', '_'),
-                        $options: 'i',
-                      },
-                    },
-                    {
-                      $setOnInsert: {
-                        title: _category,
-                        type: 'person',
-                        name: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replace(' ', '_'),
-                        acronym: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .split(' ')
-                          .map((word: any, _: any, list: any) => {
-                            return list.length > 1 ? word[0] : list.slice(0, 1);
-                          })
-                          .join(''),
-                        trans: [],
-                        sub_categories: [],
-                        weight: Math.floor(Math.random() * 100),
-                        deleted: false,
-                        created_at: new Date(),
-                        updated_at: new Date(),
-                        created_by: 'admin',
-                      },
-                    },
-                    {
-                      upsert: true,
-                      returnDocument: 'after',
-                    },
-                  )
-                ).value._id
-              );
-            }),
-          ),
-          metadata: {
-            ...item.metadata,
-            storage: await Promise.all(
-              item.metadata?.storage?.map(async (storage: any) => {
-                return {
-                  ...storage,
-                  categories: await Promise.all(
-                    storage.categories?.filter(Boolean)?.map(async (_category: any): Promise<any> => {
-                      return (
-                        categories.find((category) => {
-                          return (
-                            category.title.toLowerCase() == _category.toLowerCase() ||
-                            category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                            _category.toLowerCase().includes(category.title.toLowerCase())
-                          );
-                        })?._id ||
-                        (
-                          await db.collection('categories').findOneAndUpdate(
-                            {
-                              name: {
-                                $regex: _category
-                                  .toLowerCase()
-                                  .match(/[a-zA-Z0-9_ ]+/g)
-                                  .join('')
-                                  .trim()
-                                  .replace(' ', '_'),
-                                $options: 'i',
-                              },
-                            },
-                            {
-                              $setOnInsert: {
-                                title: _category,
-                                type: 'company',
-                                name: _category
-                                  .toLowerCase()
-                                  .match(/[a-zA-Z0-9_ ]+/g)
-                                  .join('')
-                                  .trim()
-                                  .replace(' ', '_'),
-                                acronym: _category
-                                  .toLowerCase()
-                                  .match(/[a-zA-Z0-9_ ]+/g)
-                                  .join('')
-                                  .trim()
-                                  .split(' ')
-                                  .map((word: any, _: any, list: any) => {
-                                    return list.length > 1 ? word[0] : list.slice(0, 1);
-                                  })
-                                  .join(''),
-                              },
-                            },
-                            {
-                              upsert: true,
-                              returnDocument: 'after',
-                            },
-                          )
-                        ).value._id
-                      );
-                    }) || [],
-                  ),
-                };
-              }) || [],
-            ),
-          },
+          // categories: await Promise.all(
+          //   item.categories.filter(Boolean).map(async (_category: any): Promise<any> => {
+          //     return (
+          //       categories.find((category) => {
+          //         return (
+          //           category.title.toLowerCase() == _category.toLowerCase() ||
+          //           category.title.toLowerCase().includes(_category.toLowerCase()) ||
+          //           _category.toLowerCase().includes(category.title.toLowerCase())
+          //         );
+          //       })?._id ||
+          //       (
+          //         await db.collection('categories').findOneAndUpdate(
+          //           {
+          //             name: {
+          //               $regex: _category
+          //                 .toLowerCase()
+          //                 .match(/[a-zA-Z0-9_ ]+/g)
+          //                 .join('')
+          //                 .trim()
+          //                 .replace(' ', '_'),
+          //               $options: 'i',
+          //             },
+          //           },
+          //           {
+          //             $setOnInsert: {
+          //               title: _category,
+          //               type: 'person',
+          //               name: _category
+          //                 .toLowerCase()
+          //                 .match(/[a-zA-Z0-9_ ]+/g)
+          //                 .join('')
+          //                 .trim()
+          //                 .replace(' ', '_'),
+          //               acronym: _category
+          //                 .toLowerCase()
+          //                 .match(/[a-zA-Z0-9_ ]+/g)
+          //                 .join('')
+          //                 .trim()
+          //                 .split(' ')
+          //                 .map((word: any, _: any, list: any) => {
+          //                   return list.length > 1 ? word[0] : list.slice(0, 1);
+          //                 })
+          //                 .join(''),
+          //               trans: [],
+          //               sub_categories: [],
+          //               weight: Math.floor(Math.random() * 100),
+          //               deleted: false,
+          //               created_at: new Date(),
+          //               updated_at: new Date(),
+          //               created_by: 'admin',
+          //             },
+          //           },
+          //           {
+          //             upsert: true,
+          //             returnDocument: 'after',
+          //           },
+          //         )
+          //       ).value._id
+          //     );
+          //   }),
+          // ),
+          // metadata: {
+          //   ...item.metadata,
+          //   storage: await Promise.all(
+          //     item.metadata?.storage?.map(async (storage: any) => {
+          //       return {
+          //         ...storage,
+          //         categories: await Promise.all(
+          //           storage.categories?.filter(Boolean)?.map(async (_category: any): Promise<any> => {
+          //             return (
+          //               categories.find((category) => {
+          //                 return (
+          //                   category.title.toLowerCase() == _category.toLowerCase() ||
+          //                   category.title.toLowerCase().includes(_category.toLowerCase()) ||
+          //                   _category.toLowerCase().includes(category.title.toLowerCase())
+          //                 );
+          //               })?._id ||
+          //               (
+          //                 await db.collection('categories').findOneAndUpdate(
+          //                   {
+          //                     name: {
+          //                       $regex: _category
+          //                         .toLowerCase()
+          //                         .match(/[a-zA-Z0-9_ ]+/g)
+          //                         .join('')
+          //                         .trim()
+          //                         .replace(' ', '_'),
+          //                       $options: 'i',
+          //                     },
+          //                   },
+          //                   {
+          //                     $setOnInsert: {
+          //                       title: _category,
+          //                       type: 'company',
+          //                       name: _category
+          //                         .toLowerCase()
+          //                         .match(/[a-zA-Z0-9_ ]+/g)
+          //                         .join('')
+          //                         .trim()
+          //                         .replace(' ', '_'),
+          //                       acronym: _category
+          //                         .toLowerCase()
+          //                         .match(/[a-zA-Z0-9_ ]+/g)
+          //                         .join('')
+          //                         .trim()
+          //                         .split(' ')
+          //                         .map((word: any, _: any, list: any) => {
+          //                           return list.length > 1 ? word[0] : list.slice(0, 1);
+          //                         })
+          //                         .join(''),
+          //                     },
+          //                   },
+          //                   {
+          //                     upsert: true,
+          //                     returnDocument: 'after',
+          //                   },
+          //                 )
+          //               ).value._id
+          //             );
+          //           }) || [],
+          //         ),
+          //       };
+          //     }) || [],
+          //   ),
+          // },
           total_investments: items.reduce((_total: any, _item: any) => {
             return (
               _total +
@@ -729,7 +729,216 @@ export const CompanySeed = async () => {
   //   JSON.stringify(airtableCompanies).replace(/null/g, '""'),
   // );
   // fs.writeFileSync(`${__dirname}/data/companies.json`, JSON.stringify(companies).replace(/null/g, '""'));
-  // fs.writeFileSync(`${__dirname}/data/companies_final.json`, JSON.stringify(companies_final));
+  fs.writeFileSync(`${__dirname}/data/companies_final.json`, JSON.stringify(companies_final));
   // await db.collection('companies').insertMany(companies_final);
-  return companies_final;
+  // return companies_final;
+};
+export const companyInvestment = async () => {
+  const db = Container.get(DIMongoDB);
+  const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any);
+  const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any);
+  const companiesFinal = (companies as any).map(({ foreign_id, foreign_ids = [], name, ...rest }: any) => {
+    const investments = [
+      ...(funds as any)
+        .filter(
+          ({ investors = [], ...rest }: any) =>
+            investors.some(
+              ({ foreign_id: investor_id, name: investor_name }: any) =>
+                investor_id == foreign_id ||
+                foreign_ids.includes(investor_id) ||
+                name
+                  .toLowerCase()
+                  .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
+            ) && rest.foreign_id,
+        )
+        .map(({ foreign_id, name }: any) => ({
+          foreign_id,
+          name,
+          type: 'funds',
+        }))
+        .filter((_item: any, index: any, items: any) => {
+          return index == items.findIndex((item: any) => item.foreign_id == _item.foreign_id);
+        }),
+      ...(companies as any)
+        .filter(
+          ({ investors = [], ...rest }: any) =>
+            investors.some(
+              ({ foreign_id: investor_id, name: investor_name }: any) =>
+                investor_id == foreign_id ||
+                foreign_ids.includes(investor_id) ||
+                name
+                  .toLowerCase()
+                  .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
+            ) && rest.foreign_id,
+        )
+        .map(({ foreign_id, name: investor_name }: any) => ({
+          foreign_id,
+          name: investor_name,
+          type: 'company',
+        }))
+        .filter((_item: any, index: any, items: any) => {
+          return index == items.findIndex((item: any) => item.foreign_id == _item.foreign_id);
+        }),
+    ];
+
+    return {
+      name,
+      ...rest,
+      foreign_id,
+      investments,
+      total_investments: investments.length,
+    };
+  });
+  fs.writeFileSync(`${__dirname}/data/_companies.json`, JSON.stringify(companiesFinal));
+};
+export const insertCompanies = async () => {
+  const db = Container.get(DIMongoDB);
+  const categories = await db.collection('categories').find({}).toArray();
+  const companiesFinal = await Promise.all(
+    JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any).map(
+      async (item: any, index: any, items: any[]) => {
+        return {
+          ...item,
+          categories: await Promise.all(
+            item.categories
+              .filter(Boolean)
+              .filter(
+                (item: any, index: any, items: any) =>
+                  items.findIndex((item2: any) => item2.toLowerCase() == item.toLowerCase()) == index,
+              )
+              .map(async (_category: any): Promise<any> => {
+                return (
+                  categories.find((category) => {
+                    return (
+                      category.title.toLowerCase() == _category.toLowerCase() ||
+                      category.title.toLowerCase().includes(_category.toLowerCase()) ||
+                      _category.toLowerCase().includes(category.title.toLowerCase())
+                    );
+                  })?._id ||
+                  (
+                    await db.collection('categories').findOneAndUpdate(
+                      {
+                        name: {
+                          $regex: _category
+                            .toLowerCase()
+                            .match(/[a-zA-Z0-9_ ]+/g)
+                            .join('')
+                            .trim()
+                            .replace(' ', '_'),
+                          $options: 'i',
+                        },
+                      },
+                      {
+                        $setOnInsert: {
+                          title: _category,
+                          type: 'person',
+                          name: _category
+                            .toLowerCase()
+                            .match(/[a-zA-Z0-9_ ]+/g)
+                            .join('')
+                            .trim()
+                            .replace(' ', '_'),
+                          acronym: _category
+                            .toLowerCase()
+                            .match(/[a-zA-Z0-9_ ]+/g)
+                            .join('')
+                            .trim()
+                            .split(' ')
+                            .map((word: any, _: any, list: any) => {
+                              return list.length > 1 ? word[0] : list.slice(0, 1);
+                            })
+                            .join(''),
+                          trans: [],
+                          sub_categories: [],
+                          weight: Math.floor(Math.random() * 100),
+                          deleted: false,
+                          created_at: new Date(),
+                          updated_at: new Date(),
+                          created_by: 'admin',
+                        },
+                      },
+                      {
+                        upsert: true,
+                        returnDocument: 'after',
+                      },
+                    )
+                  ).value._id
+                );
+              }),
+          ),
+          metadata: {
+            ...item.metadata,
+            storage: await Promise.all(
+              item.metadata?.storage?.map(async (storage: any) => {
+                return {
+                  ...storage,
+                  categories: await Promise.all(
+                    storage.categories
+                      ?.filter(Boolean)
+                      .filter(
+                        (item: any, index: any, items: any) =>
+                          items.findIndex((item2: any) => item2.toLowerCase() == item.toLowerCase()) == index,
+                      )
+                      .map(async (_category: any): Promise<any> => {
+                        return (
+                          categories.find((category) => {
+                            return (
+                              category.title.toLowerCase() == _category.toLowerCase() ||
+                              category.title.toLowerCase().includes(_category.toLowerCase()) ||
+                              _category.toLowerCase().includes(category.title.toLowerCase())
+                            );
+                          })?._id ||
+                          (
+                            await db.collection('categories').findOneAndUpdate(
+                              {
+                                name: {
+                                  $regex: _category
+                                    .toLowerCase()
+                                    .match(/[a-zA-Z0-9_ ]+/g)
+                                    .join('')
+                                    .trim()
+                                    .replace(' ', '_'),
+                                  $options: 'i',
+                                },
+                              },
+                              {
+                                $setOnInsert: {
+                                  title: _category,
+                                  type: 'company',
+                                  name: _category
+                                    .toLowerCase()
+                                    .match(/[a-zA-Z0-9_ ]+/g)
+                                    .join('')
+                                    .trim()
+                                    .replace(' ', '_'),
+                                  acronym: _category
+                                    .toLowerCase()
+                                    .match(/[a-zA-Z0-9_ ]+/g)
+                                    .join('')
+                                    .trim()
+                                    .split(' ')
+                                    .map((word: any, _: any, list: any) => {
+                                      return list.length > 1 ? word[0] : list.slice(0, 1);
+                                    })
+                                    .join(''),
+                                },
+                              },
+                              {
+                                upsert: true,
+                                returnDocument: 'after',
+                              },
+                            )
+                          ).value._id
+                        );
+                      }) || [],
+                  ),
+                };
+              }) || [],
+            ),
+          },
+        };
+      },
+    ),
+  );
+  await db.collection('companies').insertMany(companiesFinal);
 };

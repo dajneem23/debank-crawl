@@ -51,10 +51,10 @@ export const FundSeed = async () => {
             round_name,
             stage,
             cryptocurrencies,
-            partners: partners.map((partner: any) => {
+            partners: partners.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
               return {
-                name: partner.foreignRowDisplayName,
-                foreign_id: partner.foreignRowId,
+                name,
+                foreign_id,
               };
             }),
             posts: [post],
@@ -192,7 +192,51 @@ export const FundSeed = async () => {
         };
       },
     );
-  // fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds));
+  fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds));
   // await db.collection('funds').insertMany(funds);
   return funds;
+};
+export const fundInvestment = async () => {
+  const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any);
+  const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any);
+  const db = Container.get(DIMongoDB);
+  const fundsFinal = funds.map(({ foreign_id, foreign_ids = [], name, ...rest }: any) => {
+    const investments = [
+      ...(companies as any)
+        .filter(
+          ({ investors = [], ...rest }: any) =>
+            investors.some(
+              ({ foreign_id: investor_id, name: investor_name }: any) =>
+                investor_id == foreign_id ||
+                foreign_ids.includes(investor_id) ||
+                name
+                  .toLowerCase()
+                  .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
+            ) && rest.foreign_id,
+        )
+        .map(({ foreign_id, name: investor_name }: any) => ({
+          foreign_id,
+          name: investor_name,
+          type: 'company',
+        }))
+        .filter((_item: any, index: any, items: any) => {
+          return index == items.findIndex((item: any) => item.foreign_id == _item.foreign_id);
+        }),
+    ];
+    return {
+      name,
+      ...rest,
+      foreign_id,
+      investments,
+      total_investments: investments.length,
+    };
+  });
+  fs.writeFileSync(`${__dirname}/data/_funds.json`, JSON.stringify(fundsFinal));
+};
+
+export const insertFunds = async () => {
+  const db = Container.get(DIMongoDB);
+  // const categories = await db.collection('categories').find({}).toArray();
+  const fundsFinal = fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any;
+  await db.collection('funds').insertMany(JSON.parse(fundsFinal));
 };

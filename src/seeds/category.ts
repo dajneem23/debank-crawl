@@ -214,6 +214,6 @@ export const CategorySeed = async () => {
       }),
   );
   console.log('Inserting categories', uniqueCategories.length);
-  fs.writeFileSync(`${__dirname}/data/categories_final.json`, JSON.stringify(uniqueCategories).replace(/null/g, '""'));
+  // fs.writeFileSync(`${__dirname}/data/categories_final.json`, JSON.stringify(uniqueCategories).replace(/null/g, '""'));
   await collection.insertMany(uniqueCategories);
 };

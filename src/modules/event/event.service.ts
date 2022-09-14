@@ -433,7 +433,7 @@ export class EventService {
       const eventFilter: Filter<any> = {
         ...otherFilter,
         ...categoryFilter,
-        start_date: { $gte: new Date() },
+        // start_date: { $gte: new Date() },
         ...(q && {
           $or: [{ name: { $regex: q, $options: 'i' } }],
         }),

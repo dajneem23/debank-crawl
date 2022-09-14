@@ -8,7 +8,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-08-30T09:07:12.392Z",
-    "modified": "2022-09-13T02:46:17.890Z",
+    "modified": "2022-09-13T09:19:32.326Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -18,7 +18,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"event6132312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"631f0155eff31dd0028f90e9\"\n        \n    ],\n    \"speakers\":[\n        \"631f0174f9792ec5eca6476f\"\n        ],\n    \"country\": \"KW\",\n    \"location\":{\n        \"x\":123,\n        \"y\":321\n    },\n    \"banners\":[\n        \"https://scontent.fsgn4-1.fna.fbcdn.net/v/t45.5328-4/266912006_7004962392907601_7058505901429689231_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c48759&_nc_ohc=2twX-VL8EkIAX-4Si3e&_nc_ht=scontent.fsgn4-1.fna&oh=00_AT9wjNhgQJO6nPHD_5syB-ypgiq9lzFlWtfIAwi8z3j8PA&oe=630ACDBF\"\n    ]\n}",
+      "raw": "{\n    \"name\": \"event6132312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n\n  \n    \"type\": \"offline\",\n    \"categories\": [\n        \"632030caeff31dd00290727b\"\n        \n    ],\n    \"speakers\":[\n        \"63203ea598573a11099f7c2b\"\n        ],\n    \"country\": \"KW\",\n    \"location\":{\n        \"x\":123,\n        \"y\":321\n    },\n    \"banners\":[\n        \"https://scontent.fsgn4-1.fna.fbcdn.net/v/t45.5328-4/266912006_7004962392907601_7058505901429689231_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c48759&_nc_ohc=2twX-VL8EkIAX-4Si3e&_nc_ht=scontent.fsgn4-1.fna&oh=00_AT9wjNhgQJO6nPHD_5syB-ypgiq9lzFlWtfIAwi8z3j8PA&oe=630ACDBF\"\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -213,12 +213,12 @@
     "method": "POST",
     "sortNum": 80000,
     "created": "2022-08-30T09:07:12.400Z",
-    "modified": "2022-08-30T09:07:12.400Z",
+    "modified": "2022-09-13T07:30:26.628Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"username\":\"admin@gmail.com\",\n    \"password\":\"admin\"\n}",
+      "raw": "{\n    \"username\":\"admin@gmail.com\",\n    \"password\":\"admin@1foxglobal!123\"\n}",
       "form": []
     },
     "auth": {
@@ -1005,12 +1005,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-30T09:07:12.433Z",
-    "modified": "2022-09-13T02:49:36.455Z",
+    "modified": "2022-09-13T09:20:04.716Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [\"631fef96eff31dd002903f4a\"],\n    \"coin_tags\": [\"631f0182f9792ec5eca6520b\"],\n    \"product_tags\": [\"631f0169f9792ec5eca646d5\"],\n    \"person_tags\": [\"631f0174f9792ec5eca6476f\"],\n    \"event_tags\": [\"631feef9c90f3d5a2017b6ba\"],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
+      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [\"63203206ca6dba38a9fb44d4\"],\n    \"coin_tags\": [\"6320319fca6dba38a9fb3c98\"],\n    \"product_tags\": [\"6320319eca6dba38a9fb3bfe\"],\n    \"person_tags\": [\"63203ea598573a11099f7c2b\"],\n    \"event_tags\": [\"63204b244b91004a94852f65\"],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {

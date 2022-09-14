@@ -344,3 +344,17 @@ export type FundraisingRoundDetail = {
   posts?: string[];
   date: Date;
 };
+
+export type COLLECTION_NAMES =
+  | 'events'
+  | 'companies'
+  | 'persons'
+  | 'news'
+  | 'products'
+  | 'funds'
+  | 'users'
+  | 'categories'
+  | 'countries'
+  | 'auth-sessions'
+  | 'coins'
+  | 'verification-tokens';

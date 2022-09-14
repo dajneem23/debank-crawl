@@ -16,7 +16,7 @@ import { CommonError, errors } from '@/core/errors/CommonError';
 import { throwErr } from '@/utils/common';
 import { $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
 import { $refValidation } from '@/utils/validation';
-import { T } from '@/types';
+import { COLLECTION_NAMES, T } from '@/types';
 
 /**
  * @class BaseModel
@@ -25,7 +25,7 @@ import { T } from '@/types';
 export class BaseModel {
   readonly _collection: Collection;
 
-  readonly _collectionName: string;
+  readonly _collectionName: COLLECTION_NAMES;
 
   readonly _keys: (string | number | symbol)[];
 
@@ -46,7 +46,7 @@ export class BaseModel {
     _keys,
     indexes,
   }: {
-    collectionName: string;
+    collectionName: COLLECTION_NAMES;
     _keys: string[];
     indexes: {
       field: {
@@ -105,18 +105,24 @@ export class BaseModel {
         person_tags = [],
         coin_tags = [],
       } = _content;
-      categories.length && (await $refValidation({ collection: 'categories', list: $toObjectId(categories) }));
-      categories.length && (_content.categories = $toObjectId(categories));
-      event_tags.length && (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) }));
-      event_tags.length && (_content.event_tags = $toObjectId(event_tags));
-      product_tags.length && (await $refValidation({ collection: 'products', list: $toObjectId(product_tags) }));
-      product_tags.length && (_content.product_tags = $toObjectId(product_tags));
-      company_tags.length && (await $refValidation({ collection: 'companies', list: $toObjectId(company_tags) }));
-      company_tags.length && (_content.company_tags = $toObjectId(company_tags));
-      person_tags.length && (await $refValidation({ collection: 'persons', list: $toObjectId(person_tags) }));
-      person_tags.length && (_content.person_tags = $toObjectId(person_tags));
-      coin_tags.length && (await $refValidation({ collection: 'coins', list: $toObjectId(coin_tags) }));
-      coin_tags.length && (_content.coin_tags = $toObjectId(coin_tags));
+      categories.length &&
+        (await $refValidation({ collection: 'categories', list: $toObjectId(categories) })) &&
+        (_content.categories = $toObjectId(categories));
+      event_tags.length &&
+        (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) })) &&
+        (_content.event_tags = $toObjectId(event_tags));
+      product_tags.length &&
+        (await $refValidation({ collection: 'products', list: $toObjectId(product_tags) })) &&
+        (_content.product_tags = $toObjectId(product_tags));
+      company_tags.length &&
+        (await $refValidation({ collection: 'companies', list: $toObjectId(company_tags) })) &&
+        (_content.company_tags = $toObjectId(company_tags));
+      person_tags.length &&
+        (await $refValidation({ collection: 'persons', list: $toObjectId(person_tags) })) &&
+        (_content.person_tags = $toObjectId(person_tags));
+      coin_tags.length &&
+        (await $refValidation({ collection: 'coins', list: $toObjectId(coin_tags) })) &&
+        (_content.coin_tags = $toObjectId(coin_tags));
 
       const {
         value,
@@ -173,19 +179,24 @@ export class BaseModel {
         person_tags = [],
         coin_tags = [],
       } = _content;
-      categories.length && (await $refValidation({ collection: 'categories', list: $toObjectId(categories) }));
-      categories.length && (_content.categories = $toObjectId(categories));
-      event_tags.length && (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) }));
-      event_tags.length && (_content.event_tags = $toObjectId(event_tags));
-      product_tags.length && (await $refValidation({ collection: 'products', list: $toObjectId(product_tags) }));
-      product_tags.length && (_content.product_tags = $toObjectId(product_tags));
-      company_tags.length && (await $refValidation({ collection: 'companies', list: $toObjectId(company_tags) }));
-      company_tags.length && (_content.company_tags = $toObjectId(company_tags));
-      person_tags.length && (await $refValidation({ collection: 'persons', list: $toObjectId(person_tags) }));
-      person_tags.length && (_content.person_tags = $toObjectId(person_tags));
-      coin_tags.length && (await $refValidation({ collection: 'coins', list: $toObjectId(coin_tags) }));
-      coin_tags.length && (_content.coin_tags = $toObjectId(coin_tags));
-
+      categories.length &&
+        (await $refValidation({ collection: 'categories', list: $toObjectId(categories) })) &&
+        (_content.categories = $toObjectId(categories));
+      event_tags.length &&
+        (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) })) &&
+        (_content.event_tags = $toObjectId(event_tags));
+      product_tags.length &&
+        (await $refValidation({ collection: 'products', list: $toObjectId(product_tags) })) &&
+        (_content.product_tags = $toObjectId(product_tags));
+      company_tags.length &&
+        (await $refValidation({ collection: 'companies', list: $toObjectId(company_tags) })) &&
+        (_content.company_tags = $toObjectId(company_tags));
+      person_tags.length &&
+        (await $refValidation({ collection: 'persons', list: $toObjectId(person_tags) })) &&
+        (_content.person_tags = $toObjectId(person_tags));
+      coin_tags.length &&
+        (await $refValidation({ collection: 'coins', list: $toObjectId(coin_tags) })) &&
+        (_content.coin_tags = $toObjectId(coin_tags));
       const {
         value,
         ok,

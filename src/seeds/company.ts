@@ -1,5 +1,4 @@
-import mongoDBLoader from '@/loaders/mongoDBLoader';
-import { $toObjectId, $countCollection } from '@/utils/mongoDB';
+import { $countCollection } from '@/utils/mongoDB';
 import companiesFile from '../data/crypto_slate/json/companies.json';
 import cryptoCompaniesFile from '../data/airtable/Crypto Companies.json';
 import fundraisingRoundsFile from '../data/airtable/Fundraising Rounds - Companies.json';
@@ -7,6 +6,8 @@ import InvestorAirtable from '../data/airtable/investor.json';
 import AngelInvestorAirtable from '../data/airtable/Angel Investors.json';
 import fs from 'fs';
 import { createDataFile, readDataFromFile } from './utils';
+import Container from 'typedi';
+import { DIMongoDB } from '@/loaders/mongoDBLoader';
 /* eslint-disable no-console */
 export const CompanySeed = async () => {
   createDataFile({
@@ -14,11 +15,11 @@ export const CompanySeed = async () => {
     _file: companiesFile,
     _key: 'name',
   });
-  const db = await mongoDBLoader();
+  const db = Container.get(DIMongoDB);
   const collection = db.collection('companies');
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  if (count) return;
+  // if (count) return;
   const companies = readDataFromFile({ _collection: 'companies' }).map((_company: any) => {
     return {
       name:
@@ -236,7 +237,7 @@ export const CompanySeed = async () => {
             .reduce((acc: any, current: any) => {
               if (acc.some((item: any) => item.name === current.name)) {
                 const item = acc.find((item: any) => item.name === current.name);
-                item.rounds = [...item.rounds, current.round_id];
+                item.rounds = [...new Set([...item.rounds, current.round_id])];
                 return acc;
               }
               return [...acc, current];
@@ -286,7 +287,7 @@ export const CompanySeed = async () => {
               .reduce((acc: any, current: any) => {
                 if (acc.some((item: any) => item.name === current.name) && current.round_id) {
                   const item = acc.find((item: any) => item.name === current.name);
-                  item.rounds = [...item.rounds, current.round_id];
+                  item.rounds = [...new Set([...item.rounds, current.round_id])];
                   return acc;
                 }
                 return [...acc, current];
@@ -299,8 +300,12 @@ export const CompanySeed = async () => {
             };
           }),
           fundraising_rounds: fundraising_rounds.map((item: any) => {
-            const { categories, ...rest } = item;
+            const { categories, projects, ...rest } = item;
             return rest;
+          }),
+          projects: fundraising_rounds.map((item: any) => {
+            const { categories, projects = [], ...rest } = item;
+            return projects;
           }),
           categories: fundraising_rounds
             .map((item: any) => {
@@ -557,6 +562,7 @@ export const CompanySeed = async () => {
 
         return {
           ...item,
+
           categories: await Promise.all(
             item.categories.filter(Boolean).map(async (_category: any): Promise<any> => {
               return (
@@ -703,6 +709,7 @@ export const CompanySeed = async () => {
               ),
             ];
           }, []),
+          investor_ids: item.investors.map(({ foreign_id }: any) => foreign_id),
           foreign_ids,
         };
       }),
@@ -723,5 +730,6 @@ export const CompanySeed = async () => {
   // );
   // fs.writeFileSync(`${__dirname}/data/companies.json`, JSON.stringify(companies).replace(/null/g, '""'));
   // fs.writeFileSync(`${__dirname}/data/companies_final.json`, JSON.stringify(companies_final));
-  await db.collection('companies').insertMany(companies_final);
+  // await db.collection('companies').insertMany(companies_final);
+  return companies_final;
 };

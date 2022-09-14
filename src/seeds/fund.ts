@@ -2,61 +2,84 @@ import Funds from '../data/airtable/Fundraising Rounds - Funds.json';
 import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 import mongoDBLoader from '@/loaders/mongoDBLoader';
 import fs from 'fs';
-
+import Container, { Inject, Service } from 'typedi';
+import { DIMongoDB } from '@/loaders/mongoDBLoader';
 export const FundSeed = async () => {
-  const db = await mongoDBLoader();
-  const collection = db.collection('funds');
+  const db = Container.get(DIMongoDB);
+  const collection = db.collection('companies');
   const companies = db.collection('companies').find().toArray();
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
   // if (count) return;
   const funds = Object.values(
     (Funds as any).data.rows
-      .map((fund: any) => {
-        const {
+      .map(
+        ({
           id,
           cellValuesByColumnId: {
             fldH3vfWCGhZQoTT0: round_name,
             fldsJXOoeuQ9iQpcM: partners = [],
-            fldxtL1WFCMMgh5aR: firms = [],
+            fldxtL1WFCMMgh5aR: _firms = [],
             flddZlypzkh4Bv8VM: stage,
             fldeTAeeyCI1aQZA0: amount = 0,
             fldfKdIjZ6u7Zh8Yd: post = '',
             fld6UwhGKLL1xyj7O: { valuesByForeignRowId: _avatars } = {
               valuesByForeignRowId: {},
             },
+            fldECcA5loIImcT24: investors = [],
+            fldaYeGmxIHw8htGV: AngelInvestors = [],
             cryptocurrencies = [],
           },
-        } = fund;
-        const avatars = Object.values(_avatars as any[]).flatMap((avatar: any) => {
-          return avatar.map((avatar: any) => {
-            return avatar.url;
+        }: any) => {
+          const avatars = Object.values(_avatars as any[]).flatMap((avatar: any) => {
+            return avatar.map(({ url }: any) => {
+              return url;
+            });
           });
-        });
-        return {
-          id,
-          name: round_name.replace(stage, '').replace('-', '').trim(),
-          avatars,
-          avatar: avatars[0],
-          round_name,
-          stage,
-          cryptocurrencies,
-          partners: partners.map((partner: any) => {
+          const firms = _firms.map(({ foreignRowId: foreign_id, foreignRowDisplayName: name }: any) => {
             return {
-              name: partner.foreignRowDisplayName,
-              foreign_id: partner.foreignRowId,
+              foreign_id,
+              name,
             };
-          }),
-          posts: [post],
-          amount,
-          firms: firms.map((firm: any) => {
-            return {
-              foreign_id: firm.foreignRowId,
-              name: firm.foreignRowDisplayName,
-            };
-          }),
-        };
-      })
+          });
+          const firm_ids = firms.map((firm: any) => firm.foreign_id);
+          return {
+            id,
+            name: round_name.replace(stage, '').replace('-', '').trim(),
+            avatars,
+            avatar: avatars[0],
+            round_name,
+            stage,
+            cryptocurrencies,
+            partners: partners.map((partner: any) => {
+              return {
+                name: partner.foreignRowDisplayName,
+                foreign_id: partner.foreignRowId,
+              };
+            }),
+            posts: [post],
+            amount,
+            firms,
+            firm_ids,
+            investors: [
+              ...(investors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
+                return {
+                  name,
+                  foreign_id,
+                  type: 'Investor',
+                };
+              }) || []),
+              ...(AngelInvestors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
+                return {
+                  name,
+                  foreign_id,
+                  type: 'Angel Investor',
+                };
+              }) || []),
+            ],
+          };
+        },
+      )
       .reduce((acc: any, fund: any) => {
         if (!acc[fund.name]) {
           const { partners, firms, cryptocurrencies, fundraising_rounds = [], amount = 0, ...rest } = fund;
@@ -105,8 +128,7 @@ export const FundSeed = async () => {
         return acc;
       }, {}),
   )
-    .map((fund: any) => {
-      const { partners, categories = [], firms, ...rest } = fund;
+    .map(({ partners, categories = [], firms, ...rest }: any) => {
       return {
         ...rest,
         categories,
@@ -147,7 +169,7 @@ export const FundSeed = async () => {
         return {
           ...rest,
           foreign_id,
-          foreign_ids: firms.map((firm: any) => firm.foreign_id),
+          foreign_ids: firms.map(({ foreign_id }: any) => foreign_id),
           about,
           name,
           categories: [...new Set(categories)],
@@ -170,6 +192,7 @@ export const FundSeed = async () => {
         };
       },
     );
-  fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds));
+  // fs.writeFileSync(`${__dirname}/data/funds.json`, JSON.stringify(funds));
   // await db.collection('funds').insertMany(funds);
+  return funds;
 };

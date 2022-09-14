@@ -14,9 +14,11 @@ export const PersonSeed = async () => {
   const db = await mongoDBLoader();
   const collection = db.collection('persons');
   const count = await $countCollection({ collection });
-  const categories = await db.collection('categories').find({}).toArray();
 
-  if (count) return;
+  // if (count) return;
+  const categories = await db.collection('categories').find({}).toArray();
+  const companies = await db.collection('companies').find({}).toArray();
+  const funds = await db.collection('funds').find({}).toArray();
   createDataFile({
     _collection: 'persons',
     _file: peoplesFile,
@@ -183,7 +185,7 @@ export const PersonSeed = async () => {
         linkedin,
         company,
         email,
-        categories: ['investor'],
+        categories: ['Angel Investor'],
         type: 'persons',
       };
     })
@@ -312,8 +314,8 @@ export const PersonSeed = async () => {
         };
       }, {}),
     )
-      .map((item: any) => {
-        const {
+      .map(
+        ({
           foreign_id = null,
           need_review = false,
           reviewed = false,
@@ -341,41 +343,42 @@ export const PersonSeed = async () => {
           type,
           metadata = {},
           ...rest
-        } = item;
-        return {
-          ...rest,
-          foreign_id,
-          categories: [...new Set(categories)],
-          about,
-          short_description,
-          avatar,
-          linkedin,
-          twitter,
-          discord,
-          gitter,
-          medium,
-          bitcoin_talk,
-          facebook,
-          youtube,
-          blog,
-          github,
-          reddit,
-          explorer,
-          stack_exchange,
-          educations,
-          works,
-          location,
-          email,
-          metadata,
-          reviewed,
-          need_review,
-          trans: [] as any,
-          deleted: false,
-          created_at: new Date(),
-          updated_at: new Date(),
-          created_by: 'admin',
-        };
-      })
+        }: any) => {
+          return {
+            ...rest,
+            foreign_id,
+            categories: [...new Set(categories)],
+            about,
+            short_description,
+            avatar,
+            linkedin,
+            twitter,
+            discord,
+            gitter,
+            medium,
+            bitcoin_talk,
+            facebook,
+            youtube,
+            blog,
+            github,
+            reddit,
+            explorer,
+            stack_exchange,
+            educations,
+            works,
+            location,
+            email,
+            metadata,
+            reviewed,
+            need_review,
+            trans: [] as any,
+            deleted: false,
+            created_at: new Date(),
+            updated_at: new Date(),
+            created_by: 'admin',
+          };
+        },
+      )
       .map(async (item: any, index, items: any[]) => {
         const foreign_ids = [
           ...new Set([
@@ -555,5 +558,6 @@ export const PersonSeed = async () => {
   // );
   // fs.writeFileSync(`${__dirname}/data/fund_founders.json`, JSON.stringify(fundfouders).replace(/null/g, '""'));
   // fs.writeFileSync(`${__dirname}/data/persons_final.json`, JSON.stringify(persons_final));
-  await db.collection('persons').insertMany(persons_final);
+  // await db.collection('persons').insertMany(persons_final);
+  return persons_final;
 };

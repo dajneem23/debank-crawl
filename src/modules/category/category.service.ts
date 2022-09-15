@@ -29,7 +29,7 @@ export class CategoryService {
   }
 
   get outputKeys() {
-    return keys<Category>();
+    return this.model._keys;
   }
 
   get publicOutputKeys() {
@@ -38,38 +38,7 @@ export class CategoryService {
   get transKeys() {
     return ['title', 'name'];
   }
-  get $lookups(): any {
-    return {
-      sub_categories: $lookup({
-        from: 'categories',
-        refFrom: '_id',
-        refTo: 'sub_categories',
-        select: 'title type',
-        reName: 'sub_categories',
-        operation: '$in',
-      }),
-    };
-  }
 
-  get $sets() {
-    return {
-      country: {
-        $set: {
-          country: { $first: '$country' },
-        },
-      },
-      author: {
-        $set: {
-          author: { $first: '$author' },
-        },
-      },
-      trans: {
-        $set: {
-          trans: { $first: '$trans' },
-        },
-      },
-    };
-  }
   /**
    * Generate ID
    */
@@ -196,7 +165,7 @@ export class CategoryService {
                 'trans.lang': { $eq: lang },
               }),
             },
-            $lookups: [this.$lookups.sub_categories],
+            $lookups: [this.model.$lookups.sub_categories],
             $projects: [
               {
                 $project: {
@@ -214,7 +183,7 @@ export class CategoryService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -299,7 +268,7 @@ export class CategoryService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -315,69 +284,6 @@ export class CategoryService {
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('query_error', err.message);
-      throw err;
-    }
-  }
-
-  /**
-   * Search by text index
-   * @param {BaseServiceInput} _filter _query
-   * @returns
-   */
-  async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const { q, lang } = _filter;
-      const { page = 1, per_page = 10 } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
-          ...$pagination({
-            $match: {
-              deleted: false,
-              ...(q && {
-                $or: [
-                  { $text: { $search: q } },
-                  {
-                    name: { $regex: q, $options: 'i' },
-                  },
-                ],
-              }),
-              ...(lang && {
-                'trans.lang': { $eq: lang },
-              }),
-            },
-            $projects: [
-              {
-                $project: {
-                  ...$keysToProject(this.outputKeys),
-                  trans: {
-                    $filter: {
-                      input: '$trans',
-                      as: 'trans',
-                      cond: {
-                        $eq: ['$$trans.lang', lang],
-                      },
-                    },
-                  },
-                },
-              },
-            ],
-            $more: [
-              this.$sets.trans,
-              {
-                $project: {
-                  ...$keysToProject(this.outputKeys),
-                  ...(lang && $keysToProject(this.transKeys, '$trans')),
-                },
-              },
-            ],
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
-          }),
-        ])
-        .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
-    } catch (err) {
-      this.logger.error('[query:error]', err.message);
       throw err;
     }
   }

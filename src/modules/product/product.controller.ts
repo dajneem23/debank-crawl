@@ -52,7 +52,7 @@ export class ProductController {
     @Body()
     body: Product,
   ) {
-    const result = await this.service.delete({
+    await this.service.delete({
       _id: _params.id,
       _content: body,
       _subject: _auth.id,

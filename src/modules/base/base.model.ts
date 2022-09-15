@@ -58,6 +58,7 @@ export class BaseModel {
     company_tags: any;
     coin_tags: any;
     speakers: any;
+    sub_categories: any;
   } {
     return {
       products: $lookup({
@@ -172,12 +173,32 @@ export class BaseModel {
         reName: 'speakers',
         operation: '$in',
       }),
+      sub_categories: $lookup({
+        from: 'categories',
+        refFrom: '_id',
+        refTo: 'sub_categories',
+        select: 'title type',
+        reName: 'sub_categories',
+        operation: '$in',
+      }),
     };
   }
   get $sets(): {
-    country: any;
-    author: any;
-    trans: any;
+    country: {
+      $set: {
+        country: { $first: '$country' };
+      };
+    };
+    author: {
+      $set: {
+        author: { $first: '$author' };
+      };
+    };
+    trans: {
+      $set: {
+        trans: { $first: '$trans' };
+      };
+    };
   } {
     return {
       country: {

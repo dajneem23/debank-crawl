@@ -52,7 +52,7 @@ export class CompanyController {
     @Body()
     _body: Company,
   ) {
-    const result = await this.service.delete({
+    await this.service.delete({
       _id: _params.id,
       _content: _body,
       _subject: _auth.id,

@@ -1,7 +1,7 @@
-import Container, { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Coin, CoinService, coinServiceToken, CoinValidation } from '.';
+import { Coin, coinServiceToken, CoinValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
@@ -52,7 +52,7 @@ export class CoinController {
     @Body()
     body: Coin,
   ) {
-    const result = await this.service.delete({
+    await this.service.delete({
       _id: _params.id,
       _content: body,
       _subject: _auth.id,

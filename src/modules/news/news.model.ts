@@ -1,8 +1,4 @@
-import { Db } from 'mongodb';
-import { Inject, Service, Token } from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
-import { DILogger } from '@/loaders/loggerLoader';
-import Logger from '@/core/logger';
+import { Service, Token } from 'typedi';
 import { News } from './news.type';
 import { BaseModel } from '../base/base.model';
 import { keys } from 'ts-transformer-keys';

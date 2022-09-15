@@ -1,13 +1,12 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { News, NewsError, NewsModel, _news, newsErrors, newsModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
 import slugify from 'slugify';
-import { keys } from 'ts-transformer-keys';
 
 const TOKEN_NAME = '_newsService';
 export const NewsServiceToken = new Token<NewsService>(TOKEN_NAME);

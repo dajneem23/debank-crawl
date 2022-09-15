@@ -1,5 +1,4 @@
-import { Db } from 'mongodb';
-import { Inject, Service, Token } from 'typedi';
+import { Service, Token } from 'typedi';
 import { Company } from './company.type';
 import { keys } from 'ts-transformer-keys';
 import { BaseModel } from '../base/base.model';

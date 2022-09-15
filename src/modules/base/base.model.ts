@@ -234,9 +234,10 @@ export class BaseModel {
           this.logger.error(`error`, `[createIndex:${this._collectionName}:error]`, result.reason);
           throwErr(this.error('common.database'));
         } else {
-          this.logger.debug('success', `[createIndex:${this._collectionName}:success]`, result.value);
+          // this.logger.debug('success', `[createIndex:${this._collectionName}:success]`, result.value);
         }
       });
+      this.logger.debug('success', `[createIndex:${this._collectionName}]`);
     });
   }
 

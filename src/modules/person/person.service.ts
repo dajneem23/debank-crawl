@@ -1,12 +1,18 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { PersonError, PersonModel, _person, personModelToken, personErrors } from '.';
+import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { PersonError, _person, personModelToken, personErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 const TOKEN_NAME = '_personService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export PersonService
+ * @class PersonService
+ * @extends {BaseService}
+ */
 export const personServiceToken = new Token<PersonService>(TOKEN_NAME);
 /**
  * @class PersonService

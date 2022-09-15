@@ -7,7 +7,6 @@ import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
-@Service()
 @Controller('/coins')
 export class CoinController {
   private service = Container.get(coinServiceToken);

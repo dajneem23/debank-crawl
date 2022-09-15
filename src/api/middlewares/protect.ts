@@ -49,6 +49,8 @@ export const protect =
 
 /**
  * [Private] Authentication middleware
+ * @param ignoreException Ignore exception
+ * @returns RequestHandler
  */
 export const protectPrivateAPI = (): RequestHandler => async (req, res, next) => {
   try {

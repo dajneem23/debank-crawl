@@ -1,15 +1,26 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { CompanyModel, CompanyError, _company, companyModelToken, companyErrors } from '.';
+import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { CompanyError, _company, companyModelToken, companyErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 export const TOKEN_NAME = '_companyService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export CompanyService
+ * @class CompanyService
+ * @extends {BaseService}
+ */
 export const CompanyServiceToken = new Token<CompanyService>(TOKEN_NAME);
+/**
+ * @class CompanyService
+ * @extends BaseService
+ * @description Company Service for all company related operations
+ */
 @Service(CompanyServiceToken)
 export class CompanyService {
   private logger = new Logger('CompanyService');

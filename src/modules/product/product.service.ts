@@ -1,12 +1,18 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { ProductError, ProductModel, _product, Product, productModelToken, productErrors } from '.';
+import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { ProductError, _product, productModelToken, productErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 const TOKEN_NAME = '_productService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export ProductService
+ * @class ProductService
+ * @extends {BaseService}
+ */
 export const productServiceToken = new Token<ProductService>(TOKEN_NAME);
 /**
  * @class ProductService
@@ -41,7 +47,7 @@ export class ProductService {
     return alphabetSize12();
   }
   /**
-   * Create a new category
+   * Create document
    * @param _content
    * @param _subject
    * @returns {Promise<BaseServiceOutput>}
@@ -72,11 +78,11 @@ export class ProductService {
   }
 
   /**
-   * Update category
+   * Update document
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Product>}
+   * @returns {Promise<BaseServiceOutput>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -105,7 +111,7 @@ export class ProductService {
   }
 
   /**
-   * Delete category
+   * Delete document
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
@@ -136,7 +142,7 @@ export class ProductService {
   }
 
   /**
-   *  Query category
+   *  Query document
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -206,7 +212,7 @@ export class ProductService {
     }
   }
   /**
-   * Get product by ID
+   * Get document
    * @param id - product ID
    * @param _filter - filter query
    * @param _permission - permission query

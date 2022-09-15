@@ -585,7 +585,7 @@
     "method": "POST",
     "sortNum": 200000,
     "created": "2022-08-30T09:07:12.416Z",
-    "modified": "2022-08-30T09:07:12.416Z",
+    "modified": "2022-09-15T08:41:43.650Z",
     "headers": [],
     "params": [],
     "body": {
@@ -595,7 +595,7 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
     },
     "tests": []
   },

@@ -72,10 +72,10 @@ export default class S3BucketClient {
         CacheControl: 'public, max-age=31536000',
         Body: file,
       });
-      this.logger.debug('[uploadPublicFile:success]', objectURL);
+      this.logger.debug('success', '[uploadPublicFile:success]', objectURL);
       return { url: objectURL };
     } catch (err) {
-      this.logger.error('[uploadPublicFile:error]', err);
+      this.logger.error('error', '[uploadPublicFile:error]', err);
       throw err;
     }
   }

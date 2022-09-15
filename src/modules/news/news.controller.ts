@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Container, { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import {
   Controller,
   Res,
@@ -15,14 +15,13 @@ import {
   Patch,
 } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { News, NewsService, NewsValidation, NewsServiceToken } from '.';
+import { News, NewsValidation, NewsServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { getHighestRole } from '../auth/auth.utils';
-@Service()
 @Controller('/news')
 export class NewsController {
   private service = Container.get(NewsServiceToken);

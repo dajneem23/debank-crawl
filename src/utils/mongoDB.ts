@@ -39,7 +39,7 @@ export const withMongoTransaction = async (fn: WithTransactionCallback) => {
   }
 };
 /**
- *
+ * Create Lookup Pipeline
  * @param from -
  * @param refFrom -
  * @param refTo
@@ -118,13 +118,13 @@ export const $query = function ({
   ];
 };
 /**
- *
+ * Create Pagination Pipeline
  * @param {string} $match - $match query
  * @param {Array} pipeline - pipeline query
  * @param {Array} lookups - lookups query
  * @param {Array} condition - condition query
  * @param {Array} more -
- * @returns
+ * @returns pipeline
  */
 export const $pagination = ({
   items,

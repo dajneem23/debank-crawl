@@ -2,18 +2,23 @@ import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { SystemError } from '@/core/errors/CommonError';
-import { EventModel, Event, EventInput, EventOutput, _event, eventModelToken } from '.';
+import { EventOutput, _event, eventModelToken } from '.';
 import { Filter } from 'mongodb';
 import { $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $queryByList } from '@/utils/mongoDB';
+import { $toObjectId, $pagination } from '@/utils/mongoDB';
 import { isNil, omit } from 'lodash';
 import { BaseServiceInput, BaseServiceOutput } from '@/types';
 
 const TOKEN_NAME = '_eventService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export EventService
+ * @class EventService
+ * @extends {BaseService}
+ */
 export const eventServiceToken = new Token<EventService>(TOKEN_NAME);
 /**
  * @class EventService

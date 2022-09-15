@@ -1,4 +1,3 @@
-import { CommonError } from '@/types';
 import { throwErr } from './common';
 import { $queryByList } from './mongoDB';
 import { ValidateError } from '@/core/errors/ValidateError';

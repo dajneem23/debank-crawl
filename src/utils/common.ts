@@ -1,7 +1,6 @@
 import fs from 'fs';
 import { BaseQuery, T } from '@/types/Common';
 import { isNull, omitBy, pick } from 'lodash';
-import { any } from 'bluebird';
 /**
  * Get runtime config from "process" Nodejs
  */

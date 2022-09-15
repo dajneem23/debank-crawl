@@ -1,4 +1,4 @@
-import Container, { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import {
   Controller,
   Res,
@@ -14,13 +14,12 @@ import {
   Auth,
 } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Event, EventFilter, EventService, eventServiceToken, EventValidation } from '.';
+import { Event, EventFilter, eventServiceToken, EventValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types';
-@Service()
 @Controller('/events')
 export class EventController {
   private service = Container.get(eventServiceToken);

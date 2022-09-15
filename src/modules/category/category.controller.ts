@@ -1,13 +1,12 @@
-import Container, { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Category, CategoryService, CategoryValidation, categoryServiceToken } from '.';
+import { Category, CategoryValidation, categoryServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
-@Service()
 @Controller('/categories')
 export class CategoryController {
   private service = Container.get(categoryServiceToken);

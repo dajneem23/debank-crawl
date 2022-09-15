@@ -1,14 +1,25 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CoinError, coinErrors, CoinModel, coinModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
-import { isNil, omit, rest } from 'lodash';
+import { isNil, omit } from 'lodash';
 import { _coin } from '@/modules';
 const TOKEN_NAME = '_coinService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export coinServiceToken
+ * @class CoinService
+ * @extends {BaseService}
+ */
 export const coinServiceToken = new Token<CoinService>(TOKEN_NAME);
+/**
+ * @class CoinService
+ * @extends  BaseService
+ * @description Coin Service for all coin related operations
+ */
 @Service(coinServiceToken)
 export class CoinService {
   private logger = new Logger('CoinService');

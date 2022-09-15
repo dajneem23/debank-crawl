@@ -1,18 +1,22 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { SystemError } from '@/core/errors/CommonError';
-import { Filter } from 'mongodb';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { $lookup, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { keys } from 'ts-transformer-keys';
 
 const TOKEN_NAME = '_categoryService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export CategoryService
+ * @class CategoryService
+ * @extends {BaseService}
+ */
 export const categoryServiceToken = new Token<CategoryService>(TOKEN_NAME);
 @Service(categoryServiceToken)
 export class CategoryService {
@@ -28,13 +32,6 @@ export class CategoryService {
 
   private error(msg: any) {
     return new CategoryError(msg);
-  }
-
-  /**
-   * A bridge allows another service access to the Model layer
-   */
-  get collection() {
-    return this.model._collection;
   }
 
   get outputKeys() {
@@ -113,7 +110,7 @@ export class CategoryService {
         },
       );
       this.logger.debug('create_success', { _content });
-      return toOutPut({ item: _content, keys: this.outputKeys });
+      return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('create_error', err.message);
       throw err;

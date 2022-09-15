@@ -41,4 +41,8 @@ Desktop.ini
 
 # Tests
 thunder-tests/thunderActivity.json
+thunder-tests/thunder.env
+
+
+
 docker/docker.env

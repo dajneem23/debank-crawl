@@ -17,7 +17,7 @@ export const FundServiceToken = new Token<FundService>(TOKEN_NAME);
 export class FundService {
   private logger = new Logger('Funds');
 
-  private model = Container.get(fundModelToken) as FundModel;
+  private model = Container.get(fundModelToken);
 
   private error(msg: keyof typeof fundErrors) {
     return new FundError(msg);
@@ -34,64 +34,7 @@ export class FundService {
   get transKeys() {
     return ['about', 'short_description'];
   }
-  /**
-   *  Lookups
-   */
-  get $lookups(): any {
-    return {
-      categories: $lookup({
-        from: 'categories',
-        refFrom: '_id',
-        refTo: 'categories',
-        select: 'title type',
-        reName: 'categories',
-        operation: '$in',
-      }),
-      user: $lookup({
-        from: 'users',
-        refFrom: 'id',
-        refTo: 'created_by',
-        select: 'full_name picture',
-        reName: 'author',
-        operation: '$eq',
-      }),
-      team: $lookup({
-        from: 'team',
-        refFrom: '_id',
-        refTo: 'team',
-        select: 'name avatar',
-        reName: 'team',
-        operation: '$in',
-      }),
-      countries: $lookup({
-        from: 'countries',
-        refFrom: 'code',
-        refTo: 'country',
-        select: 'name',
-        reName: 'country',
-        operation: '$eq',
-      }),
-    };
-  }
-  get $sets() {
-    return {
-      country: {
-        $set: {
-          country: { $first: '$country' },
-        },
-      },
-      author: {
-        $set: {
-          author: { $first: '$author' },
-        },
-      },
-      trans: {
-        $set: {
-          trans: { $first: '$trans' },
-        },
-      },
-    };
-  }
+
   /**
    * Generate ID
    */
@@ -141,9 +84,11 @@ export class FundService {
           _id,
         },
         {
-          ..._content,
-          categories,
-          ...(_subject && { update_by: _subject }),
+          $set: {
+            ..._content,
+            categories,
+            ...(_subject && { update_by: _subject }),
+          },
         },
       );
       this.logger.debug('update_success', { _content });
@@ -208,7 +153,7 @@ export class FundService {
                 ],
               }),
             },
-            $lookups: [this.$lookups.categories],
+            $lookups: [this.model.$lookups.categories],
             $projects: [
               {
                 $project: {
@@ -226,7 +171,7 @@ export class FundService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -259,9 +204,9 @@ export class FundService {
       const [item] = await this.model
         .get([
           { $match: $toMongoFilter({ _id }) },
-          this.$lookups.categories,
-          this.$lookups.user,
-          this.$sets.author,
+          this.model.$lookups.categories,
+          this.model.$lookups.author,
+          this.model.$sets.author,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -276,7 +221,7 @@ export class FundService {
               },
             },
           },
-          this.$sets.trans,
+          this.model.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -314,7 +259,7 @@ export class FundService {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
-            $lookups: [this.$lookups.categories],
+            $lookups: [this.model.$lookups.categories],
             $projects: [
               {
                 $project: {
@@ -332,7 +277,7 @@ export class FundService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),

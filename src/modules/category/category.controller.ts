@@ -12,7 +12,7 @@ import { BaseQuery, BaseServiceInput } from '@/types/Common';
 export class CategoryController {
   private service = Container.get(categoryServiceToken);
 
-  @Post('/', [CategoryValidation.create, protectPrivateAPI()])
+  @Post('/', [protectPrivateAPI(), CategoryValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -27,7 +27,7 @@ export class CategoryController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [CategoryValidation.update, protectPrivateAPI()])
+  @Put('/:id', [protectPrivateAPI(), CategoryValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -44,7 +44,7 @@ export class CategoryController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [CategoryValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), CategoryValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,

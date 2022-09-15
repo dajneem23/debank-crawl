@@ -1,27 +1,30 @@
 import { Db } from 'mongodb';
-import { Inject, Service } from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
-import { DILogger } from '@/loaders/loggerLoader';
-import Logger from '@/core/logger';
+import { Inject, Service, Token } from 'typedi';
 import { Company } from './company.type';
+import { keys } from 'ts-transformer-keys';
+import { BaseModel } from '../base/base.model';
 
 const COLLECTION_NAME = 'companies';
-
-@Service()
-export class CompanyModel {
-  private readonly _collection;
-
-  constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
-    this._collection = db.collection<Company>(COLLECTION_NAME);
-    Promise.all([
-      this._collection.createIndex({ name: 'text' }, { unique: false }),
-      this._collection.createIndex({ name: 1 }, { unique: false }),
-    ]).catch((err) => {
-      this.logger.error(err);
+const TOKEN_NAME = '_companyModel';
+export const companyModelToken = new Token<CompanyModel>(TOKEN_NAME);
+@Service(companyModelToken)
+export class CompanyModel extends BaseModel {
+  constructor() {
+    super({
+      collectionName: COLLECTION_NAME,
+      _keys: keys<Company>(),
+      indexes: [
+        {
+          field: {
+            name: 1,
+          },
+        },
+        {
+          field: {
+            name: 'text',
+          },
+        },
+      ],
     });
-  }
-
-  get collection() {
-    return this._collection;
   }
 }

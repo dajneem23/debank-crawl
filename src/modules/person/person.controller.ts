@@ -1,7 +1,7 @@
-import { Inject, Service } from 'typedi';
+import Container, { Inject, Service } from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Person, PersonService, PersonValidation } from '.';
+import { Person, PersonService, personServiceToken, PersonValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
@@ -10,9 +10,9 @@ import { BaseQuery, BaseServiceInput } from '@/types/Common';
 @Service()
 @Controller('/persons')
 export class PersonController {
-  @Inject()
-  private service: PersonService;
-  @Post('/', [PersonValidation.create, protectPrivateAPI()])
+  private service = Container.get(personServiceToken);
+
+  @Post('/', [protectPrivateAPI(), PersonValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -26,7 +26,7 @@ export class PersonController {
     } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
   }
-  @Put('/:id', [PersonValidation.update, protectPrivateAPI()])
+  @Put('/:id', [protectPrivateAPI(), PersonValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -42,7 +42,7 @@ export class PersonController {
     } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
   }
-  @Delete('/:id', [PersonValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), PersonValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -93,7 +93,7 @@ export class PersonController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [PersonValidation.getById, protectPrivateAPI()])
+  @Get('/private/:id', [protectPrivateAPI(), PersonValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

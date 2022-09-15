@@ -1,7 +1,7 @@
-import { Inject, Service } from 'typedi';
+import Container, { Inject, Service } from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Company, CompanyService, CompanyValidation } from '.';
+import { Company, CompanyService, CompanyServiceToken, CompanyValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
@@ -10,10 +10,9 @@ import { BaseQuery, BaseServiceInput } from '@/types/Common';
 @Service()
 @Controller('/companies')
 export class CompanyController {
-  @Inject()
-  private service: CompanyService;
+  private service = Container.get(CompanyServiceToken);
 
-  @Post('/', [CompanyValidation.create, protectPrivateAPI()])
+  @Post('/', [protectPrivateAPI(), CompanyValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -28,7 +27,7 @@ export class CompanyController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [CompanyValidation.update, protectPrivateAPI()])
+  @Put('/:id', [protectPrivateAPI(), CompanyValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -45,7 +44,7 @@ export class CompanyController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [CompanyValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), CompanyValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -61,7 +60,7 @@ export class CompanyController {
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/private', [CompanyValidation.query, protectPrivateAPI()])
+  @Get('/private', [protectPrivateAPI(), CompanyValidation.query])
   async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
@@ -108,7 +107,7 @@ export class CompanyController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [CompanyValidation.getById, protectPrivateAPI()])
+  @Get('/private/:id', [protectPrivateAPI(), CompanyValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

@@ -1,27 +1,34 @@
-import { Db } from 'mongodb';
-import { Inject, Service } from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
-import { DILogger } from '@/loaders/loggerLoader';
-import Logger from '@/core/logger';
+import { Inject, Service, Token } from 'typedi';
 import { Event } from './event.type';
+import { keys } from 'ts-transformer-keys';
+import { BaseModel } from '../base/base.model';
 
 const COLLECTION_NAME = 'events';
-
-@Service()
-export class EventModel {
-  private readonly _collection;
-
-  constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
-    this._collection = db.collection<Event>(COLLECTION_NAME);
-    Promise.all([
-      this._collection.createIndex({ name: 'text' }, { unique: false }),
-      this._collection.createIndex({ name: 1 }, { unique: false }),
-    ]).catch((err) => {
-      this.logger.error(err);
+const TOKEN_NAME = '_eventModel';
+export const eventModelToken = new Token<EventModel>(TOKEN_NAME);
+/**
+ * @class EventModel
+ * @description Event model: Event model for all event related operations
+ * @extends BaseModel
+ */
+@Service(eventModelToken)
+export class EventModel extends BaseModel {
+  constructor() {
+    super({
+      collectionName: COLLECTION_NAME,
+      _keys: keys<Event>(),
+      indexes: [
+        {
+          field: {
+            name: 1,
+          },
+        },
+        {
+          field: {
+            name: 'text',
+          },
+        },
+      ],
     });
-  }
-
-  get collection() {
-    return this._collection;
   }
 }

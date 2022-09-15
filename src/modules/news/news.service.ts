@@ -61,88 +61,6 @@ export class NewsService {
   }
 
   /**
-   *  Lookups
-   */
-  get $lookups(): any {
-    return {
-      categories: $lookup({
-        from: 'categories',
-        refFrom: '_id',
-        refTo: 'categories',
-        select: 'title type',
-        reName: 'categories',
-        operation: '$in',
-      }),
-      coin_tags: $lookup({
-        from: 'coins',
-        refFrom: '_id',
-        refTo: 'coin_tags',
-        select: 'name',
-        reName: 'coin_tags',
-        operation: '$in',
-      }),
-      company_tags: $lookup({
-        from: 'companies',
-        refFrom: '_id',
-        refTo: 'company_tags',
-        select: 'name',
-        reName: 'company_tags',
-        operation: '$in',
-      }),
-      product_tags: $lookup({
-        from: 'products',
-        refFrom: '_id',
-        refTo: 'product_tags',
-        select: 'name',
-        reName: 'product_tags',
-        operation: '$in',
-      }),
-      person_tags: $lookup({
-        from: 'persons',
-        refFrom: '_id',
-        refTo: 'person_tags',
-        select: 'name',
-        reName: 'person_tags',
-        operation: '$in',
-      }),
-      user: $lookup({
-        from: 'users',
-        refFrom: 'id',
-        refTo: 'created_by',
-        select: 'full_name picture',
-        reName: 'author',
-        operation: '$eq',
-      }),
-      event_tags: $lookup({
-        from: 'events',
-        refFrom: '_id',
-        refTo: 'event_tags',
-        select: 'name avatar',
-        reName: 'event_tags',
-        operation: '$in',
-      }),
-    };
-  }
-  get $sets() {
-    return {
-      country: {
-        $set: {
-          country: { $first: '$country' },
-        },
-      },
-      author: {
-        $set: {
-          author: { $first: '$author' },
-        },
-      },
-      trans: {
-        $set: {
-          trans: { $first: '$trans' },
-        },
-      },
-    };
-  }
-  /**
    * Create a news
    * @param _content
    * @param _subject
@@ -235,52 +153,54 @@ export class NewsService {
           ],
         }),
         {
-          ..._content,
-          ...(trans.length && {
-            trans: await Promise.all(
-              trans.map(async (item: any) => {
-                const slug = slugify(item.title, {
-                  trim: true,
-                  lower: true,
-                });
-                return {
-                  ...item,
-                  slug: (await this.model._collection.findOne({
-                    $or: [{ 'trans.slug': slug }, { slug }],
-                    $and: [
-                      {
-                        _id: {
-                          $not: {
-                            $eq: $toObjectId(_id),
+          $set: {
+            ..._content,
+            ...(trans.length && {
+              trans: await Promise.all(
+                trans.map(async (item: any) => {
+                  const slug = slugify(item.title, {
+                    trim: true,
+                    lower: true,
+                  });
+                  return {
+                    ...item,
+                    slug: (await this.model._collection.findOne({
+                      $or: [{ 'trans.slug': slug }, { slug }],
+                      $and: [
+                        {
+                          _id: {
+                            $not: {
+                              $eq: $toObjectId(_id),
+                            },
                           },
                         },
+                      ],
+                    }))
+                      ? slug + '-' + now.getTime()
+                      : slug,
+                  };
+                }),
+              ),
+            }),
+            ...(title && {
+              slug: (await this.model._collection.findOne({
+                $and: [
+                  {
+                    _id: {
+                      $not: {
+                        $eq: $toObjectId(_id),
                       },
-                    ],
-                  }))
-                    ? slug + '-' + now.getTime()
-                    : slug,
-                };
-              }),
-            ),
-          }),
-          ...(title && {
-            slug: (await this.model._collection.findOne({
-              $and: [
-                {
-                  _id: {
-                    $not: {
-                      $eq: $toObjectId(_id),
                     },
                   },
-                },
-              ],
-              $or: [{ 'trans.slug': _slug }, { slug: _slug }],
-            }))
-              ? _slug + '-' + now.getTime()
-              : _slug,
-          }),
-          ...(_subject && { updated_by: _subject }),
-          updated_at: now,
+                ],
+                $or: [{ 'trans.slug': _slug }, { slug: _slug }],
+              }))
+                ? _slug + '-' + now.getTime()
+                : _slug,
+            }),
+            ...(_subject && { updated_by: _subject }),
+            updated_at: now,
+          },
         },
         {
           upsert: false,
@@ -320,9 +240,11 @@ export class NewsService {
           ],
         }),
         {
-          status,
-          ...(_subject && { updated_by: _subject }),
-          updated_at: now,
+          $set: {
+            status,
+            ...(_subject && { updated_by: _subject }),
+            updated_at: now,
+          },
         },
         {
           upsert: false,
@@ -423,8 +345,8 @@ export class NewsService {
                 $eq: { status },
               }),
             },
-            $lookups: [this.$lookups.user, this.$lookups.categories],
-            $sets: [this.$sets.country, this.$sets.author],
+            $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
+            $sets: [this.model.$sets.country, this.model.$sets.author],
             $projects: [
               {
                 $project: {
@@ -442,7 +364,7 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -480,14 +402,14 @@ export class NewsService {
               }),
             },
           },
-          this.$lookups.categories,
-          this.$lookups.user,
-          this.$lookups.coin_tags,
-          this.$lookups.company_tags,
-          this.$lookups.person_tags,
-          this.$lookups.product_tags,
-          this.$lookups.event_tags,
-          this.$sets.author,
+          this.model.$lookups.categories,
+          this.model.$lookups.author,
+          this.model.$lookups.coin_tags,
+          this.model.$lookups.company_tags,
+          this.model.$lookups.person_tags,
+          this.model.$lookups.product_tags,
+          this.model.$lookups.event_tags,
+          this.model.$sets.author,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -502,7 +424,7 @@ export class NewsService {
               },
             },
           },
-          this.$sets.trans,
+          this.model.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -559,14 +481,14 @@ export class NewsService {
               ],
             }),
           },
-          this.$lookups.categories,
-          this.$lookups.user,
-          this.$lookups.coin_tags,
-          this.$lookups.company_tags,
-          this.$lookups.person_tags,
-          this.$lookups.product_tags,
-          this.$lookups.event_tags,
-          this.$sets.author,
+          this.model.$lookups.categories,
+          this.model.$lookups.author,
+          this.model.$lookups.coin_tags,
+          this.model.$lookups.company_tags,
+          this.model.$lookups.person_tags,
+          this.model.$lookups.product_tags,
+          this.model.$lookups.event_tags,
+          this.model.$sets.author,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -581,7 +503,7 @@ export class NewsService {
               },
             },
           },
-          this.$sets.trans,
+          this.model.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -628,8 +550,8 @@ export class NewsService {
                 { 'trans.title': { $regex: q, $options: 'i' } },
               ],
             },
-            $lookups: [this.$lookups.user, this.$lookups.categories],
-            $sets: [this.$sets.author],
+            $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
+            $sets: [this.model.$sets.author],
             $projects: [
               {
                 $project: {
@@ -647,7 +569,7 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -705,7 +627,7 @@ export class NewsService {
                 },
               ],
             },
-            $sets: [this.$sets.author],
+            $sets: [this.model.$sets.author],
             $projects: [
               {
                 $project: {
@@ -723,7 +645,7 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -784,7 +706,7 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),

@@ -12,7 +12,7 @@ import { BaseQuery, BaseServiceInput } from '@/types/Common';
 export class FundController {
   private service = Container.get(FundServiceToken);
 
-  @Post('/', [FundValidation.create, protectPrivateAPI()])
+  @Post('/', [protectPrivateAPI(), FundValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -27,7 +27,7 @@ export class FundController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [FundValidation.update, protectPrivateAPI()])
+  @Put('/:id', [protectPrivateAPI(), FundValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -44,7 +44,7 @@ export class FundController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [FundValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), FundValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -99,7 +99,7 @@ export class FundController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/private/:id', [FundValidation.getById, protectPrivateAPI()])
+  @Get('/private/:id', [protectPrivateAPI(), FundValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

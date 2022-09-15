@@ -1,4 +1,4 @@
-import { Inject, Service } from 'typedi';
+import Container, { Inject, Service } from 'typedi';
 import {
   Controller,
   Res,
@@ -14,7 +14,7 @@ import {
   Auth,
 } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Event, EventFilter, EventService, EventValidation } from '.';
+import { Event, EventFilter, EventService, eventServiceToken, EventValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
@@ -23,9 +23,8 @@ import { BaseQuery, BaseServiceInput } from '@/types';
 @Service()
 @Controller('/events')
 export class EventController {
-  @Inject()
-  private service: EventService;
-  @Post('/', [EventValidation.create, protect()])
+  private service = Container.get(eventServiceToken);
+  @Post('/', [protect(), EventValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -39,7 +38,7 @@ export class EventController {
     } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
   }
-  @Put('/:id', [EventValidation.update, protect()])
+  @Put('/:id', [protect(), EventValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -105,7 +104,7 @@ export class EventController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Delete('/:id', [EventValidation.deleteById, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), EventValidation.deleteById])
   async delete(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -119,7 +118,7 @@ export class EventController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Patch('/:id/trending', [EventValidation.updateTrending, protectPrivateAPI()])
+  @Patch('/:id/trending', [protectPrivateAPI(), EventValidation.updateTrending])
   async updateTrendingEvent(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -138,7 +137,7 @@ export class EventController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Patch('/:id/significant', [EventValidation.updateSignificant, protectPrivateAPI()])
+  @Patch('/:id/significant', [protectPrivateAPI(), EventValidation.updateSignificant])
   async updateSignificantEvent(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -156,7 +155,7 @@ export class EventController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Patch('/:id/subscribe', [EventValidation.subscribe, protectPrivateAPI()])
+  @Patch('/:id/subscribe', [protectPrivateAPI(), EventValidation.subscribe])
   async subscribe(
     @Res() _res: Response,
     @Req() _req: Request,

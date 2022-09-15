@@ -27,7 +27,7 @@ import { getHighestRole } from '../auth/auth.utils';
 export class NewsController {
   private service = Container.get(NewsServiceToken);
 
-  @Post('/', [NewsValidation.create, protectPrivateAPI()])
+  @Post('/', [protectPrivateAPI(), NewsValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -42,7 +42,7 @@ export class NewsController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [NewsValidation.update, protectPrivateAPI()])
+  @Put('/:id', [protectPrivateAPI(), NewsValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -59,7 +59,7 @@ export class NewsController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [NewsValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), NewsValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -113,7 +113,7 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [NewsValidation.getById, protectPrivateAPI()])
+  @Get('/private/:id', [protectPrivateAPI(), NewsValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -149,7 +149,7 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Patch('/status/:id', [NewsValidation.updateStatus, protect()])
+  @Patch('/status/:id', [protect(), NewsValidation.updateStatus])
   async updateStatus(
     @Res() _res: Response,
     @Req() _req: Request,

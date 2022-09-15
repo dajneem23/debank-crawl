@@ -47,6 +47,8 @@ const _messages = {
   query_error: '[query:error]',
   query_success: '[query:success]',
   upload_error: '[upload:error]',
+  validate_error: '[validate:error]',
+  validate_success: '[validate:success]',
   upload_success: '[upload:success]',
   download_error: '[download:error]',
   download_success: '[download:success]',

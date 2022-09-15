@@ -293,7 +293,7 @@ export enum LANG_CODE {
 
 export const PRIVATE_KEYS = [
   'updated_at',
-  // 'created_at',
+  'created_at',
   'deleted_at',
   'deleted_by',
   'updated_by',

@@ -1,10 +1,10 @@
 import { Service, Token } from 'typedi';
-import { BaseModel } from '../base/base.model';
 import { Fund } from './fund.type';
+import { BaseModel } from '../base/base.model';
 import { keys } from 'ts-transformer-keys';
 const COLLECTION_NAME = 'funds';
-const newLocal = '_fundModel';
-export const fundModelToken = new Token<FundModel>(newLocal);
+const TOKEN_NAME = '_fundModel';
+export const fundModelToken = new Token<FundModel>(TOKEN_NAME);
 
 /**
  * @class FundModel

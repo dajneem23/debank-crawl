@@ -37,7 +37,7 @@ Desktop.ini
 /docker/db
 
 #seeds
-src/seeds/data/*.json
+# src/seeds/data/*.json
 
 # Tests
 thunder-tests/thunderActivity.json

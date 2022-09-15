@@ -40,8 +40,8 @@ Desktop.ini
 # src/seeds/data/*.json
 
 # Tests
-thunder-tests/thunderActivity.json
-thunder-tests/thunder.env
+/thunder-tests/thunderActivity.json
+/thunder-tests/thunder.env
 
 
 

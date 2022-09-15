@@ -1618,5 +1618,25 @@
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2Mjk3NDI5MiwiZXhwIjoxNjYzODM4MjkyfQ.DFOM8a4Pnc10_HBktDYBoSHq-ZN2BbAvW_7c_pRU-G0"
     },
     "tests": []
+  },
+  {
+    "_id": "0210a8d6-b560-45c2-8d9e-abd899f402f8",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
+    "name": "search",
+    "url": "{{host}}/categories/search/?q=Gui",
+    "method": "GET",
+    "sortNum": 480000,
+    "created": "2022-09-15T02:04:52.411Z",
+    "modified": "2022-09-15T02:11:55.030Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "Gui",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]

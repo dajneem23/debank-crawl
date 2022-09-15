@@ -75,6 +75,26 @@ export const CategoryValidation = {
         }),
     }),
   }),
+  search: validate({
+    [Segments.QUERY]: Joi.object({
+      page: Joi.number().default(1).min(1),
+      per_page: Joi.number().default(10).min(1),
+      sort_by: Joi.string(),
+      sort_order: Joi.string()
+        .default(ORDER.ASC)
+        .valid(...Object.values(ORDER)),
+      type: [
+        Joi.string().valid(...Object.values(CATEGORY_TYPE)),
+        Joi.array().items(Joi.string().valid(...Object.values(CATEGORY_TYPE))),
+      ],
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+      q: Joi.string().required(),
+    }),
+  }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern),

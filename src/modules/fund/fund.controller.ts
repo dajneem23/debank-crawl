@@ -1,7 +1,7 @@
 import Container, { Inject, Service } from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Fund, FundService, FundValidation } from '.';
+import { Fund, FundService, FundValidation, FundServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
@@ -10,7 +10,7 @@ import { BaseQuery, BaseServiceInput } from '@/types/Common';
 @Service()
 @Controller('/funds')
 export class FundController {
-  private service = Container.get<FundService>('_fundService');
+  private service = Container.get(FundServiceToken);
 
   @Post('/', [FundValidation.create, protectPrivateAPI()])
   async create(

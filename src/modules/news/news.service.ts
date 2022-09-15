@@ -1,18 +1,26 @@
-import Container, { Inject, Service } from 'typedi';
+import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { News, NewsError, NewsModel, _news, newsErrors } from '.';
+import { News, NewsError, NewsModel, _news, newsErrors, newsModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
 import slugify from 'slugify';
 import { keys } from 'ts-transformer-keys';
-@Service('_newsService')
+
+const TOKEN_NAME = '_newsService';
+export const NewsServiceToken = new Token<NewsService>(TOKEN_NAME);
+/**
+ * @class NewsService
+ * @description News service: News service for all news related operations
+ * @extends BaseService
+ */
+@Service(NewsServiceToken)
 export class NewsService {
   private logger = new Logger('News');
 
-  private model = Container.get<NewsModel>('_newsModel');
+  private model = Container.get(newsModelToken) as NewsModel;
 
   @Inject()
   private userModel: UserModel;

@@ -1,17 +1,23 @@
-import Container, { Inject, Service } from 'typedi';
+import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { FundError, FundModel, fundErrors } from '.';
+import { FundError, FundModel, fundErrors, fundModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-
-@Service('_fundService')
+const TOKEN_NAME = '_fundService';
+export const FundServiceToken = new Token<FundService>(TOKEN_NAME);
+/**
+ * @class FundService
+ * @description Fund service: Fund service for all fund related operations
+ * @extends BaseService
+ */
+@Service(FundServiceToken)
 export class FundService {
   private logger = new Logger('Funds');
 
-  private model = Container.get<FundModel>('_fundModel');
+  private model = Container.get(fundModelToken) as FundModel;
 
   private error(msg: keyof typeof fundErrors) {
     return new FundError(msg);

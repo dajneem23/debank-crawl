@@ -33,7 +33,7 @@ export class NewsService {
   }
 
   get transKeys() {
-    return ['title', 'slug', 'lang', 'headings', 'summary'];
+    return ['title', 'slug', 'lang', 'headings', 'summary', 'content'];
   }
 
   get outputKeys(): typeof this.model._keys {
@@ -437,7 +437,7 @@ export class NewsService {
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
       this.logger.debug('get_success', { item });
-      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
+      return _permission == 'private' ? omit(toOutPut({ item }), 'trans') : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;

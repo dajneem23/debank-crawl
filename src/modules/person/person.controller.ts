@@ -50,7 +50,7 @@ export class PersonController {
     @Body()
     body: Person,
   ) {
-    const result = await this.service.delete({
+    await this.service.delete({
       _id: _params.id,
       _content: body,
       _subject: _auth.id,

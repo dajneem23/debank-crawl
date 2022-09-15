@@ -108,7 +108,7 @@ export default class AuthService {
    * @param password The user password
    * @param whiteListRoles Allowed roles
    */
-  async loginByIdAndPassword(loginID: string, password: string, whiteListRoles: UserRole[] = ['user']) {
+  async loginByIdAndPassword(loginID: string, password: string, whiteListRoles: UserRole[] = [UserRole.USER]) {
     try {
       // Get user
       const user = await this.userService.collection.findOne({ email: loginID });

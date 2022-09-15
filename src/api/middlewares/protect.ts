@@ -5,6 +5,7 @@ import AuthService from '@/modules/auth/auth.service';
 import { IncomingHttpHeaders } from 'http';
 import { Container } from 'typedi';
 import BlocklistService from '@/modules/auth/blocklist.service';
+import { UserRole } from '@/modules';
 
 export type ProtectOpts = {
   ignoreException: boolean;
@@ -17,7 +18,7 @@ const defaultOpts: ProtectOpts = {
 /**
  * Detect and verify access token
  */
-const verifyAccessToken = async (headers: IncomingHttpHeaders) => {
+export const verifyAccessToken = async (headers: IncomingHttpHeaders) => {
   const blocklistService = Container.get(BlocklistService);
 
   // Detect token
@@ -55,7 +56,7 @@ export const protect =
 export const protectPrivateAPI = (): RequestHandler => async (req, res, next) => {
   try {
     const decoded = await verifyAccessToken(req.headers);
-    if (!decoded.roles || !decoded.roles.includes('admin')) {
+    if (!decoded.roles || !decoded.roles.includes(UserRole.ADMIN)) {
       throwErr(new AuthError('PERMISSION_DENIED'));
     }
     req.auth = decoded;

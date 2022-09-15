@@ -1,6 +1,5 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
 import { $toObjectId, $countCollection } from '@/utils/mongoDB';
-
 import fs from 'fs';
 import productsFile from '../data/crypto_slate/json/products.json';
 import { createDataFile, readDataFromFile } from './utils';
@@ -35,7 +34,7 @@ export const ProductSeed = async () => {
                 .replace(_product.verified.replace('Verified Social Credentials', ''), '')
                 .replace('Verified', '')
                 .trim()
-            : _product.name,
+            : _product.name.trim(),
         avatar: !!_product['avatar-src'] ? _product['avatar-src'] : '',
         verified: !!_product.verified,
         sponsored: !!_product.sponsored,

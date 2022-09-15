@@ -21,7 +21,7 @@ import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
-import { getHighestRole } from '../auth/auth.utils';
+import { permission } from './news.middlewares';
 @Controller('/news')
 export class NewsController {
   private service = Container.get(NewsServiceToken);
@@ -148,7 +148,14 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Patch('/status/:id', [protect(), NewsValidation.updateStatus])
+  @Patch('/status/:id', [
+    protect(),
+    permission({
+      _action: 'update:status',
+      _content: 'query',
+    }),
+    NewsValidation.updateStatus,
+  ])
   async updateStatus(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -163,7 +170,23 @@ export class NewsController {
     const result = await this.service.updateStatus({
       _filter: filter,
       _id: _params.id,
-      _role: getHighestRole(_auth.roles),
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Get('/pre-check/:id', [NewsValidation.PreCheckStatus, protect()])
+  async checkNewsStatus(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Auth() _auth: JWTPayload,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const result = await this.service.checkNewsStatus({
+      _id: _params.id,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);

@@ -1,4 +1,3 @@
-import mongoDBLoader from '@/loaders/mongoDBLoader';
 // import crypto_project from '../data/crypto_slate/json/crypto_project.json';
 // import token_sector from '../data/crypto_slate/json/token_sector.json';
 // import token_wallet from '../data/crypto_slate/json/token_wallet.json';
@@ -28,7 +27,7 @@ export const CoinSeed = async () => {
   const coins = await Promise.all(
     readDataFromFile({ _collection: 'coins' }).map((_coin: any) => {
       return {
-        name: _coin.name,
+        name: _coin.name.trim(),
         token_id: _coin.token_id,
         about: _coin.about,
         video: _coin.video || '',

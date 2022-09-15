@@ -1,5 +1,5 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
-import { $toObjectId, $countCollection } from '@/utils/mongoDB';
+import { $countCollection } from '@/utils/mongoDB';
 import bcrypt from 'bcryptjs';
 import Container, { Inject, Service } from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';

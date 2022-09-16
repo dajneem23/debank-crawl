@@ -77,19 +77,19 @@ export class ProductController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/:id', [ProductValidation.getById])
-  async getByIdPublic(
+  @Get('/:slug', [ProductValidation.getBySlug])
+  async getBySlugPublic(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
     @Params()
     _params: {
-      id: string;
+      slug: string;
     },
   ) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.getById({
-      _id: _params.id,
+    const result = await this.service.getBySlug({
+      _slug: _params.slug,
       _filter: filter,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);

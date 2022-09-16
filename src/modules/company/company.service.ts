@@ -299,7 +299,65 @@ export class CompanyService {
       throw err;
     }
   }
-
+  /**
+   * Get Company by slug
+   * @param id - Company ID
+   * @returns { Promise<BaseServiceOutput> } - Company
+   */
+  async getBySlug({ _slug, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang } = _filter;
+      const [item] = await this.model
+        .get([
+          {
+            $match: {
+              ...$toMongoFilter({ slug: _slug }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
+          },
+          this.model.$lookups.categories,
+          this.model.$lookups.author,
+          this.model.$lookups.team,
+          this.model.$lookups.products,
+          this.model.$lookups.projects,
+          this.model.$lookups.country,
+          this.model.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.model.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      if (isNil(item)) throwErr(this.error('NOT_FOUND'));
+      this.logger.debug('get_success', { item });
+      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
+    } catch (err) {
+      this.logger.error('get_error', err.message);
+      throw err;
+    }
+  }
   /**
    * Search by text index
    * @param {BaseServiceInput} _filter _query

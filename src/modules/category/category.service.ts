@@ -230,6 +230,32 @@ export class CategoryService {
     }
   }
   /**
+   * Get Category by name
+   * @param _id - Category ID
+   * @returns { Promise<CategoryOutput> } - Category
+   */
+  async getByName({ _name, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang, type } = _filter;
+      const [category] = await this.model
+        .get([
+          {
+            $match: $toMongoFilter({ name: { $regex: _name, $options: 'i' }, type }),
+          },
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
+      this.logger.debug('get_success', { category });
+      return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
+    } catch (err) {
+      this.logger.error('get_error', err.message);
+      throw err;
+    }
+  }
+  /**
    *  Search category
    * @param {any} _filter
    * @param {BaseQuery} _query

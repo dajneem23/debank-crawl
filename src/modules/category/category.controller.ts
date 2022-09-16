@@ -77,20 +77,38 @@ export class CategoryController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/:id', [CategoryValidation.getById])
+  // @Get('/:id', [CategoryValidation.getById])
+  // async getById(
+  //   @Res() _res: Response,
+  //   @Req() _req: Request,
+  //   @Query() _query: BaseQuery,
+  //   @Params()
+  //   _params: {
+  //     id: string;
+  //   },
+  // ) {
+  //   const { filter, query } = buildQueryFilter(_query);
+
+  //   const result = await this.service.getById({
+  //     _id: _params.id,
+  //     _filter: filter,
+  //   } as BaseServiceInput);
+  //   _res.status(httpStatus.OK).json(result);
+  // }
+  @Get('/:name', [CategoryValidation.getByName])
   async getById(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
     @Params()
     _params: {
-      id: string;
+      name: string;
     },
   ) {
     const { filter, query } = buildQueryFilter(_query);
 
-    const result = await this.service.getById({
-      _id: _params.id,
+    const result = await this.service.getByName({
+      _name: _params.name,
       _filter: filter,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);

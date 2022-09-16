@@ -102,6 +102,8 @@ export interface BaseInformationModel extends BaseModel {
   id?: ObjectId;
 
   name?: string;
+
+  slug?: string;
   // location?: string;
 
   about?: string;
@@ -205,6 +207,8 @@ export const defaultFilter = {
   deleted: false,
 };
 export type BaseServiceInput = {
+  _name?: string;
+  _slug?: string;
   _id?: string;
   _content: {
     [key: string]: any;
@@ -265,7 +269,7 @@ export type IcoDetail = {
   end_date?: string;
 };
 
-export type ProductInfomation = {
+export type ProductInformation = {
   parent_company?: string;
   team_location?: string;
   blockchain?: string;

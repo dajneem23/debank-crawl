@@ -80,17 +80,31 @@ export class EventController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/:id', [EventValidation.getById])
+  // @Get('/:id', [EventValidation.getById])
+  // async getById(
+  //   @Res() _res: Response,
+  //   @Req() _req: Request,
+  //   @Params()
+  //   _params: {
+  //     id: string;
+  //   },
+  // ) {
+  //   const result = await this.service.getById({
+  //     _id: _params.id,
+  //   } as BaseServiceInput);
+  //   _res.status(httpStatus.OK).json(result);
+  // }
+  @Get('/:slug', [EventValidation.getBySlug])
   async getById(
     @Res() _res: Response,
     @Req() _req: Request,
     @Params()
     _params: {
-      id: string;
+      slug: string;
     },
   ) {
-    const result = await this.service.getById({
-      _id: _params.id,
+    const result = await this.service.getBySlug({
+      _slug: _params.slug,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

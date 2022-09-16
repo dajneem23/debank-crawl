@@ -144,7 +144,7 @@ export class NewsController {
 
     const result = await this.service.getBySlug({
       _filter: filter,
-      _id: _params.slug,
+      _slug: _params.slug,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

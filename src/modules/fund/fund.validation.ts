@@ -214,6 +214,18 @@ export const FundValidation = {
         }),
     }),
   }),
+  getBySlug: validate({
+    [Segments.PARAMS]: Joi.object({
+      slug: Joi.string().required(),
+    }),
+    [Segments.QUERY]: Joi.object({
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+    }),
+  }),
   query: validate({
     [Segments.QUERY]: Joi.object({
       page: Joi.number().default(1).min(1),

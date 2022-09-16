@@ -2,6 +2,7 @@ import { Service, Token } from 'typedi';
 import { Company } from './company.type';
 import { keys } from 'ts-transformer-keys';
 import { BaseModel } from '../base/base.model';
+import { text } from 'body-parser';
 
 const COLLECTION_NAME = 'companies';
 const TOKEN_NAME = '_companyModel';
@@ -17,10 +18,21 @@ export class CompanyModel extends BaseModel {
           field: {
             name: 1,
           },
+          options: {
+            unique: true,
+          },
         },
         {
           field: {
             name: 'text',
+          },
+        },
+        {
+          field: {
+            slug: 1,
+          },
+          options: {
+            unique: true,
           },
         },
       ],

@@ -22,10 +22,21 @@ export class ProductModel extends BaseModel {
           field: {
             name: 1,
           },
+          options: {
+            unique: true,
+          },
         },
         {
           field: {
             name: 'text',
+          },
+        },
+        {
+          field: {
+            slug: 1,
+          },
+          options: {
+            unique: true,
           },
         },
       ],

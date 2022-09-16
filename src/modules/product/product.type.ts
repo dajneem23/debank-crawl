@@ -1,4 +1,4 @@
-import { BaseInformationModel, ContractAddress, TeamPerson, Support, ProductInfomation, App } from '@/types/Common';
+import { BaseInformationModel, ContractAddress, TeamPerson, Support, ProductInformation, App } from '@/types/Common';
 
 export interface Product extends BaseInformationModel {
   name: string;
@@ -9,7 +9,7 @@ export interface Product extends BaseInformationModel {
   apps: App[];
   supports: Support[];
   galleries: string[];
-  information: ProductInfomation[];
+  information: ProductInformation[];
   team: TeamPerson[];
   parent_company: string;
   team_location: string;

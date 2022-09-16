@@ -97,7 +97,20 @@ export const CategoryValidation = {
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern),
+      id: Joi.string().required().regex(ObjectIdPattern),
+    }),
+  }),
+  getByName: validate({
+    [Segments.PARAMS]: Joi.object({
+      name: Joi.string().required(),
+    }),
+    [Segments.QUERY]: Joi.object({
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+      type: Joi.string().valid(...Object.values(CATEGORY_TYPE)),
     }),
   }),
 };

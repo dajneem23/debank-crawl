@@ -26,6 +26,9 @@ export class CoinModel extends BaseModel {
           field: {
             name: 1,
           },
+          options: {
+            unique: true,
+          },
         },
         {
           field: {
@@ -35,6 +38,14 @@ export class CoinModel extends BaseModel {
         {
           field: {
             token_id: 1,
+          },
+        },
+        {
+          field: {
+            slug: 1,
+          },
+          options: {
+            unique: true,
           },
         },
       ],

@@ -18,6 +18,7 @@ import { throwErr } from '@/utils/common';
 import { $lookup, $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
 import { $refValidation } from '@/utils/validation';
 import { COLLECTION_NAMES, T } from '@/types';
+import slugify from 'slugify';
 
 /**
  * @class BaseModel
@@ -428,6 +429,9 @@ export class BaseModel {
         speakers = [],
         cryptocurrencies = [],
         country,
+        title,
+        name,
+        slug,
       } = _content;
       categories.length &&
         (await $refValidation({ collection: 'categories', list: $toObjectId(categories) })) &&
@@ -458,6 +462,18 @@ export class BaseModel {
         (await $refValidation({ collection: 'persons', list: $toObjectId(speakers), Refname: 'speakers' })) &&
         (_content.speakers = $toObjectId(speakers));
       country && (await $refValidation({ collection: 'countries', list: [country], refKey: 'code' }));
+      title &&
+        !slug &&
+        (_content.slug = slugify(title, {
+          trim: true,
+          lower: true,
+        }));
+      name &&
+        !slug &&
+        (_content.slug = slugify(name, {
+          trim: true,
+          lower: true,
+        }));
       return _content;
     } catch (err) {
       this.logger.error('validate_error', `[validate:${this._collectionName}:error]`, err.message);

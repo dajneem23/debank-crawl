@@ -449,7 +449,7 @@ export class NewsService {
    * @returns {Promise<BaseServiceOutput>}
    * @returns
    */
-  async getBySlug({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getBySlug({ _slug, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
       const [item] = await this.model
@@ -458,16 +458,10 @@ export class NewsService {
             $match: $toMongoFilter({
               $or: [
                 {
-                  'trans.slug': {
-                    $regex: _id,
-                    $options: 'i',
-                  },
+                  'trans.slug': _slug,
                 },
                 {
-                  slug: {
-                    $regex: _id,
-                    $options: 'i',
-                  },
+                  slug: _slug,
                 },
               ],
               $and: [

@@ -28,18 +28,18 @@ export const withMongoTransaction = async (fn: WithTransactionCallback) => {
   const session = mongoClient.startSession();
   try {
     const results = await session.withTransaction(fn, transactionOptions);
-    logger.debug('[session:success]', { results });
+    logger.debug('success', 'session', { results });
     return results;
   } catch (err) {
-    logger.error('[session:error]', err);
+    logger.error('error', 'session', err);
     throw err;
   } finally {
     await session.endSession();
-    logger.debug('[session:end]');
+    logger.debug('end', 'session');
   }
 };
 /**
- *
+ * Create Lookup Pipeline
  * @param from -
  * @param refFrom -
  * @param refTo
@@ -118,13 +118,13 @@ export const $query = function ({
   ];
 };
 /**
- *
+ * Create Pagination Pipeline
  * @param {string} $match - $match query
  * @param {Array} pipeline - pipeline query
  * @param {Array} lookups - lookups query
  * @param {Array} condition - condition query
  * @param {Array} more -
- * @returns
+ * @returns pipeline
  */
 export const $pagination = ({
   items,
@@ -221,9 +221,7 @@ export const $checkDocumentExist = async ({ collection, filter }: { collection: 
   return !!count;
 };
 export const $countCollection = async ({ collection, filter }: { collection?: Collection; filter?: Filter<any> }) => {
-  return await (
-    await collection.find(filter).toArray()
-  ).length;
+  return (await collection.find(filter).toArray()).length;
 };
 
 export const $queryByList = async ({
@@ -259,7 +257,7 @@ export const $flatObject = (obj: any, root: any) => {
   });
   return result;
 };
-export const $keysToProject = (keys: string[], root?: any) => {
+export const $keysToProject = (keys: (string | number | symbol)[], root?: any) => {
   return keys.reduce((previous: any, current: string) => {
     previous[current] = root ? `${root}.${current}` : 1;
     return previous;

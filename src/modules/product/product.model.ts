@@ -1,27 +1,34 @@
-import { Db } from 'mongodb';
-import { Inject, Service } from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
-import { DILogger } from '@/loaders/loggerLoader';
-import Logger from '@/core/logger';
+import { Service, Token } from 'typedi';
 import { Product } from './product.type';
+import { keys } from 'ts-transformer-keys';
+import { BaseModel } from '../base/base.model';
 
 const COLLECTION_NAME = 'products';
-
-@Service()
-export class ProductModel {
-  private readonly _collection;
-
-  constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
-    this._collection = db.collection<Product>(COLLECTION_NAME);
-    Promise.all([
-      this._collection.createIndex({ name: 'text' }, { unique: false }),
-      this._collection.createIndex({ name: 1 }, { unique: false }),
-    ]).catch((err) => {
-      this.logger.error(err);
+const TOKEN_NAME = '_productModel';
+export const productModelToken = new Token<ProductModel>(TOKEN_NAME);
+/**
+ * @class ProductModel
+ * @extends BaseModel
+ * @description Product model: Product model for all product related operations
+ **/
+@Service(productModelToken)
+export class ProductModel extends BaseModel {
+  constructor() {
+    super({
+      collectionName: COLLECTION_NAME,
+      _keys: keys<Product>(),
+      indexes: [
+        {
+          field: {
+            name: 1,
+          },
+        },
+        {
+          field: {
+            name: 'text',
+          },
+        },
+      ],
     });
-  }
-
-  get collection() {
-    return this._collection;
   }
 }

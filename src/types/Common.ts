@@ -1,4 +1,5 @@
 import { UserRole } from '@/modules';
+import { ObjectId } from 'mongodb';
 
 export interface BaseQuery {
   page?: number;
@@ -9,6 +10,8 @@ export interface BaseQuery {
 }
 
 export type PaginationResult<T> = { total_count: number; items: T[] };
+
+export type T = any;
 
 export type CurrencyCode = 'VND' | 'USD';
 
@@ -96,7 +99,14 @@ export type BaseModel = {
 };
 
 export interface BaseInformationModel extends BaseModel {
+  id?: ObjectId;
+
+  name?: string;
   // location?: string;
+
+  about?: string;
+
+  categories?: ObjectId[];
 
   verified?: boolean;
 
@@ -107,8 +117,6 @@ export interface BaseInformationModel extends BaseModel {
   email?: string;
 
   avatar?: string;
-
-  about?: string;
 
   short_description?: string;
 
@@ -285,7 +293,7 @@ export enum LANG_CODE {
 
 export const PRIVATE_KEYS = [
   'updated_at',
-  // 'created_at',
+  'created_at',
   'deleted_at',
   'deleted_by',
   'updated_by',
@@ -293,7 +301,12 @@ export const PRIVATE_KEYS = [
   'deleted',
   'trans',
 ];
-
+export type ForeignReLationship = {
+  name?: string;
+  foreign_id: string;
+  type?: string;
+  [key: string]: any;
+};
 export enum NewsStatus {
   DRAFT = 'draft',
   PENDING = 'pending',
@@ -318,3 +331,30 @@ export enum FundraisingRound {
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
 }
+export type FundraisingRoundDetail = {
+  round_name: string;
+  valuation?: string;
+  description?: string;
+  announcement?: string;
+  amount?: number;
+  anum?: string;
+  number_of_rounds?: string;
+  record_id?: string;
+  stage: FundraisingRound | string;
+  posts?: string[];
+  date: Date;
+};
+
+export type COLLECTION_NAMES =
+  | 'events'
+  | 'companies'
+  | 'persons'
+  | 'news'
+  | 'products'
+  | 'funds'
+  | 'users'
+  | 'categories'
+  | 'countries'
+  | 'auth-sessions'
+  | 'coins'
+  | 'verification-tokens';

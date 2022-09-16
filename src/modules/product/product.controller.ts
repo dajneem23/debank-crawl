@@ -1,19 +1,17 @@
-import { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Product, ProductService, ProductValidation } from '.';
+import { Product, productServiceToken, ProductValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
-@Service()
 @Controller('/products')
 export class ProductController {
-  @Inject()
-  private service: ProductService;
+  private service = Container.get(productServiceToken);
 
-  @Post('/', [ProductValidation.create, protectPrivateAPI()])
+  @Post('/', [protectPrivateAPI(), ProductValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -28,7 +26,7 @@ export class ProductController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [ProductValidation.update, protectPrivateAPI()])
+  @Put('/:id', [protectPrivateAPI(), ProductValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -45,7 +43,7 @@ export class ProductController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [ProductValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), ProductValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -54,7 +52,7 @@ export class ProductController {
     @Body()
     body: Product,
   ) {
-    const result = await this.service.delete({
+    await this.service.delete({
       _id: _params.id,
       _content: body,
       _subject: _auth.id,
@@ -96,7 +94,7 @@ export class ProductController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [ProductValidation.getById, protectPrivateAPI()])
+  @Get('/private/:id', [protectPrivateAPI(), ProductValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

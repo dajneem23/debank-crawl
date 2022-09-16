@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import {
   Controller,
   Res,
@@ -15,20 +15,18 @@ import {
   Patch,
 } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { News, NewsService, NewsValidation } from '.';
+import { News, NewsValidation, NewsServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { permission } from './news.middlewares';
-@Service()
 @Controller('/news')
 export class NewsController {
-  @Inject()
-  private service: NewsService;
+  private service = Container.get(NewsServiceToken);
 
-  @Post('/', [NewsValidation.create, protectPrivateAPI()])
+  @Post('/', [protectPrivateAPI(), NewsValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -43,7 +41,7 @@ export class NewsController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [NewsValidation.update, protectPrivateAPI()])
+  @Put('/:id', [protectPrivateAPI(), NewsValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -60,7 +58,7 @@ export class NewsController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [NewsValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), NewsValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -69,7 +67,7 @@ export class NewsController {
     @Body()
     body: News,
   ) {
-    const result = await this.service.delete({
+    await this.service.delete({
       _id: _params.id,
       _content: body,
       _subject: _auth.id,
@@ -114,7 +112,7 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [NewsValidation.getById, protectPrivateAPI()])
+  @Get('/private/:id', [protectPrivateAPI(), NewsValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -151,12 +149,12 @@ export class NewsController {
     _res.status(httpStatus.OK).json(result);
   }
   @Patch('/status/:id', [
-    NewsValidation.updateStatus,
     protect(),
     permission({
       _action: 'update:status',
       _content: 'query',
     }),
+    NewsValidation.updateStatus,
   ])
   async updateStatus(
     @Res() _res: Response,

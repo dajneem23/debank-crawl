@@ -1,27 +1,33 @@
-import { Db } from 'mongodb';
-import { Inject, Service } from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
-import { DILogger } from '@/loaders/loggerLoader';
-import Logger from '@/core/logger';
+import { Inject, Service, Token } from 'typedi';
 import { Person } from './person.type';
-
+import { BaseModel } from '../base/base.model';
+import { keys } from 'ts-transformer-keys';
 const COLLECTION_NAME = 'persons';
-
-@Service()
-export class PersonModel {
-  private readonly _collection;
-
-  constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
-    this._collection = db.collection<Person>(COLLECTION_NAME);
-    Promise.all([
-      this._collection.createIndex({ name: 'text' }, { unique: false }),
-      this._collection.createIndex({ name: 1 }, { unique: false }),
-    ]).catch((err) => {
-      this.logger.error(err);
+const TOKEN_NAME = '_personModel';
+export const personModelToken = new Token<PersonModel>(TOKEN_NAME);
+/**
+ * @class PersonModel
+ * @description Person model: Person model for all person related operations
+ * @extends BaseModel
+ */
+@Service(personModelToken)
+export class PersonModel extends BaseModel {
+  constructor() {
+    super({
+      collectionName: COLLECTION_NAME,
+      _keys: keys<Person>(),
+      indexes: [
+        {
+          field: {
+            name: 1,
+          },
+        },
+        {
+          field: {
+            name: 'text',
+          },
+        },
+      ],
     });
-  }
-
-  get collection() {
-    return this._collection;
   }
 }

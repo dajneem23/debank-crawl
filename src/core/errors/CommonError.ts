@@ -11,6 +11,15 @@ export const errors = Object.freeze({
       vi: 'Lỗi hệ thống',
     },
   },
+  'common.database': {
+    message: 'Database Error',
+    code: null,
+    status: httpStatusCode.INTERNAL_SERVER_ERROR,
+    isPublic: false,
+    locales: {
+      vi: 'Lỗi cơ sở dữ liệu',
+    },
+  },
   'common.unknown': {
     message: 'Unknown Error',
     code: null,
@@ -26,7 +35,7 @@ export const errors = Object.freeze({
     status: httpStatusCode.NOT_FOUND,
     isPublic: true,
     locales: {
-      vi: 'API không tồn tại',
+      vi: 'Không tồn tại',
     },
   },
   'common.access_denied': {
@@ -45,6 +54,15 @@ export const errors = Object.freeze({
     isPublic: true,
     locales: {
       vi: 'Lỗi định dạng không hợp lệ',
+    },
+  },
+  'common.already_exist': {
+    message: 'Already exist',
+    code: null,
+    status: httpStatusCode.BAD_REQUEST,
+    isPublic: true,
+    locales: {
+      vi: 'Đã tồn tại',
     },
   },
 });

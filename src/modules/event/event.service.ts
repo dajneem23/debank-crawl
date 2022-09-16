@@ -1,24 +1,35 @@
-import { Inject, Service } from 'typedi';
+import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { SystemError } from '@/core/errors/CommonError';
-import { EventModel, Event, EventInput, EventOutput, _event } from '.';
+import { EventOutput, _event, eventModelToken } from '.';
 import { Filter } from 'mongodb';
 import { $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $queryByList } from '@/utils/mongoDB';
+import { $toObjectId, $pagination } from '@/utils/mongoDB';
 import { isNil, omit } from 'lodash';
 import { BaseServiceInput, BaseServiceOutput } from '@/types';
 
-@Service()
+const TOKEN_NAME = '_eventService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export EventService
+ * @class EventService
+ * @extends {BaseService}
+ */
+export const eventServiceToken = new Token<EventService>(TOKEN_NAME);
+/**
+ * @class EventService
+ * @description Event service: Event service for all event related operations
+ * @extends BaseService
+ */
+@Service(eventServiceToken)
 export class EventService {
   private logger = new Logger('EventService');
 
-  @Inject()
-  private model: EventModel;
+  private model = Container.get(eventModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -26,41 +37,8 @@ export class EventService {
   @Inject()
   private authService: AuthService;
 
-  /**
-   * A bridge allows another service access to the Model layer
-   */
-  get collection() {
-    return this.model.collection;
-  }
-
   get outputKeys() {
-    return [
-      'id',
-      'name',
-      'introduction',
-      'tel',
-      'email',
-      'about',
-      'avatar',
-      'agendas',
-      'location',
-      'start_date',
-      'end_date',
-      'country',
-      'speakers',
-      'sponsors',
-      'facebook',
-      'twitter',
-      'website',
-      'instagram',
-      'linkedin',
-      'github',
-      'medium',
-      'youtube',
-      'website',
-      'blog',
-      'reddit',
-    ];
+    return this.model._keys;
   }
   get queryOutputKeys() {
     return ['id', 'name', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
@@ -68,57 +46,7 @@ export class EventService {
   get publicOutputKeys() {
     return ['id', 'name', 'start_date', 'end_date', 'banners'];
   }
-  get $lookups() {
-    return {
-      speakers: $lookup({
-        from: 'persons',
-        refFrom: '_id',
-        refTo: 'speakers',
-        select: 'name avatar',
-        reName: 'speakers',
-        operation: '$in',
-      }),
-      sponsors: {},
-      categories: $lookup({
-        from: 'categories',
-        refFrom: '_id',
-        refTo: 'categories',
-        select: 'title',
-        reName: 'categories',
-        operation: '$in',
-      }),
-      user: $lookup({
-        from: 'users',
-        refFrom: 'id',
-        refTo: 'created_by',
-        select: 'full_name picture',
-        reName: 'author',
-        operation: '$eq',
-      }),
-      country: $lookup({
-        from: 'countries',
-        refFrom: 'code',
-        refTo: 'country',
-        select: 'name code',
-        reName: 'country',
-        operation: '$eq',
-      }),
-    };
-  }
-  get $set() {
-    return {
-      country: {
-        $set: {
-          country: { $first: '$country' },
-        },
-      },
-      author: {
-        $set: {
-          author: { $first: '$author' },
-        },
-      },
-    };
-  }
+
   /**
    * Generate ID
    */
@@ -134,47 +62,24 @@ export class EventService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
-      const { categories, speakers, country, subscribers } = _content;
-      const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
-          : true;
-      const speakerIdExist =
-        !!speakers && speakers.length > 0 ? await $queryByList({ collection: 'persons', values: speakers }) : true;
-
-      const countryIdExist = !!country
-        ? await $queryByList({ collection: 'countries', values: [country], key: 'code' })
-        : true;
-      if (!(categoriesIdExist && speakerIdExist && countryIdExist)) {
-        throwErr(new EventError('INPUT_INVALID'));
-      }
-      const event: Event = {
-        ..._event,
-        ..._content,
-        categories: categories ? $toObjectId(categories) : [],
-        speakers: speakers ? $toObjectId(speakers) : [],
-        country: country || '',
-        subscribers: subscribers || [],
-        ...(_subject && { created_by: _subject }),
-      };
+      const { name, subscribers } = _content;
+      const value = await this.model.create(
+        {
+          name,
+          created_at: { $lte: getDateTime({ hour: 1 }) },
+        },
+        {
+          ..._event,
+          ..._content,
+          subscribers: subscribers || [],
+          ...(_subject && { created_by: _subject }),
+        },
+      );
       // Check duplicated
-      const isDuplicated = await this.model.collection.countDocuments({
-        name: event.name,
-        created_at: { $lte: getDateTime({ hour: 1 }) },
-      });
-      if (isDuplicated) {
-        throwErr(new EventError('EVENT_ALREADY_EXIST'));
-      }
-      // Insert user to database
-      const { acknowledged } = await this.model.collection.insertOne(event);
-      if (!acknowledged) {
-        throwErr(new SystemError(`MongoDB insertOne() failed! Payload: ${JSON.stringify(_content)}`));
-      }
-      this.logger.debug('[create:success]', { event });
-      return toOutPut({ item: event, keys: this.outputKeys });
+      this.logger.debug('create_success', { value });
+      return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[create:error]', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
@@ -188,28 +93,12 @@ export class EventService {
    **/
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { categories, speakers, country, slide, recap, subscribers } = _content;
-      const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
-          : true;
-      const speakerIdExist =
-        !!speakers && speakers.length > 0 ? await $queryByList({ collection: 'persons', values: speakers }) : true;
-
-      const countryIdExist = !!country
-        ? await $queryByList({ collection: 'countries', values: [country], key: 'code' })
-        : true;
-      if (!(categoriesIdExist && speakerIdExist && countryIdExist)) {
-        throwErr(new EventError('INPUT_INVALID'));
-      }
-      const { value: event } = await this.model.collection.findOneAndUpdate(
+      const { slide, recap, subscribers } = _content;
+      const event = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
-            ...(categories && { categories: $toObjectId(categories) }),
-            ...(speakers && { speakers: $toObjectId(speakers) }),
-            country: country || '',
             subscribers: subscribers || [],
             updated_at: new Date(),
             ...(_subject && { updated_by: _subject }),
@@ -217,16 +106,15 @@ export class EventService {
         },
         { returnDocument: 'after' },
       );
-      if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
       if (slide || recap) {
         // Send mail to subscribers
         const { subscribers } = event;
-        this.logger.info('[send mail]', { subscribers });
+        this.logger.info('success', '[send mail]', { subscribers });
       }
-      this.logger.debug('[update:success]', { event });
+      this.logger.debug('update_success', { event });
       return toOutPut({ item: event, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -238,21 +126,18 @@ export class EventService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const { value: event } = await this.model.collection.findOneAndUpdate(
+      await this.model.delete(
         $toMongoFilter({ _id }),
         {
-          $set: {
-            deleted: true,
-            deleted_at: new Date(),
-            ...(_subject && { deleted_by: _subject }),
-          },
+          deleted: true,
+          deleted_at: new Date(),
+          ...(_subject && { deleted_by: _subject }),
         },
         { returnDocument: 'after' },
       );
-      if (!event) throwErr(new EventError('EVENT_NOT_FOUND'));
-      this.logger.debug('[delete:success]', { event });
+      this.logger.debug('delete_success', { event });
     } catch (err) {
-      this.logger.error('[delete:error]', err.message);
+      this.logger.error('delete_error', err.message);
       throw err;
     }
   }
@@ -263,25 +148,25 @@ export class EventService {
    */
   async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const [event] = await this.model.collection
-        .aggregate([
+      const [event] = await this.model
+        .get([
           { $match: $toMongoFilter({ _id }) },
-          this.$lookups.categories,
-          this.$lookups.speakers,
-          this.$lookups.country,
-          this.$set.country,
-          this.$lookups.user,
-          this.$set.author,
+          this.model.$lookups.categories,
+          this.model.$lookups.speakers,
+          this.model.$lookups.country,
+          this.model.$sets.country,
+          this.model.$lookups.author,
+          this.model.$sets.author,
           {
             $limit: 1,
           },
         ])
         .toArray();
       if (isNil(event)) throwErr(new EventError('EVENT_NOT_FOUND'));
-      this.logger.debug('[get:success]', { event });
+      this.logger.debug('get_success', { event });
       return omit(toOutPut({ item: event }), ['deleted', 'updated_at']);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -308,8 +193,8 @@ export class EventService {
           total_count: [{ total_count } = { total_count: 0 }],
           items,
         },
-      ] = (await this.model.collection
-        .aggregate([
+      ] = (await this.model
+        .get([
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -322,15 +207,15 @@ export class EventService {
               items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
             },
           },
-          this.$lookups.country,
-          this.$set.country,
+          this.model.$lookups.country,
+          this.model.$sets.country,
         ])
         .toArray()) as any[];
 
-      this.logger.debug('[get:success]', { total_count, items });
+      this.logger.debug('get_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -348,8 +233,8 @@ export class EventService {
           trending,
           virtual,
         },
-      ] = (await this.model.collection
-        .aggregate([
+      ] = (await this.model
+        .get([
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -363,15 +248,15 @@ export class EventService {
               virtual: [{ $match: { type: 'virtual' } }, { $limit: +per_page }],
             },
           },
-          this.$lookups.country,
-          this.$set.country,
+          this.model.$lookups.country,
+          this.model.$sets.country,
         ])
         .toArray()) as any[];
       const items = [...trending, ...virtual];
-      this.logger.debug('[get:success]', { total_count, items });
+      this.logger.debug('get_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -388,8 +273,8 @@ export class EventService {
           total_count: [{ total_count } = { total_count: 0 }],
           items,
         },
-      ] = (await this.model.collection
-        .aggregate([
+      ] = (await this.model
+        .get([
           {
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -402,15 +287,15 @@ export class EventService {
               items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
             },
           },
-          this.$lookups.country,
-          this.$set.country,
+          this.model.$lookups.country,
+          this.model.$sets.country,
         ])
         .toArray()) as any[];
 
-      this.logger.debug('[get:success]', { total_count, items });
+      this.logger.debug('get_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -433,13 +318,13 @@ export class EventService {
       const eventFilter: Filter<any> = {
         ...otherFilter,
         ...categoryFilter,
-        start_date: { $gte: new Date() },
+        // start_date: { $gte: new Date() },
         ...(q && {
           $or: [{ name: { $regex: q, $options: 'i' } }],
         }),
       };
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               ...$toMongoFilter(eventFilter),
@@ -447,18 +332,18 @@ export class EventService {
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
-          this.$lookups.country,
-          this.$set.country,
+          this.model.$lookups.country,
+          this.model.$sets.country,
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({
         items,
         total_count,
         keys: this.queryOutputKeys,
       });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
@@ -474,7 +359,7 @@ export class EventService {
     try {
       const { subscribers } = _content;
 
-      const { value: event } = await this.model.collection.findOneAndUpdate(
+      const { value: event } = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
@@ -491,12 +376,12 @@ export class EventService {
       if (subscribers) {
         // Send mail to subscribers
         const { subscribers } = event;
-        this.logger.info('[send mail]', { subscribers });
+        this.logger.info('success', 'send mail', { subscribers });
       }
-      this.logger.debug('[update:success]', { event });
+      this.logger.debug('update_success', { event });
       return toOutPut({ item: event, keys: ['subscribers'] });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -509,24 +394,24 @@ export class EventService {
     try {
       const { q, lang } = _filter;
       const { page = 1, per_page = 10, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               ...(q && {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
-            $lookups: [this.$lookups.user, this.$lookups.categories],
+            $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
 
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }

@@ -24,7 +24,7 @@ const errors = Object.freeze({
   },
   ...CommonError,
 });
-
+export const coinErrors = errors;
 export class CoinError extends AppError {
   constructor(msg: keyof typeof errors, errDetails?: AppErrorJSON['details']) {
     super({ ...errors[msg], ...(errDetails && { details: errDetails }) });

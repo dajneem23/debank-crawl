@@ -1,47 +1,36 @@
-import { Inject, Service } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { ProductError, ProductModel, _product, Product } from '.';
+import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { ProductError, _product, productModelToken, productErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-
-@Service()
+const TOKEN_NAME = '_productService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export ProductService
+ * @class ProductService
+ * @extends {BaseService}
+ */
+export const productServiceToken = new Token<ProductService>(TOKEN_NAME);
+/**
+ * @class ProductService
+ * @extends  BaseService
+ * @description Product Service for all product related operations
+ */
+@Service(productServiceToken)
 export class ProductService {
   private logger = new Logger('ProductService');
 
-  @Inject()
-  private model: ProductModel;
+  private model = Container.get(productModelToken);
 
-  private error(msg: any) {
+  private error(msg: keyof typeof productErrors) {
     return new ProductError(msg);
   }
 
-  /**
-   * A bridge allows another service access to the Model layer
-   */
-  get collection() {
-    return this.model.collection;
-  }
-
   get outputKeys() {
-    // return [
-    //   'id',
-    //   'name',
-    //   'director',
-    //   'country',
-    //   'headquarter',
-    //   'categories',
-    //   'galleries',
-    //   'crypto_currencies',
-    //   'portfolios',
-    //   'features',
-    //   'services',
-    //   'author',
-    // ];
-
-    return ['id'].concat(Object.keys(_product));
+    return this.model._keys;
   }
 
   get publicOutputKeys() {
@@ -52,170 +41,58 @@ export class ProductService {
     return ['about', 'short_description'];
   }
   /**
-   *  Lookups
-   */
-  get $lookups(): any {
-    return {
-      categories: $lookup({
-        from: 'categories',
-        refFrom: '_id',
-        refTo: 'categories',
-        select: 'title type',
-        reName: 'categories',
-        operation: '$in',
-      }),
-      user: $lookup({
-        from: 'users',
-        refFrom: 'id',
-        refTo: 'created_by',
-        select: 'full_name picture',
-        reName: 'author',
-        operation: '$eq',
-      }),
-      team: $lookup({
-        from: 'team',
-        refFrom: '_id',
-        refTo: 'team',
-        select: 'name avatar',
-        reName: 'team',
-        operation: '$in',
-      }),
-      // crypto_currencies: $lookup({
-      //   from: 'coins',
-      //   refFrom: '_id',
-      //   refTo: 'crypto_currencies',
-      //   select: 'name token_id',
-      //   reName: 'crypto_currencies',
-      //   operation: '$in',
-      // }),
-      countries: $lookup({
-        from: 'countries',
-        refFrom: 'code',
-        refTo: 'country',
-        select: 'name',
-        reName: 'country',
-        operation: '$eq',
-      }),
-    };
-  }
-  get $sets() {
-    return {
-      country: {
-        $set: {
-          country: { $first: '$country' },
-        },
-      },
-      author: {
-        $set: {
-          author: { $first: '$author' },
-        },
-      },
-      trans: {
-        $set: {
-          trans: { $first: '$trans' },
-        },
-      },
-    };
-  }
-  /**
    * Generate ID
    */
   static async generateID() {
     return alphabetSize12();
   }
   /**
-   * Create a new category
+   * Create document
    * @param _content
    * @param _subject
    * @returns {Promise<BaseServiceOutput>}
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       const { name } = _content;
-      const { categories, crypto_currencies } = _content;
-      const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
-          : true;
-      const coinIdExist =
-        !!crypto_currencies && crypto_currencies.length > 0
-          ? await $queryByList({ collection: 'coins', values: crypto_currencies })
-          : true;
-
-      if (!(categoriesIdExist && coinIdExist)) {
-        throwErr(this.error('INPUT_INVALID'));
-      }
-      const {
-        value,
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const value = await this.model.create(
         {
           name,
         },
         {
-          $setOnInsert: {
-            ..._product,
-            ..._content,
-            categories: categories ? $toObjectId(categories) : [],
-            crypto_currencies: crypto_currencies ? $toObjectId(crypto_currencies) : [],
-            ...(_subject && { created_by: _subject }),
-          },
+          ..._product,
+          ..._content,
+          ...(_subject && { created_by: _subject }),
         },
         {
           upsert: true,
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (updatedExisting) {
-        throwErr(this.error('ALREADY_EXIST'));
-      }
-      this.logger.debug('[create:success]', { _content });
+      this.logger.debug('create_success', { _content });
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[create:error]', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
 
   /**
-   * Update category
+   * Update document
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Product>}
+   * @returns {Promise<BaseServiceOutput>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
 
-      const { categories, crypto_currencies } = _content;
-      const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
-          : true;
-      const coinIdExist =
-        !!crypto_currencies && crypto_currencies.length > 0
-          ? await $queryByList({ collection: 'coins', values: crypto_currencies })
-          : true;
-
-      if (!(categoriesIdExist && coinIdExist)) {
-        throwErr(this.error('INPUT_INVALID'));
-      }
-      const {
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
-            ...(categories && { categories: $toObjectId(categories) }),
-            ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
@@ -225,22 +102,16 @@ export class ProductService {
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[update:success]', { _content });
+      this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
 
   /**
-   * Delete category
+   * Delete document
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
@@ -248,10 +119,7 @@ export class ProductService {
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
       const now = new Date();
-      const {
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      await this.model.delete(
         $toMongoFilter({ _id }),
         {
           $set: {
@@ -265,22 +133,16 @@ export class ProductService {
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[delete:success]', { _id });
+      this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
-      this.logger.error('[delete:error]', err.message);
+      this.logger.error('delete_error', err.message);
       throw err;
     }
   }
 
   /**
-   *  Query category
+   *  Query document
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -290,8 +152,8 @@ export class ProductService {
     try {
       const { q, lang, category } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate(
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get(
           $pagination({
             $match: {
               $and: [
@@ -311,7 +173,7 @@ export class ProductService {
                 ],
               }),
             },
-            $lookups: [this.$lookups.categories],
+            $lookups: [this.model.$lookups.categories],
             $projects: [
               {
                 $project: {
@@ -329,7 +191,7 @@ export class ProductService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -342,15 +204,15 @@ export class ProductService {
           }),
         )
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
   /**
-   * Get product by ID
+   * Get document
    * @param id - product ID
    * @param _filter - filter query
    * @param _permission - permission query
@@ -360,13 +222,13 @@ export class ProductService {
     try {
       const { lang } = _filter;
 
-      const [item] = await this.model.collection
-        .aggregate([
+      const [item] = await this.model
+        .get([
           { $match: $toMongoFilter({ _id }) },
-          this.$lookups.categories,
-          // this.$lookups.crypto_currencies,
-          this.$lookups.user,
-          this.$sets.author,
+          this.model.$lookups.categories,
+          // this.$lookups.cryptocurrencies,
+          this.model.$lookups.author,
+          this.model.$sets.author,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -381,7 +243,7 @@ export class ProductService {
               },
             },
           },
-          this.$sets.trans,
+          this.model.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -394,10 +256,10 @@ export class ProductService {
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
-      this.logger.debug('[get:success]', { item });
+      this.logger.debug('get_success', { item });
       return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -411,15 +273,15 @@ export class ProductService {
     try {
       const { q, lang } = _filter;
       const { page = 1, per_page = 10, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               ...(q && {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
-            $lookups: [this.$lookups.categories],
+            $lookups: [this.model.$lookups.categories],
             $projects: [
               {
                 $project: {
@@ -437,7 +299,7 @@ export class ProductService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -449,10 +311,10 @@ export class ProductService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }

@@ -37,8 +37,11 @@ Desktop.ini
 /docker/db
 
 #seeds
-src/seeds/data/*.json
+# src/seeds/data/*.json
 
 # Tests
+
+thunder-tests/thunder.env
 thunder-tests/thunderActivity.json
+
 docker/docker.env

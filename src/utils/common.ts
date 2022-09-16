@@ -1,7 +1,6 @@
 import fs from 'fs';
-import { BaseQuery } from '@/types/Common';
+import { BaseQuery, T } from '@/types/Common';
 import { isNull, omitBy, pick } from 'lodash';
-import { any } from 'bluebird';
 /**
  * Get runtime config from "process" Nodejs
  */
@@ -92,7 +91,7 @@ export const toOutPut = ({
   nullable = false,
 }: {
   item: any;
-  keys?: string[];
+  keys?: (string | number | symbol)[];
   nullable?: boolean;
 }): {
   [key: string]: any;
@@ -116,7 +115,7 @@ export const toPagingOutput = ({
 }: {
   items: any;
   total_count: number;
-  keys: string[];
+  keys: string[] | (string | number | symbol)[];
   nullable?: boolean;
 }): {
   total_count: number;

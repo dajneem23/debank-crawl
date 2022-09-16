@@ -1,31 +1,43 @@
 import { Db } from 'mongodb';
-import { Inject, Service } from 'typedi';
+import { Inject, Service, Token } from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { Coin } from './coin.type';
+import { BaseModel } from '../base/base.model';
+import { keys } from 'ts-transformer-keys';
 
 const COLLECTION_NAME = 'coins';
-
-@Service()
-export class CoinModel {
-  private readonly _collection;
-
-  constructor(@Inject(DILogger) private logger: Logger, @Inject(DIMongoDB) private db: Db) {
-    this._collection = db.collection<Coin>(COLLECTION_NAME);
-    Promise.all([
-      // Unique ID
-
-      this._collection.createIndex({ name: 'text' }, { unique: false }),
-      this._collection.createIndex({ name: 1 }, { unique: false }),
-
-      this._collection.createIndex('token_id', { unique: false }),
-    ]).catch((err) => {
-      this.logger.error(err);
+const TOKEN_NAME = '_coinModel';
+export const coinModelToken = new Token<CoinModel>(TOKEN_NAME);
+/**
+ * @class CoinModel
+ * @extends BaseModel
+ * @description Coin model: Coin model for all coin related operations
+ */
+@Service(coinModelToken)
+export class CoinModel extends BaseModel {
+  constructor() {
+    super({
+      collectionName: COLLECTION_NAME,
+      _keys: keys<Coin>(),
+      indexes: [
+        {
+          field: {
+            name: 1,
+          },
+        },
+        {
+          field: {
+            name: 'text',
+          },
+        },
+        {
+          field: {
+            token_id: 1,
+          },
+        },
+      ],
     });
-  }
-
-  get collection() {
-    return this._collection;
   }
 }

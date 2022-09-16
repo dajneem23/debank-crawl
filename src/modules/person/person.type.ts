@@ -7,8 +7,6 @@ export interface Person extends BaseInformationModel {
 
   last_name?: string;
 
-  categories?: string[];
-
   position?: PersonPosition[];
 
   works?: PersonWork[];

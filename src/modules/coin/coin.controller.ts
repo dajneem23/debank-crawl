@@ -1,19 +1,17 @@
-import { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Response } from 'express';
-import { Coin, CoinService, CoinValidation } from '.';
+import { Coin, coinServiceToken, CoinValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
-@Service()
 @Controller('/coins')
 export class CoinController {
-  @Inject()
-  private service: CoinService;
+  private service = Container.get(coinServiceToken);
 
-  @Post('/', [CoinValidation.create, protectPrivateAPI()])
+  @Post('/', [protectPrivateAPI(), CoinValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -28,7 +26,7 @@ export class CoinController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [CoinValidation.update, protectPrivateAPI()])
+  @Put('/:id', [protectPrivateAPI(), CoinValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -45,7 +43,7 @@ export class CoinController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [CoinValidation.delete, protectPrivateAPI()])
+  @Delete('/:id', [protectPrivateAPI(), CoinValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -54,7 +52,7 @@ export class CoinController {
     @Body()
     body: Coin,
   ) {
-    const result = await this.service.delete({
+    await this.service.delete({
       _id: _params.id,
       _content: body,
       _subject: _auth.id,
@@ -97,7 +95,7 @@ export class CoinController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [CoinValidation.getById, protectPrivateAPI()])
+  @Get('/private/:id', [protectPrivateAPI(), CoinValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

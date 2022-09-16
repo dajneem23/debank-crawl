@@ -1,10 +1,12 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
 import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 import contries from '../data/contries.json';
+import Container, { Inject, Service } from 'typedi';
+import { DIMongoDB } from '@/loaders/mongoDBLoader';
 /* eslint-disable no-console */
 export const CountrySeed = async () => {
   console.log('Running country seed');
-  const db = await mongoDBLoader();
+  const db = Container.get(DIMongoDB);
   const collection = db.collection('countries');
   const count = await $countCollection({ collection });
   if (!count) {

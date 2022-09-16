@@ -85,13 +85,13 @@ export class UserService {
           },
         ])
         .toArray()) as any;
-      this.logger.debug('[query:success]', { filter, query });
+      this.logger.debug('query_success', { filter, query });
       return {
         total_count: count,
         items: items.map((item: User) => toUserOutput(item)),
       };
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
@@ -122,10 +122,10 @@ export class UserService {
       if (!acknowledged) {
         throwErr(new SystemError(`MongoDB insertOne() failed! Payload: ${JSON.stringify(user)}`));
       }
-      this.logger.debug('[create:success]', { email: userInput.email });
+      this.logger.debug('create_success', { email: userInput.email });
       return toUserOutput(user);
     } catch (err) {
-      this.logger.error('[create:error]', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
@@ -137,10 +137,10 @@ export class UserService {
     try {
       const user = await this.userModel.collection.findOne({ id });
       if (!user) throwErr(new UserError('USER_NOT_FOUND'));
-      this.logger.debug('[getById:success]', { id, email: user.email });
+      this.logger.debug('get_success', { id, email: user.email });
       return toUserOutput(user);
     } catch (err) {
-      this.logger.error('[getById:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -162,10 +162,10 @@ export class UserService {
         { returnDocument: 'after' },
       );
       if (!user) throwErr(new UserError('USER_NOT_FOUND'));
-      this.logger.debug('[update:success]', { email: user.email });
+      this.logger.debug('update_success', { email: user.email });
       return toUserOutput(user);
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       if (err.code === 11000 && err.keyPattern?.email) throwErr(new AuthError('EMAIL_ALREADY_EXISTS'));
       throw err;
     }
@@ -180,9 +180,9 @@ export class UserService {
       await this.update(userId, { status: 'suspended' });
       // Block current auth sessions
       await this.blocklistService.addToTemporaryBlockList(userId);
-      this.logger.debug('[suspend:success]', { userId });
+      this.logger.debug('suspend_success', { userId });
     } catch (err) {
-      this.logger.error('[suspend:error]', err);
+      this.logger.error('suspend_error', err);
       throw err;
     }
   }
@@ -196,9 +196,9 @@ export class UserService {
       await this.update(userId, { status: 'active' });
       // Enable blocked auth sessions
       await this.blocklistService.removeFromTemporaryBlockList(userId);
-      this.logger.debug('[unsuspend:success]', { userId });
+      this.logger.debug('unsuspend_success', { userId });
     } catch (err) {
-      this.logger.error('[unsuspend:error]', err);
+      this.logger.error('unsuspend_error', err);
       throw err;
     }
   }
@@ -225,9 +225,9 @@ export class UserService {
       });
       // Block current auth sessions
       await this.blocklistService.addToTemporaryBlockList(userId);
-      this.logger.debug('[deleteAccount:success]', { userId });
+      this.logger.debug('delete_success', { userId });
     } catch (err) {
-      this.logger.error('[deleteAccount:error]', err);
+      this.logger.error('delete_error', err);
       throw err;
     }
   }
@@ -244,10 +244,10 @@ export class UserService {
         { returnDocument: 'after' },
       );
       if (!user) throwErr(new UserError('USER_NOT_FOUND'));
-      this.logger.debug('[updateFavoriteNews:success]', { userId, newsId });
+      this.logger.debug('update_success', { userId, newsId });
       return toUserOutput({ favorite_news: user.favorite_news } as User);
     } catch (err) {
-      this.logger.error('[addNews:error]', err);
+      this.logger.error('update_error', err);
       throw err;
     }
   }
@@ -264,10 +264,10 @@ export class UserService {
         { returnDocument: 'after' },
       );
       if (!user) throwErr(new UserError('USER_NOT_FOUND'));
-      this.logger.debug('[saveNews:success]', { userId, newsId });
+      this.logger.debug('success', { userId, newsId });
       return toUserOutput({ saved_news: user.saved_news } as User);
     } catch (err) {
-      this.logger.error('[addNews:error]', err);
+      this.logger.error('error', err);
       throw err;
     }
   }
@@ -295,12 +295,12 @@ export class UserService {
       if (!updatedExisting) throwErr(new UserError('USER_NOT_FOUND'));
       if (!ok)
         throwErr(new SystemError(`MongoDB findOneAndUpdate() failed! Payload: ${JSON.stringify({ id, categoryId })}`));
-      this.logger.debug('[update:success]', { email: user.email });
+      this.logger.debug('update_success', { email: user.email });
       return {
         followings: user.followings,
       };
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -325,12 +325,12 @@ export class UserService {
       if (!updatedExisting) throwErr(new UserError('USER_NOT_FOUND'));
       if (!ok)
         throwErr(new SystemError(`MongoDB findOneAndUpdate() failed! Payload: ${JSON.stringify({ id, categoryId })}`));
-      this.logger.debug('[update:success]', { email: user.email });
+      this.logger.debug('update_success', { email: user.email });
       return {
         followings: user.followings,
       };
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -355,10 +355,10 @@ export class UserService {
       if (!updatedExisting) throwErr(new UserError('USER_NOT_FOUND'));
       if (!ok) throwErr(new SystemError(`MongoDB findOneAndUpdate() failed! Payload: ${JSON.stringify({ id, data })}`));
       if (!user) throwErr(new UserError('USER_NOT_FOUND'));
-      this.logger.debug('[update:success]', { email: user.email });
+      this.logger.debug('update_success', { email: user.email });
       return toUserOutput(user);
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -383,10 +383,10 @@ export class UserService {
       if (!updatedExisting) throwErr(new UserError('USER_NOT_FOUND'));
       if (!ok) throwErr(new SystemError(`MongoDB findOneAndUpdate() failed! Payload: ${JSON.stringify({ id, data })}`));
       if (!user) throwErr(new UserError('USER_NOT_FOUND'));
-      this.logger.debug('[update:success]', { email: user.email });
+      this.logger.debug('update_success', { email: user.email });
       return toUserOutput(user);
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }

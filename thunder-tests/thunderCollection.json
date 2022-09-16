@@ -60,6 +60,13 @@
         "containerId": "",
         "created": "2022-08-30T09:07:12.380Z",
         "sortNum": 90000
+      },
+      {
+        "_id": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+        "name": "funds",
+        "containerId": "",
+        "created": "2022-09-08T11:08:25.153Z",
+        "sortNum": 100000
       }
     ],
     "settings": {

@@ -1,32 +1,35 @@
-import { Inject, Service } from 'typedi';
+import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
+import AuthSessionModel from '@/modules/auth/authSession.model';
+import AuthService from '../auth/auth.service';
 import { $lookup, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { CategoryModel, CategoryError, CategoryOutput, _category } from '.';
+import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
+import { keys } from 'ts-transformer-keys';
 
-@Service()
+const TOKEN_NAME = '_categoryService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export CategoryService
+ * @class CategoryService
+ * @extends {BaseService}
+ */
+export const categoryServiceToken = new Token<CategoryService>(TOKEN_NAME);
+@Service(categoryServiceToken)
 export class CategoryService {
-  private logger = new Logger('CategoryService');
+  private logger = new Logger('Categories');
 
-  @Inject()
-  private model: CategoryModel;
+  private model = Container.get(categoryModelToken) as CategoryModel;
 
   private error(msg: any) {
     return new CategoryError(msg);
   }
 
-  /**
-   * A bridge allows another service access to the Model layer
-   */
-  get collection() {
-    return this.model.collection;
-  }
-
   get outputKeys() {
-    return ['id', 'title', 'name', 'sub_categories', 'weight'];
+    return this.model._keys;
   }
 
   get publicOutputKeys() {
@@ -35,38 +38,7 @@ export class CategoryService {
   get transKeys() {
     return ['title', 'name'];
   }
-  get $lookups(): any {
-    return {
-      sub_categories: $lookup({
-        from: 'categories',
-        refFrom: '_id',
-        refTo: 'sub_categories',
-        select: 'title type',
-        reName: 'sub_categories',
-        operation: '$in',
-      }),
-    };
-  }
 
-  get $sets() {
-    return {
-      country: {
-        $set: {
-          country: { $first: '$country' },
-        },
-      },
-      author: {
-        $set: {
-          author: { $first: '$author' },
-        },
-      },
-      trans: {
-        $set: {
-          trans: { $first: '$trans' },
-        },
-      },
-    };
-  }
   /**
    * Generate ID
    */
@@ -83,10 +55,7 @@ export class CategoryService {
     try {
       const now = new Date();
       const { name } = _content;
-      const {
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const value = await this.model.create(
         { name },
         {
           $setOnInsert: {
@@ -103,16 +72,10 @@ export class CategoryService {
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (updatedExisting) {
-        throwErr(this.error('CATEGORY_ALREADY_EXIST'));
-      }
-      this.logger.debug('[create:success]', { _content });
-      return toOutPut({ item: _content, keys: this.outputKeys });
+      this.logger.debug('create_success', { _content });
+      return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[create:error]', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
@@ -127,10 +90,7 @@ export class CategoryService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
       const now = new Date();
-      const {
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
@@ -144,16 +104,10 @@ export class CategoryService {
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('CATEGORY_NOT_FOUND'));
-      }
-      this.logger.debug('[update:success]', { _content });
+      this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -167,10 +121,7 @@ export class CategoryService {
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
       const now = new Date();
-      const {
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      await this.model.delete(
         $toMongoFilter({ _id }),
         {
           $set: {
@@ -184,16 +135,10 @@ export class CategoryService {
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('CATEGORY_NOT_FOUND'));
-      }
-      this.logger.debug('[delete:success]', { _id });
+      this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
-      this.logger.error('[delete:error]', err.message);
+      this.logger.error('delete_error', err.message);
       throw err;
     }
   }
@@ -209,8 +154,8 @@ export class CategoryService {
     try {
       const { type, lang } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate(
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get(
           $pagination({
             $match: {
               ...(type && {
@@ -220,7 +165,7 @@ export class CategoryService {
                 'trans.lang': { $eq: lang },
               }),
             },
-            $lookups: [this.$lookups.sub_categories],
+            $lookups: [this.model.$lookups.sub_categories],
             $projects: [
               {
                 $project: {
@@ -238,7 +183,7 @@ export class CategoryService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -251,10 +196,10 @@ export class CategoryService {
           }),
         )
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
@@ -266,8 +211,8 @@ export class CategoryService {
   async getById({ _id, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const [category] = await this.model.collection
-        .aggregate([
+      const [category] = await this.model
+        .get([
           {
             $match: $toMongoFilter({ _id }),
           },
@@ -277,40 +222,35 @@ export class CategoryService {
         ])
         .toArray();
       if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
-      this.logger.debug('[get:success]', { category });
+      this.logger.debug('get_success', { category });
       return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
-
   /**
-   * Search by text index
-   * @param {BaseServiceInput} _filter _query
-   * @returns
+   *  Search category
+   * @param {any} _filter
+   * @param {BaseQuery} _query
+   * @returns {Promise<BaseServiceOutput>}
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
-      const { page = 1, per_page = 10 } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const { q, lang, type } = _filter;
+      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
-              deleted: false,
-              ...(q && {
-                $or: [
-                  { $text: { $search: q } },
-                  {
-                    name: { $regex: q, $options: 'i' },
-                  },
-                ],
+              ...(type && {
+                type: { $in: Array.isArray(type) ? type : [type] },
               }),
-              ...(lang && {
-                'trans.lang': { $eq: lang },
+              ...(q && {
+                $or: [{ $text: { $search: q } }, { title: { $regex: q, $options: 'i' } }],
               }),
             },
+
             $projects: [
               {
                 $project: {
@@ -328,7 +268,7 @@ export class CategoryService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -340,10 +280,10 @@ export class CategoryService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }

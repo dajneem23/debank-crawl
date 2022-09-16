@@ -1,20 +1,30 @@
 import { CountrySeed } from './country';
-// import { EventSeed } from './event';
 import { CategorySeed } from './category';
-// import { SectorSeed } from './sector';
-import { PersonSeed } from './person';
-import { ProductSeed } from './product';
-import { CompanySeed } from './company';
-import { CoinSeed } from './coin';
+import { PersonSeed, personInvestment, insertPersons } from './person';
+import { ProductSeed, insertProducts } from './product';
+import { CompanySeed, companyInvestment, insertCompanies } from './company';
+import { CoinSeed, insertCoins } from './coin';
 import { UserSeed } from './user';
-
+import { FundSeed, fundInvestment, insertFunds } from './fund';
 (async () => {
   (await import('../loaders/loggerLoader')).default();
   await (await import('../loaders/mongoDBLoader')).default();
   await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
-  await Promise.all([CompanySeed(), ProductSeed(), PersonSeed(), CoinSeed()]);
+  // await Promise.all([CompanySeed(), ProductSeed(), CoinSeed()]);
   // await CompanySeed();
+  // await ProductSeed();
+  // await CoinSeed();
   // await PersonSeed();
+  // await FundSeed();
+  // await personInvestment();
+  // await companyInvestment();
+  // await fundInvestment();
+  // await insertCoins();
+  // await insertFunds();
+  // await insertPersons();
+  // await insertCompanies();
+  // await insertProducts();
+  await Promise.allSettled([insertCompanies(), insertProducts(), insertPersons(), insertFunds(), insertCoins()]);
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

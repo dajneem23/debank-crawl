@@ -8,215 +8,212 @@ import categories_crypto_2 from '../data/crypto_slate/json/crypto-categories.jso
 import categoriesFile from '../data/crypto_slate/json/categories.json';
 import addon_categories from '../data/addon_categories.json';
 // import categories_crypto from '../data/categories_crypto_asset.json';
-import mongoDBLoader from '@/loaders/mongoDBLoader';
 import { $countCollection } from '@/utils/mongoDB';
+import Container, { Inject, Service } from 'typedi';
+import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import fs from 'fs';
 export const CategorySeed = async () => {
-  const db = await mongoDBLoader();
+  const db = Container.get(DIMongoDB);
   const collection = db.collection('categories');
   const count = await $countCollection({ collection });
-  if (!count) {
-    console.log('Running category seed');
-    const categories = [
-      ...categories_event.map((item) => {
+  if (count) return;
+  console.log('Running category seed');
+  const categories = [
+    ...categories_event.map((item) => {
+      return {
+        title: item.title,
+        type: CATEGORY_TYPE.EVENT,
+      };
+    }),
+    ...categories_crypto.map((item) => {
+      return {
+        title: item.title,
+        type: CATEGORY_TYPE.CRYPTO_ASSET,
+      };
+    }),
+    ...categories_news[0].news.map((item: any) => {
+      return {
+        title: item.news,
+        type: CATEGORY_TYPE.NEWS,
+      };
+    }),
+    ...categories_crypto_2[0].blockchains.map((item: any) => {
+      const spans = categories_crypto_2[0]['blockchains-span'].map((span: any) => {
+        return span['blockchains-span'];
+      });
+      return {
+        title: item.blockchains
+          .split(' ')
+          .filter((_item: any) => !spans.includes(_item))
+          .join(' '),
+        type: CATEGORY_TYPE.BLOCKCHAIN,
+      };
+    }),
+    ...categories_crypto_2[0].applications.map((item: any) => {
+      const spans = categories_crypto_2[0]['applications-span'].map((span: any) => {
+        return span['applications-span'];
+      });
+      return {
+        title: item.applications
+          .split(' ')
+          .filter((_item: any) => !spans.includes(_item))
+          .join(' '),
+        type: CATEGORY_TYPE.APPLICATION,
+      };
+    }),
+    ...categories_crypto_2[0].consensus.map((item: any) => {
+      const spans = categories_crypto_2[0]['consensus-span'].map((span: any) => {
+        return span['consensus-span'];
+      });
+      return {
+        title: item.consensus
+          .split(' ')
+          .filter((_item: any) => !spans.includes(_item))
+          .join(' '),
+        type: CATEGORY_TYPE.CONSENSUS,
+      };
+    }),
+    ...categories_crypto_2[0].sectors.map((item: any) => {
+      const spans = categories_crypto_2[0]['sectors-span'].map((span: any) => {
+        return span['sectors-span'];
+      });
+      return {
+        title: item.sectors
+          .split(' ')
+          .filter((_item: any) => !spans.includes(_item))
+          .join(' '),
+        type: CATEGORY_TYPE.CRYPTO,
+      };
+    }),
+    ...categoriesFile[0]['coin-sectors'].map((item: any) => {
+      return {
+        title: item['coin-sectors'].split(' ').join(' '),
+        type: CATEGORY_TYPE.CRYPTO,
+      };
+    }),
+    ...categoriesFile[0]['people-categories'].map((item: any) => {
+      return {
+        title: item['people-categories'].split(' ').join(' '),
+        type: CATEGORY_TYPE.PERSON,
+      };
+    }),
+    ...categoriesFile[0]['company-categories'].map((item: any) => {
+      return {
+        title: item['company-categories'].split(' ').join(' '),
+        type: CATEGORY_TYPE.COMPANY,
+      };
+    }),
+    ...categoriesFile[0]['product-categories'].map((item: any) => {
+      return {
+        title: item['product-categories'].split(' ').join(' '),
+        type: CATEGORY_TYPE.PRODUCT,
+      };
+    }),
+    ...addon_categories,
+  ];
+  const uniqueCategories = await Promise.all(
+    categories
+      .map((item) => {
         return {
-          title: item.title,
-          type: CATEGORY_TYPE.EVENT,
-        };
-      }),
-      ...categories_crypto.map((item) => {
-        return {
-          title: item.title,
-          type: CATEGORY_TYPE.CRYPTO_ASSET,
-        };
-      }),
-      ...categories_news[0].news.map((item: any) => {
-        return {
-          title: item.news,
-          type: CATEGORY_TYPE.NEWS,
-        };
-      }),
-      ...categories_crypto_2[0].blockchains.map((item: any) => {
-        const spans = categories_crypto_2[0]['blockchains-span'].map((span: any) => {
-          return span['blockchains-span'];
-        });
-        return {
-          title: item.blockchains
+          ...item,
+          title: item.title
+            .match(/[a-zA-Z0-9_ ]+/g)
+            .join('')
+            .trim(),
+          name: item.title
+            .toLowerCase()
+            .match(/[a-zA-Z0-9_ ]+/g)
+            .join('')
+            .trim()
+            .replace(' ', '_'),
+          acronym: item.title
+            .toLowerCase()
+            .match(/[a-zA-Z0-9_ ]+/g)
+            .join('')
+            .trim()
             .split(' ')
-            .filter((_item: any) => !spans.includes(_item))
-            .join(' '),
-          type: CATEGORY_TYPE.BLOCKCHAIN,
+            .map((word: any, _: any, list: any) => {
+              return list.length > 1 ? word[0] : list.slice(0, 1);
+            })
+            .join(''),
+          trans: [],
+          deleted: false,
+          created_at: new Date(),
+          updated_at: new Date(),
+          created_by: 'admin',
         };
-      }),
-      ...categories_crypto_2[0].applications.map((item: any) => {
-        const spans = categories_crypto_2[0]['applications-span'].map((span: any) => {
-          return span['applications-span'];
-        });
+      })
+      .filter((item, index, self) => {
+        return (
+          self.findIndex((t) => {
+            return t.name === item.name && t.type === item.type;
+          }) === index &&
+          self.findIndex((t) => {
+            return t.acronym === item.acronym && t.type === item.type;
+          }) === index
+        );
+      })
+      .map(async (item: any, index) => {
         return {
-          title: item.applications
-            .split(' ')
-            .filter((_item: any) => !spans.includes(_item))
-            .join(' '),
-          type: CATEGORY_TYPE.APPLICATION,
-        };
-      }),
-      ...categories_crypto_2[0].consensus.map((item: any) => {
-        const spans = categories_crypto_2[0]['consensus-span'].map((span: any) => {
-          return span['consensus-span'];
-        });
-        return {
-          title: item.consensus
-            .split(' ')
-            .filter((_item: any) => !spans.includes(_item))
-            .join(' '),
-          type: CATEGORY_TYPE.CONSENSUS,
-        };
-      }),
-      ...categories_crypto_2[0].sectors.map((item: any) => {
-        const spans = categories_crypto_2[0]['sectors-span'].map((span: any) => {
-          return span['sectors-span'];
-        });
-        return {
-          title: item.sectors
-            .split(' ')
-            .filter((_item: any) => !spans.includes(_item))
-            .join(' '),
-          type: CATEGORY_TYPE.CRYPTO,
-        };
-      }),
-      ...categoriesFile[0]['coin-sectors'].map((item: any) => {
-        return {
-          title: item['coin-sectors'].split(' ').join(' '),
-          type: CATEGORY_TYPE.CRYPTO,
-        };
-      }),
-      ...categoriesFile[0]['people-categories'].map((item: any) => {
-        return {
-          title: item['people-categories'].split(' ').join(' '),
-          type: CATEGORY_TYPE.PERSON,
-        };
-      }),
-      ...categoriesFile[0]['company-categories'].map((item: any) => {
-        return {
-          title: item['company-categories'].split(' ').join(' '),
-          type: CATEGORY_TYPE.COMPANY,
-        };
-      }),
-      ...categoriesFile[0]['product-categories'].map((item: any) => {
-        return {
-          title: item['product-categories'].split(' ').join(' '),
-          type: CATEGORY_TYPE.PRODUCT,
-        };
-      }),
-      ...addon_categories,
-    ];
-    const uniqueCategories = await Promise.all(
-      categories
-        .map((item) => {
-          return {
-            ...item,
-            title: item.title
-              .match(/[a-zA-Z0-9_ ]+/g)
-              .join('')
-              .trim(),
-            name: item.title
-              .toLowerCase()
-              .match(/[a-zA-Z0-9_ ]+/g)
-              .join('')
-              .trim()
-              .replace(' ', '_'),
-            acronym: item.title
-              .toLowerCase()
-              .match(/[a-zA-Z0-9_ ]+/g)
-              .join('')
-              .trim()
-              .split(' ')
-              .map((word: any, _: any, list: any) => {
-                return list.length > 1 ? word[0] : list.slice(0, 1);
-              })
-              .join(''),
-            trans: [],
-            deleted: false,
-            created_at: new Date(),
-            updated_at: new Date(),
-            created_by: 'admin',
-          };
-        })
-        .filter((item, index, self) => {
-          return (
-            self.findIndex((t) => {
-              return t.name === item.name && t.type === item.type;
-            }) === index &&
-            self.findIndex((t) => {
-              return t.acronym === item.acronym && t.type === item.type;
-            }) === index
-          );
-        })
-        .map(async (item: any, index) => {
-          return {
-            ...item,
-            sub_categories:
-              (await Promise.all(
-                item?.sub_categories?.map(async (item: any) => {
-                  return (
-                    await db.collection('categories').findOneAndUpdate(
-                      {
-                        name: {
-                          $regex: item.title
-                            .toLowerCase()
-                            .match(/[a-zA-Z0-9_ ]+/g)
-                            .join('')
-                            .trim()
-                            .replace(' ', '_'),
-                          $options: 'i',
-                        },
+          ...item,
+          sub_categories:
+            (await Promise.all(
+              item?.sub_categories?.map(async (item: any) => {
+                return (
+                  await db.collection('categories').findOneAndUpdate(
+                    {
+                      name: {
+                        $regex: item.title
+                          .toLowerCase()
+                          .match(/[a-zA-Z0-9_ ]+/g)
+                          .join('')
+                          .trim()
+                          .replace(' ', '_'),
+                        $options: 'i',
                       },
-                      {
-                        $setOnInsert: {
-                          title: item.title,
-                          type: item.type,
-                          name: item.title
-                            .toLowerCase()
-                            .match(/[a-zA-Z0-9_ ]+/g)
-                            .join('')
-                            .trim()
-                            .replace(' ', '_'),
-                          acronym: item.title
-                            .toLowerCase()
-                            .match(/[a-zA-Z0-9_ ]+/g)
-                            .join('')
-                            .trim()
-                            .split(' ')
-                            .map((word: any, _: any, list: any) => {
-                              return list.length > 1 ? word[0] : list.slice(0, 1);
-                            })
-                            .join(''),
-                          trans: [],
-                          sub_categories: [],
-                          weight: Math.floor(Math.random() * 100),
-                          deleted: false,
-                          created_at: new Date(),
-                          updated_at: new Date(),
-                          created_by: 'admin',
-                        },
+                    },
+                    {
+                      $setOnInsert: {
+                        title: item.title,
+                        type: item.type,
+                        name: item.title
+                          .toLowerCase()
+                          .match(/[a-zA-Z0-9_ ]+/g)
+                          .join('')
+                          .trim()
+                          .replace(' ', '_'),
+                        acronym: item.title
+                          .toLowerCase()
+                          .match(/[a-zA-Z0-9_ ]+/g)
+                          .join('')
+                          .trim()
+                          .split(' ')
+                          .map((word: any, _: any, list: any) => {
+                            return list.length > 1 ? word[0] : list.slice(0, 1);
+                          })
+                          .join(''),
+                        trans: [],
+                        sub_categories: [],
+                        weight: Math.floor(Math.random() * 100),
+                        deleted: false,
+                        created_at: new Date(),
+                        updated_at: new Date(),
+                        created_by: 'admin',
                       },
-                      {
-                        upsert: true,
-                        returnDocument: 'after',
-                      },
-                    )
-                  ).value._id;
-                }) || [],
-              )) ?? [],
-            weight: index + 1,
-          };
-        }),
-    );
-    console.log('Inserting categories', uniqueCategories.length);
-    fs.writeFileSync(
-      `${__dirname}/data/categories_final.json`,
-      JSON.stringify(uniqueCategories).replace(/null/g, '""'),
-    );
-    await collection.insertMany(uniqueCategories);
-  }
+                    },
+                    {
+                      upsert: true,
+                      returnDocument: 'after',
+                    },
+                  )
+                ).value._id;
+              }) || [],
+            )) ?? [],
+          weight: index + 1,
+        };
+      }),
+  );
+  console.log('Inserting categories', uniqueCategories.length);
+  // fs.writeFileSync(`${__dirname}/data/categories_final.json`, JSON.stringify(uniqueCategories).replace(/null/g, '""'));
+  await collection.insertMany(uniqueCategories);
 };

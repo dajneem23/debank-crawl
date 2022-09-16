@@ -1,40 +1,43 @@
-import { Inject, Service } from 'typedi';
+import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { NewsError, NewsModel, _news } from '.';
+import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { News, NewsError, NewsModel, _news, newsErrors, newsModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-import { UserModel } from '../index';
+import { UserModel, UserError } from '../index';
 import slugify from 'slugify';
-@Service()
-export class NewsService {
-  private logger = new Logger('NewsService');
 
-  @Inject()
-  private model: NewsModel;
+const TOKEN_NAME = '_newsService';
+export const NewsServiceToken = new Token<NewsService>(TOKEN_NAME);
+/**
+ * @class NewsService
+ * @description News service: News service for all news related operations
+ * @extends BaseService
+ */
+@Service(NewsServiceToken)
+export class NewsService {
+  private logger = new Logger('News');
+
+  private model = Container.get(newsModelToken) as NewsModel;
 
   @Inject()
   private userModel: UserModel;
 
-  private error(msg: any) {
-    return new NewsError(msg);
+  private userErrors(err: any) {
+    return new UserError(err);
   }
 
-  /**
-   * A bridge allows another service access to the Model layer
-   */
-  get collection() {
-    return this.model.collection;
+  private error(msg: keyof typeof newsErrors) {
+    return new NewsError(msg);
   }
 
   get transKeys() {
     return ['title', 'slug', 'lang', 'headings', 'summary', 'content'];
   }
 
-  get outputKeys() {
-    return ['id', ...Object.keys(_news), 'author'];
+  get outputKeys(): typeof this.model._keys {
+    return this.model._keys;
   }
 
   get publicOutputKeys() {
@@ -57,95 +60,7 @@ export class NewsService {
   }
 
   /**
-   *  Lookups
-   */
-  get $lookups(): any {
-    return {
-      categories: $lookup({
-        from: 'categories',
-        refFrom: '_id',
-        refTo: 'categories',
-        select: 'title type',
-        reName: 'categories',
-        operation: '$in',
-      }),
-      coin_tags: $lookup({
-        from: 'coins',
-        refFrom: '_id',
-        refTo: 'coin_tags',
-        select: 'name',
-        reName: 'coin_tags',
-        operation: '$in',
-      }),
-      company_tags: $lookup({
-        from: 'companies',
-        refFrom: '_id',
-        refTo: 'company_tags',
-        select: 'name',
-        reName: 'company_tags',
-        operation: '$in',
-      }),
-      product_tags: $lookup({
-        from: 'products',
-        refFrom: '_id',
-        refTo: 'product_tags',
-        select: 'name',
-        reName: 'product_tags',
-        operation: '$in',
-      }),
-      person_tags: $lookup({
-        from: 'persons',
-        refFrom: '_id',
-        refTo: 'person_tags',
-        select: 'name',
-        reName: 'person_tags',
-        operation: '$in',
-      }),
-      user: $lookup({
-        from: 'users',
-        refFrom: 'id',
-        refTo: 'created_by',
-        select: 'full_name picture',
-        reName: 'author',
-        operation: '$eq',
-      }),
-      news: $lookup({
-        from: 'news',
-        refFrom: 'categories',
-        refTo: 'followings',
-        select: 'title',
-        reName: 'news',
-        operation: '$in',
-      }),
-    };
-  }
-  get $sets() {
-    return {
-      country: {
-        $set: {
-          country: { $first: '$country' },
-        },
-      },
-      author: {
-        $set: {
-          author: { $first: '$author' },
-        },
-      },
-      trans: {
-        $set: {
-          trans: { $first: '$trans' },
-        },
-      },
-    };
-  }
-  /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
-  /**
-   * Create a new category
+   * Create a news
    * @param _content
    * @param _subject
    * @returns {Promise<BaseServiceOutput>}
@@ -155,40 +70,6 @@ export class NewsService {
       const now = new Date();
       let { trans = [] } = _content;
       const { title } = _content;
-      const { categories = [], coin_tags = [], company_tags = [], product_tags = [], person_tags } = _content;
-      const validCategories = categories.length
-        ? await $queryByList({
-            collection: 'categories',
-            values: categories,
-          })
-        : true;
-      const validCoinTags = coin_tags.length
-        ? await $queryByList({
-            collection: 'coins',
-            values: coin_tags,
-          })
-        : true;
-      const validCompanyTags = company_tags.length
-        ? await $queryByList({
-            collection: 'companies',
-            values: company_tags,
-          })
-        : true;
-      const validProductTags = product_tags.length
-        ? await $queryByList({
-            collection: 'products',
-            values: product_tags,
-          })
-        : true;
-      const validPersonTags = person_tags.length
-        ? await $queryByList({
-            collection: 'persons',
-            values: person_tags,
-          })
-        : true;
-      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags && validPersonTags)) {
-        throwErr(this.error('INPUT_INVALID'));
-      }
       trans = await Promise.all(
         trans.map(async (item: any) => {
           const slug = slugify(item.title, {
@@ -197,7 +78,7 @@ export class NewsService {
           });
           return {
             ...item,
-            slug: (await this.model.collection.findOne({ $or: [{ 'trans.slug': slug }, { slug }] }))
+            slug: (await this.model._collection.findOne({ $or: [{ 'trans.slug': slug }, { slug }] }))
               ? slug + '-' + now.getTime()
               : slug,
           };
@@ -207,54 +88,38 @@ export class NewsService {
         trim: true,
         lower: true,
       });
-      const slug = (await this.model.collection.findOne({ $or: [{ 'trans.slug': _slug }, { slug: _slug }] }))
+      const slug = (await this.model._collection.findOne({ $or: [{ 'trans.slug': _slug }, { slug: _slug }] }))
         ? _slug + '-' + now.getTime()
         : _slug;
-      const {
-        value,
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const value = await this.model.create(
         {
           'trans.slug': { $in: trans.map((item: any) => item.slug) },
           slug,
         },
         {
-          $setOnInsert: {
-            ..._news,
-            ..._content,
-            trans,
-            slug,
-            ...(categories.length && { categories: $toObjectId(categories) }),
-            ...(product_tags.length && { product_tags: $toObjectId(product_tags) }),
-            ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
-            ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
-            ...(person_tags.length && { person_tags: $toObjectId(person_tags) }),
-            deleted: false,
-            ...(_subject && { created_by: _subject }),
-          },
+          ..._news,
+          ..._content,
+          trans,
+          slug,
+          deleted: false,
+          ...(_subject && { created_by: _subject }),
         },
         {
           upsert: true,
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (updatedExisting) {
-        throwErr(this.error('ALREADY_EXIST'));
-      }
-      this.logger.debug('[create:success]', { _content });
+
+      this.logger.debug('create_success', { _content });
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[create:error]', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
 
   /**
-   * Update category
+   * Update
    * @param _id
    * @param _content
    * @param _subject
@@ -264,51 +129,13 @@ export class NewsService {
     try {
       const now = new Date();
       const { title, trans = [] } = _content;
-      const { categories = [], coin_tags = [], company_tags = [], product_tags = [], person_tags = [] } = _content;
-      const validCategories = categories.length
-        ? await $queryByList({
-            collection: 'categories',
-            values: categories,
-          })
-        : true;
-      const validCoinTags = coin_tags.length
-        ? await $queryByList({
-            collection: 'coins',
-            values: coin_tags,
-          })
-        : true;
-      const validCompanyTags = company_tags.length
-        ? await $queryByList({
-            collection: 'companies',
-            values: company_tags,
-          })
-        : true;
-      const validProductTags = product_tags.length
-        ? await $queryByList({
-            collection: 'products',
-            values: product_tags,
-          })
-        : true;
-      const validPersonTags = person_tags.length
-        ? await $queryByList({
-            collection: 'persons',
-            values: person_tags,
-          })
-        : true;
-      if (!(validCategories && validCoinTags && validProductTags && validCompanyTags && validPersonTags)) {
-        throwErr(this.error('INPUT_INVALID'));
-      }
       const _slug = title
         ? slugify(title, {
             trim: true,
             lower: true,
           })
         : '';
-      const {
-        ok,
-        value,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const value = await this.model.update(
         $toMongoFilter({
           _id,
           $or: [
@@ -336,7 +163,7 @@ export class NewsService {
                   });
                   return {
                     ...item,
-                    slug: (await this.model.collection.findOne({
+                    slug: (await this.model._collection.findOne({
                       $or: [{ 'trans.slug': slug }, { slug }],
                       $and: [
                         {
@@ -355,7 +182,7 @@ export class NewsService {
               ),
             }),
             ...(title && {
-              slug: (await this.model.collection.findOne({
+              slug: (await this.model._collection.findOne({
                 $and: [
                   {
                     _id: {
@@ -370,11 +197,6 @@ export class NewsService {
                 ? _slug + '-' + now.getTime()
                 : _slug,
             }),
-            ...(categories.length && { categories: $toObjectId(categories) }),
-            ...(product_tags.length && { product_tags: $toObjectId(product_tags) }),
-            ...(coin_tags.length && { coin_tags: $toObjectId(coin_tags) }),
-            ...(company_tags.length && { company_tags: $toObjectId(company_tags) }),
-            ...(person_tags.length && { person_tags: $toObjectId(person_tags) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
@@ -384,35 +206,23 @@ export class NewsService {
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[update:success]', { value });
+      this.logger.debug('update_success', { value });
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
   /**
-   * Update category
-   * @param _id
-   * @param _content
-   * @param _subject
-   * @returns {Promise<News>}
+   * Update status
+   * @param {BaseServiceInput} { _id, _content, _subject }
+   * @returns {Promise<BaseServiceOutput>}
    */
   async updateStatus({ _id, _filter, _subject, _role }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { status } = _filter;
       const now = new Date();
-      const {
-        ok,
-        value,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const value = await this.model.update(
         $toMongoFilter({
           _id,
           $or: [
@@ -440,90 +250,67 @@ export class NewsService {
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[update:success]', { status });
+      this.logger.debug('update_success', { status });
       return toOutPut({ item: { status } });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
-  async updateViews({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  /**
+   *
+   * @param {BaseServiceInput} { _id }
+   * @returns { Promise<BaseServiceOutput> } { item: views }
+   */
+  async updateViews({ _id }: BaseServiceInput, view = 1): Promise<BaseServiceOutput> {
     try {
-      const {
-        ok,
-        value: { views },
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const views = await this.model.update(
         $toMongoFilter({ _id }),
         {
-          $inc: { views: 1 },
+          $inc: { views: view },
         },
         {
           upsert: false,
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[update:success]', { _id });
+      this.logger.debug('update_success', { _id });
       return toOutPut({ item: { views } });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
   /**
-   * Delete category
+   * Delete
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const now = new Date();
-      const {
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
-        $toMongoFilter({ _id }),
+      await this.model.delete(
+        { _id },
         {
-          $set: {
-            deleted: true,
-            ...(_subject && { deleted_by: _subject }),
-            deleted_at: now,
-          },
+          deleted: true,
+          ...(_subject && { deleted_by: _subject }),
+          deleted_at: new Date(),
         },
         {
           upsert: false,
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[delete:success]', { _id });
+      this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
-      this.logger.error('[delete:error]', err.message);
+      this.logger.error('delete_error', err.message);
       throw err;
     }
   }
 
   /**
-   *  Query category
+   *  Query
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -533,8 +320,8 @@ export class NewsService {
     try {
       const { q, lang, category, status } = _filter;
       const { page = 1, per_page = 10, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               $and: [
@@ -557,8 +344,8 @@ export class NewsService {
                 $eq: { status },
               }),
             },
-            $lookups: [this.$lookups.user, this.$lookups.categories],
-            $sets: [this.$sets.country, this.$sets.author],
+            $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
+            $sets: [this.model.$sets.country, this.model.$sets.author],
             $projects: [
               {
                 $project: {
@@ -576,7 +363,7 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -589,23 +376,23 @@ export class NewsService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
   /**
-   * Get event by ID
+   * Get by ID
    * @param id - Event ID
    * @returns { Promise<BaseServiceOutput> } - Event
    */
   async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const [item] = await this.model.collection
-        .aggregate([
+      const [item] = await this.model
+        .get([
           {
             $match: {
               ...$toMongoFilter({ _id }),
@@ -614,13 +401,14 @@ export class NewsService {
               }),
             },
           },
-          this.$lookups.categories,
-          this.$lookups.user,
-          this.$lookups.coin_tags,
-          this.$lookups.company_tags,
-          this.$lookups.product_tags,
-          this.$lookups.person_tags,
-          this.$sets.author,
+          this.model.$lookups.categories,
+          this.model.$lookups.author,
+          this.model.$lookups.coin_tags,
+          this.model.$lookups.company_tags,
+          this.model.$lookups.person_tags,
+          this.model.$lookups.product_tags,
+          this.model.$lookups.event_tags,
+          this.model.$sets.author,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -635,7 +423,7 @@ export class NewsService {
               },
             },
           },
-          this.$sets.trans,
+          this.model.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -648,15 +436,15 @@ export class NewsService {
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
-      this.logger.debug('[get:success]', { item });
+      this.logger.debug('get_success', { item });
       return _permission == 'private' ? omit(toOutPut({ item }), 'trans') : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
   /**
-   *
+   * Get News by slug
    * @param {BaseServiceInput} { _id, _filter }
    * @returns {Promise<BaseServiceOutput>}
    * @returns
@@ -664,8 +452,8 @@ export class NewsService {
   async getBySlug({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const [item] = await this.model.collection
-        .aggregate([
+      const [item] = await this.model
+        .get([
           {
             $match: $toMongoFilter({
               $or: [
@@ -692,12 +480,14 @@ export class NewsService {
               ],
             }),
           },
-          this.$lookups.categories,
-          this.$lookups.user,
-          this.$lookups.coin_tags,
-          this.$lookups.company_tags,
-          this.$lookups.person_tags,
-          this.$sets.author,
+          this.model.$lookups.categories,
+          this.model.$lookups.author,
+          this.model.$lookups.coin_tags,
+          this.model.$lookups.company_tags,
+          this.model.$lookups.person_tags,
+          this.model.$lookups.product_tags,
+          this.model.$lookups.event_tags,
+          this.model.$sets.author,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -712,7 +502,7 @@ export class NewsService {
               },
             },
           },
-          this.$sets.trans,
+          this.model.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -725,20 +515,24 @@ export class NewsService {
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
-      this.logger.debug('[get:success]', { item });
+      this.logger.debug('get_success', { item });
       return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
-
+  /**
+   * search news
+   * @param {BaseServiceInput} { _id, _filter, _query }
+   * @returns {Promise<BaseServiceOutput>}
+   */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, lang } = _filter;
       const { page = 1, per_page = 10, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               $and: [
@@ -755,8 +549,8 @@ export class NewsService {
                 { 'trans.title': { $regex: q, $options: 'i' } },
               ],
             },
-            $lookups: [this.$lookups.user, this.$lookups.categories],
-            $sets: [this.$sets.author],
+            $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
+            $sets: [this.model.$sets.author],
             $projects: [
               {
                 $project: {
@@ -774,7 +568,7 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -787,10 +581,10 @@ export class NewsService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: [...this.publicOutputKeys, 'meta'] });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
@@ -807,8 +601,8 @@ export class NewsService {
       const { lang } = _filter;
       const { page = 1, per_page = 10, sort_by = 'created_at', sort_order = 'desc' } = _query;
       const user = await this.userModel.collection.findOne({ id: _subject });
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               $and: [
@@ -832,7 +626,7 @@ export class NewsService {
                 },
               ],
             },
-            $sets: [this.$sets.author],
+            $sets: [this.model.$sets.author],
             $projects: [
               {
                 $project: {
@@ -850,7 +644,7 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -863,26 +657,26 @@ export class NewsService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
   /**
    * Get important news
    * @param {ObjectId} _id
-   * @param  _query
-   * @param  _filter
+   * @param {any}  _query
+   * @param {any} _filter
    * @returns {Promise<BaseServiceOutput>}
    */
   async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
       const { page = 1, per_page } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               $and: [
@@ -911,7 +705,7 @@ export class NewsService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -924,22 +718,22 @@ export class NewsService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
   /**
-   * Get event by ID
-   * @param id - Event ID
-   * @returns { Promise<BaseServiceOutput> } - Event
+   *
+   * @param {ObjectId} id -  ID
+   * @returns { Promise<BaseServiceOutput> }
    */
   async checkNewsStatus({ _id, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const [item] = await this.model.collection
-        .aggregate([
+      const [item] = await this.model
+        .get([
           {
             $match: {
               ...$toMongoFilter({ _id }),
@@ -967,14 +761,14 @@ export class NewsService {
           },
         ])
         .toArray();
-      this.logger.debug('[get:success]', { item });
+      this.logger.debug('get_success', { item });
       return toOutPut({
         item: {
           result: isNil(item),
         },
       });
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }

@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
+import { ORDER, LANG_CODE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const CompanyValidation = {
   create: validate({
@@ -29,7 +29,7 @@ export const CompanyValidation = {
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
-      crypto_currencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       portfolios: Joi.array().items(Joi.string()),
 
@@ -116,7 +116,7 @@ export const CompanyValidation = {
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
-      crypto_currencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       portfolios: Joi.array().items(Joi.string()),
 

@@ -33,16 +33,16 @@ export default class MailService {
   private async sendByMailgun({ to, subject, template, params }: SendByMailgunInput) {
     try {
       const response = await this.mailgunClient.messages.create(env.MAILGUN_DOMAIN, {
-        from: 'ShareViet <no-reply@shareviet.vn>',
+        from: 'wikiblock <no-reply@wikiblock.vn>',
         to: [to],
         subject,
         template,
         'h:X-Mailgun-Variables': JSON.stringify(params),
       });
-      this.logger.debug('[sendByMailgun:success]', { response });
+      this.logger.debug('success', '[sendByMailgun:success]', { response });
       return response;
     } catch (err) {
-      this.logger.error('[sendByMailgun:error]', err);
+      this.logger.error('error', '[sendByMailgun:error]', err);
     }
   }
 
@@ -53,7 +53,7 @@ export default class MailService {
     return this.sendByMailgun({
       to,
       params,
-      subject: 'Khôi phục tài khoản ShareViet',
+      subject: 'Khôi phục tài khoản wikiblock',
       template: 'reset-password',
     });
   }
@@ -65,7 +65,7 @@ export default class MailService {
     return this.sendByMailgun({
       to,
       params,
-      subject: `Chào ${params['user-fullname']}, vui lòng xác thực tài khoản ShareViet của bạn`,
+      subject: `Chào ${params['user-fullname']}, vui lòng xác thực tài khoản wikiblock của bạn`,
       template: 'verify-email',
     });
   }
@@ -77,7 +77,7 @@ export default class MailService {
     return this.sendByMailgun({
       to,
       params,
-      subject: 'Mật khẩu tài khoản ShareViet đã được cập nhật thành công',
+      subject: 'Mật khẩu tài khoản wikiblock đã được cập nhật thành công',
       template: 'confirm-password-changed',
     });
   }
@@ -89,7 +89,7 @@ export default class MailService {
     return this.sendByMailgun({
       to,
       params,
-      subject: 'Yêu cầu thay đổi email cho tài khoản ShareViet',
+      subject: 'Yêu cầu thay đổi email cho tài khoản wikiblock',
       template: 'change-email-confirm-new',
     });
   }

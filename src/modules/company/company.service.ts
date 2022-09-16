@@ -1,20 +1,31 @@
-import { Inject, Service } from 'typedi';
+import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $lookup, $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { CompanyModel, CompanyError, _company } from '.';
+import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { CompanyError, _company, companyModelToken, companyErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-
-@Service()
+export const TOKEN_NAME = '_companyService';
+/**
+ * A bridge allows another service access to the Model layer
+ * @export CompanyService
+ * @class CompanyService
+ * @extends {BaseService}
+ */
+export const CompanyServiceToken = new Token<CompanyService>(TOKEN_NAME);
+/**
+ * @class CompanyService
+ * @extends BaseService
+ * @description Company Service for all company related operations
+ */
+@Service(CompanyServiceToken)
 export class CompanyService {
   private logger = new Logger('CompanyService');
 
-  @Inject()
-  private model: CompanyModel;
+  private model = Container.get(companyModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -22,19 +33,12 @@ export class CompanyService {
   @Inject()
   private authService: AuthService;
 
-  private error(msg: any) {
+  private error(msg: keyof typeof companyErrors) {
     return new CompanyError(msg);
   }
 
-  /**
-   * A bridge allows another service access to the Model layer
-   */
-  get collection() {
-    return this.model.collection;
-  }
-
   get outputKeys() {
-    return ['id', ...Object.keys(_company), 'author'];
+    return this.model._keys;
   }
   get publicOutputKeys() {
     return ['id', 'avatar', 'categories', 'about', 'short_description', 'name', 'author'];
@@ -42,96 +46,7 @@ export class CompanyService {
   get transKeys() {
     return ['about', 'short_description'];
   }
-  /**
-   *  Lookups
-   */
-  get $lookups(): any {
-    return {
-      products: $lookup({
-        from: 'products',
-        refFrom: '_id',
-        refTo: 'products',
-        select: 'name',
-        reName: 'products',
-        operation: '$in',
-      }),
-      projects: $lookup({
-        from: 'projects',
-        refFrom: '_id',
-        refTo: 'projects',
-        select: 'name',
-        reName: 'projects',
-        operation: '$in',
-      }),
-      categories: $lookup({
-        from: 'categories',
-        refFrom: '_id',
-        refTo: 'categories',
-        select: 'title type',
-        reName: 'categories',
-        operation: '$in',
-      }),
-      user: $lookup({
-        from: 'users',
-        refFrom: 'id',
-        refTo: 'created_by',
-        select: 'full_name picture',
-        reName: 'author',
-        operation: '$eq',
-      }),
-      team: $lookup({
-        from: 'team',
-        refFrom: '_id',
-        refTo: 'team',
-        select: 'name avatar',
-        reName: 'team',
-        operation: '$in',
-      }),
-      directors: $lookup({
-        from: 'persons',
-        refFrom: '_id',
-        refTo: 'director',
-        select: 'name avatar',
-        reName: 'director',
-        operation: '$eq',
-      }),
-      crypto_currencies: $lookup({
-        from: 'coins',
-        refFrom: '_id',
-        refTo: 'crypto_currencies',
-        select: 'name token_id',
-        reName: 'crypto_currencies',
-        operation: '$in',
-      }),
-      countries: $lookup({
-        from: 'countries',
-        refFrom: 'code',
-        refTo: 'country',
-        select: 'name',
-        reName: 'country',
-        operation: '$eq',
-      }),
-    };
-  }
-  get $sets() {
-    return {
-      country: {
-        $set: {
-          country: { $first: '$country' },
-        },
-      },
-      author: {
-        $set: {
-          author: { $first: '$author' },
-        },
-      },
-      trans: {
-        $set: {
-          trans: { $first: '$trans' },
-        },
-      },
-    };
-  }
+
   /**
    * Generate ID
    */
@@ -148,7 +63,7 @@ export class CompanyService {
     try {
       const now = new Date();
       const { name } = _content;
-      const { team, categories, projects, products, crypto_currencies, country } = _content;
+      const { team, categories, projects, products, cryptocurrencies, country } = _content;
       const categoriesIdExist =
         !!categories && categories.length > 0
           ? await $queryByList({ collection: 'categories', values: categories })
@@ -156,39 +71,27 @@ export class CompanyService {
       if (!categoriesIdExist) {
         throwErr(this.error('INPUT_INVALID'));
       }
-      const {
-        value,
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const value = await this.model.create(
         {
           name,
         },
         {
-          $setOnInsert: {
-            ..._company,
-            ..._content,
-            categories: categories ? $toObjectId(categories) : [],
-            team: team ? $toObjectId(team) : [],
-            products: products ? $toObjectId(products) : [],
-            ...(_subject && { created_by: _subject }),
-          },
+          ..._company,
+          ..._content,
+          categories: categories ? $toObjectId(categories) : [],
+          team: team ? $toObjectId(team) : [],
+          products: products ? $toObjectId(products) : [],
+          ...(_subject && { created_by: _subject }),
         },
         {
           upsert: true,
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (updatedExisting) {
-        throwErr(this.error('ALREADY_EXIST'));
-      }
-      this.logger.debug('[create:success]', { _content });
+      this.logger.debug('create_success', { _content });
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[create:error]', err.message);
+      this.logger.error('create_error', err.message);
       throw err;
     }
   }
@@ -203,19 +106,8 @@ export class CompanyService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      const { team, categories, projects, products, crypto_currencies, country } = _content;
-      const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
-          : true;
-      if (!categoriesIdExist) {
-        throwErr(this.error('INPUT_INVALID'));
-      }
-      const {
-        value,
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      const { team, categories, projects, products, cryptocurrencies, country } = _content;
+      const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
@@ -224,7 +116,7 @@ export class CompanyService {
             ...(projects && { projects: $toObjectId(projects) }),
             ...(team && { team: $toObjectId(team) }),
             ...(products && { products: $toObjectId(products) }),
-            ...(crypto_currencies && { crypto_currencies: $toObjectId(crypto_currencies) }),
+            ...(cryptocurrencies && { cryptocurrencies: $toObjectId(cryptocurrencies) }),
             ...(country && { country: $toObjectId(country) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
@@ -235,16 +127,10 @@ export class CompanyService {
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[update:success]', { _content });
+      this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('[update:error]', err.message);
+      this.logger.error('update_error', err.message);
       throw err;
     }
   }
@@ -258,34 +144,22 @@ export class CompanyService {
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
       const now = new Date();
-      const {
-        value,
-        ok,
-        lastErrorObject: { updatedExisting },
-      } = await this.model.collection.findOneAndUpdate(
+      await this.model.delete(
         $toMongoFilter({ _id }),
         {
-          $set: {
-            deleted: true,
-            ...(_subject && { deleted_by: _subject }),
-            deleted_at: now,
-          },
+          deleted: true,
+          ...(_subject && { deleted_by: _subject }),
+          deleted_at: now,
         },
         {
           upsert: false,
           returnDocument: 'after',
         },
       );
-      if (!ok) {
-        throwErr(this.error('DATABASE_ERROR'));
-      }
-      if (!updatedExisting) {
-        throwErr(this.error('NOT_FOUND'));
-      }
-      this.logger.debug('[delete:success]', { _id });
+      this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
-      this.logger.error('[delete:error]', err.message);
+      this.logger.error('delete_error', err.message);
       throw err;
     }
   }
@@ -301,8 +175,8 @@ export class CompanyService {
     try {
       const { lang, q, category } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate(
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get(
           $pagination({
             $match: {
               $and: [
@@ -322,7 +196,7 @@ export class CompanyService {
                 ],
               }),
             },
-            $lookups: [this.$lookups.categories],
+            $lookups: [this.model.$lookups.categories],
             $projects: [
               {
                 $project: {
@@ -340,7 +214,7 @@ export class CompanyService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -353,14 +227,14 @@ export class CompanyService {
           }),
         )
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({
         items,
         total_count,
         keys: _permission == 'public' ? this.publicOutputKeys : this.outputKeys,
       });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }
@@ -372,8 +246,8 @@ export class CompanyService {
   async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const [item] = await this.model.collection
-        .aggregate([
+      const [item] = await this.model
+        .get([
           {
             $match: {
               ...$toMongoFilter({
@@ -384,13 +258,13 @@ export class CompanyService {
               }),
             },
           },
-          this.$lookups.categories,
-          this.$lookups.user,
-          this.$lookups.team,
-          this.$lookups.products,
-          this.$lookups.projects,
-          this.$lookups.countries,
-          this.$sets.author,
+          this.model.$lookups.categories,
+          this.model.$lookups.author,
+          this.model.$lookups.team,
+          this.model.$lookups.products,
+          this.model.$lookups.projects,
+          this.model.$lookups.country,
+          this.model.$sets.author,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -405,7 +279,7 @@ export class CompanyService {
               },
             },
           },
-          this.$sets.trans,
+          this.model.$sets.trans,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -418,10 +292,10 @@ export class CompanyService {
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
-      this.logger.debug('[get:success]', { item });
+      this.logger.debug('get_success', { item });
       return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
-      this.logger.error('[get:error]', err.message);
+      this.logger.error('get_error', err.message);
       throw err;
     }
   }
@@ -435,8 +309,8 @@ export class CompanyService {
     try {
       const { q, lang } = _filter;
       const { page = 1, per_page = 10, sort_by, sort_order } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model.collection
-        .aggregate([
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
           ...$pagination({
             $match: {
               deleted: false,
@@ -452,7 +326,7 @@ export class CompanyService {
                 'trans.lang': { $eq: lang },
               }),
             },
-            $lookups: [this.$lookups.categories],
+            $lookups: [this.model.$lookups.categories],
             $projects: [
               {
                 $project: {
@@ -470,7 +344,7 @@ export class CompanyService {
               },
             ],
             $more: [
-              this.$sets.trans,
+              this.model.$sets.trans,
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
@@ -482,10 +356,10 @@ export class CompanyService {
           }),
         ])
         .toArray();
-      this.logger.debug('[query:success]', { total_count, items });
+      this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
-      this.logger.error('[query:error]', err.message);
+      this.logger.error('query_error', err.message);
       throw err;
     }
   }

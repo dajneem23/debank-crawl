@@ -21,7 +21,7 @@ export class MailJob {
 
     // Init Worker
     this.worker = new Worker('send-email', MailJob.workerProcessor, {
-      connection: this.redisConnection,
+      connection: this.redisConnection as any,
       concurrency: 20,
       limiter: {
         max: 10,
@@ -32,7 +32,7 @@ export class MailJob {
 
     // Init Queue
     this.queue = new Queue('send-email', {
-      connection: this.redisConnection,
+      connection: this.redisConnection as any,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 5,
@@ -79,11 +79,11 @@ export class MailJob {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', (job: Job<JobData>) => {
-      this.logger.debug('[job:completed]', { id: job.id });
+      this.logger.debug('success', '[job:completed]', { id: job.id });
     });
     // Failed
     worker.on('failed', (job: Job<JobData>, error: Error) => {
-      this.logger.error('[job:error]', { jobId: job.id, error });
+      this.logger.error('error', '[job:error]', { jobId: job.id, error });
     });
   }
 
@@ -93,8 +93,8 @@ export class MailJob {
   addJob(payload: JobData) {
     this.queue
       .add(payload.name, payload)
-      .then((job) => this.logger.debug(`[addJob:success]`, { id: job.id, payload }))
-      .catch((err) => this.logger.error(`[addJob:error]`, err, payload));
+      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
+      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
   }
 
   /**

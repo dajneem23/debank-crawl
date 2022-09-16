@@ -7,3 +7,4 @@ export * from './product';
 export * from './person';
 export * from './coin';
 export * from './news';
+export * from './fund';

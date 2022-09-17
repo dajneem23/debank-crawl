@@ -87,7 +87,7 @@ export class CoinController {
       id: string;
     },
   ) {
-    const { filter, query } = buildQueryFilter(_query);
+    const { filter } = buildQueryFilter(_query);
 
     const result = await this.service.getById({
       _id: _params.id,

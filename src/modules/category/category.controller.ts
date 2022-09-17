@@ -87,11 +87,9 @@ export class CategoryController {
       id: string;
     },
   ) {
-    const { filter, query } = buildQueryFilter(_query);
-
     const result = await this.service.getById({
       _id: _params.id,
-      _filter: filter,
+      _filter: _query,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

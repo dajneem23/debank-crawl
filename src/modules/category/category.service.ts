@@ -2,13 +2,11 @@ import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import AuthSessionModel from '@/modules/auth/authSession.model';
-import AuthService from '../auth/auth.service';
-import { $lookup, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+
+import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-import { keys } from 'ts-transformer-keys';
 
 const TOKEN_NAME = '_categoryService';
 /**
@@ -45,6 +43,7 @@ export class CategoryService {
   static async generateID() {
     return alphabetSize12();
   }
+
   /**
    * Create a new category
    * @param _content
@@ -90,7 +89,7 @@ export class CategoryService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
       const now = new Date();
-      const value = await this.model.update(
+      await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
@@ -153,6 +152,7 @@ export class CategoryService {
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { type, lang } = _filter;
+
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -208,14 +208,14 @@ export class CategoryService {
    * @param _id - Category ID
    * @returns { Promise<CategoryOutput> } - Category
    */
-  async getById({ _id, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang } = _filter;
       const [category] = await this.model
         .get([
           {
             $match: $toMongoFilter({ _id }),
           },
+          this.model.$lookups.sub_categories,
           {
             $limit: 1,
           },
@@ -238,7 +238,7 @@ export class CategoryService {
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, lang, type } = _filter;
-      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const { page = 1, per_page = 10 } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({

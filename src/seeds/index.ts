@@ -24,7 +24,7 @@ import { FundSeed, fundInvestment, insertFunds } from './fund';
   // await insertPersons();
   // await insertCompanies();
   // await insertProducts();
-  await Promise.allSettled([insertCompanies(), insertProducts(), insertPersons(), insertFunds(), insertCoins()]);
+  // await Promise.allSettled([insertCompanies(), insertProducts(), insertPersons(), insertFunds(), insertCoins()]);
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

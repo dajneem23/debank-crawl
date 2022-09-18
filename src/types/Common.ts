@@ -335,6 +335,16 @@ export enum FundraisingRound {
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
 }
+export enum FUND_TYPE {
+  NA = 'N/A',
+  CRYPTO_VENTURE = 'Crypto Venture',
+  EXCHANGE_FUND = 'Exchange Fund',
+  DEVELOPER_SUPPORT = 'Developer Support',
+  MARKETING_SUPPORT = 'Marketing Support',
+  SECURITY_SUPPORT = 'Security Support',
+  PROJECT_BASED = 'Project Based',
+  NON_CRYPTO_CAPITAL = 'Non-Crypto Capital',
+}
 export type FundraisingRoundDetail = {
   round_name: string;
   valuation?: string;

@@ -10,21 +10,81 @@
     "type": "exploration"
   },
   {
+    "title": "Guidelines",
+    "type": "exploration",
+    "sub_categories": [
+      {
+        "title": "Exchange",
+        "type": "exploration"
+      },
+      {
+        "title": "Tool&Web",
+        "type": "exploration"
+      },
+      {
+        "title": "Wallet",
+        "type": "exploration"
+      },
+      {
+        "title": "Basic Analysis",
+        "type": "exploration"
+      },
+      {
+        "title": "Candle & Price Action",
+        "type": "exploration"
+      },
+      {
+        "title": "Chart",
+        "type": "exploration"
+      }
+    ]
+  },
+  {
+    "title": "Experience",
+    "type": "exploration",
+    "sub_categories": [
+      {
+        "title": "Hold",
+        "type": "exploration"
+      },
+      {
+        "title": "Trade",
+        "type": "exploration"
+      },
+      {
+        "title": "Invest",
+        "type": "exploration"
+      },
+      {
+        "title": "Earn",
+        "type": "exploration"
+      },
+      {
+        "title": "Research",
+        "type": "exploration"
+      },
+      {
+        "title": "Learn",
+        "type": "exploration"
+      }
+    ]
+  },
+  {
     "title": "Portal",
     "name": "portal",
     "type": "exploration",
     "sub_categories": [
       {
         "title": "Guidelines",
-        "type": "sub_exploration"
+        "type": "exploration"
       },
       {
         "title": "Experience",
-        "type": "sub_exploration"
+        "type": "exploration"
       },
       {
         "title": "Academy",
-        "type": "sub_exploration"
+        "type": "exploration"
       }
     ]
   },
@@ -35,11 +95,11 @@
     "sub_categories": [
       {
         "title": "How to crypto",
-        "type": "sub_exploration"
+        "type": "exploration"
       },
       {
         "title": "Glossary",
-        "type": "sub_exploration"
+        "type": "exploration"
       }
     ]
   },
@@ -51,11 +111,11 @@
   {
     "title": "Investor",
     "name": "investor",
-    "type": "INVESTOR"
+    "type": "investor"
   },
   {
     "title": "Funds",
     "name": "funds",
-    "type": "INVESTOR"
+    "type": "investor"
   }
 ]

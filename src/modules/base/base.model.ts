@@ -421,6 +421,7 @@ export class BaseModel {
     try {
       const {
         categories = [],
+        sub_categories = [],
         event_tags = [],
         product_tags = [],
         company_tags = [],
@@ -436,6 +437,13 @@ export class BaseModel {
       categories.length &&
         (await $refValidation({ collection: 'categories', list: $toObjectId(categories) })) &&
         (_content.categories = $toObjectId(categories));
+      sub_categories.length &&
+        (await $refValidation({
+          collection: 'categories',
+          list: $toObjectId(sub_categories),
+          Refname: 'sub_categories',
+        })) &&
+        (_content.sub_categories = $toObjectId(sub_categories));
       event_tags.length &&
         (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) })) &&
         (_content.event_tags = $toObjectId(event_tags));

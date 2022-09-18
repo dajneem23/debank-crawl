@@ -162,6 +162,8 @@ export const CategorySeed = async () => {
                 return (
                   await db.collection('categories').findOneAndUpdate(
                     {
+                      title: item.title,
+                      type: item.type,
                       name: {
                         $regex: item.title
                           .toLowerCase()
@@ -173,6 +175,12 @@ export const CategorySeed = async () => {
                       },
                     },
                     {
+                      // ...((item.sub_categories?.length && {
+                      //   $set: {
+                      //     sub_categories: item.sub_categories,
+                      //   },
+                      // }) ||
+                      //   {}),
                       $setOnInsert: {
                         title: item.title,
                         type: item.type,
@@ -213,7 +221,68 @@ export const CategorySeed = async () => {
         };
       }),
   );
+  await Promise.all(
+    uniqueCategories.map(async (item: any) => {
+      return await db.collection('categories').findOneAndUpdate(
+        {
+          title: item.title,
+          type: item.type,
+          name: {
+            $regex: item.title
+              .toLowerCase()
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim()
+              .replace(' ', '_'),
+            $options: 'i',
+          },
+        },
+        {
+          ...((item.sub_categories?.length && {
+            $set: {
+              sub_categories: item.sub_categories,
+            },
+          }) ||
+            {}),
+          $setOnInsert: {
+            title: item.title,
+            type: item.type,
+            name: item.title
+              .toLowerCase()
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim()
+              .replace(' ', '_'),
+            acronym: item.title
+              .toLowerCase()
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim()
+              .split(' ')
+              .map((word: any, _: any, list: any) => {
+                return list.length > 1 ? word[0] : list.slice(0, 1);
+              })
+              .join(''),
+            ...((!item.sub_categories?.length && {
+              sub_categories: item.sub_categories,
+            }) ||
+              {}),
+            weight: Math.floor(Math.random() * 100),
+            deleted: false,
+            created_at: new Date(),
+            updated_at: new Date(),
+            created_by: 'admin',
+          },
+        },
+        {
+          upsert: true,
+          returnDocument: 'after',
+        },
+      );
+    }),
+  );
+
   console.log('Inserting categories', uniqueCategories.length);
   // fs.writeFileSync(`${__dirname}/data/categories_final.json`, JSON.stringify(uniqueCategories).replace(/null/g, '""'));
-  await collection.insertMany(uniqueCategories);
+  // await collection.insertMany(uniqueCategories);
 };

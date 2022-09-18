@@ -6,7 +6,7 @@ import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
 import { $lookup, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
+import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { keys } from 'ts-transformer-keys';
 
@@ -36,7 +36,7 @@ export class CategoryService {
     return ['id', 'title', 'sub_categories', 'weight'];
   }
   get transKeys() {
-    return ['title', 'name'];
+    return ['title'];
   }
 
   /**
@@ -216,6 +216,7 @@ export class CategoryService {
           {
             $match: $toMongoFilter({ _id }),
           },
+          { ...this.model.$lookups.sub_categories },
           {
             $limit: 1,
           },
@@ -234,14 +235,43 @@ export class CategoryService {
    * @param _id - Category ID
    * @returns { Promise<CategoryOutput> } - Category
    */
-  async getByName({ _name, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getByName({ _name, _filter, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang, type } = _filter;
       const [category] = await this.model
         .get([
           {
-            $match: $toMongoFilter({ name: { $regex: _name, $options: 'i' }, type }),
+            $match: $toMongoFilter({
+              name: { $regex: _name, $options: 'i' },
+              ...((type && type) || {}),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            }),
           },
+          { ...this.model.$lookups.sub_categories },
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.model.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
+
           {
             $limit: 1,
           },
@@ -249,7 +279,7 @@ export class CategoryService {
         .toArray();
       if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
       this.logger.debug('get_success', { category });
-      return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
+      return _permission == 'private' ? toOutPut({ item: category }) : omit(toOutPut({ item: category }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;

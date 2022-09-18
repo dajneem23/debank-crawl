@@ -113,4 +113,23 @@ export class CategoryController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
+  @Get('/private/:name', [CategoryValidation.getByName])
+  async getByIdPrivate(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      name: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+
+    const result = await this.service.getByName({
+      _name: _params.name,
+      _filter: filter,
+      _permission: 'private',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
 }

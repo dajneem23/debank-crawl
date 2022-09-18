@@ -273,21 +273,21 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "update",
-    "url": "{{host}}/categories/62f6219cbc1c9c949ceeedfe",
+    "url": "{{host}}/categories/63279fc3cda8ec0555309bf4",
     "method": "PUT",
     "sortNum": 110000,
     "created": "2022-08-30T09:07:12.403Z",
-    "modified": "2022-08-30T09:07:12.403Z",
+    "modified": "2022-09-18T23:20:55.892Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"weight\":7,\n    \"type\":\"event\"\n}",
+      "raw": "{\n    \"trans\": [\n        {\n            \"lang\":\"vi\",\n            \"title\":\"thị trường\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Inp2T0ZQdjNiZExGQSIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwMjgyMzg2LCJleHAiOjE2NjExNDYzODZ9.00IUaXcGOw4DIIaa2UlvZIvBOUk7CS0eQYxCcvsNqnM"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzU0MzI0NywiZXhwIjoxNjY0NDA3MjQ3fQ.WswJUU9mqmtBgpbv5uf8QXZY58mOLvO3eW0ZeNJ1V1Y"
     },
     "tests": []
   },
@@ -314,11 +314,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "query",
-    "url": "{{host}}/categories/?type=product&lang=vi",
+    "url": "{{host}}/categories/?type=exploration",
     "method": "GET",
     "sortNum": 140000,
     "created": "2022-08-30T09:07:12.405Z",
-    "modified": "2022-08-30T09:07:12.405Z",
+    "modified": "2022-09-17T04:27:05.244Z",
     "headers": [],
     "params": [
       {
@@ -335,12 +335,13 @@
       },
       {
         "name": "type",
-        "value": "product",
+        "value": "exploration",
         "isPath": false
       },
       {
         "name": "lang",
         "value": "vi",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1699,16 +1700,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "getByName",
-    "url": "{{host}}/categories/cex?type=crypto_asset",
+    "url": "{{host}}/categories/Exchange?lang=vi",
     "method": "GET",
     "sortNum": 500000,
     "created": "2022-09-16T02:26:41.368Z",
-    "modified": "2022-09-16T02:37:14.386Z",
+    "modified": "2022-09-18T23:26:09.723Z",
     "headers": [],
     "params": [
       {
-        "name": "type",
-        "value": "crypto_asset",
+        "name": "lang",
+        "value": "vi",
         "isPath": false
       }
     ],

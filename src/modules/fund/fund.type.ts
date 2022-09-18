@@ -1,4 +1,4 @@
-import { BaseInformationModel, FundraisingRoundDetail, ForeignReLationship } from '@/types/Common';
+import { BaseInformationModel, FundraisingRoundDetail, ForeignReLationship, FUND_TYPE } from '@/types/Common';
 import { ObjectId } from 'mongodb';
 
 export interface Fund extends BaseInformationModel {
@@ -6,7 +6,7 @@ export interface Fund extends BaseInformationModel {
 
   about?: string;
 
-  type?: string;
+  type?: FUND_TYPE;
 
   avatars?: string[];
 
@@ -47,7 +47,7 @@ export interface Fund extends BaseInformationModel {
 
 export const _fund: Fund = {
   name: '',
-  type: '',
+  type: FUND_TYPE.NA,
   categories: [],
   avatars: [],
   avatar: '',

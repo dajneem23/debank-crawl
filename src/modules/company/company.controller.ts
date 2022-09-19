@@ -1,6 +1,6 @@
 import Container from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { Company, CompanyServiceToken, CompanyValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';

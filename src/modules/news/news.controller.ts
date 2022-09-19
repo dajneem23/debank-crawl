@@ -14,7 +14,7 @@ import {
   Auth,
   Patch,
 } from '@/utils/expressDecorators';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { News, NewsValidation, NewsServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';

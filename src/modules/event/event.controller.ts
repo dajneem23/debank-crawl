@@ -13,7 +13,7 @@ import {
   Req,
   Auth,
 } from '@/utils/expressDecorators';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { Event, EventFilter, eventServiceToken, EventValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';

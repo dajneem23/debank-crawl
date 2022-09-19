@@ -15,6 +15,8 @@ export interface Category extends BaseModel {
   // type
   type?: CATEGORY_TYPE;
 
+  rank?: number;
+
   trans: {
     lang: string;
     title?: string;
@@ -40,7 +42,7 @@ export type CategoryInput = {
 
 export type CategoryOutput = {
   code?: number;
-  result?: Event | any;
+  result?: any;
   total_count?: number;
   data?: Array<Category>;
 };
@@ -49,6 +51,7 @@ export const _category: Category = {
   name: '',
   acronym: '',
   weight: 0,
+  rank: 0,
   type: CATEGORY_TYPE.WIKIBLOCK,
   deleted: false,
   created_at: new Date(),

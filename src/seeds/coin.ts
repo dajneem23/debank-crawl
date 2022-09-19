@@ -57,9 +57,9 @@ export const CoinSeed = async () => {
               .map((_technology_name: any) => _technology_name.technology_name)
               .reduce((pName: any, cName: any) => {
                 if (technology.technologies?.includes(cName)) {
-                  // pName['key'] = cName.toLowerCase().replace(' ', '_');
+                  // pName['key'] = cName.toLowerCase().replaceAll(' ', '_');
                   // pName['value'] = technology.technologies.replace(cName, '').trim();
-                  pName[cName.toLowerCase().replace(' ', '_').replace('.', '')] = technology.technologies
+                  pName[cName.toLowerCase().replaceAll(' ', '_').replace('.', '')] = technology.technologies
                     .replace(cName, '')
                     .trim();
                 }
@@ -93,7 +93,7 @@ export const CoinSeed = async () => {
                 if (ico_detail.ico_details?.includes(cName)) {
                   // pName['key'] = cName.replace('ICO', '').trim().toLowerCase();
                   // pName['value'] = ico_detail.ico_details.replace(cName, '').trim();
-                  pName[cName.replaceAll('at ICO', '').replace('ICO', '').trim().toLowerCase().replace(' ', '_')] =
+                  pName[cName.replaceAll('at ICO', '').replace('ICO', '').trim().toLowerCase().replaceAll(' ', '_')] =
                     ico_detail.ico_details.replace(cName, '').trim();
                 }
                 return pName;
@@ -153,7 +153,7 @@ export const insertCoins = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         $options: 'i',
                       },
                     },
@@ -166,7 +166,7 @@ export const insertCoins = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         acronym: _category
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)
@@ -184,6 +184,7 @@ export const insertCoins = async () => {
                         created_at: new Date(),
                         updated_at: new Date(),
                         created_by: 'admin',
+                        rank: 0,
                       },
                     },
                     {

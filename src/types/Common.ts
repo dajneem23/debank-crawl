@@ -230,7 +230,7 @@ export type BaseServiceInput = {
 
 export type BaseServiceOutput = {
   code?: number;
-  result?: Event | any;
+  result?: any;
   total_count?: number;
   data?: Array<any>;
 };

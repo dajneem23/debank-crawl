@@ -712,7 +712,7 @@ export const insertCompanies = async () => {
                             .match(/[a-zA-Z0-9_ ]+/g)
                             .join('')
                             .trim()
-                            .replace(' ', '_'),
+                            .replaceAll(' ', '_'),
                           $options: 'i',
                         },
                       },
@@ -725,7 +725,7 @@ export const insertCompanies = async () => {
                             .match(/[a-zA-Z0-9_ ]+/g)
                             .join('')
                             .trim()
-                            .replace(' ', '_'),
+                            .replaceAll(' ', '_'),
                           acronym: _category
                             .toLowerCase()
                             .match(/[a-zA-Z0-9_ ]+/g)
@@ -743,6 +743,7 @@ export const insertCompanies = async () => {
                           created_at: new Date(),
                           updated_at: new Date(),
                           created_by: 'admin',
+                          rank: 0,
                         },
                       },
                       {
@@ -785,7 +786,7 @@ export const insertCompanies = async () => {
                                     .match(/[a-zA-Z0-9_ ]+/g)
                                     .join('')
                                     .trim()
-                                    .replace(' ', '_'),
+                                    .replaceAll(' ', '_'),
                                   $options: 'i',
                                 },
                               },
@@ -798,7 +799,7 @@ export const insertCompanies = async () => {
                                     .match(/[a-zA-Z0-9_ ]+/g)
                                     .join('')
                                     .trim()
-                                    .replace(' ', '_'),
+                                    .replaceAll(' ', '_'),
                                   acronym: _category
                                     .toLowerCase()
                                     .match(/[a-zA-Z0-9_ ]+/g)
@@ -809,6 +810,13 @@ export const insertCompanies = async () => {
                                       return list.length > 1 ? word[0] : list.slice(0, 1);
                                     })
                                     .join(''),
+                                  sub_categories: [],
+                                  weight: Math.floor(Math.random() * 100),
+                                  deleted: false,
+                                  created_at: new Date(),
+                                  updated_at: new Date(),
+                                  created_by: 'admin',
+                                  rank: 0,
                                 },
                               },
                               {

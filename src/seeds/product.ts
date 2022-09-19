@@ -84,7 +84,7 @@ export const ProductSeed = async () => {
               return INFORMATIONS.map((_information) => {
                 if (information['information'].includes(_information)) {
                   return {
-                    [_information.toLowerCase().replace(' ', '_')]: information['information']
+                    [_information.toLowerCase().replaceAll(' ', '_')]: information['information']
                       .replace(_information, '')
                       .trim(),
                   };
@@ -225,7 +225,7 @@ export const insertProducts = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         acronym: _category
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)

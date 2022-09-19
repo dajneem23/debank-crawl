@@ -124,7 +124,7 @@ export const CategorySeed = async () => {
             .match(/[a-zA-Z0-9_ ]+/g)
             .join('')
             .trim()
-            .replace(' ', '_'),
+            .replaceAll(' ', '_'),
           acronym: item.title
             .toLowerCase()
             .match(/[a-zA-Z0-9_ ]+/g)
@@ -139,6 +139,7 @@ export const CategorySeed = async () => {
           deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
+          rank: 0,
           created_by: 'admin',
         };
       })
@@ -152,12 +153,12 @@ export const CategorySeed = async () => {
           }) === index
         );
       })
-      .map(async (item: any, index) => {
+      .map(async (_item: any, index) => {
         return {
-          ...item,
+          ..._item,
           sub_categories:
             (await Promise.all(
-              item?.sub_categories?.map(async (item: any) => {
+              _item?.sub_categories?.map(async (item: any) => {
                 return (
                   await db.collection('categories').findOneAndUpdate(
                     {
@@ -169,7 +170,7 @@ export const CategorySeed = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         $options: 'i',
                       },
                     },
@@ -188,7 +189,7 @@ export const CategorySeed = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         acronym: item.title
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)
@@ -206,6 +207,7 @@ export const CategorySeed = async () => {
                         created_at: new Date(),
                         updated_at: new Date(),
                         created_by: 'admin',
+                        rank: item.rank || _item.rank + 1,
                       },
                     },
                     {
@@ -232,7 +234,7 @@ export const CategorySeed = async () => {
               .match(/[a-zA-Z0-9_ ]+/g)
               .join('')
               .trim()
-              .replace(' ', '_'),
+              .replaceAll(' ', '_'),
             $options: 'i',
           },
         },
@@ -251,7 +253,7 @@ export const CategorySeed = async () => {
               .match(/[a-zA-Z0-9_ ]+/g)
               .join('')
               .trim()
-              .replace(' ', '_'),
+              .replaceAll(' ', '_'),
             acronym: item.title
               .toLowerCase()
               .match(/[a-zA-Z0-9_ ]+/g)
@@ -271,6 +273,7 @@ export const CategorySeed = async () => {
             created_at: new Date(),
             updated_at: new Date(),
             created_by: 'admin',
+            rank: item.rank,
           },
         },
         {

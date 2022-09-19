@@ -458,7 +458,7 @@ export const insertPersons = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         $options: 'i',
                       },
                     },
@@ -471,7 +471,7 @@ export const insertPersons = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         acronym: _category
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)
@@ -531,7 +531,7 @@ export const insertPersons = async () => {
                                   .match(/[a-zA-Z0-9_ ]+/g)
                                   .join('')
                                   .trim()
-                                  .replace(' ', '_'),
+                                  .replaceAll(' ', '_'),
                                 $options: 'i',
                               },
                             },
@@ -544,7 +544,7 @@ export const insertPersons = async () => {
                                   .match(/[a-zA-Z0-9_ ]+/g)
                                   .join('')
                                   .trim()
-                                  .replace(' ', '_'),
+                                  .replaceAll(' ', '_'),
                                 acronym: _category
                                   .toLowerCase()
                                   .match(/[a-zA-Z0-9_ ]+/g)

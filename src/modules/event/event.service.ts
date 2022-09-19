@@ -135,7 +135,7 @@ export class EventService {
         },
         { returnDocument: 'after' },
       );
-      this.logger.debug('delete_success', { event });
+      this.logger.debug('delete_success', { _id });
     } catch (err) {
       this.logger.error('delete_error', err.message);
       throw err;

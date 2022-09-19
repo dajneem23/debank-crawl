@@ -96,7 +96,7 @@ export class CategoryController {
   //   _res.status(httpStatus.OK).json(result);
   // }
   @Get('/:name', [CategoryValidation.getByName])
-  async getById(
+  async getByName(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
@@ -113,20 +113,20 @@ export class CategoryController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:name', [CategoryValidation.getByName])
+  @Get('/private/:id', [CategoryValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
     @Params()
     _params: {
-      name: string;
+      id: string;
     },
   ) {
     const { filter, query } = buildQueryFilter(_query);
 
-    const result = await this.service.getByName({
-      _name: _params.name,
+    const result = await this.service.getById({
+      _id: _params.id,
       _filter: filter,
       _permission: 'private',
     } as BaseServiceInput);

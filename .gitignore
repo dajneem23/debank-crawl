@@ -45,4 +45,6 @@ src/seeds/data/*.zip
 thunder-tests/thunder.env
 thunder-tests/thunderActivity.json
 
+*.env
+
 docker/docker.env

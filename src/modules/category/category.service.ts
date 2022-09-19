@@ -34,7 +34,7 @@ export class CategoryService {
     return ['id', 'title', 'sub_categories', 'weight'];
   }
   get transKeys() {
-    return ['title'];
+    return ['title', 'name'];
   }
 
   /**

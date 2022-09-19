@@ -135,7 +135,7 @@ export class EventService {
         },
         { returnDocument: 'after' },
       );
-      this.logger.debug('delete_success', { event });
+      this.logger.debug('delete_success', { _id });
     } catch (err) {
       this.logger.error('delete_error', err.message);
       throw err;
@@ -151,6 +151,35 @@ export class EventService {
       const [event] = await this.model
         .get([
           { $match: $toMongoFilter({ _id }) },
+          this.model.$lookups.categories,
+          this.model.$lookups.speakers,
+          this.model.$lookups.country,
+          this.model.$sets.country,
+          this.model.$lookups.author,
+          this.model.$sets.author,
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      if (isNil(event)) throwErr(new EventError('EVENT_NOT_FOUND'));
+      this.logger.debug('get_success', { event });
+      return omit(toOutPut({ item: event }), ['deleted', 'updated_at']);
+    } catch (err) {
+      this.logger.error('get_error', err.message);
+      throw err;
+    }
+  }
+  /**
+   * Get event by ID
+   * @param _id - Event ID
+   * @returns { Promise<EventOutput> } - Event
+   */
+  async getBySlug({ _slug }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const [event] = await this.model
+        .get([
+          { $match: $toMongoFilter({ slug: _slug }) },
           this.model.$lookups.categories,
           this.model.$lookups.speakers,
           this.model.$lookups.country,

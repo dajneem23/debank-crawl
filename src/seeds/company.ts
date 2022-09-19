@@ -8,6 +8,7 @@ import fs from 'fs';
 import { createDataFile, readDataFromFile } from './utils';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import slugify from 'slugify';
 /* eslint-disable no-console */
 export const CompanySeed = async () => {
   createDataFile({
@@ -408,7 +409,11 @@ export const CompanySeed = async () => {
     Object.values(
       [...airtableCompanies, ...companies, ...investors.companies].reduce((current: any, item: any) => {
         const { name, ...rest } = item;
-        const lowerName = name.toLowerCase().trim();
+        const lowerName = name
+          .replace(/[\W_]+/g, ' ')
+          .replace(/  +/g, ' ')
+          .toLowerCase()
+          .trim();
         return {
           ...current,
           [lowerName]: {
@@ -499,10 +504,15 @@ export const CompanySeed = async () => {
           avatars = [],
           projects = [],
           type,
+          name,
           ...rest
         } = item;
         return {
           ...rest,
+          name: name
+            .replace(/[\W_]+/g, ' ')
+            .replace(/  +/g, ' ')
+            .trim(),
           foreign_id,
           categories: [...new Set(categories)],
           year_founded,
@@ -609,8 +619,8 @@ export const CompanySeed = async () => {
 };
 export const companyInvestment = async () => {
   const db = Container.get(DIMongoDB);
-  const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any);
-  const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any);
+  const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/companies_final.json`, 'utf8') as any);
+  const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/funds.json`, 'utf8') as any);
   const companiesFinal = (companies as any).map(({ foreign_id, foreign_ids = [], name, ...rest }: any) => {
     const investments = [
       ...(funds as any)
@@ -669,12 +679,14 @@ export const insertCompanies = async () => {
   const db = Container.get(DIMongoDB);
   const count = await db.collection('companies').countDocuments();
   if (count) return;
+  console.log('Inserting companies');
   const categories = await db.collection('categories').find({}).toArray();
   const companiesFinal = await Promise.all(
     JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any).map(
       async (item: any, index: any, items: any[]) => {
         return {
           ...item,
+          slug: slugify(item.name, { lower: true, trim: true }),
           categories: await Promise.all(
             item.categories
               .filter(Boolean)
@@ -700,7 +712,7 @@ export const insertCompanies = async () => {
                             .match(/[a-zA-Z0-9_ ]+/g)
                             .join('')
                             .trim()
-                            .replace(' ', '_'),
+                            .replaceAll(' ', '_'),
                           $options: 'i',
                         },
                       },
@@ -713,7 +725,7 @@ export const insertCompanies = async () => {
                             .match(/[a-zA-Z0-9_ ]+/g)
                             .join('')
                             .trim()
-                            .replace(' ', '_'),
+                            .replaceAll(' ', '_'),
                           acronym: _category
                             .toLowerCase()
                             .match(/[a-zA-Z0-9_ ]+/g)
@@ -731,6 +743,7 @@ export const insertCompanies = async () => {
                           created_at: new Date(),
                           updated_at: new Date(),
                           created_by: 'admin',
+                          rank: 0,
                         },
                       },
                       {
@@ -773,7 +786,7 @@ export const insertCompanies = async () => {
                                     .match(/[a-zA-Z0-9_ ]+/g)
                                     .join('')
                                     .trim()
-                                    .replace(' ', '_'),
+                                    .replaceAll(' ', '_'),
                                   $options: 'i',
                                 },
                               },
@@ -786,7 +799,7 @@ export const insertCompanies = async () => {
                                     .match(/[a-zA-Z0-9_ ]+/g)
                                     .join('')
                                     .trim()
-                                    .replace(' ', '_'),
+                                    .replaceAll(' ', '_'),
                                   acronym: _category
                                     .toLowerCase()
                                     .match(/[a-zA-Z0-9_ ]+/g)
@@ -797,6 +810,13 @@ export const insertCompanies = async () => {
                                       return list.length > 1 ? word[0] : list.slice(0, 1);
                                     })
                                     .join(''),
+                                  sub_categories: [],
+                                  weight: Math.floor(Math.random() * 100),
+                                  deleted: false,
+                                  created_at: new Date(),
+                                  updated_at: new Date(),
+                                  created_by: 'admin',
+                                  rank: 0,
                                 },
                               },
                               {

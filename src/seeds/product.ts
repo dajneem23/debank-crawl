@@ -5,6 +5,8 @@ import productsFile from '../data/crypto_slate/json/products.json';
 import { createDataFile, readDataFromFile } from './utils';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import slugify from 'slugify';
+
 /* eslint-disable no-console */
 export const ProductSeed = async () => {
   console.log('Running product seed');
@@ -82,7 +84,7 @@ export const ProductSeed = async () => {
               return INFORMATIONS.map((_information) => {
                 if (information['information'].includes(_information)) {
                   return {
-                    [_information.toLowerCase().replace(' ', '_')]: information['information']
+                    [_information.toLowerCase().replaceAll(' ', '_')]: information['information']
                       .replace(_information, '')
                       .trim(),
                   };
@@ -193,6 +195,7 @@ export const insertProducts = async () => {
     JSON.parse(fs.readFileSync(`${__dirname}/data/_products.json`, 'utf8') as any).map(async (item: any) => {
       return {
         ...item,
+        slug: slugify(item.name, { lower: true, trim: true }),
         categories: await Promise.all(
           item.categories
             .filter(
@@ -222,7 +225,7 @@ export const insertProducts = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         acronym: _category
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)

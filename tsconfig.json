@@ -20,7 +20,8 @@
       {
         "transform": "ts-transformer-keys/transformer"
       }
-    ]
+    ],
+    "lib": ["ES2021.String"]
   },
   "include": ["./src/**/*", "./ormconfig.ts", "src/models/.model.ts"],
   "exclude": ["node_modules", "test"]

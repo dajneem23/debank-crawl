@@ -124,7 +124,7 @@ export const CategorySeed = async () => {
             .match(/[a-zA-Z0-9_ ]+/g)
             .join('')
             .trim()
-            .replace(' ', '_'),
+            .replaceAll(' ', '_'),
           acronym: item.title
             .toLowerCase()
             .match(/[a-zA-Z0-9_ ]+/g)
@@ -139,6 +139,7 @@ export const CategorySeed = async () => {
           deleted: false,
           created_at: new Date(),
           updated_at: new Date(),
+          rank: 0,
           created_by: 'admin',
         };
       })
@@ -152,26 +153,34 @@ export const CategorySeed = async () => {
           }) === index
         );
       })
-      .map(async (item: any, index) => {
+      .map(async (_item: any, index) => {
         return {
-          ...item,
+          ..._item,
           sub_categories:
             (await Promise.all(
-              item?.sub_categories?.map(async (item: any) => {
+              _item?.sub_categories?.map(async (item: any) => {
                 return (
                   await db.collection('categories').findOneAndUpdate(
                     {
+                      title: item.title,
+                      type: item.type,
                       name: {
                         $regex: item.title
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         $options: 'i',
                       },
                     },
                     {
+                      // ...((item.sub_categories?.length && {
+                      //   $set: {
+                      //     sub_categories: item.sub_categories,
+                      //   },
+                      // }) ||
+                      //   {}),
                       $setOnInsert: {
                         title: item.title,
                         type: item.type,
@@ -180,7 +189,7 @@ export const CategorySeed = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         acronym: item.title
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)
@@ -198,6 +207,7 @@ export const CategorySeed = async () => {
                         created_at: new Date(),
                         updated_at: new Date(),
                         created_by: 'admin',
+                        rank: item.rank || _item.rank + 1,
                       },
                     },
                     {
@@ -212,7 +222,69 @@ export const CategorySeed = async () => {
         };
       }),
   );
+  await Promise.all(
+    uniqueCategories.map(async (item: any) => {
+      return await db.collection('categories').findOneAndUpdate(
+        {
+          title: item.title,
+          type: item.type,
+          name: {
+            $regex: item.title
+              .toLowerCase()
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim()
+              .replaceAll(' ', '_'),
+            $options: 'i',
+          },
+        },
+        {
+          ...((item.sub_categories?.length && {
+            $set: {
+              sub_categories: item.sub_categories,
+            },
+          }) ||
+            {}),
+          $setOnInsert: {
+            title: item.title,
+            type: item.type,
+            name: item.title
+              .toLowerCase()
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim()
+              .replaceAll(' ', '_'),
+            acronym: item.title
+              .toLowerCase()
+              .match(/[a-zA-Z0-9_ ]+/g)
+              .join('')
+              .trim()
+              .split(' ')
+              .map((word: any, _: any, list: any) => {
+                return list.length > 1 ? word[0] : list.slice(0, 1);
+              })
+              .join(''),
+            ...((!item.sub_categories?.length && {
+              sub_categories: item.sub_categories,
+            }) ||
+              {}),
+            weight: Math.floor(Math.random() * 100),
+            deleted: false,
+            created_at: new Date(),
+            updated_at: new Date(),
+            created_by: 'admin',
+            rank: item.rank,
+          },
+        },
+        {
+          upsert: true,
+          returnDocument: 'after',
+        },
+      );
+    }),
+  );
+
   console.log('Inserting categories', uniqueCategories.length);
   // fs.writeFileSync(`${__dirname}/data/categories_final.json`, JSON.stringify(uniqueCategories).replace(/null/g, '""'));
-  await collection.insertMany(uniqueCategories);
+  // await collection.insertMany(uniqueCategories);
 };

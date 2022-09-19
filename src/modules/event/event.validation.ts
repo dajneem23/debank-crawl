@@ -246,7 +246,11 @@ export const getById = validate({
     id: Joi.string().regex(ObjectIdPattern),
   }),
 });
-
+export const getBySlug = validate({
+  [Segments.PARAMS]: Joi.object({
+    slug: Joi.string().required(),
+  }),
+});
 export const deleteById = validate({
   [Segments.PARAMS]: Joi.object({
     id: Joi.string().regex(ObjectIdPattern),

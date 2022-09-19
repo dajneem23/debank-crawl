@@ -206,9 +206,9 @@ export class PersonService {
     }
   }
   /**
-   * Get event by ID
-   * @param id - Event ID
-   * @returns { Promise<BaseServiceOutput> } - Event
+   * Get  by ID
+   * @param id - ID
+   * @returns { Promise<BaseServiceOutput> } - Document
    */
   async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -220,6 +220,61 @@ export class PersonService {
               ...$toMongoFilter({
                 _id,
               }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
+          },
+          this.model.$lookups.categories,
+          this.model.$lookups.author,
+          this.model.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.model.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      if (isNil(item)) throwErr(this.error('NOT_FOUND'));
+      this.logger.debug('get_success', { item });
+      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
+    } catch (err) {
+      this.logger.error('get_error', err.message);
+      throw err;
+    }
+  }
+  /**
+   * Get by slug
+   * @param id -  ID
+   * @returns { Promise<BaseServiceOutput> } - document
+   */
+  async getBySlug({ _slug, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang } = _filter;
+      const [item] = await this.model
+        .get([
+          {
+            $match: {
+              ...$toMongoFilter({ slug: _slug }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
               }),

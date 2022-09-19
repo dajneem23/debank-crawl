@@ -263,7 +263,62 @@ export class ProductService {
       throw err;
     }
   }
+  /**
+   * Get document
+   * @param id - product ID
+   * @param _filter - filter query
+   * @param _permission - permission query
+   * @returns { Promise<BaseServiceOutput> } - product
+   */
+  async getBySlug({ _slug, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang } = _filter;
 
+      const [item] = await this.model
+        .get([
+          {
+            $match: $toMongoFilter({
+              slug: _slug,
+            }),
+          },
+          this.model.$lookups.categories,
+          // this.$lookups.cryptocurrencies,
+          this.model.$lookups.author,
+          this.model.$sets.author,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.model.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      if (isNil(item)) throwErr(this.error('NOT_FOUND'));
+      this.logger.debug('get_success', { item });
+      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
+    } catch (err) {
+      this.logger.error('get_error', err.message);
+      throw err;
+    }
+  }
   /**
    * Search by text index
    * @param {BaseServiceInput} _filter _query

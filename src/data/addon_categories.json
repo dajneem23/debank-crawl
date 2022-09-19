@@ -10,21 +10,125 @@
     "type": "exploration"
   },
   {
-    "title": "Portal",
-    "name": "portal",
+    "title": "Guidelines",
+    "type": "exploration",
+    "rank": 1,
+    "sub_categories": [
+      {
+        "title": "Exchange",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Tool&Web",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Wallet",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Basic Analysis",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Candle & Price Action",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Chart",
+        "type": "exploration",
+        "rank": 2
+      }
+    ]
+  },
+  {
+    "title": "Experience",
     "type": "exploration",
     "sub_categories": [
       {
+        "title": "Hold",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Trade",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Invest",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Earn",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Research",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Learn",
+        "type": "exploration",
+        "rank": 2
+      }
+    ]
+  },
+  {
+    "title": "How to crypto",
+    "type": "exploration",
+    "rank": 1,
+    "sub_categories": [
+      {
+        "title": "Step 1: What is Crypto?",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Step 2: How to Earn Crypto?",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Step 4: What to Use?",
+        "type": "exploration",
+        "rank": 2
+      },
+      {
+        "title": "Step 5: What to Read & Follow?",
+        "type": "exploration",
+        "rank": 2
+      }
+    ]
+  },
+  {
+    "title": "Portal",
+    "name": "portal",
+    "type": "exploration",
+    "rank": 0,
+    "sub_categories": [
+      {
         "title": "Guidelines",
-        "type": "sub_exploration"
+        "type": "exploration",
+        "rank": 1
       },
       {
         "title": "Experience",
-        "type": "sub_exploration"
+        "type": "exploration",
+        "rank": 1
       },
       {
         "title": "Academy",
-        "type": "sub_exploration"
+        "type": "exploration",
+        "rank": 1
       }
     ]
   },
@@ -32,30 +136,34 @@
     "title": "For Newbies",
     "name": "for_newbies",
     "type": "exploration",
+    "rank": 0,
     "sub_categories": [
       {
         "title": "How to crypto",
-        "type": "sub_exploration"
+        "type": "exploration"
       },
       {
         "title": "Glossary",
-        "type": "sub_exploration"
+        "type": "exploration"
       }
     ]
   },
   {
     "title": "Opportunity",
     "name": "opportunity",
-    "type": "exploration"
+    "type": "exploration",
+    "rank": 0
   },
   {
     "title": "Investor",
     "name": "investor",
-    "type": "INVESTOR"
+    "type": "investor",
+    "rank": 0
   },
   {
     "title": "Funds",
     "name": "funds",
-    "type": "INVESTOR"
+    "type": "investor",
+    "rank": 0
   }
 ]

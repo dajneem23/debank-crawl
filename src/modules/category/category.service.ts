@@ -5,7 +5,7 @@ import { alphabetSize12 } from '@/utils/randomString';
 
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
+import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 
 const TOKEN_NAME = '_categoryService';
@@ -34,7 +34,7 @@ export class CategoryService {
     return ['id', 'title', 'sub_categories', 'weight'];
   }
   get transKeys() {
-    return ['title', 'name'];
+    return ['title'];
   }
 
   /**
@@ -151,8 +151,7 @@ export class CategoryService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { type, lang } = _filter;
-
+      const { type, lang, rank = 0 } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -160,6 +159,9 @@ export class CategoryService {
             $match: {
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
+              }),
+              ...(!isNil(rank) && {
+                rank: { $eq: rank },
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
@@ -230,6 +232,61 @@ export class CategoryService {
     }
   }
   /**
+   * Get Category by name
+   * @param _id - Category ID
+   * @returns { Promise<CategoryOutput> } - Category
+   */
+  async getByName({ _name, _filter, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang, type } = _filter;
+      const [category] = await this.model
+        .get([
+          {
+            $match: $toMongoFilter({
+              name: { $regex: _name, $options: 'i' },
+              ...((type && type) || {}),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            }),
+          },
+          { ...this.model.$lookups.sub_categories },
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.model.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
+
+          {
+            $limit: 1,
+          },
+        ])
+        .toArray();
+      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
+      this.logger.debug('get_success', { category });
+      return _permission == 'private' ? toOutPut({ item: category }) : omit(toOutPut({ item: category }), PRIVATE_KEYS);
+    } catch (err) {
+      this.logger.error('get_error', err.message);
+      throw err;
+    }
+  }
+  /**
    *  Search category
    * @param {any} _filter
    * @param {BaseQuery} _query
@@ -237,7 +294,7 @@ export class CategoryService {
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, type } = _filter;
+      const { q, lang, type, rank = 0 } = _filter;
       const { page = 1, per_page = 10 } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
@@ -245,6 +302,9 @@ export class CategoryService {
             $match: {
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
+              }),
+              ...(!isNil(rank) && {
+                rank: { $eq: rank },
               }),
               ...(q && {
                 $or: [{ $text: { $search: q } }, { title: { $regex: q, $options: 'i' } }],

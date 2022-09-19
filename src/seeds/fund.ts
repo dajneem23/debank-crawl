@@ -4,6 +4,8 @@ import mongoDBLoader from '@/loaders/mongoDBLoader';
 import fs from 'fs';
 import Container, { Inject, Service } from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import slugify from 'slugify';
+
 /* eslint-disable no-console */
 export const FundSeed = async () => {
   const db = Container.get(DIMongoDB);
@@ -46,7 +48,12 @@ export const FundSeed = async () => {
           const firm_ids = firms.map((firm: any) => firm.foreign_id);
           return {
             id,
-            name: round_name.replace(stage, '').replace('-', '').trim(),
+            name: round_name
+              .replace(stage, '')
+              .replace('-', '')
+              .replace(/[\W_]+/g, ' ')
+              .replace(/  +/g, ' ')
+              .trim(),
             avatars,
             avatar: avatars[0],
             round_name,
@@ -107,10 +114,12 @@ export const FundSeed = async () => {
             cryptocurrencies,
             fundraising_rounds = [],
             total_amount = 0,
+            name,
             ...rest
           } = acc[fund.name];
           acc[fund.name] = {
             ...rest,
+            name,
             total_amount: total_amount + fund.amount,
             partners: [...partners, ...fund.partners],
             firms: [...firms, ...fund.firms],
@@ -172,7 +181,10 @@ export const FundSeed = async () => {
           foreign_id,
           foreign_ids: firms.map(({ foreign_id }: any) => foreign_id),
           about,
-          name,
+          name: name
+            .replace(/[\W_]+/g, ' ')
+            .replace(/  +/g, ' ')
+            .trim(),
           categories: [...new Set(categories)],
           avatars,
           avatar,
@@ -198,8 +210,8 @@ export const FundSeed = async () => {
   return funds;
 };
 export const fundInvestment = async () => {
-  const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any);
-  const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any);
+  const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/companies_final.json`, 'utf8') as any);
+  const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/funds.json`, 'utf8') as any);
   const db = Container.get(DIMongoDB);
   const fundsFinal = funds.map(({ foreign_id, foreign_ids = [], name, ...rest }: any) => {
     const investments = [
@@ -239,7 +251,14 @@ export const insertFunds = async () => {
   const db = Container.get(DIMongoDB);
   const count = await db.collection('funds').countDocuments();
   if (count) return;
-  const fundsFinal = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any);
+  console.log('inserting funds');
+  const fundsFinal = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any).map(
+    ({ name, ...rest }: any) => ({
+      name,
+      slug: slugify(name, { lower: true, trim: true }),
+      ...rest,
+    }),
+  );
   await db.collection('funds').insertMany(fundsFinal);
   console.log('funds inserted', fundsFinal.length);
 };

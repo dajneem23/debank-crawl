@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, FUND_TYPE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const FundValidation = {
   create: validate({
@@ -15,7 +15,9 @@ export const FundValidation = {
 
       total_amount: Joi.number().min(0),
 
-      type: Joi.string(),
+      total_investments: Joi.number().min(0),
+
+      type: Joi.string().valid(...Object.values(FUND_TYPE)),
 
       fundraising_rounds: Joi.array().items(
         Joi.object().keys({
@@ -140,7 +142,7 @@ export const FundValidation = {
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
-      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(Joi.string()),
 
       sponsored: Joi.boolean(),
 
@@ -205,6 +207,18 @@ export const FundValidation = {
   getById: validate({
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
+    }),
+    [Segments.QUERY]: Joi.object({
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+    }),
+  }),
+  getBySlug: validate({
+    [Segments.PARAMS]: Joi.object({
+      slug: Joi.string().required(),
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string()

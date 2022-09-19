@@ -27,6 +27,11 @@ export class PersonModel extends BaseModel {
             name: 'text',
           },
         },
+        {
+          field: {
+            slug: 1,
+          },
+        },
       ],
     });
   }

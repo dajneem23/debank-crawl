@@ -28,6 +28,14 @@ export class FundModel extends BaseModel {
             name: 'text',
           },
         },
+        {
+          field: {
+            slug: 1,
+          },
+          options: {
+            unique: true,
+          },
+        },
       ],
     });
   }

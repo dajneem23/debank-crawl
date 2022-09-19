@@ -102,6 +102,8 @@ export interface BaseInformationModel extends BaseModel {
   id?: ObjectId;
 
   name?: string;
+
+  slug?: string;
   // location?: string;
 
   about?: string;
@@ -205,6 +207,8 @@ export const defaultFilter = {
   deleted: false,
 };
 export type BaseServiceInput = {
+  _name?: string;
+  _slug?: string;
   _id?: string;
   _content: {
     [key: string]: any;
@@ -226,7 +230,7 @@ export type BaseServiceInput = {
 
 export type BaseServiceOutput = {
   code?: number;
-  result?: Event | any;
+  result?: any;
   total_count?: number;
   data?: Array<any>;
 };
@@ -265,7 +269,7 @@ export type IcoDetail = {
   end_date?: string;
 };
 
-export type ProductInfomation = {
+export type ProductInformation = {
   parent_company?: string;
   team_location?: string;
   blockchain?: string;
@@ -330,6 +334,16 @@ export enum FundraisingRound {
   SERIES_D = 'Series D',
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
+}
+export enum FUND_TYPE {
+  NA = 'N/A',
+  CRYPTO_VENTURE = 'Crypto Venture',
+  EXCHANGE_FUND = 'Exchange Fund',
+  DEVELOPER_SUPPORT = 'Developer Support',
+  MARKETING_SUPPORT = 'Marketing Support',
+  SECURITY_SUPPORT = 'Security Support',
+  PROJECT_BASED = 'Project Based',
+  NON_CRYPTO_CAPITAL = 'Non-Crypto Capital',
 }
 export type FundraisingRoundDetail = {
   round_name: string;

@@ -9,6 +9,8 @@ import { createDataFile, readDataFromFile } from './utils';
 import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import slugify from 'slugify';
+
 /* eslint-disable no-console */
 export const PersonSeed = async () => {
   /* eslint-disable no-console */
@@ -202,7 +204,11 @@ export const PersonSeed = async () => {
     Object.values(
       [...persons, ...angelInvestors, ...investors.persons, ...fundfouders].reduce((current: any, item: any) => {
         const { name, ...rest } = item;
-        const lowerName = name.toLowerCase().trim();
+        const lowerName = name
+          .replace(/[\W_]+/g, ' ')
+          .replace(/  +/g, ' ')
+          .toLowerCase()
+          .trim();
         // console.log(name);
         return {
           ...current,
@@ -276,11 +282,16 @@ export const PersonSeed = async () => {
           location = '',
           email = '',
           type,
+          name,
           metadata = {},
           ...rest
         }: any) => {
           return {
             ...rest,
+            name: name
+              .replace(/[\W_]+/g, ' ')
+              .replace(/  +/g, ' ')
+              .trim(),
             foreign_id,
             categories: [...new Set(categories)],
             about,
@@ -354,9 +365,9 @@ export const PersonSeed = async () => {
   return persons_final;
 };
 export const personInvestment = async () => {
-  const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any);
-  const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any);
-  const persons = JSON.parse(fs.readFileSync(`${__dirname}/data/_persons.json`, 'utf8') as any);
+  const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/companies_final.json`, 'utf8') as any);
+  const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/funds.json`, 'utf8') as any);
+  const persons = JSON.parse(fs.readFileSync(`${__dirname}/data/persons_final.json`, 'utf8') as any);
   const db = Container.get(DIMongoDB);
   const personsFinal = persons.map(({ foreign_id, foreign_ids = [], name, ...rest }: any) => {
     const investments = [
@@ -415,11 +426,13 @@ export const insertPersons = async () => {
   const db = Container.get(DIMongoDB);
   const count = await db.collection('persons').countDocuments();
   if (count) return;
+  console.log('Inserting persons');
   const categories = await db.collection('categories').find({}).toArray();
   const personsFinal = await Promise.all(
     JSON.parse(fs.readFileSync(`${__dirname}/data/_persons.json`, 'utf8') as any).map(async (item: any) => {
       return {
         ...item,
+        slug: slugify(item.name, { lower: true, trim: true }),
         categories: await Promise.all(
           item.categories
             .filter(Boolean)
@@ -445,7 +458,7 @@ export const insertPersons = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         $options: 'i',
                       },
                     },
@@ -458,7 +471,7 @@ export const insertPersons = async () => {
                           .match(/[a-zA-Z0-9_ ]+/g)
                           .join('')
                           .trim()
-                          .replace(' ', '_'),
+                          .replaceAll(' ', '_'),
                         acronym: _category
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)
@@ -518,7 +531,7 @@ export const insertPersons = async () => {
                                   .match(/[a-zA-Z0-9_ ]+/g)
                                   .join('')
                                   .trim()
-                                  .replace(' ', '_'),
+                                  .replaceAll(' ', '_'),
                                 $options: 'i',
                               },
                             },
@@ -531,7 +544,7 @@ export const insertPersons = async () => {
                                   .match(/[a-zA-Z0-9_ ]+/g)
                                   .join('')
                                   .trim()
-                                  .replace(' ', '_'),
+                                  .replaceAll(' ', '_'),
                                 acronym: _category
                                   .toLowerCase()
                                   .match(/[a-zA-Z0-9_ ]+/g)

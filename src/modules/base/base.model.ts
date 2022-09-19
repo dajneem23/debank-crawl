@@ -18,6 +18,7 @@ import { throwErr } from '@/utils/common';
 import { $lookup, $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
 import { $refValidation } from '@/utils/validation';
 import { COLLECTION_NAMES, T } from '@/types';
+import slugify from 'slugify';
 
 /**
  * @class BaseModel
@@ -420,6 +421,7 @@ export class BaseModel {
     try {
       const {
         categories = [],
+        sub_categories = [],
         event_tags = [],
         product_tags = [],
         company_tags = [],
@@ -428,10 +430,20 @@ export class BaseModel {
         speakers = [],
         cryptocurrencies = [],
         country,
+        title,
+        name,
+        slug,
       } = _content;
       categories.length &&
         (await $refValidation({ collection: 'categories', list: $toObjectId(categories) })) &&
         (_content.categories = $toObjectId(categories));
+      sub_categories.length &&
+        (await $refValidation({
+          collection: 'categories',
+          list: $toObjectId(sub_categories),
+          Refname: 'sub_categories',
+        })) &&
+        (_content.sub_categories = $toObjectId(sub_categories));
       event_tags.length &&
         (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) })) &&
         (_content.event_tags = $toObjectId(event_tags));
@@ -458,6 +470,18 @@ export class BaseModel {
         (await $refValidation({ collection: 'persons', list: $toObjectId(speakers), Refname: 'speakers' })) &&
         (_content.speakers = $toObjectId(speakers));
       country && (await $refValidation({ collection: 'countries', list: [country], refKey: 'code' }));
+      title &&
+        !slug &&
+        (_content.slug = slugify(title, {
+          trim: true,
+          lower: true,
+        }));
+      name &&
+        !slug &&
+        (_content.slug = slugify(name, {
+          trim: true,
+          lower: true,
+        }));
       return _content;
     } catch (err) {
       this.logger.error('validate_error', `[validate:${this._collectionName}:error]`, err.message);

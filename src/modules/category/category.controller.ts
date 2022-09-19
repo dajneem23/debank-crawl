@@ -1,6 +1,6 @@
 import Container from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { Category, CategoryValidation, categoryServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
@@ -77,19 +77,58 @@ export class CategoryController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/:id', [CategoryValidation.getById])
+  // @Get('/:id', [CategoryValidation.getById])
+  // async getById(
+  //   @Res() _res: Response,
+  //   @Req() _req: Request,
+  //   @Query() _query: BaseQuery,
+  //   @Params()
+  //   _params: {
+  //     id: string;
+  //   },
+  // ) {
+  //   const { filter, query } = buildQueryFilter(_query);
+
+  //   const result = await this.service.getById({
+  //     _id: _params.id,
+  //     _filter: filter,
+  //   } as BaseServiceInput);
+  //   _res.status(httpStatus.OK).json(result);
+  // }
+  @Get('/:name', [CategoryValidation.getByName])
   async getById(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
     @Params()
     _params: {
-      id: string;
+      name: string;
     },
   ) {
-    const result = await this.service.getById({
-      _id: _params.id,
-      _filter: _query,
+    const { filter, query } = buildQueryFilter(_query);
+
+    const result = await this.service.getByName({
+      _name: _params.name,
+      _filter: filter,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/private/:name', [CategoryValidation.getByName])
+  async getByIdPrivate(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      name: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+
+    const result = await this.service.getByName({
+      _name: _params.name,
+      _filter: filter,
+      _permission: 'private',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

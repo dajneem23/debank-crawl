@@ -419,12 +419,12 @@
     "_id": "48b4f2ee-d8cd-49a4-9e45-3c6b6b23f6ed",
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
-    "name": "get By ID Copy",
-    "url": "{{host}}/companies/private/630dbeb0fbd8194282be55c1",
+    "name": "get By slug",
+    "url": "{{host}}/companies/recur",
     "method": "GET",
     "sortNum": 165000,
     "created": "2022-08-30T09:07:12.409Z",
-    "modified": "2022-08-30T09:07:12.409Z",
+    "modified": "2022-09-16T07:08:41.712Z",
     "headers": [],
     "params": [],
     "auth": {
@@ -1104,7 +1104,8 @@
       },
       {
         "name": "category",
-        "value": "6322ea32fdcb843b3713da01",
+        "value": "630dbeaf1d1096097587bda9",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1424,11 +1425,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "80ae3941-67ee-4757-a670-e6307318bb3d",
     "name": "search",
-    "url": "{{host}}/companies/search/?page=1&per_page=2&q=Fy",
+    "url": "{{host}}/companies/search/?page=1&per_page=2&q=Recur",
     "method": "GET",
     "sortNum": 390000,
     "created": "2022-08-30T09:07:12.451Z",
-    "modified": "2022-08-30T09:07:12.451Z",
+    "modified": "2022-09-16T07:07:03.133Z",
     "headers": [],
     "params": [
       {
@@ -1443,7 +1444,7 @@
       },
       {
         "name": "q",
-        "value": "Fy",
+        "value": "Recur",
         "isPath": false
       },
       {
@@ -1548,6 +1549,85 @@
     "containerId": "5707a4ee-0141-4cea-89f4-f975d7f57d80",
     "name": "Get",
     "url": "{{host}}/funds",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-09-08T09:32:20.625Z",
+    "modified": "2022-09-13T03:07:01.648Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"13452\",\n    \"categories\": [\n        \"631f0155eff31dd0028f90e2\"\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzAzNzEzMiwiZXhwIjoxNjYzOTAxMTMyfQ.LgMqxkRsDdcF8FKzOgXNTfFYnTJaHpOgIWiwWwSjm_Q"
+    },
+    "tests": []
+  },
+  {
+    "_id": "522ce1ef-d8f0-410d-b2df-e61fe49ca277",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+    "name": "create",
+    "url": "{{host}}/funds",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-09-08T09:32:20.625Z",
+    "modified": "2022-09-13T03:07:01.648Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"13452\",\n    \"categories\": [\n        \"631f0155eff31dd0028f90e2\"\n    ]\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzAzNzEzMiwiZXhwIjoxNjYzOTAxMTMyfQ.LgMqxkRsDdcF8FKzOgXNTfFYnTJaHpOgIWiwWwSjm_Q"
+    },
+    "tests": []
+  },
+  {
+    "_id": "f6609157-32f6-4ac3-be92-e6c077c62d01",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+    "name": "update",
+    "url": "{{host}}/funds/6319c04b6beba3b545157037",
+    "method": "PUT",
+    "sortNum": 20000,
+    "created": "2022-09-08T11:08:07.870Z",
+    "modified": "2022-09-08T11:19:08.691Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \n    \"name\":\"123\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a810ffab-a12e-4209-93b4-f077bd5b73a0",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+    "name": "delete",
+    "url": "{{host}}/funds/6319c04b6beba3b545157039",
+    "method": "DELETE",
+    "sortNum": 440000,
+    "created": "2022-09-08T11:12:50.164Z",
+    "modified": "2022-09-08T11:13:02.029Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "97dae637-bec0-4ad1-9559-82931574b981",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+    "name": "get by id",
+    "url": "{{host}}/funds/631aca376beba3b545160082",
     "method": "GET",
     "sortNum": 420000,
     "created": "2022-09-16T08:03:03.030Z",
@@ -1567,7 +1647,30 @@
     "created": "2022-09-16T08:55:56.254Z",
     "modified": "2022-09-16T08:56:09.653Z",
     "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "b55adcbf-ef7e-4f9f-8c0a-d677d1af2b4f",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "getBySlug",
+    "url": "{{host}}/coins/piedao-dough-v2",
+    "method": "GET",
+    "sortNum": 212500,
+    "created": "2022-09-16T04:05:22.176Z",
+    "modified": "2022-09-16T08:51:15.912Z",
+    "headers": [],
     "params": [],
+    "auth": {
+      "type": "bearer"
+    },
     "tests": []
   },
   {
@@ -1580,6 +1683,105 @@
     "sortNum": 160000,
     "created": "2022-09-17T06:48:26.989Z",
     "modified": "2022-09-17T08:51:07.512Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "cdf2c31e-798d-459f-809d-9a5280c95c57",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
+    "name": "getBySlug",
+    "url": "{{host}}/products/bc.game",
+    "method": "GET",
+    "sortNum": 490000,
+    "created": "2022-09-16T02:12:19.674Z",
+    "modified": "2022-09-16T02:15:20.824Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "7197b3f0-98c8-4140-8437-cbd64a4a4967",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
+    "name": "getByName",
+    "url": "{{host}}/categories/Exchange?lang=vi",
+    "method": "GET",
+    "sortNum": 500000,
+    "created": "2022-09-16T02:26:41.368Z",
+    "modified": "2022-09-18T23:26:09.723Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "b55adcbf-ef7e-4f9f-8c0a-d677d1af2b4f",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "getBySlug",
+    "url": "{{host}}/coins/piedao-dough-v2",
+    "method": "GET",
+    "sortNum": 212500,
+    "created": "2022-09-16T04:05:22.176Z",
+    "modified": "2022-09-16T08:51:15.912Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer"
+    },
+    "tests": []
+  },
+  {
+    "_id": "2a63c8bd-8946-4d6a-b8b1-921931305be9",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
+    "name": "getBySlug",
+    "url": "{{host}}/products/hodlbot?lang=vi",
+    "method": "GET",
+    "sortNum": 215000,
+    "created": "2022-09-16T04:17:28.814Z",
+    "modified": "2022-09-16T04:17:59.498Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "641a230a-7b98-4ccd-9768-622ef2f07ec8",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
+    "name": "Event.getBySlug",
+    "url": "{{host}}/events/event611212323223222312",
+    "method": "GET",
+    "sortNum": 35000,
+    "created": "2022-09-16T04:25:15.230Z",
+    "modified": "2022-09-16T04:26:34.933Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "77801009-4acc-48bd-856f-aefe82289743",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "c9f487a6-30a1-4b58-8456-00d1c2ce489b",
+    "name": "get by slug",
+    "url": "{{host}}/funds/digital-finance-group",
+    "method": "GET",
+    "sortNum": 455000,
+    "created": "2022-09-16T07:05:02.459Z",
+    "modified": "2022-09-16T07:05:34.803Z",
     "headers": [],
     "params": [],
     "tests": []

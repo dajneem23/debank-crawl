@@ -14,7 +14,7 @@ import {
   Auth,
   Patch,
 } from '@/utils/expressDecorators';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { News, NewsValidation, NewsServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
@@ -144,7 +144,7 @@ export class NewsController {
 
     const result = await this.service.getBySlug({
       _filter: filter,
-      _id: _params.slug,
+      _slug: _params.slug,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

@@ -136,7 +136,7 @@ export class FundService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, category } = _filter;
+      const { q, lang, category, funding_min, funding_max, year_founded_from, year_founded_to } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -145,6 +145,10 @@ export class FundService {
               $and: [
                 {
                   deleted: false,
+                  ...(funding_min && { funding: { $gte: funding_min } }),
+                  ...(funding_max && { funding: { $lte: funding_max } }),
+                  ...(year_founded_from && { year_founded: { $gte: year_founded_from } }),
+                  ...(year_founded_to && { year_founded: { $lte: year_founded_to } }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),

@@ -243,6 +243,10 @@ export const FundValidation = {
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      funding_min: Joi.number(),
+      funding_max: Joi.number(),
+      year_founded_from: Joi.number(),
+      year_founded_to: Joi.number(),
     }),
   }),
   search: validate({

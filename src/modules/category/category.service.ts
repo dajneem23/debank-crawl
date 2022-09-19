@@ -151,8 +151,7 @@ export class CategoryService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { type, lang } = _filter;
-
+      const { type, lang, rank } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -160,6 +159,9 @@ export class CategoryService {
             $match: {
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
+              }),
+              ...(!isNil(rank) && {
+                rank: { $eq: rank },
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
@@ -292,7 +294,7 @@ export class CategoryService {
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, type } = _filter;
+      const { q, lang, type, rank } = _filter;
       const { page = 1, per_page = 10 } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
@@ -300,6 +302,9 @@ export class CategoryService {
             $match: {
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
+              }),
+              ...(!isNil(rank) && {
+                rank: { $eq: rank },
               }),
               ...(q && {
                 $or: [{ $text: { $search: q } }, { title: { $regex: q, $options: 'i' } }],

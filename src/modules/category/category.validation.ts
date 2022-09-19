@@ -68,6 +68,7 @@ export const CategoryValidation = {
         Joi.string().valid(...Object.values(CATEGORY_TYPE)),
         Joi.array().items(Joi.string().valid(...Object.values(CATEGORY_TYPE))),
       ],
+      rank: Joi.number(),
       lang: Joi.string()
         .valid(...Object.values(LANG_CODE))
         .messages({
@@ -87,6 +88,7 @@ export const CategoryValidation = {
         Joi.string().valid(...Object.values(CATEGORY_TYPE)),
         Joi.array().items(Joi.string().valid(...Object.values(CATEGORY_TYPE))),
       ],
+      rank: Joi.number(),
       lang: Joi.string()
         .valid(...Object.values(LANG_CODE))
         .messages({

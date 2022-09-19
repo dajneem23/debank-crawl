@@ -105,7 +105,7 @@ export class CoinController {
       slug: string;
     },
   ) {
-    const { filter, query } = buildQueryFilter(_query);
+    const { filter } = buildQueryFilter(_query);
 
     const result = await this.service.getBySlug({
       _slug: _params.slug,

@@ -9,9 +9,8 @@ import categoriesFile from '../data/crypto_slate/json/categories.json';
 import addon_categories from '../data/addon_categories.json';
 // import categories_crypto from '../data/categories_crypto_asset.json';
 import { $countCollection } from '@/utils/mongoDB';
-import Container, { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
-import fs from 'fs';
 export const CategorySeed = async () => {
   const db = Container.get(DIMongoDB);
   const collection = db.collection('categories');

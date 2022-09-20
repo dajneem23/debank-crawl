@@ -95,24 +95,24 @@ export class CategoryController {
   //   } as BaseServiceInput);
   //   _res.status(httpStatus.OK).json(result);
   // }
-  @Get('/:name', [CategoryValidation.getByName])
-  async getByName(
-    @Res() _res: Response,
-    @Req() _req: Request,
-    @Query() _query: BaseQuery,
-    @Params()
-    _params: {
-      name: string;
-    },
-  ) {
-    const { filter, query } = buildQueryFilter(_query);
+  // @Get('/:name', [CategoryValidation.getByName])
+  // async getByName(
+  //   @Res() _res: Response,
+  //   @Req() _req: Request,
+  //   @Query() _query: BaseQuery,
+  //   @Params()
+  //   _params: {
+  //     name: string;
+  //   },
+  // ) {
+  //   const { filter, query } = buildQueryFilter(_query);
 
-    const result = await this.service.getByName({
-      _name: _params.name,
-      _filter: filter,
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
+  //   const result = await this.service.getByName({
+  //     _name: _params.name,
+  //     _filter: filter,
+  //   } as BaseServiceInput);
+  //   _res.status(httpStatus.OK).json(result);
+  // }
 }
 @Controller('/private/categories')
 export class CategoryPrivateController {

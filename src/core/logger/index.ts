@@ -74,6 +74,8 @@ const _messages = {
   reconnecting: '[reconnecting]',
   error: '🆘[error]',
   success: '✅[success]',
+  info: 'ℹ️[info]',
+  warn: '⚠️[warn]',
   end: '🔚[end]',
   delete: '🚮[delete]',
   default: '😃⁉️',

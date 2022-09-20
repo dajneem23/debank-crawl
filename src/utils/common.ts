@@ -144,3 +144,11 @@ export const getDateTime = ({
 }) => {
   return new Date(date + hour * 3600000 + minute * 60000 + second * 1000);
 };
+/**
+ *
+ * @param ms  miliseconds
+ * @returns {Promise} Delay for miliseconds
+ */
+export const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};

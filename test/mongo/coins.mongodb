@@ -1,0 +1,10 @@
+ use('wikiblock')
+
+db.coins.find(
+  {
+    name:{
+      $regex:'^Game$',
+      $options:'i'
+    }
+  }
+).toArray()

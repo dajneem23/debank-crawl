@@ -11,6 +11,7 @@ import addon_categories from '../data/addon_categories.json';
 import { $countCollection } from '@/utils/mongoDB';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import slugify from 'slugify';
 export const CategorySeed = async () => {
   const db = Container.get(DIMongoDB);
   const collection = db.collection('categories');

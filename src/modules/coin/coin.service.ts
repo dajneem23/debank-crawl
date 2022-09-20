@@ -1,12 +1,26 @@
 import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CoinError, coinErrors, CoinModel, coinModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { _coin } from '@/modules';
+import axios from 'axios';
+import { CoinMarketCapAPI } from './coinMarketCapAPI';
+import { env } from 'process';
+import slugify from 'slugify';
+import {
+  FETCH_MARKET_DATA_DURATION,
+  FETCH_MARKET_DATA_INTERVAL,
+  PRICE_PRECISION,
+  PRICE_STACK_SIZE,
+} from './coin.constants';
+import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import IORedis from 'ioredis';
+import { SystemError } from '@/core/errors';
+import { CoinJobData, CoinJobNames } from './coin.job';
 const TOKEN_NAME = '_coinService';
 /**
  * A bridge allows another service access to the Model layer
@@ -15,6 +29,7 @@ const TOKEN_NAME = '_coinService';
  * @extends {BaseService}
  */
 export const coinServiceToken = new Token<CoinService>(TOKEN_NAME);
+
 /**
  * @class CoinService
  * @extends  BaseService
@@ -25,6 +40,88 @@ export class CoinService {
   private logger = new Logger('CoinService');
 
   private model = Container.get<CoinModel>(coinModelToken);
+
+  private readonly redisConnection: IORedis.Redis;
+
+  private worker: Worker;
+
+  private queue: Queue;
+
+  private queueScheduler: QueueScheduler;
+
+  private readonly jobs = {
+    'coin:fetch:marketData': this.fetchMarketData,
+    'coin:fetch:ohlcv': this.fetchOHLCV,
+    default: () => {
+      throw new SystemError('Invalid job name');
+    },
+  };
+
+  constructor() {
+    // Init Redis connection
+    this.redisConnection = new IORedis(env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
+    // Init Worker
+    this.initWorker();
+    // Init Queue
+    this.initQueue();
+  }
+  /**
+   *  @description init BullMQ Worker
+   */
+  private initWorker() {
+    this.worker = new Worker('coin', this.workerProcessor.bind(this), {
+      connection: this.redisConnection as any,
+      concurrency: 20,
+      limiter: {
+        max: 1,
+        duration: FETCH_MARKET_DATA_DURATION,
+      },
+    });
+    this.initWorkerListeners(this.worker);
+  }
+  /**
+   *  @description init BullMQ Queue
+   */
+  private initQueue() {
+    this.queue = new Queue('coin', {
+      connection: this.redisConnection as any,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 3000 },
+      },
+    });
+    this.queueScheduler = new QueueScheduler('coin', {
+      connection: this.redisConnection as any,
+    });
+    const queueEvents = new QueueEvents('coin', {
+      connection: this.redisConnection as any,
+    });
+
+    this.addFetchingDataJob();
+
+    queueEvents.on('completed', ({ jobId }) => {
+      this.logger.debug('success', 'Job completed', { jobId });
+    });
+
+    queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+    });
+  }
+
+  private addFetchingDataJob() {
+    this.addJob({
+      name: 'coin:fetch:marketData',
+      payload: {},
+      options: {
+        repeat: {
+          every: +FETCH_MARKET_DATA_INTERVAL,
+        },
+        jobId: 'coin:fetch:marketData',
+      },
+    });
+  }
 
   private error(msg: keyof typeof coinErrors) {
     return new CoinError(msg);
@@ -60,6 +157,7 @@ export class CoinService {
           name,
         },
         {
+          ..._coin,
           ..._content,
           deleted: false,
           ...(_subject && { created_by: _subject }),
@@ -393,5 +491,327 @@ export class CoinService {
       this.logger.error('query_error', err.message);
       throw err;
     }
+  }
+  /**
+   *
+   * @description fetch market data from coinmarketcap api
+   */
+  async fetchMarketData({
+    page = 1,
+    per_page = CoinMarketCapAPI.SYMBOL_LIMIT,
+    delay = 300,
+  }: {
+    page?: number;
+    per_page?: number;
+    delay?: number;
+  } = {}): Promise<void> {
+    await sleep(delay);
+    try {
+      this.logger.debug('success', 'updateMarketData', { page, per_page });
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
+          ...$pagination({
+            $projects: [
+              {
+                $project: {
+                  token_id: 1,
+                },
+              },
+            ],
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      if (items.length) {
+        const listSymbol = items.map((item) => item.token_id);
+        const {
+          data: { data: quotesLatest },
+        } = await this.getCoinMarketCapAPI({
+          endpoint: 'quotesLatest',
+          params: {
+            symbol: listSymbol.join(','),
+          },
+        });
+        for (const symbol of Object.keys(quotesLatest)) {
+          for (const item of quotesLatest[symbol]) {
+            const {
+              quote: {
+                USD: {
+                  price,
+                  volume_24h,
+                  volume_change_24h,
+                  percent_change_1h,
+                  percent_change_24h,
+                  percent_change_7d,
+                  percent_change_30d,
+                  percent_change_60d,
+                  percent_change_90d,
+                  market_cap,
+                  market_cap_dominance,
+                  tvl,
+                  last_updated,
+                },
+              },
+              name,
+            } = item;
+            const marketData = {
+              'market_data.USD.price': price,
+              'market_data.USD.volume_24h': volume_24h,
+              'market_data.USD.volume_change_24h': volume_change_24h,
+              'market_data.USD.percent_change_1h': percent_change_1h,
+              'market_data.USD.percent_change_24h': percent_change_24h,
+              'market_data.USD.percent_change_7d': percent_change_7d,
+              'market_data.USD.percent_change_30d': percent_change_30d,
+              'market_data.USD.percent_change_60d': percent_change_60d,
+              'market_data.USD.percent_change_90d': percent_change_90d,
+              'market_data.USD.market_cap': market_cap,
+              'market_data.USD.market_cap_dominance': market_cap_dominance,
+              'market_data.USD.tvl': tvl,
+              'market_data.USD.last_updated': last_updated,
+            };
+            const {
+              value,
+              ok,
+              lastErrorObject: { updatedExisting },
+            } = await this.model._collection.findOneAndUpdate(
+              {
+                name: { $regex: `^${name}$`, $options: 'i' },
+              },
+              {
+                $set: {
+                  ...marketData,
+                  updated_at: new Date(),
+                  updated_by: 'system',
+                },
+                $push: {
+                  'market_data.USD.list_price': {
+                    $each: [
+                      {
+                        value: marketData['market_data.USD.price'],
+                        date: new Date(),
+                      },
+                    ],
+                    $position: 0,
+                    $slice: PRICE_STACK_SIZE,
+                  },
+                } as any,
+              },
+              {
+                upsert: false,
+              },
+            );
+            if (!updatedExisting) {
+              await this.model._collection.findOneAndUpdate(
+                {
+                  name,
+                },
+                {
+                  $setOnInsert: {
+                    name,
+                    'market_data.USD.list_price': [
+                      {
+                        value: marketData['market_data.USD.price'],
+                        date: new Date(),
+                      },
+                    ],
+                    ...marketData,
+                    slug: slugify(name),
+                    trans: [] as any,
+                    deleted: false,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                    created_by: 'system',
+                    categories: [],
+                  },
+                },
+                {
+                  upsert: true,
+                },
+              );
+            }
+          }
+        }
+        this.logger.debug('success', { items: items.length, total_count });
+        await this.fetchMarketData({
+          page: page + 1,
+          per_page,
+        });
+      } else {
+        this.logger.debug('success', { total_count });
+      }
+    } catch (err) {
+      this.logger.debug('error', 'updateMarketData', err.message);
+      throw err;
+    }
+  }
+  /**
+   *
+   * @description fetch OHLCV from coinmarketcap api
+   */
+  async fetchOHLCV({
+    page = 1,
+    per_page = CoinMarketCapAPI.SYMBOL_LIMIT,
+    delay = 300,
+  }: {
+    page?: number;
+    per_page?: number;
+    delay?: number;
+  }): Promise<void> {
+    await sleep(delay);
+    try {
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
+          ...$pagination({
+            $projects: [
+              {
+                $project: {
+                  token_id: 1,
+                },
+              },
+            ],
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      if (items.length) {
+        const listSymbol = items.map((item) => item.token_id);
+        const {
+          data: { data: ohlcvLastest },
+        } = await this.getCoinMarketCapAPI({
+          endpoint: 'ohlcvLastest',
+          params: {
+            symbol: listSymbol.join(','),
+          },
+        });
+        for (const symbol of Object.keys(ohlcvLastest)) {
+          this.logger.debug('success', { symbol });
+
+          for (const item of ohlcvLastest[symbol]) {
+            const {
+              quote: {
+                USD: { open, high, low, close, volume },
+              },
+              name,
+            } = item;
+            this.logger.debug('success', { name });
+            const {
+              value,
+              ok,
+              lastErrorObject: { updatedExisting },
+            } = await this.model._collection.findOneAndUpdate(
+              {
+                name: { $regex: `^${name}$`, $options: 'i' },
+              },
+              {
+                $set: {
+                  'market_data.USD.open': open,
+                  'market_data.USD.high': high,
+                  'market_data.USD.low': low,
+                  'market_data.USD.close': close,
+                  'market_data.USD.volume': volume,
+                  updated_at: new Date(),
+                  updated_by: 'system',
+                },
+              },
+              {
+                upsert: false,
+              },
+            );
+            if (!updatedExisting) {
+              await this.model._collection.findOneAndUpdate(
+                {
+                  name,
+                },
+                {
+                  $setOnInsert: {
+                    name,
+                    slug: slugify(name),
+                    'market_data.USD.open': open,
+                    'market_data.USD.high': high,
+                    'market_data.USD.low': low,
+                    'market_data.USD.close': close,
+                    'market_data.USD.volume': volume,
+                    trans: [] as any,
+                    deleted: false,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                    created_by: 'admin',
+                    categories: [],
+                  },
+                },
+                {
+                  upsert: true,
+                },
+              );
+            }
+          }
+        }
+        await this.fetchOHLCV({
+          page: page + 1,
+          per_page,
+        });
+      } else {
+        this.logger.debug('success', { total_count });
+        return;
+      }
+    } catch (err) {
+      this.logger.debug('error', 'updateMarketData', err.message);
+      throw err;
+    }
+  }
+  getCoinMarketCapAPI({
+    params = {},
+    endpoint,
+  }: {
+    endpoint: keyof typeof CoinMarketCapAPI.cryptocurrency;
+    params?: any;
+  }): Promise<any> {
+    return axios.get(`${CoinMarketCapAPI.HOST}${CoinMarketCapAPI.cryptocurrency[endpoint]}`, {
+      params,
+      headers: {
+        'X-CMC_PRO_API_KEY': env.COINMARKETCAP_API_KEY,
+      },
+    });
+  }
+
+  /**
+   * Initialize Worker listeners
+   * @private
+   */
+  private initWorkerListeners(worker: Worker) {
+    // Completed
+    worker.on('completed', (job: Job<CoinJobData>) => {
+      this.logger.debug('success', '[job:completed]', { id: job.id });
+    });
+    // Failed
+    worker.on('failed', (job: Job<CoinJobData>, error: Error) => {
+      this.logger.error('error', '[job:error]', { jobId: job.id, error });
+    });
+  }
+  /**
+   * @description add job to queue
+   */
+  addJob({
+    name,
+    payload = {},
+    options = {
+      repeat: {
+        every: +FETCH_MARKET_DATA_INTERVAL,
+      },
+    },
+  }: {
+    name: CoinJobNames;
+    payload?: any;
+    options?: JobsOptions;
+  }) {
+    this.queue
+      .add(name, payload, options)
+      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
+      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
+  }
+  workerProcessor(job: Job<CoinJobData>): Promise<void> {
+    const { name } = job;
+    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+    return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
 }

@@ -77,6 +77,11 @@ export class CoinController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
+  @Get('/test')
+  async test(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const result = await this.service.fetchMarketData({});
+    _res.status(httpStatus.OK).json(result);
+  }
   // @Get('/:id', [CoinValidation.getById])
   // async getByIdPublic(
   //   @Res() _res: Response,

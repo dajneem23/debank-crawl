@@ -187,3 +187,23 @@ export class EventController {
     _res.status(httpStatus.OK).json(result);
   }
 }
+@Controller('/private/events')
+export class EventPrivateController {
+  private service = Container.get(eventServiceToken);
+
+  @Get('/:id', [EventValidation.getById])
+  async getById(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const result = await this.service.getById({
+      _id: _params.id,
+      _permission: 'private',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+}

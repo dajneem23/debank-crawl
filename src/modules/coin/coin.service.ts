@@ -507,7 +507,7 @@ export class CoinService {
   } = {}): Promise<void> {
     await sleep(delay);
     try {
-      this.logger.debug('success', 'updateMarketData', { page, per_page });
+      this.logger.debug('success', 'fetchMarketData', { page, per_page });
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -640,7 +640,7 @@ export class CoinService {
         this.logger.debug('success', { total_count });
       }
     } catch (err) {
-      this.logger.debug('error', 'updateMarketData', err.message);
+      this.logger.debug('error', 'fetchMarketData', err.message);
       throw err;
     }
   }
@@ -755,7 +755,7 @@ export class CoinService {
         return;
       }
     } catch (err) {
-      this.logger.debug('error', 'updateMarketData', err.message);
+      this.logger.debug('error', 'fetchMarketData', err.message);
       throw err;
     }
   }

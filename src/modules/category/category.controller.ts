@@ -113,7 +113,11 @@ export class CategoryController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [CategoryValidation.getById])
+}
+@Controller('/private/categories')
+export class CategoryPrivateController {
+  private service = Container.get(categoryServiceToken);
+  @Get('/:id', [CategoryValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

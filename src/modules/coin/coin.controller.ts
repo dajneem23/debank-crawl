@@ -77,11 +77,6 @@ export class CoinController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/test')
-  async test(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
-    const result = await this.service.fetchMarketData({});
-    _res.status(httpStatus.OK).json(result);
-  }
   // @Get('/:id', [CoinValidation.getById])
   // async getByIdPublic(
   //   @Res() _res: Response,
@@ -118,7 +113,11 @@ export class CoinController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [protectPrivateAPI(), CoinValidation.getById])
+}
+@Controller('/private/coins')
+export class CoinPrivateController {
+  private service = Container.get(coinServiceToken);
+  @Get('/:id', [protectPrivateAPI(), CoinValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

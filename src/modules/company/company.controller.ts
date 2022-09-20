@@ -59,16 +59,6 @@ export class CompanyController {
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/private', [protectPrivateAPI(), CompanyValidation.query])
-  async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
-    const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.query({
-      _filter: filter,
-      _query: query,
-      _permission: 'private',
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
   @Get('/', [CompanyValidation.query])
   async getByUser(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
@@ -123,7 +113,23 @@ export class CompanyController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [protectPrivateAPI(), CompanyValidation.getById])
+}
+@Controller('/private/companies')
+export class CompanyPrivateController {
+  private service = Container.get(CompanyServiceToken);
+
+  @Get('/', [protectPrivateAPI(), CompanyValidation.query])
+  async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.query({
+      _filter: filter,
+      _query: query,
+      _permission: 'private',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Get('/:id', [protectPrivateAPI(), CompanyValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

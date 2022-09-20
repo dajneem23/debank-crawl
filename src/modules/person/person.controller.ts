@@ -109,7 +109,11 @@ export class PersonController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [protectPrivateAPI(), PersonValidation.getById])
+}
+@Controller('/private/persons')
+export class PersonPrivateController {
+  private service = Container.get(personServiceToken);
+  @Get('/:id', [protectPrivateAPI(), PersonValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

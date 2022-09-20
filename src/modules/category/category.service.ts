@@ -31,7 +31,7 @@ export class CategoryService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'title', 'sub_categories', 'weight'];
+    return ['id', 'title', 'name', 'sub_categories', 'weight'];
   }
   get transKeys() {
     return ['title', 'name'];
@@ -199,7 +199,7 @@ export class CategoryService {
         )
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;

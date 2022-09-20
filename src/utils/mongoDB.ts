@@ -129,6 +129,7 @@ export const $query = function ({
 export const $pagination = ({
   items,
   $lookups,
+  $addFields,
   condition,
   $more,
   $projects,
@@ -139,6 +140,7 @@ export const $pagination = ({
   $match?: any;
   $sort?: any;
   $projects?: any[];
+  $addFields?: any;
   $sets?: any[];
   items?: any[];
   $lookups?: any[];
@@ -153,6 +155,7 @@ export const $pagination = ({
     {
       $match,
     },
+    ...((!!$addFields && [{ $addFields }]) || []),
     ...((!!$lookups && [...$lookups]) || []),
     ...((!!$sets && [...$sets]) || []),
     ...((!!$projects && [...$projects]) || []),

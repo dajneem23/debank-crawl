@@ -877,11 +877,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
     "name": "query",
-    "url": "{{host}}/persons/?page=1&per_page=5&lang=vi&q=Arry",
+    "url": "{{host}}/persons/?page=1&per_page=5",
     "method": "GET",
     "sortNum": 230000,
     "created": "2022-08-30T09:07:12.429Z",
-    "modified": "2022-08-30T09:07:12.429Z",
+    "modified": "2022-09-20T11:23:19.123Z",
     "headers": [],
     "params": [
       {
@@ -897,11 +897,13 @@
       {
         "name": "lang",
         "value": "vi",
+        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "q",
         "value": "Arry",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -912,11 +914,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
     "name": "query",
-    "url": "{{host}}/coins/?page=1&per_page=5",
+    "url": "{{host}}/coins/?page=1&per_page=5&sort_by=usd_market_cap",
     "method": "GET",
     "sortNum": 230000,
     "created": "2022-08-30T09:07:12.430Z",
-    "modified": "2022-09-19T09:36:01.331Z",
+    "modified": "2022-09-20T10:56:37.131Z",
     "headers": [],
     "params": [
       {
@@ -939,6 +941,11 @@
         "name": "lang",
         "value": "jp",
         "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "sort_by",
+        "value": "usd_market_cap",
         "isPath": false
       }
     ],

@@ -41,7 +41,7 @@ export class CompanyService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'avatar', 'categories', 'about', 'short_description', 'name', 'author'];
+    return ['id', 'avatar', 'slug', 'categories', 'about', 'short_description', 'name', 'author'];
   }
   get transKeys() {
     return ['about', 'short_description'];
@@ -196,6 +196,7 @@ export class CompanyService {
                 ],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {
@@ -258,6 +259,9 @@ export class CompanyService {
               }),
             },
           },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$lookups.team,
@@ -316,6 +320,9 @@ export class CompanyService {
                 'trans.lang': { $eq: lang },
               }),
             },
+          },
+          {
+            $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
@@ -384,6 +391,7 @@ export class CompanyService {
                 'trans.lang': { $eq: lang },
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {

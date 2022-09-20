@@ -33,7 +33,7 @@ export class PersonService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'name', 'about'];
+    return ['id', 'name', 'about', 'slug', 'categories', 'short_description', 'avatar', 'about'];
   }
   get transKeys() {
     return ['about', 'short_description'];
@@ -167,6 +167,7 @@ export class PersonService {
                 ],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {
@@ -199,7 +200,7 @@ export class PersonService {
         )
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -224,6 +225,9 @@ export class PersonService {
                 'trans.lang': { $eq: lang },
               }),
             },
+          },
+          {
+            $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
@@ -279,6 +283,9 @@ export class PersonService {
                 'trans.lang': { $eq: lang },
               }),
             },
+          },
+          {
+            $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
@@ -338,6 +345,7 @@ export class PersonService {
                 'trans.lang': { $eq: lang },
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {

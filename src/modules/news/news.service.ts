@@ -56,6 +56,7 @@ export class NewsService {
       'created_at',
       'author',
       'status',
+      'meta',
     ];
   }
 
@@ -344,6 +345,7 @@ export class NewsService {
                 $eq: { status },
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
             $sets: [this.model.$sets.country, this.model.$sets.author],
             $projects: [
@@ -400,6 +402,9 @@ export class NewsService {
                 'trans.lang': { $eq: lang },
               }),
             },
+          },
+          {
+            $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
@@ -474,6 +479,9 @@ export class NewsService {
               ],
             }),
           },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$lookups.coin_tags,
@@ -543,6 +551,7 @@ export class NewsService {
                 { 'trans.title': { $regex: q, $options: 'i' } },
               ],
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
             $sets: [this.model.$sets.author],
             $projects: [
@@ -576,7 +585,7 @@ export class NewsService {
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: [...this.publicOutputKeys, 'meta'] });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;

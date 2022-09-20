@@ -220,6 +220,24 @@ export class BaseModel {
       },
     };
   }
+  get $addFields(): {
+    categories: any;
+  } {
+    return {
+      categories: {
+        categories: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$categories' }, 'array'],
+            },
+            then: [],
+            else: '$categories',
+          },
+        },
+      },
+    };
+  }
+
   constructor({
     collectionName,
     _keys,

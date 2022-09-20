@@ -58,12 +58,14 @@ export class CoinService {
   };
 
   constructor() {
-    // Init Redis connection
-    this.redisConnection = new IORedis(env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
-    // Init Worker
-    this.initWorker();
-    // Init Queue
-    this.initQueue();
+    if (env.MODE === 'production') {
+      // Init Redis connection
+      this.redisConnection = new IORedis(env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
+      // Init Worker
+      this.initWorker();
+      // Init Queue
+      this.initQueue();
+    }
   }
   /**
    *  @description init BullMQ Worker
@@ -615,7 +617,10 @@ export class CoinService {
                       },
                     ],
                     ...marketData,
-                    slug: slugify(name),
+                    slug: slugify(name, {
+                      trim: true,
+                      lower: true,
+                    }),
                     trans: [] as any,
                     deleted: false,
                     created_at: new Date(),
@@ -725,7 +730,10 @@ export class CoinService {
                 {
                   $setOnInsert: {
                     name,
-                    slug: slugify(name),
+                    slug: slugify(name, {
+                      trim: true,
+                      lower: true,
+                    }),
                     'market_data.USD.open': open,
                     'market_data.USD.high': high,
                     'market_data.USD.low': low,

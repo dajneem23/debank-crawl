@@ -1,4 +1,4 @@
-import { Inject, Service, Token } from 'typedi';
+import { Service, Token } from 'typedi';
 import { Event } from './event.type';
 import { keys } from 'ts-transformer-keys';
 import { BaseModel } from '../base/base.model';

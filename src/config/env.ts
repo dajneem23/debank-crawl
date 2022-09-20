@@ -30,6 +30,7 @@ const env = {
   APP_ENV: getRuntimeEnv('APP_ENV') as AppEnv,
   APP_NAME: getRuntimeEnv('APP_NAME'),
   APP_VERSION: getRuntimeEnv('APP_VERSION'),
+  MODE: getRuntimeEnv('MODE'),
   APP_PORT: parseInt(getRuntimeEnv('APP_PORT'), 10),
   APP_HOST: getRuntimeEnv('APP_HOST'),
   API_PREFIX: getRuntimeEnv('API_PREFIX'),

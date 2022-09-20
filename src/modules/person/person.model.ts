@@ -1,4 +1,4 @@
-import { Inject, Service, Token } from 'typedi';
+import { Service, Token } from 'typedi';
 import { Person } from './person.type';
 import { BaseModel } from '../base/base.model';
 import { keys } from 'ts-transformer-keys';

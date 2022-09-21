@@ -618,7 +618,7 @@ export class NewsService {
                 ...[
                   (followings?.length && {
                     categories: {
-                      $in: Array.isArray(followings) ? followings : [],
+                      $in: followings,
                     },
                   }) ||
                     {},

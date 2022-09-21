@@ -157,6 +157,8 @@ export interface BaseInformationModel extends BaseModel {
   video?: string;
 
   explorer?: string;
+
+  recent_tweets?: any[];
 }
 
 export enum WorkType {

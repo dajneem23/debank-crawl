@@ -41,6 +41,26 @@ export const FundValidation = {
           foreign_id: Joi.string(),
         }),
       ),
+
+      posts: Joi.array(),
+
+      investments: Joi.array(),
+
+      funding: Joi.number(),
+
+      current_roi: Joi.number(),
+
+      ath_roi: Joi.number(),
+
+      typical_project: Joi.string(),
+
+      typical_category: Joi.string(),
+
+      tier: Joi.number(),
+
+      rating: Joi.number(),
+
+      assets_allocation: Joi.string(),
       //array id of categories
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
@@ -124,6 +144,26 @@ export const FundValidation = {
         }),
       ),
 
+      posts: Joi.array(),
+
+      investments: Joi.array(),
+
+      funding: Joi.number(),
+
+      current_roi: Joi.number(),
+
+      ath_roi: Joi.number(),
+
+      typical_project: Joi.string(),
+
+      typical_category: Joi.string(),
+
+      tier: Joi.number(),
+
+      rating: Joi.number(),
+
+      assets_allocation: Joi.string(),
+
       partners: Joi.array().items(
         Joi.object().keys({
           name: Joi.string(),
@@ -137,6 +177,8 @@ export const FundValidation = {
           foreign_id: Joi.string(),
         }),
       ),
+
+      recent_tweets: Joi.array().items(Joi.object()),
       //array id of categories
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 

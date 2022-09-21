@@ -1122,7 +1122,7 @@
     "method": "GET",
     "sortNum": 290000,
     "created": "2022-08-30T09:07:12.437Z",
-    "modified": "2022-08-30T09:52:12.283Z",
+    "modified": "2022-09-21T03:03:18.716Z",
     "headers": [],
     "params": [
       {
@@ -1137,6 +1137,10 @@
         "isPath": false
       }
     ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzcyOTM3MCwiZXhwIjoxNjY0NTkzMzcwfQ.Kf00TrepianXXlz4B8p0yqoNQYEO3DHzcxUbc18iB3o"
+    },
     "tests": []
   },
   {

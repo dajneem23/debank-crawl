@@ -351,7 +351,7 @@ export class NewsService {
             $projects: [
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   trans: {
                     $filter: {
                       input: '$trans',
@@ -368,7 +368,7 @@ export class NewsService {
               this.model.$sets.trans,
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },
@@ -557,7 +557,7 @@ export class NewsService {
             $projects: [
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   trans: {
                     $filter: {
                       input: '$trans',
@@ -574,7 +574,7 @@ export class NewsService {
               this.model.$sets.trans,
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   ...(lang && $keysToProject(this.transKeys, '$trans')),
                   meta: '$$SEARCH_META',
                 },

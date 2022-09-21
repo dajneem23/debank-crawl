@@ -171,7 +171,7 @@ export class CategoryService {
             $projects: [
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   trans: {
                     $filter: {
                       input: '$trans',
@@ -188,7 +188,7 @@ export class CategoryService {
               this.model.$sets.trans,
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },
@@ -314,7 +314,7 @@ export class CategoryService {
             $projects: [
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   trans: {
                     $filter: {
                       input: '$trans',
@@ -331,7 +331,7 @@ export class CategoryService {
               this.model.$sets.trans,
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },

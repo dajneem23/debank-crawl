@@ -17,8 +17,9 @@ import { CommonError, errors } from '@/core/errors/CommonError';
 import { throwErr } from '@/utils/common';
 import { $lookup, $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
 import { $refValidation } from '@/utils/validation';
-import { COLLECTION_NAMES, T } from '@/types';
+import { COLLECTION_NAMES, PRIVATE_KEYS, T } from '@/types';
 import slugify from 'slugify';
+import { omit } from 'lodash';
 
 /**
  * @class BaseModel
@@ -40,8 +41,8 @@ export class BaseModel {
   // Get logger Instance from DI
   private logger: Logger = Container.get(DILogger) as Logger;
   //init error
-  private error(msg: keyof typeof errors): CommonError {
-    return new CommonError(msg);
+  private error(msg: keyof typeof errors, detail?: any[]): any {
+    return new CommonError(msg, detail);
   }
 
   get $lookups(): {
@@ -219,6 +220,24 @@ export class BaseModel {
       },
     };
   }
+  get $addFields(): {
+    categories: any;
+  } {
+    return {
+      categories: {
+        categories: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$categories' }, 'array'],
+            },
+            then: [],
+            else: '$categories',
+          },
+        },
+      },
+    };
+  }
+
   constructor({
     collectionName,
     _keys,
@@ -302,7 +321,14 @@ export class BaseModel {
         throwErr(this.error('common.database'));
       }
       if (updatedExisting) {
-        throwErr(this.error('common.already_exist'));
+        throwErr(
+          this.error('common.already_exist', [
+            {
+              path: Object.keys(omit(filter, PRIVATE_KEYS)).join(','),
+              message: `${Object.values(omit(filter, PRIVATE_KEYS)).join(',')} already exist`,
+            },
+          ]),
+        );
       }
       this.logger.debug('create_success', `[create:${this._collectionName}:success]`, { _content });
       return value;

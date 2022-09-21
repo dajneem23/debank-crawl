@@ -34,7 +34,7 @@ export class ProductService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'name', 'avatar', 'about'];
+    return ['id', 'name', 'avatar', 'about', 'slug'];
   }
 
   get transKeys() {
@@ -173,6 +173,7 @@ export class ProductService {
                 ],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {
@@ -205,7 +206,7 @@ export class ProductService {
         )
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -225,6 +226,7 @@ export class ProductService {
       const [item] = await this.model
         .get([
           { $match: $toMongoFilter({ _id }) },
+          { $addFields: this.model.$addFields.categories },
           this.model.$lookups.categories,
           // this.$lookups.cryptocurrencies,
           this.model.$lookups.author,
@@ -281,6 +283,7 @@ export class ProductService {
               slug: _slug,
             }),
           },
+          { $addFields: this.model.$addFields.categories },
           this.model.$lookups.categories,
           // this.$lookups.cryptocurrencies,
           this.model.$lookups.author,
@@ -336,6 +339,7 @@ export class ProductService {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {

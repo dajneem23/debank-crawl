@@ -372,3 +372,18 @@ export type COLLECTION_NAMES =
   | 'auth-sessions'
   | 'coins'
   | 'verification-tokens';
+
+export enum coinSortBy {
+  'usd_price' = 'market_data.USD.price',
+  'usd_market_cap' = 'market_data.USD.market_cap',
+  'usd_market_cap_dominance' = 'market_data.USD.market_cap_dominance',
+  'usd_volume_24h' = 'market_data.USD.volume_24h',
+  'usd_volume_change_24h' = 'market_data.USD.volume_change_24h',
+  'usd_percent_change_24h' = 'market_data.USD.percent_change_24h',
+  'usd_percent_change_7d' = 'market_data.USD.percent_change_7d',
+  'usd_percent_change_30d' = 'market_data.USD.percent_change_30d',
+  'usd_percent_change_60d' = 'market_data.USD.percent_change_60d',
+  'usd_percent_change_90d' = 'market_data.USD.percent_change_90d',
+  'usd_tvl' = 'market_data.USD.tvl',
+  'created_at' = 'created_at',
+}

@@ -94,7 +94,11 @@ export class ProductController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/private/:id', [protectPrivateAPI(), ProductValidation.getById])
+}
+@Controller('/private/products')
+export class ProductPrivateController {
+  private service = Container.get(productServiceToken);
+  @Get('/:id', [protectPrivateAPI(), ProductValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

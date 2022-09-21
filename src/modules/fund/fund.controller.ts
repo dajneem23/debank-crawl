@@ -114,8 +114,13 @@ export class FundController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
+}
 
-  @Get('/private/:id', [protectPrivateAPI(), FundValidation.getById])
+@Controller('/private/funds')
+export class FundPrivateController {
+  private service = Container.get(FundServiceToken);
+
+  @Get('/:id', [protectPrivateAPI(), FundValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

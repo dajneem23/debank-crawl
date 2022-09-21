@@ -34,7 +34,7 @@ export class FundService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'name', 'avatar', 'about'];
+    return ['id', 'name', 'avatar', 'about', 'slug'];
   }
 
   get transKeys() {
@@ -163,6 +163,7 @@ export class FundService {
                 ],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {
@@ -195,7 +196,7 @@ export class FundService {
         )
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.outputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -214,6 +215,9 @@ export class FundService {
       const [item] = await this.model
         .get([
           { $match: $toMongoFilter({ _id }) },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$sets.author,
@@ -264,6 +268,9 @@ export class FundService {
       const [item] = await this.model
         .get([
           { $match: $toMongoFilter({ slug: _slug }) },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$sets.author,
@@ -318,6 +325,7 @@ export class FundService {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {

@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, coinSortBy } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const CoinValidation = {
   create: validate({
@@ -180,7 +180,9 @@ export const CoinValidation = {
     [Segments.QUERY]: Joi.object({
       page: Joi.number().default(1).min(1),
       per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
+      sort_by: Joi.string()
+        .default('created_at')
+        .valid(...Object.keys(coinSortBy)),
       sort_order: Joi.string()
         .default(ORDER.ASC)
         .valid(...Object.values(ORDER)),

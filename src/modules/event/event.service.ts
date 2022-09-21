@@ -41,10 +41,10 @@ export class EventService {
     return this.model._keys;
   }
   get queryOutputKeys() {
-    return ['id', 'name', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
+    return ['id', 'name', 'slug', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
   }
   get publicOutputKeys() {
-    return ['id', 'name', 'start_date', 'end_date', 'banners'];
+    return ['id', 'name', 'start_date', 'end_date', 'banners', 'slug'];
   }
 
   /**
@@ -151,6 +151,9 @@ export class EventService {
       const [event] = await this.model
         .get([
           { $match: $toMongoFilter({ _id }) },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
           this.model.$lookups.speakers,
           this.model.$lookups.country,
@@ -180,6 +183,9 @@ export class EventService {
       const [event] = await this.model
         .get([
           { $match: $toMongoFilter({ slug: _slug }) },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
           this.model.$lookups.speakers,
           this.model.$lookups.country,
@@ -361,6 +367,10 @@ export class EventService {
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
+          {
+            $addFields: this.model.$addFields.categories,
+          },
+          this.model.$lookups.categories,
           this.model.$lookups.country,
           this.model.$sets.country,
         ])
@@ -431,6 +441,7 @@ export class EventService {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
 
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),

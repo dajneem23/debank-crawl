@@ -4,7 +4,7 @@ import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CoinError, coinErrors, CoinModel, coinModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
+import { BaseServiceInput, BaseServiceOutput, coinSortBy, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { _coin } from '@/modules';
 import axios from 'axios';
@@ -58,12 +58,14 @@ export class CoinService {
   };
 
   constructor() {
-    // Init Redis connection
-    this.redisConnection = new IORedis(env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
-    // Init Worker
-    this.initWorker();
-    // Init Queue
-    this.initQueue();
+    if (env.MODE === 'production') {
+      // Init Redis connection
+      this.redisConnection = new IORedis(env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
+      // Init Worker
+      this.initWorker();
+      // Init Queue
+      this.initQueue();
+    }
   }
   /**
    *  @description init BullMQ Worker
@@ -131,7 +133,7 @@ export class CoinService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'name', 'token_id', 'about', 'categories', 'avatar'];
+    return ['id', 'name', 'token_id', 'about', 'categories', 'avatar', 'slug'];
   }
   get transKeys() {
     return ['about', 'features', 'services'];
@@ -248,7 +250,8 @@ export class CoinService {
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang, q, category } = _filter;
-      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const { page = 1, per_page, sort_by: _sort_by, sort_order } = _query;
+      const sort_by = coinSortBy[_sort_by as keyof typeof coinSortBy] || coinSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
           $pagination({
@@ -274,6 +277,7 @@ export class CoinService {
                 ],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {
@@ -337,6 +341,9 @@ export class CoinService {
               }),
             },
           },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$sets.author,
@@ -392,6 +399,9 @@ export class CoinService {
                 'trans.lang': { $eq: lang },
               }),
             },
+          },
+          {
+            $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
@@ -455,6 +465,7 @@ export class CoinService {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
+            $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
               {
@@ -507,7 +518,7 @@ export class CoinService {
   } = {}): Promise<void> {
     await sleep(delay);
     try {
-      this.logger.debug('success', 'updateMarketData', { page, per_page });
+      this.logger.debug('success', 'fetchMarketData', { page, per_page });
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -615,7 +626,10 @@ export class CoinService {
                       },
                     ],
                     ...marketData,
-                    slug: slugify(name),
+                    slug: slugify(name, {
+                      trim: true,
+                      lower: true,
+                    }),
                     trans: [] as any,
                     deleted: false,
                     created_at: new Date(),
@@ -640,7 +654,7 @@ export class CoinService {
         this.logger.debug('success', { total_count });
       }
     } catch (err) {
-      this.logger.debug('error', 'updateMarketData', err.message);
+      this.logger.debug('error', 'fetchMarketData', err.message);
       throw err;
     }
   }
@@ -725,7 +739,10 @@ export class CoinService {
                 {
                   $setOnInsert: {
                     name,
-                    slug: slugify(name),
+                    slug: slugify(name, {
+                      trim: true,
+                      lower: true,
+                    }),
                     'market_data.USD.open': open,
                     'market_data.USD.high': high,
                     'market_data.USD.low': low,
@@ -755,7 +772,7 @@ export class CoinService {
         return;
       }
     } catch (err) {
-      this.logger.debug('error', 'updateMarketData', err.message);
+      this.logger.debug('error', 'fetchMarketData', err.message);
       throw err;
     }
   }

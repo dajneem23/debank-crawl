@@ -2,7 +2,6 @@ import { Service, Token } from 'typedi';
 import { Company } from './company.type';
 import { keys } from 'ts-transformer-keys';
 import { BaseModel } from '../base/base.model';
-import { text } from 'body-parser';
 
 const COLLECTION_NAME = 'companies';
 const TOKEN_NAME = '_companyModel';

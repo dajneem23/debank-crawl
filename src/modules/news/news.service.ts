@@ -603,7 +603,7 @@ export class NewsService {
     try {
       const { lang } = _filter;
       const { page = 1, per_page = 10, sort_by = 'created_at', sort_order = 'desc' } = _query;
-      const user = await this.userModel.collection.findOne({ id: _subject });
+      const { followings = [] } = (await this.userModel.collection.findOne({ id: _subject })) ?? {};
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -616,12 +616,11 @@ export class NewsService {
                     {},
                 ],
                 ...[
-                  (user &&
-                    user.followings.length && {
-                      categories: {
-                        $in: Array.isArray(user.followings) ? user.followings : [],
-                      },
-                    }) ||
+                  (followings?.length && {
+                    categories: {
+                      $in: followings,
+                    },
+                  }) ||
                     {},
                 ],
                 {

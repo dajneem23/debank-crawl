@@ -8,7 +8,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-08-30T09:07:12.392Z",
-    "modified": "2022-09-20T10:14:12.438Z",
+    "modified": "2022-09-21T15:14:47.971Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -18,12 +18,12 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"event 1\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-09-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n    \"type\": \"offline\",\n    \"categories\": [\n        \"6327d633cda8ec055530eb47\"\n    ],\n    \"speakers\": [\n        \"6327da85369ca743ff353ec2\"\n    ],\n    \"country\": \"KW\",\n    \"location\": {\n        \"x\": 123,\n        \"y\": 321\n    },\n    \"banners\": [\n        \"https://scontent.fsgn4-1.fna.fbcdn.net/v/t45.5328-4/266912006_7004962392907601_7058505901429689231_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c48759&_nc_ohc=2twX-VL8EkIAX-4Si3e&_nc_ht=scontent.fsgn4-1.fna&oh=00_AT9wjNhgQJO6nPHD_5syB-ypgiq9lzFlWtfIAwi8z3j8PA&oe=630ACDBF\"\n    ]\n}",
+      "raw": "{\n    \"name\": \"event6112123232232f22312\",\n    \"introduction\": \"1fox_test\",\n    \"start_date\": \"2022-12-25 06:39:48.079\",\n    \"end_date\": \"2022-08-15 14:39:48.079\",\n    \"tel\": \"0123123132\",\n    \"email\": \"1fox@global.com\",\n    \"website\": \"www.1fox.com\",\n    \"type\": \"offline\",\n    \"categories\": [\n        \"6327d634cda8ec055530eba7\"\n    ],\n    \"speakers\": [\n        \"6323eb3cb55273fab972959a\"\n    ],\n    \"country\": \"KW\",\n    \"location\": {\n        \"x\": 123,\n        \"y\": 321\n    },\n    \"banners\": [\n        \"https://scontent.fsgn4-1.fna.fbcdn.net/v/t45.5328-4/266912006_7004962392907601_7058505901429689231_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c48759&_nc_ohc=2twX-VL8EkIAX-4Si3e&_nc_ht=scontent.fsgn4-1.fna&oh=00_AT9wjNhgQJO6nPHD_5syB-ypgiq9lzFlWtfIAwi8z3j8PA&oe=630ACDBF\"\n    ]\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzAzNzEzMiwiZXhwIjoxNjYzOTAxMTMyfQ.LgMqxkRsDdcF8FKzOgXNTfFYnTJaHpOgIWiwWwSjm_Q"
     },
     "tests": []
   },
@@ -60,17 +60,13 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "25d4fa92-b9c9-4e63-a5a5-b0fc6cd59db9",
     "name": "Event.getById",
-    "url": "{{host}}/private/events/63298b3fcda8ec0555337ce1",
+    "url": "{{host}}/events/630586765926396fd4d17b4d",
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-08-30T09:07:12.394Z",
-    "modified": "2022-09-20T09:43:32.971Z",
+    "modified": "2022-08-30T09:07:12.394Z",
     "headers": [],
     "params": [],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
-    },
     "tests": []
   },
   {
@@ -595,7 +591,7 @@
     "method": "POST",
     "sortNum": 200000,
     "created": "2022-08-30T09:07:12.416Z",
-    "modified": "2022-09-20T10:12:48.238Z",
+    "modified": "2022-09-15T08:41:43.650Z",
     "headers": [],
     "params": [],
     "body": {
@@ -605,7 +601,7 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
     },
     "tests": []
   },
@@ -637,24 +633,19 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "47bb87ac-c99d-4865-93d5-8d47c677655c",
     "name": "getByID",
-    "url": "{{host}}/private/products/6327da8b369ca743ff356b7d",
+    "url": "{{host}}/products/630dbeaffbd8194282be5529?lang=vi",
     "method": "GET",
     "sortNum": 210000,
     "created": "2022-08-30T09:07:12.418Z",
-    "modified": "2022-09-20T09:48:00.226Z",
+    "modified": "2022-08-30T09:07:12.418Z",
     "headers": [],
     "params": [
       {
         "name": "lang",
         "value": "vi",
-        "isDisabled": true,
         "isPath": false
       }
     ],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
-    },
     "tests": []
   },
   {
@@ -709,21 +700,21 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
     "name": "PUT",
-    "url": "{{host}}/coin/62fb434c4d2838e5d1a1fdc3coin",
+    "url": "{{host}}/coins/6327da83369ca743ff35358d",
     "method": "PUT",
     "sortNum": 210000,
     "created": "2022-08-30T09:07:12.421Z",
-    "modified": "2022-08-30T09:07:12.421Z",
+    "modified": "2022-09-21T16:11:29.757Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\":\"coin1\"\n\n}",
+      "raw": "{\n    \"trans\":[\n      {\"lang\":\"vi\",\"about\":\"abcd\"}]\n\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ikw5dFdSTG9GVFVLViIsImVtYWlsIjoidGhhbmgxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZnVsbF9uYW1lIjoidGhhbmgxIiwicGljdHVyZSI6Imh0dHBzOi8vd3d3LmdyYXZhdGFyLmNvbS9hdmF0YXIvZGVmYXVsdD9zPTIwMCZkPW1wIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNjYwNjE2MzUyLCJleHAiOjE2NjE0ODAzNTJ9.mz_UOFsgBSIYTyHbtPtTTpxmawI900CaHbkfOTMalNM"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2Mzc3NTg5NCwiZXhwIjoxNjY0NjM5ODk0fQ.rD0vgFlskp4vXQQBC20gnL6uaa2zS_zWx752YQCb-UY"
     },
     "tests": []
   },
@@ -732,16 +723,22 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
     "name": "getByID",
-    "url": "{{host}}/private/coins/6327da83369ca743ff3536c0",
+    "url": "{{host}}/private/coins/6327da83369ca743ff35358d?lang=vi",
     "method": "GET",
     "sortNum": 210000,
     "created": "2022-08-30T09:07:12.422Z",
-    "modified": "2022-09-20T09:48:21.020Z",
+    "modified": "2022-09-21T16:11:51.921Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "lang",
+        "value": "vi",
+        "isPath": false
+      }
+    ],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2Mzc3NTg5NCwiZXhwIjoxNjY0NjM5ODk0fQ.rD0vgFlskp4vXQQBC20gnL6uaa2zS_zWx752YQCb-UY"
     },
     "tests": []
   },
@@ -750,16 +747,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
     "name": "getByID by admin",
-    "url": "{{host}}/private/coins/6327da83369ca743ff35358d",
+    "url": "{{host}}/coins/private/630dbeb0fbd8194282be56d4",
     "method": "GET",
     "sortNum": 215000,
     "created": "2022-08-30T09:07:12.423Z",
-    "modified": "2022-09-20T09:35:41.662Z",
+    "modified": "2022-08-30T09:07:12.423Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
     },
     "tests": []
   },
@@ -768,16 +765,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
     "name": "getByID admin",
-    "url": "{{host}}/private/persons/6327da85369ca743ff353ec2",
+    "url": "{{host}}/persons/private/630dbeaffbd8194282be5393",
     "method": "GET",
     "sortNum": 215000,
     "created": "2022-08-30T09:07:12.424Z",
-    "modified": "2022-09-20T09:47:22.456Z",
+    "modified": "2022-08-30T09:07:12.424Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTc0NjAwNSwiZXhwIjoxNjYyNjEwMDA1fQ.6VrrNQr2n9_0zPy0xDOQWNmwuYL_FlBvqKH180aaJ5Q"
     },
     "tests": []
   },
@@ -877,11 +874,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "934381b4-3fee-426f-8f52-118a59a6e3ef",
     "name": "query",
-    "url": "{{host}}/persons/?page=1&per_page=5",
+    "url": "{{host}}/persons/?page=1&per_page=5&lang=vi&q=Arry",
     "method": "GET",
     "sortNum": 230000,
     "created": "2022-08-30T09:07:12.429Z",
-    "modified": "2022-09-20T11:23:19.123Z",
+    "modified": "2022-08-30T09:07:12.429Z",
     "headers": [],
     "params": [
       {
@@ -897,13 +894,11 @@
       {
         "name": "lang",
         "value": "vi",
-        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "q",
         "value": "Arry",
-        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -914,11 +909,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
     "name": "query",
-    "url": "{{host}}/coins/?page=1&per_page=5&sort_by=usd_market_cap",
+    "url": "{{host}}/coins/?page=1&per_page=20",
     "method": "GET",
     "sortNum": 230000,
     "created": "2022-08-30T09:07:12.430Z",
-    "modified": "2022-09-20T10:56:37.131Z",
+    "modified": "2022-09-21T16:11:19.642Z",
     "headers": [],
     "params": [
       {
@@ -928,7 +923,7 @@
       },
       {
         "name": "per_page",
-        "value": "5",
+        "value": "20",
         "isPath": false
       },
       {
@@ -939,13 +934,8 @@
       },
       {
         "name": "lang",
-        "value": "jp",
+        "value": "vi",
         "isDisabled": true,
-        "isPath": false
-      },
-      {
-        "name": "sort_by",
-        "value": "usd_market_cap",
         "isPath": false
       }
     ],
@@ -1015,12 +1005,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-30T09:07:12.433Z",
-    "modified": "2022-09-19T04:35:13.601Z",
+    "modified": "2022-09-13T09:20:04.716Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [\"6327d633cda8ec055530eb4e\"],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"6327d633cda8ec055530eb4e en  \",\n    \"summary\": \"Inery Acquires Investment From Metavest at $128m Valuation\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"6327d633cda8ec055530eb4e vi\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
+      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [\"63203206ca6dba38a9fb44d4\"],\n    \"coin_tags\": [\"6320319fca6dba38a9fb3c98\"],\n    \"product_tags\": [\"6320319eca6dba38a9fb3bfe\"],\n    \"person_tags\": [\"63203ea598573a11099f7c2b\"],\n    \"event_tags\": [\"63204b244b91004a94852f65\"],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -1034,11 +1024,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
     "name": "following",
-    "url": "{{host}}/users/me/category/follow/6327d633cda8ec055530eb47",
+    "url": "{{host}}/users/me/category/follow/630902086b72c43940d8fe89",
     "method": "PATCH",
     "sortNum": 280000,
     "created": "2022-08-30T09:07:12.434Z",
-    "modified": "2022-09-21T03:07:05.176Z",
+    "modified": "2022-08-30T09:07:12.434Z",
     "headers": [],
     "params": [],
     "body": {
@@ -1048,7 +1038,7 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzcyOTM3MCwiZXhwIjoxNjY0NTkzMzcwfQ.Kf00TrepianXXlz4B8p0yqoNQYEO3DHzcxUbc18iB3o"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MTYyMjM0MywiZXhwIjoxNjYyNDg2MzQzfQ.rYESc5WhWyvm28EaHI7c3NUzaV_DfGHUYHwh08rTOOk"
     },
     "tests": []
   },
@@ -1080,11 +1070,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "query",
-    "url": "{{host}}/news?category=6327d634cda8ec055530eb56",
+    "url": "{{host}}/news",
     "method": "GET",
     "sortNum": 285000,
     "created": "2022-08-30T09:07:12.436Z",
-    "modified": "2022-09-19T04:35:54.717Z",
+    "modified": "2022-09-12T09:19:42.349Z",
     "headers": [],
     "params": [
       {
@@ -1107,7 +1097,8 @@
       },
       {
         "name": "category",
-        "value": "6327d634cda8ec055530eb56",
+        "value": "630dbeaf1d1096097587bda9",
+        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -1122,7 +1113,7 @@
     "method": "GET",
     "sortNum": 290000,
     "created": "2022-08-30T09:07:12.437Z",
-    "modified": "2022-09-21T03:03:18.716Z",
+    "modified": "2022-08-30T09:52:12.283Z",
     "headers": [],
     "params": [
       {
@@ -1137,10 +1128,6 @@
         "isPath": false
       }
     ],
-    "auth": {
-      "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzcyOTM3MCwiZXhwIjoxNjY0NTkzMzcwfQ.Kf00TrepianXXlz4B8p0yqoNQYEO3DHzcxUbc18iB3o"
-    },
     "tests": []
   },
   {
@@ -1717,12 +1704,12 @@
     "_id": "7197b3f0-98c8-4140-8437-cbd64a4a4967",
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
-    "name": "getById",
-    "url": "{{host}}/categories/private/6327d633cda8ec055530eb47",
+    "name": "getByName",
+    "url": "{{host}}/categories/Guidelines",
     "method": "GET",
     "sortNum": 500000,
     "created": "2022-09-16T02:26:41.368Z",
-    "modified": "2022-09-19T17:23:09.707Z",
+    "modified": "2022-09-19T01:55:56.171Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -1788,32 +1775,6 @@
     "sortNum": 455000,
     "created": "2022-09-16T07:05:02.459Z",
     "modified": "2022-09-16T07:05:34.803Z",
-    "headers": [],
-    "params": [],
-    "tests": []
-  },
-  {
-    "_id": "49443761-bf58-48c7-8e5a-2c8415360949",
-    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
-    "containerId": "e0264194-f00c-4cf2-952e-dff3813de549",
-    "name": "test",
-    "url": "",
-    "method": "GET",
-    "sortNum": 510000,
-    "created": "2022-09-19T07:36:35.493Z",
-    "modified": "2022-09-19T07:36:35.494Z",
-    "headers": []
-  },
-  {
-    "_id": "f0219fb6-f41a-430b-8d39-62c40b8261cd",
-    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
-    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
-    "name": "test",
-    "url": "{{host}}/coins/test",
-    "method": "GET",
-    "sortNum": 520000,
-    "created": "2022-09-19T07:37:08.968Z",
-    "modified": "2022-09-19T07:37:31.102Z",
     "headers": [],
     "params": [],
     "tests": []

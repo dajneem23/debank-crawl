@@ -40,7 +40,7 @@ export class CoinController {
       _content: body,
       _subject: _auth.id,
     } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
+    _res.status(httpStatus.OK).json(result);
   }
 
   @Delete('/:id', [protectPrivateAPI(), CoinValidation.delete])

@@ -389,3 +389,11 @@ export enum coinSortBy {
   'usd_tvl' = 'market_data.USD.tvl',
   'created_at' = 'created_at',
 }
+
+export enum TopNewsDateRange {
+  '1d' = '1',
+  '7d' = '7',
+  '30d' = '30',
+  '90d' = '90',
+  '180d' = '180',
+}

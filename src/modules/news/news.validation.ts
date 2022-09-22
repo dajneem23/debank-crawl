@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, NewsStatus } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, NewsStatus, TopNewsDateRange } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const NewsValidation = {
   create: validate({
@@ -186,6 +186,25 @@ export const NewsValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
+    }),
+  }),
+  getTop: validate({
+    [Segments.QUERY]: Joi.object({
+      page: Joi.number().default(1).min(1),
+      per_page: Joi.number().default(10).min(1),
+      sort_by: Joi.string(),
+      sort_order: Joi.string()
+        .default(ORDER.ASC)
+        .valid(...Object.values(ORDER)),
+      q: Joi.string(),
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+      date_range: Joi.string()
+        .valid(...Object.keys(TopNewsDateRange))
+        .default(TopNewsDateRange['1d']),
     }),
   }),
   updateStatus: validate({

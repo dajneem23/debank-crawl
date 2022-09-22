@@ -112,6 +112,15 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
+  @Get('/top', [NewsValidation.getTop])
+  async getTop(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.getTop({
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
 
   @Get('/:slug', [NewsValidation.getBySlug])
   async getBySlugPublic(

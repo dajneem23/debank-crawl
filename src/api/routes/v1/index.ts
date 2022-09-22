@@ -12,6 +12,7 @@ import {
   CoinController,
   NewsController,
   FundController,
+  GlossaryController,
   EventPrivateController,
   CategoryPrivateController,
   CompanyPrivateController,
@@ -40,6 +41,7 @@ export default (app: Application) => {
     CoinController,
     NewsController,
     FundController,
+    GlossaryController,
   ]);
   /**
    * @description Private controllers

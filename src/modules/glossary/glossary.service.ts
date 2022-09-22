@@ -5,27 +5,27 @@ import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
 import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
-import { CompanyError, _company, companyModelToken, companyErrors } from '.';
+import { GlossaryError, glossaryModelToken, glossaryErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-const TOKEN_NAME = '_companyService';
+const TOKEN_NAME = '_glossaryService';
 /**
  * A bridge allows another service access to the Model layer
- * @export CompanyService
- * @class CompanyService
+ * @export GlossaryService
+ * @class GlossaryService
  * @extends {BaseService}
  */
-export const CompanyServiceToken = new Token<CompanyService>(TOKEN_NAME);
+export const GlossaryServiceToken = new Token<GlossaryService>(TOKEN_NAME);
 /**
- * @class CompanyService
+ * @class GlossaryService
  * @extends BaseService
- * @description Company Service for all company related operations
+ * @description Glossary Service for all glossary related operations
  */
-@Service(CompanyServiceToken)
-export class CompanyService {
-  private logger = new Logger('CompanyService');
+@Service(GlossaryServiceToken)
+export class GlossaryService {
+  private logger = new Logger('GlossaryService');
 
-  private model = Container.get(companyModelToken);
+  private model = Container.get(glossaryModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -33,8 +33,8 @@ export class CompanyService {
   @Inject()
   private authService: AuthService;
 
-  private error(msg: keyof typeof companyErrors) {
-    return new CompanyError(msg);
+  private error(msg: keyof typeof glossaryErrors) {
+    return new GlossaryError(msg);
   }
 
   get outputKeys() {
@@ -76,7 +76,6 @@ export class CompanyService {
           name,
         },
         {
-          ..._company,
           ..._content,
           categories: categories ? $toObjectId(categories) : [],
           team: team ? $toObjectId(team) : [],
@@ -101,7 +100,7 @@ export class CompanyService {
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Company>}
+   * @returns {Promise<Glossary>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -240,9 +239,9 @@ export class CompanyService {
     }
   }
   /**
-   * Get Company by ID
-   * @param id - Company ID
-   * @returns { Promise<BaseServiceOutput> } - Company
+   * Get Glossary by ID
+   * @param id - Glossary ID
+   * @returns { Promise<BaseServiceOutput> } - Glossary
    */
   async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -304,9 +303,9 @@ export class CompanyService {
     }
   }
   /**
-   * Get Company by slug
-   * @param id - Company ID
-   * @returns { Promise<BaseServiceOutput> } - Company
+   * Get Glossary by slug
+   * @param id - Glossary ID
+   * @returns { Promise<BaseServiceOutput> } - Glossary
    */
   async getBySlug({ _slug, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {

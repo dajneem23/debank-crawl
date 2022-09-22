@@ -2,21 +2,23 @@ import { Application, Router } from 'express';
 import { attachControllers } from '@/utils/expressDecorators';
 import env from '@/config/env';
 import {
-  UserController,
-  EventController,
-  AuthController,
+  GlossaryController,
   CategoryController,
   CompanyController,
   ProductController,
   PersonController,
+  EventController,
+  UserController,
+  AuthController,
   CoinController,
   NewsController,
   FundController,
-  EventPrivateController,
+  GlossaryPrivateController,
   CategoryPrivateController,
   CompanyPrivateController,
   ProductPrivateController,
   PersonPrivateController,
+  EventPrivateController,
   CoinPrivateController,
   NewsPrivateController,
   FundPrivateController,
@@ -30,13 +32,14 @@ export default (app: Application) => {
    * @description Attach controllers to the route
    */
   attachControllers(route, [
-    UserController,
-    EventController,
-    AuthController,
+    GlossaryController,
     CategoryController,
     CompanyController,
     ProductController,
     PersonController,
+    EventController,
+    UserController,
+    AuthController,
     CoinController,
     NewsController,
     FundController,
@@ -45,11 +48,12 @@ export default (app: Application) => {
    * @description Private controllers
    */
   attachControllers(route, [
-    EventPrivateController,
+    GlossaryPrivateController,
     CategoryPrivateController,
     CompanyPrivateController,
     ProductPrivateController,
     PersonPrivateController,
+    EventPrivateController,
     CoinPrivateController,
     NewsPrivateController,
     FundPrivateController,

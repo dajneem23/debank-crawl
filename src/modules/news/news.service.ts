@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { News, NewsError, NewsModel, _news, newsErrors, newsModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS } from '@/types/Common';
+import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS, TopNewsDateRange } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
 import slugify from 'slugify';
@@ -351,7 +351,7 @@ export class NewsService {
             $projects: [
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   trans: {
                     $filter: {
                       input: '$trans',
@@ -368,7 +368,7 @@ export class NewsService {
               this.model.$sets.trans,
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },
@@ -557,7 +557,7 @@ export class NewsService {
             $projects: [
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   trans: {
                     $filter: {
                       input: '$trans',
@@ -574,7 +574,7 @@ export class NewsService {
               this.model.$sets.trans,
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   ...(lang && $keysToProject(this.transKeys, '$trans')),
                   meta: '$$SEARCH_META',
                 },
@@ -603,7 +603,7 @@ export class NewsService {
     try {
       const { lang } = _filter;
       const { page = 1, per_page = 10, sort_by = 'created_at', sort_order = 'desc' } = _query;
-      const user = await this.userModel.collection.findOne({ id: _subject });
+      const { followings = [] } = (await this.userModel.collection.findOne({ id: _subject })) ?? {};
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -616,12 +616,11 @@ export class NewsService {
                     {},
                 ],
                 ...[
-                  (user &&
-                    user.followings.length && {
-                      categories: {
-                        $in: Array.isArray(user.followings) ? user.followings : [],
-                      },
-                    }) ||
+                  (followings?.length && {
+                    categories: {
+                      $in: followings,
+                    },
+                  }) ||
                     {},
                 ],
                 {
@@ -729,8 +728,73 @@ export class NewsService {
     }
   }
   /**
+   * Get top news
+   * @param {ObjectId} _id
+   * @param {any}  _query
+   * @param {any} _filter
+   * @returns {Promise<BaseServiceOutput>}
+   */
+  async getTop({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const { lang, date_range } = _filter;
+      const _date_range = TopNewsDateRange[date_range as keyof typeof TopNewsDateRange] || TopNewsDateRange['1d'];
+      const { page = 1, per_page } = _query;
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get([
+          ...$pagination({
+            $match: {
+              $and: [
+                {
+                  deleted: false,
+                  created_at: {
+                    $gte: new Date(new Date().getTime() - (+_date_range as any) * 24 * 60 * 60 * 1000),
+                  },
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
+                },
+              ],
+            },
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.model.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
+            $sort: { views: -1 },
+            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+          }),
+        ])
+        .toArray();
+      this.logger.debug('query_success', { total_count, items });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+    } catch (err) {
+      this.logger.error('query_error', err.message);
+      throw err;
+    }
+  }
+  /**
    *
-   * @param {ObjectId} id -  ID
+   * @param {ObjectId} _id -  ID
    * @returns { Promise<BaseServiceOutput> }
    */
   async checkNewsStatus({ _id, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {

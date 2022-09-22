@@ -157,6 +157,8 @@ export interface BaseInformationModel extends BaseModel {
   video?: string;
 
   explorer?: string;
+
+  recent_tweets?: any[];
 }
 
 export enum WorkType {
@@ -371,7 +373,8 @@ export type COLLECTION_NAMES =
   | 'countries'
   | 'auth-sessions'
   | 'coins'
-  | 'verification-tokens';
+  | 'verification-tokens'
+  | 'glossaries';
 
 export enum coinSortBy {
   'usd_price' = 'market_data.USD.price',
@@ -386,4 +389,12 @@ export enum coinSortBy {
   'usd_percent_change_90d' = 'market_data.USD.percent_change_90d',
   'usd_tvl' = 'market_data.USD.tvl',
   'created_at' = 'created_at',
+}
+
+export enum TopNewsDateRange {
+  '1d' = '1',
+  '7d' = '7',
+  '30d' = '30',
+  '90d' = '90',
+  '180d' = '180',
 }

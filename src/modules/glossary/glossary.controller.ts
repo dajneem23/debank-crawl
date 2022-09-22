@@ -1,23 +1,23 @@
 import Container from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Request, Response } from 'express';
-import { Coin, coinServiceToken, CoinValidation } from '.';
+import { Glossary, GlossaryServiceToken, GlossaryValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
-@Controller('/coins')
-export class CoinController {
-  private service = Container.get(coinServiceToken);
+@Controller('/glossaries')
+export class GlossaryController {
+  private service = Container.get(GlossaryServiceToken);
 
-  @Post('/', [protectPrivateAPI(), CoinValidation.create])
+  @Post('/', [protectPrivateAPI(), GlossaryValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Body()
-    _body: Coin,
+    _body: Glossary,
   ) {
     const result = await this.service.create({
       _content: _body,
@@ -26,58 +26,60 @@ export class CoinController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), CoinValidation.update])
+  @Put('/:id', [protectPrivateAPI(), GlossaryValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Params() _params: { id: string },
     @Body()
-    body: Coin,
+    _body: Glossary,
   ) {
     const result = await this.service.update({
       _id: _params.id,
-      _content: body,
+      _content: _body,
       _subject: _auth.id,
     } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
+    _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), CoinValidation.delete])
+  @Delete('/:id', [protectPrivateAPI(), GlossaryValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Params() _params: { id: string },
     @Body()
-    body: Coin,
+    _body: Glossary,
   ) {
     await this.service.delete({
       _id: _params.id,
-      _content: body,
+      _content: _body,
       _subject: _auth.id,
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/', [CoinValidation.query])
-  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+  @Get('/', [GlossaryValidation.query])
+  async getByUser(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
       _filter: filter,
       _query: query,
+      _permission: 'public',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/search', [CoinValidation.search])
+  @Get('/search', [GlossaryValidation.search])
   async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.search({
       _filter: filter,
       _query: query,
+      _permission: 'public',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  // @Get('/:id', [CoinValidation.getById])
+  // @Get('/:id', [GlossaryValidation.getById])
   // async getByIdPublic(
   //   @Res() _res: Response,
   //   @Req() _req: Request,
@@ -88,15 +90,14 @@ export class CoinController {
   //   },
   // ) {
   //   const { filter, query } = buildQueryFilter(_query);
-
   //   const result = await this.service.getById({
   //     _id: _params.id,
   //     _filter: filter,
   //   } as BaseServiceInput);
   //   _res.status(httpStatus.OK).json(result);
   // }
-  @Get('/:slug', [CoinValidation.getBySlug])
-  async getByNamePublic(
+  @Get('/:slug', [GlossaryValidation.getBySlug])
+  async getBySlugPublic(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
@@ -105,8 +106,7 @@ export class CoinController {
       slug: string;
     },
   ) {
-    const { filter } = buildQueryFilter(_query);
-
+    const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.getBySlug({
       _slug: _params.slug,
       _filter: filter,
@@ -114,10 +114,22 @@ export class CoinController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/coins')
-export class CoinPrivateController {
-  private service = Container.get(coinServiceToken);
-  @Get('/:id', [protectPrivateAPI(), CoinValidation.getById])
+@Controller('/private/glossaries')
+export class GlossaryPrivateController {
+  private service = Container.get(GlossaryServiceToken);
+
+  @Get('/', [protectPrivateAPI(), GlossaryValidation.query])
+  async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.query({
+      _filter: filter,
+      _query: query,
+      _permission: 'private',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Get('/:id', [protectPrivateAPI(), GlossaryValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -128,7 +140,6 @@ export class CoinPrivateController {
     },
   ) {
     const { filter, query } = buildQueryFilter(_query);
-
     const result = await this.service.getById({
       _id: _params.id,
       _filter: filter,

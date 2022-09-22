@@ -4,6 +4,8 @@ import { Company } from '../company';
 export interface News extends BaseModel {
   slug: string;
 
+  minute_read: number;
+
   title: string;
 
   status: NewsStatus;
@@ -48,6 +50,7 @@ export interface News extends BaseModel {
   }>;
 }
 export const _news: News = {
+  minute_read: 0,
   slug: '',
   status: NewsStatus.DRAFT,
   title: '',

@@ -8,7 +8,7 @@ import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject 
 import { CompanyError, _company, companyModelToken, companyErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-export const TOKEN_NAME = '_companyService';
+const TOKEN_NAME = '_companyService';
 /**
  * A bridge allows another service access to the Model layer
  * @export CompanyService
@@ -201,7 +201,7 @@ export class CompanyService {
             $projects: [
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   trans: {
                     $filter: {
                       input: '$trans',
@@ -218,7 +218,7 @@ export class CompanyService {
               this.model.$sets.trans,
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },
@@ -396,7 +396,7 @@ export class CompanyService {
             $projects: [
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   trans: {
                     $filter: {
                       input: '$trans',
@@ -413,7 +413,7 @@ export class CompanyService {
               this.model.$sets.trans,
               {
                 $project: {
-                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.publicOutputKeys),
                   ...(lang && $keysToProject(this.transKeys, '$trans')),
                 },
               },

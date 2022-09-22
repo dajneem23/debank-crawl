@@ -41,7 +41,7 @@ export class EventService {
     return this.model._keys;
   }
   get queryOutputKeys() {
-    return ['id', 'name', 'slug', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
+    return ['id', 'name', 'banners', 'slug', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
   }
   get publicOutputKeys() {
     return ['id', 'name', 'start_date', 'end_date', 'banners', 'slug'];
@@ -218,7 +218,7 @@ export class EventService {
       const eventFilter: Filter<any> = {
         ...otherFilter,
         ...categoryFilter,
-        start_date: { $gte: new Date() },
+        // start_date: { $gte: new Date() },
         ...(q && {
           $or: [{ name: { $regex: q, $options: 'i' } }],
         }),
@@ -260,7 +260,7 @@ export class EventService {
       const { per_page, sort_order } = _query;
       const eventFilter: Filter<any> = {
         $or: [{ trending: true }, { type: 'virtual' }],
-        $and: [{ start_date: { $gte: new Date() } }],
+        // $and: [{ start_date: { $gte: new Date() } }],
       };
       const [
         {
@@ -300,7 +300,7 @@ export class EventService {
       const { q } = _filter;
       const { per_page, page, sort_order } = _query;
       const eventFilter: Filter<any> = {
-        start_date: { $gte: new Date() },
+        // start_date: { $gte: new Date() },
         significant: true,
       };
       const [

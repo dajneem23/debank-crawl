@@ -1,45 +1,52 @@
-import Container, { Service, Token } from 'typedi';
+import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { ProductError, _product, productModelToken, productErrors } from '.';
+import AuthSessionModel from '@/modules/auth/authSession.model';
+import AuthService from '../auth/auth.service';
+import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { GlossaryError, glossaryModelToken, glossaryErrors, _glossary } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-const TOKEN_NAME = '_productService';
+const TOKEN_NAME = '_glossaryService';
 /**
  * A bridge allows another service access to the Model layer
- * @export ProductService
- * @class ProductService
+ * @export GlossaryService
+ * @class GlossaryService
  * @extends {BaseService}
  */
-export const productServiceToken = new Token<ProductService>(TOKEN_NAME);
+export const GlossaryServiceToken = new Token<GlossaryService>(TOKEN_NAME);
 /**
- * @class ProductService
- * @extends  BaseService
- * @description Product Service for all product related operations
+ * @class GlossaryService
+ * @extends BaseService
+ * @description Glossary Service for all glossary related operations
  */
-@Service(productServiceToken)
-export class ProductService {
-  private logger = new Logger('ProductService');
+@Service(GlossaryServiceToken)
+export class GlossaryService {
+  private logger = new Logger('GlossaryService');
 
-  private model = Container.get(productModelToken);
+  private model = Container.get(glossaryModelToken);
 
-  private error(msg: keyof typeof productErrors) {
-    return new ProductError(msg);
+  @Inject()
+  private authSessionModel: AuthSessionModel;
+
+  @Inject()
+  private authService: AuthService;
+
+  private error(msg: keyof typeof glossaryErrors) {
+    return new GlossaryError(msg);
   }
 
   get outputKeys() {
     return this.model._keys;
   }
-
   get publicOutputKeys() {
-    return ['id', 'name', 'avatar', 'about', 'slug'];
+    return ['id', 'avatar', 'slug', 'categories', 'about', 'short_description', 'name', 'author'];
   }
-
   get transKeys() {
     return ['about', 'short_description'];
   }
+
   /**
    * Generate ID
    */
@@ -47,21 +54,33 @@ export class ProductService {
     return alphabetSize12();
   }
   /**
-   * Create document
+   * Create a new category
    * @param _content
    * @param _subject
    * @returns {Promise<BaseServiceOutput>}
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
+      const now = new Date();
       const { name } = _content;
+      const { team, categories, projects, products, cryptocurrencies, country } = _content;
+      const categoriesIdExist =
+        !!categories && categories.length > 0
+          ? await $queryByList({ collection: 'categories', values: categories })
+          : true;
+      if (!categoriesIdExist) {
+        throwErr(this.error('INPUT_INVALID'));
+      }
       const value = await this.model.create(
         {
           name,
         },
         {
-          ..._product,
+          ..._glossary,
           ..._content,
+          categories: categories ? $toObjectId(categories) : [],
+          team: team ? $toObjectId(team) : [],
+          products: products ? $toObjectId(products) : [],
           ...(_subject && { created_by: _subject }),
         },
         {
@@ -78,21 +97,27 @@ export class ProductService {
   }
 
   /**
-   * Update document
+   * Update category
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<BaseServiceOutput>}
+   * @returns {Promise<Glossary>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-
+      const { team, categories, projects, products, cryptocurrencies, country } = _content;
       const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
+            ...(categories && { categories: $toObjectId(categories) }),
+            ...(projects && { projects: $toObjectId(projects) }),
+            ...(team && { team: $toObjectId(team) }),
+            ...(products && { products: $toObjectId(products) }),
+            ...(cryptocurrencies && { cryptocurrencies: $toObjectId(cryptocurrencies) }),
+            ...(country && { country: $toObjectId(country) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },
@@ -111,7 +136,7 @@ export class ProductService {
   }
 
   /**
-   * Delete document
+   * Delete category
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
@@ -122,11 +147,9 @@ export class ProductService {
       await this.model.delete(
         $toMongoFilter({ _id }),
         {
-          $set: {
-            deleted: true,
-            ...(_subject && { deleted_by: _subject }),
-            deleted_at: now,
-          },
+          deleted: true,
+          ...(_subject && { deleted_by: _subject }),
+          deleted_at: now,
         },
         {
           upsert: false,
@@ -142,15 +165,15 @@ export class ProductService {
   }
 
   /**
-   *  Query document
+   *  Query category
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
    *
    **/
-  async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async query({ _filter, _query, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, category } = _filter;
+      const { lang, q, category } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -206,30 +229,45 @@ export class ProductService {
         )
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        keys: _permission == 'public' ? this.publicOutputKeys : this.outputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
     }
   }
   /**
-   * Get document
-   * @param id - product ID
-   * @param _filter - filter query
-   * @param _permission - permission query
-   * @returns { Promise<BaseServiceOutput> } - product
+   * Get Glossary by ID
+   * @param id - Glossary ID
+   * @returns { Promise<BaseServiceOutput> } - Glossary
    */
   async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-
       const [item] = await this.model
         .get([
-          { $match: $toMongoFilter({ _id }) },
-          { $addFields: this.model.$addFields.categories },
+          {
+            $match: {
+              ...$toMongoFilter({
+                _id,
+              }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
+          },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
-          // this.$lookups.cryptocurrencies,
           this.model.$lookups.author,
+          this.model.$lookups.team,
+          this.model.$lookups.products,
+          this.model.$lookups.projects,
+          this.model.$lookups.country,
           this.model.$sets.author,
           {
             $project: {
@@ -266,27 +304,32 @@ export class ProductService {
     }
   }
   /**
-   * Get document
-   * @param id - product ID
-   * @param _filter - filter query
-   * @param _permission - permission query
-   * @returns { Promise<BaseServiceOutput> } - product
+   * Get Glossary by slug
+   * @param id - Glossary ID
+   * @returns { Promise<BaseServiceOutput> } - Glossary
    */
   async getBySlug({ _slug, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-
       const [item] = await this.model
         .get([
           {
-            $match: $toMongoFilter({
-              slug: _slug,
-            }),
+            $match: {
+              ...$toMongoFilter({ slug: _slug }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            },
           },
-          { $addFields: this.model.$addFields.categories },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
           this.model.$lookups.categories,
-          // this.$lookups.cryptocurrencies,
           this.model.$lookups.author,
+          this.model.$lookups.team,
+          this.model.$lookups.products,
+          this.model.$lookups.projects,
+          this.model.$lookups.country,
           this.model.$sets.author,
           {
             $project: {
@@ -335,8 +378,17 @@ export class ProductService {
         .get([
           ...$pagination({
             $match: {
+              deleted: false,
               ...(q && {
-                $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
+                $or: [
+                  { $text: { $search: q } },
+                  {
+                    name: { $regex: q, $options: 'i' },
+                  },
+                ],
+              }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
               }),
             },
             $addFields: this.model.$addFields.categories,

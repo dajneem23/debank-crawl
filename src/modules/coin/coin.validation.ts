@@ -142,6 +142,19 @@ export const CoinValidation = {
       rocket_chat: Joi.string(),
 
       bitcoin_talk: Joi.string(),
+      trans: Joi.array().items(
+        Joi.object({
+          lang: Joi.string()
+            .valid(...Object.values(LANG_CODE))
+            .required()
+            .messages({
+              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+            }),
+          about: Joi.string(),
+          service: Joi.array().items(Joi.string()),
+          feature: Joi.array().items(Joi.string()),
+        }),
+      ),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),

@@ -133,7 +133,7 @@ export class CoinService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'name', 'token_id', 'about', 'categories', 'avatar', 'slug'];
+    return ['id', 'name', 'token_id', 'about', 'categories', 'avatar', 'slug', 'market_data'];
   }
   get transKeys() {
     return ['about', 'features', 'services'];

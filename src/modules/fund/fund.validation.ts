@@ -1,6 +1,7 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, CATEGORY_TYPE, LANG_CODE, FUND_TYPE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
+
 export const FundValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({

@@ -1789,18 +1789,6 @@
     "tests": []
   },
   {
-    "_id": "49443761-bf58-48c7-8e5a-2c8415360949",
-    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
-    "containerId": "e0264194-f00c-4cf2-952e-dff3813de549",
-    "name": "test",
-    "url": "",
-    "method": "GET",
-    "sortNum": 510000,
-    "created": "2022-09-19T07:36:35.493Z",
-    "modified": "2022-09-19T07:36:35.494Z",
-    "headers": []
-  },
-  {
     "_id": "f0219fb6-f41a-430b-8d39-62c40b8261cd",
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",

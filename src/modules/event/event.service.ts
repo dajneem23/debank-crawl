@@ -218,7 +218,7 @@ export class EventService {
       const eventFilter: Filter<any> = {
         ...otherFilter,
         ...categoryFilter,
-        start_date: { $gte: new Date() },
+        // start_date: { $gte: new Date() },
         ...(q && {
           $or: [{ name: { $regex: q, $options: 'i' } }],
         }),
@@ -260,7 +260,7 @@ export class EventService {
       const { per_page, sort_order } = _query;
       const eventFilter: Filter<any> = {
         $or: [{ trending: true }, { type: 'virtual' }],
-        $and: [{ start_date: { $gte: new Date() } }],
+        // $and: [{ start_date: { $gte: new Date() } }],
       };
       const [
         {
@@ -300,7 +300,7 @@ export class EventService {
       const { q } = _filter;
       const { per_page, page, sort_order } = _query;
       const eventFilter: Filter<any> = {
-        start_date: { $gte: new Date() },
+        // start_date: { $gte: new Date() },
         significant: true,
       };
       const [

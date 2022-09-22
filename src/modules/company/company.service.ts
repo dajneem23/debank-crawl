@@ -61,16 +61,7 @@ export class CompanyService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
-      const { name } = _content;
-      const { team, categories, projects, products, cryptocurrencies, country } = _content;
-      const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
-          : true;
-      if (!categoriesIdExist) {
-        throwErr(this.error('INPUT_INVALID'));
-      }
+      const { name, categories = [], trans = [] } = _content;
       const value = await this.model.create(
         {
           name,
@@ -78,9 +69,8 @@ export class CompanyService {
         {
           ..._company,
           ..._content,
-          categories: categories ? $toObjectId(categories) : [],
-          team: team ? $toObjectId(team) : [],
-          products: products ? $toObjectId(products) : [],
+          categories,
+          trans,
           ...(_subject && { created_by: _subject }),
         },
         {
@@ -106,18 +96,11 @@ export class CompanyService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const now = new Date();
-      const { team, categories, projects, products, cryptocurrencies, country } = _content;
       const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
-            ...(categories && { categories: $toObjectId(categories) }),
-            ...(projects && { projects: $toObjectId(projects) }),
-            ...(team && { team: $toObjectId(team) }),
-            ...(products && { products: $toObjectId(products) }),
-            ...(cryptocurrencies && { cryptocurrencies: $toObjectId(cryptocurrencies) }),
-            ...(country && { country: $toObjectId(country) }),
             ...(_subject && { updated_by: _subject }),
             updated_at: now,
           },

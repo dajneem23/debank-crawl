@@ -39,9 +39,9 @@ export const search = validate({
 });
 export const getRelated = validate({
   [Segments.QUERY]: Joi.object({
-    page: Joi.number().default(1).min(1).required(),
+    page: Joi.number().default(1).min(1),
 
-    per_page: Joi.number().default(10).min(1).required(),
+    per_page: Joi.number().default(10).min(1),
 
     sort_by: Joi.string(),
 
@@ -59,7 +59,7 @@ export const getRelated = validate({
 
 export const getTrending = validate({
   [Segments.QUERY]: Joi.object({
-    per_page: Joi.number().default(10).min(1).required(),
+    per_page: Joi.number().default(10).min(1),
 
     sort_order: Joi.string()
       .default(ORDER.ASC)

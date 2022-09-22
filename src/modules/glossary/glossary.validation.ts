@@ -16,9 +16,8 @@ export const GlossaryValidation = {
             .messages({
               'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
             }),
-          about: Joi.string(),
-          service: Joi.array().items(Joi.string()),
-          feature: Joi.array().items(Joi.string()),
+          define: Joi.string(),
+          name: Joi.string(),
         }),
       ),
     }),
@@ -37,9 +36,8 @@ export const GlossaryValidation = {
             .messages({
               'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
             }),
-          about: Joi.string(),
-          service: Joi.array().items(Joi.string()),
-          feature: Joi.array().items(Joi.string()),
+          define: Joi.string(),
+          name: Joi.string(),
         }),
       ),
     }),

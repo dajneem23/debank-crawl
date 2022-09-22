@@ -67,6 +67,10 @@
     "modified": "2022-08-30T09:07:12.394Z",
     "headers": [],
     "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
+    },
     "tests": []
   },
   {
@@ -643,9 +647,14 @@
       {
         "name": "lang",
         "value": "vi",
+        "isDisabled": true,
         "isPath": false
       }
     ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzY0MzE0NiwiZXhwIjoxNjY0NTA3MTQ2fQ.AWSfU07DQAJ1PBZNqtQ294ESImovbpqbmgkQipxbn9c"
+    },
     "tests": []
   },
   {
@@ -937,6 +946,11 @@
         "value": "vi",
         "isDisabled": true,
         "isPath": false
+      },
+      {
+        "name": "sort_by",
+        "value": "usd_market_cap",
+        "isPath": false
       }
     ],
     "tests": []
@@ -1005,12 +1019,12 @@
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-30T09:07:12.433Z",
-    "modified": "2022-09-13T09:20:04.716Z",
+    "modified": "2022-09-22T02:38:32.239Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"company_tags\": [\"63203206ca6dba38a9fb44d4\"],\n    \"coin_tags\": [\"6320319fca6dba38a9fb3c98\"],\n    \"product_tags\": [\"6320319eca6dba38a9fb3bfe\"],\n    \"person_tags\": [\"63203ea598573a11099f7c2b\"],\n    \"event_tags\": [\"63204b244b91004a94852f65\"],\n    \"number_relate_article\": 2,\n    \"title\": \"The landmark 2 millionth ENS domain has been minted as it retains a top 10 spot on OpenSea's secondary market\",\n    \"summary\": \"The day Ethereum merges to proof-of-sake may be the most important moment for the future of the internet\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"Miền ENS thứ 2 triệu mang tính bước ngoặt đã được đúc kết khi nó vẫn giữ được vị trí top 10 trên thị trường thứ cấp của OpenSea\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
+      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [\"6327d633cda8ec055530eb4e\"],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"vua tao 90 ngay \",\n    \"summary\": \"Inery Acquires Investment From Metavest at $128m Valuation\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"6327d633cda8ec055530eb4e vi\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
       "form": []
     },
     "auth": {
@@ -1113,7 +1127,7 @@
     "method": "GET",
     "sortNum": 290000,
     "created": "2022-08-30T09:07:12.437Z",
-    "modified": "2022-08-30T09:52:12.283Z",
+    "modified": "2022-09-21T03:13:03.985Z",
     "headers": [],
     "params": [
       {
@@ -1128,6 +1142,10 @@
         "isPath": false
       }
     ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2MzcyOTM3MCwiZXhwIjoxNjY0NTkzMzcwfQ.Kf00TrepianXXlz4B8p0yqoNQYEO3DHzcxUbc18iB3o"
+    },
     "tests": []
   },
   {
@@ -1777,6 +1795,58 @@
     "modified": "2022-09-16T07:05:34.803Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "49443761-bf58-48c7-8e5a-2c8415360949",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "e0264194-f00c-4cf2-952e-dff3813de549",
+    "name": "test",
+    "url": "",
+    "method": "GET",
+    "sortNum": 510000,
+    "created": "2022-09-19T07:36:35.493Z",
+    "modified": "2022-09-19T07:36:35.494Z",
+    "headers": []
+  },
+  {
+    "_id": "f0219fb6-f41a-430b-8d39-62c40b8261cd",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "d34e4741-c74a-4e32-bdea-0fa6a3dc30ac",
+    "name": "test",
+    "url": "{{host}}/coins/test",
+    "method": "GET",
+    "sortNum": 520000,
+    "created": "2022-09-19T07:37:08.968Z",
+    "modified": "2022-09-19T07:37:31.102Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "0eef9fb1-aec7-42ac-9c64-3e458d12bdee",
+    "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
+    "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
+    "name": "top",
+    "url": "{{host}}/news/top/?date_range=30d",
+    "method": "GET",
+    "sortNum": 530000,
+    "created": "2022-09-22T02:28:02.439Z",
+    "modified": "2022-09-22T02:47:06.320Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "per_page",
+        "value": "2",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "date_range",
+        "value": "30d",
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

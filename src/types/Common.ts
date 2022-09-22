@@ -373,7 +373,8 @@ export type COLLECTION_NAMES =
   | 'countries'
   | 'auth-sessions'
   | 'coins'
-  | 'verification-tokens';
+  | 'verification-tokens'
+  | 'glossaries';
 
 export enum coinSortBy {
   'usd_price' = 'market_data.USD.price',

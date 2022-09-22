@@ -8,3 +8,4 @@ export * from './person';
 export * from './coin';
 export * from './news';
 export * from './fund';
+export * from './glossary';

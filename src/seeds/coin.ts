@@ -24,7 +24,7 @@ export const CoinSeed = async () => {
     _file: coinsFile,
     _key: 'name',
   });
-  // if (count) return;
+  if (count) return;
   const coins = await Promise.all(
     readDataFromFile({ _collection: 'coins' }).map((_coin: any) => {
       return {

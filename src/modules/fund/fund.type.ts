@@ -49,6 +49,8 @@ export interface Fund extends BaseInformationModel {
     about?: string;
     short_description?: string;
   }[];
+
+  news?: string[];
 }
 
 export const _fund: Fund = {
@@ -68,7 +70,8 @@ export const _fund: Fund = {
   firms: [],
   metadata: {},
   deleted: false,
-  created_at: new Date(),
-  updated_at: new Date(),
   trans: [],
+  news: [],
+  updated_at: new Date(),
+  created_at: new Date(),
 };

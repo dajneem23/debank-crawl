@@ -20,6 +20,8 @@ export interface Fund extends BaseInformationModel {
 
   partners?: ForeignReLationship[];
 
+  launched?: string;
+
   firms?: ForeignReLationship[];
 
   recent_investments?: ForeignReLationship[];
@@ -49,8 +51,6 @@ export interface Fund extends BaseInformationModel {
     about?: string;
     short_description?: string;
   }[];
-
-  news?: string[];
 }
 
 export const _fund: Fund = {
@@ -71,7 +71,6 @@ export const _fund: Fund = {
   metadata: {},
   deleted: false,
   trans: [],
-  news: [],
   updated_at: new Date(),
   created_at: new Date(),
 };

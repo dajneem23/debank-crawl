@@ -56,19 +56,19 @@ export class EventController {
   @Get('/related', [EventValidation.getRelated])
   async getRelatedEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.getRelatedEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getRelated({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/trending', [EventValidation.getTrending])
   async getTrendingEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.getTrendingEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getTrending({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/significant', [EventValidation.getSignificant])
   async getSignificantEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.getSignificantEvent({ _filter: filter, _query: query } as BaseServiceInput);
+    const result = await this.service.getSignificant({ _filter: filter, _query: query } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
   @Get('/search', [EventValidation.search])

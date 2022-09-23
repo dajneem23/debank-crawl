@@ -39,11 +39,8 @@ export class EventService {
   get outputKeys() {
     return this.model._keys;
   }
-  get queryOutputKeys() {
-    return ['id', 'name', 'banners', 'slug', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
-  }
   get publicOutputKeys() {
-    return ['id', 'name', 'introduction', 'type', 'start_date', 'end_date', 'banners', 'slug', 'categories'];
+    return ['id', 'name', 'banners', 'slug', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
   }
   get transKeys() {
     return ['name', 'introduction'];
@@ -95,13 +92,12 @@ export class EventService {
    **/
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { slide, recap, subscribers } = _content;
+      const { slide, recap } = _content;
       const event = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
-            subscribers: subscribers || [],
             ...(_subject && { updated_by: _subject }),
           },
         },
@@ -264,7 +260,7 @@ export class EventService {
     }
   }
 
-  async getRelatedEvent({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getRelated({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, category, lang, ...otherFilter } = _filter;
       const { per_page, page, sort_order } = _query;
@@ -273,7 +269,7 @@ export class EventService {
           total_count: [{ total_count } = { total_count: 0 }],
           items,
         },
-      ] = (await this.model
+      ] = await this.model
         .get([
           {
             $match: {
@@ -327,16 +323,15 @@ export class EventService {
             },
           },
         ])
-        .toArray()) as any[];
-
+        .toArray();
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
-  async getTrendingEvent({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getTrending({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
       const { per_page, sort_order } = _query;
@@ -398,13 +393,13 @@ export class EventService {
         .toArray()) as any[];
       const items = [...trending, ...virtual];
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
-  async getSignificantEvent({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getSignificant({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { q, lang } = _filter;
       const { per_page, page, sort_order } = _query;
@@ -463,14 +458,14 @@ export class EventService {
         .toArray()) as any[];
 
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
   /**
-   *  Query category
+   *  Query Event
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -538,7 +533,7 @@ export class EventService {
       return toPagingOutput({
         items,
         total_count,
-        keys: this.queryOutputKeys,
+        keys: this.publicOutputKeys,
       });
     } catch (err) {
       this.logger.error('query_error', err.message);

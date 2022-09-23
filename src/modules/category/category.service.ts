@@ -52,7 +52,6 @@ export class CategoryService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
-      const now = new Date();
       const { name } = _content;
       const value = await this.model.create(
         { name },
@@ -62,8 +61,6 @@ export class CategoryService {
             ..._content,
             deleted: false,
             ...(_subject && { created_by: _subject }),
-            created_at: now,
-            updated_at: now,
           },
         },
         {
@@ -88,14 +85,12 @@ export class CategoryService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
-      const now = new Date();
       await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {
@@ -119,14 +114,12 @@ export class CategoryService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const now = new Date();
       await this.model.delete(
         $toMongoFilter({ _id }),
         {
           $set: {
             deleted: true,
             ...(_subject && { deleted_by: _subject }),
-            deleted_at: now,
           },
         },
         {

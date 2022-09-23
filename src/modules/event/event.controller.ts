@@ -98,13 +98,18 @@ export class EventController {
   async getById(
     @Res() _res: Response,
     @Req() _req: Request,
+    @Query() _query: BaseQuery,
     @Params()
     _params: {
       slug: string;
     },
   ) {
+    const { filter, query } = buildQueryFilter(_query);
+
     const result = await this.service.getBySlug({
       _slug: _params.slug,
+      _filter: filter,
+      _permission: 'public',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
@@ -195,14 +200,18 @@ export class EventPrivateController {
   async getById(
     @Res() _res: Response,
     @Req() _req: Request,
+    @Query() _query: BaseQuery,
     @Params()
     _params: {
       id: string;
     },
   ) {
+    const { filter, query } = buildQueryFilter(_query);
+
     const result = await this.service.getById({
       _id: _params.id,
       _permission: 'private',
+      _filter: filter,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

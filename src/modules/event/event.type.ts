@@ -41,6 +41,11 @@ export interface Event extends BaseInformationModel {
   banners?: string[];
 
   media?: Media[];
+
+  trans: {
+    lang: string;
+    introduction?: string;
+  }[];
 }
 export interface EventQuery extends BaseQuery, EventFilter {
   name?: string;
@@ -76,21 +81,6 @@ export interface EventFilter {
 
   sponsor?: string;
 }
-export type EventInput = {
-  _id?: string;
-  newEvent?: Event;
-  updateEvent?: Event;
-  filter?: EventQuery;
-  query?: BaseQuery;
-  subject?: string;
-};
-
-export type EventOutput = {
-  code?: number;
-  result?: Event | any;
-  total_count?: number;
-  data?: Event[];
-};
 export const _event: Event = {
   type: '',
   trending: false,
@@ -114,4 +104,5 @@ export const _event: Event = {
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),
+  trans: [],
 };

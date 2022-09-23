@@ -43,6 +43,12 @@ export interface Fund extends BaseInformationModel {
   rating?: number;
 
   assets_allocation?: string;
+
+  trans: {
+    lang: string;
+    about?: string;
+    short_description?: string;
+  }[];
 }
 
 export const _fund: Fund = {
@@ -64,4 +70,5 @@ export const _fund: Fund = {
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),
+  trans: [],
 };

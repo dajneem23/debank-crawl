@@ -87,14 +87,12 @@ export class PersonService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {
@@ -118,13 +116,11 @@ export class PersonService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const now = new Date();
       await this.model.delete(
         $toMongoFilter({ _id }),
         {
           deleted: true,
           ...(_subject && { deleted_by: _subject }),
-          deleted_at: now,
         },
         {
           upsert: false,

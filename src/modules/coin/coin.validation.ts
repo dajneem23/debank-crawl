@@ -82,6 +82,25 @@ export const CoinValidation = {
           features: Joi.array().items(Joi.string()),
         }),
       ),
+      potential: Joi.string(),
+
+      reliability: Joi.string(),
+
+      rating: Joi.string(),
+
+      years: Joi.number(),
+
+      market: Joi.number(),
+
+      market_share: Joi.number(),
+
+      stage: Joi.string(),
+
+      eco_market_cap: Joi.number(),
+
+      backer: Joi.string(),
+
+      fundraising: Joi.string(),
     }),
   }),
   update: validate({
@@ -90,6 +109,7 @@ export const CoinValidation = {
 
       token_id: Joi.string(),
 
+      //array id of categories
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
       explorer: Joi.string(),
@@ -105,10 +125,6 @@ export const CoinValidation = {
       exchanges: Joi.array().items(Joi.string()),
 
       technologies: Joi.object(),
-
-      companies: Joi.array(),
-
-      market_data: Joi.object(),
 
       features: Joi.array().items(Joi.string()),
 
@@ -149,6 +165,11 @@ export const CoinValidation = {
       rocket_chat: Joi.string(),
 
       bitcoin_talk: Joi.string(),
+
+      companies: Joi.array(),
+
+      market_data: Joi.object(),
+
       trans: Joi.array().items(
         Joi.object({
           lang: Joi.string()
@@ -162,6 +183,27 @@ export const CoinValidation = {
           features: Joi.array().items(Joi.string()),
         }),
       ),
+      potential: Joi.string(),
+
+      reliability: Joi.string(),
+
+      rating: Joi.string(),
+
+      years: Joi.number(),
+
+      market: Joi.number(),
+
+      market_share: Joi.number(),
+
+      development_status: Joi.string(),
+
+      stage: Joi.string(),
+
+      eco_market_cap: Joi.number(),
+
+      backer: Joi.string(),
+
+      fundraising: Joi.string(),
     }),
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),

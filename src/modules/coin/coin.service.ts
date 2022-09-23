@@ -152,7 +152,6 @@ export class CoinService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       const { name } = _content;
       const value = await this.model.create(
         {
@@ -163,8 +162,6 @@ export class CoinService {
           ..._content,
           deleted: false,
           ...(_subject && { created_by: _subject }),
-          created_at: now,
-          updated_at: now,
         },
         {
           upsert: true,
@@ -188,14 +185,12 @@ export class CoinService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {
@@ -219,13 +214,11 @@ export class CoinService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const now = new Date();
       await this.model.delete(
         $toMongoFilter({ _id }),
         {
           deleted: true,
           ...(_subject && { deleted_by: _subject }),
-          deleted_at: now,
         },
         {
           upsert: false,

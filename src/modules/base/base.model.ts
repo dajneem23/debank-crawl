@@ -7,9 +7,8 @@ import {
   AggregateOptions,
   AggregationCursor,
   WithId,
-  UpdateFilter,
 } from 'mongodb';
-import Container, { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
@@ -375,7 +374,14 @@ export class BaseModel {
         throwErr(this.error('common.database'));
       }
       if (!updatedExisting) {
-        throwErr(this.error('common.not_found'));
+        throwErr(
+          this.error('common.not_found', [
+            {
+              path: Object.keys(omit(filter, PRIVATE_KEYS)).join(','),
+              message: `${Object.values(omit(filter, PRIVATE_KEYS)).join(',')} not found`,
+            },
+          ]),
+        );
       }
       this.logger.debug('update_success', `[update:${this._collectionName}:success]`, { _content });
       return value;

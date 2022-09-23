@@ -37,7 +37,7 @@ export class CompanyService {
     return new CompanyError(msg);
   }
 
-  get outputKeys() {
+  get outputKeys(): typeof this.model._keys {
     return this.model._keys;
   }
   get publicOutputKeys() {
@@ -54,7 +54,7 @@ export class CompanyService {
     return alphabetSize12();
   }
   /**
-   * Create a new category
+   * Create a new company
    * @param _content
    * @param _subject
    * @returns {Promise<BaseServiceOutput>}
@@ -87,7 +87,7 @@ export class CompanyService {
   }
 
   /**
-   * Update category
+   * Update company
    * @param _id
    * @param _content
    * @param _subject
@@ -95,14 +95,12 @@ export class CompanyService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {
@@ -119,20 +117,18 @@ export class CompanyService {
   }
 
   /**
-   * Delete category
+   * Delete company
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const now = new Date();
       await this.model.delete(
         $toMongoFilter({ _id }),
         {
           deleted: true,
           ...(_subject && { deleted_by: _subject }),
-          deleted_at: now,
         },
         {
           upsert: false,
@@ -148,7 +144,7 @@ export class CompanyService {
   }
 
   /**
-   *  Query category
+   *  Query company
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -162,14 +158,7 @@ export class CompanyService {
         .get(
           $pagination({
             $match: {
-              $and: [
-                {
-                  deleted: false,
-                  ...(lang && {
-                    'trans.lang': { $eq: lang },
-                  }),
-                },
-              ],
+              deleted: false,
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
@@ -177,6 +166,9 @@ export class CompanyService {
                 $or: [
                   { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
                 ],
+              }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
               }),
             },
             $addFields: this.model.$addFields.categories,

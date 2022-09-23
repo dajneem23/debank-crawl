@@ -19,17 +19,17 @@ export interface Company extends BaseInformationModel {
   short_description: string;
   cryptocurrencies: string[];
   country?: string;
-  trans: {
-    lang: string;
-    about?: string;
-    short_description?: string;
-  }[];
   year_founded?: Date;
   total_amount?: string;
   firms?: any[];
   fundraising_rounds: FundraisingRoundDetail[];
   investors?: any[];
   _sync?: any[];
+  trans: {
+    lang: string;
+    about?: string;
+    short_description?: string;
+  }[];
 }
 
 export const _company: Company = {

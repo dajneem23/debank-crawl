@@ -61,7 +61,6 @@ export class GlossaryService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       const { name, categories = [], trans = [] } = _content;
       const value = await this.model.create(
         {
@@ -96,14 +95,12 @@ export class GlossaryService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {

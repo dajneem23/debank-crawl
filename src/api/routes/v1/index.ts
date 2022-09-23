@@ -29,7 +29,7 @@ const route = Router();
 export default (app: Application) => {
   app.use(`${env.API_PREFIX}/v1`, route);
   /**
-   * @description Attach controllers to the route
+   * @description normal routes
    */
   attachControllers(route, [
     GlossaryController,

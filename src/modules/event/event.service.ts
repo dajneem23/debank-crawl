@@ -2,15 +2,14 @@ import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { EventOutput, _event, eventModelToken } from '.';
-import { Filter } from 'mongodb';
-import { $toMongoFilter } from '@/utils/mongoDB';
+import { _event, eventModelToken } from '.';
+import { $keysToProject, $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
 import { $toObjectId, $pagination } from '@/utils/mongoDB';
 import { isNil, omit } from 'lodash';
-import { BaseServiceInput, BaseServiceOutput } from '@/types';
+import { BaseServiceInput, BaseServiceOutput, EventType, PRIVATE_KEYS } from '@/types';
 
 const TOKEN_NAME = '_eventService';
 /**
@@ -40,11 +39,11 @@ export class EventService {
   get outputKeys() {
     return this.model._keys;
   }
-  get queryOutputKeys() {
+  get publicOutputKeys() {
     return ['id', 'name', 'banners', 'slug', 'introduction', 'type', 'country', 'start_date', 'end_date', 'categories'];
   }
-  get publicOutputKeys() {
-    return ['id', 'name', 'start_date', 'end_date', 'banners', 'slug'];
+  get transKeys() {
+    return ['name', 'introduction'];
   }
 
   /**
@@ -62,7 +61,7 @@ export class EventService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { name, subscribers } = _content;
+      const { name, subscribers = [], trans = [] } = _content;
       const value = await this.model.create(
         {
           name,
@@ -71,11 +70,11 @@ export class EventService {
         {
           ..._event,
           ..._content,
-          subscribers: subscribers || [],
+          subscribers,
+          trans,
           ...(_subject && { created_by: _subject }),
         },
       );
-      // Check duplicated
       this.logger.debug('create_success', { value });
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
@@ -93,14 +92,12 @@ export class EventService {
    **/
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { slide, recap, subscribers } = _content;
+      const { slide, recap } = _content;
       const event = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
-            subscribers: subscribers || [],
-            updated_at: new Date(),
             ...(_subject && { updated_by: _subject }),
           },
         },
@@ -130,7 +127,6 @@ export class EventService {
         $toMongoFilter({ _id }),
         {
           deleted: true,
-          deleted_at: new Date(),
           ...(_subject && { deleted_by: _subject }),
         },
         { returnDocument: 'after' },
@@ -146,11 +142,19 @@ export class EventService {
    * @param _id - Event ID
    * @returns { Promise<EventOutput> } - Event
    */
-  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
+    const { lang } = _filter;
     try {
-      const [event] = await this.model
+      const [item] = await this.model
         .get([
-          { $match: $toMongoFilter({ _id }) },
+          {
+            $match: $toMongoFilter({
+              _id,
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            }),
+          },
           {
             $addFields: this.model.$addFields.categories,
           },
@@ -161,13 +165,34 @@ export class EventService {
           this.model.$lookups.author,
           this.model.$sets.author,
           {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.model.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
+          {
             $limit: 1,
           },
         ])
         .toArray();
-      if (isNil(event)) throwErr(new EventError('EVENT_NOT_FOUND'));
-      this.logger.debug('get_success', { event });
-      return omit(toOutPut({ item: event }), ['deleted', 'updated_at']);
+      if (isNil(item)) throwErr(new EventError('EVENT_NOT_FOUND'));
+      this.logger.debug('get_success', { item });
+      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
@@ -178,11 +203,19 @@ export class EventService {
    * @param _id - Event ID
    * @returns { Promise<EventOutput> } - Event
    */
-  async getBySlug({ _slug }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getBySlug({ _slug, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const [event] = await this.model
+      const { lang } = _filter;
+      const [item] = await this.model
         .get([
-          { $match: $toMongoFilter({ slug: _slug }) },
+          {
+            $match: $toMongoFilter({
+              slug: _slug,
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+            }),
+          },
           {
             $addFields: this.model.$addFields.categories,
           },
@@ -193,46 +226,93 @@ export class EventService {
           this.model.$lookups.author,
           this.model.$sets.author,
           {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.model.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
+            },
+          },
+          {
             $limit: 1,
           },
         ])
         .toArray();
-      if (isNil(event)) throwErr(new EventError('EVENT_NOT_FOUND'));
-      this.logger.debug('get_success', { event });
-      return omit(toOutPut({ item: event }), ['deleted', 'updated_at']);
+      if (isNil(item)) throwErr(new EventError('EVENT_NOT_FOUND'));
+      this.logger.debug('get_success', { item });
+      return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
 
-  async getRelatedEvent({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getRelated({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, category, ...otherFilter } = _filter;
+      const { q, category, lang, ...otherFilter } = _filter;
       const { per_page, page, sort_order } = _query;
-      const categoryFilter = category
-        ? {
-            categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) },
-          }
-        : {};
-      const eventFilter: Filter<any> = {
-        ...otherFilter,
-        ...categoryFilter,
-        // start_date: { $gte: new Date() },
-        ...(q && {
-          $or: [{ name: { $regex: q, $options: 'i' } }],
-        }),
-      };
       const [
         {
           total_count: [{ total_count } = { total_count: 0 }],
           items,
         },
-      ] = (await this.model
+      ] = await this.model
         .get([
           {
             $match: {
-              ...$toMongoFilter(eventFilter),
+              ...$toMongoFilter({
+                ...otherFilter,
+                ...(category && {
+                  categories: {
+                    $in: $toObjectId(Array.isArray(category) ? category : [category]),
+                  },
+                }),
+                // start_date: { $gte: new Date() },
+                ...(q && {
+                  $or: [{ name: { $regex: q, $options: 'i' } }],
+                }),
+                ...(lang && {
+                  'trans.lang': { $eq: lang },
+                }),
+              }),
+            },
+          },
+          this.model.$addFields.categories,
+          this.model.$lookups.categories,
+          {
+            $project: {
+              ...$keysToProject(this.publicOutputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          this.model.$lookups.country,
+          this.model.$sets.country,
+          this.model.$sets.trans,
+          {
+            $project: {
+              ...$keysToProject(this.publicOutputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
             },
           },
           { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
@@ -242,26 +322,19 @@ export class EventService {
               items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
             },
           },
-          this.model.$lookups.country,
-          this.model.$sets.country,
         ])
-        .toArray()) as any[];
-
+        .toArray();
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
-  async getTrendingEvent({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getTrending({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q } = _filter;
+      const { lang } = _filter;
       const { per_page, sort_order } = _query;
-      const eventFilter: Filter<any> = {
-        $or: [{ trending: true }, { type: 'virtual' }],
-        // $and: [{ start_date: { $gte: new Date() } }],
-      };
       const [
         {
           total_count: [{ total_count } = { total_count: 0 }],
@@ -272,7 +345,40 @@ export class EventService {
         .get([
           {
             $match: {
-              ...$toMongoFilter(eventFilter),
+              ...$toMongoFilter({
+                $or: [{ trending: true }, { type: EventType.VIRTUAL }],
+                // $and: [{ start_date: { $gte: new Date() } }],
+                ...(lang && {
+                  'trans.lang': { $eq: lang },
+                }),
+              }),
+            },
+          },
+          {
+            $project: {
+              ...$keysToProject(this.publicOutputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
+          this.model.$lookups.categories,
+          this.model.$sets.trans,
+          this.model.$lookups.country,
+          this.model.$sets.country,
+          {
+            $project: {
+              ...$keysToProject(this.publicOutputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
             },
           },
           { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
@@ -283,26 +389,20 @@ export class EventService {
               virtual: [{ $match: { type: 'virtual' } }, { $limit: +per_page }],
             },
           },
-          this.model.$lookups.country,
-          this.model.$sets.country,
         ])
         .toArray()) as any[];
       const items = [...trending, ...virtual];
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
-  async getSignificantEvent({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getSignificant({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q } = _filter;
+      const { q, lang } = _filter;
       const { per_page, page, sort_order } = _query;
-      const eventFilter: Filter<any> = {
-        // start_date: { $gte: new Date() },
-        significant: true,
-      };
       const [
         {
           total_count: [{ total_count } = { total_count: 0 }],
@@ -312,7 +412,39 @@ export class EventService {
         .get([
           {
             $match: {
-              ...$toMongoFilter(eventFilter),
+              ...$toMongoFilter({
+                significant: true,
+                ...(lang && {
+                  'trans.lang': { $eq: lang },
+                }),
+              }),
+            },
+          },
+          {
+            $project: {
+              ...$keysToProject(this.publicOutputKeys),
+              trans: {
+                $filter: {
+                  input: '$trans',
+                  as: 'trans',
+                  cond: {
+                    $eq: ['$$trans.lang', lang],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $addFields: this.model.$addFields.categories,
+          },
+          this.model.$sets.trans,
+          this.model.$lookups.categories,
+          this.model.$lookups.country,
+          this.model.$sets.country,
+          {
+            $project: {
+              ...$keysToProject(this.publicOutputKeys),
+              ...(lang && $keysToProject(this.transKeys, '$trans')),
             },
           },
           { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
@@ -322,20 +454,18 @@ export class EventService {
               items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
             },
           },
-          this.model.$lookups.country,
-          this.model.$sets.country,
         ])
         .toArray()) as any[];
 
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.queryOutputKeys });
+      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
   /**
-   *  Query category
+   *  Query Event
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -343,43 +473,67 @@ export class EventService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, category, ...otherFilter } = _filter;
+      const { q, category, lang, ...otherFilter } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
-      const categoryFilter = category
-        ? {
-            categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) },
-          }
-        : {};
-      const eventFilter: Filter<any> = {
-        ...otherFilter,
-        ...categoryFilter,
-        // start_date: { $gte: new Date() },
-        ...(q && {
-          $or: [{ name: { $regex: q, $options: 'i' } }],
-        }),
-      };
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
             $match: {
-              ...$toMongoFilter(eventFilter),
+              ...$toMongoFilter({
+                ...otherFilter,
+                ...(category && {
+                  categories: {
+                    $in: $toObjectId(Array.isArray(category) ? category : [category]),
+                  },
+                }),
+                // start_date: { $gte: new Date() },
+                ...(q && {
+                  $or: [{ name: { $regex: q, $options: 'i' } }],
+                }),
+                ...(lang && {
+                  'trans.lang': { $eq: lang },
+                }),
+              }),
             },
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.publicOutputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $addFields: this.model.$addFields.categories,
+            $more: [
+              this.model.$sets.trans,
+              this.model.$lookups.categories,
+              this.model.$lookups.country,
+              this.model.$sets.country,
+              {
+                $project: {
+                  ...$keysToProject(this.publicOutputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
-          {
-            $addFields: this.model.$addFields.categories,
-          },
-          this.model.$lookups.categories,
-          this.model.$lookups.country,
-          this.model.$sets.country,
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
       return toPagingOutput({
         items,
         total_count,
-        keys: this.queryOutputKeys,
+        keys: this.publicOutputKeys,
       });
     } catch (err) {
       this.logger.error('query_error', err.message);
@@ -402,7 +556,6 @@ export class EventService {
         $toMongoFilter({ _id }),
         {
           $set: {
-            updated_at: new Date(),
             ...(_subject && { updated_by: _subject }),
           },
           $addToSet: {
@@ -440,10 +593,37 @@ export class EventService {
               ...(q && {
                 $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
             },
             $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
-
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.publicOutputKeys),
+                  trans: {
+                    $filter: {
+                      input: '$trans',
+                      as: 'trans',
+                      cond: {
+                        $eq: ['$$trans.lang', lang],
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            $more: [
+              this.model.$sets.trans,
+              {
+                $project: {
+                  ...$keysToProject(this.publicOutputKeys),
+                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+                },
+              },
+            ],
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])

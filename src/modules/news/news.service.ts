@@ -295,7 +295,6 @@ export class NewsService {
         {
           deleted: true,
           ...(_subject && { deleted_by: _subject }),
-          deleted_at: new Date(),
         },
         {
           upsert: false,

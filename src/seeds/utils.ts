@@ -62,6 +62,7 @@ export const createDataFile = ({ _collection, _key, _file }: { _collection: stri
     }, {});
   });
   fs.writeFileSync(`${__dirname}/data/${_collection}.json`, JSON.stringify(result));
+  return result;
 };
 export const readDataFromFile = ({ _collection }: any) => {
   return JSON.parse(fs.readFileSync(`${__dirname}/data/${_collection}.json`, { encoding: 'utf8', flag: 'r' }));

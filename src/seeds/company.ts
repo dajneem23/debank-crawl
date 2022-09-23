@@ -20,7 +20,7 @@ export const CompanySeed = async () => {
   const collection = db.collection('companies');
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  // if (count) return;
+  if (count) return;
   const companies = readDataFromFile({ _collection: 'companies' }).map((_company: any) => {
     return {
       name:
@@ -295,10 +295,9 @@ export const CompanySeed = async () => {
               }, []),
           ],
           cryptocurrencies: Object.keys(flddkP6oXlI26fizf?.valuesByForeignRowId || {}).map((key: any) => {
-            return {
-              foreign_id: key,
-              name: flddkP6oXlI26fizf?.valuesByForeignRowId[key],
-            };
+            return (
+              flddkP6oXlI26fizf?.valuesByForeignRowId[key] != 'N/A' && flddkP6oXlI26fizf?.valuesByForeignRowId[key]
+            );
           }),
           fundraising_rounds: fundraising_rounds.map((item: any) => {
             const { categories, projects, ...rest } = item;
@@ -687,6 +686,14 @@ export const insertCompanies = async () => {
         return {
           ...item,
           slug: slugify(item.name, { lower: true, trim: true }),
+          cryptocurrencies: (
+            (await Promise.all(
+              (item.cryptocurrencies || []).map(async (item: any) => {
+                const currency = await db.collection('coins').findOne({ name: item });
+                return currency ? currency._id : null;
+              }),
+            )) as any
+          ).filter(Boolean),
           categories: await Promise.all(
             item.categories
               .filter(Boolean)

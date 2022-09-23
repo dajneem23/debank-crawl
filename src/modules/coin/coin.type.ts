@@ -32,6 +32,8 @@ interface MarketData {
   list_price_7d?: Price[];
   last_updated?: Date;
   tvl?: number;
+  long: number;
+  short: number;
 }
 
 export interface Coin extends BaseInformationModel {
@@ -55,6 +57,32 @@ export interface Coin extends BaseInformationModel {
     services?: string[];
   }[];
   market_data?: { [key: string]: MarketData };
+
+  potential?: string;
+
+  reliability?: string;
+
+  rating?: string;
+
+  years?: number;
+
+  market?: number;
+
+  market_share?: number;
+
+  dapp?: number;
+
+  founded?: string;
+
+  development_status?: DEVELOPMENT_STATUS;
+
+  stage?: string;
+
+  eco_market_cap?: number;
+
+  backer?: string;
+
+  fundraising?: string;
 }
 
 export const _coin: Coin = {
@@ -94,4 +122,10 @@ export const _coin: Coin = {
   deleted: false,
   trans: [],
   market_data: {},
+  potential: 'N/A',
+  reliability: 'N/A',
+  rating: 'N/A',
+  years: 0,
+  market: 0,
+  market_share: 0,
 };

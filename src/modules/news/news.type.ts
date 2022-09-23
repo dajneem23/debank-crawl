@@ -36,6 +36,8 @@ export interface News extends BaseModel {
 
   event_tags: string[];
 
+  fund_tags: string[];
+
   stars: number;
 
   number_relate_article?: number;
@@ -67,6 +69,7 @@ export const _news: News = {
   product_tags: [],
   person_tags: [],
   event_tags: [],
+  fund_tags: [],
   stars: 0,
   number_relate_article: 0,
   trans: [],

@@ -86,12 +86,7 @@ export const PersonValidation = {
           type: Joi.string(),
         }),
       ),
-      educations: Joi.array().items(
-        Joi.object({
-          title: Joi.string(),
-          description: Joi.string(),
-        }),
-      ),
+      educations: Joi.array().items(Joi.string()),
 
       twitter: Joi.string(),
 

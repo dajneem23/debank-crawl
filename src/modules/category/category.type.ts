@@ -15,6 +15,8 @@ export interface Category extends BaseModel {
   // type
   type?: CATEGORY_TYPE;
 
+  sub_type?: string;
+
   rank?: number;
 
   trans: {

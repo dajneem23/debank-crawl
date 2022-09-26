@@ -714,12 +714,7 @@ export const insertCompanies = async () => {
                     await db.collection('categories').findOneAndUpdate(
                       {
                         name: {
-                          $regex: _category
-                            .toLowerCase()
-                            .match(/[a-zA-Z0-9_ ]+/g)
-                            .join('')
-                            .trim()
-                            .replaceAll(' ', '_'),
+                          $regex: slugify(_category, { lower: true, trim: true, replacement: '_' }),
                           $options: 'i',
                         },
                       },
@@ -727,12 +722,7 @@ export const insertCompanies = async () => {
                         $setOnInsert: {
                           title: _category,
                           type: 'person',
-                          name: _category
-                            .toLowerCase()
-                            .match(/[a-zA-Z0-9_ ]+/g)
-                            .join('')
-                            .trim()
-                            .replaceAll(' ', '_'),
+                          name: slugify(_category, { lower: true, trim: true, replacement: '_' }),
                           acronym: _category
                             .toLowerCase()
                             .match(/[a-zA-Z0-9_ ]+/g)
@@ -788,12 +778,7 @@ export const insertCompanies = async () => {
                             await db.collection('categories').findOneAndUpdate(
                               {
                                 name: {
-                                  $regex: _category
-                                    .toLowerCase()
-                                    .match(/[a-zA-Z0-9_ ]+/g)
-                                    .join('')
-                                    .trim()
-                                    .replaceAll(' ', '_'),
+                                  $regex: slugify(_category, { lower: true, trim: true, replacement: '_' }),
                                   $options: 'i',
                                 },
                               },
@@ -801,12 +786,7 @@ export const insertCompanies = async () => {
                                 $setOnInsert: {
                                   title: _category,
                                   type: 'company',
-                                  name: _category
-                                    .toLowerCase()
-                                    .match(/[a-zA-Z0-9_ ]+/g)
-                                    .join('')
-                                    .trim()
-                                    .replaceAll(' ', '_'),
+                                  name: slugify(_category, { lower: true, trim: true, replacement: '_' }),
                                   acronym: _category
                                     .toLowerCase()
                                     .match(/[a-zA-Z0-9_ ]+/g)

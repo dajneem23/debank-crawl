@@ -181,7 +181,7 @@ export class BaseModel {
         from: 'categories',
         refFrom: '_id',
         refTo: 'sub_categories',
-        select: 'title type name ',
+        select: 'title type name',
         reName: 'sub_categories',
         operation: '$in',
       }),
@@ -538,12 +538,14 @@ export class BaseModel {
         (_content.slug = slugify(title, {
           trim: true,
           lower: true,
+          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
         }));
       name &&
         !slug &&
         (_content.slug = slugify(name, {
           trim: true,
           lower: true,
+          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
         }));
       return _content;
     } catch (err) {

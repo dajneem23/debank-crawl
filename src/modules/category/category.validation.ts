@@ -6,7 +6,6 @@ export const CategoryValidation = {
     [Segments.BODY]: Joi.object({
       title: Joi.string().required(),
       name: Joi.string().required(),
-      acronym: Joi.string(),
       weight: Joi.number().required(),
       sub_categories: Joi.array().items(Joi.string().pattern(ObjectIdPattern)),
       type: Joi.string()
@@ -32,7 +31,6 @@ export const CategoryValidation = {
       weight: Joi.number(),
       name: Joi.string(),
       sub_categories: Joi.array().items(Joi.string().pattern(ObjectIdPattern)),
-      acronym: Joi.string(),
       type: Joi.string().valid(...Object.values(CATEGORY_TYPE)),
       trans: Joi.array().items(
         Joi.object({

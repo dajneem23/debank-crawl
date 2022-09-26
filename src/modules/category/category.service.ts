@@ -7,6 +7,8 @@ import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
+import slugify from 'slugify';
+import { ObjectId } from 'mongodb';
 
 const TOKEN_NAME = '_categoryService';
 /**
@@ -52,16 +54,20 @@ export class CategoryService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
-      const { name, sub_categories = [] } = _content;
+      const { title, sub_categories = [] } = _content;
+      sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
+      _content.name = slugify(title, {
+        trim: true,
+        lower: true,
+        remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+      });
       const value = await this.model.create(
-        { name },
+        { name: _content.name },
         {
-          $setOnInsert: {
-            ..._category,
-            ..._content,
-            deleted: false,
-            ...(_subject && { created_by: _subject }),
-          },
+          ..._category,
+          ..._content,
+          deleted: false,
+          ...(_subject && { created_by: _subject }),
         },
         {
           upsert: true,
@@ -75,6 +81,37 @@ export class CategoryService {
       throw err;
     }
   }
+  // /**
+  //  * Create a new category
+  //  * @param _content
+  //  * @param subject
+  //  * @returns {Promise<Category>}
+  //  */
+  // async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
+  //   try {
+  //     const { name, sub_categories = [] } = _content;
+  //     const value = await this.model.create(
+  //       { name },
+  //       {
+  //         $setOnInsert: {
+  //           ..._category,
+  //           ..._content,
+  //           deleted: false,
+  //           ...(_subject && { created_by: _subject }),
+  //         },
+  //       },
+  //       {
+  //         upsert: true,
+  //         returnDocument: 'after',
+  //       },
+  //     );
+  //     this.logger.debug('create_success', { _content });
+  //     return toOutPut({ item: value, keys: this.outputKeys });
+  //   } catch (err) {
+  //     this.logger.error('create_error', err.message);
+  //     throw err;
+  //   }
+  // }
 
   /**
    * Update category
@@ -85,6 +122,8 @@ export class CategoryService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
+      const { sub_categories = [] } = _content;
+      sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
       await this.model.update(
         $toMongoFilter({ _id }),
         {
@@ -342,5 +381,47 @@ export class CategoryService {
       this.logger.error('query_error', err.message);
       throw err;
     }
+  }
+  async createSubCategories(categories: Category[], _subject: string, rank = 0): Promise<ObjectId[]> {
+    const subCategories = await Promise.all(
+      categories.map(async ({ title, type, sub_categories = [] }) => {
+        const {
+          value,
+          ok,
+          lastErrorObject: { updatedExisting },
+        } = await this.model._collection.findOneAndUpdate(
+          {
+            name: slugify(title, {
+              trim: true,
+              lower: true,
+              remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+            }),
+          },
+          {
+            $setOnInsert: {
+              title,
+              name: slugify(title, {
+                trim: true,
+                lower: true,
+                remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+              }),
+              type,
+              sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
+              created_at: new Date(),
+              updated_at: new Date(),
+              rank,
+              deleted: false,
+              created_by: _subject,
+            },
+          },
+          {
+            upsert: true,
+            returnDocument: 'after',
+          },
+        );
+        return value._id;
+      }),
+    );
+    return subCategories;
   }
 }

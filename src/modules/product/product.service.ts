@@ -162,7 +162,7 @@ export class ProductService {
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
-              ...(categories && {
+              ...(categories.length && {
                 $or: [{ categories: { $in: $toObjectId(categories) } }],
               }),
             },

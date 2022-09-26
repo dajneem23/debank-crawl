@@ -177,12 +177,12 @@ export const CategorySeed = async () => {
                       },
                     },
                     {
-                      // ...((item.sub_categories?.length && {
-                      //   $set: {
-                      //     sub_categories: item.sub_categories,
-                      //   },
-                      // }) ||
-                      //   {}),
+                      ...((item.sub_categories?.length && {
+                        $set: {
+                          sub_categories: item.sub_categories,
+                        },
+                      }) ||
+                        {}),
                       $setOnInsert: {
                         title: item.title,
                         type: item.type,

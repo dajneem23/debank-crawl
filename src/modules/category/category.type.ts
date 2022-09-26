@@ -1,5 +1,6 @@
 import { BaseQuery, CATEGORY_TYPE } from '@/types/Common';
 import { BaseModel } from '@/types/Common';
+import { ObjectId } from 'mongodb';
 
 export interface Category extends BaseModel {
   // title
@@ -7,7 +8,7 @@ export interface Category extends BaseModel {
 
   name?: string;
 
-  sub_categories?: string[];
+  sub_categories?: Category[];
 
   acronym?: string;
   // weight

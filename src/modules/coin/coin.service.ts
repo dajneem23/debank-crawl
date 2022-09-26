@@ -242,7 +242,7 @@ export class CoinService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, q, category } = _filter;
+      const { lang, q, categories = [] } = _filter;
       const { page = 1, per_page, sort_by: _sort_by, sort_order } = _query;
       const sort_by = coinSortBy[_sort_by as keyof typeof coinSortBy] || coinSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
@@ -264,9 +264,11 @@ export class CoinService {
                   { unique_key: { $regex: q, $options: 'i' } },
                 ],
               }),
-              ...(category && {
+              ...(categories.length && {
                 $or: [
-                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
+                  {
+                    categories: { $in: $toObjectId(categories) },
+                  },
                 ],
               }),
             },

@@ -15,7 +15,7 @@ export const query = validate({
 
     q: Joi.string(),
 
-    category: Joi.string().regex(ObjectIdPattern),
+    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
     type: Joi.string().valid(...Object.values(EventType)),
 
@@ -67,9 +67,8 @@ export const getRelated = validate({
 
     q: Joi.string(),
 
-    category: Joi.string().regex(ObjectIdPattern),
+    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    // cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
     lang: Joi.string()
       .valid(...Object.values(LANG_CODE))
       .messages({

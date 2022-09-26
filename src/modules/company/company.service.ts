@@ -152,7 +152,7 @@ export class CompanyService {
    **/
   async query({ _filter, _query, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, q, category } = _filter;
+      const { lang, q, categories = [] } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -162,9 +162,13 @@ export class CompanyService {
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
-              ...(category && {
+              ...(categories.length && {
                 $or: [
-                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
+                  {
+                    categories: {
+                      $in: $toObjectId(categories),
+                    },
+                  },
                 ],
               }),
               ...(lang && {

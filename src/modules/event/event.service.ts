@@ -328,7 +328,7 @@ export class EventService {
 
   async getRelated({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, category, lang, ...otherFilter } = _filter;
+      const { q, categories = [], lang, ...otherFilter } = _filter;
       const { per_page, page, sort_order } = _query;
       const [
         {
@@ -341,10 +341,8 @@ export class EventService {
             $match: {
               ...$toMongoFilter({
                 ...otherFilter,
-                ...(category && {
-                  categories: {
-                    $in: $toObjectId(Array.isArray(category) ? category : [category]),
-                  },
+                ...(categories.length && {
+                  $or: [{ categories: { $in: $toObjectId(categories) } }],
                 }),
                 // start_date: { $gte: new Date() },
                 ...(q && {
@@ -539,17 +537,15 @@ export class EventService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, category, lang, start_date, end_date, type, country } = _filter;
+      const { q, categories = [], lang, start_date, end_date, type, country } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
             $match: {
               ...$toMongoFilter({
-                ...(category && {
-                  categories: {
-                    $in: $toObjectId(Array.isArray(category) ? category : [category]),
-                  },
+                ...(categories.length && {
+                  $or: [{ categories: { $in: $toObjectId(categories) } }],
                 }),
                 ...(q && {
                   $or: [{ name: { $regex: q, $options: 'i' } }],

@@ -90,22 +90,32 @@
       {
         "title": "Step 1: What is Crypto?",
         "type": "exploration",
-        "rank": 2
+        "rank": 2,
+        "weight": 1
       },
       {
         "title": "Step 2: How to Earn Crypto?",
         "type": "exploration",
-        "rank": 2
+        "rank": 2,
+        "weight": 2
+      },
+      {
+        "title": "Step 3: How to Trade?",
+        "type": "exploration",
+        "rank": 2,
+        "weight": 3
       },
       {
         "title": "Step 4: What to Use?",
         "type": "exploration",
-        "rank": 2
+        "rank": 2,
+        "weight": 4
       },
       {
         "title": "Step 5: What to Read & Follow?",
         "type": "exploration",
-        "rank": 2
+        "rank": 2,
+        "weight": 5
       }
     ]
   },

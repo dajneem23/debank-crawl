@@ -52,7 +52,7 @@ export class CategoryService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
-      const { name } = _content;
+      const { name, sub_categories = [] } = _content;
       const value = await this.model.create(
         { name },
         {

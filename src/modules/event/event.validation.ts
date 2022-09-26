@@ -146,8 +146,11 @@ export const create = validate({
     //array id of persons
     speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    //array id of persons
-    sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    fund_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    person_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    company_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
     tel: Joi.string().regex(PhoneNumberPattern),
 
@@ -237,8 +240,12 @@ export const update = validate({
     //array id of persons
     speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    //array id of persons
-    sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    fund_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    person_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    company_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
     tel: Joi.string().regex(PhoneNumberPattern),
 
     avatar: Joi.string(),

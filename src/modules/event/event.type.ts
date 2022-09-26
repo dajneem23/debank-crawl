@@ -30,7 +30,11 @@ export interface Event extends BaseInformationModel {
   speakers?: ObjectId[];
 
   //array id of persons
-  sponsors?: ObjectId[];
+  company_sponsors?: ObjectId[];
+
+  person_sponsors?: ObjectId[];
+
+  fund_sponsors?: ObjectId[];
 
   subscribers?: string[];
 
@@ -95,7 +99,9 @@ export const _event: Event = {
   categories: [],
   country: '',
   speakers: [],
-  sponsors: [],
+  company_sponsors: [],
+  person_sponsors: [],
+  fund_sponsors: [],
   subscribers: [],
   slide: '',
   recap: '',

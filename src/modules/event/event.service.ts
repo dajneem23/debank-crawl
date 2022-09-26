@@ -10,6 +10,7 @@ import AuthService from '../auth/auth.service';
 import { $toObjectId, $pagination } from '@/utils/mongoDB';
 import { isNil, omit } from 'lodash';
 import { BaseServiceInput, BaseServiceOutput, EventType, PRIVATE_KEYS } from '@/types';
+import { $refValidation } from '@/utils/validation';
 
 const TOKEN_NAME = '_eventService';
 /**
@@ -61,8 +62,16 @@ export class EventService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { name, subscribers = [], trans = [], start_date, end_date } = _content;
-
+      const {
+        name,
+        subscribers = [],
+        trans = [],
+        start_date,
+        end_date,
+        company_sponsors = [],
+        person_sponsors = [],
+        fund_sponsors = [],
+      } = _content;
       if (start_date && end_date && new Date(start_date) > new Date(end_date)) {
         throw this.model.error('common.validation_failed', [
           {
@@ -71,6 +80,27 @@ export class EventService {
           },
         ]);
       }
+      company_sponsors.length &&
+        (await $refValidation({
+          collection: 'companies',
+          list: $toObjectId(company_sponsors),
+          Refname: 'company_sponsors',
+        })) &&
+        (_content.company_sponsors = $toObjectId(company_sponsors));
+      fund_sponsors.length &&
+        (await $refValidation({
+          collection: 'funds',
+          list: $toObjectId(fund_sponsors),
+          Refname: 'funds',
+        })) &&
+        (_content.fund_sponsors = $toObjectId(fund_sponsors));
+      person_sponsors.length &&
+        (await $refValidation({
+          collection: 'persons',
+          list: $toObjectId(person_sponsors),
+          Refname: 'person_sponsors',
+        })) &&
+        (_content.person_sponsors = $toObjectId(person_sponsors));
       const value = await this.model.create(
         {
           name,
@@ -101,7 +131,28 @@ export class EventService {
    **/
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { slide, recap } = _content;
+      const { slide, recap, company_sponsors = [], fund_sponsors = [], person_sponsors = [] } = _content;
+      company_sponsors.length &&
+        (await $refValidation({
+          collection: 'companies',
+          list: $toObjectId(company_sponsors),
+          Refname: 'company_sponsors',
+        })) &&
+        (_content.company_sponsors = $toObjectId(company_sponsors));
+      fund_sponsors.length &&
+        (await $refValidation({
+          collection: 'funds',
+          list: $toObjectId(fund_sponsors),
+          Refname: 'fund_sponsors',
+        })) &&
+        (_content.fund_sponsors = $toObjectId(fund_sponsors));
+      person_sponsors.length &&
+        (await $refValidation({
+          collection: 'persons',
+          list: $toObjectId(person_sponsors),
+          Refname: 'person_sponsors',
+        })) &&
+        (_content.person_sponsors = $toObjectId(person_sponsors));
       const event = await this.model.update(
         $toMongoFilter({ _id }),
         {
@@ -169,6 +220,9 @@ export class EventService {
           },
           this.model.$lookups.categories,
           this.model.$lookups.speakers,
+          this.model.$lookups.company_sponsors,
+          this.model.$lookups.fund_sponsors,
+          this.model.$lookups.person_sponsors,
           this.model.$lookups.country,
           this.model.$sets.country,
           this.model.$lookups.author,
@@ -230,6 +284,9 @@ export class EventService {
           },
           this.model.$lookups.categories,
           this.model.$lookups.speakers,
+          this.model.$lookups.company_sponsors,
+          this.model.$lookups.fund_sponsors,
+          this.model.$lookups.person_sponsors,
           this.model.$lookups.country,
           this.model.$sets.country,
           this.model.$lookups.author,

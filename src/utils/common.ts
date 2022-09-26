@@ -131,18 +131,30 @@ export const toPagingOutput = ({
 export const pickKeys = <T, K extends keyof T>(obj: T, keys: K[]) => {
   return pick(obj, keys) as Pick<T, K>;
 };
+/**
+ * Create new date
+ * @param {Date} date
+ * @param {number} day
+ * @param {number} hour
+ * @param {number} minute
+ * @param {number} second
+ * @returns {Date} new date
+ * @example
+ */
 export const getDateTime = ({
   date = Date.now(),
   hour = 0,
   minute = 0,
+  day = 0,
   second = 0,
 }: {
   date?: number;
   hour?: number;
+  day?: number;
   minute?: number;
   second?: number;
 }) => {
-  return new Date(date + hour * 3600000 + minute * 60000 + second * 1000);
+  return new Date(date + day * 86400000 + hour * 3600000 + minute * 60000 + second * 1000);
 };
 /**
  *

@@ -152,7 +152,7 @@ export const NewsValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      category: [Joi.array().items(Joi.string()), Joi.string()],
+      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
       status: Joi.string().valid(...Object.values(NewsStatus)),
     }),
   }),

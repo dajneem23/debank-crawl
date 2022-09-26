@@ -40,7 +40,7 @@ export class BaseModel {
   // Get logger Instance from DI
   private logger: Logger = Container.get(DILogger) as Logger;
   //init error
-  private error(msg: keyof typeof errors, detail?: any[]): any {
+  public error(msg: keyof typeof errors, detail?: any[]): any {
     return new CommonError(msg, detail);
   }
 
@@ -60,13 +60,16 @@ export class BaseModel {
     coin_tags: any;
     speakers: any;
     sub_categories: any;
+    person_sponsors: any;
+    fund_sponsors: any;
+    company_sponsors: any;
   } {
     return {
       products: $lookup({
         from: 'products',
         refFrom: '_id',
         refTo: 'products',
-        select: 'name',
+        select: 'name avatar slug',
         reName: 'products',
         operation: '$in',
       }),
@@ -90,7 +93,7 @@ export class BaseModel {
         from: 'users',
         refFrom: 'id',
         refTo: 'created_by',
-        select: 'full_name picture avatar',
+        select: 'full_name picture avatar slug',
         reName: 'author',
         operation: '$eq',
       }),
@@ -114,7 +117,7 @@ export class BaseModel {
         from: 'coins',
         refFrom: '_id',
         refTo: 'cryptocurrencies',
-        select: 'name token_id',
+        select: 'name token_id avatar',
         reName: 'cryptocurrencies',
         operation: '$in',
       }),
@@ -122,7 +125,7 @@ export class BaseModel {
         from: 'countries',
         refFrom: 'code',
         refTo: 'country',
-        select: 'name',
+        select: 'name code',
         reName: 'country',
         operation: '$eq',
       }),
@@ -130,7 +133,7 @@ export class BaseModel {
         from: 'coins',
         refFrom: '_id',
         refTo: 'coin_tags',
-        select: 'name',
+        select: 'name avatar slug',
         reName: 'coin_tags',
         operation: '$in',
       }),
@@ -138,7 +141,7 @@ export class BaseModel {
         from: 'companies',
         refFrom: '_id',
         refTo: 'company_tags',
-        select: 'name',
+        select: 'name slug avatar',
         reName: 'company_tags',
         operation: '$in',
       }),
@@ -146,7 +149,7 @@ export class BaseModel {
         from: 'products',
         refFrom: '_id',
         refTo: 'product_tags',
-        select: 'name',
+        select: 'name avatar slug',
         reName: 'product_tags',
         operation: '$in',
       }),
@@ -154,7 +157,7 @@ export class BaseModel {
         from: 'persons',
         refFrom: '_id',
         refTo: 'person_tags',
-        select: 'name',
+        select: 'name avatar slug',
         reName: 'person_tags',
         operation: '$in',
       }),
@@ -162,7 +165,7 @@ export class BaseModel {
         from: 'events',
         refFrom: '_id',
         refTo: 'event_tags',
-        select: 'name avatar',
+        select: 'name avatar slug',
         reName: 'event_tags',
         operation: '$in',
       }),
@@ -170,7 +173,7 @@ export class BaseModel {
         from: 'persons',
         refFrom: '_id',
         refTo: 'speakers',
-        select: 'name avatar',
+        select: 'name avatar slug',
         reName: 'speakers',
         operation: '$in',
       }),
@@ -178,8 +181,32 @@ export class BaseModel {
         from: 'categories',
         refFrom: '_id',
         refTo: 'sub_categories',
-        select: 'title type name',
+        select: 'title type name ',
         reName: 'sub_categories',
+        operation: '$in',
+      }),
+      company_sponsors: $lookup({
+        from: 'companies',
+        refFrom: '_id',
+        refTo: 'company_sponsors',
+        select: 'name avatar slug',
+        reName: 'company_sponsors',
+        operation: '$in',
+      }),
+      fund_sponsors: $lookup({
+        from: 'companies',
+        refFrom: '_id',
+        refTo: 'fund_sponsors',
+        select: 'name avatar slug',
+        reName: 'fund_sponsors',
+        operation: '$in',
+      }),
+      person_sponsors: $lookup({
+        from: 'persons',
+        refFrom: '_id',
+        refTo: 'person_sponsors',
+        select: 'name avatar slug',
+        reName: 'person_sponsors',
         operation: '$in',
       }),
     };

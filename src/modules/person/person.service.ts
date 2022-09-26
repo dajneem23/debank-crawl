@@ -53,7 +53,6 @@ export class PersonService {
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { name } = _content;
-
       const value = await this.model.create(
         {
           name,
@@ -144,7 +143,7 @@ export class PersonService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, category } = _filter;
+      const { q, lang, categories = [] } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -157,9 +156,13 @@ export class PersonService {
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
-              ...(category && {
+              ...(categories.length && {
                 $or: [
-                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
+                  {
+                    categories: {
+                      $in: $toObjectId(categories),
+                    },
+                  },
                 ],
               }),
             },
@@ -182,7 +185,7 @@ export class PersonService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -242,7 +245,7 @@ export class PersonService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -300,7 +303,7 @@ export class PersonService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -360,7 +363,7 @@ export class PersonService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),

@@ -144,7 +144,7 @@ export class CategoryService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { type, lang, rank = 0 } = _filter;
+      const { type, lang, rank = 0, q } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -158,6 +158,9 @@ export class CategoryService {
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
+              }),
+              ...(q && {
+                title: { $regex: q, $options: 'i' },
               }),
             },
             $lookups: [this.model.$lookups.sub_categories],
@@ -178,7 +181,7 @@ export class CategoryService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -258,7 +261,7 @@ export class CategoryService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -321,7 +324,7 @@ export class CategoryService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),

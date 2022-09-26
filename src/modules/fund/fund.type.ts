@@ -51,6 +51,8 @@ export interface Fund extends BaseInformationModel {
     about?: string;
     short_description?: string;
   }[];
+
+  fees?: string;
 }
 
 export const _fund: Fund = {

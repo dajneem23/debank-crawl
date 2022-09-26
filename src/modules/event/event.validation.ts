@@ -15,9 +15,13 @@ export const query = validate({
 
     q: Joi.string(),
 
-    category: Joi.string().regex(ObjectIdPattern),
+    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    type: Joi.string(),
+    type: Joi.string().valid(...Object.values(EventType)),
+
+    start_date: Joi.date(),
+
+    end_date: Joi.date(),
 
     country: Joi.string(),
 
@@ -63,9 +67,8 @@ export const getRelated = validate({
 
     q: Joi.string(),
 
-    category: Joi.string().regex(ObjectIdPattern),
+    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    // cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
     lang: Joi.string()
       .valid(...Object.values(LANG_CODE))
       .messages({
@@ -142,8 +145,11 @@ export const create = validate({
     //array id of persons
     speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    //array id of persons
-    sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    fund_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    person_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    company_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
     tel: Joi.string().regex(PhoneNumberPattern),
 
@@ -233,8 +239,12 @@ export const update = validate({
     //array id of persons
     speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    //array id of persons
-    sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    fund_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    person_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    company_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
     tel: Joi.string().regex(PhoneNumberPattern),
 
     avatar: Joi.string(),

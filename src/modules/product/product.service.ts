@@ -145,7 +145,7 @@ export class ProductService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, category } = _filter;
+      const { q, lang, categories = [] } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -162,10 +162,8 @@ export class ProductService {
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
-              ...(category && {
-                $or: [
-                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
-                ],
+              ...(categories && {
+                $or: [{ categories: { $in: $toObjectId(categories) } }],
               }),
             },
             $addFields: this.model.$addFields.categories,
@@ -187,7 +185,7 @@ export class ProductService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -240,7 +238,7 @@ export class ProductService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -297,7 +295,7 @@ export class ProductService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -353,7 +351,7 @@ export class ProductService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),

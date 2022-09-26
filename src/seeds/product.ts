@@ -254,6 +254,12 @@ export const insertProducts = async () => {
               );
             }),
         ),
+        cryptocurrencies: await Promise.all(
+          item.cryptocurrencies?.map(async (cryptocurrency: any) => {
+            const currency = await db.collection('coins').findOne({ name: cryptocurrency });
+            return currency ? currency._id : null;
+          }) || [],
+        ),
       };
     }),
   );

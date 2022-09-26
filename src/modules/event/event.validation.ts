@@ -17,7 +17,11 @@ export const query = validate({
 
     category: Joi.string().regex(ObjectIdPattern),
 
-    type: Joi.string(),
+    type: Joi.string().valid(...Object.values(EventType)),
+
+    start_date: Joi.date(),
+
+    end_date: Joi.date(),
 
     country: Joi.string(),
 

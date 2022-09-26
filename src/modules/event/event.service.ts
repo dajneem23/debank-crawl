@@ -61,7 +61,16 @@ export class EventService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { name, subscribers = [], trans = [] } = _content;
+      const { name, subscribers = [], trans = [], start_date, end_date } = _content;
+
+      if (start_date && end_date && new Date(start_date) > new Date(end_date)) {
+        throw this.model.error('common.validation_failed', [
+          {
+            path: 'start_date & end_date',
+            message: `start_date must be less than end_date`,
+          },
+        ]);
+      }
       const value = await this.model.create(
         {
           name,
@@ -178,7 +187,7 @@ export class EventService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -239,7 +248,7 @@ export class EventService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -308,7 +317,7 @@ export class EventService {
           },
           this.model.$lookups.country,
           this.model.$sets.country,
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.publicOutputKeys),
@@ -372,7 +381,7 @@ export class EventService {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           this.model.$lookups.country,
           this.model.$sets.country,
           {
@@ -437,7 +446,7 @@ export class EventService {
           {
             $addFields: this.model.$addFields.categories,
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           this.model.$lookups.categories,
           this.model.$lookups.country,
           this.model.$sets.country,
@@ -473,26 +482,41 @@ export class EventService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, category, lang, ...otherFilter } = _filter;
+      const { q, category, lang, start_date, end_date, type, country } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
             $match: {
               ...$toMongoFilter({
-                ...otherFilter,
                 ...(category && {
                   categories: {
                     $in: $toObjectId(Array.isArray(category) ? category : [category]),
                   },
                 }),
-                // start_date: { $gte: new Date() },
                 ...(q && {
                   $or: [{ name: { $regex: q, $options: 'i' } }],
                 }),
                 ...(lang && {
                   'trans.lang': { $eq: lang },
                 }),
+                ...(type && {
+                  type,
+                }),
+                ...(start_date && {
+                  start_date: {
+                    $gte: new Date(start_date),
+                  },
+                }),
+                ...(end_date && {
+                  end_date: {
+                    $gte: new Date(end_date),
+                  },
+                }),
+                ...((country && {
+                  country,
+                }) ||
+                  {}),
               }),
             },
             $projects: [
@@ -513,7 +537,7 @@ export class EventService {
             ],
             $addFields: this.model.$addFields.categories,
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               this.model.$lookups.categories,
               this.model.$lookups.country,
               this.model.$sets.country,
@@ -616,7 +640,7 @@ export class EventService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),

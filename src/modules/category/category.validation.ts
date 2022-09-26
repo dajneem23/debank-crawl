@@ -58,6 +58,7 @@ export const CategoryValidation = {
   }),
   query: validate({
     [Segments.QUERY]: Joi.object({
+      q: Joi.string(),
       page: Joi.number().default(1).min(1),
       per_page: Joi.number().default(10).min(1),
       sort_by: Joi.string(),

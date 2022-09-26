@@ -40,7 +40,7 @@ export class BaseModel {
   // Get logger Instance from DI
   private logger: Logger = Container.get(DILogger) as Logger;
   //init error
-  private error(msg: keyof typeof errors, detail?: any[]): any {
+  public error(msg: keyof typeof errors, detail?: any[]): any {
     return new CommonError(msg, detail);
   }
 

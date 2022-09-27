@@ -3,7 +3,7 @@ import { BaseInformationModel, ContractAddress, TeamPerson, Support, ProductInfo
 export interface Product extends BaseInformationModel {
   name: string;
   avatar: string;
-  contract_addresses: Array<ContractAddress>;
+  contract_addresses: ContractAddress[];
   cryptocurrencies?: string[];
   features?: string[];
   apps: App[];

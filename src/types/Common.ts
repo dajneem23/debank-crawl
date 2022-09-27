@@ -374,7 +374,8 @@ export type COLLECTION_NAMES =
   | 'auth-sessions'
   | 'coins'
   | 'verification-tokens'
-  | 'glossaries';
+  | 'glossaries'
+  | 'blockchains';
 
 export enum coinSortBy {
   'usd_price' = 'market_data.USD.price',

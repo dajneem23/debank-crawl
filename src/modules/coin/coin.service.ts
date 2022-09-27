@@ -581,7 +581,10 @@ export class CoinService {
               lastErrorObject: { updatedExisting },
             } = await this.model._collection.findOneAndUpdate(
               {
-                name: { $regex: `^${name}$`, $options: 'i' },
+                $or: [
+                  { name: { $regex: `^${name}$`, $options: 'i' } },
+                  { slug: { $regex: `^${slugify(name, { trim: true, lower: true })}$`, $options: 'i' } },
+                ],
               },
               {
                 $set: {
@@ -709,7 +712,10 @@ export class CoinService {
               lastErrorObject: { updatedExisting },
             } = await this.model._collection.findOneAndUpdate(
               {
-                name: { $regex: `^${name}$`, $options: 'i' },
+                $or: [
+                  { name: { $regex: `^${name}$`, $options: 'i' } },
+                  { slug: { $regex: `^${slugify(name, { trim: true, lower: true })}$`, $options: 'i' } },
+                ],
               },
               {
                 $set: {
@@ -729,7 +735,7 @@ export class CoinService {
             if (!updatedExisting) {
               await this.model._collection.findOneAndUpdate(
                 {
-                  name,
+                  name: { $regex: `^${name}$`, $options: 'i' },
                 },
                 {
                   $setOnInsert: {
@@ -747,7 +753,7 @@ export class CoinService {
                     deleted: false,
                     created_at: new Date(),
                     updated_at: new Date(),
-                    created_by: 'admin',
+                    created_by: 'system',
                     categories: [],
                   },
                 },

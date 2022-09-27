@@ -3,7 +3,7 @@
 db.coins.find(
   {
     name:{
-      $regex:'^Game$',
+      $regex:'^everycoin$',
       $options:'i'
     }
   }

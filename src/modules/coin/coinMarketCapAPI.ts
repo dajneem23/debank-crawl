@@ -1,5 +1,3 @@
-import env from '@/config/env';
-
 /**
  * @description CoinMarketCap API constants
  * @see https://coinmarketcap.com/api/documentation/v1/

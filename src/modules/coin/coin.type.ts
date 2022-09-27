@@ -50,12 +50,7 @@ export interface Coin extends BaseInformationModel {
   team: TeamPerson[];
   ico: IcoDetail[];
   companies: [];
-  trans: {
-    lang: string;
-    about?: string;
-    features?: string[];
-    services?: string[];
-  }[];
+
   market_data?: { [key: string]: MarketData };
 
   potential?: string;
@@ -83,6 +78,13 @@ export interface Coin extends BaseInformationModel {
   backer?: string;
 
   fundraising?: string;
+
+  trans: {
+    lang: string;
+    about?: string;
+    features?: string[];
+    services?: string[];
+  }[];
 }
 
 export const _coin: Coin = {

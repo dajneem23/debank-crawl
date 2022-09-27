@@ -489,6 +489,7 @@ export class BaseModel {
         fund_tags = [],
         speakers = [],
         cryptocurrencies = [],
+        blockchains = [],
         country,
         title,
         name,
@@ -497,6 +498,9 @@ export class BaseModel {
       categories.length &&
         (await $refValidation({ collection: 'categories', list: $toObjectId(categories) })) &&
         (_content.categories = $toObjectId(categories));
+      blockchains.length &&
+        (await $refValidation({ collection: 'blockchains', list: $toObjectId(blockchains) })) &&
+        (_content.blockchains = $toObjectId(blockchains));
       sub_categories.length &&
         (await $refValidation({
           collection: 'categories',

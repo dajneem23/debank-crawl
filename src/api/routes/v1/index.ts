@@ -2,6 +2,7 @@ import { Application, Router } from 'express';
 import { attachControllers } from '@/utils/expressDecorators';
 import env from '@/config/env';
 import {
+  BlockchainController,
   GlossaryController,
   CategoryController,
   CompanyController,
@@ -13,6 +14,7 @@ import {
   CoinController,
   NewsController,
   FundController,
+  BlockchainPrivateController,
   GlossaryPrivateController,
   CategoryPrivateController,
   CompanyPrivateController,
@@ -32,6 +34,7 @@ export default (app: Application) => {
    * @description normal routes
    */
   attachControllers(route, [
+    BlockchainController,
     GlossaryController,
     CategoryController,
     CompanyController,
@@ -48,6 +51,7 @@ export default (app: Application) => {
    * @description Private controllers
    */
   attachControllers(route, [
+    BlockchainPrivateController,
     GlossaryPrivateController,
     CategoryPrivateController,
     CompanyPrivateController,

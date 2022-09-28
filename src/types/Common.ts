@@ -399,3 +399,11 @@ export enum TopNewsDateRange {
   '90d' = '90',
   '180d' = '180',
 }
+
+export enum BACKER {
+  STRONG = 'strong',
+  MEDIUM = 'medium',
+  WEAK = 'weak',
+  NEUTRAL = 'neutral',
+  EARLY = 'early',
+}

@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, coinSortBy } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, coinSortBy, BACKER, DEVELOPMENT_STATUS } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const CoinValidation = {
   create: validate({
@@ -255,6 +255,14 @@ export const CoinValidation = {
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      community_vote_min: Joi.number(),
+      community_vote_max: Joi.number(),
+      market_cap_min: Joi.number(),
+      market_cap_max: Joi.number(),
+      fully_diluted_market_cap_min: Joi.number(),
+      fully_diluted_market_cap_max: Joi.number(),
+      backer: Joi.string().valid(...Object.values(BACKER)),
+      development_status: Joi.string(),
     }),
   }),
   search: validate({

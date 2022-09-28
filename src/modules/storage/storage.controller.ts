@@ -5,7 +5,7 @@ import { Response, Request, NextFunction } from 'express';
 import { protect } from '@/api/middlewares/protect';
 import { uploadImageHandler } from '@/modules/storage/storage.util';
 import { StorageError } from '@/modules/storage/storage.error';
-import { DIS3BucketClient } from '@/loaders/awsS3Loader';
+import { DIS3BucketClient } from '../../loaders/awsS3Loader';
 
 @Service()
 @Controller('/')

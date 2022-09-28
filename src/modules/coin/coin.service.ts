@@ -185,7 +185,7 @@ export class CoinService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const value = await this.model.update(
+      await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {

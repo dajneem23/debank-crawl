@@ -13,7 +13,7 @@ export const FundSeed = async () => {
   const companies = db.collection('companies').find().toArray();
   const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  // if (count) return;
+  if (count) return;
   const funds = Object.values(
     (Funds as any).data.rows
       .map(

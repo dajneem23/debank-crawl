@@ -54,23 +54,14 @@ export class GlossaryService {
     return alphabetSize12();
   }
   /**
-   * Create a new category
+   * Create a new Glossary
    * @param _content
    * @param _subject
    * @returns {Promise<BaseServiceOutput>}
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
-      const { name } = _content;
-      const { team, categories, projects, products, cryptocurrencies, country } = _content;
-      const categoriesIdExist =
-        !!categories && categories.length > 0
-          ? await $queryByList({ collection: 'categories', values: categories })
-          : true;
-      if (!categoriesIdExist) {
-        throwErr(this.error('INPUT_INVALID'));
-      }
+      const { name, categories = [], trans = [] } = _content;
       const value = await this.model.create(
         {
           name,
@@ -78,9 +69,8 @@ export class GlossaryService {
         {
           ..._glossary,
           ..._content,
-          categories: categories ? $toObjectId(categories) : [],
-          team: team ? $toObjectId(team) : [],
-          products: products ? $toObjectId(products) : [],
+          categories,
+          trans,
           ...(_subject && { created_by: _subject }),
         },
         {
@@ -101,25 +91,16 @@ export class GlossaryService {
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Glossary>}
+   * @returns {Promise<BaseServiceOutput>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
-      const { team, categories, projects, products, cryptocurrencies, country } = _content;
       const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
-            ...(categories && { categories: $toObjectId(categories) }),
-            ...(projects && { projects: $toObjectId(projects) }),
-            ...(team && { team: $toObjectId(team) }),
-            ...(products && { products: $toObjectId(products) }),
-            ...(cryptocurrencies && { cryptocurrencies: $toObjectId(cryptocurrencies) }),
-            ...(country && { country: $toObjectId(country) }),
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {
@@ -136,7 +117,7 @@ export class GlossaryService {
   }
 
   /**
-   * Delete category
+   * Delete glossary
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
@@ -165,7 +146,7 @@ export class GlossaryService {
   }
 
   /**
-   *  Query category
+   *  Query glossary
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -173,7 +154,7 @@ export class GlossaryService {
    **/
   async query({ _filter, _query, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, q, category } = _filter;
+      const { lang, q, categories = [] } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -190,9 +171,13 @@ export class GlossaryService {
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
-              ...(category && {
+              ...(categories.length && {
                 $or: [
-                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
+                  {
+                    categories: {
+                      $in: $toObjectId(categories),
+                    },
+                  },
                 ],
               }),
             },
@@ -215,7 +200,7 @@ export class GlossaryService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -283,7 +268,7 @@ export class GlossaryService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -345,7 +330,7 @@ export class GlossaryService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -410,7 +395,7 @@ export class GlossaryService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),

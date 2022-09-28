@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, EventType, MediaType } from '@/types/Common';
+import { ORDER, EventType, MediaType, LANG_CODE } from '@/types/Common';
 import { ObjectIdPattern, PhoneNumberPattern } from '@/utils/common';
 export const query = validate({
   [Segments.QUERY]: Joi.object({
@@ -15,11 +15,21 @@ export const query = validate({
 
     q: Joi.string(),
 
-    category: Joi.string(),
+    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    type: Joi.string(),
+    type: Joi.string().valid(...Object.values(EventType)),
+
+    start_date: Joi.date(),
+
+    end_date: Joi.date(),
 
     country: Joi.string(),
+
+    lang: Joi.string()
+      .valid(...Object.values(LANG_CODE))
+      .messages({
+        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+      }),
   }),
 });
 export const search = validate({
@@ -35,6 +45,12 @@ export const search = validate({
       .valid(...Object.values(ORDER)),
 
     q: Joi.string().allow('').required(),
+
+    lang: Joi.string()
+      .valid(...Object.values(LANG_CODE))
+      .messages({
+        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+      }),
   }),
 });
 export const getRelated = validate({
@@ -51,9 +67,13 @@ export const getRelated = validate({
 
     q: Joi.string(),
 
-    category: Joi.string(),
+    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    // cryptoAssetTags: [Joi.array().items(Joi.string()), Joi.string()],
+    lang: Joi.string()
+      .valid(...Object.values(LANG_CODE))
+      .messages({
+        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+      }),
   }),
 });
 
@@ -64,6 +84,12 @@ export const getTrending = validate({
     sort_order: Joi.string()
       .default(ORDER.ASC)
       .valid(...Object.values(ORDER)),
+
+    lang: Joi.string()
+      .valid(...Object.values(LANG_CODE))
+      .messages({
+        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+      }),
   }),
 });
 
@@ -76,6 +102,12 @@ export const getSignificant = validate({
     sort_order: Joi.string()
       .default(ORDER.ASC)
       .valid(...Object.values(ORDER)),
+
+    lang: Joi.string()
+      .valid(...Object.values(LANG_CODE))
+      .messages({
+        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+      }),
   }),
 });
 
@@ -113,8 +145,11 @@ export const create = validate({
     //array id of persons
     speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    //array id of persons
-    sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    fund_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    person_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    company_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
     tel: Joi.string().regex(PhoneNumberPattern),
 
@@ -156,6 +191,18 @@ export const create = validate({
           .valid(...Object.values(MediaType))
           .required(),
         url: Joi.string().required(),
+      }),
+    ),
+    trans: Joi.array().items(
+      Joi.object({
+        lang: Joi.string()
+          .valid(...Object.values(LANG_CODE))
+          .required()
+          .messages({
+            'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+          }),
+        name: Joi.string(),
+        introduction: Joi.string(),
       }),
     ),
   }),
@@ -192,8 +239,12 @@ export const update = validate({
     //array id of persons
     speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    //array id of persons
-    sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    fund_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    person_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+    company_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
     tel: Joi.string().regex(PhoneNumberPattern),
 
     avatar: Joi.string(),
@@ -236,6 +287,19 @@ export const update = validate({
         url: Joi.string().required(),
       }),
     ),
+
+    trans: Joi.array().items(
+      Joi.object({
+        lang: Joi.string()
+          .valid(...Object.values(LANG_CODE))
+          .required()
+          .messages({
+            'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+          }),
+        name: Joi.string(),
+        introduction: Joi.string(),
+      }),
+    ),
   }),
   [Segments.PARAMS]: Joi.object({
     id: Joi.string().regex(ObjectIdPattern),
@@ -245,10 +309,24 @@ export const getById = validate({
   [Segments.PARAMS]: Joi.object({
     id: Joi.string().regex(ObjectIdPattern),
   }),
+  [Segments.QUERY]: Joi.object({
+    lang: Joi.string()
+      .valid(...Object.values(LANG_CODE))
+      .messages({
+        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+      }),
+  }),
 });
 export const getBySlug = validate({
   [Segments.PARAMS]: Joi.object({
     slug: Joi.string().required(),
+  }),
+  [Segments.QUERY]: Joi.object({
+    lang: Joi.string()
+      .valid(...Object.values(LANG_CODE))
+      .messages({
+        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+      }),
   }),
 });
 export const deleteById = validate({

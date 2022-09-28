@@ -136,7 +136,7 @@ export class FundService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, category, funding_min, funding_max, year_founded_from, year_founded_to } = _filter;
+      const { q, lang, categories = [], funding_min, funding_max, year_founded_from, year_founded_to, type } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -152,15 +152,16 @@ export class FundService {
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),
+                  ...(type && {
+                    type,
+                  }),
                 },
               ],
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
-              ...(category && {
-                $or: [
-                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
-                ],
+              ...(categories.length && {
+                $or: [{ categories: { $in: $toObjectId(categories) } }],
               }),
             },
             $addFields: this.model.$addFields.categories,
@@ -182,7 +183,7 @@ export class FundService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -235,7 +236,7 @@ export class FundService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -288,7 +289,7 @@ export class FundService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -344,7 +345,7 @@ export class FundService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),

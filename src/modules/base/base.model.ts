@@ -7,9 +7,8 @@ import {
   AggregateOptions,
   AggregationCursor,
   WithId,
-  UpdateFilter,
 } from 'mongodb';
-import Container, { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
@@ -41,7 +40,7 @@ export class BaseModel {
   // Get logger Instance from DI
   private logger: Logger = Container.get(DILogger) as Logger;
   //init error
-  private error(msg: keyof typeof errors, detail?: any[]): any {
+  public error(msg: keyof typeof errors, detail?: any[]): any {
     return new CommonError(msg, detail);
   }
 
@@ -61,13 +60,16 @@ export class BaseModel {
     coin_tags: any;
     speakers: any;
     sub_categories: any;
+    person_sponsors: any;
+    fund_sponsors: any;
+    company_sponsors: any;
   } {
     return {
       products: $lookup({
         from: 'products',
         refFrom: '_id',
         refTo: 'products',
-        select: 'name',
+        select: 'name avatar slug',
         reName: 'products',
         operation: '$in',
       }),
@@ -91,7 +93,7 @@ export class BaseModel {
         from: 'users',
         refFrom: 'id',
         refTo: 'created_by',
-        select: 'full_name picture avatar',
+        select: 'full_name picture avatar slug',
         reName: 'author',
         operation: '$eq',
       }),
@@ -115,7 +117,7 @@ export class BaseModel {
         from: 'coins',
         refFrom: '_id',
         refTo: 'cryptocurrencies',
-        select: 'name token_id',
+        select: 'name token_id avatar',
         reName: 'cryptocurrencies',
         operation: '$in',
       }),
@@ -123,7 +125,7 @@ export class BaseModel {
         from: 'countries',
         refFrom: 'code',
         refTo: 'country',
-        select: 'name',
+        select: 'name code',
         reName: 'country',
         operation: '$eq',
       }),
@@ -131,7 +133,7 @@ export class BaseModel {
         from: 'coins',
         refFrom: '_id',
         refTo: 'coin_tags',
-        select: 'name',
+        select: 'name avatar slug',
         reName: 'coin_tags',
         operation: '$in',
       }),
@@ -139,7 +141,7 @@ export class BaseModel {
         from: 'companies',
         refFrom: '_id',
         refTo: 'company_tags',
-        select: 'name',
+        select: 'name slug avatar',
         reName: 'company_tags',
         operation: '$in',
       }),
@@ -147,7 +149,7 @@ export class BaseModel {
         from: 'products',
         refFrom: '_id',
         refTo: 'product_tags',
-        select: 'name',
+        select: 'name avatar slug',
         reName: 'product_tags',
         operation: '$in',
       }),
@@ -155,7 +157,7 @@ export class BaseModel {
         from: 'persons',
         refFrom: '_id',
         refTo: 'person_tags',
-        select: 'name',
+        select: 'name avatar slug',
         reName: 'person_tags',
         operation: '$in',
       }),
@@ -163,7 +165,7 @@ export class BaseModel {
         from: 'events',
         refFrom: '_id',
         refTo: 'event_tags',
-        select: 'name avatar',
+        select: 'name avatar slug',
         reName: 'event_tags',
         operation: '$in',
       }),
@@ -171,7 +173,7 @@ export class BaseModel {
         from: 'persons',
         refFrom: '_id',
         refTo: 'speakers',
-        select: 'name avatar',
+        select: 'name avatar slug',
         reName: 'speakers',
         operation: '$in',
       }),
@@ -181,6 +183,30 @@ export class BaseModel {
         refTo: 'sub_categories',
         select: 'title type name',
         reName: 'sub_categories',
+        operation: '$in',
+      }),
+      company_sponsors: $lookup({
+        from: 'companies',
+        refFrom: '_id',
+        refTo: 'company_sponsors',
+        select: 'name avatar slug',
+        reName: 'company_sponsors',
+        operation: '$in',
+      }),
+      fund_sponsors: $lookup({
+        from: 'companies',
+        refFrom: '_id',
+        refTo: 'fund_sponsors',
+        select: 'name avatar slug',
+        reName: 'fund_sponsors',
+        operation: '$in',
+      }),
+      person_sponsors: $lookup({
+        from: 'persons',
+        refFrom: '_id',
+        refTo: 'person_sponsors',
+        select: 'name avatar slug',
+        reName: 'person_sponsors',
         operation: '$in',
       }),
     };
@@ -375,7 +401,14 @@ export class BaseModel {
         throwErr(this.error('common.database'));
       }
       if (!updatedExisting) {
-        throwErr(this.error('common.not_found'));
+        throwErr(
+          this.error('common.not_found', [
+            {
+              path: Object.keys(omit(filter, PRIVATE_KEYS)).join(','),
+              message: `${Object.values(omit(filter, PRIVATE_KEYS)).join(',')} not found`,
+            },
+          ]),
+        );
       }
       this.logger.debug('update_success', `[update:${this._collectionName}:success]`, { _content });
       return value;
@@ -453,8 +486,10 @@ export class BaseModel {
         company_tags = [],
         person_tags = [],
         coin_tags = [],
+        fund_tags = [],
         speakers = [],
         cryptocurrencies = [],
+        blockchains = [],
         country,
         title,
         name,
@@ -463,6 +498,9 @@ export class BaseModel {
       categories.length &&
         (await $refValidation({ collection: 'categories', list: $toObjectId(categories) })) &&
         (_content.categories = $toObjectId(categories));
+      blockchains.length &&
+        (await $refValidation({ collection: 'blockchains', list: $toObjectId(blockchains) })) &&
+        (_content.blockchains = $toObjectId(blockchains));
       sub_categories.length &&
         (await $refValidation({
           collection: 'categories',
@@ -485,6 +523,9 @@ export class BaseModel {
       coin_tags.length &&
         (await $refValidation({ collection: 'coins', list: $toObjectId(coin_tags) })) &&
         (_content.coin_tags = $toObjectId(coin_tags));
+      fund_tags.length &&
+        (await $refValidation({ collection: 'funds', list: $toObjectId(fund_tags) })) &&
+        (_content.fund_tags = $toObjectId(fund_tags));
       cryptocurrencies.length &&
         (await $refValidation({
           collection: 'coins',
@@ -501,12 +542,14 @@ export class BaseModel {
         (_content.slug = slugify(title, {
           trim: true,
           lower: true,
+          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
         }));
       name &&
         !slug &&
         (_content.slug = slugify(name, {
           trim: true,
           lower: true,
+          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
         }));
       return _content;
     } catch (err) {

@@ -1,43 +1,52 @@
-import Container, { Service, Token } from 'typedi';
+import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
-import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { PersonError, _person, personModelToken, personErrors } from '.';
+import AuthSessionModel from '@/modules/auth/authSession.model';
+import AuthService from '../auth/auth.service';
+import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { BlockchainError, _blockchain, blockchainModelToken, blockchainErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-const TOKEN_NAME = '_personService';
+const TOKEN_NAME = '_blockchainService';
 /**
  * A bridge allows another service access to the Model layer
- * @export PersonService
- * @class PersonService
+ * @export BlockchainService
+ * @class BlockchainService
  * @extends {BaseService}
  */
-export const personServiceToken = new Token<PersonService>(TOKEN_NAME);
+export const BlockchainServiceToken = new Token<BlockchainService>(TOKEN_NAME);
 /**
- * @class PersonService
- * @extends  BaseService
- * @description Person Service for all person related operations
- * */
-@Service(personServiceToken)
-export class PersonService {
-  private logger = new Logger('PersonService');
+ * @class BlockchainService
+ * @extends BaseService
+ * @description Blockchain Service for all blockchain related operations
+ */
+@Service(BlockchainServiceToken)
+export class BlockchainService {
+  private logger = new Logger('BlockchainService');
 
-  private model = Container.get(personModelToken);
+  private model = Container.get(blockchainModelToken);
 
-  private error(msg: keyof typeof personErrors) {
-    return new PersonError(msg);
+  @Inject()
+  private authSessionModel: AuthSessionModel;
+
+  @Inject()
+  private authService: AuthService;
+
+  private error(msg: keyof typeof blockchainErrors) {
+    return new BlockchainError(msg);
   }
 
-  get outputKeys() {
+  get outputKeys(): typeof this.model._keys {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'name', 'about', 'slug', 'categories', 'short_description', 'avatar', 'about'];
+    return ['id', 'avatar', 'slug', 'categories', 'about', 'short_description', 'name', 'author'];
   }
   get transKeys() {
     return ['about', 'short_description'];
   }
+
   /**
    * Generate ID
    */
@@ -45,24 +54,24 @@ export class PersonService {
     return alphabetSize12();
   }
   /**
-   * Create a new category
+   * Create a new blockchain
    * @param _content
    * @param _subject
    * @returns {Promise<BaseServiceOutput>}
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { name } = _content;
+      const { name, categories = [], trans = [] } = _content;
       const value = await this.model.create(
         {
           name,
         },
         {
-          $setOnInsert: {
-            ..._person,
-            ..._content,
-            ...(_subject && { created_by: _subject }),
-          },
+          ..._blockchain,
+          ..._content,
+          categories,
+          trans,
+          ...(_subject && { created_by: _subject }),
         },
         {
           upsert: true,
@@ -78,11 +87,11 @@ export class PersonService {
   }
 
   /**
-   * Update category
+   * Update blockchain
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Person>}
+   * @returns {Promise<Blockchain>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -108,7 +117,7 @@ export class PersonService {
   }
 
   /**
-   * Delete category
+   * Delete blockchain
    * @param _id
    * @param {ObjectId} _subject
    * @returns {Promise<void>}
@@ -135,24 +144,21 @@ export class PersonService {
   }
 
   /**
-   *  Query category
+   *  Query blockchain
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
    *
    **/
-  async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async query({ _filter, _query, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, categories = [] } = _filter;
+      const { lang, q, categories = [] } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
           $pagination({
             $match: {
               deleted: false,
-              ...(lang && {
-                'trans.lang': { $eq: lang },
-              }),
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
@@ -165,9 +171,12 @@ export class PersonService {
                   },
                 ],
               }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
             },
             $addFields: this.model.$addFields.categories,
-            $lookups: [this.model.$lookups.categories],
+            $lookups: [this.model.$lookups.categories, this.model.$lookups.cryptocurrencies],
             $projects: [
               {
                 $project: {
@@ -199,16 +208,20 @@ export class PersonService {
         )
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        keys: _permission == 'public' ? this.publicOutputKeys : this.outputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
     }
   }
   /**
-   * Get  by ID
-   * @param id - ID
-   * @returns { Promise<BaseServiceOutput> } - Document
+   * Get Blockchain by ID
+   * @param id - Blockchain ID
+   * @returns { Promise<BaseServiceOutput> } - Blockchain
    */
   async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -229,8 +242,7 @@ export class PersonService {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
-          this.model.$lookups.author,
-          this.model.$sets.author,
+          this.model.$lookups.cryptocurrencies,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -266,9 +278,9 @@ export class PersonService {
     }
   }
   /**
-   * Get by slug
-   * @param id -  ID
-   * @returns { Promise<BaseServiceOutput> } - document
+   * Get Blockchain by slug
+   * @param id - Blockchain ID
+   * @returns { Promise<BaseServiceOutput> } - Blockchain
    */
   async getBySlug({ _slug, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -287,8 +299,7 @@ export class PersonService {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
-          this.model.$lookups.author,
-          this.model.$sets.author,
+          this.model.$lookups.cryptocurrencies,
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -338,14 +349,19 @@ export class PersonService {
             $match: {
               deleted: false,
               ...(q && {
-                $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
+                $or: [
+                  { $text: { $search: q } },
+                  {
+                    name: { $regex: q, $options: 'i' },
+                  },
+                ],
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
               }),
             },
             $addFields: this.model.$addFields.categories,
-            $lookups: [this.model.$lookups.categories],
+            $lookups: [this.model.$lookups.categories, this.model.$lookups.cryptocurrencies],
             $projects: [
               {
                 $project: {

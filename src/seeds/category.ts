@@ -113,19 +113,19 @@ export const CategorySeed = async () => {
   ];
   const uniqueCategories = await Promise.all(
     categories
-      .map((item) => {
+      .map((item: any) => {
         return {
           ...item,
           title: item.title
             .match(/[a-zA-Z0-9_ ]+/g)
             .join('')
             .trim(),
-          name: item.title
-            .toLowerCase()
-            .match(/[a-zA-Z0-9_ ]+/g)
-            .join('')
-            .trim()
-            .replaceAll(' ', '_'),
+          name: slugify(item.title, {
+            lower: true,
+            trim: true,
+            replacement: '_',
+            remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+          }),
           acronym: item.title
             .toLowerCase()
             .match(/[a-zA-Z0-9_ ]+/g)
@@ -138,6 +138,7 @@ export const CategorySeed = async () => {
             .join(''),
           trans: [],
           deleted: false,
+          weight: item.weight || 0,
           created_at: new Date(),
           updated_at: new Date(),
           rank: 0,
@@ -166,44 +167,44 @@ export const CategorySeed = async () => {
                       title: item.title,
                       type: item.type,
                       name: {
-                        $regex: item.title
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
+                        $regex: slugify(item.title, {
+                          lower: true,
+                          trim: true,
+                          replacement: '_',
+                          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+                        }),
                         $options: 'i',
                       },
                     },
                     {
-                      // ...((item.sub_categories?.length && {
-                      //   $set: {
-                      //     sub_categories: item.sub_categories,
-                      //   },
-                      // }) ||
-                      //   {}),
+                      ...((item.sub_categories?.length && {
+                        $set: {
+                          sub_categories: item.sub_categories,
+                        },
+                      }) ||
+                        {}),
                       $setOnInsert: {
                         title: item.title,
                         type: item.type,
-                        name: item.title
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
-                        acronym: item.title
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .split(' ')
-                          .map((word: any, _: any, list: any) => {
-                            return list.length > 1 ? word[0] : list.slice(0, 1);
-                          })
-                          .join(''),
+                        name: slugify(item.title, {
+                          lower: true,
+                          trim: true,
+                          replacement: '_',
+                          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+                        }),
+                        // acronym: item.title
+                        //   .toLowerCase()
+                        //   .match(/[a-zA-Z0-9_ ]+/g)
+                        //   .join('')
+                        //   .trim()
+                        //   .split(' ')
+                        //   .map((word: any, _: any, list: any) => {
+                        //     return list.length > 1 ? word[0] : list.slice(0, 1);
+                        //   })
+                        // .join(''),
                         trans: [],
                         sub_categories: [],
-                        weight: Math.floor(Math.random() * 100),
+                        weight: item.weight || 0,
                         deleted: false,
                         created_at: new Date(),
                         updated_at: new Date(),
@@ -230,12 +231,12 @@ export const CategorySeed = async () => {
           title: item.title,
           type: item.type,
           name: {
-            $regex: item.title
-              .toLowerCase()
-              .match(/[a-zA-Z0-9_ ]+/g)
-              .join('')
-              .trim()
-              .replaceAll(' ', '_'),
+            $regex: slugify(item.title, {
+              lower: true,
+              trim: true,
+              replacement: '_',
+              remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+            }),
             $options: 'i',
           },
         },
@@ -249,27 +250,27 @@ export const CategorySeed = async () => {
           $setOnInsert: {
             title: item.title,
             type: item.type,
-            name: item.title
-              .toLowerCase()
-              .match(/[a-zA-Z0-9_ ]+/g)
-              .join('')
-              .trim()
-              .replaceAll(' ', '_'),
-            acronym: item.title
-              .toLowerCase()
-              .match(/[a-zA-Z0-9_ ]+/g)
-              .join('')
-              .trim()
-              .split(' ')
-              .map((word: any, _: any, list: any) => {
-                return list.length > 1 ? word[0] : list.slice(0, 1);
-              })
-              .join(''),
+            name: slugify(item.title, {
+              lower: true,
+              trim: true,
+              replacement: '_',
+              remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+            }),
+            // acronym: item.title
+            //   .toLowerCase()
+            //   .match(/[a-zA-Z0-9_ ]+/g)
+            //   .join('')
+            //   .trim()
+            //   .split(' ')
+            //   .map((word: any, _: any, list: any) => {
+            //     return list.length > 1 ? word[0] : list.slice(0, 1);
+            //   })
+            //   .join(''),
             ...((!item.sub_categories?.length && {
               sub_categories: item.sub_categories,
             }) ||
               {}),
-            weight: Math.floor(Math.random() * 100),
+            weight: item.weight || 0,
             deleted: false,
             created_at: new Date(),
             updated_at: new Date(),

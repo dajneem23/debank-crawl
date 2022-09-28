@@ -86,15 +86,12 @@ export class ProductService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
-
       const value = await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {
@@ -118,14 +115,12 @@ export class ProductService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const now = new Date();
       await this.model.delete(
         $toMongoFilter({ _id }),
         {
           $set: {
             deleted: true,
             ...(_subject && { deleted_by: _subject }),
-            deleted_at: now,
           },
         },
         {
@@ -150,7 +145,7 @@ export class ProductService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, category } = _filter;
+      const { q, lang, categories = [] } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -167,10 +162,8 @@ export class ProductService {
               ...(q && {
                 name: { $regex: q, $options: 'i' },
               }),
-              ...(category && {
-                $or: [
-                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
-                ],
+              ...(categories.length && {
+                $or: [{ categories: { $in: $toObjectId(categories) } }],
               }),
             },
             $addFields: this.model.$addFields.categories,
@@ -192,7 +185,7 @@ export class ProductService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -245,7 +238,7 @@ export class ProductService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -302,7 +295,7 @@ export class ProductService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -358,7 +351,7 @@ export class ProductService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),

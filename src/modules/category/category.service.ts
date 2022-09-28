@@ -7,6 +7,8 @@ import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
+import slugify from 'slugify';
+import { ObjectId } from 'mongodb';
 
 const TOKEN_NAME = '_categoryService';
 /**
@@ -52,19 +54,20 @@ export class CategoryService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
-      const now = new Date();
-      const { name } = _content;
+      const { title, sub_categories = [] } = _content;
+      sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
+      _content.name = slugify(title, {
+        trim: true,
+        lower: true,
+        remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+      });
       const value = await this.model.create(
-        { name },
+        { name: _content.name },
         {
-          $setOnInsert: {
-            ..._category,
-            ..._content,
-            deleted: false,
-            ...(_subject && { created_by: _subject }),
-            created_at: now,
-            updated_at: now,
-          },
+          ..._category,
+          ..._content,
+          deleted: false,
+          ...(_subject && { created_by: _subject }),
         },
         {
           upsert: true,
@@ -78,6 +81,37 @@ export class CategoryService {
       throw err;
     }
   }
+  // /**
+  //  * Create a new category
+  //  * @param _content
+  //  * @param subject
+  //  * @returns {Promise<Category>}
+  //  */
+  // async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
+  //   try {
+  //     const { name, sub_categories = [] } = _content;
+  //     const value = await this.model.create(
+  //       { name },
+  //       {
+  //         $setOnInsert: {
+  //           ..._category,
+  //           ..._content,
+  //           deleted: false,
+  //           ...(_subject && { created_by: _subject }),
+  //         },
+  //       },
+  //       {
+  //         upsert: true,
+  //         returnDocument: 'after',
+  //       },
+  //     );
+  //     this.logger.debug('create_success', { _content });
+  //     return toOutPut({ item: value, keys: this.outputKeys });
+  //   } catch (err) {
+  //     this.logger.error('create_error', err.message);
+  //     throw err;
+  //   }
+  // }
 
   /**
    * Update category
@@ -88,14 +122,14 @@ export class CategoryService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
     try {
-      const now = new Date();
+      const { sub_categories = [] } = _content;
+      sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
       await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {
@@ -119,14 +153,12 @@ export class CategoryService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const now = new Date();
       await this.model.delete(
         $toMongoFilter({ _id }),
         {
           $set: {
             deleted: true,
             ...(_subject && { deleted_by: _subject }),
-            deleted_at: now,
           },
         },
         {
@@ -151,7 +183,7 @@ export class CategoryService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { type, lang, rank = 0 } = _filter;
+      const { type, lang, rank = 0, q } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -165,6 +197,9 @@ export class CategoryService {
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
+              }),
+              ...(q && {
+                title: { $regex: q, $options: 'i' },
               }),
             },
             $lookups: [this.model.$lookups.sub_categories],
@@ -185,7 +220,7 @@ export class CategoryService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -265,7 +300,7 @@ export class CategoryService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -328,7 +363,7 @@ export class CategoryService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -346,5 +381,47 @@ export class CategoryService {
       this.logger.error('query_error', err.message);
       throw err;
     }
+  }
+  async createSubCategories(categories: Category[], _subject: string, rank = 0): Promise<ObjectId[]> {
+    const subCategories = await Promise.all(
+      categories.map(async ({ title, type, sub_categories = [] }) => {
+        const {
+          value,
+          ok,
+          lastErrorObject: { updatedExisting },
+        } = await this.model._collection.findOneAndUpdate(
+          {
+            name: slugify(title, {
+              trim: true,
+              lower: true,
+              remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+            }),
+          },
+          {
+            $setOnInsert: {
+              title,
+              name: slugify(title, {
+                trim: true,
+                lower: true,
+                remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+              }),
+              type,
+              sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
+              created_at: new Date(),
+              updated_at: new Date(),
+              rank,
+              deleted: false,
+              created_by: _subject,
+            },
+          },
+          {
+            upsert: true,
+            returnDocument: 'after',
+          },
+        );
+        return value._id;
+      }),
+    );
+    return subCategories;
   }
 }

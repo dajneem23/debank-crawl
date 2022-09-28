@@ -1,47 +1,100 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, LANG_CODE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
-export const GlossaryValidation = {
-  create: validate({
-    [Segments.BODY]: Joi.object({
-      name: Joi.string().required(),
+const blockchainSchema = Joi.object({
+  name: Joi.string().required(),
+  //array id of categories
+  categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+  //array id of coins
+  cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-      define: Joi.string().required(),
+  short_description: Joi.string(),
 
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          define: Joi.string(),
-          name: Joi.string(),
+  about: Joi.string(),
+
+  consensus: Joi.string(),
+
+  author: Joi.string(),
+
+  launch_date: Joi.date(),
+
+  programmable: Joi.boolean(),
+
+  private: Joi.boolean(),
+
+  version: Joi.string(),
+
+  confirmations: Joi.number(),
+
+  difficulty: Joi.string(),
+
+  transactions: Joi.number(),
+
+  height: Joi.number(),
+
+  merkle_root: Joi.string(),
+
+  nonce: Joi.number(),
+
+  bits: Joi.string(),
+
+  size: Joi.number(),
+
+  fee: Joi.number(),
+
+  hash: Joi.string(),
+
+  mined_by: Joi.string(),
+
+  block_reward: Joi.string(),
+
+  uncles_reward: Joi.string(),
+
+  gas_used: Joi.string(),
+
+  gas_limit: Joi.string(),
+
+  extra_data: Joi.string(),
+
+  parent_hash: Joi.string(),
+
+  sha3_uncles: Joi.string(),
+
+  state_root: Joi.string(),
+
+  timestamp: Joi.date(),
+
+  tvl: Joi.string(),
+
+  total_accounts: Joi.number(),
+
+  total_transactions: Joi.number(),
+
+  total_contracts: Joi.number(),
+
+  total_txns: Joi.number(),
+
+  total_transfer_value: Joi.number(),
+
+  trans: Joi.array().items(
+    Joi.object({
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .required()
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      ),
+      about: Joi.string(),
+      short_description: Joi.string(),
     }),
+  ),
+});
+export const BlockchainValidation = {
+  create: validate({
+    [Segments.BODY]: blockchainSchema,
   }),
   update: validate({
-    [Segments.BODY]: Joi.object({
-      name: Joi.string().required(),
-
-      define: Joi.string().required(),
-
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          define: Joi.string(),
-          name: Joi.string(),
-        }),
-      ),
-    }),
-
+    [Segments.BODY]: blockchainSchema,
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
     }),

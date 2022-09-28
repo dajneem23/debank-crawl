@@ -152,7 +152,6 @@ export class CoinService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       const { name } = _content;
       const value = await this.model.create(
         {
@@ -163,8 +162,6 @@ export class CoinService {
           ..._content,
           deleted: false,
           ...(_subject && { created_by: _subject }),
-          created_at: now,
-          updated_at: now,
         },
         {
           upsert: true,
@@ -188,14 +185,12 @@ export class CoinService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const now = new Date();
       await this.model.update(
         $toMongoFilter({ _id }),
         {
           $set: {
             ..._content,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
         },
         {
@@ -219,13 +214,11 @@ export class CoinService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      const now = new Date();
       await this.model.delete(
         $toMongoFilter({ _id }),
         {
           deleted: true,
           ...(_subject && { deleted_by: _subject }),
-          deleted_at: now,
         },
         {
           upsert: false,
@@ -249,7 +242,7 @@ export class CoinService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, q, category } = _filter;
+      const { lang, q, categories = [] } = _filter;
       const { page = 1, per_page, sort_by: _sort_by, sort_order } = _query;
       const sort_by = coinSortBy[_sort_by as keyof typeof coinSortBy] || coinSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
@@ -271,9 +264,11 @@ export class CoinService {
                   { unique_key: { $regex: q, $options: 'i' } },
                 ],
               }),
-              ...(category && {
+              ...(categories.length && {
                 $or: [
-                  { categories: { $in: Array.isArray(category) ? $toObjectId(category) : $toObjectId([category]) } },
+                  {
+                    categories: { $in: $toObjectId(categories) },
+                  },
                 ],
               }),
             },
@@ -296,7 +291,7 @@ export class CoinService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -361,7 +356,7 @@ export class CoinService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -420,7 +415,7 @@ export class CoinService {
               },
             },
           },
-          this.model.$sets.trans,
+          ...((lang && [this.model.$sets.trans]) || []),
           {
             $project: {
               ...$keysToProject(this.outputKeys),
@@ -484,7 +479,7 @@ export class CoinService {
               },
             ],
             $more: [
-              this.model.$sets.trans,
+              ...((lang && [this.model.$sets.trans]) || []),
               {
                 $project: {
                   ...$keysToProject(this.publicOutputKeys),
@@ -586,7 +581,10 @@ export class CoinService {
               lastErrorObject: { updatedExisting },
             } = await this.model._collection.findOneAndUpdate(
               {
-                name: { $regex: `^${name}$`, $options: 'i' },
+                $or: [
+                  { name: { $regex: `^${name}$`, $options: 'i' } },
+                  { slug: { $regex: `^${slugify(name, { trim: true, lower: true })}$`, $options: 'i' } },
+                ],
               },
               {
                 $set: {
@@ -714,7 +712,10 @@ export class CoinService {
               lastErrorObject: { updatedExisting },
             } = await this.model._collection.findOneAndUpdate(
               {
-                name: { $regex: `^${name}$`, $options: 'i' },
+                $or: [
+                  { name: { $regex: `^${name}$`, $options: 'i' } },
+                  { slug: { $regex: `^${slugify(name, { trim: true, lower: true })}$`, $options: 'i' } },
+                ],
               },
               {
                 $set: {
@@ -734,7 +735,7 @@ export class CoinService {
             if (!updatedExisting) {
               await this.model._collection.findOneAndUpdate(
                 {
-                  name,
+                  name: { $regex: `^${name}$`, $options: 'i' },
                 },
                 {
                   $setOnInsert: {
@@ -752,7 +753,7 @@ export class CoinService {
                     deleted: false,
                     created_at: new Date(),
                     updated_at: new Date(),
-                    created_by: 'admin',
+                    created_by: 'system',
                     categories: [],
                   },
                 },

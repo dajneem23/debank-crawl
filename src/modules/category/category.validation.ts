@@ -1,52 +1,33 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
+const categorySchema = Joi.object({
+  title: Joi.string().required(),
+  type: Joi.string()
+    .valid(...Object.values(CATEGORY_TYPE))
+    .required(),
+  weight: Joi.number(),
+  trans: Joi.array().items(
+    Joi.object({
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .required()
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+      title: Joi.string(),
+      name: Joi.string(),
+    }),
+  ),
+  sub_categories: Joi.array().items(Joi.link('/')),
+});
+
 export const CategoryValidation = {
   create: validate({
-    [Segments.BODY]: Joi.object({
-      title: Joi.string().required(),
-      name: Joi.string().required(),
-      acronym: Joi.string(),
-      weight: Joi.number().required(),
-      sub_categories: Joi.array().items(Joi.string().pattern(ObjectIdPattern)),
-      type: Joi.string()
-        .valid(...Object.values(CATEGORY_TYPE))
-        .required(),
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          title: Joi.string(),
-          name: Joi.string(),
-        }),
-      ),
-    }),
+    [Segments.BODY]: categorySchema,
   }),
   update: validate({
-    [Segments.BODY]: Joi.object({
-      title: Joi.string(),
-      weight: Joi.number(),
-      name: Joi.string(),
-      sub_categories: Joi.array().items(Joi.string().pattern(ObjectIdPattern)),
-      acronym: Joi.string(),
-      type: Joi.string().valid(...Object.values(CATEGORY_TYPE)),
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          title: Joi.string(),
-          name: Joi.string(),
-        }),
-      ),
-    }),
+    [Segments.BODY]: categorySchema,
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
     }),
@@ -58,6 +39,7 @@ export const CategoryValidation = {
   }),
   query: validate({
     [Segments.QUERY]: Joi.object({
+      q: Joi.string(),
       page: Joi.number().default(1).min(1),
       per_page: Joi.number().default(10).min(1),
       sort_by: Joi.string(),

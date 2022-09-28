@@ -19,7 +19,7 @@ export const PersonSeed = async () => {
   const collection = db.collection('persons');
   const count = await $countCollection({ collection });
 
-  // if (count) return;
+  if (count) return;
   const categories = await db.collection('categories').find({}).toArray();
   const companies = await db.collection('companies').find({}).toArray();
   const funds = await db.collection('funds').find({}).toArray();

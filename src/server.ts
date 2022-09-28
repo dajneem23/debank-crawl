@@ -10,6 +10,8 @@ import 'reflect-metadata';
     (await import('./loaders/loggerLoader')).default();
     // Database (mongodb)
     await (await import('./loaders/mongoDBLoader')).default();
+    await (await import('./loaders/awsS3Loader')).default();
+
     // Caching (Redis)
     await (await import('./loaders/redisClientLoader')).default();
     // Express application

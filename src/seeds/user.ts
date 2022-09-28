@@ -1,7 +1,6 @@
-import mongoDBLoader from '@/loaders/mongoDBLoader';
 import { $countCollection } from '@/utils/mongoDB';
 import bcrypt from 'bcryptjs';
-import Container, { Inject, Service } from 'typedi';
+import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 /* eslint-disable no-console */
 export const UserSeed = async () => {

@@ -23,6 +23,7 @@ import {
   NewsPrivateController,
   FundPrivateController,
 } from '@/modules';
+import StorageController from '@/modules/storage/storage.controller';
 
 const route = Router();
 
@@ -43,6 +44,7 @@ export default (app: Application) => {
     CoinController,
     NewsController,
     FundController,
+    StorageController,
   ]);
   /**
    * @description Private controllers

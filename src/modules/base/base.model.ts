@@ -27,7 +27,7 @@ import { omit } from 'lodash';
 export class BaseModel {
   readonly _collection: Collection;
 
-  readonly _collectionName: COLLECTION_NAMES;
+  readonly _collectionName: keyof typeof COLLECTION_NAMES;
 
   readonly _keys: (string | number | symbol)[];
 
@@ -269,7 +269,7 @@ export class BaseModel {
     _keys,
     indexes,
   }: {
-    collectionName: COLLECTION_NAMES;
+    collectionName: keyof typeof COLLECTION_NAMES;
     _keys: string[];
     indexes: {
       field: {

@@ -288,8 +288,10 @@ export const FundValidation = {
       categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
       funding_min: Joi.number(),
       funding_max: Joi.number(),
-      year_founded_from: Joi.number(),
-      year_founded_to: Joi.number(),
+      launched_from: Joi.number(),
+      launched_to: Joi.number(),
+      tier: Joi.string(),
+      type: Joi.string().valid(...Object.values(FUND_TYPE)),
     }),
   }),
   search: validate({

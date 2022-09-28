@@ -27,7 +27,7 @@ export default class StorageController {
           return next(new StorageError('FOLDER_NOT_FOUND'));
         }
         const result = await s3BucketClient.uploadPublicFile(file.buffer, {
-          prefixPath: `${folder && `${folder}/`}images`,
+          prefixPath: `wikiblock/${folder && `${folder}/`}images`,
           originalname: file.originalname,
         });
         res.status(httpStatusCode.CREATED).json(result);

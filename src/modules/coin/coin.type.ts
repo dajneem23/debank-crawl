@@ -1,4 +1,4 @@
-import { BaseInformationModel, DEVELOPMENT_STATUS, IcoDetail, TeamPerson, Technology } from '@/types/Common';
+import { BACKER, BaseInformationModel, DEVELOPMENT_STATUS, IcoDetail, TeamPerson, Technology } from '@/types/Common';
 
 interface Price {
   date?: string;
@@ -38,17 +38,29 @@ interface MarketData {
 
 export interface Coin extends BaseInformationModel {
   name: string;
+
   token_id: string;
+
   stack_exchange: string;
+
   blockchains: string[];
+
   whitepaper: string;
+
   wallets: string[];
+
   exchanges: string[];
-  technologies: Technology[];
+
+  technologies?: Technology;
+
   services: string[];
+
   features: string[];
+
   team: TeamPerson[];
+
   ico: IcoDetail[];
+
   companies: [];
 
   market_data?: { [key: string]: MarketData };
@@ -69,13 +81,11 @@ export interface Coin extends BaseInformationModel {
 
   founded?: string;
 
-  development_status?: DEVELOPMENT_STATUS;
-
   stage?: string;
 
   eco_market_cap?: number;
 
-  backer?: string;
+  backer?: BACKER;
 
   fundraising?: string;
 
@@ -85,6 +95,8 @@ export interface Coin extends BaseInformationModel {
     features?: string[];
     services?: string[];
   }[];
+
+  community_vote?: number;
 }
 
 export const _coin: Coin = {
@@ -111,7 +123,6 @@ export const _coin: Coin = {
   whitepaper: '',
   wallets: [],
   exchanges: [],
-  technologies: [],
   services: [],
   features: [],
   team: [],
@@ -130,4 +141,5 @@ export const _coin: Coin = {
   years: 0,
   market: 0,
   market_share: 0,
+  community_vote: 0,
 };

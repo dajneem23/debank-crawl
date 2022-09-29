@@ -242,7 +242,19 @@ export class CoinService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, q, categories = [] } = _filter;
+      const {
+        lang,
+        q,
+        categories = [],
+        community_vote_min,
+        community_vote_max,
+        market_cap_min,
+        market_cap_max,
+        fully_diluted_market_cap_min,
+        fully_diluted_market_cap_max,
+        backer,
+        development_status,
+      } = _filter;
       const { page = 1, per_page, sort_by: _sort_by, sort_order } = _query;
       const sort_by = coinSortBy[_sort_by as keyof typeof coinSortBy] || coinSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
@@ -270,6 +282,33 @@ export class CoinService {
                     categories: { $in: $toObjectId(categories) },
                   },
                 ],
+              }),
+              ...(!isNil(community_vote_min) &&
+                !isNil(community_vote_max) && {
+                  community_vote: {
+                    $gte: community_vote_min,
+                    $lte: community_vote_max,
+                  },
+                }),
+              ...(!isNil(market_cap_min) &&
+                !isNil(market_cap_max) && {
+                  'market_data.USD.market_cap': {
+                    $gte: market_cap_min,
+                    $lte: market_cap_max,
+                  },
+                }),
+              ...(!isNil(fully_diluted_market_cap_min) &&
+                !isNil(fully_diluted_market_cap_max) && {
+                  'market_data.USD.fully_diluted_market_cap': {
+                    $gte: fully_diluted_market_cap_min,
+                    $lte: fully_diluted_market_cap_max,
+                  },
+                }),
+              ...(backer && {
+                backer: { $eq: backer },
+              }),
+              ...(development_status && {
+                'technologies.development_status': { $eq: development_status },
               }),
             },
             $addFields: this.model.$addFields.categories,
@@ -554,6 +593,7 @@ export class CoinService {
                   percent_change_90d,
                   market_cap,
                   market_cap_dominance,
+                  fully_diluted_market_cap,
                   tvl,
                   last_updated,
                 },
@@ -572,6 +612,7 @@ export class CoinService {
               'market_data.USD.percent_change_90d': percent_change_90d,
               'market_data.USD.market_cap': market_cap,
               'market_data.USD.market_cap_dominance': market_cap_dominance,
+              'market_data.USD.fully_diluted_market_cap': fully_diluted_market_cap,
               'market_data.USD.tvl': tvl,
               'market_data.USD.last_updated': last_updated,
             };

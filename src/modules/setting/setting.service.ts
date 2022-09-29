@@ -4,39 +4,30 @@ import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-import slugify from 'slugify';
-import { ObjectId } from 'mongodb';
+import { settingModelToken } from '.';
 
-const TOKEN_NAME = '_categoryService';
+const TOKEN_NAME = '_settingService';
 /**
  * A bridge allows another service access to the Model layer
- * @export CategoryService
- * @class CategoryService
+ * @export SettingService
+ * @class SettingService
  * @extends {BaseService}
  */
-export const categoryServiceToken = new Token<CategoryService>(TOKEN_NAME);
-@Service(categoryServiceToken)
-export class CategoryService {
+export const settingServiceToken = new Token<SettingService>(TOKEN_NAME);
+@Service(settingServiceToken)
+export class SettingService {
   private logger = new Logger('Categories');
 
-  private model = Container.get(categoryModelToken) as CategoryModel;
-
-  private error(msg: any) {
-    return new CategoryError(msg);
-  }
+  private model = Container.get(settingModelToken);
 
   get outputKeys() {
     return this.model._keys;
   }
 
   get publicOutputKeys() {
-    return ['id', 'title', 'name', 'sub_categories', 'weight'];
-  }
-  get transKeys() {
-    return ['title', 'name'];
+    return ['id', 'name', 'content', 'weight'];
   }
 
   /**
@@ -47,26 +38,17 @@ export class CategoryService {
   }
 
   /**
-   * Create a new category
+   * Create a new setting
    * @param _content
    * @param subject
-   * @returns {Promise<Category>}
+   * @returns {Promise<Setting>}
    */
-  async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
+  async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { title, sub_categories = [] } = _content;
-      sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
-      _content.name = slugify(title, {
-        trim: true,
-        lower: true,
-        remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
-      });
       const value = await this.model.create(
         { name: _content.name },
         {
-          ..._category,
           ..._content,
-          deleted: false,
           ...(_subject && { created_by: _subject }),
         },
         {
@@ -83,16 +65,14 @@ export class CategoryService {
   }
 
   /**
-   * Update category
+   * Update setting
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Category>}
+   * @returns {Promise<Setting>}
    */
-  async update({ _id, _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
+  async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { sub_categories = [] } = _content;
-      sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
       await this.model.update(
         $toMongoFilter({ _id }),
         {
@@ -115,10 +95,10 @@ export class CategoryService {
   }
 
   /**
-   * Delete category
+   * Delete setting
    * @param _id
    * @param {ObjectId} _subject
-   * @returns {Promise<Category>}
+   * @returns {Promise<Setting>}
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
@@ -144,7 +124,7 @@ export class CategoryService {
   }
 
   /**
-   *  Query category
+   *  Query setting
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -164,39 +144,10 @@ export class CategoryService {
               ...(!isNil(rank) && {
                 rank: { $eq: rank },
               }),
-              ...(lang && {
-                'trans.lang': { $eq: lang },
-              }),
               ...(q && {
                 title: { $regex: q, $options: 'i' },
               }),
             },
-            $lookups: [this.model.$lookups.sub_categories],
-            $projects: [
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  trans: {
-                    $filter: {
-                      input: '$trans',
-                      as: 'trans',
-                      cond: {
-                        $eq: ['$$trans.lang', lang],
-                      },
-                    },
-                  },
-                },
-              },
-            ],
-            $more: [
-              ...((lang && [this.model.$sets.trans]) || []),
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  ...(lang && $keysToProject(this.transKeys, '$trans')),
-                },
-              },
-            ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
@@ -210,13 +161,13 @@ export class CategoryService {
     }
   }
   /**
-   * Get Category by ID
-   * @param _id - Category ID
-   * @returns { Promise<CategoryOutput> } - Category
+   * Get Setting by ID
+   * @param _id - Setting ID
+   * @returns { Promise<BaseServiceOutput> } - Setting
    */
   async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const [category] = await this.model
+      const [item] = await this.model
         .get([
           {
             $match: $toMongoFilter({ _id }),
@@ -227,71 +178,45 @@ export class CategoryService {
           },
         ])
         .toArray();
-      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
-      this.logger.debug('get_success', { category });
-      return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
+      if (isNil(item)) this.model.error('common.not_found');
+      this.logger.debug('get_success', { item });
+      return omit(toOutPut({ item }), ['deleted', 'updated_at']);
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
   /**
-   * Get Category by name
-   * @param _id - Category ID
-   * @returns { Promise<CategoryOutput> } - Category
+   * Get Setting by name
+   * @param _id - Setting ID
+   * @returns { Promise<BaseServiceOutput> } - Setting
    */
-  async getByName({ _name, _filter, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getBySlug({ _name, _filter, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, type } = _filter;
-      const [category] = await this.model
+      const { type } = _filter;
+      const [setting] = await this.model
         .get([
           {
             $match: $toMongoFilter({
               name: { $regex: _name, $options: 'i' },
               ...((type && type) || {}),
-              ...(lang && {
-                'trans.lang': { $eq: lang },
-              }),
             }),
           },
-          { ...this.model.$lookups.sub_categories },
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              trans: {
-                $filter: {
-                  input: '$trans',
-                  as: 'trans',
-                  cond: {
-                    $eq: ['$$trans.lang', lang],
-                  },
-                },
-              },
-            },
-          },
-          ...((lang && [this.model.$sets.trans]) || []),
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
-            },
-          },
-
           {
             $limit: 1,
           },
         ])
         .toArray();
-      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
-      this.logger.debug('get_success', { category });
-      return _permission == 'private' ? toOutPut({ item: category }) : omit(toOutPut({ item: category }), PRIVATE_KEYS);
+      if (isNil(setting)) this.model.error('common.not_found');
+      this.logger.debug('get_success', { setting });
+      return _permission == 'private' ? toOutPut({ item: setting }) : omit(toOutPut({ item: setting }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
     }
   }
   /**
-   *  Search category
+   *  Search setting
    * @param {any} _filter
    * @param {BaseQuery} _query
    * @returns {Promise<BaseServiceOutput>}
@@ -350,47 +275,5 @@ export class CategoryService {
       this.logger.error('query_error', err.message);
       throw err;
     }
-  }
-  async createSubCategories(categories: Category[], _subject: string, rank = 0): Promise<ObjectId[]> {
-    const subCategories = await Promise.all(
-      categories.map(async ({ title, type, sub_categories = [] }) => {
-        const {
-          value,
-          ok,
-          lastErrorObject: { updatedExisting },
-        } = await this.model._collection.findOneAndUpdate(
-          {
-            name: slugify(title, {
-              trim: true,
-              lower: true,
-              remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
-            }),
-          },
-          {
-            $setOnInsert: {
-              title,
-              name: slugify(title, {
-                trim: true,
-                lower: true,
-                remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
-              }),
-              type,
-              sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
-              created_at: new Date(),
-              updated_at: new Date(),
-              rank,
-              deleted: false,
-              created_by: _subject,
-            },
-          },
-          {
-            upsert: true,
-            returnDocument: 'after',
-          },
-        );
-        return value._id;
-      }),
-    );
-    return subCategories;
   }
 }

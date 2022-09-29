@@ -7,9 +7,5 @@ export interface Setting extends BaseModel {
   // type
   type?: string;
 
-  sub_type?: string;
-
-  rank?: number;
-
   content: any;
 }

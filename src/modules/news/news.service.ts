@@ -105,10 +105,6 @@ export class NewsService {
           deleted: false,
           ...(_subject && { created_by: _subject }),
         },
-        {
-          upsert: true,
-          returnDocument: 'after',
-        },
       );
 
       this.logger.debug('create_success', { _content });
@@ -199,12 +195,7 @@ export class NewsService {
                 : _slug,
             }),
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
-        },
-        {
-          upsert: false,
-          returnDocument: 'after',
         },
       );
       this.logger.debug('update_success', { value });
@@ -222,8 +213,7 @@ export class NewsService {
   async updateStatus({ _id, _filter, _subject, _role }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { status } = _filter;
-      const now = new Date();
-      const value = await this.model.update(
+      await this.model.update(
         $toMongoFilter({
           _id,
           $or: [
@@ -243,12 +233,7 @@ export class NewsService {
           $set: {
             status,
             ...(_subject && { updated_by: _subject }),
-            updated_at: now,
           },
-        },
-        {
-          upsert: false,
-          returnDocument: 'after',
         },
       );
       this.logger.debug('update_success', { status });
@@ -265,16 +250,9 @@ export class NewsService {
    */
   async updateViews({ _id }: BaseServiceInput, view = 1): Promise<BaseServiceOutput> {
     try {
-      const views = await this.model.update(
-        $toMongoFilter({ _id }),
-        {
-          $inc: { views: view },
-        },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      const views = await this.model.update($toMongoFilter({ _id }), {
+        $inc: { views: view },
+      });
       this.logger.debug('update_success', { _id });
       return toOutPut({ item: { views } });
     } catch (err) {
@@ -293,12 +271,7 @@ export class NewsService {
       await this.model.delete(
         { _id },
         {
-          deleted: true,
           ...(_subject && { deleted_by: _subject }),
-        },
-        {
-          upsert: false,
-          returnDocument: 'after',
         },
       );
       this.logger.debug('delete_success', { _id });

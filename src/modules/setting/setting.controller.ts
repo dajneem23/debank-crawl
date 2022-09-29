@@ -77,19 +77,19 @@ export class SettingController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/:slug', [SettingValidation.getBySlug])
-  async getBySlugPublic(
+  @Get('/:name', [SettingValidation.getByName])
+  async getByName(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,
     @Params()
     _params: {
-      slug: string;
+      name: string;
     },
   ) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.getBySlug({
-      _slug: _params.slug,
+    const result = await this.service.getByName({
+      _name: _params.name,
       _filter: filter,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);

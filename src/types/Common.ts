@@ -104,7 +104,6 @@ export interface BaseInformationModel extends BaseModel {
   name?: string;
 
   slug?: string;
-  // location?: string;
 
   about?: string;
 
@@ -378,6 +377,7 @@ export enum COLLECTION_NAMES {
   countries = 'countries',
   'auth-sessions' = 'auth-sessions',
   coins = 'coins',
+  settings = 'settings',
 }
 
 export enum coinSortBy {

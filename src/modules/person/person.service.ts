@@ -58,15 +58,9 @@ export class PersonService {
           name,
         },
         {
-          $setOnInsert: {
-            ..._person,
-            ..._content,
-            ...(_subject && { created_by: _subject }),
-          },
-        },
-        {
-          upsert: true,
-          returnDocument: 'after',
+          ..._person,
+          ..._content,
+          ...(_subject && { created_by: _subject }),
         },
       );
       this.logger.debug('create_success', { _content });
@@ -86,19 +80,12 @@ export class PersonService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const value = await this.model.update(
-        $toMongoFilter({ _id }),
-        {
-          $set: {
-            ..._content,
-            ...(_subject && { updated_by: _subject }),
-          },
+      const value = await this.model.update($toMongoFilter({ _id }), {
+        $set: {
+          ..._content,
+          ...(_subject && { updated_by: _subject }),
         },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      });
       this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
@@ -115,17 +102,9 @@ export class PersonService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      await this.model.delete(
-        $toMongoFilter({ _id }),
-        {
-          deleted: true,
-          ...(_subject && { deleted_by: _subject }),
-        },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      await this.model.delete($toMongoFilter({ _id }), {
+        ...(_subject && { deleted_by: _subject }),
+      });
       this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {

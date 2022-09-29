@@ -20,6 +20,8 @@ export const GlossaryValidation = {
           name: Joi.string(),
         }),
       ),
+      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      type: Joi.string(),
     }),
   }),
   update: validate({
@@ -40,6 +42,8 @@ export const GlossaryValidation = {
           name: Joi.string(),
         }),
       ),
+      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      type: Joi.string(),
     }),
 
     [Segments.PARAMS]: Joi.object({

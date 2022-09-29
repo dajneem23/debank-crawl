@@ -4,9 +4,10 @@ export interface Glossary extends BaseModel {
   name: string;
   define: string;
   categories: string[];
+  type?: string;
   trans: {
-    lang: string;
-    about?: string;
+    define: string;
+    name?: string;
     short_description?: string;
   }[];
 }

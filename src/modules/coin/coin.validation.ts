@@ -1,6 +1,40 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, CATEGORY_TYPE, LANG_CODE, coinSortBy } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
+const priceSchema = Joi.object({
+  date: Joi.date(),
+  value: Joi.number(),
+});
+const marketDataSchema = Joi.object({
+  open: Joi.number(),
+  high: Joi.number(),
+  low: Joi.number(),
+  close: Joi.number(),
+  volume: Joi.number(),
+  market_cap: Joi.number(),
+  market_cap_dominance: Joi.number(),
+  fully_diluted_market_cap: Joi.number(),
+  price: Joi.number(),
+  volume_change_24h: Joi.number(),
+  percent_change_1h: Joi.number(),
+  latest_price_1h: Joi.array().items(Joi.number()),
+  percent_change_24h: Joi.number(),
+  latest_price_24h: Joi.array().items(Joi.number()),
+  percent_change_7d: Joi.number(),
+  latest_price_7d: Joi.array().items(Joi.number()),
+  volume_24h: Joi.number(),
+  volume_7d: Joi.number(),
+  volume_30d: Joi.number(),
+  percent_change_90d: Joi.number(),
+  list_price: Joi.array().items(priceSchema),
+  list_price_1h: Joi.array().items(priceSchema),
+  list_price_24h: Joi.array().items(priceSchema),
+  list_price_7d: Joi.array().items(priceSchema),
+  last_updated: Joi.date(),
+  tvl: Joi.number(),
+  long: Joi.number(),
+  short: Joi.number(),
+});
 export const CoinValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
@@ -67,7 +101,9 @@ export const CoinValidation = {
 
       companies: Joi.array(),
 
-      market_data: Joi.object(),
+      market_data: Joi.object().keys({
+        USD: marketDataSchema,
+      }),
 
       trans: Joi.array().items(
         Joi.object({
@@ -168,7 +204,9 @@ export const CoinValidation = {
 
       companies: Joi.array(),
 
-      market_data: Joi.object(),
+      market_data: Joi.object().keys({
+        USD: marketDataSchema,
+      }),
 
       trans: Joi.array().items(
         Joi.object({

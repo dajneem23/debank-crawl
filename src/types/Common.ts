@@ -360,22 +360,25 @@ export type FundraisingRoundDetail = {
   posts?: string[];
   date: Date;
 };
-
-export type COLLECTION_NAMES =
-  | 'events'
-  | 'companies'
-  | 'persons'
-  | 'news'
-  | 'products'
-  | 'funds'
-  | 'users'
-  | 'categories'
-  | 'countries'
-  | 'auth-sessions'
-  | 'coins'
-  | 'verification-tokens'
-  | 'glossaries'
-  | 'blockchains';
+export enum COLLECTION_NAMES {
+  events = 'events',
+  news = 'news',
+  projects = 'projects',
+  persons = 'persons',
+  companies = 'companies',
+  organizations = 'organizations',
+  funds = 'funds',
+  users = 'users',
+  categories = 'categories',
+  tags = 'tags',
+  verifications = 'verifications',
+  glossaries = 'glossaries',
+  blockchains = 'blockchains',
+  products = 'products',
+  countries = 'countries',
+  'auth-sessions' = 'auth-sessions',
+  coins = 'coins',
+}
 
 export enum coinSortBy {
   'usd_price' = 'market_data.USD.price',

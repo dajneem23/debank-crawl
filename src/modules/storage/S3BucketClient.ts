@@ -79,6 +79,19 @@ export default class S3BucketClient {
       throw err;
     }
   }
+  async deleteFile(key: string) {
+    try {
+      await this.s3Client.deleteObject({
+        Bucket: env.AWS_S3_BUCKET,
+        Key: key,
+      });
+      this.logger.debug('success', '[deleteFile:success]', key);
+      return { key };
+    } catch (err) {
+      this.logger.error('error', '[deleteFile:error]', err);
+      throw err;
+    }
+  }
 
   /**
    * Get bucket name

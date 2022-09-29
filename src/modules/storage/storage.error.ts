@@ -31,6 +31,15 @@ export const errors = Object.freeze({
       vi: 'Định dạng không được hỗ trợ',
     },
   },
+  FOLDER_NOT_FOUND: {
+    message: 'Folder not found',
+    code: null,
+    status: httpStatusCode.NOT_FOUND,
+    isPublic: true,
+    locales: {
+      vi: 'Thư mục không tồn tại',
+    },
+  },
 });
 
 export class StorageError extends AppError {

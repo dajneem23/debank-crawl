@@ -301,6 +301,8 @@ export const CoinValidation = {
       fully_diluted_market_cap_max: Joi.number(),
       backer: Joi.string().valid(...Object.values(BACKER)),
       development_status: Joi.string(),
+      founded_from: Joi.number(),
+      founded_to: Joi.number(),
     }),
   }),
   search: validate({

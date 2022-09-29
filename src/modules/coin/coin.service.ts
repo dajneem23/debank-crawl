@@ -254,6 +254,8 @@ export class CoinService {
         fully_diluted_market_cap_max,
         backer,
         development_status,
+        founded_from,
+        founded_to,
       } = _filter;
       const { page = 1, per_page, sort_by: _sort_by, sort_order } = _query;
       const sort_by = coinSortBy[_sort_by as keyof typeof coinSortBy] || coinSortBy['created_at'];
@@ -283,27 +285,50 @@ export class CoinService {
                   },
                 ],
               }),
-              ...(!isNil(community_vote_min) &&
-                !isNil(community_vote_max) && {
-                  community_vote: {
-                    $gte: community_vote_min,
-                    $lte: community_vote_max,
-                  },
-                }),
-              ...(!isNil(market_cap_min) &&
-                !isNil(market_cap_max) && {
-                  'market_data.USD.market_cap': {
-                    $gte: market_cap_min,
-                    $lte: market_cap_max,
-                  },
-                }),
-              ...(!isNil(fully_diluted_market_cap_min) &&
-                !isNil(fully_diluted_market_cap_max) && {
-                  'market_data.USD.fully_diluted_market_cap': {
-                    $gte: fully_diluted_market_cap_min,
-                    $lte: fully_diluted_market_cap_max,
-                  },
-                }),
+
+              ...(!isNil(community_vote_max) && {
+                community_vote: {
+                  $lte: community_vote_max,
+                },
+              }),
+              ...(!isNil(community_vote_min) && {
+                community_vote: {
+                  $gte: community_vote_min,
+                },
+              }),
+
+              ...(!isNil(market_cap_min) && {
+                'market_data.USD.market_cap': {
+                  $gte: market_cap_min,
+                },
+              }),
+              ...(!isNil(market_cap_max) && {
+                'market_data.USD.market_cap': {
+                  $lte: market_cap_max,
+                },
+              }),
+
+              ...(!isNil(founded_from) && {
+                founded: {
+                  $gte: founded_from,
+                },
+              }),
+              ...(!isNil(founded_to) && {
+                founded: {
+                  $lte: founded_to,
+                },
+              }),
+
+              ...(!isNil(fully_diluted_market_cap_max) && {
+                'market_data.USD.fully_diluted_market_cap': {
+                  $lte: fully_diluted_market_cap_max,
+                },
+              }),
+              ...(!isNil(fully_diluted_market_cap_min) && {
+                'market_data.USD.fully_diluted_market_cap': {
+                  $gte: fully_diluted_market_cap_min,
+                },
+              }),
               ...(backer && {
                 backer: { $eq: backer },
               }),

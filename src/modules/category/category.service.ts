@@ -33,7 +33,7 @@ export class CategoryService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'title', 'name', 'sub_categories', 'weight'];
+    return ['id', 'title', 'name', 'sub_categories', 'weight', 'rank'];
   }
   get transKeys() {
     return ['title', 'name'];

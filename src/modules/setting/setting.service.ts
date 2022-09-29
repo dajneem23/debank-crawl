@@ -1,9 +1,9 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 
-import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter } from '@/utils/mongoDB';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { settingModelToken } from '.';
@@ -16,9 +16,14 @@ const TOKEN_NAME = '_settingService';
  * @extends {BaseService}
  */
 export const settingServiceToken = new Token<SettingService>(TOKEN_NAME);
+/**
+ * @class SettingService
+ * @description Setting service: Setting service for all setting related operations
+ * @extends BaseService
+ */
 @Service(settingServiceToken)
 export class SettingService {
-  private logger = new Logger('Categories');
+  private logger = new Logger('Settings');
 
   private model = Container.get(settingModelToken);
 
@@ -51,10 +56,6 @@ export class SettingService {
           ..._content,
           ...(_subject && { created_by: _subject }),
         },
-        {
-          upsert: true,
-          returnDocument: 'after',
-        },
       );
       this.logger.debug('create_success', { _content });
       return toOutPut({ item: value, keys: this.outputKeys });
@@ -73,19 +74,12 @@ export class SettingService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      await this.model.update(
-        $toMongoFilter({ _id }),
-        {
-          $set: {
-            ..._content,
-            ...(_subject && { updated_by: _subject }),
-          },
+      await this.model.update($toMongoFilter({ _id }), {
+        $set: {
+          ..._content,
+          ...(_subject && { updated_by: _subject }),
         },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      });
       this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
@@ -102,19 +96,11 @@ export class SettingService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      await this.model.delete(
-        $toMongoFilter({ _id }),
-        {
-          $set: {
-            deleted: true,
-            ...(_subject && { deleted_by: _subject }),
-          },
+      await this.model.delete($toMongoFilter({ _id }), {
+        $set: {
+          ...(_subject && { deleted_by: _subject }),
         },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      });
       this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
@@ -132,7 +118,7 @@ export class SettingService {
    **/
   async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { type, lang, rank = 0, q } = _filter;
+      const { type, q } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -141,11 +127,8 @@ export class SettingService {
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
               }),
-              ...(!isNil(rank) && {
-                rank: { $eq: rank },
-              }),
               ...(q && {
-                title: { $regex: q, $options: 'i' },
+                name: { $regex: q, $options: 'i' },
               }),
             },
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
@@ -191,7 +174,7 @@ export class SettingService {
    * @param _id - Setting ID
    * @returns { Promise<BaseServiceOutput> } - Setting
    */
-  async getBySlug({ _name, _filter, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async getByName({ _name, _filter, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { type } = _filter;
       const [setting] = await this.model
@@ -223,7 +206,7 @@ export class SettingService {
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, type, rank = 0 } = _filter;
+      const { q, type } = _filter;
       const { page = 1, per_page = 10 } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
@@ -232,39 +215,10 @@ export class SettingService {
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
               }),
-              ...(!isNil(rank) && {
-                rank: { $eq: rank },
-              }),
               ...(q && {
-                $or: [{ $text: { $search: q } }, { title: { $regex: q, $options: 'i' } }],
+                $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
               }),
             },
-
-            $projects: [
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  trans: {
-                    $filter: {
-                      input: '$trans',
-                      as: 'trans',
-                      cond: {
-                        $eq: ['$$trans.lang', lang],
-                      },
-                    },
-                  },
-                },
-              },
-            ],
-            $more: [
-              ...((lang && [this.model.$sets.trans]) || []),
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  ...(lang && $keysToProject(this.transKeys, '$trans')),
-                },
-              },
-            ],
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),
         ])

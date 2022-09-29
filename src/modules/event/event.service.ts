@@ -153,16 +153,12 @@ export class EventService {
           Refname: 'person_sponsors',
         })) &&
         (_content.person_sponsors = $toObjectId(person_sponsors));
-      const event = await this.model.update(
-        $toMongoFilter({ _id }),
-        {
-          $set: {
-            ..._content,
-            ...(_subject && { updated_by: _subject }),
-          },
+      const event = await this.model.update($toMongoFilter({ _id }), {
+        $set: {
+          ..._content,
+          ...(_subject && { updated_by: _subject }),
         },
-        { returnDocument: 'after' },
-      );
+      });
       if (slide || recap) {
         // Send mail to subscribers
         const { subscribers } = event;
@@ -183,14 +179,9 @@ export class EventService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      await this.model.delete(
-        $toMongoFilter({ _id }),
-        {
-          deleted: true,
-          ...(_subject && { deleted_by: _subject }),
-        },
-        { returnDocument: 'after' },
-      );
+      await this.model.delete($toMongoFilter({ _id }), {
+        ...(_subject && { deleted_by: _subject }),
+      });
       this.logger.debug('delete_success', { _id });
     } catch (err) {
       this.logger.error('delete_error', err.message);

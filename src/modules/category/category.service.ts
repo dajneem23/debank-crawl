@@ -66,12 +66,7 @@ export class CategoryService {
         {
           ..._category,
           ..._content,
-          deleted: false,
           ...(_subject && { created_by: _subject }),
-        },
-        {
-          upsert: true,
-          returnDocument: 'after',
         },
       );
       this.logger.debug('create_success', { _content });
@@ -93,19 +88,12 @@ export class CategoryService {
     try {
       const { sub_categories = [] } = _content;
       sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
-      await this.model.update(
-        $toMongoFilter({ _id }),
-        {
-          $set: {
-            ..._content,
-            ...(_subject && { updated_by: _subject }),
-          },
+      await this.model.update($toMongoFilter({ _id }), {
+        $set: {
+          ..._content,
+          ...(_subject && { updated_by: _subject }),
         },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      });
       this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
@@ -122,19 +110,11 @@ export class CategoryService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      await this.model.delete(
-        $toMongoFilter({ _id }),
-        {
-          $set: {
-            deleted: true,
-            ...(_subject && { deleted_by: _subject }),
-          },
+      await this.model.delete($toMongoFilter({ _id }), {
+        $set: {
+          ...(_subject && { deleted_by: _subject }),
         },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      });
       this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {

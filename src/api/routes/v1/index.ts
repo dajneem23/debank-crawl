@@ -6,6 +6,7 @@ import {
   GlossaryController,
   CategoryController,
   CompanyController,
+  SettingController,
   ProductController,
   PersonController,
   EventController,
@@ -17,6 +18,7 @@ import {
   BlockchainPrivateController,
   GlossaryPrivateController,
   CategoryPrivateController,
+  SettingPrivateController,
   CompanyPrivateController,
   ProductPrivateController,
   PersonPrivateController,
@@ -38,8 +40,10 @@ export default (app: Application) => {
     BlockchainController,
     GlossaryController,
     CategoryController,
-    CompanyController,
+    StorageController,
+    SettingController,
     ProductController,
+    CompanyController,
     PersonController,
     EventController,
     UserController,
@@ -47,7 +51,6 @@ export default (app: Application) => {
     CoinController,
     NewsController,
     FundController,
-    StorageController,
   ]);
   /**
    * @description Private controllers
@@ -57,6 +60,7 @@ export default (app: Application) => {
     GlossaryPrivateController,
     CategoryPrivateController,
     CompanyPrivateController,
+    SettingPrivateController,
     ProductPrivateController,
     PersonPrivateController,
     EventPrivateController,

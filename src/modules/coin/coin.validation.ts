@@ -35,214 +35,121 @@ const marketDataSchema = Joi.object({
   long: Joi.number(),
   short: Joi.number(),
 });
+const coinSchema = Joi.object({
+  name: Joi.string(),
+
+  token_id: Joi.string(),
+
+  //array id of categories
+  categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+
+  explorer: Joi.string(),
+
+  stack_exchange: Joi.string(),
+
+  blockchains: Joi.array().items(Joi.string()),
+
+  whitepaper: Joi.string(),
+
+  wallets: Joi.array().items(Joi.string()),
+
+  exchanges: Joi.array().items(Joi.string()),
+
+  technologies: Joi.object(),
+
+  features: Joi.array().items(Joi.string()),
+
+  services: Joi.array().items(Joi.string()),
+
+  team: Joi.array().items(Joi.object()),
+
+  ico: Joi.object(),
+
+  twitter: Joi.string(),
+
+  telegram: Joi.string(),
+
+  facebook: Joi.string(),
+
+  instagram: Joi.string(),
+
+  linkedin: Joi.string(),
+
+  github: Joi.string(),
+
+  medium: Joi.string(),
+
+  youtube: Joi.string(),
+
+  website: Joi.string(),
+
+  blog: Joi.string(),
+
+  email: Joi.string(),
+
+  tel: Joi.string(),
+
+  about: Joi.string(),
+
+  avatar: Joi.string(),
+
+  rocket_chat: Joi.string(),
+
+  bitcoin_talk: Joi.string(),
+
+  companies: Joi.array(),
+
+  market_data: Joi.object().keys({
+    USD: marketDataSchema,
+  }),
+
+  trans: Joi.array().items(
+    Joi.object({
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .required()
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+      about: Joi.string(),
+      services: Joi.array().items(Joi.string()),
+      features: Joi.array().items(Joi.string()),
+    }),
+  ),
+  potential: Joi.string(),
+
+  reliability: Joi.string(),
+
+  rating: Joi.string(),
+
+  years: Joi.number(),
+
+  market: Joi.number(),
+
+  market_share: Joi.number(),
+
+  stage: Joi.string(),
+
+  eco_market_cap: Joi.number(),
+
+  backer: Joi.string(),
+
+  fundraising: Joi.string(),
+
+  token_allocation: Joi.array().items(
+    Joi.object({
+      name: Joi.string(),
+      percent: Joi.number(),
+      amount: Joi.number(),
+    }),
+  ),
+});
 export const CoinValidation = {
   create: validate({
-    [Segments.BODY]: Joi.object({
-      name: Joi.string(),
-
-      token_id: Joi.string(),
-
-      //array id of categories
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
-
-      explorer: Joi.string(),
-
-      stack_exchange: Joi.string(),
-
-      blockchains: Joi.array().items(Joi.string()),
-
-      whitepaper: Joi.string(),
-
-      wallets: Joi.array().items(Joi.string()),
-
-      exchanges: Joi.array().items(Joi.string()),
-
-      technologies: Joi.object(),
-
-      features: Joi.array().items(Joi.string()),
-
-      services: Joi.array().items(Joi.string()),
-
-      team: Joi.array().items(Joi.object()),
-
-      ico: Joi.object(),
-
-      twitter: Joi.string(),
-
-      telegram: Joi.string(),
-
-      facebook: Joi.string(),
-
-      instagram: Joi.string(),
-
-      linkedin: Joi.string(),
-
-      github: Joi.string(),
-
-      medium: Joi.string(),
-
-      youtube: Joi.string(),
-
-      website: Joi.string(),
-
-      blog: Joi.string(),
-
-      email: Joi.string(),
-
-      tel: Joi.string(),
-
-      about: Joi.string(),
-
-      avatar: Joi.string(),
-
-      rocket_chat: Joi.string(),
-
-      bitcoin_talk: Joi.string(),
-
-      companies: Joi.array(),
-
-      market_data: Joi.object().keys({
-        USD: marketDataSchema,
-      }),
-
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          about: Joi.string(),
-          services: Joi.array().items(Joi.string()),
-          features: Joi.array().items(Joi.string()),
-        }),
-      ),
-      potential: Joi.string(),
-
-      reliability: Joi.string(),
-
-      rating: Joi.string(),
-
-      years: Joi.number(),
-
-      market: Joi.number(),
-
-      market_share: Joi.number(),
-
-      stage: Joi.string(),
-
-      eco_market_cap: Joi.number(),
-
-      backer: Joi.string(),
-
-      fundraising: Joi.string(),
-    }),
+    [Segments.BODY]: coinSchema,
   }),
   update: validate({
-    [Segments.BODY]: Joi.object({
-      name: Joi.string(),
-
-      token_id: Joi.string(),
-
-      //array id of categories
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
-
-      explorer: Joi.string(),
-
-      stack_exchange: Joi.string(),
-
-      blockchains: Joi.array().items(Joi.string()),
-
-      whitepaper: Joi.string(),
-
-      wallets: Joi.array().items(Joi.string()),
-
-      exchanges: Joi.array().items(Joi.string()),
-
-      technologies: Joi.object(),
-
-      features: Joi.array().items(Joi.string()),
-
-      services: Joi.array().items(Joi.string()),
-
-      team: Joi.array().items(Joi.object()),
-
-      ico: Joi.object(),
-
-      twitter: Joi.string(),
-
-      telegram: Joi.string(),
-
-      facebook: Joi.string(),
-
-      instagram: Joi.string(),
-
-      linkedin: Joi.string(),
-
-      github: Joi.string(),
-
-      medium: Joi.string(),
-
-      youtube: Joi.string(),
-
-      website: Joi.string(),
-
-      blog: Joi.string(),
-
-      email: Joi.string(),
-
-      tel: Joi.string(),
-
-      about: Joi.string(),
-
-      avatar: Joi.string(),
-
-      rocket_chat: Joi.string(),
-
-      bitcoin_talk: Joi.string(),
-
-      companies: Joi.array(),
-
-      market_data: Joi.object().keys({
-        USD: marketDataSchema,
-      }),
-
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          about: Joi.string(),
-          services: Joi.array().items(Joi.string()),
-          features: Joi.array().items(Joi.string()),
-        }),
-      ),
-      potential: Joi.string(),
-
-      reliability: Joi.string(),
-
-      rating: Joi.string(),
-
-      years: Joi.number(),
-
-      market: Joi.number(),
-
-      market_share: Joi.number(),
-
-      development_status: Joi.string(),
-
-      stage: Joi.string(),
-
-      eco_market_cap: Joi.number(),
-
-      backer: Joi.string(),
-
-      fundraising: Joi.string(),
-    }),
+    [Segments.BODY]: coinSchema,
     [Segments.PARAMS]: Joi.object({
       id: Joi.string().regex(ObjectIdPattern).required(),
     }),

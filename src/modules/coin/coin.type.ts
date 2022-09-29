@@ -97,6 +97,12 @@ export interface Coin extends BaseInformationModel {
   }[];
 
   community_vote?: number;
+
+  token_allocation?: {
+    name: string;
+    amount: number;
+    percent: number;
+  }[];
 }
 
 export const _coin: Coin = {
@@ -142,4 +148,5 @@ export const _coin: Coin = {
   market: 0,
   market_share: 0,
   community_vote: 0,
+  token_allocation: [],
 };

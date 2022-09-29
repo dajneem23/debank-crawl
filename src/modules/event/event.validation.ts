@@ -17,7 +17,10 @@ export const query = validate({
 
     categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
 
-    type: Joi.string().valid(...Object.values(EventType)),
+    type: [
+      Joi.string().valid(...Object.values(EventType)),
+      Joi.array().items(Joi.string().valid(...Object.values(EventType))),
+    ],
 
     start_date: Joi.date(),
 

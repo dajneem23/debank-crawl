@@ -554,7 +554,7 @@ export class EventService {
                   'trans.lang': { $eq: lang },
                 }),
                 ...(type && {
-                  type,
+                  type: Array.isArray(type) ? type : [type],
                 }),
                 ...(start_date && {
                   start_date: {

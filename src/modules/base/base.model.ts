@@ -16,7 +16,7 @@ import { CommonError, errors } from '@/core/errors/CommonError';
 import { throwErr } from '@/utils/common';
 import { $lookup, $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
 import { $refValidation } from '@/utils/validation';
-import { COLLECTION_NAMES, PRIVATE_KEYS, T } from '@/types';
+import { COLLECTION_NAMES, PRIVATE_KEYS, RemoveSlugPattern, T } from '@/types';
 import slugify from 'slugify';
 import { omit } from 'lodash';
 
@@ -542,14 +542,14 @@ export class BaseModel {
         (_content.slug = slugify(title, {
           trim: true,
           lower: true,
-          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+          remove: RemoveSlugPattern,
         }));
       name &&
         !slug &&
         (_content.slug = slugify(name, {
           trim: true,
           lower: true,
-          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+          remove: RemoveSlugPattern,
         }));
       return _content;
     } catch (err) {

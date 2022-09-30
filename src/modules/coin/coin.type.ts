@@ -1,40 +1,69 @@
-import { BACKER, BaseInformationModel, DEVELOPMENT_STATUS, IcoDetail, TeamPerson, Technology } from '@/types/Common';
+import {
+  BACKER,
+  BaseInformationModel,
+  CONVERT_CURRENCY_CODE,
+  DEVELOPMENT_STATUS,
+  IcoDetail,
+  TeamPerson,
+  Technology,
+} from '@/types/Common';
 
 interface Price {
   date?: string;
   value?: number;
 }
+type MarketData = {
+  [key in keyof typeof CONVERT_CURRENCY_CODE]?: {
+    open?: number;
+    high?: number;
+    low?: number;
+    close?: number;
+    volume?: number;
+    market_cap?: number;
+    market_cap_dominance?: number;
+    fully_diluted_market_cap?: number;
+    price?: number;
+    volume_change_24h?: number;
+    percent_change_1h?: number;
+    latest_price_1h?: number[];
+    percent_change_24h?: number;
+    latest_price_24h?: number[];
+    percent_change_7d?: number;
+    latest_price_7d?: number[];
+    volume_24h?: number;
+    volume_7d?: number;
+    volume_30d?: number;
+    list_price?: Price[];
+    list_price_1h?: Price[];
+    list_price_24h?: Price[];
+    list_price_7d?: Price[];
+    last_updated?: Date;
+    tvl?: number;
+    long: number;
+    short: number;
+    market_cap_by_total_supply: number;
+    volume_24h_reported: number;
+    volume_7d_reported: number;
+    volume_30d_reported: number;
+    percent_change_30d: number;
+    percent_change_60d: number;
+    percent_change_90d?: number;
+  } & {
+    circulating_supply: number;
 
-interface MarketData {
-  open?: number;
-  high?: number;
-  low?: number;
-  close?: number;
-  volume?: number;
-  market_cap?: number;
-  market_cap_dominance?: number;
-  fully_diluted_market_cap?: number;
-  price?: number;
-  volume_change_24h?: number;
-  percent_change_1h?: number;
-  latest_price_1h?: number[];
-  percent_change_24h?: number;
-  latest_price_24h?: number[];
-  percent_change_7d?: number;
-  latest_price_7d?: number[];
-  volume_24h?: number;
-  volume_7d?: number;
-  volume_30d?: number;
-  percent_change_90d?: number;
-  list_price?: Price[];
-  list_price_1h?: Price[];
-  list_price_24h?: Price[];
-  list_price_7d?: Price[];
-  last_updated?: Date;
-  tvl?: number;
-  long: number;
-  short: number;
-}
+    total_supply: number;
+
+    max_supply: number;
+
+    num_market_pairs: number;
+
+    tvl_ratio: number;
+
+    self_reported_circulating_supply: number;
+
+    self_reported_market_cap: number;
+  };
+};
 
 export interface Coin extends BaseInformationModel {
   name: string;
@@ -63,7 +92,7 @@ export interface Coin extends BaseInformationModel {
 
   companies: [];
 
-  market_data?: { [key: string]: MarketData };
+  market_data?: MarketData;
 
   potential?: string;
 

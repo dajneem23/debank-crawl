@@ -4,7 +4,7 @@ import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CoinError, coinErrors, CoinModel, coinModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, coinSortBy, PRIVATE_KEYS } from '@/types/Common';
+import { BaseServiceInput, BaseServiceOutput, coinSortBy, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { _coin } from '@/modules';
 import axios from 'axios';
@@ -581,11 +581,19 @@ export class CoinService {
           endpoint: 'quotesLatest',
           params: {
             symbol: listSymbol.join(','),
+            aux: 'num_market_pairs,cmc_rank,date_added,tags,platform,max_supply,circulating_supply,total_supply,market_cap_by_total_supply,volume_24h_reported,volume_7d,volume_7d_reported,volume_30d,volume_30d_reported,is_active,is_fiat',
           },
         });
         for (const symbol of Object.keys(quotesLatest)) {
           for (const item of quotesLatest[symbol]) {
             const {
+              circulating_supply = 0,
+              total_supply = 0,
+              max_supply = 0,
+              num_market_pairs = 0,
+              tvl_ratio = 0,
+              self_reported_circulating_supply = 0,
+              self_reported_market_cap = 0,
               quote: {
                 USD: {
                   price,
@@ -602,11 +610,22 @@ export class CoinService {
                   fully_diluted_market_cap,
                   tvl,
                   last_updated,
+                  volume_24h_reported,
+                  volume_7d_reported,
+                  volume_30d_reported,
+                  market_cap_by_total_supply,
                 },
               },
               name,
             } = item;
             const marketData = {
+              'market_data.circulating_supply': circulating_supply,
+              'market_data.total_supply': total_supply,
+              'market_data.max_supply': max_supply,
+              'market_data.num_market_pairs': num_market_pairs,
+              'market_data.tvl_ratio': tvl_ratio,
+              'market_data.self_reported_circulating_supply': self_reported_circulating_supply,
+              'market_data.self_reported_market_cap': self_reported_market_cap,
               'market_data.USD.price': price,
               'market_data.USD.volume_24h': volume_24h,
               'market_data.USD.volume_change_24h': volume_change_24h,
@@ -621,6 +640,10 @@ export class CoinService {
               'market_data.USD.fully_diluted_market_cap': fully_diluted_market_cap,
               'market_data.USD.tvl': tvl,
               'market_data.USD.last_updated': last_updated,
+              'market_data.USD.volume_24h_reported': volume_24h_reported,
+              'market_data.USD.volume_7d_reported': volume_7d_reported,
+              'market_data.USD.volume_30d_reported': volume_30d_reported,
+              'market_data.USD.market_cap_by_total_supply': market_cap_by_total_supply,
             };
             const {
               value,
@@ -630,7 +653,12 @@ export class CoinService {
               {
                 $or: [
                   { name: { $regex: `^${name}$`, $options: 'i' } },
-                  { slug: { $regex: `^${slugify(name, { trim: true, lower: true })}$`, $options: 'i' } },
+                  {
+                    slug: {
+                      $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                      $options: 'i',
+                    },
+                  },
                 ],
               },
               {
@@ -674,6 +702,7 @@ export class CoinService {
                     slug: slugify(name, {
                       trim: true,
                       lower: true,
+                      remove: RemoveSlugPattern,
                     }),
                     trans: [] as any,
                     deleted: false,
@@ -761,7 +790,12 @@ export class CoinService {
               {
                 $or: [
                   { name: { $regex: `^${name}$`, $options: 'i' } },
-                  { slug: { $regex: `^${slugify(name, { trim: true, lower: true })}$`, $options: 'i' } },
+                  {
+                    slug: {
+                      $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                      $options: 'i',
+                    },
+                  },
                 ],
               },
               {
@@ -790,6 +824,7 @@ export class CoinService {
                     slug: slugify(name, {
                       trim: true,
                       lower: true,
+                      remove: RemoveSlugPattern,
                     }),
                     'market_data.USD.open': open,
                     'market_data.USD.high': high,

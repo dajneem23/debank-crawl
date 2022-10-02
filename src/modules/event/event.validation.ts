@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, EventType, MediaType, LANG_CODE } from '@/types/Common';
+import { ORDER, EventType, MediaType, LANG_CODE, ObjectIdValidation } from '@/types/Common';
 import { ObjectIdPattern, PhoneNumberPattern } from '@/utils/common';
 export const query = validate({
   [Segments.QUERY]: Joi.object({
@@ -15,7 +15,7 @@ export const query = validate({
 
     q: Joi.string(),
 
-    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    categories: Joi.array().items(ObjectIdValidation),
 
     type: [
       Joi.string().valid(...Object.values(EventType)),
@@ -70,7 +70,7 @@ export const getRelated = validate({
 
     q: Joi.string(),
 
-    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    categories: Joi.array().items(ObjectIdValidation),
 
     lang: Joi.string()
       .valid(...Object.values(LANG_CODE))
@@ -141,18 +141,18 @@ export const create = validate({
 
     end_date: Joi.date(),
 
-    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    categories: Joi.array().items(ObjectIdValidation),
 
     country: Joi.string(),
 
     //array id of persons
-    speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    speakers: Joi.array().items(ObjectIdValidation),
 
-    fund_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    fund_sponsors: Joi.array().items(ObjectIdValidation),
 
-    person_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    person_sponsors: Joi.array().items(ObjectIdValidation),
 
-    company_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    company_sponsors: Joi.array().items(ObjectIdValidation),
 
     tel: Joi.string().regex(PhoneNumberPattern),
 
@@ -235,20 +235,20 @@ export const update = validate({
 
     end_date: Joi.date(),
 
-    categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    categories: Joi.array().items(ObjectIdValidation),
 
     country: Joi.string(),
 
     //array id of persons
-    speakers: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    speakers: Joi.array().items(ObjectIdValidation),
 
-    fund_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    fund_sponsors: Joi.array().items(ObjectIdValidation),
 
-    person_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    person_sponsors: Joi.array().items(ObjectIdValidation),
 
-    company_sponsors: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+    company_sponsors: Joi.array().items(ObjectIdValidation),
 
-    tel: Joi.string().regex(PhoneNumberPattern),
+    tel: Joi.string().pattern(new RegExp(PhoneNumberPattern)).message('Invalid phone number'),
 
     avatar: Joi.string(),
 
@@ -305,12 +305,12 @@ export const update = validate({
     ),
   }),
   [Segments.PARAMS]: Joi.object({
-    id: Joi.string().regex(ObjectIdPattern),
+    id: ObjectIdValidation,
   }),
 });
 export const getById = validate({
   [Segments.PARAMS]: Joi.object({
-    id: Joi.string().regex(ObjectIdPattern),
+    id: ObjectIdValidation,
   }),
   [Segments.QUERY]: Joi.object({
     lang: Joi.string()
@@ -334,13 +334,13 @@ export const getBySlug = validate({
 });
 export const deleteById = validate({
   [Segments.PARAMS]: Joi.object({
-    id: Joi.string().regex(ObjectIdPattern),
+    id: ObjectIdValidation,
   }),
 });
 
 export const updateTrending = validate({
   [Segments.PARAMS]: Joi.object({
-    id: Joi.string().regex(ObjectIdPattern),
+    id: ObjectIdValidation,
   }),
   [Segments.BODY]: Joi.object({
     trending: Joi.boolean().required(),
@@ -349,7 +349,7 @@ export const updateTrending = validate({
 
 export const updateSignificant = validate({
   [Segments.PARAMS]: Joi.object({
-    id: Joi.string().regex(ObjectIdPattern),
+    id: ObjectIdValidation,
   }),
   [Segments.BODY]: Joi.object({
     significant: Joi.boolean().required(),
@@ -358,7 +358,7 @@ export const updateSignificant = validate({
 
 export const subscribe = validate({
   [Segments.PARAMS]: Joi.object({
-    id: Joi.string().regex(ObjectIdPattern),
+    id: ObjectIdValidation,
   }),
   [Segments.BODY]: Joi.object({
     subscribers: [Joi.array().items(Joi.string().email()), Joi.string().email()],

@@ -1,5 +1,8 @@
+import { env } from 'process';
+import axios from 'axios';
+
 /**
- * @description CoinMarketCap API constants
+ * @description CoinMarketCap API
  * @see https://coinmarketcap.com/api/documentation/v1/
  */
 export const CoinMarketCapAPI = {
@@ -10,13 +13,14 @@ export const CoinMarketCapAPI = {
   /**
    * @description limit of coins per page
    */
-  SYMBOL_LIMIT: 200,
 
   /**
    *  @description Endpoints that return data around cryptocurrencies such as ordered cryptocurrency lists or price and volume data.
    *  @see https://coinmarketcap.com/api/documentation/v1/#tag/cryptocurrency
    */
   cryptocurrency: {
+    LIMIT: 200,
+
     /**
      *  @description Returns a paginated list of most recently added cryptocurrencies.
      *  @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyListingsNew
@@ -42,5 +46,42 @@ export const CoinMarketCapAPI = {
      *  @see https://coinmarketcap.com/api/documentation/v1/#operation/getV2CryptocurrencyQuotesHistorical
      */
     quotesLatest: '/v2/cryptocurrency/quotes/latest',
+  },
+  exchange: {
+    LIMIT: 100,
+    /**
+     * @description Returns all static metadata for one or more exchanges. This information includes details like launch date, logo, official website URL, social links, and market fee documentation URL.
+     * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeInfo
+     */
+    info: '/v1/exchange/info',
+    /**
+     *  @description Returns a paginated list of all active cryptocurrency exchanges by CoinMarketCap ID. We recommend using this convenience endpoint to lookup and utilize our unique exchange id across all endpoints as typical exchange identifiers may change over time
+     *  @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeMap
+     */
+    map: '/v1/exchange/map',
+    /**
+     * @description Returns a paginated list of all cryptocurrency exchanges including the latest aggregate market data for each exchange. Use the "convert" option to return market values in multiple fiat and cryptocurrency conversions in the same call.
+     * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeListingsLatest
+     */
+    listingsLatest: '/v1/exchange/listings/latest',
+    /**
+     *  @description Returns the latest aggregate market data for 1 or more exchanges. Use the "convert" option to return market values in multiple fiat and cryptocurrency conversions in the same call.
+     *  @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeQuotesLatest
+     */
+    quotesLatest: '/v2/exchange/quotes/latest',
+
+    /**
+     * @description Returns an interval of historic quotes for any exchange based on time and interval parameters.
+     * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeQuotesHistorical
+     */
+    quotesHistorical: '/v2/exchange/quotes/historical',
+  },
+  async fetchCoinMarketCapAPI({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+    return axios.get(`${CoinMarketCapAPI.HOST}${endpoint}`, {
+      params,
+      headers: {
+        'X-CMC_PRO_API_KEY': env.COINMARKETCAP_API_KEY,
+      },
+    });
   },
 };

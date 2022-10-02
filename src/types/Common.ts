@@ -1,4 +1,6 @@
 import { UserRole } from '@/modules';
+import { ObjectIdPattern } from '@/utils/common';
+import { Joi } from 'celebrate';
 import { ObjectId } from 'mongodb';
 
 export interface BaseQuery {
@@ -121,23 +123,41 @@ export interface BaseInformationModel extends BaseModel {
 
   short_description?: string;
 
+  description?: string;
+
   twitter?: string;
 
   telegram?: string;
 
+  telegrams?: string[];
+
   facebook?: string;
+
+  facebooks?: string[];
+
+  instagrams?: string[];
 
   instagram?: string;
 
   linkedin?: string;
 
+  linkedins?: string[];
+
   github?: string;
+
+  githubs?: string[];
 
   medium?: string;
 
+  mediums?: string[];
+
   discord?: string;
 
+  discords?: string[];
+
   youtube?: string;
+
+  youtubes?: string[];
 
   website?: string;
 
@@ -145,17 +165,31 @@ export interface BaseInformationModel extends BaseModel {
 
   blog?: string;
 
+  blogs?: string[];
+
   reddit?: string;
+
+  reddits?: string[];
 
   gitter?: string;
 
+  gitters?: string[];
+
   bitcoin_talk?: string;
+
+  bitcoin_talks?: string[];
 
   rocket_chat?: string;
 
+  rocket_chats?: string;
+
   video?: string;
 
+  videos?: string[];
+
   explorer?: string;
+
+  explorers?: string[];
 
   recent_tweets?: any[];
 }
@@ -378,6 +412,7 @@ export enum COLLECTION_NAMES {
   'auth-sessions' = 'auth-sessions',
   coins = 'coins',
   settings = 'settings',
+  exchanges = 'exchanges',
 }
 
 export enum coinSortBy {
@@ -410,6 +445,10 @@ export enum BACKER {
   NEUTRAL = 'neutral',
   EARLY = 'early',
 }
+/**
+ *  @description convert currency to market cap convert_id
+ *  @see https://coinmarketcap.com/api/documentation/v1/#section/Standards-and-Conventions
+ */
 export enum CONVERT_CURRENCY_CODE {
   'USD' = '2781',
   'ALL' = '3526',
@@ -509,3 +548,75 @@ export enum CONVERT_CURRENCY_CODE {
  *  @description - Remove all special characters from a string to make it a valid URL
  */
 export const RemoveSlugPattern = /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g;
+
+export const BaseInformationValidation = {
+  name: Joi.string().required(),
+
+  location: Joi.string(),
+
+  short_description: Joi.string(),
+
+  twitter: Joi.string(),
+
+  twitters: Joi.array().items(Joi.string()),
+
+  telegram: Joi.string(),
+
+  telegrams: Joi.array().items(Joi.string()),
+
+  facebook: Joi.string(),
+
+  facebooks: Joi.array().items(Joi.string()),
+
+  instagram: Joi.string(),
+
+  instagrams: Joi.array().items(Joi.string()),
+
+  linkedin: Joi.string(),
+
+  linkedins: Joi.array().items(Joi.string()),
+
+  github: Joi.string(),
+
+  githubs: Joi.string(),
+
+  medium: Joi.string(),
+
+  mediums: Joi.array().items(Joi.string()),
+
+  youtube: Joi.string(),
+
+  youtubes: Joi.array().items(Joi.string()),
+
+  website: Joi.string(),
+
+  websites: Joi.array().items(Joi.string()),
+
+  blog: Joi.string(),
+
+  blogs: Joi.array().items(Joi.string()),
+
+  email: Joi.string(),
+
+  tel: Joi.string(),
+
+  about: Joi.string(),
+
+  avatar: Joi.string(),
+
+  avatars: Joi.array().items(Joi.string()),
+
+  rocket_chat: Joi.string(),
+
+  rocket_chats: Joi.array().items(Joi.string()),
+
+  bitcoin_talk: Joi.string(),
+
+  bitcoin_talks: Joi.array().items(Joi.string()),
+};
+/**
+ * @description - id validation
+ */
+export const ObjectIdValidation = Joi.string()
+  .pattern(new RegExp(ObjectIdPattern))
+  .message('id must be a valid ObjectId');

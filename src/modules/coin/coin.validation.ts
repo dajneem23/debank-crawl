@@ -7,6 +7,7 @@ import {
   BACKER,
   DEVELOPMENT_STATUS,
   CONVERT_CURRENCY_CODE,
+  ObjectIdValidation,
 } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
@@ -74,7 +75,9 @@ const coinSchema = Joi.object({
   token_id: Joi.string(),
 
   //array id of categories
-  categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+  categories: Joi.array().items(
+    Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
+  ),
 
   explorer: Joi.string(),
 
@@ -181,17 +184,17 @@ export const CoinValidation = {
   update: validate({
     [Segments.BODY]: coinSchema,
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string()
@@ -229,7 +232,9 @@ export const CoinValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(
+        Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
+      ),
       community_vote_min: Joi.number(),
       community_vote_max: Joi.number(),
       market_cap_min: Joi.number(),

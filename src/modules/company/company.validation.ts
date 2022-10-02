@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, LANG_CODE } from '@/types';
+import { ORDER, LANG_CODE, ObjectIdValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const CompanyValidation = {
   create: validate({
@@ -16,20 +16,20 @@ export const CompanyValidation = {
       services: Joi.array().items(Joi.object()),
 
       //array id of company
-      clients: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      clients: Joi.array().items(ObjectIdValidation),
 
       //array id of project
-      projects: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      projects: Joi.array().items(ObjectIdValidation),
 
       //array id of product
-      products: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      products: Joi.array().items(ObjectIdValidation),
 
       //array id of categories
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
-      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(ObjectIdValidation),
 
       portfolios: Joi.array().items(Joi.string()),
 
@@ -103,20 +103,20 @@ export const CompanyValidation = {
       services: Joi.array().items(Joi.object()),
 
       //array id of company
-      clients: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      clients: Joi.array().items(ObjectIdValidation),
 
       //array id of project
-      projects: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      projects: Joi.array().items(ObjectIdValidation),
 
       //array id of product
-      products: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      products: Joi.array().items(ObjectIdValidation),
 
       //array id of categories
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
-      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(ObjectIdValidation),
 
       portfolios: Joi.array().items(Joi.string()),
 
@@ -178,17 +178,17 @@ export const CompanyValidation = {
       ),
     }),
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string()
@@ -225,7 +225,9 @@ export const CompanyValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(
+        Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
+      ),
     }),
   }),
   search: validate({

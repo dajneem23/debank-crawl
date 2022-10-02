@@ -11,3 +11,4 @@ export * from './fund';
 export * from './glossary';
 export * from './blockchain';
 export * from './setting';
+export * from './exchange';

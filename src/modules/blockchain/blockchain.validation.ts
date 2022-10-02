@@ -1,12 +1,12 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, LANG_CODE } from '@/types';
+import { ORDER, LANG_CODE, ObjectIdValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 const blockchainSchema = Joi.object({
   name: Joi.string().required(),
   //array id of categories
-  categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+  categories: Joi.array().items(ObjectIdValidation),
   //array id of coins
-  cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+  cryptocurrencies: Joi.array().items(ObjectIdValidation),
 
   short_description: Joi.string(),
 
@@ -96,17 +96,17 @@ export const BlockchainValidation = {
   update: validate({
     [Segments.BODY]: blockchainSchema,
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string()
@@ -143,7 +143,7 @@ export const BlockchainValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
     }),
   }),
   search: validate({

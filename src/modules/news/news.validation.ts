@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, NewsStatus, TopNewsDateRange } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, NewsStatus, TopNewsDateRange, ObjectIdValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const NewsValidation = {
   create: validate({
@@ -16,7 +16,7 @@ export const NewsValidation = {
 
       photos: Joi.array().items(Joi.string()),
 
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
 
       source: Joi.string(),
 
@@ -43,15 +43,15 @@ export const NewsValidation = {
 
       keywords: Joi.array().items(Joi.string()),
 
-      company_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      company_tags: Joi.array().items(ObjectIdValidation),
 
-      coin_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      coin_tags: Joi.array().items(ObjectIdValidation),
 
-      product_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      product_tags: Joi.array().items(ObjectIdValidation),
 
-      person_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      person_tags: Joi.array().items(ObjectIdValidation),
 
-      event_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      event_tags: Joi.array().items(ObjectIdValidation),
     }),
   }),
   update: validate({
@@ -68,7 +68,7 @@ export const NewsValidation = {
 
       photos: Joi.array().items(Joi.string()),
 
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
 
       source: Joi.string(),
 
@@ -95,28 +95,28 @@ export const NewsValidation = {
 
       keywords: Joi.array().items(Joi.string()),
 
-      company_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      company_tags: Joi.array().items(ObjectIdValidation),
 
-      coin_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      coin_tags: Joi.array().items(ObjectIdValidation),
 
-      product_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      product_tags: Joi.array().items(ObjectIdValidation),
 
-      person_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      person_tags: Joi.array().items(ObjectIdValidation),
 
-      event_tags: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      event_tags: Joi.array().items(ObjectIdValidation),
     }),
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string()
@@ -152,7 +152,7 @@ export const NewsValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
       status: Joi.string().valid(...Object.values(NewsStatus)),
     }),
   }),
@@ -209,7 +209,7 @@ export const NewsValidation = {
   }),
   updateStatus: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
     [Segments.QUERY]: Joi.object({
       status: Joi.string()
@@ -220,7 +220,7 @@ export const NewsValidation = {
   }),
   PreCheckStatus: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
 };

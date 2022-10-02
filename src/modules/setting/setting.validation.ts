@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER } from '@/types';
+import { ObjectIdValidation, ORDER } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 const SettingSchema = Joi.object({
   title: Joi.string().required(),
@@ -15,12 +15,12 @@ export const SettingValidation = {
   update: validate({
     [Segments.BODY]: SettingSchema,
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   query: validate({
@@ -51,7 +51,7 @@ export const SettingValidation = {
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().required().regex(ObjectIdPattern),
+      id: Joi.string().required().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
     }),
   }),
   getByName: validate({

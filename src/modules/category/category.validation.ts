@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 const categorySchema = Joi.object({
   title: Joi.string().required(),
@@ -29,12 +29,12 @@ export const CategoryValidation = {
   update: validate({
     [Segments.BODY]: categorySchema,
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   query: validate({
@@ -81,7 +81,7 @@ export const CategoryValidation = {
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().required().regex(ObjectIdPattern),
+      id: Joi.string().required().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
     }),
   }),
   getByName: validate({

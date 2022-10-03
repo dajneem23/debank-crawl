@@ -50,6 +50,12 @@ export const CoinMarketCapAPI = {
   exchange: {
     LIMIT: 100,
     /**
+     *  @description
+     */
+    DURATION: 5 * 60 * 1000,
+
+    INTERVAL: '* 0 0 * * *',
+    /**
      * @description Returns all static metadata for one or more exchanges. This information includes details like launch date, logo, official website URL, social links, and market fee documentation URL.
      * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeInfo
      */

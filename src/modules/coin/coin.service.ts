@@ -58,7 +58,7 @@ export class CoinService {
   };
 
   constructor() {
-    if (env.MODE === 'dev') {
+    if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
       // Init Queue

@@ -15,7 +15,6 @@ const convertCurrencySchema = Joi.object({
 const marketDataSchema = Joi.object({}).keys({
   maker_fee: Joi.number(),
   taker_fee: Joi.number(),
-  weekly_visits: Joi.number(),
   spot_volume_usd: Joi.number(),
   spot_volume_last_updated: Joi.date(),
   num_coins: Joi.number(),
@@ -34,6 +33,7 @@ const ExchangeSchema = Joi.object({
   countries: Joi.array().items(Joi.string()),
   status: Joi.string(),
   rank: Joi.number(),
+  weekly_visits: Joi.number(),
   market_data: marketDataSchema,
   ...BaseInformationValidation,
 });

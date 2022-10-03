@@ -13,9 +13,30 @@ export interface Exchange extends BaseInformationModel {
 
   countries?: string[];
 
+  weekly_visits?: number;
+
   status?: string;
 
   rank: number;
+
+  urls?: {
+    fee?: string;
+    website?: string[];
+    twitter?: string[];
+    telegram?: string[];
+    reddit?: string[];
+    facebook?: string[];
+    slack?: string[];
+    github?: string[];
+    bitcoin_talk?: string[];
+    youtube?: string[];
+    linkedin?: string[];
+    instagram?: string[];
+    whitepaper?: string[];
+    blog?: string[];
+    explorer?: string[];
+    other?: string[];
+  };
 }
 type MarketData = {
   [key in keyof typeof CONVERT_CURRENCY_CODE]?: {
@@ -31,8 +52,6 @@ type MarketData = {
     maker_fee: number;
 
     taker_fee: number;
-
-    weekly_visits: number;
 
     spot_volume_usd: number;
 
@@ -53,5 +72,6 @@ export const _exchange: Exchange = {
   countries: [],
   categories: [],
   fiats: [],
+  weekly_visits: 0,
   rank: 999999,
 };

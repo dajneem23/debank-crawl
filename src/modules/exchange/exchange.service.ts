@@ -7,12 +7,14 @@ import AuthService from '../auth/auth.service';
 import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { _exchange, exchangeModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
-import { isNil, omit } from 'lodash';
+import { chunk, isNil, omit } from 'lodash';
 import IORedis from 'ioredis';
-import { Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { SystemError } from '@/core/errors';
 import { CoinMarketCapAPI } from '@/common/api';
+import { ExchangeJobData, ExchangeJobNames } from './exchange.job';
+import { env } from 'process';
 const TOKEN_NAME = '_exchangeService';
 /**
  * A bridge allows another service access to the Model layer
@@ -41,7 +43,7 @@ export class ExchangeService {
   private queueScheduler: QueueScheduler;
 
   private readonly jobs = {
-    'exchange:fetch:info': this.fetchExchangeInfo,
+    'exchange:fetch:info': this.fetchExchangeData,
     default: () => {
       throw new SystemError('Invalid job name');
     },
@@ -63,7 +65,12 @@ export class ExchangeService {
     return ['about', 'short_description'];
   }
   constructor() {
-    this.fetchExchangeInfo();
+    if (env.MODE === 'production_') {
+      // Init Worker
+      this.initWorker();
+      // Init Queue
+      this.initQueue();
+    }
   }
   /**
    * Generate ID
@@ -423,7 +430,7 @@ export class ExchangeService {
    *  @description init BullMQ Queue
    */
   private initQueue() {
-    this.queue = new Queue('coin', {
+    this.queue = new Queue('exchange', {
       connection: this.redisConnection as any,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
@@ -439,7 +446,7 @@ export class ExchangeService {
       connection: this.redisConnection as any,
     });
 
-    // this.addFetchingDataJob();
+    this.addFetchingDataJob();
 
     queueEvents.on('completed', ({ jobId }) => {
       this.logger.debug('success', 'Job completed', { jobId });
@@ -449,60 +456,105 @@ export class ExchangeService {
       this.logger.debug('error', 'Job failed', { jobId, failedReason });
     });
   }
-  // workerProcessor(job: Job<ExchangeJobData>): Promise<void> {
-  //   const { name } = job;
-  //   this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
-  //   return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
-  // }
-  // /**
-  //  * Initialize Worker listeners
-  //  * @private
-  //  */
-  // private initWorkerListeners(worker: Worker) {
-  //   // Completed
-  //   worker.on('completed', (job: Job<ExchangeJobData>) => {
-  //     this.logger.debug('success', '[job:completed]', { id: job.id });
-  //   });
-  //   // Failed
-  //   worker.on('failed', (job: Job<ExchangeJobData>, error: Error) => {
-  //     this.logger.error('error', '[job:error]', { jobId: job.id, error });
-  //   });
-  // }
-  // /**
-  //  * @description add job to queue
-  //  */
-  // addJob({
-  //   name,
-  //   payload = {},
-  //   options = {
-  //     repeat: {
-  //       every: +FETCH_MARKET_DATA_INTERVAL,
-  //     },
-  //   },
-  // }: {
-  //   name: ExchangeJobNames;
-  //   payload?: any;
-  //   options?: JobsOptions;
-  // }) {
-  //   this.queue
-  //     .add(name, payload, options)
-  //     .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
-  //     .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
-  // }
+
+  private addFetchingDataJob() {
+    this.addJob({
+      name: 'exchange:fetch:info',
+      payload: {},
+      options: {
+        repeat: {
+          // pattern: CoinMarketCapAPI.exchange.INTERVAL,
+          pattern: '* 0 0 * * *',
+        },
+        jobId: 'exchange:fetch:info',
+      },
+    });
+  }
+
+  /**
+   * @description add job to queue
+   */
+  addJob({
+    name,
+    payload = {},
+    options = {
+      repeat: {
+        pattern: CoinMarketCapAPI.exchange.INTERVAL,
+      },
+    },
+  }: {
+    name: ExchangeJobNames;
+    payload?: any;
+    options?: JobsOptions;
+  }) {
+    this.queue
+      .add(name, payload, options)
+      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
+      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
+  }
   // /**
   //  *  @description init BullMQ Worker
   //  */
-  // private initWorker() {
-  //   this.worker = new Worker('exchange', this.workerProcessor.bind(this), {
-  //     connection: this.redisConnection as any,
-  //     concurrency: 20,
-  //     limiter: {
-  //       max: 1,
-  //       duration: FETCH_MARKET_DATA_DURATION,
-  //     },
-  //   });
-  //   this.initWorkerListeners(this.worker);
-  // }
+  private initWorker() {
+    this.worker = new Worker('exchange', this.workerProcessor.bind(this), {
+      connection: this.redisConnection as any,
+      concurrency: 20,
+      limiter: {
+        max: 1,
+        duration: CoinMarketCapAPI.exchange.DURATION,
+      },
+    });
+    this.initWorkerListeners(this.worker);
+  }
+  /**
+   * Initialize Worker listeners
+   * @private
+   */
+  private initWorkerListeners(worker: Worker) {
+    // Completed
+    worker.on('completed', (job: Job<ExchangeJobData>) => {
+      this.logger.debug('success', '[job:completed]', { id: job.id });
+    });
+    // Failed
+    worker.on('failed', (job: Job<ExchangeJobData>, error: Error) => {
+      this.logger.error('error', '[job:error]', { jobId: job.id, error });
+    });
+  }
+  workerProcessor(job: Job<ExchangeJobData>): Promise<void> {
+    const { name } = job;
+    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+    return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
+  }
+  /**
+   *  @description fetch all exchanges from CoinMarketCap
+   */
+  async fetchExchangeData() {
+    this.logger.debug('info', 'fetchExchangeData', { start: new Date() });
+    const exchangeMap = (await this.fetchExchangeMap()) || [];
+    const groupExchangeMap = chunk(exchangeMap, CoinMarketCapAPI.exchange.LIMIT);
+    const exchangeData = await Promise.all(
+      groupExchangeMap.map(async (groupExchangeMap) => {
+        const exchangeIds = groupExchangeMap.map((exchange: any) => exchange.id);
+        const {
+          data: { data: exchangeData },
+        } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+          endpoint: CoinMarketCapAPI.exchange.info,
+          params: {
+            id: exchangeIds.join(','),
+            aux: 'urls,logo,description,date_launched,notice,status',
+          },
+        });
+        return exchangeData;
+      }),
+    );
+    this.logger.debug('info', 'fetchExchangeData', JSON.stringify(exchangeData));
+    for (const _exchange of exchangeData) {
+      for (const exchange of Object.values(_exchange)) {
+        await this.upsertExchange(exchange);
+      }
+    }
+    this.logger.debug('info', 'fetchExchangeData', { end: new Date() });
+  }
   async fetchExchangeInfo({
     page = 1,
     per_page = CoinMarketCapAPI.exchange.LIMIT,
@@ -527,7 +579,9 @@ export class ExchangeService {
     page = 1,
     per_page = CoinMarketCapAPI.exchange.LIMIT,
     delay = 300,
-    params = {},
+    params = {
+      aux: 'first_historical_data,last_historical_data,is_active,status',
+    },
   }: {
     page?: number;
     per_page?: number;
@@ -543,5 +597,89 @@ export class ExchangeService {
     this.logger.debug('info', 'fetchExchangeInfo', { exchangeMap });
     return exchangeMap;
   }
-  // fetchExchangeData() {}
+  async upsertExchange({
+    id,
+    name,
+    slug,
+    logo: avatar,
+    description,
+    date_launched: launched,
+    notice,
+    countries,
+    fiats,
+    type,
+    maker_fee,
+    taker_fee,
+    weekly_visits,
+    spot_volume_usd,
+    spot_volume_last_updated,
+    urls,
+    status,
+  }: any) {
+    const {
+      value,
+      ok,
+      lastErrorObject: { updatedExisting },
+    } = await this.model._collection.findOneAndUpdate(
+      { slug: slug },
+      {
+        $set: {
+          name,
+          slug,
+          avatar,
+          description,
+          launched,
+          fiats,
+          notice,
+          countries,
+          type,
+          weekly_visits,
+          urls,
+          status,
+          'market_data.USD.maker_fee': maker_fee,
+          'market_data.USD.taker_fee': taker_fee,
+          'market_data.USD.spot_volume_usd': spot_volume_usd,
+          'market_data.USD.spot_volume_last_updated': spot_volume_last_updated,
+          updated_at: new Date(),
+          updated_by: 'system',
+        },
+      },
+      {
+        upsert: false,
+      },
+    );
+    if (ok && !updatedExisting) {
+      await this.model._collection.findOneAndUpdate(
+        { slug: slug },
+        {
+          $setOnInsert: {
+            name,
+            slug,
+            avatar,
+            description,
+            launched,
+            fiats,
+            notice,
+            countries,
+            type,
+            weekly_visits,
+            urls,
+            status,
+            'market_data.USD.maker_fee': maker_fee,
+            'market_data.USD.taker_fee': taker_fee,
+            'market_data.USD.spot_volume_usd': spot_volume_usd,
+            'market_data.USD.spot_volume_last_updated': spot_volume_last_updated,
+            trans: [],
+            categories: [],
+            created_at: new Date(),
+            updated_at: new Date(),
+            created_by: 'system',
+          },
+        },
+        {
+          upsert: true,
+        },
+      );
+    }
+  }
 }

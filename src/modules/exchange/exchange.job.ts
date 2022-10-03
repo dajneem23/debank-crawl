@@ -1,7 +1,7 @@
-export type fetchExchangeInfoJob = {
-  name: 'exchange:fetch:marketData';
+export type fetchExchangeDataJob = {
+  name: 'exchange:fetch:data';
 };
 
-export type ExchangeJobNames = 'exchange:fetch:info' | 'exchange:fetch:listingsLatest';
+export type ExchangeJobNames = 'exchange:fetch:data' | 'exchange:fetch:listingsLatest';
 
-export type ExchangeJobData = fetchExchangeInfoJob;
+export type ExchangeJobData = fetchExchangeDataJob;

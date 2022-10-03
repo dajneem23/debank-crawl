@@ -43,7 +43,7 @@ export class ExchangeService {
   private queueScheduler: QueueScheduler;
 
   private readonly jobs = {
-    'exchange:fetch:info': this.fetchExchangeData,
+    'exchange:fetch:data': this.fetchExchangeData,
     default: () => {
       throw new SystemError('Invalid job name');
     },
@@ -65,7 +65,7 @@ export class ExchangeService {
     return ['about', 'short_description'];
   }
   constructor() {
-    if (env.MODE === 'production_') {
+    if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
       // Init Queue
@@ -459,14 +459,14 @@ export class ExchangeService {
 
   private addFetchingDataJob() {
     this.addJob({
-      name: 'exchange:fetch:info',
+      name: 'exchange:fetch:data',
       payload: {},
       options: {
         repeat: {
           // pattern: CoinMarketCapAPI.exchange.INTERVAL,
           pattern: '* 0 0 * * *',
         },
-        jobId: 'exchange:fetch:info',
+        jobId: 'exchange:fetch:data',
       },
     });
   }

@@ -46,7 +46,7 @@ export const SettingValidation = {
         .valid(...Object.values(ORDER)),
       type: [Joi.string(), Joi.array().items(Joi.string())],
       weight: Joi.number(),
-      q: Joi.string().required(),
+      q: Joi.string().required().allow(''),
     }),
   }),
   getById: validate({

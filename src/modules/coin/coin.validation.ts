@@ -1,11 +1,21 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, coinSortBy, BACKER, DEVELOPMENT_STATUS } from '@/types';
+import {
+  ORDER,
+  CATEGORY_TYPE,
+  LANG_CODE,
+  coinSortBy,
+  BACKER,
+  DEVELOPMENT_STATUS,
+  CONVERT_CURRENCY_CODE,
+} from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
+import { mapValues } from 'lodash';
 const priceSchema = Joi.object({
   date: Joi.date(),
   value: Joi.number(),
 });
-const marketDataSchema = Joi.object({
+
+const convertCurrencySchema = Joi.object({
   open: Joi.number(),
   high: Joi.number(),
   low: Joi.number(),
@@ -25,7 +35,6 @@ const marketDataSchema = Joi.object({
   volume_24h: Joi.number(),
   volume_7d: Joi.number(),
   volume_30d: Joi.number(),
-  percent_change_90d: Joi.number(),
   list_price: Joi.array().items(priceSchema),
   list_price_1h: Joi.array().items(priceSchema),
   list_price_24h: Joi.array().items(priceSchema),
@@ -34,6 +43,30 @@ const marketDataSchema = Joi.object({
   tvl: Joi.number(),
   long: Joi.number(),
   short: Joi.number(),
+  market_cap_by_total_supply: Joi.number(),
+  volume_24h_reported: Joi.number(),
+  volume_7d_reported: Joi.number(),
+  volume_30d_reported: Joi.number(),
+  percent_change_30d: Joi.number(),
+  percent_change_60d: Joi.number(),
+  percent_change_90d: Joi.number(),
+});
+const marketDataSchema = Joi.object({}).keys({
+  circulating_supply: Joi.number(),
+
+  total_supply: Joi.number(),
+
+  max_supply: Joi.number(),
+
+  num_market_pairs: Joi.number(),
+
+  tvl_ratio: Joi.number(),
+
+  self_reported_circulating_supply: Joi.number(),
+
+  self_reported_market_cap: Joi.number(),
+
+  ...mapValues(CONVERT_CURRENCY_CODE, () => convertCurrencySchema),
 });
 const coinSchema = Joi.object({
   name: Joi.string(),
@@ -99,10 +132,7 @@ const coinSchema = Joi.object({
 
   companies: Joi.array(),
 
-  market_data: Joi.object().keys({
-    USD: marketDataSchema,
-  }),
-
+  market_data: marketDataSchema,
   trans: Joi.array().items(
     Joi.object({
       lang: Joi.string()

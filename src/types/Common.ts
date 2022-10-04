@@ -394,6 +394,7 @@ export type FundraisingRoundDetail = {
   date: Date;
 };
 export enum COLLECTION_NAMES {
+  'common' = 'common',
   events = 'events',
   news = 'news',
   projects = 'projects',

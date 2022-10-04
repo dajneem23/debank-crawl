@@ -1,12 +1,4 @@
-import {
-  BACKER,
-  BaseInformationModel,
-  CONVERT_CURRENCY_CODE,
-  DEVELOPMENT_STATUS,
-  IcoDetail,
-  TeamPerson,
-  Technology,
-} from '@/types/Common';
+import { BACKER, BaseInformationModel, CONVERT_CURRENCY_CODE, IcoDetail, TeamPerson, Technology } from '@/types/Common';
 
 interface Price {
   date?: string;

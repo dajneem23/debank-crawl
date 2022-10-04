@@ -1,6 +1,6 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
@@ -16,6 +16,7 @@ import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bu
 import { SystemError } from '@/core/errors';
 import { CategoryJobData, CategoryJobNames } from './category.job';
 import { env } from 'process';
+import { CoinModel, coinModelToken } from '../coin';
 
 const TOKEN_NAME = '_categoryService';
 /**
@@ -30,6 +31,8 @@ export class CategoryService {
   private logger = new Logger('Categories');
 
   private model = Container.get(categoryModelToken);
+
+  private CoinModel = Container.get<CoinModel>(coinModelToken);
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 
@@ -79,7 +82,7 @@ export class CategoryService {
       concurrency: 20,
       limiter: {
         max: 1,
-        duration: 1000,
+        duration: 600000,
       },
     });
     this.initWorkerListeners(this.worker);
@@ -514,8 +517,6 @@ export class CategoryService {
         'market_data.volume_change': category.volume_change,
       };
       const {
-        value,
-        ok,
         lastErrorObject: { updatedExisting },
       } = await this.model._collection.findOneAndUpdate(
         {
@@ -538,7 +539,10 @@ export class CategoryService {
         },
       );
       if (!updatedExisting) {
-        await this.model._collection.findOneAndUpdate(
+        await sleep(2000);
+        const {
+          value: { _id: categoryId },
+        } = await this.model._collection.findOneAndUpdate(
           {
             name: slugify(category.name, {
               trim: true,
@@ -574,6 +578,37 @@ export class CategoryService {
             returnDocument: 'after',
           },
         );
+        const {
+          data: {
+            data: { coins = [] },
+          },
+        } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+          endpoint: CoinMarketCapAPI.cryptocurrency.category,
+          params: {
+            id: category.id,
+          },
+        });
+        for (const { name } of coins) {
+          const { value: coin } = await this.CoinModel._collection.findOneAndUpdate(
+            {
+              $or: [
+                { name: { $regex: `^${name}$`, $options: 'i' } },
+                {
+                  slug: {
+                    $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                    $options: 'i',
+                  },
+                },
+              ],
+            },
+            {
+              $addToSet: {
+                categories: categoryId as never,
+              },
+            },
+          );
+          // this.logger.debug('info', JSON.stringify({ coin, name }));
+        }
       }
     }
   }

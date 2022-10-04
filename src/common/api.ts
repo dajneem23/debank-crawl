@@ -56,7 +56,7 @@ export const CoinMarketCapAPI = {
      * @description Returns information about a single coin category available on CoinMarketCap. Includes a paginated list of the cryptocurrency quotes and metadata for the category.
      * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyCategory
      */
-    category: 'GET /v1/cryptocurrency/category',
+    category: '/v1/cryptocurrency/category',
   },
   exchange: {
     LIMIT: 100,

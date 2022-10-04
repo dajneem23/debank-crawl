@@ -587,6 +587,7 @@ export class CoinService {
               tvl_ratio = 0,
               self_reported_circulating_supply = 0,
               self_reported_market_cap = 0,
+              cmc_rank,
               quote: {
                 USD: {
                   price,
@@ -612,6 +613,7 @@ export class CoinService {
               name,
             } = item;
             const marketData = {
+              cmc_rank,
               'market_data.circulating_supply': circulating_supply,
               'market_data.total_supply': total_supply,
               'market_data.max_supply': max_supply,

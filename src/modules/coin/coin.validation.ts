@@ -255,7 +255,7 @@ export const CoinValidation = {
       sort_order: Joi.string()
         .default(ORDER.ASC)
         .valid(...Object.values(ORDER)),
-      q: Joi.string().required(),
+      q: Joi.string().required().allow(''),
       lang: Joi.string()
         .valid(...Object.values(LANG_CODE))
         .messages({

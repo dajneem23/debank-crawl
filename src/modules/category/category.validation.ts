@@ -76,7 +76,7 @@ export const CategoryValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      q: Joi.string().required(),
+      q: Joi.string().required().allow(''),
     }),
   }),
   getById: validate({

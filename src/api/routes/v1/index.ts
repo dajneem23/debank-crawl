@@ -4,6 +4,7 @@ import env from '@/config/env';
 import {
   BlockchainController,
   GlossaryController,
+  ExchangeController,
   CategoryController,
   CompanyController,
   SettingController,
@@ -16,11 +17,12 @@ import {
   NewsController,
   FundController,
   BlockchainPrivateController,
+  ExchangePrivateController,
   GlossaryPrivateController,
   CategoryPrivateController,
   SettingPrivateController,
-  CompanyPrivateController,
   ProductPrivateController,
+  CompanyPrivateController,
   PersonPrivateController,
   EventPrivateController,
   CoinPrivateController,
@@ -40,6 +42,7 @@ export default (app: Application) => {
     BlockchainController,
     GlossaryController,
     CategoryController,
+    ExchangeController,
     StorageController,
     SettingController,
     ProductController,
@@ -57,6 +60,7 @@ export default (app: Application) => {
    */
   attachControllers(route, [
     BlockchainPrivateController,
+    ExchangePrivateController,
     GlossaryPrivateController,
     CategoryPrivateController,
     CompanyPrivateController,

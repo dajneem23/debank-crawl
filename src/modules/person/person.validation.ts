@@ -1,12 +1,12 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const PersonValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
       position: Joi.string(),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
       works: Joi.array().items(
         Joi.object({
           title: Joi.string(),
@@ -74,7 +74,7 @@ export const PersonValidation = {
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
       position: Joi.string(),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
       works: Joi.array().items(
         Joi.object({
           title: Joi.string(),
@@ -134,17 +134,17 @@ export const PersonValidation = {
       ),
     }),
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string()
@@ -180,7 +180,7 @@ export const PersonValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
     }),
   }),
   search: validate({

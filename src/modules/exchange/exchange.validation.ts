@@ -1,51 +1,48 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, LANG_CODE, ObjectIdValidation } from '@/types';
+import { ORDER, LANG_CODE, ObjectIdValidation, CONVERT_CURRENCY_CODE, BaseInformationValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
-export const GlossaryValidation = {
+import { mapValues } from 'lodash';
+const convertCurrencySchema = Joi.object({
+  volume_24h: Joi.number(),
+  volume_7d: Joi.number(),
+  volume_30d: Joi.number(),
+  volume_24h_adjusted: Joi.number(),
+  percent_change_volume_24h: Joi.number(),
+  percent_change_volume_7d: Joi.number(),
+  percent_change_volume_30d: Joi.number(),
+  effective_liquidity_24h: Joi.number(),
+});
+const marketDataSchema = Joi.object({}).keys({
+  maker_fee: Joi.number(),
+  taker_fee: Joi.number(),
+  spot_volume_usd: Joi.number(),
+  spot_volume_last_updated: Joi.date(),
+  num_coins: Joi.number(),
+  num_market_pairs: Joi.number(),
+  traffic_score: Joi.number(),
+  exchange_score: Joi.number(),
+  liquidity_score: Joi.number(),
+  ...mapValues(CONVERT_CURRENCY_CODE, () => convertCurrencySchema),
+});
+
+const ExchangeSchema = Joi.object({
+  launched: Joi.date(),
+  about: Joi.string(),
+  fiats: Joi.array().items(Joi.string()),
+  type: Joi.string(),
+  countries: Joi.array().items(Joi.string()),
+  status: Joi.string(),
+  rank: Joi.number(),
+  weekly_visits: Joi.number(),
+  market_data: marketDataSchema,
+  ...BaseInformationValidation,
+});
+export const ExchangeValidation = {
   create: validate({
-    [Segments.BODY]: Joi.object({
-      name: Joi.string().required(),
-
-      define: Joi.string().required(),
-
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          define: Joi.string(),
-          name: Joi.string(),
-        }),
-      ),
-      categories: Joi.array().items(ObjectIdValidation),
-      type: Joi.string(),
-    }),
+    [Segments.BODY]: ExchangeSchema,
   }),
   update: validate({
-    [Segments.BODY]: Joi.object({
-      name: Joi.string().required(),
-
-      define: Joi.string().required(),
-
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          define: Joi.string(),
-          name: Joi.string(),
-        }),
-      ),
-      categories: Joi.array().items(ObjectIdValidation),
-      type: Joi.string(),
-    }),
-
+    [Segments.BODY]: ExchangeSchema,
     [Segments.PARAMS]: Joi.object({
       id: ObjectIdValidation,
     }),
@@ -94,7 +91,9 @@ export const GlossaryValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(
+        Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
+      ),
     }),
   }),
   search: validate({

@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, FUND_TYPE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, FUND_TYPE, ObjectIdValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 
 export const FundValidation = {
@@ -63,11 +63,11 @@ export const FundValidation = {
 
       assets_allocation: Joi.string(),
       //array id of categories
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
-      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(ObjectIdValidation),
 
       sponsored: Joi.boolean(),
 
@@ -181,7 +181,7 @@ export const FundValidation = {
 
       recent_tweets: Joi.array().items(Joi.object()),
       //array id of categories
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
 
       galleries: Joi.array().items(Joi.object()),
       //array id of coins
@@ -239,17 +239,17 @@ export const FundValidation = {
       ),
     }),
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string()
@@ -285,7 +285,7 @@ export const FundValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
       funding_min: Joi.number(),
       funding_max: Joi.number(),
       launched_from: Joi.number(),

@@ -1,13 +1,13 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const ProductValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
       contract_addresses: Joi.array().items(Joi.object()),
-      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(ObjectIdValidation),
       features: Joi.array().items(Joi.string()),
       apps: Joi.array().items(Joi.object()),
       supports: Joi.array().items(Joi.object()),
@@ -48,8 +48,8 @@ export const ProductValidation = {
     [Segments.BODY]: Joi.object({
       name: Joi.string(),
       contract_addresses: Joi.array().items(Joi.object()),
-      cryptocurrencies: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      cryptocurrencies: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(ObjectIdValidation),
       features: Joi.array().items(Joi.string()),
       apps: Joi.array().items(Joi.object()),
       supports: Joi.array().items(Joi.object()),
@@ -85,17 +85,17 @@ export const ProductValidation = {
       ),
     }),
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   delete: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
   }),
   getById: validate({
     [Segments.PARAMS]: Joi.object({
-      id: Joi.string().regex(ObjectIdPattern).required(),
+      id: ObjectIdValidation,
     }),
     [Segments.QUERY]: Joi.object({
       lang: Joi.string()
@@ -131,7 +131,7 @@ export const ProductValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(Joi.string().regex(ObjectIdPattern)),
+      categories: Joi.array().items(ObjectIdValidation),
     }),
   }),
   search: validate({

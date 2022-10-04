@@ -9,12 +9,7 @@ import { isNil, omit } from 'lodash';
 import { _coin } from '@/modules';
 import { env } from 'process';
 import slugify from 'slugify';
-import {
-  FETCH_MARKET_DATA_DURATION,
-  FETCH_MARKET_DATA_INTERVAL,
-  PRICE_PRECISION,
-  PRICE_STACK_SIZE,
-} from './coin.constants';
+import { FETCH_MARKET_DATA_DURATION, PRICE_STACK_SIZE } from './coin.constants';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import IORedis from 'ioredis';
 import { SystemError } from '@/core/errors';
@@ -116,7 +111,7 @@ export class CoinService {
       payload: {},
       options: {
         repeat: {
-          every: +FETCH_MARKET_DATA_INTERVAL,
+          every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
         },
         jobId: 'coin:fetch:marketData',
       },
@@ -670,7 +665,7 @@ export class CoinService {
                     $each: [
                       {
                         value: marketData['market_data.USD.price'],
-                        date: new Date(),
+                        timestamp: new Date(),
                       },
                     ],
                     $position: 0,
@@ -693,7 +688,7 @@ export class CoinService {
                     'market_data.USD.list_price': [
                       {
                         value: marketData['market_data.USD.price'],
-                        date: new Date(),
+                        timestamp: new Date(),
                       },
                     ],
                     ...marketData,
@@ -865,11 +860,11 @@ export class CoinService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', (job: Job<CoinJobData>) => {
-      this.logger.debug('success', '[job:completed]', { id: job.id });
+      this.logger.debug('success', '[job:coin:completed]', { id: job.id, jobName: job.name, data: job.data });
     });
     // Failed
     worker.on('failed', (job: Job<CoinJobData>, error: Error) => {
-      this.logger.error('error', '[job:error]', { jobId: job.id, error });
+      this.logger.error('error', '[job:coin:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
     });
   }
   /**
@@ -880,7 +875,7 @@ export class CoinService {
     payload = {},
     options = {
       repeat: {
-        every: +FETCH_MARKET_DATA_INTERVAL,
+        every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
       },
     },
   }: {

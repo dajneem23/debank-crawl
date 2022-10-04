@@ -11,46 +11,67 @@ import {
 } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
-const priceSchema = Joi.object({
-  date: Joi.date(),
+const valueByDateSchema = Joi.object({
+  timestamp: Joi.date(),
   value: Joi.number(),
 });
 
 const convertCurrencySchema = Joi.object({
+  price: Joi.number(),
   open: Joi.number(),
   high: Joi.number(),
   low: Joi.number(),
   close: Joi.number(),
   volume: Joi.number(),
   market_cap: Joi.number(),
-  market_cap_dominance: Joi.number(),
-  fully_diluted_market_cap: Joi.number(),
-  price: Joi.number(),
-  volume_change_24h: Joi.number(),
-  percent_change_1h: Joi.number(),
-  latest_price_1h: Joi.array().items(Joi.number()),
-  percent_change_24h: Joi.number(),
-  latest_price_24h: Joi.array().items(Joi.number()),
-  percent_change_7d: Joi.number(),
-  latest_price_7d: Joi.array().items(Joi.number()),
-  volume_24h: Joi.number(),
-  volume_7d: Joi.number(),
-  volume_30d: Joi.number(),
-  list_price: Joi.array().items(priceSchema),
-  list_price_1h: Joi.array().items(priceSchema),
-  list_price_24h: Joi.array().items(priceSchema),
-  list_price_7d: Joi.array().items(priceSchema),
-  last_updated: Joi.date(),
   tvl: Joi.number(),
   long: Joi.number(),
   short: Joi.number(),
+
+  market_cap_dominance: Joi.number(),
+  fully_diluted_market_cap: Joi.number(),
   market_cap_by_total_supply: Joi.number(),
+
+  volume_change_24h: Joi.number(),
+
+  latest_price_1h: Joi.array().items(Joi.number()),
+  latest_price_24h: Joi.array().items(Joi.number()),
+  latest_price_7d: Joi.array().items(Joi.number()),
+
+  volume_24h: Joi.number(),
+  volume_7d: Joi.number(),
+  volume_30d: Joi.number(),
+
+  percent_change_1h: Joi.number(),
+  percent_change_24h: Joi.number(),
+  percent_change_7d: Joi.number(),
+
+  list_price: Joi.array().items(valueByDateSchema),
+  list_price_1h: Joi.array().items(valueByDateSchema),
+  list_price_24h: Joi.array().items(valueByDateSchema),
+  list_price_7d: Joi.array().items(valueByDateSchema),
+  list_price_30d: Joi.array().items(valueByDateSchema),
+  list_price_90d: Joi.array().items(valueByDateSchema),
+  list_price_180d: Joi.array().items(valueByDateSchema),
+  list_price_365d: Joi.array().items(valueByDateSchema),
+  list_price_all_time: Joi.array().items(valueByDateSchema),
+
   volume_24h_reported: Joi.number(),
   volume_7d_reported: Joi.number(),
   volume_30d_reported: Joi.number(),
+
   percent_change_30d: Joi.number(),
   percent_change_60d: Joi.number(),
   percent_change_90d: Joi.number(),
+
+  list_market_cap_1d: Joi.array().items(valueByDateSchema),
+  list_market_cap_7d: Joi.array().items(valueByDateSchema),
+  list_market_cap_30d: Joi.array().items(valueByDateSchema),
+  list_market_cap_90d: Joi.array().items(valueByDateSchema),
+  list_market_cap_180d: Joi.array().items(valueByDateSchema),
+  list_market_cap_365d: Joi.array().items(valueByDateSchema),
+
+  last_updated: Joi.date(),
 });
 const marketDataSchema = Joi.object({}).keys({
   circulating_supply: Joi.number(),

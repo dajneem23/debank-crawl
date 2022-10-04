@@ -18,7 +18,6 @@ export const CoinSeed = async () => {
 
   const collection = db.collection('coins');
   const count = await $countCollection({ collection });
-  const categories = await db.collection('categories').find({}).toArray();
   createDataFile({
     _collection: 'coins',
     _file: coinsFile,

@@ -58,15 +58,13 @@ export class CategoryService {
   }
   constructor() {
     if (env.MODE === 'production') {
-      // Init Worker
       this.initWorker();
-      // Init Queue
       this.initQueue();
     }
   }
   private readonly jobs = {
     'category:fetch:all': this.fetchAllCategory,
-    // 'category:fetch:info': this.fetchOHLCV,
+    // 'category:fetch:info': this.fetchCategoryInfo,
     default: () => {
       throw new SystemError('Invalid job name');
     },
@@ -550,6 +548,7 @@ export class CategoryService {
           },
           {
             $setOnInsert: {
+              source_id: category.id,
               title: category.title,
               name: slugify(category.name, {
                 trim: true,

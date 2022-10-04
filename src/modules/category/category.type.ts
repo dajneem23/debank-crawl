@@ -23,6 +23,8 @@ export interface Category extends BaseModel {
 
   source?: string;
 
+  source_id?: string;
+
   market_data?: {
     num_tokens: number;
     avg_price_change: number;

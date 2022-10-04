@@ -513,11 +513,11 @@ export class ExchangeService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', (job: Job<ExchangeJobData>) => {
-      this.logger.debug('success', '[job:completed]', { id: job.id });
+      this.logger.debug('success', '[job:exchange:completed]', { id: job.id, jobName: job.name, data: job.data });
     });
     // Failed
     worker.on('failed', (job: Job<ExchangeJobData>, error: Error) => {
-      this.logger.error('error', '[job:error]', { jobId: job.id, error });
+      this.logger.error('error', '[job:exchange:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
     });
   }
   workerProcessor(job: Job<ExchangeJobData>): Promise<void> {

@@ -4,11 +4,18 @@ import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { CategoryModel, CategoryError, CategoryOutput, Category, _category, categoryModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
+import { CategoryModel, CategoryError, Category, _category, categoryModelToken } from '.';
+import { BaseServiceInput, BaseServiceOutput, CATEGORY_TYPE, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import slugify from 'slugify';
 import { ObjectId } from 'mongodb';
+import { CoinMarketCapAPI } from '@/common/api';
+import IORedis from 'ioredis';
+import { DIRedisConnection } from '@/loaders/redisClientLoader';
+import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { SystemError } from '@/core/errors';
+import { CategoryJobData, CategoryJobNames } from './category.job';
+import { env } from 'process';
 
 const TOKEN_NAME = '_categoryService';
 /**
@@ -22,11 +29,15 @@ export const categoryServiceToken = new Token<CategoryService>(TOKEN_NAME);
 export class CategoryService {
   private logger = new Logger('Categories');
 
-  private model = Container.get(categoryModelToken) as CategoryModel;
+  private model = Container.get(categoryModelToken);
 
-  private error(msg: any) {
-    return new CategoryError(msg);
-  }
+  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+
+  private worker: Worker;
+
+  private queue: Queue;
+
+  private queueScheduler: QueueScheduler;
 
   get outputKeys() {
     return this.model._keys;
@@ -45,21 +56,133 @@ export class CategoryService {
   static async generateID() {
     return alphabetSize12();
   }
+  constructor() {
+    if (env.MODE === 'production') {
+      // Init Worker
+      this.initWorker();
+      // Init Queue
+      this.initQueue();
+    }
+  }
+  private readonly jobs = {
+    'category:fetch:all': this.fetchAllCategory,
+    // 'category:fetch:info': this.fetchOHLCV,
+    default: () => {
+      throw new SystemError('Invalid job name');
+    },
+  };
 
+  /**
+   *  @description init BullMQ Worker
+   */
+  private initWorker() {
+    this.worker = new Worker('category', this.workerProcessor.bind(this), {
+      connection: this.redisConnection as any,
+      concurrency: 20,
+      limiter: {
+        max: 1,
+        duration: 1000,
+      },
+    });
+    this.initWorkerListeners(this.worker);
+  }
+  /**
+   *  @description init BullMQ Queue
+   */
+  private initQueue() {
+    this.queue = new Queue('category', {
+      connection: this.redisConnection as any,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 3000 },
+      },
+    });
+    this.queueScheduler = new QueueScheduler('category', {
+      connection: this.redisConnection as any,
+    });
+    const queueEvents = new QueueEvents('category', {
+      connection: this.redisConnection as any,
+    });
+
+    this.addFetchingDataJob();
+
+    queueEvents.on('completed', ({ jobId }) => {
+      this.logger.debug('success', 'Job completed', { jobId });
+    });
+
+    queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+    });
+  }
+
+  private addFetchingDataJob() {
+    this.addJob({
+      name: 'category:fetch:all',
+      payload: {},
+      options: {
+        repeat: {
+          every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
+        },
+        jobId: 'category:fetch:all',
+      },
+    });
+  }
+  /**
+   * @description add job to queue
+   */
+  addJob({
+    name,
+    payload = {},
+    options = {
+      repeat: {
+        every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
+      },
+    },
+  }: {
+    name: CategoryJobNames;
+    payload?: any;
+    options?: JobsOptions;
+  }) {
+    this.queue
+      .add(name, payload, options)
+      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
+      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
+  }
+  workerProcessor(job: Job<CategoryJobData>): Promise<void> {
+    const { name } = job;
+    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+    return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
+  }
+  /**
+   * Initialize Worker listeners
+   * @private
+   */
+  private initWorkerListeners(worker: Worker) {
+    // Completed
+    worker.on('completed', (job: Job<CategoryJobData>) => {
+      this.logger.debug('success', '[job:category:completed]', { id: job.id, jobName: job.name, data: job.data });
+    });
+    // Failed
+    worker.on('failed', (job: Job<CategoryJobData>, error: Error) => {
+      this.logger.error('error', '[job:category:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
+    });
+  }
   /**
    * Create a new category
    * @param _content
    * @param subject
-   * @returns {Promise<Category>}
+   * @returns {Promise<CategoryOutput>}
    */
-  async create({ _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
+  async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { title, sub_categories = [] } = _content;
       sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
       _content.name = slugify(title, {
         trim: true,
         lower: true,
-        remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+        remove: RemoveSlugPattern,
       });
       const value = await this.model.create(
         { name: _content.name },
@@ -84,7 +207,7 @@ export class CategoryService {
    * @param _subject
    * @returns {Promise<Category>}
    */
-  async update({ _id, _content, _subject }: BaseServiceInput): Promise<CategoryOutput> {
+  async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { sub_categories = [] } = _content;
       sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
@@ -331,8 +454,8 @@ export class CategoryService {
       throw err;
     }
   }
-  async createSubCategories(categories: Category[], _subject: string, rank = 0): Promise<ObjectId[]> {
-    const subCategories = await Promise.all(
+  createSubCategories(categories: Category[] = [], _subject: string, rank = 0): Promise<ObjectId[]> {
+    return Promise.all(
       categories.map(async ({ title, type, sub_categories = [] }) => {
         const {
           value,
@@ -343,7 +466,7 @@ export class CategoryService {
             name: slugify(title, {
               trim: true,
               lower: true,
-              remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+              remove: RemoveSlugPattern,
             }),
           },
           {
@@ -352,7 +475,7 @@ export class CategoryService {
               name: slugify(title, {
                 trim: true,
                 lower: true,
-                remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+                remove: RemoveSlugPattern,
               }),
               type,
               sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
@@ -371,6 +494,88 @@ export class CategoryService {
         return value._id;
       }),
     );
-    return subCategories;
+  }
+  async fetchAllCategory(): Promise<void> {
+    const {
+      data: { data: categories },
+    } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+      endpoint: CoinMarketCapAPI.cryptocurrency.categories,
+      params: {
+        limit: 5000,
+        start: 1,
+      },
+    });
+    // this.logger.debug('info', JSON.stringify(categories));
+    for (const category of categories) {
+      const market_data = {
+        'market_data.num_tokens': category.num_tokens,
+        'market_data.avg_price_change': category.avg_price_change,
+        'market_data.market_cap': category.market_cap,
+        'market_data.market_cap_change': category.market_cap_change,
+        'market_data.volume': category.volume,
+        'market_data.volume_change': category.volume_change,
+      };
+      const {
+        value,
+        ok,
+        lastErrorObject: { updatedExisting },
+      } = await this.model._collection.findOneAndUpdate(
+        {
+          name: slugify(category.name, {
+            trim: true,
+            lower: true,
+            remove: RemoveSlugPattern,
+          }),
+        },
+        {
+          $set: {
+            updated_by: 'system',
+            updated_at: new Date(),
+            ...market_data,
+          },
+        },
+        {
+          upsert: false,
+          returnDocument: 'after',
+        },
+      );
+      if (!updatedExisting) {
+        await this.model._collection.findOneAndUpdate(
+          {
+            name: slugify(category.name, {
+              trim: true,
+              lower: true,
+              remove: RemoveSlugPattern,
+            }),
+          },
+          {
+            $setOnInsert: {
+              title: category.title,
+              name: slugify(category.name, {
+                trim: true,
+                lower: true,
+                remove: RemoveSlugPattern,
+              }),
+              description: category.description,
+              type: CATEGORY_TYPE.CRYPTO_ASSET,
+              sub_categories: [],
+              trans: [],
+              created_at: new Date(),
+              updated_at: new Date(),
+              rank: 0,
+              weight: 0,
+              deleted: false,
+              created_by: 'system',
+              source: 'coinmarketcap',
+              ...market_data,
+            },
+          },
+          {
+            upsert: true,
+            returnDocument: 'after',
+          },
+        );
+      }
+    }
   }
 }

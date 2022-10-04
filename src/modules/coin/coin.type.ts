@@ -8,8 +8,8 @@ import {
   Technology,
 } from '@/types/Common';
 
-interface Price {
-  date?: string;
+interface valueByDate {
+  timestamp?: string;
   value?: number;
 }
 type MarketData = {
@@ -18,36 +18,54 @@ type MarketData = {
     high?: number;
     low?: number;
     close?: number;
-    volume?: number;
-    market_cap?: number;
-    market_cap_dominance?: number;
-    fully_diluted_market_cap?: number;
     price?: number;
-    volume_change_24h?: number;
-    percent_change_1h?: number;
-    latest_price_1h?: number[];
-    percent_change_24h?: number;
-    latest_price_24h?: number[];
-    percent_change_7d?: number;
-    latest_price_7d?: number[];
-    volume_24h?: number;
-    volume_7d?: number;
-    volume_30d?: number;
-    list_price?: Price[];
-    list_price_1h?: Price[];
-    list_price_24h?: Price[];
-    list_price_7d?: Price[];
-    last_updated?: Date;
     tvl?: number;
     long: number;
     short: number;
+
+    market_cap?: number;
+    market_cap_dominance?: number;
+    fully_diluted_market_cap?: number;
     market_cap_by_total_supply: number;
+
+    volume_change_24h?: number;
+
+    percent_change_1h?: number;
+    percent_change_24h?: number;
+    percent_change_7d?: number;
+
+    volume?: number;
+    volume_24h?: number;
+    volume_7d?: number;
+    volume_30d?: number;
+
     volume_24h_reported: number;
     volume_7d_reported: number;
     volume_30d_reported: number;
+
+    list_price?: valueByDate[];
+    list_price_1h?: valueByDate[];
+    list_price_24h?: valueByDate[];
+    list_price_7d?: valueByDate[];
+    list_price_30d?: valueByDate[];
+    list_price_90d?: valueByDate[];
+    list_price_180d?: valueByDate[];
+    list_price_365d?: valueByDate[];
+    list_price_all_time?: valueByDate[];
+
     percent_change_30d: number;
     percent_change_60d: number;
     percent_change_90d?: number;
+
+    list_market_cap_1d: valueByDate[];
+    list_market_cap_7d: valueByDate[];
+    list_market_cap_30d: valueByDate[];
+    list_market_cap_90d: valueByDate[];
+    list_market_cap_180d: valueByDate[];
+    list_market_cap_365d: valueByDate[];
+    list_market_cap_all_time: valueByDate[];
+
+    last_updated?: Date;
   } & {
     circulating_supply: number;
 

@@ -21,6 +21,7 @@ export const CoinMarketCapAPI = {
   cryptocurrency: {
     LIMIT: 200,
 
+    INTERVAL: env.MARKETCAP_FETCH_INTERVAL,
     /**
      *  @description Returns a paginated list of most recently added cryptocurrencies.
      *  @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyListingsNew
@@ -46,6 +47,16 @@ export const CoinMarketCapAPI = {
      *  @see https://coinmarketcap.com/api/documentation/v1/#operation/getV2CryptocurrencyQuotesHistorical
      */
     quotesLatest: '/v2/cryptocurrency/quotes/latest',
+    /**
+     *  @description Returns information about all coin categories available on CoinMarketCap. Includes a paginated list of cryptocurrency quotes and metadata from each category.
+     *  @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyCategories
+     */
+    categories: '/v1/cryptocurrency/categories',
+    /**
+     * @description Returns information about a single coin category available on CoinMarketCap. Includes a paginated list of the cryptocurrency quotes and metadata for the category.
+     * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyCategory
+     */
+    category: 'GET /v1/cryptocurrency/category',
   },
   exchange: {
     LIMIT: 100,
@@ -53,8 +64,10 @@ export const CoinMarketCapAPI = {
      *  @description
      */
     DURATION: 5 * 60 * 1000,
-
-    INTERVAL: '* 0 0 * * *',
+    /**
+     *  @description schedule of fetching data
+     */
+    INTERVAL: env.MARKETCAP_FETCH_SCHEDULE,
     /**
      * @description Returns all static metadata for one or more exchanges. This information includes details like launch date, logo, official website URL, social links, and market fee documentation URL.
      * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeInfo

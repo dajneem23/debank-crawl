@@ -15,9 +15,22 @@ export interface Category extends BaseModel {
   // type
   type?: CATEGORY_TYPE;
 
-  sub_type?: string;
+  sub_types?: string[];
 
   rank?: number;
+
+  description?: string;
+
+  source?: string;
+
+  market_data?: {
+    num_tokens: number;
+    avg_price_change: number;
+    market_cap: number;
+    market_cap_change: number;
+    volume: number;
+    volume_change: number;
+  };
 
   trans: {
     lang: string;
@@ -25,29 +38,7 @@ export interface Category extends BaseModel {
     name?: string;
   }[];
 }
-export type CategoryParams = {
-  id: string;
-};
-export interface CategoryFilter extends BaseQuery {
-  name?: string;
-  title?: string;
-  weight?: number;
-  type?: CATEGORY_TYPE;
-}
-export type CategoryInput = {
-  _id?: string;
-  _category?: Category;
-  _subject?: string;
-  _query?: BaseQuery;
-  _filter?: CategoryFilter;
-};
 
-export type CategoryOutput = {
-  code?: number;
-  result?: any;
-  total_count?: number;
-  data?: Array<Category>;
-};
 export const _category: Category = {
   title: '',
   name: '',

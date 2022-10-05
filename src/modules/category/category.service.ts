@@ -497,6 +497,7 @@ export class CategoryService {
     );
   }
   async fetchAllCategory(): Promise<void> {
+    this.logger.debug('info', 'fetch_all_category start');
     const {
       data: { data: categories },
     } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
@@ -508,6 +509,7 @@ export class CategoryService {
     });
     // this.logger.debug('info', JSON.stringify(categories));
     for (const category of categories) {
+      this.logger.debug('info', `fetch_category ${category.name}`);
       const market_data = {
         'market_data.num_tokens': category.num_tokens,
         'market_data.avg_price_change': category.avg_price_change,
@@ -611,5 +613,6 @@ export class CategoryService {
         }
       }
     }
+    this.logger.debug('info', 'fetch_all_category done');
   }
 }

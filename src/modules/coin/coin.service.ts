@@ -5,7 +5,7 @@ import { alphabetSize12 } from '@/utils/randomString';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CoinError, coinErrors, CoinModel, coinModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, coinSortBy, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
-import { isNil, omit } from 'lodash';
+import { chunk, isNil, omit } from 'lodash';
 import { _coin } from '@/modules';
 import { env } from 'process';
 import slugify from 'slugify';
@@ -46,6 +46,7 @@ export class CoinService {
 
   private readonly jobs = {
     'coin:fetch:marketData': this.fetchMarketData,
+    'coin:fetch:pricePerformanceStats': this.fetchPricePerformanceStats,
     'coin:fetch:ohlcv': this.fetchOHLCV,
     default: () => {
       throw new SystemError('Invalid job name');
@@ -114,6 +115,16 @@ export class CoinService {
           every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
         },
         jobId: 'coin:fetch:marketData',
+      },
+    });
+    this.addJob({
+      name: 'coin:fetch:pricePerformanceStats',
+      payload: {},
+      options: {
+        repeat: {
+          pattern: CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsRepeatPattern,
+        },
+        jobId: 'coin:fetch:pricePerformanceStats',
       },
     });
   }
@@ -622,22 +633,22 @@ export class CoinService {
               'market_data.self_reported_circulating_supply': self_reported_circulating_supply,
               'market_data.self_reported_market_cap': self_reported_market_cap,
               'market_data.USD.price': price,
-              'market_data.USD.volume_24h': volume_24h,
-              'market_data.USD.volume_change_24h': volume_change_24h,
-              'market_data.USD.percent_change_1h': percent_change_1h,
-              'market_data.USD.percent_change_24h': percent_change_24h,
-              'market_data.USD.percent_change_7d': percent_change_7d,
-              'market_data.USD.percent_change_30d': percent_change_30d,
-              'market_data.USD.percent_change_60d': percent_change_60d,
-              'market_data.USD.percent_change_90d': percent_change_90d,
+              'market_data.USD.24h.volume': volume_24h,
+              'market_data.USD.24h.volume_change': volume_change_24h,
+              'market_data.USD.1h.percent_change': percent_change_1h,
+              'market_data.USD.24h.percent_change_': percent_change_24h,
+              'market_data.USD.7d.percent_change_': percent_change_7d,
+              'market_data.USD.30d.percent_change': percent_change_30d,
+              'market_data.USD.60d.percent_change': percent_change_60d,
+              'market_data.USD.90d.percent_change': percent_change_90d,
               'market_data.USD.market_cap': market_cap,
               'market_data.USD.market_cap_dominance': market_cap_dominance,
               'market_data.USD.fully_diluted_market_cap': fully_diluted_market_cap,
               'market_data.USD.tvl': tvl,
               'market_data.USD.last_updated': last_updated,
-              'market_data.USD.volume_24h_reported': volume_24h_reported,
-              'market_data.USD.volume_7d_reported': volume_7d_reported,
-              'market_data.USD.volume_30d_reported': volume_30d_reported,
+              'market_data.USD.24h.volume_reported': volume_24h_reported,
+              'market_data.USD.7d.volume_reported': volume_7d_reported,
+              'market_data.USD.30d.volume_reported': volume_30d_reported,
               'market_data.USD.market_cap_by_total_supply': market_cap_by_total_supply,
             };
             const {
@@ -693,6 +704,7 @@ export class CoinService {
                         timestamp: new Date(),
                       },
                     ],
+                    token_id: symbol,
                     ...marketData,
                     slug: slugify(name, {
                       trim: true,
@@ -855,6 +867,367 @@ export class CoinService {
     }
   }
 
+  async fetchPricePerformanceStats() {
+    this.logger.debug('info', 'fetchPricePerformanceStats start');
+    const allCoins = await this.model.get().toArray();
+    const groupCoins = chunk(allCoins, CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsLimit);
+    for (const coins of groupCoins) {
+      const listSymbol = coins.map((coin) => coin.token_id);
+      const {
+        data: { data: pricePerformanceStats },
+      } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+        endpoint: CoinMarketCapAPI.cryptocurrency.pricePerformanceStats,
+        params: {
+          symbol: listSymbol.join(','),
+          time_period: 'all_time,yesterday,24h,7d,30d,90d,365d',
+        },
+      });
+      for (const symbol of Object.keys(pricePerformanceStats)) {
+        for (const {
+          name,
+          periods: {
+            all_time: {
+              quote: {
+                USD: {
+                  percent_change: all_time_percent_change,
+                  price_change: all_time_price_change,
+                  open: all_time_open,
+                  high: all_time_high,
+                  low: all_time_low,
+                  close: all_time_close,
+                  open_timestamp: all_time_open_timestamp,
+                  high_timestamp: all_time_high_timestamp,
+                  low_timestamp: all_time_low_timestamp,
+                  close_timestamp: all_time_close_timestamp,
+                },
+              } = {
+                USD: {
+                  percent_change: 0,
+                  price_change: 0,
+                  open: 0,
+                  high: 0,
+                  low: 0,
+                  close: 0,
+                  open_timestamp: null,
+                  high_timestamp: null,
+                  low_timestamp: null,
+                  close_timestamp: null,
+                },
+              },
+            },
+            yesterday: {
+              quote: {
+                USD: {
+                  percent_change: yesterday_percent_change,
+                  price_change: yesterday_price_change,
+                  open: yesterday_open,
+                  high: yesterday_high,
+                  low: yesterday_low,
+                  close: yesterday_close,
+                  open_timestamp: yesterday_open_timestamp,
+                  high_timestamp: yesterday_high_timestamp,
+                  low_timestamp: yesterday_low_timestamp,
+                  close_timestamp: yesterday_close_timestamp,
+                },
+              } = {
+                USD: {
+                  percent_change: 0,
+                  price_change: 0,
+                  open: 0,
+                  high: 0,
+                  low: 0,
+                  close: 0,
+                  open_timestamp: null,
+                  high_timestamp: null,
+                  low_timestamp: null,
+                  close_timestamp: null,
+                },
+              },
+            },
+            '7d': {
+              quote: {
+                USD: {
+                  percent_change: _7d_percent_change,
+                  price_change: _7d_price_change,
+                  open: _7d_open,
+                  high: _7d_high,
+                  low: _7d_low,
+                  close: _7d_close,
+                  open_timestamp: _7d_open_timestamp,
+                  high_timestamp: _7d_high_timestamp,
+                  low_timestamp: _7d_low_timestamp,
+                  close_timestamp: _7d_close_timestamp,
+                },
+              } = {
+                USD: {
+                  percent_change: 0,
+                  price_change: 0,
+                  open: 0,
+                  high: 0,
+                  low: 0,
+                  close: 0,
+                  open_timestamp: null,
+                  high_timestamp: null,
+                  low_timestamp: null,
+                  close_timestamp: null,
+                },
+              },
+            },
+            '24h': {
+              quote: {
+                USD: {
+                  percent_change: _24h_percent_change,
+                  price_change: _24h_price_change,
+                  open: _24h_open,
+                  high: _24h_high,
+                  low: _24h_low,
+                  close: _24h_close,
+                  open_timestamp: _24h_open_timestamp,
+                  high_timestamp: _24h_high_timestamp,
+                  low_timestamp: _24h_low_timestamp,
+                  close_timestamp: _24h_close_timestamp,
+                },
+              } = {
+                USD: {
+                  percent_change: 0,
+                  price_change: 0,
+                  open: 0,
+                  high: 0,
+                  low: 0,
+                  close: 0,
+                  open_timestamp: null,
+                  high_timestamp: null,
+                  low_timestamp: null,
+                  close_timestamp: null,
+                },
+              },
+            },
+            '30d': {
+              quote: {
+                USD: {
+                  percent_change: _30d_percent_change,
+                  price_change: _30d_price_change,
+                  open: _30d_open,
+                  high: _30d_high,
+                  low: _30d_low,
+                  close: _30d_close,
+                  open_timestamp: _30d_open_timestamp,
+                  high_timestamp: _30d_high_timestamp,
+                  low_timestamp: _30d_low_timestamp,
+                  close_timestamp: _30d_close_timestamp,
+                },
+              } = {
+                USD: {
+                  percent_change: 0,
+                  price_change: 0,
+                  open: 0,
+                  high: 0,
+                  low: 0,
+                  close: 0,
+                  open_timestamp: null,
+                  high_timestamp: null,
+                  low_timestamp: null,
+                  close_timestamp: null,
+                },
+              },
+            },
+            '90d': {
+              quote: {
+                USD: {
+                  percent_change: _90d_percent_change,
+                  price_change: _90d_price_change,
+                  open: _90d_open,
+                  high: _90d_high,
+                  low: _90d_low,
+                  close: _90d_close,
+                  open_timestamp: _90d_open_timestamp,
+                  high_timestamp: _90d_high_timestamp,
+                  low_timestamp: _90d_low_timestamp,
+                  close_timestamp: _90d_close_timestamp,
+                },
+              } = {
+                USD: {
+                  percent_change: 0,
+                  price_change: 0,
+                  open: 0,
+                  high: 0,
+                  low: 0,
+                  close: 0,
+                  open_timestamp: null,
+                  high_timestamp: null,
+                  low_timestamp: null,
+                  close_timestamp: null,
+                },
+              },
+            },
+            '365d': {
+              quote: {
+                USD: {
+                  percent_change: _365d_percent_change,
+                  price_change: _365d_price_change,
+                  open: _365d_open,
+                  high: _365d_high,
+                  low: _365d_low,
+                  close: _365d_close,
+                  open_timestamp: _365d_open_timestamp,
+                  high_timestamp: _365d_high_timestamp,
+                  low_timestamp: _365d_low_timestamp,
+                  close_timestamp: _365d_close_timestamp,
+                },
+              } = {
+                USD: {
+                  percent_change: 0,
+                  price_change: 0,
+                  open: 0,
+                  high: 0,
+                  low: 0,
+                  close: 0,
+                  open_timestamp: null,
+                  high_timestamp: null,
+                  low_timestamp: null,
+                  close_timestamp: null,
+                },
+              },
+            },
+          },
+        } of pricePerformanceStats[symbol]) {
+          this.logger.debug('info', 'pricePerformanceStats', { symbol, name });
+          const marketData = {
+            'market_data.USD.all_time.percent_change': all_time_percent_change,
+            'market_data.USD.all_time.price_change': all_time_price_change,
+            'market_data.USD.all_time.open': all_time_open,
+            'market_data.USD.all_time.high': all_time_high,
+            'market_data.USD.all_time.low': all_time_low,
+            'market_data.USD.all_time.close': all_time_close,
+            'market_data.USD.all_time.open_timestamp': all_time_open_timestamp,
+            'market_data.USD.all_time.high_timestamp': all_time_high_timestamp,
+            'market_data.USD.all_time.low_timestamp': all_time_low_timestamp,
+            'market_data.USD.all_time.close_timestamp': all_time_close_timestamp,
+
+            'market_data.USD.yesterday.percent_change': yesterday_percent_change,
+            'market_data.USD.yesterday.price_change': yesterday_price_change,
+            'market_data.USD.yesterday.open': yesterday_open,
+            'market_data.USD.yesterday.high': yesterday_high,
+            'market_data.USD.yesterday.low': yesterday_low,
+            'market_data.USD.yesterday.close': yesterday_close,
+            'market_data.USD.yesterday.open_timestamp': yesterday_open_timestamp,
+            'market_data.USD.yesterday.high_timestamp': yesterday_high_timestamp,
+            'market_data.USD.yesterday.low_timestamp': yesterday_low_timestamp,
+            'market_data.USD.yesterday.close_timestamp': yesterday_close_timestamp,
+
+            'market_data.USD.24h.percent_change': _24h_percent_change,
+            'market_data.USD.24h.price_change': _24h_price_change,
+            'market_data.USD.24h.open': _24h_open,
+            'market_data.USD.24h.high': _24h_high,
+            'market_data.USD.24h.low': _24h_low,
+            'market_data.USD.24h.close': _24h_close,
+            'market_data.USD.24h.open_timestamp': _24h_open_timestamp,
+            'market_data.USD.24h.high_timestamp': _24h_high_timestamp,
+            'market_data.USD.24h.low_timestamp': _24h_low_timestamp,
+            'market_data.USD.24h.close_timestamp': _24h_close_timestamp,
+
+            'market_data.USD.7d.percent_change': _7d_percent_change,
+            'market_data.USD.7d.price_change': _7d_price_change,
+            'market_data.USD.7d.open': _7d_open,
+            'market_data.USD.7d.high': _7d_high,
+            'market_data.USD.7d.low': _7d_low,
+            'market_data.USD.7d.close': _7d_close,
+            'market_data.USD.7d.open_timestamp': _7d_open_timestamp,
+            'market_data.USD.7d.high_timestamp': _7d_high_timestamp,
+            'market_data.USD.7d.low_timestamp': _7d_low_timestamp,
+            'market_data.USD.7d.close_timestamp': _7d_close_timestamp,
+
+            'market_data.USD.30d.percent_change': _30d_percent_change,
+            'market_data.USD.30d.price_change': _30d_price_change,
+            'market_data.USD.30d.open': _30d_open,
+            'market_data.USD.30d.high': _30d_high,
+            'market_data.USD.30d.low': _30d_low,
+            'market_data.USD.30d.close': _30d_close,
+            'market_data.USD.30d.open_timestamp': _30d_open_timestamp,
+            'market_data.USD.30d.high_timestamp': _30d_high_timestamp,
+            'market_data.USD.30d.low_timestamp': _30d_low_timestamp,
+            'market_data.USD.30d.close_timestamp': _30d_close_timestamp,
+
+            'market_data.USD.90d.percent_change': _90d_percent_change,
+            'market_data.USD.90d.price_change': _90d_price_change,
+            'market_data.USD.90d.open': _90d_open,
+            'market_data.USD.90d.high': _90d_high,
+            'market_data.USD.90d.low': _90d_low,
+            'market_data.USD.90d.close': _90d_close,
+            'market_data.USD.90d.open_timestamp': _90d_open_timestamp,
+            'market_data.USD.90d.high_timestamp': _90d_high_timestamp,
+            'market_data.USD.90d.low_timestamp': _90d_low_timestamp,
+            'market_data.USD.90d.close_timestamp': _90d_close_timestamp,
+
+            'market_data.USD.365d.percent_change': _365d_percent_change,
+            'market_data.USD.365d.price_change': _365d_price_change,
+            'market_data.USD.365d.open': _365d_open,
+            'market_data.USD.365d.high': _365d_high,
+            'market_data.USD.365d.low': _365d_low,
+            'market_data.USD.365d.close': _365d_close,
+            'market_data.USD.365d.open_timestamp': _365d_open_timestamp,
+            'market_data.USD.365d.high_timestamp': _365d_high_timestamp,
+            'market_data.USD.365d.low_timestamp': _365d_low_timestamp,
+            'market_data.USD.365d.close_timestamp': _365d_close_timestamp,
+          };
+          const {
+            lastErrorObject: { updatedExisting },
+          } = await this.model._collection.findOneAndUpdate(
+            {
+              $or: [
+                { name: { $regex: `^${name}$`, $options: 'i' } },
+                {
+                  slug: {
+                    $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                    $options: 'i',
+                  },
+                },
+              ],
+            },
+            {
+              $set: {
+                ...marketData,
+                updated_at: new Date(),
+                updated_by: 'system',
+              },
+            },
+            {
+              upsert: false,
+            },
+          );
+          if (!updatedExisting) {
+            await this.model._collection.findOneAndUpdate(
+              {
+                name,
+              },
+              {
+                $setOnInsert: {
+                  ...marketData,
+                  name,
+                  token_id: symbol,
+                  slug: slugify(name, {
+                    trim: true,
+                    lower: true,
+                    remove: RemoveSlugPattern,
+                  }),
+                  trans: [] as any,
+                  deleted: false,
+                  created_at: new Date(),
+                  updated_at: new Date(),
+                  created_by: 'system',
+                  categories: [],
+                },
+              },
+              {
+                upsert: true,
+              },
+            );
+          }
+        }
+      }
+    }
+    this.logger.debug('info', 'fetchPricePerformanceStats done');
+  }
   /**
    * Initialize Worker listeners
    * @private

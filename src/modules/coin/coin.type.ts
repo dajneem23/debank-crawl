@@ -6,66 +6,53 @@ import {
   IcoDetail,
   TeamPerson,
   Technology,
+  TIME_PERIOD,
 } from '@/types/Common';
 
 interface valueByDate {
   timestamp?: string;
   value?: number;
 }
+type TimePeriodPrice = {
+  percent_change?: number;
+  price?: number;
+  close?: number;
+  high?: number;
+  low?: number;
+  open?: number;
+  close_timestamp?: Date;
+  high_timestamp?: Date;
+  low_timestamp?: Date;
+  open_timestamp?: Date;
+  volume?: number;
+  volume_change?: number;
+  volume_reported?: number;
+  list_price?: valueByDate[];
+  list_market_cap?: valueByDate[];
+};
 type MarketData = {
   [key in keyof typeof CONVERT_CURRENCY_CODE]?: {
-    open?: number;
-    high?: number;
-    low?: number;
-    close?: number;
-    price?: number;
-    tvl?: number;
-    long: number;
-    short: number;
+    [key in keyof typeof TIME_PERIOD]?: TimePeriodPrice & {
+      open?: number;
+      high?: number;
+      low?: number;
+      close?: number;
+      price?: number;
+      tvl?: number;
+      long?: number;
+      short?: number;
 
-    market_cap?: number;
-    market_cap_dominance?: number;
-    fully_diluted_market_cap?: number;
-    market_cap_by_total_supply: number;
+      market_cap?: number;
+      market_cap_dominance?: number;
+      fully_diluted_market_cap?: number;
+      market_cap_by_total_supply?: number;
 
-    volume_change_24h?: number;
+      volume?: number;
 
-    percent_change_1h?: number;
-    percent_change_24h?: number;
-    percent_change_7d?: number;
+      list_price?: valueByDate[];
 
-    volume?: number;
-    volume_24h?: number;
-    volume_7d?: number;
-    volume_30d?: number;
-
-    volume_24h_reported: number;
-    volume_7d_reported: number;
-    volume_30d_reported: number;
-
-    list_price?: valueByDate[];
-    list_price_1h?: valueByDate[];
-    list_price_24h?: valueByDate[];
-    list_price_7d?: valueByDate[];
-    list_price_30d?: valueByDate[];
-    list_price_90d?: valueByDate[];
-    list_price_180d?: valueByDate[];
-    list_price_365d?: valueByDate[];
-    list_price_all_time?: valueByDate[];
-
-    percent_change_30d: number;
-    percent_change_60d: number;
-    percent_change_90d?: number;
-
-    list_market_cap_1d: valueByDate[];
-    list_market_cap_7d: valueByDate[];
-    list_market_cap_30d: valueByDate[];
-    list_market_cap_90d: valueByDate[];
-    list_market_cap_180d: valueByDate[];
-    list_market_cap_365d: valueByDate[];
-    list_market_cap_all_time: valueByDate[];
-
-    last_updated?: Date;
+      last_updated?: Date;
+    };
   } & {
     circulating_supply: number;
 
@@ -136,6 +123,8 @@ export interface Coin extends BaseInformationModel {
 
   fundraising?: string;
 
+  cmc_rank: number;
+
   trans: {
     lang: string;
     about?: string;
@@ -196,4 +185,5 @@ export const _coin: Coin = {
   market_share: 0,
   community_vote: 0,
   token_allocation: [],
+  cmc_rank: 0,
 };

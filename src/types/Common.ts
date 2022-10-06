@@ -552,9 +552,12 @@ export enum TIME_PERIOD {
   '30d' = '30d',
   '60d' = '60d',
   '90d' = '90d',
+  '180d' = '180d',
   '365d' = '365d',
   'yesterday' = 'yesterday',
+  'all_time' = 'all_time',
 }
+
 /**
  *  @description - Remove all special characters from a string to make it a valid URL
  */

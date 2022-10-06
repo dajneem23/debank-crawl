@@ -456,9 +456,9 @@ export class CategoryService {
       throw err;
     }
   }
-  createSubCategories(categories: Category[] = [], _subject: string, rank = 0): Promise<ObjectId[]> {
+  createSubCategories(categories: Category[] = [], _subject: string, rank = 0, update = false): Promise<ObjectId[]> {
     return Promise.all(
-      categories.map(async ({ title, type, sub_categories = [] }) => {
+      categories.map(async ({ title, type, sub_categories = [], trans = [] }) => {
         const {
           value,
           ok,
@@ -483,6 +483,7 @@ export class CategoryService {
               sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
               created_at: new Date(),
               updated_at: new Date(),
+              trans,
               rank,
               deleted: false,
               created_by: _subject,

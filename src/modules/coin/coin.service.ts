@@ -242,6 +242,7 @@ export class CoinService {
         development_status,
         founded_from,
         founded_to,
+        deleted = false,
       } = _filter;
       const { page = 1, per_page, sort_by: _sort_by, sort_order } = _query;
       const sort_by = coinSortBy[_sort_by as keyof typeof coinSortBy] || coinSortBy['created_at'];
@@ -251,7 +252,11 @@ export class CoinService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  ...((_permission === 'private' && {
+                    deleted,
+                  }) || {
+                    deleted: false,
+                  }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),

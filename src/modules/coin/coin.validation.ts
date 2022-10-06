@@ -266,6 +266,7 @@ export const CoinValidation = {
       development_status: Joi.string(),
       founded_from: Joi.number(),
       founded_to: Joi.number(),
+      deleted: Joi.boolean(),
     }),
   }),
   search: validate({

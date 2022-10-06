@@ -132,9 +132,9 @@ export class GlossaryService {
    * @returns {Promise<BaseServiceOutput>}
    *
    **/
-  async query({ _filter, _query, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, q, categories = [] } = _filter;
+      const { lang, q, categories = [], deleted = false } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -142,7 +142,11 @@ export class GlossaryService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  ...((_permission === 'private' && {
+                    deleted,
+                  }) || {
+                    deleted: false,
+                  }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),

@@ -134,9 +134,20 @@ export class FundService {
    * @returns {Promise<BaseServiceOutput>}
    *
    **/
-  async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, categories = [], funding_min, funding_max, launched_from, launched_to, type, tier } = _filter;
+      const {
+        q,
+        lang,
+        categories = [],
+        funding_min,
+        funding_max,
+        launched_from,
+        launched_to,
+        type,
+        tier,
+        deleted = false,
+      } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -144,7 +155,11 @@ export class FundService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  ...((_permission === 'private' && {
+                    deleted,
+                  }) || {
+                    deleted: false,
+                  }),
                   ...(funding_min && { funding: { $gte: funding_min } }),
                   ...(funding_max && { funding: { $lte: funding_max } }),
                   ...(launched_from && { launched: { $gte: launched_from } }),

@@ -67,6 +67,7 @@ export class CoinService {
   private initWorker() {
     this.worker = new Worker('coin', this.workerProcessor.bind(this), {
       connection: this.redisConnection as any,
+      lockDuration: 1000 * 60 * 5,
       concurrency: 20,
       limiter: {
         max: 1,

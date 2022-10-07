@@ -286,12 +286,16 @@ export class CompanyService {
             },
           },
           {
-            $addFields: this.model.$addFields.categories,
+            $addFields: {
+              categories: this.model.$addFields.categories,
+              products: this.model.$addFields.products,
+              projects: this.model.$addFields.projects,
+            },
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$lookups.team,
-          this.model.$lookups.products,
+          // this.model.$lookups.products,
           this.model.$lookups.projects,
           this.model.$lookups.country,
           this.model.$sets.author,

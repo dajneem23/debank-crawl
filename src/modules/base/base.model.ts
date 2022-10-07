@@ -248,6 +248,8 @@ export class BaseModel {
   }
   get $addFields(): {
     categories: any;
+    products: any;
+    projects: any;
   } {
     return {
       categories: {
@@ -258,6 +260,28 @@ export class BaseModel {
             },
             then: [],
             else: '$categories',
+          },
+        },
+      },
+      products: {
+        products: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$products' }, 'array'],
+            },
+            then: [],
+            else: '$products',
+          },
+        },
+      },
+      projects: {
+        projects: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$projects' }, 'array'],
+            },
+            then: [],
+            else: '$projects',
           },
         },
       },

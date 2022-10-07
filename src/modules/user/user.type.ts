@@ -8,7 +8,9 @@ export enum UserRole {
   USER = 'user',
 }
 
-export const RolesWeight: any = {
+export const UserRolesWeight: {
+  [key in UserRole]: number;
+} = {
   super: 99999,
   admin: 100,
   user: 1,

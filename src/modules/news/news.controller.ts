@@ -22,6 +22,8 @@ import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { permission } from './news.middlewares';
+import { UserRolesWeight, UserRole } from '../user';
+import { getHighestRole, getPermission } from '../auth/auth.utils';
 @Controller('/news')
 export class NewsController {
   private service = Container.get(NewsServiceToken);
@@ -74,12 +76,18 @@ export class NewsController {
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/', [NewsValidation.query])
-  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+  @Get('/', [
+    protect({
+      ignoreException: true,
+    }),
+    NewsValidation.query,
+  ])
+  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
       _filter: filter,
       _query: query,
+      _permission: getPermission(_auth.roles),
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

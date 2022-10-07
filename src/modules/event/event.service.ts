@@ -396,7 +396,7 @@ export class EventService {
           trending,
           virtual,
         },
-      ] = (await this.model
+      ] = await this.model
         .get([
           {
             $match: {
@@ -445,7 +445,7 @@ export class EventService {
             },
           },
         ])
-        .toArray()) as any[];
+        .toArray();
       const items = [...trending, ...virtual];
       this.logger.debug('get_success', { total_count, items });
       return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
@@ -526,42 +526,45 @@ export class EventService {
    * @returns {Promise<BaseServiceOutput>}
    *
    **/
-  async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, categories = [], lang, start_date, end_date, type, country } = _filter;
+      const { q, categories = [], lang, start_date, end_date, type, country, deleted = false } = _filter;
       const { page = 1, per_page, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
             $match: {
-              ...$toMongoFilter({
-                ...(categories.length && {
-                  $or: [{ categories: { $in: $toObjectId(categories) } }],
-                }),
-                ...(q && {
-                  $or: [{ name: { $regex: q, $options: 'i' } }],
-                }),
-                ...(lang && {
-                  'trans.lang': { $eq: lang },
-                }),
-                ...(type && {
-                  type: Array.isArray(type) ? type : [type],
-                }),
-                ...(start_date && {
-                  start_date: {
-                    $gte: new Date(start_date),
-                  },
-                }),
-                ...(end_date && {
-                  end_date: {
-                    $gte: new Date(end_date),
-                  },
-                }),
-                ...((country && {
-                  country,
-                }) ||
-                  {}),
+              ...((_permission === 'private' && {
+                deleted,
+              }) || {
+                deleted: false,
               }),
+              ...(categories.length && {
+                $or: [{ categories: { $in: $toObjectId(categories) } }],
+              }),
+              ...(q && {
+                $or: [{ name: { $regex: q, $options: 'i' } }],
+              }),
+              ...(lang && {
+                'trans.lang': { $eq: lang },
+              }),
+              ...(type && {
+                type: Array.isArray(type) ? type : [type],
+              }),
+              ...(start_date && {
+                start_date: {
+                  $gte: new Date(start_date),
+                },
+              }),
+              ...(end_date && {
+                end_date: {
+                  $gte: new Date(end_date),
+                },
+              }),
+              ...((country && {
+                country,
+              }) ||
+                {}),
             },
             $projects: [
               {

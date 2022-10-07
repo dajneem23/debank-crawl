@@ -4,9 +4,10 @@ import { Request, Response } from 'express';
 import { Person, personServiceToken, PersonValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
-import { protectPrivateAPI } from '@/api/middlewares/protect';
+import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
+import { getPermission } from '../auth/auth.utils';
 @Controller('/persons')
 export class PersonController {
   private service = Container.get(personServiceToken);
@@ -57,12 +58,18 @@ export class PersonController {
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/', [PersonValidation.query])
-  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+  @Get('/', [
+    protect({
+      ignoreException: true,
+    }),
+    PersonValidation.query,
+  ])
+  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
       _filter: filter,
       _query: query,
+      _permission: getPermission(_auth.roles),
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

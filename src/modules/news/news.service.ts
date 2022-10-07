@@ -289,9 +289,20 @@ export class NewsService {
    * @returns {Promise<BaseServiceOutput>}
    *
    **/
-  async query({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, categories = [], status } = _filter;
+      const {
+        q,
+        lang,
+        categories = [],
+        status,
+        deleted = false,
+        coin_tags = [],
+        product_tags = [],
+        person_tags = [],
+        event_tags = [],
+        company_tags = [],
+      } = _filter;
       const { page = 1, per_page = 10, sort_by, sort_order } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
@@ -299,14 +310,33 @@ export class NewsService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  ...((_permission === 'private' && {
+                    deleted,
+                  }) || {
+                    deleted: false,
+                  }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),
                 },
               ],
               ...(categories.length && {
-                $or: [{ categories: { $in: $toObjectId(categories) } }],
+                categories: { $in: $toObjectId(categories) },
+              }),
+              ...(coin_tags.length && {
+                coin_tags: { $in: $toObjectId(coin_tags) },
+              }),
+              ...(product_tags.length && {
+                product_tags: { $in: $toObjectId(product_tags) },
+              }),
+              ...(person_tags.length && {
+                person_tags: { $in: $toObjectId(person_tags) },
+              }),
+              ...(event_tags.length && {
+                event_tags: { $in: $toObjectId(event_tags) },
+              }),
+              ...(company_tags.length && {
+                company_tags: { $in: $toObjectId(company_tags) },
               }),
               ...(q && {
                 $or: [{ title: { $regex: q, $options: 'i' } }, { 'trans.title': { $regex: q, $options: 'i' } }],

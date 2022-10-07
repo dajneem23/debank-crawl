@@ -524,6 +524,9 @@ export enum CONVERT_CURRENCY_CODE {
   'UZS' = '3572',
   'VND' = '2823',
 }
+/**
+ *
+ */
 export enum TIME_PERIOD {
   '1h' = '1h',
   '24h' = '24h',
@@ -570,7 +573,7 @@ export const urlsValidation = Joi.object({
 
   galleries: Joi.array().items(Joi.string()),
 
-  stack_exchange: Joi.string(),
+  stack_exchange: Joi.array().items(Joi.string()),
 });
 /**
  * @description - id validation

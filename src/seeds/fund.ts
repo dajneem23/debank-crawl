@@ -1,6 +1,5 @@
 import Funds from '../data/airtable/Fundraising Rounds - Funds.json';
 import { $toObjectId, $countCollection } from '@/utils/mongoDB';
-import mongoDBLoader from '@/loaders/mongoDBLoader';
 import fs from 'fs';
 import Container, { Inject, Service } from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
@@ -11,10 +10,6 @@ import { RemoveSlugPattern } from '@/types';
 export const FundSeed = async () => {
   const db = Container.get(DIMongoDB);
   const collection = db.collection('companies');
-  const companies = db.collection('companies').find().toArray();
-  const count = await $countCollection({ collection });
-  const categories = await db.collection('categories').find({}).toArray();
-  // if (count) return;
   const funds = Object.values(
     (Funds as any).data.rows
       .map(
@@ -76,22 +71,22 @@ export const FundSeed = async () => {
             amount,
             firms,
             firm_ids,
-            investors: [
-              ...(investors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
-                return {
-                  name,
-                  foreign_id,
-                  type: 'Investor',
-                };
-              }) || []),
-              ...(AngelInvestors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
+            person_investors:
+              AngelInvestors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
                 return {
                   name,
                   foreign_id,
                   type: 'Angel Investor',
                 };
-              }) || []),
-            ],
+              }) || [],
+            company_investors:
+              investors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
+                return {
+                  name,
+                  foreign_id,
+                  type: 'Investor',
+                };
+              }) || [],
           };
         },
       )
@@ -264,10 +259,17 @@ export const insertFunds = async () => {
   const db = Container.get(DIMongoDB);
   // const count = await db.collection('funds').countDocuments();
   // if (count) return;
+  const category = await db
+    .collection('categories')
+    .find({
+      name: 'funds',
+    })
+    .toArray();
   console.log('inserting funds');
   const fundsFinal = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any).map(
-    ({ name, ...rest }: any) => ({
+    ({ name, categories = [], ...rest }: any) => ({
       name,
+      categories: [category[0]._id],
       slug: slugify(name, { lower: true, trim: true, remove: RemoveSlugPattern }),
       ...rest,
     }),

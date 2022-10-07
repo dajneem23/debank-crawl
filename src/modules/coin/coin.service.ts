@@ -1232,7 +1232,7 @@ export class CoinService {
         }
       }
     }
-    this.logger.debug('info', 'fetchPricePerformanceStats done');
+    this.logger.debug('success', 'fetchPricePerformanceStats done');
   }
   /**
    * Initialize Worker listeners

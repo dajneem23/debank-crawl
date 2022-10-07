@@ -21,9 +21,9 @@ export const PersonSeed = async () => {
   const count = await $countCollection({ collection });
 
   if (count) return;
-  const categories = await db.collection('categories').find({}).toArray();
-  const companies = await db.collection('companies').find({}).toArray();
-  const funds = await db.collection('funds').find({}).toArray();
+  // const categories = await db.collection('categories').find({}).toArray();
+  // const companies = await db.collection('companies').find({}).toArray();
+  // const funds = await db.collection('funds').find({}).toArray();
   createDataFile({
     _collection: 'persons',
     _file: peoplesFile,

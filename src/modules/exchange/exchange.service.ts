@@ -65,7 +65,6 @@ export class ExchangeService {
     return ['about', 'short_description'];
   }
   constructor() {
-    this.fetchExchangeData();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();

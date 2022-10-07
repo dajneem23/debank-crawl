@@ -125,71 +125,51 @@ export interface BaseInformationModel extends BaseModel {
 
   description?: string;
 
-  twitter?: string;
+  urls?: {
+    twitter?: string[];
 
-  telegram?: string;
+    telegram?: string[];
 
-  telegrams?: string[];
+    facebook?: string[];
 
-  facebook?: string;
+    instagram?: string[];
 
-  facebooks?: string[];
+    linkedin?: string[];
 
-  instagrams?: string[];
+    github?: string[];
 
-  instagram?: string;
+    medium?: string[];
 
-  linkedin?: string;
+    discord?: string[];
 
-  linkedins?: string[];
+    youtube?: string[];
 
-  github?: string;
+    website?: string[];
 
-  githubs?: string[];
+    blog?: string[];
 
-  medium?: string;
+    reddit?: string[];
 
-  mediums?: string[];
+    gitter?: string[];
 
-  discord?: string;
+    bitcoin_talk?: string[];
 
-  discords?: string[];
+    rocket_chat?: string[];
 
-  youtube?: string;
+    stack_exchange: string[];
 
-  youtubes?: string[];
+    video?: string[];
 
-  website?: string;
+    fee?: string;
 
-  websites?: string[];
+    slack?: string[];
 
-  blog?: string;
+    explorer?: string[];
 
-  blogs?: string[];
+    whitepaper?: string[];
 
-  reddit?: string;
-
-  reddits?: string[];
-
-  gitter?: string;
-
-  gitters?: string[];
-
-  bitcoin_talk?: string;
-
-  bitcoin_talks?: string[];
-
-  rocket_chat?: string;
-
-  rocket_chats?: string;
-
-  video?: string;
-
-  videos?: string[];
-
-  explorer?: string;
-
-  explorers?: string[];
+    other?: string[];
+  };
 
   recent_tweets?: any[];
 }
@@ -545,6 +525,9 @@ export enum CONVERT_CURRENCY_CODE {
   'UZS' = '3572',
   'VND' = '2823',
 }
+/**
+ *
+ */
 export enum TIME_PERIOD {
   '1h' = '1h',
   '24h' = '24h',
@@ -564,71 +547,35 @@ export enum TIME_PERIOD {
  */
 export const RemoveSlugPattern = /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g;
 
-export const BaseInformationValidation = {
-  name: Joi.string().required(),
+export const urlsValidation = Joi.object({
+  twitter: Joi.array().items(Joi.string()),
 
-  location: Joi.string(),
+  telegram: Joi.array().items(Joi.string()),
 
-  short_description: Joi.string(),
+  facebook: Joi.array().items(Joi.string()),
 
-  twitter: Joi.string(),
+  instagram: Joi.array().items(Joi.string()),
 
-  twitters: Joi.array().items(Joi.string()),
+  linkedin: Joi.array().items(Joi.string()),
 
-  telegram: Joi.string(),
+  github: Joi.array().items(Joi.string()),
 
-  telegrams: Joi.array().items(Joi.string()),
+  medium: Joi.array().items(Joi.string()),
 
-  facebook: Joi.string(),
+  youtube: Joi.array().items(Joi.string()),
 
-  facebooks: Joi.array().items(Joi.string()),
+  website: Joi.array().items(Joi.string()),
 
-  instagram: Joi.string(),
+  blog: Joi.array().items(Joi.string()),
 
-  instagrams: Joi.array().items(Joi.string()),
+  rocket_chat: Joi.array().items(Joi.string()),
 
-  linkedin: Joi.string(),
+  bitcoin_talk: Joi.array().items(Joi.string()),
 
-  linkedins: Joi.array().items(Joi.string()),
+  galleries: Joi.array().items(Joi.string()),
 
-  github: Joi.string(),
-
-  githubs: Joi.string(),
-
-  medium: Joi.string(),
-
-  mediums: Joi.array().items(Joi.string()),
-
-  youtube: Joi.string(),
-
-  youtubes: Joi.array().items(Joi.string()),
-
-  website: Joi.string(),
-
-  websites: Joi.array().items(Joi.string()),
-
-  blog: Joi.string(),
-
-  blogs: Joi.array().items(Joi.string()),
-
-  email: Joi.string(),
-
-  tel: Joi.string(),
-
-  about: Joi.string(),
-
-  avatar: Joi.string(),
-
-  avatars: Joi.array().items(Joi.string()),
-
-  rocket_chat: Joi.string(),
-
-  rocket_chats: Joi.array().items(Joi.string()),
-
-  bitcoin_talk: Joi.string(),
-
-  bitcoin_talks: Joi.array().items(Joi.string()),
-};
+  stack_exchange: Joi.array().items(Joi.string()),
+});
 /**
  * @description - id validation
  */

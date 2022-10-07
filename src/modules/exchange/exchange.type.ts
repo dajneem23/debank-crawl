@@ -18,25 +18,6 @@ export interface Exchange extends BaseInformationModel {
   status?: string;
 
   rank: number;
-
-  urls?: {
-    fee?: string;
-    website?: string[];
-    twitter?: string[];
-    telegram?: string[];
-    reddit?: string[];
-    facebook?: string[];
-    slack?: string[];
-    github?: string[];
-    bitcoin_talk?: string[];
-    youtube?: string[];
-    linkedin?: string[];
-    instagram?: string[];
-    whitepaper?: string[];
-    blog?: string[];
-    explorer?: string[];
-    other?: string[];
-  };
 }
 type MarketData = {
   [key in keyof typeof CONVERT_CURRENCY_CODE]?: {

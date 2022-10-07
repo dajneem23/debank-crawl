@@ -74,11 +74,7 @@ export interface Coin extends BaseInformationModel {
 
   token_id: string;
 
-  stack_exchange: string;
-
   blockchains: string[];
-
-  whitepaper: string;
 
   wallets: string[];
 
@@ -144,24 +140,9 @@ export const _coin: Coin = {
   name: '',
   token_id: '',
   about: '',
-  video: '',
   avatar: '',
-  blog: '',
-  facebook: '',
-  youtube: '',
-  reddit: '',
-  website: '',
-  telegram: '',
-  twitter: '',
-  discord: '',
-  bitcoin_talk: '',
-  gitter: '',
-  medium: '',
   categories: [],
-  explorer: '',
-  stack_exchange: '',
   blockchains: [],
-  whitepaper: '',
   wallets: [],
   exchanges: [],
   services: [],

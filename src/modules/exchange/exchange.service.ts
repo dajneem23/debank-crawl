@@ -65,6 +65,7 @@ export class ExchangeService {
     return ['about', 'short_description'];
   }
   constructor() {
+    this.fetchExchangeData();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -552,13 +553,13 @@ export class ExchangeService {
         return exchangeData;
       }),
     );
-    this.logger.debug('info', 'fetchExchangeData', JSON.stringify(exchangeData));
+    // this.logger.debug('info', 'fetchExchangeData', JSON.stringify(exchangeData));
     for (const _exchange of exchangeData) {
       for (const exchange of Object.values(_exchange)) {
         await this.upsertExchange(exchange);
       }
     }
-    this.logger.debug('info', 'fetchExchangeData', { end: new Date() });
+    this.logger.debug('success', 'fetchExchangeData', { end: new Date() });
   }
   async fetchExchangeInfo({
     page = 1,

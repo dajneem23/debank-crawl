@@ -10,6 +10,7 @@ import { $toObjectId, $countCollection } from '@/utils/mongoDB';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
+import { RemoveSlugPattern } from '@/types';
 
 /* eslint-disable no-console */
 export const PersonSeed = async () => {
@@ -20,9 +21,9 @@ export const PersonSeed = async () => {
   const count = await $countCollection({ collection });
 
   if (count) return;
-  const categories = await db.collection('categories').find({}).toArray();
-  const companies = await db.collection('companies').find({}).toArray();
-  const funds = await db.collection('funds').find({}).toArray();
+  // const categories = await db.collection('categories').find({}).toArray();
+  // const companies = await db.collection('companies').find({}).toArray();
+  // const funds = await db.collection('funds').find({}).toArray();
   createDataFile({
     _collection: 'persons',
     _file: peoplesFile,
@@ -42,24 +43,29 @@ export const PersonSeed = async () => {
         about: _person.about,
         avatar: _person['avatar-src'],
         short_description: _person['short-description'],
-        website: (_person.website && _person.website[0] && _person.website[0]['website-href']) || '',
-        telegram: (_person.telegram && _person.telegram[0] && _person.telegram[0]['telegram-href']) || '',
-        linkedin: (_person.linkedin && _person.linkedin[0] && _person.linkedin[0]['linkedin-href']) || '',
-        twitter: (_person.twitter && _person.twitter[0] && _person.twitter[0]['twitter-href']) || '',
-        discord: (_person.discord && _person.discord[0] && _person.discord[0]['discord-href']) || '',
-        gitter: (_person.gitter && _person.gitter[0] && _person.gitter[0]['gitter-href']) || '',
-        medium: (_person.medium && _person.medium[0] && _person.medium[0]['medium-href']) || '',
-        bitcoin_talk:
-          (_person.bitcoin_talk && _person.bitcoin_talk[0] && _person.bitcoin_talk[0]['bitcointalk-href']) || '',
-        facebook: (_person.facebook && _person.facebook[0] && _person.facebook[0]['facebook-href']) || '',
-        youtube: (_person.youtube && _person.youtube[0] && _person.youtube[0]['youtube-href']) || '',
-        blog: (_person.blog && _person.blog[0] && _person.blog[0]['blog-href']) || '',
-        github: (_person.github && _person.github[0] && _person.github[0]['github-href']) || '',
-        reddit: (_person.reddit && _person.reddit[0] && _person.reddit[0]['reddit-href']) || '',
-        explorer: (_person.explorer && _person.explorer[0] && _person.explorer[0]['explorer-href']) || '',
-        stack_exchange:
-          (_person.stack_exchange && _person.stack_exchange[0] && _person.stack_exchange[0]['stack-exchange-href']) ||
-          '',
+        urls: {
+          website: _person.website && _person.website[0] && [_person.website[0]['website-href']].filter(Boolean),
+          telegram: _person.telegram && _person.telegram[0] && [_person.telegram[0]['telegram-href']].filter(Boolean),
+          linkedin: _person.linkedin && _person.linkedin[0] && [_person.linkedin[0]['linkedin-href']].filter(Boolean),
+          twitter: _person.twitter && _person.twitter[0] && [_person.twitter[0]['twitter-href']].filter(Boolean),
+          discord: _person.discord && _person.discord[0] && [_person.discord[0]['discord-href']].filter(Boolean),
+          gitter: _person.gitter && _person.gitter[0] && [_person.gitter[0]['gitter-href']].filter(Boolean),
+          medium: _person.medium && _person.medium[0] && [_person.medium[0]['medium-href']].filter(Boolean),
+          bitcoin_talk:
+            _person.bitcoin_talk &&
+            _person.bitcoin_talk[0] &&
+            [_person.bitcoin_talk[0]['bitcointalk-href']].filter(Boolean),
+          facebook: _person.facebook && _person.facebook[0] && [_person.facebook[0]['facebook-href']].filter(Boolean),
+          youtube: _person.youtube && _person.youtube[0] && [_person.youtube[0]['youtube-href']].filter(Boolean),
+          blog: _person.blog && _person.blog[0] && [_person.blog[0]['blog-href']].filter(Boolean),
+          github: _person.github && _person.github[0] && [_person.github[0]['github-href']].filter(Boolean),
+          reddit: _person.reddit && _person.reddit[0] && [_person.reddit[0]['reddit-href']].filter(Boolean),
+          explorer: _person.explorer && _person.explorer[0] && [_person.explorer[0]['explorer-href']].filter(Boolean),
+          stack_exchange:
+            _person.stack_exchange &&
+            _person.stack_exchange[0] &&
+            [_person.stack_exchange[0]['stack-exchange-href']].filter(Boolean),
+        },
         categories: _person.tags.map((category: any) => category.tags) || [],
         educations: _person.educations.map((education: any) => education.educations) || [],
         works: [
@@ -204,11 +210,17 @@ export const PersonSeed = async () => {
     Object.values(
       [...persons, ...angelInvestors, ...investors.persons, ...fundfouders].reduce((current: any, item: any) => {
         const { name, ...rest } = item;
-        const lowerName = name
-          .replace(/[\W_]+/g, ' ')
-          .replace(/  +/g, ' ')
-          .toLowerCase()
-          .trim();
+        // const lowerName = name
+        //   .replace(/[\W_]+/g, ' ')
+        //   .replace(/  +/g, ' ')
+        //   .toLowerCase()
+        //   .trim();
+        const lowerName = slugify(name.trim(), {
+          lower: true,
+          strict: true,
+          replacement: ' ',
+          remove: RemoveSlugPattern,
+        });
         // console.log(name);
         return {
           ...current,
@@ -263,19 +275,6 @@ export const PersonSeed = async () => {
           about = '',
           short_description = '',
           avatar = '',
-          linkedin = '',
-          twitter = '',
-          discord = '',
-          gitter = '',
-          medium = '',
-          bitcoin_talk = '',
-          facebook = '',
-          youtube = '',
-          blog = '',
-          github = '',
-          reddit = '',
-          explorer = '',
-          stack_exchange = '',
           educations = [],
           works = [],
           categories = [],
@@ -288,28 +287,21 @@ export const PersonSeed = async () => {
         }: any) => {
           return {
             ...rest,
-            name: name
-              .replace(/[\W_]+/g, ' ')
-              .replace(/  +/g, ' ')
-              .trim(),
+            // name: name
+            //   .replace(/[\W_]+/g, ' ')
+            //   .replace(/  +/g, ' ')
+            //   .trim(),
+            name: slugify(name.trim(), {
+              lower: true,
+              strict: true,
+              replacement: ' ',
+              remove: RemoveSlugPattern,
+            }),
             foreign_id,
             categories: [...new Set(categories)],
             about,
             short_description,
             avatar,
-            linkedin,
-            twitter,
-            discord,
-            gitter,
-            medium,
-            bitcoin_talk,
-            facebook,
-            youtube,
-            blog,
-            github,
-            reddit,
-            explorer,
-            stack_exchange,
             educations,
             works,
             location,
@@ -432,7 +424,7 @@ export const insertPersons = async () => {
     JSON.parse(fs.readFileSync(`${__dirname}/data/_persons.json`, 'utf8') as any).map(async (item: any) => {
       return {
         ...item,
-        slug: slugify(item.name, { lower: true, trim: true }),
+        slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
         categories: await Promise.all(
           item.categories
             .filter(Boolean)

@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, LANG_CODE, ObjectIdValidation, CONVERT_CURRENCY_CODE, BaseInformationValidation } from '@/types';
+import { ORDER, LANG_CODE, ObjectIdValidation, CONVERT_CURRENCY_CODE } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
 const convertCurrencySchema = Joi.object({
@@ -35,7 +35,6 @@ const ExchangeSchema = Joi.object({
   rank: Joi.number(),
   weekly_visits: Joi.number(),
   market_data: marketDataSchema,
-  ...BaseInformationValidation,
 });
 export const ExchangeValidation = {
   create: validate({

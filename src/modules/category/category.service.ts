@@ -548,7 +548,7 @@ export class CategoryService {
         },
       );
       if (!updatedExisting) {
-        await sleep(2000);
+        await sleep(1000);
         const {
           value: { _id: categoryId },
         } = await this.model._collection.findOneAndUpdate(
@@ -620,6 +620,6 @@ export class CategoryService {
         }
       }
     }
-    this.logger.debug('info', 'fetch_all_category done');
+    this.logger.debug('success', 'fetch_all_category DONE');
   }
 }

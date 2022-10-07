@@ -18,7 +18,7 @@ export class CompanyModel extends BaseModel {
             name: 1,
           },
           options: {
-            unique: true,
+            unique: false,
           },
         },
         {
@@ -31,7 +31,7 @@ export class CompanyModel extends BaseModel {
             slug: 1,
           },
           options: {
-            unique: true,
+            unique: false,
           },
         },
       ],

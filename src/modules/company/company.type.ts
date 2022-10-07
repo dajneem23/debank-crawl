@@ -13,9 +13,6 @@ export interface Company extends BaseInformationModel {
   supports?: Support[];
   team?: TeamPerson[];
   research_papers?: ResearchPaper[];
-  explorer: string;
-  stack_exchange: string;
-  whitepaper: string;
   short_description: string;
   cryptocurrencies: string[];
   country?: string;
@@ -49,22 +46,24 @@ export const _company: Company = {
   about: '',
   video: '',
   avatar: '',
-  website: '',
-  telegram: '',
-  linkedin: '',
-  twitter: '',
-  discord: '',
-  gitter: '',
-  medium: '',
-  bitcoin_talk: '',
-  facebook: '',
-  youtube: '',
-  blog: '',
-  github: '',
-  reddit: '',
-  explorer: '',
-  stack_exchange: '',
-  whitepaper: '',
+  urls: {
+    website: [],
+    telegram: [],
+    linkedin: [],
+    twitter: [],
+    discord: [],
+    gitter: [],
+    medium: [],
+    bitcoin_talk: [],
+    facebook: [],
+    youtube: [],
+    blog: [],
+    github: [],
+    reddit: [],
+    stack_exchange: [],
+    explorer: [],
+    whitepaper: [],
+  },
   short_description: '',
   cryptocurrencies: [],
   deleted: false,

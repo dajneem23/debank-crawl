@@ -10,6 +10,7 @@ import fs from 'fs';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
+import { RemoveSlugPattern } from '@/types';
 //   /* eslint-disable no-console */
 export const CoinSeed = async () => {
   /* eslint-disable no-console */
@@ -32,20 +33,25 @@ export const CoinSeed = async () => {
         about: _coin.about,
         video: _coin.video || '',
         avatar: _coin['avatar-src'] || '',
-        blog: _coin['blog-href'] || '',
-        facebook: _coin['facebook-href'] || '',
-        youtube: _coin['youtube-href'] || '',
-        reddit: _coin['reddit-href'] || '',
-        explorer: _coin['explorer-href'] || '',
-        stack_exchange: _coin['stackexchange-href'] || '',
-        website: _coin['project_website-href'] || '',
-        telegram: _coin['telegram-href'] || '',
-        whitepaper: _coin['whitepaper-href'] || '',
-        twitter: _coin['twitter-href'] || '',
-        discord: _coin['discord-href'] || '',
-        bitcoin_talk: _coin['bitcoin_talk-href'] || '',
-        gitter: _coin['gitter-href'] || '',
-        medium: _coin['medium-href'] || '',
+        explorer: {
+          name: _coin['explorer'] || '',
+          url: _coin['explorer-href'],
+        },
+        urls: {
+          blog: [_coin['blog-href']].filter(Boolean),
+          facebook: [_coin['facebook-href']].filter(Boolean),
+          youtube: [_coin['youtube-href']].filter(Boolean),
+          reddit: [_coin['reddit-href']].filter(Boolean),
+          stack_exchange: [_coin['stackexchange-href']].filter(Boolean),
+          website: [_coin['project_website-href']].filter(Boolean),
+          telegram: [_coin['telegram-href']].filter(Boolean),
+          whitepaper: [_coin['whitepaper-href']].filter(Boolean),
+          twitter: [_coin['twitter-href']].filter(Boolean),
+          discord: [_coin['discord-href']].filter(Boolean),
+          bitcoin_talk: [_coin['bitcoin_talk-href']].filter(Boolean),
+          gitter: [_coin['gitter-href']].filter(Boolean),
+          medium: [_coin['medium-href']].filter(Boolean),
+        },
         categories: _coin.sectors.map((sector: any) => sector.sectors),
         blockchains: _coin.blockchain_tag.map((blockchain: any) => blockchain.blockchain_tag),
         services: _coin.services.map((service: any) => service.services),
@@ -126,13 +132,9 @@ export const insertCoins = async () => {
     const coinsFinal = await Promise.all(
       JSON.parse(fs.readFileSync(`${__dirname}/data/_coins.json`, 'utf8') as any).map(async (item: any) => {
         // console.log('item', item.name);
-        if (typeof item.name != 'string') {
-          console.log('item.name', item.name, typeof item.name);
-          throw new Error(`item.name + ${item.name}, ${typeof item.name}`);
-        }
         return {
           ...item,
-          slug: slugify(item.name, { lower: true, trim: true }),
+          slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
           categories: await Promise.all(
             item.categories.map(async (_category: any): Promise<any> => {
               return (

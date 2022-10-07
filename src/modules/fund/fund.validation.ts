@@ -292,6 +292,7 @@ export const FundValidation = {
       launched_to: Joi.number(),
       tier: Joi.string(),
       type: Joi.string().valid(...Object.values(FUND_TYPE)),
+      deleted: Joi.boolean(),
     }),
   }),
   search: validate({

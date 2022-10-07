@@ -56,6 +56,7 @@ export const CategoryValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
+      deleted: Joi.boolean(),
     }),
   }),
   search: validate({

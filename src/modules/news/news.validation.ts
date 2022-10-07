@@ -152,8 +152,14 @@ export const NewsValidation = {
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      categories: Joi.array().items(ObjectIdValidation),
       status: Joi.string().valid(...Object.values(NewsStatus)),
+      deleted: Joi.boolean(),
+      company_tags: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(ObjectIdValidation),
+      coin_tags: Joi.array().items(ObjectIdValidation),
+      product_tags: Joi.array().items(ObjectIdValidation),
+      person_tags: Joi.array().items(ObjectIdValidation),
+      event_tags: Joi.array().items(ObjectIdValidation),
     }),
   }),
   getRelated: validate({

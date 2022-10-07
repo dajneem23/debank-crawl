@@ -20,6 +20,7 @@ import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types';
+import { getPermission } from '../auth/auth.utils';
 @Controller('/events')
 export class EventController {
   private service = Container.get(eventServiceToken);
@@ -113,12 +114,18 @@ export class EventController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/', [EventValidation.query])
-  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+  @Get('/', [
+    protect({
+      ignoreException: true,
+    }),
+    EventValidation.query,
+  ])
+  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
       _filter: filter,
       _query: query,
+      _permission: getPermission(_auth.roles),
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

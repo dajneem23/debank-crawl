@@ -1,6 +1,6 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, EventType, MediaType, LANG_CODE, ObjectIdValidation } from '@/types/Common';
-import { ObjectIdPattern, PhoneNumberPattern } from '@/utils/common';
+import { PhoneNumberPattern } from '@/utils/common';
 export const query = validate({
   [Segments.QUERY]: Joi.object({
     page: Joi.number().default(1).min(1),
@@ -33,6 +33,8 @@ export const query = validate({
       .messages({
         'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
       }),
+
+    deleted: Joi.boolean(),
   }),
 });
 export const search = validate({

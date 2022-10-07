@@ -94,6 +94,7 @@ export const ExchangeValidation = {
       categories: Joi.array().items(
         Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
       ),
+      deleted: Joi.boolean(),
     }),
   }),
   search: validate({

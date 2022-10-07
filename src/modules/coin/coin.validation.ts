@@ -1,14 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import {
-  ORDER,
-  CATEGORY_TYPE,
-  LANG_CODE,
-  coinSortBy,
-  BACKER,
-  DEVELOPMENT_STATUS,
-  CONVERT_CURRENCY_CODE,
-  ObjectIdValidation,
-} from '@/types';
+import { ORDER, LANG_CODE, coinSortBy, BACKER, CONVERT_CURRENCY_CODE, ObjectIdValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
 const valueByDateSchema = Joi.object({

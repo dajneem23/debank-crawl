@@ -545,6 +545,20 @@ export enum CONVERT_CURRENCY_CODE {
   'UZS' = '3572',
   'VND' = '2823',
 }
+export enum TIME_PERIOD {
+  '1h' = '1h',
+  '24h' = '24h',
+  '7d' = '7d',
+  '14d' = '14d',
+  '30d' = '30d',
+  '60d' = '60d',
+  '90d' = '90d',
+  '180d' = '180d',
+  '365d' = '365d',
+  'yesterday' = 'yesterday',
+  'all_time' = 'all_time',
+}
+
 /**
  *  @description - Remove all special characters from a string to make it a valid URL
  */

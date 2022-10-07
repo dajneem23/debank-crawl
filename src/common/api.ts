@@ -56,7 +56,18 @@ export const CoinMarketCapAPI = {
      * @description Returns information about a single coin category available on CoinMarketCap. Includes a paginated list of the cryptocurrency quotes and metadata for the category.
      * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyCategory
      */
-    category: 'GET /v1/cryptocurrency/category',
+    category: '/v1/cryptocurrency/category',
+    /**
+     * @description Returns price performance statistics for one or more cryptocurrencies including launch price ROI and all-time high / all-time low. Stats are returned for an all_time period by default. UTC yesterday and a number of rolling time periods may be requested using the time_period parameter. Utilize the convert parameter to translate values into multiple fiats or cryptocurrencies using historical rates.
+     * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV2CryptocurrencyPriceperformancestatsLatest
+     */
+    pricePerformanceStats: '/v2/cryptocurrency/price-performance-stats/latest',
+    /**
+     *  @description pricePerformanceStats limit  100 per page
+     */
+    pricePerformanceStatsLimit: 100,
+
+    pricePerformanceStatsRepeatPattern: env.MARKETCAP_FETCH_SCHEDULE,
   },
   exchange: {
     LIMIT: 100,

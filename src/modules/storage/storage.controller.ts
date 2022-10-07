@@ -20,7 +20,7 @@ export default class StorageController {
           if (err.code === 'LIMIT_FILE_SIZE') return next(new StorageError('IMAGE_TOO_LARGE'));
           return next(err);
         }
-        const { folder } = req.body;
+        const { folder = 'common' } = req.body;
         const { file } = req;
         if (!file) return next(new StorageError('NO_FILE_UPLOADED'));
         if (!COLLECTION_NAMES[folder as keyof typeof COLLECTION_NAMES]) {

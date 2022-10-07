@@ -2,7 +2,6 @@ import {
   BACKER,
   BaseInformationModel,
   CONVERT_CURRENCY_CODE,
-  DEVELOPMENT_STATUS,
   IcoDetail,
   TeamPerson,
   Technology,

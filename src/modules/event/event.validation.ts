@@ -128,7 +128,7 @@ export const create = validate({
 
     introduction: Joi.string(),
 
-    agenda: Joi.array().items(
+    agendas: Joi.array().items(
       Joi.object({
         time: Joi.date(),
         description: Joi.string(),

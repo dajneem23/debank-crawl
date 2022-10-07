@@ -9,6 +9,7 @@ import { createDataFile, readDataFromFile } from './utils';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
+import { RemoveSlugPattern } from '@/types';
 /* eslint-disable no-console */
 export const CompanySeed = async () => {
   createDataFile({
@@ -35,25 +36,31 @@ export const CompanySeed = async () => {
       video: _company.video,
       headquarter: _company['headquarters'],
       avatar: _company['avatar-src'],
-      website: _company['website-href'] || '',
-      telegram: (_company.telegram && _company.telegram[0] && _company.telegram[0]['telegram-href']) || '',
-      linkedin: (_company.linkedin && _company.linkedin[0] && _company.linkedin[0]['linkedin-href']) || '',
-      twitter: (_company.twitter && _company.twitter[0] && _company.twitter[0]['twitter-href']) || '',
-      discord: (_company.discord && _company.discord[0] && _company.discord[0]['discord-href']) || '',
-      gitter: (_company.gitter && _company.gitter[0] && _company.gitter[0]['gitter-href']) || '',
-      medium: (_company.medium && _company.medium[0] && _company.medium[0]['medium-href']) || '',
-      bitcoin_talk:
-        (_company.bitcoin_talk && _company.bitcoin_talk[0] && _company.bitcoin_talk[0]['bitcointalk-href']) || '',
-      facebook: (_company.facebook && _company.facebook[0] && _company.facebook[0]['facebook-href']) || '',
-      youtube: (_company.youtube && _company.youtube[0] && _company.youtube[0]['youtube-href']) || '',
-      blog: (_company.blog && _company.blog[0] && _company.blog[0]['blog-href']) || '',
-      github: (_company.github && _company.github[0] && _company.github[0]['github-href']) || '',
-      reddit: (_company.reddit && _company.reddit[0] && _company.reddit[0]['reddit-href']) || '',
-      explorer: _company['explorer-href'] || '',
-      stack_exchange:
-        (_company.stack_exchange && _company.stack_exchange[0] && _company.stack_exchange[0]['stack-exchange-href']) ||
-        '',
-      whitepaper: _company['whitepaper-href'] || '',
+      urls: {
+        website: [_company['website-href']].filter(Boolean),
+        telegram: _company.telegram && _company.telegram[0] && [_company.telegram[0]['telegram-href']].filter(Boolean),
+        linkedin: _company.linkedin && _company.linkedin[0] && [_company.linkedin[0]['linkedin-href']].filter(Boolean),
+        twitter: _company.twitter && _company.twitter[0] && [_company.twitter[0]['twitter-href']].filter(Boolean),
+        discord: _company.discord && _company.discord[0] && [_company.discord[0]['discord-href']].filter(Boolean),
+        gitter: _company.gitter && _company.gitter[0] && [_company.gitter[0]['gitter-href']].filter(Boolean),
+        medium: _company.medium && _company.medium[0] && [_company.medium[0]['medium-href']].filter(Boolean),
+        bitcoin_talk:
+          _company.bitcoin_talk &&
+          _company.bitcoin_talk[0] &&
+          [_company.bitcoin_talk[0]['bitcointalk-href']].filter(Boolean),
+        facebook: _company.facebook && _company.facebook[0] && [_company.facebook[0]['facebook-href']].filter(Boolean),
+        youtube: _company.youtube && _company.youtube[0] && _company.youtube[0]['youtube-href'],
+        blog: _company.blog && _company.blog[0] && [_company.blog[0]['blog-href']].filter(Boolean),
+        github: _company.github && _company.github[0] && [_company.github[0]['github-href']].filter(Boolean),
+        reddit: _company.reddit && _company.reddit[0] && [_company.reddit[0]['reddit-href']].filter(Boolean),
+        stack_exchange:
+          _company.stack_exchange &&
+          _company.stack_exchange[0] &&
+          [_company.stack_exchange[0]['stack-exchange-href']].filter(Boolean),
+        whitepaper: _company['whitepaper-href'],
+        portfolios: _company.portfolio.map((portfolio: any) => portfolio['portfolio-title']).filter(Boolean),
+        galleries: _company.gallery.map((gallery: any) => gallery['gallery-src']).filter(Boolean),
+      },
       short_description: _company['short-description'],
       location: _company.location && _company.location[0] && _company.location[0]['location-href'],
       services: _company.services.map((service: any) => service.services),
@@ -145,8 +152,6 @@ export const CompanySeed = async () => {
         (cryptocurrency: any) => cryptocurrency['cryptocurrencies-title'],
       ),
       clients: _company.clients.map((client: any) => client['clients-title']),
-      portfolios: _company.portfolio.map((portfolio: any) => portfolio['portfolio-title']),
-      galleries: _company.gallery.map((gallery: any) => gallery['gallery-src']),
     };
   });
 
@@ -196,7 +201,7 @@ export const CompanySeed = async () => {
               ...fldjd43zfXdpAWzaq.map((item: any) => item.foreignRowDisplayName),
               ...fldT0Fasv4hkjwbb3.map((item: any) => item.foreignRowDisplayName),
             ],
-            projects: projects.map((item: any) => {
+            projects: projects.flatMap((item: any) => {
               return {
                 foreign_id: item.foreignRowId,
                 name: item.foreignRowDisplayName,
@@ -212,12 +217,14 @@ export const CompanySeed = async () => {
           id,
           about,
           total_amount,
-          twitter,
-          [fldQG6489r2BIckRi_Key]: fldQG6489r2BIckRi,
-          [fldQG6489r2BIckRi_Key == 'discord' ? 'telegram' : 'discord']: '',
+          urls: {
+            twitter: [twitter].filter(Boolean),
+            [fldQG6489r2BIckRi_Key]: [fldQG6489r2BIckRi].filter(Boolean),
+            [fldQG6489r2BIckRi_Key == 'discord' ? 'telegram' : 'discord']: [],
+            website: websites || [],
+          },
           avatar: fldXIqyTI8vVF00vs ? fldXIqyTI8vVF00vs[0].url : '',
-          websites,
-          website: websites[0],
+
           year_founded,
           // locations: companyLocations,
           location: companyLocations[0],
@@ -243,14 +250,30 @@ export const CompanySeed = async () => {
               }
               return [...acc, current];
             }, []),
-          investors: [
-            ...(fldFSvhqgXnNA8Llz?.map((investor: any) => {
+          person_investors: (
+            fldFSvhqgXnNA8Llz?.map((investor: any) => {
               return {
-                type: 'persons',
                 foreign_id: investor.foreignRowId,
                 name: investor.foreignRowDisplayName,
               };
-            }) || []),
+            }) || []
+          )
+            .reduce((current: any, item: any) => {
+              if (!current.find((i: any) => i.foreign_id === item.foreign_id)) {
+                return [...current, item];
+              } else {
+                return current;
+              }
+            }, [])
+            .reduce((acc: any, current: any) => {
+              if (acc.some((item: any) => item.name === current.name) && current.round_id) {
+                const item = acc.find((item: any) => item.name === current.name);
+                item.rounds = [...new Set([...item.rounds, current.round_id])];
+                return acc;
+              }
+              return [...acc, current];
+            }, []),
+          company_investors: [
             ...[
               ...(fundraisingRoundsFile as any).data.rows
                 .filter((round: any) => {
@@ -261,7 +284,6 @@ export const CompanySeed = async () => {
                     ...current,
                     ...(round.cellValuesByColumnId.fldhntVnAppLIOUAl?.map((item: any) => {
                       return {
-                        type: 'companies',
                         round_id: round.id,
                         foreign_id: item.foreignRowId,
                         name: item.foreignRowDisplayName,
@@ -272,7 +294,6 @@ export const CompanySeed = async () => {
                 }, []),
               ...(company_investors?.map((item: any) => {
                 return {
-                  type: 'companies',
                   foreign_id: item.foreignRowId,
                   name: item.foreignRowDisplayName,
                 };
@@ -348,8 +369,10 @@ export const CompanySeed = async () => {
           name,
           location: location[0]?.foreignRowDisplayName || '',
           avatar: avatar[0]?.url || '',
-          twitter,
-          linkedin,
+          urls: {
+            twitter: [twitter].filter(Boolean),
+            linkedin: [linkedin].filter(Boolean),
+          },
           company,
           email,
           categories: [category].filter(Boolean),
@@ -382,8 +405,10 @@ export const CompanySeed = async () => {
       return {
         id,
         name,
-        twitter,
-        linkedin,
+        urls: {
+          twitter: [twitter].filter(Boolean),
+          linkedin: [linkedin].filter(Boolean),
+        },
         email,
         avatar: url,
         categories: ['Investor'],
@@ -408,11 +433,17 @@ export const CompanySeed = async () => {
     Object.values(
       [...airtableCompanies, ...companies, ...investors.companies].reduce((current: any, item: any) => {
         const { name, ...rest } = item;
-        const lowerName = name
-          .replace(/[\W_]+/g, ' ')
-          .replace(/  +/g, ' ')
-          .toLowerCase()
-          .trim();
+        // const lowerName = name
+        //   .replace(/[\W_]+/g, ' ')
+        //   .replace(/  +/g, ' ')
+        //   .toLowerCase()
+        //   .trim();
+        const lowerName = slugify(name.trim(), {
+          lower: true,
+          strict: true,
+          replacement: ' ',
+          remove: RemoveSlugPattern,
+        });
         return {
           ...current,
           [lowerName]: {
@@ -465,7 +496,6 @@ export const CompanySeed = async () => {
           reviewed = false,
           year_founded = 0,
           total_amount = 0,
-          websites = [],
           founders = [],
           investors = [],
           metadata = {},
@@ -473,30 +503,14 @@ export const CompanySeed = async () => {
           services = [],
           supports = [],
           team = [],
-          research_papers = [],
           products = [],
           clients = [],
-          portfolios = [],
-          galleries = [],
           categories = [],
           about = '',
           verified = false,
           headquarter = '',
-          facebook = '',
-          twitter = '',
-          medium = '',
-          discord = '',
-          linkedin = '',
-          youtube = '',
-          gitter = '',
-          whitepaper = '',
-          stack_exchange = '',
-          telegram = '',
           location = '',
           short_description = '',
-          github = '',
-          reddit = '',
-          explorer = '',
           partners = [],
           cryptocurrencies = [],
           firms = [],
@@ -504,19 +518,53 @@ export const CompanySeed = async () => {
           projects = [],
           type,
           name,
+          research_papers = [],
+          urls: {
+            portfolios = [],
+            galleries = [],
+            facebook = [],
+            website = [],
+            twitter = [],
+            medium = [],
+            discord = [],
+            linkedin = [],
+            youtube = [],
+            gitter = [],
+            whitepaper = [],
+            stack_exchange = [],
+            telegram = [],
+            github = [],
+            reddit = [],
+          } = {
+            portfolios: [],
+            galleries: [],
+            facebook: [],
+            website: [],
+            twitter: [],
+            medium: [],
+            discord: [],
+            linkedin: [],
+            youtube: [],
+            gitter: [],
+            whitepaper: [],
+            stack_exchange: [],
+            telegram: [],
+            github: [],
+            reddit: [],
+          },
           ...rest
         } = item;
         return {
           ...rest,
-          name: name
-            .replace(/[\W_]+/g, ' ')
-            .replace(/  +/g, ' ')
-            .trim(),
+          // name: name
+          //   .replace(/[\W_]+/g, ' ')
+          //   .replace(/  +/g, ' ')
+          //   .trim(),
+          name: slugify(name.trim(), { lower: true, strict: true, replacement: ' ', remove: RemoveSlugPattern }),
           foreign_id,
           categories: [...new Set(categories)],
           year_founded,
           avatars,
-          websites,
           total_amount,
           founders,
           investors,
@@ -524,36 +572,40 @@ export const CompanySeed = async () => {
           services,
           supports,
           team,
-          research_papers,
           products,
           clients,
-          portfolios,
           partners,
-          galleries,
           about,
           verified,
           headquarter,
-          facebook,
-          twitter,
-          medium,
-          discord,
-          linkedin,
-          youtube,
-          gitter,
-          whitepaper,
-          stack_exchange,
-          telegram,
+          research_papers,
+          urls: {
+            portfolios,
+            galleries,
+            facebook,
+            website,
+            twitter,
+            medium,
+            discord,
+            linkedin,
+            youtube,
+            gitter,
+            whitepaper,
+            stack_exchange,
+            telegram,
+            github,
+            reddit,
+          },
           location,
           short_description,
-          github,
-          reddit,
-          explorer,
           cryptocurrencies,
           firms,
           metadata,
           need_review,
           reviewed,
-          projects,
+          projects: projects.flat().filter(({ foreign_id }: any, index: any) => {
+            return projects.flat().findIndex((item: any) => item.foreign_id == foreign_id) == index;
+          }),
           trans: [] as any,
           deleted: false,
           created_at: new Date(),
@@ -677,7 +729,7 @@ export const companyInvestment = async () => {
 export const insertCompanies = async () => {
   const db = Container.get(DIMongoDB);
   const count = await db.collection('companies').countDocuments();
-  if (count) return;
+  // if (count) return;
   console.log('Inserting companies');
   const categories = await db.collection('categories').find({}).toArray();
   const companiesFinal = await Promise.all(
@@ -685,7 +737,7 @@ export const insertCompanies = async () => {
       async (item: any, index: any, items: any[]) => {
         return {
           ...item,
-          slug: slugify(item.name, { lower: true, trim: true }),
+          slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
           cryptocurrencies: (
             (await Promise.all(
               (item.cryptocurrencies || []).map(async (item: any) => {
@@ -721,7 +773,7 @@ export const insertCompanies = async () => {
                       {
                         $setOnInsert: {
                           title: _category,
-                          type: 'person',
+                          type: 'company',
                           name: slugify(_category, { lower: true, trim: true, replacement: '_' }),
                           acronym: _category
                             .toLowerCase()

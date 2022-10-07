@@ -75,6 +75,7 @@ export const PhoneNumberPattern = /^\+?[0-9]{1,3}?[0-9]{8,12}$/;
 
 /**
  * @description ObjectId pattern
+ * @see https://www.mongodb.com/docs/manual/reference/method/ObjectId/
  * @example ObjectId("6330a7c816b1ac2351a37ec9")
  */
 export const ObjectIdPattern = /^[0-9a-fA-F]{24}$/;

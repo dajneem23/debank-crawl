@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, EventType, MediaType, LANG_CODE, ObjectIdValidation } from '@/types/Common';
+import { ORDER, EventType, MediaType, LANG_CODE, ObjectIdValidation, urlsValidation } from '@/types/Common';
 import { PhoneNumberPattern } from '@/utils/common';
 export const query = validate({
   [Segments.QUERY]: Joi.object({
@@ -126,8 +126,6 @@ export const create = validate({
 
     email: Joi.string().email(),
 
-    website: Joi.string(),
-
     introduction: Joi.string(),
 
     agenda: Joi.array().items(
@@ -158,29 +156,7 @@ export const create = validate({
 
     tel: Joi.string().regex(PhoneNumberPattern),
 
-    avatar: Joi.string(),
-
-    about: Joi.string(),
-
-    twitter: Joi.string(),
-
-    telegram: Joi.string(),
-
-    facebook: Joi.string(),
-
-    instagram: Joi.string(),
-
-    linkedin: Joi.string(),
-
-    github: Joi.string(),
-
-    medium: Joi.string(),
-
-    youtube: Joi.string(),
-
-    blog: Joi.string(),
-
-    reddit: Joi.string(),
+    urls: urlsValidation,
 
     subscribers: Joi.array().items(Joi.string().email()),
 

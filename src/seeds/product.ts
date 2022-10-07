@@ -41,17 +41,25 @@ export const ProductSeed = async () => {
         verified: !!_product.verified,
         sponsored: !!_product.sponsored,
         about: Array.isArray(_product.about) ? _product.about.join('\n') : _product.about,
-        galleries: _product.gallery.map((gallery: any) => gallery['gallery-src']),
         categories: _product.tags.map((category: any) => category.tags) || [],
-        website: (_product.website && _product.website[0] && _product.website[0]['website-href']) || '',
-        facebook: (_product.facebook && _product.facebook[0] && _product.facebook[0]['facebook-href']) || '',
-        telegram: (_product.telegram && _product.telegram[0] && _product.telegram[0]['telegram-href']) || '',
-        twitter: (_product.twitter && _product.twitter[0] && _product.twitter[0]['twitter-href']) || '',
-        youtube: (_product.youtube && _product.youtube[0] && _product.youtube[0]['youtube-href']) || '',
-        discord: (_product.discord && _product.discord[0] && _product.discord[0]['discord-href']) || '',
-        medium: (_product.medium && _product.medium[0] && _product.medium[0]['medium-href']) || '',
-        reddit: (_product.reddit && _product.reddit[0] && _product.reddit[0]['reddit-href']) || '',
-        blog: (_product.blog && _product.blog[0] && _product.blog[0]['blog-href']) || '',
+        urls: {
+          galleries: _product.gallery.map((gallery: any) => gallery['gallery-src']).filter(Boolean),
+          website: _product.website && _product.website[0] && [_product.website[0]['website-href']].filter(Boolean),
+          facebook:
+            _product.facebook && _product.facebook[0] && [_product.facebook[0]['facebook-href']].filter(Boolean),
+          telegram:
+            _product.telegram && _product.telegram[0] && [_product.telegram[0]['telegram-href']].filter(Boolean),
+          twitter: _product.twitter && _product.twitter[0] && [_product.twitter[0]['twitter-href']].filter(Boolean),
+          youtube: _product.youtube && _product.youtube[0] && [_product.youtube[0]['youtube-href']].filter(Boolean),
+          discord: _product.discord && _product.discord[0] && [_product.discord[0]['discord-href']].filter(Boolean),
+          medium: _product.medium && _product.medium[0] && [_product.medium[0]['medium-href']].filter(Boolean),
+          reddit: _product.reddit && _product.reddit[0] && [_product.reddit[0]['reddit-href']].filter(Boolean),
+          blog: _product.blog && _product.blog[0] && [_product.blog[0]['blog-href']].filter(Boolean),
+          rocket_chat:
+            _product.rocket_chat &&
+            _product.rocket_chat[0] &&
+            [_product.rocket_chat[0]['rocket_chat-href']].filter(Boolean),
+        },
         features: _product.features.map((features: any) => features.features),
         parent_company:
           !!_product.company && _product.company[0]
@@ -70,8 +78,6 @@ export const ProductSeed = async () => {
             url: contract_address['contract_addresses-href'],
           };
         }),
-        rocket_chat:
-          (_product.rocket_chat && _product.rocket_chat[0] && _product.rocket_chat[0]['rocket_chat-href']) || '',
 
         information: _product.information
           .map((information: any) => {

@@ -8,6 +8,8 @@ import {
   DEVELOPMENT_STATUS,
   CONVERT_CURRENCY_CODE,
   ObjectIdValidation,
+  urlsValidation,
+  TIME_PERIOD,
 } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
@@ -15,8 +17,29 @@ const valueByDateSchema = Joi.object({
   timestamp: Joi.date(),
   value: Joi.number(),
 });
-
-const convertCurrencySchema = Joi.object({
+const TimePeriodPriceSchema = Joi.object({
+  price: Joi.number(),
+  open: Joi.number(),
+  high: Joi.number(),
+  low: Joi.number(),
+  close: Joi.number(),
+  volume: Joi.number(),
+  market_cap: Joi.number(),
+  tvl: Joi.number(),
+  long: Joi.number(),
+  short: Joi.number(),
+  percent_change: Joi.number(),
+  list_price: Joi.array().items(valueByDateSchema),
+  latest_price: Joi.number(),
+  volume_change: Joi.number(),
+  volume_reported: Joi.number(),
+  list_market_cap: Joi.array().items(valueByDateSchema),
+  close_timestamp: Joi.date(),
+  high_timestamp: Joi.date(),
+  low_timestamp: Joi.date(),
+  open_timestamp: Joi.date(),
+});
+const convertCurrencySchema = Joi.object({}).keys({
   price: Joi.number(),
   open: Joi.number(),
   high: Joi.number(),
@@ -32,46 +55,48 @@ const convertCurrencySchema = Joi.object({
   fully_diluted_market_cap: Joi.number(),
   market_cap_by_total_supply: Joi.number(),
 
-  volume_change_24h: Joi.number(),
+  // volume_change_24h: Joi.number(),
 
-  latest_price_1h: Joi.array().items(Joi.number()),
-  latest_price_24h: Joi.array().items(Joi.number()),
-  latest_price_7d: Joi.array().items(Joi.number()),
+  // latest_price_1h: Joi.array().items(Joi.number()),
+  // latest_price_24h: Joi.array().items(Joi.number()),
+  // latest_price_7d: Joi.array().items(Joi.number()),
 
-  volume_24h: Joi.number(),
-  volume_7d: Joi.number(),
-  volume_30d: Joi.number(),
+  // volume_24h: Joi.number(),
+  // volume_7d: Joi.number(),
+  // volume_30d: Joi.number(),
 
-  percent_change_1h: Joi.number(),
-  percent_change_24h: Joi.number(),
-  percent_change_7d: Joi.number(),
+  // percent_change_1h: Joi.number(),
+  // percent_change_24h: Joi.number(),
+  // percent_change_7d: Joi.number(),
 
   list_price: Joi.array().items(valueByDateSchema),
-  list_price_1h: Joi.array().items(valueByDateSchema),
-  list_price_24h: Joi.array().items(valueByDateSchema),
-  list_price_7d: Joi.array().items(valueByDateSchema),
-  list_price_30d: Joi.array().items(valueByDateSchema),
-  list_price_90d: Joi.array().items(valueByDateSchema),
-  list_price_180d: Joi.array().items(valueByDateSchema),
-  list_price_365d: Joi.array().items(valueByDateSchema),
-  list_price_all_time: Joi.array().items(valueByDateSchema),
+  // list_price_1h: Joi.array().items(valueByDateSchema),
+  // list_price_24h: Joi.array().items(valueByDateSchema),
+  // list_price_7d: Joi.array().items(valueByDateSchema),
+  // list_price_30d: Joi.array().items(valueByDateSchema),
+  // list_price_90d: Joi.array().items(valueByDateSchema),
+  // list_price_180d: Joi.array().items(valueByDateSchema),
+  // list_price_365d: Joi.array().items(valueByDateSchema),
+  // list_price_all_time: Joi.array().items(valueByDateSchema),
 
-  volume_24h_reported: Joi.number(),
-  volume_7d_reported: Joi.number(),
-  volume_30d_reported: Joi.number(),
+  // volume_24h_reported: Joi.number(),
+  // volume_7d_reported: Joi.number(),
+  // volume_30d_reported: Joi.number(),
 
-  percent_change_30d: Joi.number(),
-  percent_change_60d: Joi.number(),
-  percent_change_90d: Joi.number(),
+  // percent_change_30d: Joi.number(),
+  // percent_change_60d: Joi.number(),
+  // percent_change_90d: Joi.number(),
 
-  list_market_cap_1d: Joi.array().items(valueByDateSchema),
-  list_market_cap_7d: Joi.array().items(valueByDateSchema),
-  list_market_cap_30d: Joi.array().items(valueByDateSchema),
-  list_market_cap_90d: Joi.array().items(valueByDateSchema),
-  list_market_cap_180d: Joi.array().items(valueByDateSchema),
-  list_market_cap_365d: Joi.array().items(valueByDateSchema),
+  // list_market_cap_1d: Joi.array().items(valueByDateSchema),
+  // list_market_cap_7d: Joi.array().items(valueByDateSchema),
+  // list_market_cap_30d: Joi.array().items(valueByDateSchema),
+  // list_market_cap_90d: Joi.array().items(valueByDateSchema),
+  // list_market_cap_180d: Joi.array().items(valueByDateSchema),
+  // list_market_cap_365d: Joi.array().items(valueByDateSchema),
 
   last_updated: Joi.date(),
+
+  ...mapValues(TIME_PERIOD, () => TimePeriodPriceSchema),
 });
 const marketDataSchema = Joi.object({}).keys({
   circulating_supply: Joi.number(),
@@ -95,6 +120,10 @@ const coinSchema = Joi.object({
 
   token_id: Joi.string(),
 
+  avatar: Joi.string(),
+
+  about: Joi.string(),
+
   //array id of categories
   categories: Joi.array().items(
     Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
@@ -102,11 +131,7 @@ const coinSchema = Joi.object({
 
   explorer: Joi.string(),
 
-  stack_exchange: Joi.string(),
-
   blockchains: Joi.array().items(Joi.string()),
-
-  whitepaper: Joi.string(),
 
   wallets: Joi.array().items(Joi.string()),
 
@@ -122,41 +147,10 @@ const coinSchema = Joi.object({
 
   ico: Joi.object(),
 
-  twitter: Joi.string(),
-
-  telegram: Joi.string(),
-
-  facebook: Joi.string(),
-
-  instagram: Joi.string(),
-
-  linkedin: Joi.string(),
-
-  github: Joi.string(),
-
-  medium: Joi.string(),
-
-  youtube: Joi.string(),
-
-  website: Joi.string(),
-
-  blog: Joi.string(),
-
-  email: Joi.string(),
-
-  tel: Joi.string(),
-
-  about: Joi.string(),
-
-  avatar: Joi.string(),
-
-  rocket_chat: Joi.string(),
-
-  bitcoin_talk: Joi.string(),
-
   companies: Joi.array(),
 
   market_data: marketDataSchema,
+
   trans: Joi.array().items(
     Joi.object({
       lang: Joi.string()
@@ -197,6 +191,8 @@ const coinSchema = Joi.object({
       amount: Joi.number(),
     }),
   ),
+
+  urls: urlsValidation,
 });
 export const CoinValidation = {
   create: validate({

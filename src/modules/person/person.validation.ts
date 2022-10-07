@@ -1,138 +1,57 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation, urlsValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
+
+const personSchema = Joi.object({
+  name: Joi.string(),
+  position: Joi.string(),
+  categories: Joi.array().items(ObjectIdValidation),
+  works: Joi.array().items(
+    Joi.object({
+      title: Joi.string(),
+      description: Joi.string(),
+      company: Joi.string(),
+      position: Joi.string(),
+      date_start: Joi.date(),
+      date_end: Joi.date(),
+      type: Joi.string(),
+    }),
+  ),
+  educations: Joi.array().items(
+    Joi.object({
+      title: Joi.string(),
+      description: Joi.string(),
+    }),
+  ),
+  urls: urlsValidation,
+
+  email: Joi.string(),
+
+  tel: Joi.string(),
+
+  about: Joi.string(),
+
+  avatar: Joi.string(),
+
+  trans: Joi.array().items(
+    Joi.object({
+      lang: Joi.string()
+        .valid(...Object.values(LANG_CODE))
+        .required()
+        .messages({
+          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+        }),
+      about: Joi.string(),
+      short_description: Joi.string(),
+    }),
+  ),
+});
 export const PersonValidation = {
   create: validate({
-    [Segments.BODY]: Joi.object({
-      name: Joi.string(),
-      position: Joi.string(),
-      categories: Joi.array().items(ObjectIdValidation),
-      works: Joi.array().items(
-        Joi.object({
-          title: Joi.string(),
-          description: Joi.string(),
-          company: Joi.string(),
-          position: Joi.string(),
-          date_start: Joi.date(),
-          date_end: Joi.date(),
-          type: Joi.string(),
-        }),
-      ),
-      educations: Joi.array().items(
-        Joi.object({
-          title: Joi.string(),
-          description: Joi.string(),
-        }),
-      ),
-      twitter: Joi.string(),
-
-      telegram: Joi.string(),
-
-      facebook: Joi.string(),
-
-      instagram: Joi.string(),
-
-      linkedin: Joi.string(),
-
-      github: Joi.string(),
-
-      medium: Joi.string(),
-
-      youtube: Joi.string(),
-
-      website: Joi.string(),
-
-      blog: Joi.string(),
-
-      email: Joi.string(),
-
-      tel: Joi.string(),
-
-      about: Joi.string(),
-
-      avatar: Joi.string(),
-
-      rocket_chat: Joi.string(),
-
-      bitcoin_talk: Joi.string(),
-
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          about: Joi.string(),
-          short_description: Joi.string(),
-        }),
-      ),
-    }),
+    [Segments.BODY]: personSchema,
   }),
   update: validate({
-    [Segments.BODY]: Joi.object({
-      name: Joi.string(),
-      position: Joi.string(),
-      categories: Joi.array().items(ObjectIdValidation),
-      works: Joi.array().items(
-        Joi.object({
-          title: Joi.string(),
-          description: Joi.string(),
-          company: Joi.string(),
-          position: Joi.string(),
-          date_start: Joi.date(),
-          date_end: Joi.date(),
-          type: Joi.string(),
-        }),
-      ),
-      educations: Joi.array().items(Joi.string()),
-
-      twitter: Joi.string(),
-
-      telegram: Joi.string(),
-
-      facebook: Joi.string(),
-
-      instagram: Joi.string(),
-
-      linkedin: Joi.string(),
-
-      github: Joi.string(),
-
-      medium: Joi.string(),
-
-      youtube: Joi.string(),
-
-      website: Joi.string(),
-
-      blog: Joi.string(),
-
-      email: Joi.string(),
-
-      tel: Joi.string(),
-
-      about: Joi.string(),
-
-      avatar: Joi.string(),
-
-      rocket_chat: Joi.string(),
-
-      bitcoin_talk: Joi.string(),
-
-      trans: Joi.array().items(
-        Joi.object({
-          lang: Joi.string()
-            .valid(...Object.values(LANG_CODE))
-            .required()
-            .messages({
-              'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-            }),
-          about: Joi.string(),
-          short_description: Joi.string(),
-        }),
-      ),
-    }),
+    [Segments.BODY]: personSchema,
     [Segments.PARAMS]: Joi.object({
       id: ObjectIdValidation,
     }),

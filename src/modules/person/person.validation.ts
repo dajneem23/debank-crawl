@@ -31,6 +31,8 @@ const personSchema = Joi.object({
 
   about: Joi.string(),
 
+  short_description: Joi.string(),
+
   avatar: Joi.string(),
 
   trans: Joi.array().items(

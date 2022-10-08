@@ -366,12 +366,15 @@ export class NewsService {
             ],
             $more: [
               ...((lang && [this.model.$sets.trans]) || []),
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
                 },
-              },
+              ]) ||
+                []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
@@ -429,12 +432,15 @@ export class NewsService {
             },
           },
           ...((lang && [this.model.$sets.trans]) || []),
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                ...(lang && $keysToProject(this.transKeys, '$trans')),
+              },
             },
-          },
+          ]) ||
+            []),
           {
             $limit: 1,
           },
@@ -505,12 +511,15 @@ export class NewsService {
             },
           },
           ...((lang && [this.model.$sets.trans]) || []),
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                ...(lang && $keysToProject(this.transKeys, '$trans')),
+              },
             },
-          },
+          ]) ||
+            []),
           {
             $limit: 1,
           },
@@ -555,20 +564,23 @@ export class NewsService {
             $lookups: [this.model.$lookups.author, this.model.$lookups.categories],
             $sets: [this.model.$sets.author],
             $projects: [
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  trans: {
-                    $filter: {
-                      input: '$trans',
-                      as: 'trans',
-                      cond: {
-                        $eq: ['$$trans.lang', lang],
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
                       },
                     },
                   },
                 },
-              },
+              ]) ||
+                []),
             ],
             $more: [
               ...((lang && [this.model.$sets.trans]) || []),

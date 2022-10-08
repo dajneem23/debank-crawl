@@ -34,7 +34,7 @@ export class ProductService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'name', 'avatar', 'about', 'slug'];
+    return ['id', 'name', 'avatar', 'about', 'slug', 'categories'];
   }
 
   get transKeys() {

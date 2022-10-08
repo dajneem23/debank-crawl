@@ -28,6 +28,8 @@ const productSchema = Joi.object({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
       about: Joi.string(),
+      features: Joi.array().items(Joi.string()),
+      services: Joi.array().items(Joi.string()),
     }),
   ),
 });

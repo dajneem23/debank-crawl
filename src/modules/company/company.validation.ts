@@ -62,6 +62,8 @@ const coinSchema = Joi.object({
         }),
       about: Joi.string(),
       short_description: Joi.string(),
+      features: Joi.array().items(Joi.string()),
+      services: Joi.array().items(Joi.string()),
     }),
   ),
 });

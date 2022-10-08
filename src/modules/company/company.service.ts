@@ -44,7 +44,7 @@ export class CompanyService {
     return ['id', 'avatar', 'slug', 'categories', 'about', 'short_description', 'name', 'author'];
   }
   get transKeys() {
-    return ['about', 'short_description'];
+    return ['about', 'short_description', 'features', 'services'];
   }
 
   /**

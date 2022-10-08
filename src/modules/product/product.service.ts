@@ -38,7 +38,7 @@ export class ProductService {
   }
 
   get transKeys() {
-    return ['about', 'short_description'];
+    return ['about', 'short_description', 'features', 'services'];
   }
   /**
    * Generate ID

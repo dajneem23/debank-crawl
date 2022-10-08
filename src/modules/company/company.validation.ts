@@ -18,7 +18,7 @@ const coinSchema = Joi.object({
   //array id of persons
   features: Joi.array().items(Joi.string()),
 
-  services: Joi.array().items(Joi.object()),
+  services: Joi.array().items(Joi.string()),
 
   //array id of company
   clients: Joi.array().items(ObjectIdValidation),

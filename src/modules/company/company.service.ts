@@ -226,6 +226,7 @@ export class CompanyService {
           {
             $addFields: this.model.$addFields.categories,
           },
+          this.model.$lookups.cryptocurrencies,
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$lookups.team,
@@ -292,6 +293,7 @@ export class CompanyService {
               projects: this.model.$addFields.projects,
             },
           },
+          this.model.$lookups.cryptocurrencies,
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$lookups.team,

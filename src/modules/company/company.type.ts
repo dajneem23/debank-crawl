@@ -1,4 +1,11 @@
-import { BaseInformationModel, FundraisingRoundDetail, ResearchPaper, Support, TeamPerson } from '@/types/Common';
+import {
+  BaseInformationModel,
+  ForeignReLationship,
+  FundraisingRoundDetail,
+  ResearchPaper,
+  Support,
+  TeamPerson,
+} from '@/types/Common';
 
 export interface Company extends BaseInformationModel {
   name: string;
@@ -22,6 +29,33 @@ export interface Company extends BaseInformationModel {
   fundraising_rounds: FundraisingRoundDetail[];
   investors?: any[];
   _sync?: any[];
+  type?: string;
+
+  partners?: ForeignReLationship[];
+
+  launched?: string;
+
+  recent_investments?: ForeignReLationship[];
+
+  current_roi?: number;
+
+  ath_roi?: number;
+
+  total_investments?: number;
+
+  investments?: ForeignReLationship[];
+
+  funding?: number;
+
+  typical_project?: string;
+
+  typical_category?: string;
+
+  tier?: number;
+
+  rating?: number;
+
+  assets_allocation?: string;
   trans: {
     lang: string;
     about?: string;

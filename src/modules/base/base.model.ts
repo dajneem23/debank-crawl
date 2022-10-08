@@ -250,6 +250,7 @@ export class BaseModel {
     categories: any;
     products: any;
     projects: any;
+    cryptocurrencies: any;
   } {
     return {
       categories: {
@@ -282,6 +283,17 @@ export class BaseModel {
             },
             then: [],
             else: '$projects',
+          },
+        },
+      },
+      cryptocurrencies: {
+        cryptocurrencies: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$cryptocurrencies' }, 'array'],
+            },
+            then: [],
+            else: '$cryptocurrencies',
           },
         },
       },

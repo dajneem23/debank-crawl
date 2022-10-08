@@ -171,31 +171,37 @@ export class ProductService {
               }),
             },
             $addFields: this.model.$addFields.categories,
-            $lookups: [this.model.$lookups.categories],
+            $lookups: [this.model.$lookups.categories, this.model.$lookups.cryptocurrencies],
             $projects: [
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  trans: {
-                    $filter: {
-                      input: '$trans',
-                      as: 'trans',
-                      cond: {
-                        $eq: ['$$trans.lang', lang],
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
                       },
                     },
                   },
                 },
-              },
+              ]) ||
+                []),
             ],
             $more: [
               ...((lang && [this.model.$sets.trans]) || []),
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
                 },
-              },
+              ]) ||
+                []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
@@ -219,36 +225,46 @@ export class ProductService {
   async getById({ _id, _filter, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-
       const [item] = await this.model
         .get([
           { $match: $toMongoFilter({ _id }) },
-          { $addFields: this.model.$addFields.categories },
+          {
+            $addFields: {
+              ...this.model.$addFields.categories,
+              ...this.model.$addFields.cryptocurrencies,
+            },
+          },
           this.model.$lookups.categories,
-          // this.$lookups.cryptocurrencies,
+          this.model.$lookups.cryptocurrencies,
           this.model.$lookups.author,
           this.model.$sets.author,
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              trans: {
-                $filter: {
-                  input: '$trans',
-                  as: 'trans',
-                  cond: {
-                    $eq: ['$$trans.lang', lang],
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                trans: {
+                  $filter: {
+                    input: '$trans',
+                    as: 'trans',
+                    cond: {
+                      $eq: ['$$trans.lang', lang],
+                    },
                   },
                 },
               },
             },
-          },
+          ]) ||
+            []),
           ...((lang && [this.model.$sets.trans]) || []),
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                ...(lang && $keysToProject(this.transKeys, '$trans')),
+              },
             },
-          },
+          ]) ||
+            []),
           {
             $limit: 1,
           },
@@ -280,32 +296,43 @@ export class ProductService {
               slug: _slug,
             }),
           },
-          { $addFields: this.model.$addFields.categories },
+          {
+            $addFields: {
+              ...this.model.$addFields.categories,
+              ...this.model.$addFields.cryptocurrencies,
+            },
+          },
           this.model.$lookups.categories,
-          // this.$lookups.cryptocurrencies,
+          this.model.$lookups.cryptocurrencies,
           this.model.$lookups.author,
           this.model.$sets.author,
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              trans: {
-                $filter: {
-                  input: '$trans',
-                  as: 'trans',
-                  cond: {
-                    $eq: ['$$trans.lang', lang],
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                trans: {
+                  $filter: {
+                    input: '$trans',
+                    as: 'trans',
+                    cond: {
+                      $eq: ['$$trans.lang', lang],
+                    },
                   },
                 },
               },
             },
-          },
+          ]) ||
+            []),
           ...((lang && [this.model.$sets.trans]) || []),
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                ...(lang && $keysToProject(this.transKeys, '$trans')),
+              },
             },
-          },
+          ]) ||
+            []),
           {
             $limit: 1,
           },
@@ -339,29 +366,35 @@ export class ProductService {
             $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  trans: {
-                    $filter: {
-                      input: '$trans',
-                      as: 'trans',
-                      cond: {
-                        $eq: ['$$trans.lang', lang],
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
                       },
                     },
                   },
                 },
-              },
+              ]) ||
+                []),
             ],
             $more: [
               ...((lang && [this.model.$sets.trans]) || []),
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
                 },
-              },
+              ]) ||
+                []),
             ],
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),

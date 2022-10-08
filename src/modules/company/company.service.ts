@@ -163,29 +163,35 @@ export class CompanyService {
             $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  trans: {
-                    $filter: {
-                      input: '$trans',
-                      as: 'trans',
-                      cond: {
-                        $eq: ['$$trans.lang', lang],
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
                       },
                     },
                   },
                 },
-              },
+              ]) ||
+                []),
             ],
             $more: [
               ...((lang && [this.model.$sets.trans]) || []),
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
                 },
-              },
+              ]) ||
+                []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
@@ -224,7 +230,10 @@ export class CompanyService {
             },
           },
           {
-            $addFields: this.model.$addFields.categories,
+            $addFields: {
+              ...this.model.$addFields.categories,
+              ...this.model.$addFields.cryptocurrencies,
+            },
           },
           this.model.$lookups.cryptocurrencies,
           this.model.$lookups.categories,
@@ -234,27 +243,33 @@ export class CompanyService {
           this.model.$lookups.projects,
           this.model.$lookups.country,
           this.model.$sets.author,
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              trans: {
-                $filter: {
-                  input: '$trans',
-                  as: 'trans',
-                  cond: {
-                    $eq: ['$$trans.lang', lang],
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                trans: {
+                  $filter: {
+                    input: '$trans',
+                    as: 'trans',
+                    cond: {
+                      $eq: ['$$trans.lang', lang],
+                    },
                   },
                 },
               },
             },
-          },
+          ]) ||
+            []),
           ...((lang && [this.model.$sets.trans]) || []),
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                ...(lang && $keysToProject(this.transKeys, '$trans')),
+              },
             },
-          },
+          ]) ||
+            []),
           {
             $limit: 1,
           },
@@ -288,9 +303,10 @@ export class CompanyService {
           },
           {
             $addFields: {
-              categories: this.model.$addFields.categories,
-              products: this.model.$addFields.products,
-              projects: this.model.$addFields.projects,
+              ...this.model.$addFields.categories,
+              ...this.model.$addFields.products,
+              ...this.model.$addFields.projects,
+              ...this.model.$addFields.cryptocurrencies,
             },
           },
           this.model.$lookups.cryptocurrencies,
@@ -301,27 +317,33 @@ export class CompanyService {
           this.model.$lookups.projects,
           this.model.$lookups.country,
           this.model.$sets.author,
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              trans: {
-                $filter: {
-                  input: '$trans',
-                  as: 'trans',
-                  cond: {
-                    $eq: ['$$trans.lang', lang],
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                trans: {
+                  $filter: {
+                    input: '$trans',
+                    as: 'trans',
+                    cond: {
+                      $eq: ['$$trans.lang', lang],
+                    },
                   },
                 },
               },
             },
-          },
+          ]) ||
+            []),
           ...((lang && [this.model.$sets.trans]) || []),
-          {
-            $project: {
-              ...$keysToProject(this.outputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
+          ...((lang && [
+            {
+              $project: {
+                ...$keysToProject(this.outputKeys),
+                ...(lang && $keysToProject(this.transKeys, '$trans')),
+              },
             },
-          },
+          ]) ||
+            []),
           {
             $limit: 1,
           },
@@ -364,29 +386,35 @@ export class CompanyService {
             $addFields: this.model.$addFields.categories,
             $lookups: [this.model.$lookups.categories],
             $projects: [
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  trans: {
-                    $filter: {
-                      input: '$trans',
-                      as: 'trans',
-                      cond: {
-                        $eq: ['$$trans.lang', lang],
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
                       },
                     },
                   },
                 },
-              },
+              ]) ||
+                []),
             ],
             $more: [
               ...((lang && [this.model.$sets.trans]) || []),
-              {
-                $project: {
-                  ...$keysToProject(this.publicOutputKeys),
-                  ...(lang && $keysToProject(this.transKeys, '$trans')),
+              ...((lang && [
+                {
+                  $project: {
+                    ...$keysToProject(this.outputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
                 },
-              },
+              ]) ||
+                []),
             ],
             ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
           }),

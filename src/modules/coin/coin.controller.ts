@@ -121,7 +121,7 @@ export class CoinController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/coins')
+@Controller('/coins')
 export class CoinPrivateController {
   private service = Container.get(coinServiceToken);
   @Get('/:id', [protectPrivateAPI(), CoinValidation.getById])

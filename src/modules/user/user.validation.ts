@@ -1,4 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
+import { BaseQueryValidation } from '@/types';
 
 export const updateMe = validate({
   [Segments.BODY]: Joi.object({
@@ -10,13 +11,8 @@ export const updateMe = validate({
 });
 
 export const privateQuery = validate({
-  [Segments.QUERY]: Joi.object({
-    page: Joi.number().default(1),
-    per_page: Joi.number().default(10),
-    sort_by: Joi.string().default('created_at'),
-    sort_order: Joi.string().valid('desc', 'asc'),
+  [Segments.QUERY]: BaseQueryValidation.keys({
     status: Joi.string().valid('active', 'inactive', 'suspended'),
-    q: Joi.string().allow(''),
   }),
 });
 

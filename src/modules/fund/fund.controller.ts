@@ -123,7 +123,7 @@ export class FundController {
   }
 }
 
-@Controller('/private/funds')
+@Controller('/funds')
 export class FundPrivateController {
   private service = Container.get(FundServiceToken);
 

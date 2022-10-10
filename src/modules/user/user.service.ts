@@ -56,7 +56,8 @@ export class UserService {
    */
   async query(filter: Filter<User> & { q?: string }, query: BaseQuery): Promise<PaginationResult<UserOutput>> {
     try {
-      const { q, ...match } = filter;
+      const { ...match } = filter;
+      const { keyword } = query;
       const [
         {
           total_count: [{ count } = { count: 0 }],
@@ -67,11 +68,11 @@ export class UserService {
           {
             $match: {
               ...match,
-              ...(q && {
+              ...(keyword && {
                 $or: [
-                  { _full_name_alias: { $regex: q, $options: 'i' } },
-                  { phone: { $regex: q, $options: 'i' } },
-                  { email: { $regex: q, $options: 'i' } },
+                  { _full_name_alias: { $regex: keyword, $options: 'i' } },
+                  { phone: { $regex: keyword, $options: 'i' } },
+                  { email: { $regex: keyword, $options: 'i' } },
                 ],
               }),
             },
@@ -80,7 +81,7 @@ export class UserService {
           {
             $facet: {
               total_count: [{ $count: 'count' }],
-              items: [{ $skip: query.per_page * (query.page - 1) }, { $limit: query.per_page }],
+              items: [{ $skip: query.limit * (query.offset - 1) }, { $limit: query.limit }],
             },
           },
         ])

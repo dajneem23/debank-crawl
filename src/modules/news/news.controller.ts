@@ -192,7 +192,7 @@ export class NewsController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/news')
+@Controller('/news')
 export class NewsPrivateController {
   private service = Container.get(NewsServiceToken);
 

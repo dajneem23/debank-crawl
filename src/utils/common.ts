@@ -37,10 +37,10 @@ export const throwErr = (err: Error | any): void => {
  * Get filter and query from Express request query
  */
 export const buildQueryFilter = <T>(reqQuery: BaseQuery & T) => {
-  const { page, per_page, sort_by, sort_order, ...filter } = reqQuery;
+  const { offset, keyword, limit, sort_by, sort_order, ...filter } = reqQuery;
   return {
     filter,
-    query: { page, per_page, sort_by, sort_order },
+    query: { offset, limit, sort_by, sort_order, keyword },
   };
 };
 
@@ -111,22 +111,30 @@ export const toOutPut = ({
 export const toPagingOutput = ({
   items,
   total_count,
+  has_next,
   keys,
   nullable = false,
 }: {
   items: any;
+  has_next: boolean;
   total_count: number;
   keys: string[] | (string | number | symbol)[];
   nullable?: boolean;
 }): {
-  total_count: number;
-  items: {
-    [key: string]: any;
+  paging: {
+    has_next: boolean;
+    count: number;
+    total: number;
   };
+  data: any[];
 } => {
   return {
-    total_count: total_count,
-    items: items.flatMap((item: any) => toOutPut({ item, keys, nullable })),
+    paging: {
+      count: items.length,
+      total: total_count,
+      has_next,
+    },
+    data: items.flatMap((item: any) => toOutPut({ item, keys, nullable })),
   };
 };
 export const pickKeys = <T, K extends keyof T>(obj: T, keys: K[]) => {

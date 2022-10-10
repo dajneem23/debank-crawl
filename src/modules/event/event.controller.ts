@@ -199,7 +199,7 @@ export class EventController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/events')
+@Controller('/events')
 export class EventPrivateController {
   private service = Container.get(eventServiceToken);
 

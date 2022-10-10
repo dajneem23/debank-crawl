@@ -117,7 +117,7 @@ export class PersonController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/persons')
+@Controller('/persons')
 export class PersonPrivateController {
   private service = Container.get(personServiceToken);
   @Get('/:id', [protectPrivateAPI(), PersonValidation.getById])

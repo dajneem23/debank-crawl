@@ -7,7 +7,7 @@ import { CoinError, coinErrors, CoinModel, coinModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, coinSortBy, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
 import { chunk, isNil, omit } from 'lodash';
 import { _coin } from '@/modules';
-import { env } from 'process';
+import { env, off } from 'process';
 import slugify from 'slugify';
 import { FETCH_MARKET_DATA_DURATION, PRICE_STACK_SIZE } from './coin.constants';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
@@ -230,7 +230,6 @@ export class CoinService {
     try {
       const {
         lang,
-        q,
         categories = [],
         community_vote_min,
         community_vote_max,
@@ -244,7 +243,7 @@ export class CoinService {
         founded_to,
         deleted = false,
       } = _filter;
-      const { page = 1, per_page, sort_by: _sort_by, sort_order } = _query;
+      const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
       const sort_by = coinSortBy[_sort_by as keyof typeof coinSortBy] || coinSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -262,11 +261,11 @@ export class CoinService {
                   }),
                 },
               ],
-              ...(q && {
+              ...(keyword && {
                 $or: [
-                  { name: { $regex: q, $options: 'i' } },
-                  { token_id: { $regex: q, $options: 'i' } },
-                  { unique_key: { $regex: q, $options: 'i' } },
+                  { name: { $regex: keyword, $options: 'i' } },
+                  { token_id: { $regex: keyword, $options: 'i' } },
+                  { unique_key: { $regex: keyword, $options: 'i' } },
                 ],
               }),
               ...(categories.length && {
@@ -361,7 +360,7 @@ export class CoinService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +offset * (+offset - 1) }, { $limit: +limit }] }),
           }),
         )
         .toArray();
@@ -369,6 +368,7 @@ export class CoinService {
       return toPagingOutput({
         items,
         total_count,
+        has_next: total_count > offset * limit,
         keys: _permission == 'private' ? this.outputKeys : this.publicOutputKeys,
       });
     } catch (err) {
@@ -513,10 +513,10 @@ export class CoinService {
    * @param {BaseServiceInput} _filter _query
    * @returns
    */
-  async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async search({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
-      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const { lang } = _filter;
+      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -529,8 +529,8 @@ export class CoinService {
                   }),
                 },
               ],
-              ...(q && {
-                $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
+              ...(keyword && {
+                $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),
             },
             $addFields: this.model.$addFields.categories,
@@ -566,12 +566,17 @@ export class CoinService {
               ]) ||
                 []),
             ],
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return omit(toPagingOutput({ items, total_count, keys: this.publicOutputKeys }));
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: _permission == 'private' ? this.outputKeys : this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;

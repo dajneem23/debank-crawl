@@ -120,7 +120,7 @@ export class ExchangeController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/exchanges')
+@Controller('/exchanges')
 export class ExchangePrivateController {
   private service = Container.get(ExchangeServiceToken);
 

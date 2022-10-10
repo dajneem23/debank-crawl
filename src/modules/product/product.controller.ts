@@ -102,7 +102,7 @@ export class ProductController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/products')
+@Controller('/products')
 export class ProductPrivateController {
   private service = Container.get(productServiceToken);
   @Get('/:id', [protectPrivateAPI(), ProductValidation.getById])

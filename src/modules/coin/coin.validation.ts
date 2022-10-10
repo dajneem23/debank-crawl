@@ -10,6 +10,7 @@ import {
   ObjectIdValidation,
   urlsValidation,
   TIME_PERIOD,
+  BaseQueryValidation,
 } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
@@ -234,24 +235,7 @@ export const CoinValidation = {
     }),
   }),
   query: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string()
-        .default('created_at')
-        .valid(...Object.keys(coinSortBy)),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-      categories: Joi.array().items(
-        Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
-      ),
+    [Segments.QUERY]: BaseQueryValidation.keys({
       community_vote_min: Joi.number(),
       community_vote_max: Joi.number(),
       market_cap_min: Joi.number(),
@@ -262,23 +246,9 @@ export const CoinValidation = {
       development_status: Joi.string(),
       founded_from: Joi.number(),
       founded_to: Joi.number(),
-      deleted: Joi.boolean(),
     }),
   }),
   search: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string().required().allow(''),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-    }),
+    [Segments.QUERY]: BaseQueryValidation.keys({}),
   }),
 };

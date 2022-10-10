@@ -95,7 +95,7 @@ export class SettingController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/settings')
+@Controller('/settings')
 export class SettingPrivateController {
   private service = Container.get(settingServiceToken);
   @Get('/:id', [protectPrivateAPI(), SettingValidation.getById])

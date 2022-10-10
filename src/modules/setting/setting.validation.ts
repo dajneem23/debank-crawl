@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ObjectIdValidation, ORDER } from '@/types';
+import { BaseQueryValidation, ObjectIdValidation, ORDER } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 const SettingSchema = Joi.object({
   title: Joi.string().required(),
@@ -24,29 +24,15 @@ export const SettingValidation = {
     }),
   }),
   query: validate({
-    [Segments.QUERY]: Joi.object({
-      q: Joi.string(),
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
+    [Segments.QUERY]: BaseQueryValidation.keys({
       type: [Joi.string(), Joi.array().items(Joi.string())],
       weight: Joi.number(),
     }),
   }),
   search: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
+    [Segments.QUERY]: BaseQueryValidation.keys({
       type: [Joi.string(), Joi.array().items(Joi.string())],
       weight: Joi.number(),
-      q: Joi.string().required().allow(''),
     }),
   }),
   getById: validate({

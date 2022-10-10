@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, LANG_CODE, ObjectIdValidation, CONVERT_CURRENCY_CODE } from '@/types';
+import { ORDER, LANG_CODE, ObjectIdValidation, CONVERT_CURRENCY_CODE, BaseQueryValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
 const convertCurrencySchema = Joi.object({
@@ -77,39 +77,9 @@ export const ExchangeValidation = {
   }),
 
   query: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-      categories: Joi.array().items(
-        Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
-      ),
-      deleted: Joi.boolean(),
-    }),
+    [Segments.QUERY]: BaseQueryValidation.keys({}),
   }),
   search: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string().required().allow(''),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-    }),
+    [Segments.QUERY]: BaseQueryValidation.keys({}),
   }),
 };

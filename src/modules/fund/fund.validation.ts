@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, FUND_TYPE, ObjectIdValidation } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, FUND_TYPE, ObjectIdValidation, BaseQueryValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 
 export const FundValidation = {
@@ -272,20 +272,7 @@ export const FundValidation = {
     }),
   }),
   query: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-      categories: Joi.array().items(ObjectIdValidation),
+    [Segments.QUERY]: BaseQueryValidation.keys({
       funding_min: Joi.number(),
       funding_max: Joi.number(),
       launched_from: Joi.number(),
@@ -296,19 +283,6 @@ export const FundValidation = {
     }),
   }),
   search: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string().required().allow(''),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-    }),
+    [Segments.QUERY]: BaseQueryValidation.keys({}),
   }),
 };

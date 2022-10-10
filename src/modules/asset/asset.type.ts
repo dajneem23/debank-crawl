@@ -69,7 +69,7 @@ type MarketData = {
   };
 };
 
-export interface Coin extends BaseInformationModel {
+export interface Asset extends BaseInformationModel {
   name: string;
 
   token_id: string;
@@ -136,7 +136,7 @@ export interface Coin extends BaseInformationModel {
   }[];
 }
 
-export const _coin: Coin = {
+export const _asset: Asset = {
   name: '',
   token_id: '',
   about: '',

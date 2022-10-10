@@ -133,8 +133,8 @@ export class CompanyService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, q, categories = [], deleted = false } = _filter;
-      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const { lang, categories = [], deleted = false } = _filter;
+      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
           $pagination({
@@ -144,8 +144,8 @@ export class CompanyService {
               }) || {
                 deleted: false,
               }),
-              ...(q && {
-                name: { $regex: q, $options: 'i' },
+              ...(keyword && {
+                name: { $regex: keyword, $options: 'i' },
               }),
               ...(categories.length && {
                 $or: [
@@ -194,7 +194,7 @@ export class CompanyService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         )
         .toArray();
@@ -202,7 +202,8 @@ export class CompanyService {
       return toPagingOutput({
         items,
         total_count,
-        keys: _permission == 'public' ? this.publicOutputKeys : this.outputKeys,
+        has_next: total_count > offset * limit,
+        keys: _permission == 'private' ? this.outputKeys : this.publicOutputKeys,
       });
     } catch (err) {
       this.logger.error('query_error', err.message);
@@ -364,18 +365,18 @@ export class CompanyService {
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
-      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const { lang } = _filter;
+      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
             $match: {
               deleted: false,
-              ...(q && {
+              ...(keyword && {
                 $or: [
-                  { $text: { $search: q } },
+                  { $text: { $search: keyword } },
                   {
-                    name: { $regex: q, $options: 'i' },
+                    name: { $regex: keyword, $options: 'i' },
                   },
                 ],
               }),
@@ -416,12 +417,17 @@ export class CompanyService {
               ]) ||
                 []),
             ],
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;

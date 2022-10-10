@@ -13,7 +13,7 @@ import {
   EventController,
   UserController,
   AuthController,
-  CoinController,
+  AssetController,
   NewsController,
   FundController,
   BlockchainPrivateController,
@@ -25,20 +25,23 @@ import {
   CompanyPrivateController,
   PersonPrivateController,
   EventPrivateController,
-  CoinPrivateController,
+  AssetPrivateController,
   NewsPrivateController,
   FundPrivateController,
 } from '@/modules';
 import StorageController from '@/modules/storage/storage.controller';
 
-const route = Router();
+const publicRoute = Router();
+const privateRoute = Router();
 
 export default (app: Application) => {
-  app.use(`${env.API_PREFIX}/v1`, route);
+  app.use(`${env.API_PREFIX}/v1/public`, publicRoute);
+  app.use(`${env.API_PREFIX}/v1/private`, privateRoute);
   /**
    * @description normal routes
+   * @route /v1/public
    */
-  attachControllers(route, [
+  attachControllers(publicRoute, [
     BlockchainController,
     GlossaryController,
     CategoryController,
@@ -51,14 +54,15 @@ export default (app: Application) => {
     EventController,
     UserController,
     AuthController,
-    CoinController,
+    AssetController,
     NewsController,
     FundController,
   ]);
   /**
    * @description Private controllers
+   * @route /v1/private
    */
-  attachControllers(route, [
+  attachControllers(privateRoute, [
     BlockchainPrivateController,
     ExchangePrivateController,
     GlossaryPrivateController,
@@ -68,7 +72,7 @@ export default (app: Application) => {
     ProductPrivateController,
     PersonPrivateController,
     EventPrivateController,
-    CoinPrivateController,
+    AssetPrivateController,
     NewsPrivateController,
     FundPrivateController,
   ]);

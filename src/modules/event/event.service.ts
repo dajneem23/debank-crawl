@@ -331,8 +331,8 @@ export class EventService {
 
   async getRelated({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, categories = [], lang, ...otherFilter } = _filter;
-      const { per_page, page, sort_order } = _query;
+      const { categories = [], lang, ...otherFilter } = _filter;
+      const { limit, offset, sort_order, keyword } = _query;
       const [
         {
           total_count: [{ total_count } = { total_count: 0 }],
@@ -348,8 +348,8 @@ export class EventService {
                   $or: [{ categories: { $in: $toObjectId(categories) } }],
                 }),
                 // start_date: { $gte: new Date() },
-                ...(q && {
-                  $or: [{ name: { $regex: q, $options: 'i' } }],
+                ...(keyword && {
+                  $or: [{ name: { $regex: keyword, $options: 'i' } }],
                 }),
                 ...(lang && {
                   'trans.lang': { $eq: lang },
@@ -386,13 +386,18 @@ export class EventService {
           {
             $facet: {
               total_count: [{ $count: 'total_count' }],
-              items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
+              items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }],
             },
           },
         ])
         .toArray();
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
@@ -401,7 +406,7 @@ export class EventService {
   async getTrending({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { per_page, sort_order } = _query;
+      const { offset, limit, sort_order } = _query;
       const [
         {
           total_count: [{ total_count } = { total_count: 0 }],
@@ -452,15 +457,20 @@ export class EventService {
           {
             $facet: {
               total_count: [{ $count: 'total_count' }],
-              trending: [{ $match: { trending: true } }, { $limit: +per_page }],
-              virtual: [{ $match: { type: 'virtual' } }, { $limit: +per_page }],
+              trending: [{ $match: { trending: true } }, { $limit: +limit }],
+              virtual: [{ $match: { type: 'virtual' } }, { $limit: +limit }],
             },
           },
         ])
         .toArray();
       const items = [...trending, ...virtual];
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
@@ -468,8 +478,8 @@ export class EventService {
   }
   async getSignificant({ _query, _filter }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
-      const { per_page, page, sort_order } = _query;
+      const { lang } = _filter;
+      const { limit, offset, sort_order, keyword } = _query;
       const [
         {
           total_count: [{ total_count } = { total_count: 0 }],
@@ -518,14 +528,19 @@ export class EventService {
           {
             $facet: {
               total_count: [{ $count: 'total_count' }],
-              items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }],
+              items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }],
             },
           },
         ])
         .toArray()) as any[];
 
       this.logger.debug('get_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('get_error', err.message);
       throw err;
@@ -540,8 +555,8 @@ export class EventService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, categories = [], lang, start_date, end_date, type, country, deleted = false } = _filter;
-      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const { categories = [], lang, start_date, end_date, type, country, deleted = false } = _filter;
+      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -554,8 +569,8 @@ export class EventService {
               ...(categories.length && {
                 $or: [{ categories: { $in: $toObjectId(categories) } }],
               }),
-              ...(q && {
-                $or: [{ name: { $regex: q, $options: 'i' } }],
+              ...(keyword && {
+                $or: [{ name: { $regex: keyword, $options: 'i' } }],
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
@@ -614,7 +629,7 @@ export class EventService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
@@ -622,6 +637,7 @@ export class EventService {
       return toPagingOutput({
         items,
         total_count,
+        has_next: total_count > offset * limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {
@@ -673,14 +689,14 @@ export class EventService {
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
-      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const { lang } = _filter;
+      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
             $match: {
-              ...(q && {
-                $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
+              ...(keyword && {
+                $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
@@ -719,12 +735,17 @@ export class EventService {
               ]) ||
                 []),
             ],
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;

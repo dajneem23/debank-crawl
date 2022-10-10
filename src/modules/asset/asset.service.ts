@@ -3,38 +3,40 @@ import Logger from '@/core/logger';
 import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { CoinError, coinErrors, CoinModel, coinModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, coinSortBy, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
+import { AssetError, assetErrors, AssetModel, assetModelToken } from '.';
+import { BaseServiceInput, BaseServiceOutput, assetSortBy, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
 import { chunk, isNil, omit } from 'lodash';
-import { _coin } from '@/modules';
+import { _asset } from '@/modules';
 import { env } from 'process';
 import slugify from 'slugify';
-import { FETCH_MARKET_DATA_DURATION, PRICE_STACK_SIZE } from './coin.constants';
+import { FETCH_MARKET_DATA_DURATION, PRICE_STACK_SIZE } from './asset.constants';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import IORedis from 'ioredis';
 import { SystemError } from '@/core/errors';
-import { CoinJobData, CoinJobNames } from './coin.job';
+import { AssetJobData, AssetJobNames } from './asset.job';
 import { CoinMarketCapAPI } from '@/common/api';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
-const TOKEN_NAME = '_coinService';
+const TOKEN_NAME = '_assetService';
 /**
  * A bridge allows another service access to the Model layer
- * @export coinServiceToken
- * @class CoinService
+ * @export assetServiceToken
+ * @class AssetService
  * @extends {BaseService}
  */
-export const coinServiceToken = new Token<CoinService>(TOKEN_NAME);
+export const assetServiceToken = new Token<AssetService>(TOKEN_NAME);
 
 /**
- * @class CoinService
+ * @class AssetService
  * @extends  BaseService
- * @description Coin Service for all coin related operations
+ * @description Asset Service for all asset related operations
  */
-@Service(coinServiceToken)
-export class CoinService {
-  private logger = new Logger('CoinService');
+@Service(assetServiceToken)
+export class AssetService {
+  private logger = new Logger('AssetService');
 
-  private model = Container.get<CoinModel>(coinModelToken);
+  private model = Container.get<AssetModel>(assetModelToken);
+
+  private AssetPriceModel = this.model.db.collection('asset-price');
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 
@@ -45,9 +47,9 @@ export class CoinService {
   private queueScheduler: QueueScheduler;
 
   private readonly jobs = {
-    'coin:fetch:marketData': this.fetchMarketData,
-    'coin:fetch:pricePerformanceStats': this.fetchPricePerformanceStats,
-    'coin:fetch:ohlcv': this.fetchOHLCV,
+    'asset:fetch:marketData': this.fetchMarketData,
+    'asset:fetch:pricePerformanceStats': this.fetchPricePerformanceStats,
+    'asset:fetch:ohlcv': this.fetchOHLCV,
     default: () => {
       throw new SystemError('Invalid job name');
     },
@@ -65,7 +67,7 @@ export class CoinService {
    *  @description init BullMQ Worker
    */
   private initWorker() {
-    this.worker = new Worker('coin', this.workerProcessor.bind(this), {
+    this.worker = new Worker('asset', this.workerProcessor.bind(this), {
       connection: this.redisConnection as any,
       lockDuration: 1000 * 60 * 5,
       concurrency: 20,
@@ -80,7 +82,7 @@ export class CoinService {
    *  @description init BullMQ Queue
    */
   private initQueue() {
-    this.queue = new Queue('coin', {
+    this.queue = new Queue('asset', {
       connection: this.redisConnection as any,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
@@ -89,10 +91,10 @@ export class CoinService {
         backoff: { type: 'exponential', delay: 3000 },
       },
     });
-    this.queueScheduler = new QueueScheduler('coin', {
+    this.queueScheduler = new QueueScheduler('asset', {
       connection: this.redisConnection as any,
     });
-    const queueEvents = new QueueEvents('coin', {
+    const queueEvents = new QueueEvents('asset', {
       connection: this.redisConnection as any,
     });
 
@@ -109,29 +111,29 @@ export class CoinService {
 
   private addFetchingDataJob() {
     this.addJob({
-      name: 'coin:fetch:marketData',
+      name: 'asset:fetch:marketData',
       payload: {},
       options: {
         repeat: {
           every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
         },
-        jobId: 'coin:fetch:marketData',
+        jobId: 'asset:fetch:marketData',
       },
     });
     this.addJob({
-      name: 'coin:fetch:pricePerformanceStats',
+      name: 'asset:fetch:pricePerformanceStats',
       payload: {},
       options: {
         repeat: {
           pattern: CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsRepeatPattern,
         },
-        jobId: 'coin:fetch:pricePerformanceStats',
+        jobId: 'asset:fetch:pricePerformanceStats',
       },
     });
   }
 
-  private error(msg: keyof typeof coinErrors) {
-    return new CoinError(msg);
+  private error(msg: keyof typeof assetErrors) {
+    return new AssetError(msg);
   }
 
   get outputKeys() {
@@ -163,7 +165,7 @@ export class CoinService {
           name,
         },
         {
-          ..._coin,
+          ..._asset,
           ..._content,
           deleted: false,
           ...(_subject && { created_by: _subject }),
@@ -182,7 +184,7 @@ export class CoinService {
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Coin>}
+   * @returns {Promise<Asset>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -230,7 +232,6 @@ export class CoinService {
     try {
       const {
         lang,
-        q,
         categories = [],
         community_vote_min,
         community_vote_max,
@@ -244,8 +245,8 @@ export class CoinService {
         founded_to,
         deleted = false,
       } = _filter;
-      const { page = 1, per_page, sort_by: _sort_by, sort_order } = _query;
-      const sort_by = coinSortBy[_sort_by as keyof typeof coinSortBy] || coinSortBy['created_at'];
+      const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
+      const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
           $pagination({
@@ -262,11 +263,11 @@ export class CoinService {
                   }),
                 },
               ],
-              ...(q && {
+              ...(keyword && {
                 $or: [
-                  { name: { $regex: q, $options: 'i' } },
-                  { token_id: { $regex: q, $options: 'i' } },
-                  { unique_key: { $regex: q, $options: 'i' } },
+                  { name: { $regex: keyword, $options: 'i' } },
+                  { token_id: { $regex: keyword, $options: 'i' } },
+                  { unique_key: { $regex: keyword, $options: 'i' } },
                 ],
               }),
               ...(categories.length && {
@@ -361,7 +362,7 @@ export class CoinService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +offset * (+offset - 1) }, { $limit: +limit }] }),
           }),
         )
         .toArray();
@@ -369,6 +370,7 @@ export class CoinService {
       return toPagingOutput({
         items,
         total_count,
+        has_next: total_count > offset * limit,
         keys: _permission == 'private' ? this.outputKeys : this.publicOutputKeys,
       });
     } catch (err) {
@@ -513,10 +515,10 @@ export class CoinService {
    * @param {BaseServiceInput} _filter _query
    * @returns
    */
-  async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async search({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
-      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const { lang } = _filter;
+      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -529,8 +531,8 @@ export class CoinService {
                   }),
                 },
               ],
-              ...(q && {
-                $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
+              ...(keyword && {
+                $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),
             },
             $addFields: this.model.$addFields.categories,
@@ -566,12 +568,17 @@ export class CoinService {
               ]) ||
                 []),
             ],
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return omit(toPagingOutput({ items, total_count, keys: this.publicOutputKeys }));
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: _permission == 'private' ? this.outputKeys : this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -579,7 +586,7 @@ export class CoinService {
   }
   /**
    *
-   * @description fetch market data from coinmarketcap api
+   * @description fetch market data from assetmarketcap api
    */
   async fetchMarketData({
     page = 1,
@@ -771,7 +778,7 @@ export class CoinService {
   }
   /**
    *
-   * @description fetch OHLCV from coinmarketcap api
+   * @description fetch OHLCV from assetmarketcap api
    */
   async fetchOHLCV({
     page = 1,
@@ -899,10 +906,10 @@ export class CoinService {
 
   async fetchPricePerformanceStats() {
     this.logger.debug('info', 'fetchPricePerformanceStats start');
-    const allCoins = await this.model.get().toArray();
-    const groupCoins = chunk(allCoins, CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsLimit);
-    for (const coins of groupCoins) {
-      const listSymbol = coins.map((coin) => coin.token_id);
+    const allAssets = await this.model.get().toArray();
+    const groupAssets = chunk(allAssets, CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsLimit);
+    for (const assets of groupAssets) {
+      const listSymbol = assets.map((asset) => asset.token_id);
       const {
         data: { data: pricePerformanceStats },
       } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
@@ -1264,12 +1271,12 @@ export class CoinService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<CoinJobData>) => {
-      this.logger.debug('success', '[job:coin:completed]', { id: job.id, jobName: job.name, data: job.data });
+    worker.on('completed', (job: Job<AssetJobData>) => {
+      this.logger.debug('success', '[job:asset:completed]', { id: job.id, jobName: job.name, data: job.data });
     });
     // Failed
-    worker.on('failed', (job: Job<CoinJobData>, error: Error) => {
-      this.logger.error('error', '[job:coin:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
+    worker.on('failed', (job: Job<AssetJobData>, error: Error) => {
+      this.logger.error('error', '[job:asset:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
     });
   }
   /**
@@ -1284,7 +1291,7 @@ export class CoinService {
       },
     },
   }: {
-    name: CoinJobNames;
+    name: AssetJobNames;
     payload?: any;
     options?: JobsOptions;
   }) {
@@ -1293,7 +1300,7 @@ export class CoinService {
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
       .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
   }
-  workerProcessor(job: Job<CoinJobData>): Promise<void> {
+  workerProcessor(job: Job<AssetJobData>): Promise<void> {
     const { name } = job;
     this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();

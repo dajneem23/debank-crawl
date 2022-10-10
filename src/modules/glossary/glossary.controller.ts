@@ -120,7 +120,7 @@ export class GlossaryController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/glossaries')
+@Controller('/glossaries')
 export class GlossaryPrivateController {
   private service = Container.get(GlossaryServiceToken);
 

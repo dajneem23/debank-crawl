@@ -1,22 +1,16 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, EventType, MediaType, LANG_CODE, ObjectIdValidation, urlsValidation } from '@/types/Common';
+import {
+  ORDER,
+  EventType,
+  MediaType,
+  LANG_CODE,
+  ObjectIdValidation,
+  urlsValidation,
+  BaseQueryValidation,
+} from '@/types/Common';
 import { PhoneNumberPattern } from '@/utils/common';
 export const query = validate({
-  [Segments.QUERY]: Joi.object({
-    page: Joi.number().default(1).min(1),
-
-    per_page: Joi.number().default(10).min(1),
-
-    sort_by: Joi.string(),
-
-    sort_order: Joi.string()
-      .default(ORDER.ASC)
-      .valid(...Object.values(ORDER)),
-
-    q: Joi.string(),
-
-    categories: Joi.array().items(ObjectIdValidation),
-
+  [Segments.QUERY]: BaseQueryValidation.keys({
     type: [
       Joi.string().valid(...Object.values(EventType)),
       Joi.array().items(Joi.string().valid(...Object.values(EventType))),
@@ -27,93 +21,21 @@ export const query = validate({
     end_date: Joi.date(),
 
     country: Joi.string(),
-
-    lang: Joi.string()
-      .valid(...Object.values(LANG_CODE))
-      .messages({
-        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-      }),
-
-    deleted: Joi.boolean(),
   }),
 });
 export const search = validate({
-  [Segments.QUERY]: Joi.object({
-    page: Joi.number().default(1).min(1),
-
-    per_page: Joi.number().default(10).min(1),
-
-    sort_by: Joi.string(),
-
-    sort_order: Joi.string()
-      .default(ORDER.ASC)
-      .valid(...Object.values(ORDER)),
-
-    q: Joi.string().allow('').required(),
-
-    lang: Joi.string()
-      .valid(...Object.values(LANG_CODE))
-      .messages({
-        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-      }),
-  }),
+  [Segments.QUERY]: BaseQueryValidation.keys({}),
 });
 export const getRelated = validate({
-  [Segments.QUERY]: Joi.object({
-    page: Joi.number().default(1).min(1),
-
-    per_page: Joi.number().default(10).min(1),
-
-    sort_by: Joi.string(),
-
-    sort_order: Joi.string()
-      .default(ORDER.ASC)
-      .valid(...Object.values(ORDER)),
-
-    q: Joi.string(),
-
-    categories: Joi.array().items(ObjectIdValidation),
-
-    lang: Joi.string()
-      .valid(...Object.values(LANG_CODE))
-      .messages({
-        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-      }),
-  }),
+  [Segments.QUERY]: BaseQueryValidation.keys({}),
 });
 
 export const getTrending = validate({
-  [Segments.QUERY]: Joi.object({
-    per_page: Joi.number().default(10).min(1),
-
-    sort_order: Joi.string()
-      .default(ORDER.ASC)
-      .valid(...Object.values(ORDER)),
-
-    lang: Joi.string()
-      .valid(...Object.values(LANG_CODE))
-      .messages({
-        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-      }),
-  }),
+  [Segments.QUERY]: BaseQueryValidation.keys({}),
 });
 
 export const getSignificant = validate({
-  [Segments.QUERY]: Joi.object({
-    page: Joi.number().default(1).min(1),
-
-    per_page: Joi.number().default(10).min(1),
-
-    sort_order: Joi.string()
-      .default(ORDER.ASC)
-      .valid(...Object.values(ORDER)),
-
-    lang: Joi.string()
-      .valid(...Object.values(LANG_CODE))
-      .messages({
-        'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-      }),
-  }),
+  [Segments.QUERY]: BaseQueryValidation.keys({}),
 });
 
 export const create = validate({

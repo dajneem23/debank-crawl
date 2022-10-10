@@ -1,5 +1,13 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, NewsStatus, TopNewsDateRange, ObjectIdValidation } from '@/types';
+import {
+  ORDER,
+  CATEGORY_TYPE,
+  LANG_CODE,
+  NewsStatus,
+  TopNewsDateRange,
+  ObjectIdValidation,
+  BaseQueryValidation,
+} from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 export const NewsValidation = {
   create: validate({
@@ -139,23 +147,9 @@ export const NewsValidation = {
     }),
   }),
   query: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
+    [Segments.QUERY]: BaseQueryValidation.keys({
       status: Joi.string().valid(...Object.values(NewsStatus)),
-      deleted: Joi.boolean(),
       company_tags: Joi.array().items(ObjectIdValidation),
-      categories: Joi.array().items(ObjectIdValidation),
       coin_tags: Joi.array().items(ObjectIdValidation),
       product_tags: Joi.array().items(ObjectIdValidation),
       person_tags: Joi.array().items(ObjectIdValidation),
@@ -163,51 +157,13 @@ export const NewsValidation = {
     }),
   }),
   getRelated: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      // sort_by: Joi.string(),
-      // sort_order: Joi.string()
-      //   .default(ORDER.ASC)
-      //   .valid(...Object.values(ORDER)),
-      q: Joi.string(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-    }),
+    [Segments.QUERY]: BaseQueryValidation.keys({}),
   }),
   getImportant: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-    }),
+    [Segments.QUERY]: BaseQueryValidation.keys({}),
   }),
   getTop: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
+    [Segments.QUERY]: BaseQueryValidation.keys({
       date_range: Joi.string()
         .valid(...Object.keys(TopNewsDateRange))
         .default(TopNewsDateRange['1d']),

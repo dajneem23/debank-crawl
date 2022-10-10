@@ -120,7 +120,7 @@ export class BlockchainController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/blockchains')
+@Controller('/blockchains')
 export class BlockchainPrivateController {
   private service = Container.get(BlockchainServiceToken);
 

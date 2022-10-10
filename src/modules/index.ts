@@ -5,7 +5,7 @@ export * from './category';
 export * from './company';
 export * from './product';
 export * from './person';
-export * from './coin';
+export * from './asset';
 export * from './news';
 export * from './fund';
 export * from './glossary';

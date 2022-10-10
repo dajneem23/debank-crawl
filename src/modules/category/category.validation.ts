@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation, BaseQueryValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 const categorySchema = Joi.object({
   title: Joi.string().required(),
@@ -38,46 +38,21 @@ export const CategoryValidation = {
     }),
   }),
   query: validate({
-    [Segments.QUERY]: Joi.object({
-      q: Joi.string(),
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
+    [Segments.QUERY]: BaseQueryValidation.keys({
       type: [
         Joi.string().valid(...Object.values(CATEGORY_TYPE)),
         Joi.array().items(Joi.string().valid(...Object.values(CATEGORY_TYPE))),
       ],
       rank: Joi.number(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-      deleted: Joi.boolean(),
     }),
   }),
   search: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
+    [Segments.QUERY]: BaseQueryValidation.keys({
       type: [
         Joi.string().valid(...Object.values(CATEGORY_TYPE)),
         Joi.array().items(Joi.string().valid(...Object.values(CATEGORY_TYPE))),
       ],
       rank: Joi.number(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-      q: Joi.string().required().allow(''),
     }),
   }),
   getById: validate({

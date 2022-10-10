@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation, urlsValidation } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 
 const personSchema = Joi.object({
@@ -88,38 +88,9 @@ export const PersonValidation = {
     }),
   }),
   query: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-      categories: Joi.array().items(ObjectIdValidation),
-
-      deleted: Joi.boolean(),
-    }),
+    [Segments.QUERY]: BaseQueryValidation.keys({}),
   }),
   search: validate({
-    [Segments.QUERY]: Joi.object({
-      page: Joi.number().default(1).min(1),
-      per_page: Joi.number().default(10).min(1),
-      sort_by: Joi.string(),
-      sort_order: Joi.string()
-        .default(ORDER.ASC)
-        .valid(...Object.values(ORDER)),
-      q: Joi.string().allow('').required(),
-      lang: Joi.string()
-        .valid(...Object.values(LANG_CODE))
-        .messages({
-          'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-        }),
-    }),
+    [Segments.QUERY]: BaseQueryValidation.keys({}),
   }),
 };

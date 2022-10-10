@@ -122,8 +122,8 @@ export class PersonService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang, categories = [], deleted = false } = _filter;
-      const { page = 1, per_page, sort_by, sort_order } = _query;
+      const { lang, categories = [], deleted = false } = _filter;
+      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
           $pagination({
@@ -136,8 +136,8 @@ export class PersonService {
               ...(lang && {
                 'trans.lang': { $eq: lang },
               }),
-              ...(q && {
-                name: { $regex: q, $options: 'i' },
+              ...(keyword && {
+                name: { $regex: keyword, $options: 'i' },
               }),
               ...(categories.length && {
                 $or: [
@@ -183,12 +183,17 @@ export class PersonService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         )
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -331,15 +336,15 @@ export class PersonService {
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
-      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const { lang } = _filter;
+      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
             $match: {
               deleted: false,
-              ...(q && {
-                $or: [{ $text: { $search: q } }, { name: { $regex: q, $options: 'i' } }],
+              ...(keyword && {
+                $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
@@ -378,12 +383,17 @@ export class PersonService {
               ]) ||
                 []),
             ],
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;

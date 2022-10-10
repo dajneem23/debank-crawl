@@ -120,7 +120,7 @@ export class CompanyController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/companies')
+@Controller('/companies')
 export class CompanyPrivateController {
   private service = Container.get(CompanyServiceToken);
 

@@ -3,29 +3,29 @@ import AppError, { AppErrorJSON } from '@/core/errors/AppError';
 import { CommonError } from '@/types/Error';
 const errors = Object.freeze({
   NOT_FOUND: {
-    message: 'Coin not found',
+    message: 'Asset not found',
     code: '5001',
     status: httpStatusCode.NOT_FOUND,
     isPublic: true,
     locales: {
       vi: 'Mục này không tồn tại',
-      en: 'Coin not found',
+      en: 'Asset not found',
     },
   },
   ALREADY_EXIST: {
-    message: 'Coin already exist',
+    message: 'Asset already exist',
     code: '5002',
     status: httpStatusCode.CONFLICT,
     isPublic: true,
     locales: {
       vi: 'Mục này đã tồn tại',
-      en: 'Coin already exists',
+      en: 'Asset already exists',
     },
   },
   ...CommonError,
 });
-export const coinErrors = errors;
-export class CoinError extends AppError {
+export const assetErrors = errors;
+export class AssetError extends AppError {
   constructor(msg: keyof typeof errors, errDetails?: AppErrorJSON['details']) {
     super({ ...errors[msg], ...(errDetails && { details: errDetails }) });
   }

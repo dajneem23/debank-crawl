@@ -4,11 +4,11 @@ import { Joi } from 'celebrate';
 import { ObjectId } from 'mongodb';
 
 export interface BaseQuery {
-  page?: number;
-  per_page?: number;
+  offset?: number;
+  limit?: number;
   sort_by?: string;
   sort_order?: 'desc' | 'asc';
-  q?: string;
+  keyword?: string;
 }
 
 export type PaginationResult<T> = { total_count: number; items: T[] };
@@ -230,13 +230,13 @@ export type BaseServiceInput = {
   };
   _subject?: string;
   _query?: {
-    page?: number;
-    per_page?: number;
+    offset?: number;
+    limit?: number;
     sort_by?: string;
     sort_order?: 'desc' | 'asc';
+    keyword: string;
   };
   _filter?: {
-    q: string;
     [key: string]: any;
   };
   _permission?: 'public' | 'private';
@@ -244,9 +244,13 @@ export type BaseServiceInput = {
 };
 
 export type BaseServiceOutput = {
-  code?: number;
   result?: any;
-  total_count?: number;
+  code?: number;
+  paging?: {
+    has_next: boolean;
+    count: number;
+    total: number;
+  };
   data?: Array<any>;
 };
 
@@ -391,12 +395,12 @@ export enum COLLECTION_NAMES {
   products = 'products',
   countries = 'countries',
   'auth-sessions' = 'auth-sessions',
-  coins = 'coins',
+  assets = 'assets',
   settings = 'settings',
   exchanges = 'exchanges',
 }
 
-export enum coinSortBy {
+export enum assetSortBy {
   'usd_price' = 'market_data.USD.price',
   'usd_market_cap' = 'market_data.USD.market_cap',
   'usd_market_cap_dominance' = 'market_data.USD.market_cap_dominance',
@@ -575,6 +579,8 @@ export const urlsValidation = Joi.object({
   galleries: Joi.array().items(Joi.string()),
 
   stack_exchange: Joi.array().items(Joi.string()),
+
+  other: Joi.array().items(Joi.string()),
 });
 /**
  * @description - id validation
@@ -582,3 +588,23 @@ export const urlsValidation = Joi.object({
 export const ObjectIdValidation = Joi.string()
   .pattern(new RegExp(ObjectIdPattern))
   .message('id must be a valid ObjectId');
+
+export const BaseQueryValidation = Joi.object().keys({
+  offset: Joi.number().default(1).min(1),
+  limit: Joi.number().default(20).min(1),
+  sort_by: Joi.string(),
+  sort_order: Joi.string()
+    .default(ORDER.ASC)
+    .valid(...Object.values(ORDER)),
+  keyword: Joi.string().allow(''),
+  lang: Joi.string()
+    .valid(...Object.values(LANG_CODE))
+    .messages({
+      'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
+    }),
+  deleted: Joi.boolean(),
+
+  categories: Joi.array().items(
+    Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
+  ),
+});

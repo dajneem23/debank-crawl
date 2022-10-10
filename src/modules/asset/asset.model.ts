@@ -1,22 +1,22 @@
 import { Service, Token } from 'typedi';
-import { Coin } from './coin.type';
+import { Asset } from './asset.type';
 import { BaseModel } from '../base/base.model';
 import { keys } from 'ts-transformer-keys';
 
-const COLLECTION_NAME = 'coins';
-const TOKEN_NAME = '_coinModel';
-export const coinModelToken = new Token<CoinModel>(TOKEN_NAME);
+const COLLECTION_NAME = 'assets';
+const TOKEN_NAME = '_assetModel';
+export const assetModelToken = new Token<AssetModel>(TOKEN_NAME);
 /**
- * @class CoinModel
+ * @class AssetModel
  * @extends BaseModel
- * @description Coin model: Coin model for all coin related operations
+ * @description Asset model: Asset model for all asset related operations
  */
-@Service(coinModelToken)
-export class CoinModel extends BaseModel {
+@Service(assetModelToken)
+export class AssetModel extends BaseModel {
   constructor() {
     super({
       collectionName: COLLECTION_NAME,
-      _keys: keys<Coin>(),
+      _keys: keys<Asset>(),
       indexes: [
         {
           field: {

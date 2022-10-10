@@ -1,24 +1,24 @@
 import Container from 'typedi';
 import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
 import { Request, Response } from 'express';
-import { Coin, coinServiceToken, CoinValidation } from '.';
+import { Asset, assetServiceToken, AssetValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
 import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { getPermission } from '../auth/auth.utils';
-@Controller('/coins')
-export class CoinController {
-  private service = Container.get(coinServiceToken);
+@Controller('/assets')
+export class AssetController {
+  private service = Container.get(assetServiceToken);
 
-  @Post('/', [protectPrivateAPI(), CoinValidation.create])
+  @Post('/', [protectPrivateAPI(), AssetValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Body()
-    _body: Coin,
+    _body: Asset,
   ) {
     const result = await this.service.create({
       _content: _body,
@@ -27,14 +27,14 @@ export class CoinController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), CoinValidation.update])
+  @Put('/:id', [protectPrivateAPI(), AssetValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Params() _params: { id: string },
     @Body()
-    body: Coin,
+    body: Asset,
   ) {
     const result = await this.service.update({
       _id: _params.id,
@@ -44,14 +44,14 @@ export class CoinController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), CoinValidation.delete])
+  @Delete('/:id', [protectPrivateAPI(), AssetValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
     @Req() _req: Request,
     @Params() _params: { id: string },
     @Body()
-    body: Coin,
+    body: Asset,
   ) {
     await this.service.delete({
       _id: _params.id,
@@ -64,7 +64,7 @@ export class CoinController {
     protect({
       ignoreException: true,
     }),
-    CoinValidation.query,
+    AssetValidation.query,
   ])
   async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
     const { filter, query } = buildQueryFilter(_query);
@@ -75,7 +75,7 @@ export class CoinController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/search', [CoinValidation.search])
+  @Get('/search', [AssetValidation.search])
   async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.search({
@@ -84,7 +84,7 @@ export class CoinController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  // @Get('/:id', [CoinValidation.getById])
+  // @Get('/:id', [AssetValidation.getById])
   // async getByIdPublic(
   //   @Res() _res: Response,
   //   @Req() _req: Request,
@@ -102,7 +102,7 @@ export class CoinController {
   //   } as BaseServiceInput);
   //   _res.status(httpStatus.OK).json(result);
   // }
-  @Get('/:slug', [CoinValidation.getBySlug])
+  @Get('/:slug', [AssetValidation.getBySlug])
   async getByNamePublic(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -121,10 +121,10 @@ export class CoinController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/coins')
-export class CoinPrivateController {
-  private service = Container.get(coinServiceToken);
-  @Get('/:id', [protectPrivateAPI(), CoinValidation.getById])
+@Controller('/assets')
+export class AssetPrivateController {
+  private service = Container.get(assetServiceToken);
+  @Get('/:id', [protectPrivateAPI(), AssetValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

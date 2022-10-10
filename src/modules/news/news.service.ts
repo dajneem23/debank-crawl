@@ -292,7 +292,6 @@ export class NewsService {
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const {
-        q,
         lang,
         categories = [],
         status,
@@ -303,7 +302,7 @@ export class NewsService {
         event_tags = [],
         company_tags = [],
       } = _filter;
-      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -338,8 +337,11 @@ export class NewsService {
               ...(company_tags.length && {
                 company_tags: { $in: $toObjectId(company_tags) },
               }),
-              ...(q && {
-                $or: [{ title: { $regex: q, $options: 'i' } }, { 'trans.title': { $regex: q, $options: 'i' } }],
+              ...(keyword && {
+                $or: [
+                  { title: { $regex: keyword, $options: 'i' } },
+                  { 'trans.title': { $regex: keyword, $options: 'i' } },
+                ],
               }),
               ...(status && {
                 $eq: { status },
@@ -377,12 +379,17 @@ export class NewsService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -540,8 +547,8 @@ export class NewsService {
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { q, lang } = _filter;
-      const { page = 1, per_page = 10, sort_by, sort_order } = _query;
+      const { lang } = _filter;
+      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -555,9 +562,9 @@ export class NewsService {
                 },
               ],
               $or: [
-                { $text: { $search: q } },
-                { title: { $regex: q, $options: 'i' } },
-                { 'trans.title': { $regex: q, $options: 'i' } },
+                { $text: { $search: keyword } },
+                { title: { $regex: keyword, $options: 'i' } },
+                { 'trans.title': { $regex: keyword, $options: 'i' } },
               ],
             },
             $addFields: this.model.$addFields.categories,
@@ -592,12 +599,17 @@ export class NewsService {
                 },
               },
             ],
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -614,7 +626,7 @@ export class NewsService {
   async getRelated({ _subject, _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { page = 1, per_page = 10, sort_by = 'created_at', sort_order = 'desc' } = _query;
+      const { offset = 1, limit = 10, sort_by = 'created_at', sort_order = 'desc' } = _query;
       const { followings = [] } = (await this.userModel.collection.findOne({ id: _subject })) ?? {};
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
@@ -667,12 +679,17 @@ export class NewsService {
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -688,7 +705,7 @@ export class NewsService {
   async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { page = 1, per_page } = _query;
+      const { offset = 1, limit } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -728,12 +745,17 @@ export class NewsService {
               },
             ],
             $sort: { number_relate_article: -1 },
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;
@@ -750,7 +772,7 @@ export class NewsService {
     try {
       const { lang, date_range } = _filter;
       const _date_range = TopNewsDateRange[date_range as keyof typeof TopNewsDateRange] || TopNewsDateRange['1d'];
-      const { page = 1, per_page } = _query;
+      const { offset = 1, limit } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           ...$pagination({
@@ -793,12 +815,17 @@ export class NewsService {
               },
             ],
             $sort: { views: -1 },
-            ...(per_page && page && { items: [{ $skip: +per_page * (+page - 1) }, { $limit: +per_page }] }),
+            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
       this.logger.debug('query_success', { total_count, items });
-      return toPagingOutput({ items, total_count, keys: this.publicOutputKeys });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: this.publicOutputKeys,
+      });
     } catch (err) {
       this.logger.error('query_error', err.message);
       throw err;

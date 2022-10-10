@@ -121,7 +121,7 @@ export class CategoryController {
     _res.status(httpStatus.OK).json(result);
   }
 }
-@Controller('/private/categories')
+@Controller('/categories')
 export class CategoryPrivateController {
   private service = Container.get(categoryServiceToken);
   @Get('/:id', [CategoryValidation.getById])

@@ -505,16 +505,19 @@ export class CategoryService {
           },
           {
             $set: {
-              title,
-              name,
-              type,
-              sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
-              updated_at: new Date(),
-              weight,
-              trans,
-              rank,
-              deleted: false,
-              updated_by: _subject,
+              ...((update && {
+                title,
+                name,
+                type,
+                sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1, update),
+                updated_at: new Date(),
+                weight,
+                trans,
+                rank,
+                deleted: false,
+                updated_by: _subject,
+              }) ||
+                {}),
             },
           },
           {
@@ -522,18 +525,19 @@ export class CategoryService {
             returnDocument: 'after',
           },
         );
-        if (!updatedExisting && update) {
+        if (!updatedExisting) {
           const { value: newValue } = await this.model._collection.findOneAndUpdate(
             {
               name,
             },
             {
-              $set: {
+              $setOnInsert: {
                 title,
                 name,
                 type,
-                sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
+                sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1, update),
                 updated_at: new Date(),
+                created_at: new Date(),
                 weight,
                 trans,
                 rank,

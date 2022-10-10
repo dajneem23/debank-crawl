@@ -212,7 +212,8 @@ export class CategoryService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { sub_categories = [] } = _content;
-      sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
+      sub_categories.length &&
+        (_content.sub_categories = await this.createSubCategories(sub_categories, _subject, 0, true));
       await this.model.update($toMongoFilter({ _id }), {
         $set: {
           ..._content,
@@ -479,44 +480,74 @@ export class CategoryService {
       throw err;
     }
   }
+  /**
+   *
+   * @param categories - Categories to be created or updated
+   * @param _subject - User who created or updated the categories
+   * @param rank - Rank of the categories
+   * @param update - allow update
+   * @returns
+   */
   createSubCategories(categories: Category[] = [], _subject: string, rank = 0, update = false): Promise<ObjectId[]> {
     return Promise.all(
-      categories.map(async ({ title, type, sub_categories = [], trans = [] }) => {
+      categories.map(async ({ title, type, sub_categories = [], trans = [], weight }) => {
+        const name = slugify(title, {
+          trim: true,
+          lower: true,
+          remove: RemoveSlugPattern,
+        });
         const {
           value,
-          ok,
           lastErrorObject: { updatedExisting },
         } = await this.model._collection.findOneAndUpdate(
           {
-            name: slugify(title, {
-              trim: true,
-              lower: true,
-              remove: RemoveSlugPattern,
-            }),
+            name,
           },
           {
-            $setOnInsert: {
+            $set: {
               title,
-              name: slugify(title, {
-                trim: true,
-                lower: true,
-                remove: RemoveSlugPattern,
-              }),
+              name,
               type,
               sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
-              created_at: new Date(),
               updated_at: new Date(),
+              weight,
               trans,
               rank,
               deleted: false,
-              created_by: _subject,
+              updated_by: _subject,
             },
           },
           {
-            upsert: true,
+            upsert: false,
             returnDocument: 'after',
           },
         );
+        if (!updatedExisting && update) {
+          const { value: newValue } = await this.model._collection.findOneAndUpdate(
+            {
+              name,
+            },
+            {
+              $set: {
+                title,
+                name,
+                type,
+                sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1),
+                updated_at: new Date(),
+                weight,
+                trans,
+                rank,
+                deleted: false,
+                created_by: _subject,
+              },
+            },
+            {
+              upsert: true,
+              returnDocument: 'after',
+            },
+          );
+          return newValue._id;
+        }
         return value._id;
       }),
     );

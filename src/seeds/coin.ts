@@ -17,16 +17,16 @@ export const CoinSeed = async () => {
 
   const db = Container.get(DIMongoDB);
 
-  const collection = db.collection('coins');
+  const collection = db.collection('assets');
   const count = await $countCollection({ collection });
   createDataFile({
-    _collection: 'coins',
+    _collection: 'assets',
     _file: coinsFile,
     _key: 'name',
   });
   if (count) return;
   const coins = await Promise.all(
-    readDataFromFile({ _collection: 'coins' }).map((_coin: any) => {
+    readDataFromFile({ _collection: 'assets' }).map((_coin: any) => {
       return {
         name: _coin.name.trim(),
         token_id: _coin.token_id,
@@ -122,11 +122,11 @@ export const CoinSeed = async () => {
 };
 export const insertCoins = async () => {
   const db = Container.get(DIMongoDB);
-  const collection = db.collection('coins');
+  const collection = db.collection('assets');
   const count = await $countCollection({ collection });
   console.log('count', count);
   if (count) return;
-  console.log('Inserting coins');
+  console.log('Inserting assets');
   try {
     const categories = await db.collection('categories').find({}).toArray();
     const coinsFinal = await Promise.all(
@@ -161,7 +161,7 @@ export const insertCoins = async () => {
                     {
                       $setOnInsert: {
                         title: _category,
-                        type: 'crypto',
+                        type: 'crypto_asset',
                         name: _category
                           .toLowerCase()
                           .match(/[a-zA-Z0-9_ ]+/g)
@@ -201,7 +201,7 @@ export const insertCoins = async () => {
       }),
     );
     console.log('Inserting coins', coinsFinal.length);
-    await db.collection('coins').insertMany(coinsFinal);
+    await db.collection('assets').insertMany(coinsFinal);
     console.log('Inserted coins', coinsFinal.length);
   } catch (error) {
     console.log('error', error);

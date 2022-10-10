@@ -13,7 +13,7 @@ import {
   EventController,
   UserController,
   AuthController,
-  CoinController,
+  AssetController,
   NewsController,
   FundController,
   BlockchainPrivateController,
@@ -25,7 +25,7 @@ import {
   CompanyPrivateController,
   PersonPrivateController,
   EventPrivateController,
-  CoinPrivateController,
+  AssetPrivateController,
   NewsPrivateController,
   FundPrivateController,
 } from '@/modules';
@@ -35,7 +35,7 @@ const publicRoute = Router();
 const privateRoute = Router();
 
 export default (app: Application) => {
-  app.use(`${env.API_PREFIX}/v1`, publicRoute);
+  app.use(`${env.API_PREFIX}/v1/public`, publicRoute);
   app.use(`${env.API_PREFIX}/v1/private`, privateRoute);
   /**
    * @description normal routes
@@ -54,7 +54,7 @@ export default (app: Application) => {
     EventController,
     UserController,
     AuthController,
-    CoinController,
+    AssetController,
     NewsController,
     FundController,
   ]);
@@ -72,7 +72,7 @@ export default (app: Application) => {
     ProductPrivateController,
     PersonPrivateController,
     EventPrivateController,
-    CoinPrivateController,
+    AssetPrivateController,
     NewsPrivateController,
     FundPrivateController,
   ]);

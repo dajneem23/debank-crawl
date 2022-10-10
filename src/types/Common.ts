@@ -395,12 +395,12 @@ export enum COLLECTION_NAMES {
   products = 'products',
   countries = 'countries',
   'auth-sessions' = 'auth-sessions',
-  coins = 'coins',
+  assets = 'assets',
   settings = 'settings',
   exchanges = 'exchanges',
 }
 
-export enum coinSortBy {
+export enum assetSortBy {
   'usd_price' = 'market_data.USD.price',
   'usd_market_cap' = 'market_data.USD.market_cap',
   'usd_market_cap_dominance' = 'market_data.USD.market_cap_dominance',
@@ -579,6 +579,8 @@ export const urlsValidation = Joi.object({
   galleries: Joi.array().items(Joi.string()),
 
   stack_exchange: Joi.array().items(Joi.string()),
+
+  other: Joi.array().items(Joi.string()),
 });
 /**
  * @description - id validation

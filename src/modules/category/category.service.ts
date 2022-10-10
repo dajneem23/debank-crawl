@@ -16,7 +16,7 @@ import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bu
 import { SystemError } from '@/core/errors';
 import { CategoryJobData, CategoryJobNames } from './category.job';
 import { env } from 'process';
-import { CoinModel, coinModelToken } from '../coin';
+import { AssetModel, assetModelToken } from '../asset';
 
 const TOKEN_NAME = '_categoryService';
 /**
@@ -32,7 +32,7 @@ export class CategoryService {
 
   private model = Container.get(categoryModelToken);
 
-  private CoinModel = Container.get<CoinModel>(coinModelToken);
+  private AssetModel = Container.get<AssetModel>(assetModelToken);
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 
@@ -661,7 +661,7 @@ export class CategoryService {
           },
         });
         for (const { name } of coins) {
-          const { value: coin } = await this.CoinModel._collection.findOneAndUpdate(
+          const { value: coin } = await this.AssetModel._collection.findOneAndUpdate(
             {
               $or: [
                 { name: { $regex: `^${name}$`, $options: 'i' } },

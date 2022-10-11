@@ -36,8 +36,6 @@ export class AssetService {
 
   private model = Container.get<AssetModel>(assetModelToken);
 
-  private AssetPriceModel = this.model.db.collection('asset-price');
-
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 
   private worker: Worker;

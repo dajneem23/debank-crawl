@@ -36,9 +36,9 @@ export class BaseModel {
   };
   readonly _defaultKeys = ['author', 'id'];
   // Get Db instance from DI
-  private db: Db = Container.get(DIMongoDB) as Db;
+  readonly db: Db = Container.get(DIMongoDB) as Db;
   // Get logger Instance from DI
-  private logger: Logger = Container.get(DILogger) as Logger;
+  readonly logger: Logger = Container.get(DILogger) as Logger;
   //init error
   public error(msg: keyof typeof errors, detail?: any[]): any {
     return new CommonError(msg, detail);

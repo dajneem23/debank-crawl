@@ -245,6 +245,6 @@ export const AssetValidation = {
     }),
   }),
   search: validate({
-    [Segments.QUERY]: BaseQueryValidation.keys({}),
+    [Segments.QUERY]: BaseQueryValidation,
   }),
 };

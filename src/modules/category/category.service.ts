@@ -1,7 +1,6 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
 
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, Category, _category, categoryModelToken } from '.';
@@ -53,12 +52,6 @@ export class CategoryService {
     return ['title', 'name'];
   }
 
-  /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
   constructor() {
     if (env.MODE === 'production') {
       this.initWorker();

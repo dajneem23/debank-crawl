@@ -58,8 +58,6 @@ export interface Asset extends BaseInformationModel {
 
   fundraising?: string;
 
-  cmc_rank: number;
-
   trans: {
     lang: string;
     about?: string;
@@ -105,5 +103,4 @@ export const _asset: Asset = {
   market_share: 0,
   community_vote: 0,
   token_allocation: [],
-  cmc_rank: 0,
 };

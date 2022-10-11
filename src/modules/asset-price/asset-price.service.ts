@@ -1,12 +1,20 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import {
+  $toObjectId,
+  $pagination,
+  $toMongoFilter,
+  $queryByList,
+  $keysToProject,
+  $lookup,
+  $sets,
+} from '@/utils/mongoDB';
 import { assetPriceModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
+import { uniq } from 'lodash';
 const TOKEN_NAME = '_assetPriceService';
 /**
  * A bridge allows another service access to the Model layer
@@ -35,13 +43,10 @@ export class AssetPriceService {
   get outputKeys(): typeof this.model._keys {
     return this.model._keys;
   }
-
-  /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
+  get assetKeys() {
+    return ['_id', 'avatar', 'rating', 'founded', 'backer', 'community_vote', 'categories'];
   }
+
   /**
    * Create a new assetPrice
    * @param {BaseServiceInput} - _content _subject
@@ -49,15 +54,13 @@ export class AssetPriceService {
    */
   async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { name, categories = [], trans = [] } = _content;
+      const { name } = _content;
       const value = await this.model.create(
         {
           name,
         },
         {
           ..._content,
-          categories,
-          trans,
           ...(_subject && { created_by: _subject }),
         },
       );
@@ -134,20 +137,42 @@ export class AssetPriceService {
               ...(keyword && {
                 name: { $regex: keyword, $options: 'i' },
               }),
-              ...(categories.length && {
-                $or: [
-                  {
-                    categories: {
-                      $in: $toObjectId(categories),
-                    },
-                  },
-                ],
-              }),
+              // ...(categories.length && {
+              //   $or: [
+              //     {
+              //       categories: {
+              //         $in: $toObjectId(categories),
+              //       },
+              //     },
+              //   ],
+              // }),
             },
             $addFields: this.model.$addFields.categories,
-            $lookups: [this.model.$lookups.categories],
-            $projects: [],
-            $more: [],
+            $lookups: [
+              this.model.$lookups.categories,
+              $lookup({
+                from: 'assets',
+                refFrom: 'slug',
+                refTo: 'slug',
+                select: this.assetKeys.join(' '),
+                reName: '_asset',
+                operation: '$eq',
+                lookup: this.model.$lookups.categories,
+              }),
+            ],
+            $more: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(this.assetKeys, '$_asset'),
+                },
+              },
+              {
+                $set: {
+                  ...$sets(this.assetKeys),
+                },
+              },
+            ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
@@ -158,7 +183,7 @@ export class AssetPriceService {
         items,
         total_count,
         has_next: total_count > offset * limit,
-        keys: this.outputKeys,
+        keys: uniq([...this.outputKeys, ...this.assetKeys]),
       });
     } catch (err) {
       this.logger.error('query_error', err.message);

@@ -1,9 +1,9 @@
  use('wikiblock')
 
-db.coins.find(
+db.assets.find(
   {
     name:{
-      $regex:'^everycoin$',
+      $regex:'^airswap$',
       $options:'i'
     }
   }

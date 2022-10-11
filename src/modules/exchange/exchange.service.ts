@@ -72,12 +72,7 @@ export class ExchangeService {
       this.initQueue();
     }
   }
-  /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
+
   /**
    * Create a new exchange
    * @param _content

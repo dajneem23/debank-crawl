@@ -106,6 +106,11 @@ export const CoinMarketCapAPI = {
      */
     quotesHistorical: '/v2/exchange/quotes/historical',
   },
+  /**
+   * @description fetch data from coinmarketcap
+   * @param  {Object} - { params,endpoint }
+   * @returns {Promise} - { data }
+   */
   async fetchCoinMarketCapAPI({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
     return axios.get(`${CoinMarketCapAPI.HOST}${endpoint}`, {
       params,

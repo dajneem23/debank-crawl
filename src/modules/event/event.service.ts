@@ -1,7 +1,6 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
 import { _event, eventModelToken } from '.';
 import { $keysToProject, $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
@@ -45,13 +44,6 @@ export class EventService {
   }
   get transKeys() {
     return ['name', 'introduction'];
-  }
-
-  /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
   }
 
   /**

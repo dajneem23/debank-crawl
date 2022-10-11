@@ -48,12 +48,6 @@ export class GlossaryService {
   }
 
   /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
-  /**
    * Create a new Glossary
    * @param _content
    * @param _subject

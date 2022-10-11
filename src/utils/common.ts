@@ -100,15 +100,26 @@ export const toOutPut = ({
   const { _id: id, ...rest } = item;
   return pick(nullable ? { id, ...rest } : omitBy({ id, ...rest }, isNull), keys);
 };
+type PagingOutput = {
+  paging: {
+    has_next: boolean;
+    count: number;
+    total: number;
+  };
+  data: any[];
+};
+
 /**
  *
- * @param {Array} items
- * @param {count} count
+ * @param {Array} items - Array of items
+ * @param {Boolean} has_next - has next page
+ * @param {Number} total_count - total count of items
  * @param {Array} [keys = ['id', ...Object.keys(item)]]
- * @param {boolean} [nullable = false]
- * @returns {Object} {items: Array, total_count: number}
+ * @param {boolean} [nullable = false] - nullable
+ * @return {PagingOutput} - paging output
  */
-export const toPagingOutput = ({
+export /** */
+const toPagingOutput = ({
   items,
   total_count,
   has_next,
@@ -120,14 +131,7 @@ export const toPagingOutput = ({
   total_count: number;
   keys: string[] | (string | number | symbol)[];
   nullable?: boolean;
-}): {
-  paging: {
-    has_next: boolean;
-    count: number;
-    total: number;
-  };
-  data: any[];
-} => {
+}): PagingOutput => {
   return {
     paging: {
       count: items.length,
@@ -162,14 +166,14 @@ export const getDateTime = ({
   day?: number;
   minute?: number;
   second?: number;
-}) => {
+}): Date => {
   return new Date(date + day * 86400000 + hour * 3600000 + minute * 60000 + second * 1000);
 };
 /**
  *
- * @param ms  miliseconds
+ * @param {number} ms  miliseconds
  * @returns {Promise} Delay for miliseconds
  */
-export const sleep = (ms: number) => {
+export const sleep = (ms: number): Promise<any> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };

@@ -283,6 +283,6 @@ export const FundValidation = {
     }),
   }),
   search: validate({
-    [Segments.QUERY]: BaseQueryValidation.keys({}),
+    [Segments.QUERY]: BaseQueryValidation,
   }),
 };

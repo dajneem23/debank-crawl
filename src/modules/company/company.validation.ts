@@ -108,9 +108,9 @@ export const CompanyValidation = {
   }),
 
   query: validate({
-    [Segments.QUERY]: BaseQueryValidation.keys({}),
+    [Segments.QUERY]: BaseQueryValidation,
   }),
   search: validate({
-    [Segments.QUERY]: BaseQueryValidation.keys({}),
+    [Segments.QUERY]: BaseQueryValidation,
   }),
 };

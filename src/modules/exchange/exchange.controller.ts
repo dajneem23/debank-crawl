@@ -12,54 +12,6 @@ import { getPermission } from '../auth/auth.utils';
 export class ExchangeController {
   private service = Container.get(ExchangeServiceToken);
 
-  @Post('/', [protectPrivateAPI(), ExchangeValidation.create])
-  async create(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Exchange,
-  ) {
-    const result = await this.service.create({
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Put('/:id', [protectPrivateAPI(), ExchangeValidation.update])
-  async update(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    _body: Exchange,
-  ) {
-    const result = await this.service.update({
-      _id: _params.id,
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Delete('/:id', [protectPrivateAPI(), ExchangeValidation.delete])
-  async delete(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    _body: Exchange,
-  ) {
-    await this.service.delete({
-      _id: _params.id,
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.NO_CONTENT).end();
-  }
   @Get('/', [
     protect({
       ignoreException: true,
@@ -123,6 +75,55 @@ export class ExchangeController {
 @Controller('/exchanges')
 export class ExchangePrivateController {
   private service = Container.get(ExchangeServiceToken);
+
+  @Post('/', [protectPrivateAPI(), ExchangeValidation.create])
+  async create(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Exchange,
+  ) {
+    const result = await this.service.create({
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Put('/:id', [protectPrivateAPI(), ExchangeValidation.update])
+  async update(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    _body: Exchange,
+  ) {
+    const result = await this.service.update({
+      _id: _params.id,
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Delete('/:id', [protectPrivateAPI(), ExchangeValidation.delete])
+  async delete(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    _body: Exchange,
+  ) {
+    await this.service.delete({
+      _id: _params.id,
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.NO_CONTENT).end();
+  }
 
   @Get('/', [protectPrivateAPI(), ExchangeValidation.query])
   async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {

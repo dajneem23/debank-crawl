@@ -24,36 +24,7 @@ import { getPermission } from '../auth/auth.utils';
 @Controller('/events')
 export class EventController {
   private service = Container.get(eventServiceToken);
-  @Post('/', [protect(), EventValidation.create])
-  async create(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Event,
-  ) {
-    const result = await this.service.create({
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-  @Put('/:id', [protect(), EventValidation.update])
-  async update(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Event,
-    @Params() _params: { id: string },
-  ) {
-    const result = await this.service.update({
-      _id: _params.id,
-      _subject: _auth.id,
-      _content: _body,
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
+
   @Get('/related', [EventValidation.getRelated])
   async getRelatedEvent(@Res() _res: Response, @Req() _req: Request, @Query() _query: EventFilter) {
     const { filter, query } = buildQueryFilter(_query);
@@ -129,19 +100,6 @@ export class EventController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Delete('/:id', [protectPrivateAPI(), EventValidation.deleteById])
-  async delete(
-    @Res() _res: Response,
-    @Req() _req: Request,
-    @Auth() _auth: JWTPayload,
-    @Params() _params: { id: string },
-  ) {
-    await this.service.delete({
-      _id: _params.id,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.NO_CONTENT).end();
-  }
 
   @Patch('/:id/trending', [protectPrivateAPI(), EventValidation.updateTrending])
   async updateTrendingEvent(
@@ -202,6 +160,51 @@ export class EventController {
 @Controller('/events')
 export class EventPrivateController {
   private service = Container.get(eventServiceToken);
+
+  @Post('/', [protect(), EventValidation.create])
+  async create(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Event,
+  ) {
+    const result = await this.service.create({
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+  @Put('/:id', [protect(), EventValidation.update])
+  async update(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Event,
+    @Params() _params: { id: string },
+  ) {
+    const result = await this.service.update({
+      _id: _params.id,
+      _subject: _auth.id,
+      _content: _body,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Delete('/:id', [protectPrivateAPI(), EventValidation.deleteById])
+  async delete(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Auth() _auth: JWTPayload,
+    @Params() _params: { id: string },
+  ) {
+    await this.service.delete({
+      _id: _params.id,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.NO_CONTENT).end();
+  }
 
   @Get('/:id', [EventValidation.getById])
   async getById(

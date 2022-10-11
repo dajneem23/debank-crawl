@@ -58,6 +58,7 @@ export const $lookup = ({
   condition,
   operation = '$eq',
   lookup,
+  pipeline = [],
 }: {
   from: string;
   refFrom: string;
@@ -67,6 +68,7 @@ export const $lookup = ({
   operation?: string;
   condition?: object;
   lookup?: object;
+  pipeline?: any[];
 }) => ({
   $lookup: {
     from,
@@ -95,6 +97,7 @@ export const $lookup = ({
         },
       },
       ...((lookup && [lookup]) || []),
+      ...pipeline,
     ],
     as: reName,
   },

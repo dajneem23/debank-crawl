@@ -12,54 +12,6 @@ import { getPermission } from '../auth/auth.utils';
 export class CompanyController {
   private service = Container.get(CompanyServiceToken);
 
-  @Post('/', [protectPrivateAPI(), CompanyValidation.create])
-  async create(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Company,
-  ) {
-    const result = await this.service.create({
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Put('/:id', [protectPrivateAPI(), CompanyValidation.update])
-  async update(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    _body: Company,
-  ) {
-    const result = await this.service.update({
-      _id: _params.id,
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Delete('/:id', [protectPrivateAPI(), CompanyValidation.delete])
-  async delete(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    _body: Company,
-  ) {
-    await this.service.delete({
-      _id: _params.id,
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.NO_CONTENT).end();
-  }
   @Get('/', [
     protect({
       ignoreException: true,
@@ -123,6 +75,55 @@ export class CompanyController {
 @Controller('/companies')
 export class CompanyPrivateController {
   private service = Container.get(CompanyServiceToken);
+
+  @Post('/', [protectPrivateAPI(), CompanyValidation.create])
+  async create(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Company,
+  ) {
+    const result = await this.service.create({
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Put('/:id', [protectPrivateAPI(), CompanyValidation.update])
+  async update(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    _body: Company,
+  ) {
+    const result = await this.service.update({
+      _id: _params.id,
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Delete('/:id', [protectPrivateAPI(), CompanyValidation.delete])
+  async delete(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    _body: Company,
+  ) {
+    await this.service.delete({
+      _id: _params.id,
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.NO_CONTENT).end();
+  }
 
   @Get('/', [protectPrivateAPI(), CompanyValidation.query])
   async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {

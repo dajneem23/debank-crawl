@@ -12,55 +12,6 @@ import { getPermission } from '../auth/auth.utils';
 export class FundController {
   private service = Container.get(FundServiceToken);
 
-  @Post('/', [protectPrivateAPI(), FundValidation.create])
-  async create(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Fund,
-  ) {
-    const result = await this.service.create({
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Put('/:id', [protectPrivateAPI(), FundValidation.update])
-  async update(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    body: Fund,
-  ) {
-    const result = await this.service.update({
-      _id: _params.id,
-      _content: body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Delete('/:id', [protectPrivateAPI(), FundValidation.delete])
-  async delete(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    body: Fund,
-  ) {
-    await this.service.delete({
-      _id: _params.id,
-      _content: body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.NO_CONTENT).end();
-  }
-
   @Get('/', [
     protect({
       ignoreException: true,
@@ -126,6 +77,55 @@ export class FundController {
 @Controller('/funds')
 export class FundPrivateController {
   private service = Container.get(FundServiceToken);
+
+  @Post('/', [protectPrivateAPI(), FundValidation.create])
+  async create(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Fund,
+  ) {
+    const result = await this.service.create({
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Put('/:id', [protectPrivateAPI(), FundValidation.update])
+  async update(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    body: Fund,
+  ) {
+    const result = await this.service.update({
+      _id: _params.id,
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Delete('/:id', [protectPrivateAPI(), FundValidation.delete])
+  async delete(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    body: Fund,
+  ) {
+    await this.service.delete({
+      _id: _params.id,
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.NO_CONTENT).end();
+  }
 
   @Get('/:id', [protectPrivateAPI(), FundValidation.getById])
   async getByIdPrivate(

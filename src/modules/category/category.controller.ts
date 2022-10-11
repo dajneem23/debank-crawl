@@ -12,54 +12,6 @@ import { getPermission } from '../auth/auth.utils';
 export class CategoryController {
   private service = Container.get(categoryServiceToken);
 
-  @Post('/', [protectPrivateAPI(), CategoryValidation.create])
-  async create(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Category,
-  ) {
-    const result = await this.service.create({
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Put('/:id', [protectPrivateAPI(), CategoryValidation.update])
-  async update(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() params: { id: string },
-    @Body()
-    body: Category,
-  ) {
-    const result = await this.service.update({
-      _id: params.id,
-      _content: body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Delete('/:id', [protectPrivateAPI(), CategoryValidation.delete])
-  async delete(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    body: Category,
-  ) {
-    await this.service.delete({
-      _id: _params.id,
-      _content: body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.NO_CONTENT).end();
-  }
   @Get('/', [
     protect({
       ignoreException: true,
@@ -124,6 +76,56 @@ export class CategoryController {
 @Controller('/categories')
 export class CategoryPrivateController {
   private service = Container.get(categoryServiceToken);
+
+  @Post('/', [protectPrivateAPI(), CategoryValidation.create])
+  async create(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Category,
+  ) {
+    const result = await this.service.create({
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Put('/:id', [protectPrivateAPI(), CategoryValidation.update])
+  async update(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() params: { id: string },
+    @Body()
+    body: Category,
+  ) {
+    const result = await this.service.update({
+      _id: params.id,
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Delete('/:id', [protectPrivateAPI(), CategoryValidation.delete])
+  async delete(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    body: Category,
+  ) {
+    await this.service.delete({
+      _id: _params.id,
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.NO_CONTENT).end();
+  }
+
   @Get('/:id', [CategoryValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,

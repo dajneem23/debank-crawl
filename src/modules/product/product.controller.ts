@@ -12,6 +12,51 @@ import { getPermission } from '../auth/auth.utils';
 export class ProductController {
   private service = Container.get(productServiceToken);
 
+  @Get('/', [
+    protect({
+      ignoreException: true,
+    }),
+    ProductValidation.query,
+  ])
+  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.query({
+      _filter: filter,
+      _query: query,
+      _permission: getPermission(_auth.roles),
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/search', [ProductValidation.search])
+  async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.search({
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/:slug', [ProductValidation.getBySlug])
+  async getBySlugPublic(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      slug: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.getBySlug({
+      _slug: _params.slug,
+      _filter: filter,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+}
+@Controller('/products')
+export class ProductPrivateController {
+  private service = Container.get(productServiceToken);
   @Post('/', [protectPrivateAPI(), ProductValidation.create])
   async create(
     @Res() _res: Response,
@@ -60,51 +105,7 @@ export class ProductController {
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/', [
-    protect({
-      ignoreException: true,
-    }),
-    ProductValidation.query,
-  ])
-  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
-    const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.query({
-      _filter: filter,
-      _query: query,
-      _permission: getPermission(_auth.roles),
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
-  @Get('/search', [ProductValidation.search])
-  async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
-    const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.search({
-      _filter: filter,
-      _query: query,
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
-  @Get('/:slug', [ProductValidation.getBySlug])
-  async getBySlugPublic(
-    @Res() _res: Response,
-    @Req() _req: Request,
-    @Query() _query: BaseQuery,
-    @Params()
-    _params: {
-      slug: string;
-    },
-  ) {
-    const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.getBySlug({
-      _slug: _params.slug,
-      _filter: filter,
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
-}
-@Controller('/products')
-export class ProductPrivateController {
-  private service = Container.get(productServiceToken);
+
   @Get('/:id', [protectPrivateAPI(), ProductValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,

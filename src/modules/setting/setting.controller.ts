@@ -11,6 +11,46 @@ import { BaseQuery, BaseServiceInput } from '@/types/Common';
 export class SettingController {
   private service = Container.get(settingServiceToken);
 
+  @Get('/', [SettingValidation.query])
+  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.query({
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/search', [SettingValidation.search])
+  async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.search({
+      _filter: filter,
+      _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+  @Get('/:name', [SettingValidation.getByName])
+  async getByName(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      name: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.getByName({
+      _name: _params.name,
+      _filter: filter,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+}
+@Controller('/settings')
+export class SettingPrivateController {
+  private service = Container.get(settingServiceToken);
+
   @Post('/', [protectPrivateAPI(), SettingValidation.create])
   async create(
     @Res() _res: Response,
@@ -59,45 +99,7 @@ export class SettingController {
     } as BaseServiceInput);
     _res.status(httpStatus.NO_CONTENT).end();
   }
-  @Get('/', [SettingValidation.query])
-  async get(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
-    const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.query({
-      _filter: filter,
-      _query: query,
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
-  @Get('/search', [SettingValidation.search])
-  async search(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
-    const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.search({
-      _filter: filter,
-      _query: query,
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
-  @Get('/:name', [SettingValidation.getByName])
-  async getByName(
-    @Res() _res: Response,
-    @Req() _req: Request,
-    @Query() _query: BaseQuery,
-    @Params()
-    _params: {
-      name: string;
-    },
-  ) {
-    const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.getByName({
-      _name: _params.name,
-      _filter: filter,
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
-}
-@Controller('/settings')
-export class SettingPrivateController {
-  private service = Container.get(settingServiceToken);
+
   @Get('/:id', [protectPrivateAPI(), SettingValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,

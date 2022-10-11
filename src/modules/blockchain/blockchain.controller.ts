@@ -12,54 +12,6 @@ import { getPermission } from '../auth/auth.utils';
 export class BlockchainController {
   private service = Container.get(BlockchainServiceToken);
 
-  @Post('/', [protectPrivateAPI(), BlockchainValidation.create])
-  async create(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Blockchain,
-  ) {
-    const result = await this.service.create({
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Put('/:id', [protectPrivateAPI(), BlockchainValidation.update])
-  async update(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    _body: Blockchain,
-  ) {
-    const result = await this.service.update({
-      _id: _params.id,
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Delete('/:id', [protectPrivateAPI(), BlockchainValidation.delete])
-  async delete(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    _body: Blockchain,
-  ) {
-    await this.service.delete({
-      _id: _params.id,
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.NO_CONTENT).end();
-  }
   @Get('/', [
     protect({
       ignoreException: true,
@@ -123,6 +75,55 @@ export class BlockchainController {
 @Controller('/blockchains')
 export class BlockchainPrivateController {
   private service = Container.get(BlockchainServiceToken);
+
+  @Post('/', [protectPrivateAPI(), BlockchainValidation.create])
+  async create(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Blockchain,
+  ) {
+    const result = await this.service.create({
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Put('/:id', [protectPrivateAPI(), BlockchainValidation.update])
+  async update(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    _body: Blockchain,
+  ) {
+    const result = await this.service.update({
+      _id: _params.id,
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Delete('/:id', [protectPrivateAPI(), BlockchainValidation.delete])
+  async delete(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    _body: Blockchain,
+  ) {
+    await this.service.delete({
+      _id: _params.id,
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.NO_CONTENT).end();
+  }
 
   @Get('/', [protectPrivateAPI(), BlockchainValidation.query])
   async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {

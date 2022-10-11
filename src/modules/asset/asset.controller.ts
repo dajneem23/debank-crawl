@@ -15,54 +15,6 @@ export class AssetController {
 
   readonly assetPriceService = Container.get(AssetPriceServiceToken);
 
-  @Post('/', [protectPrivateAPI(), AssetValidation.create])
-  async create(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Asset,
-  ) {
-    const result = await this.service.create({
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-
-  @Put('/:id', [protectPrivateAPI(), AssetValidation.update])
-  async update(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    body: Asset,
-  ) {
-    const result = await this.service.update({
-      _id: _params.id,
-      _content: body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.OK).json(result);
-  }
-
-  @Delete('/:id', [protectPrivateAPI(), AssetValidation.delete])
-  async delete(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    body: Asset,
-  ) {
-    await this.service.delete({
-      _id: _params.id,
-      _content: body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.NO_CONTENT).end();
-  }
   @Get('/', [
     protect({
       ignoreException: true,
@@ -136,6 +88,56 @@ export class AssetController {
 @Controller('/assets')
 export class AssetPrivateController {
   private service = Container.get(assetServiceToken);
+
+  @Post('/', [protectPrivateAPI(), AssetValidation.create])
+  async create(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Asset,
+  ) {
+    const result = await this.service.create({
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+
+  @Put('/:id', [protectPrivateAPI(), AssetValidation.update])
+  async update(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    body: Asset,
+  ) {
+    const result = await this.service.update({
+      _id: _params.id,
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Delete('/:id', [protectPrivateAPI(), AssetValidation.delete])
+  async delete(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    body: Asset,
+  ) {
+    await this.service.delete({
+      _id: _params.id,
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.NO_CONTENT).end();
+  }
+
   @Get('/:id', [protectPrivateAPI(), AssetValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,

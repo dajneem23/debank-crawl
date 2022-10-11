@@ -12,52 +12,6 @@ import { getPermission } from '../auth/auth.utils';
 export class PersonController {
   private service = Container.get(personServiceToken);
 
-  @Post('/', [protectPrivateAPI(), PersonValidation.create])
-  async create(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Body()
-    _body: Person,
-  ) {
-    const result = await this.service.create({
-      _content: _body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-  @Put('/:id', [protectPrivateAPI(), PersonValidation.update])
-  async update(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    body: Person,
-  ) {
-    const result = await this.service.update({
-      _id: _params.id,
-      _content: body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.CREATED).json(result);
-  }
-  @Delete('/:id', [protectPrivateAPI(), PersonValidation.delete])
-  async delete(
-    @Res() _res: Response,
-    @Auth() _auth: JWTPayload,
-    @Req() _req: Request,
-    @Params() _params: { id: string },
-    @Body()
-    body: Person,
-  ) {
-    await this.service.delete({
-      _id: _params.id,
-      _content: body,
-      _subject: _auth.id,
-    } as BaseServiceInput);
-    _res.status(httpStatus.NO_CONTENT).end();
-  }
   @Get('/', [
     protect({
       ignoreException: true,
@@ -120,6 +74,54 @@ export class PersonController {
 @Controller('/persons')
 export class PersonPrivateController {
   private service = Container.get(personServiceToken);
+
+  @Post('/', [protectPrivateAPI(), PersonValidation.create])
+  async create(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Body()
+    _body: Person,
+  ) {
+    const result = await this.service.create({
+      _content: _body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+  @Put('/:id', [protectPrivateAPI(), PersonValidation.update])
+  async update(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    body: Person,
+  ) {
+    const result = await this.service.update({
+      _id: _params.id,
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.CREATED).json(result);
+  }
+  @Delete('/:id', [protectPrivateAPI(), PersonValidation.delete])
+  async delete(
+    @Res() _res: Response,
+    @Auth() _auth: JWTPayload,
+    @Req() _req: Request,
+    @Params() _params: { id: string },
+    @Body()
+    body: Person,
+  ) {
+    await this.service.delete({
+      _id: _params.id,
+      _content: body,
+      _subject: _auth.id,
+    } as BaseServiceInput);
+    _res.status(httpStatus.NO_CONTENT).end();
+  }
+
   @Get('/:id', [protectPrivateAPI(), PersonValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,

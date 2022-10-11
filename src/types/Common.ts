@@ -396,6 +396,7 @@ export enum COLLECTION_NAMES {
   countries = 'countries',
   'auth-sessions' = 'auth-sessions',
   assets = 'assets',
+  'asset-price' = 'asset-price',
   settings = 'settings',
   exchanges = 'exchanges',
 }

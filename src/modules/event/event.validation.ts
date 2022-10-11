@@ -24,18 +24,18 @@ export const query = validate({
   }),
 });
 export const search = validate({
-  [Segments.QUERY]: BaseQueryValidation.keys({}),
+  [Segments.QUERY]: BaseQueryValidation,
 });
 export const getRelated = validate({
-  [Segments.QUERY]: BaseQueryValidation.keys({}),
+  [Segments.QUERY]: BaseQueryValidation,
 });
 
 export const getTrending = validate({
-  [Segments.QUERY]: BaseQueryValidation.keys({}),
+  [Segments.QUERY]: BaseQueryValidation,
 });
 
 export const getSignificant = validate({
-  [Segments.QUERY]: BaseQueryValidation.keys({}),
+  [Segments.QUERY]: BaseQueryValidation,
 });
 
 export const create = validate({

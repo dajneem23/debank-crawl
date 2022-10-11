@@ -1,6 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, LANG_CODE, ObjectIdValidation, BaseQueryValidation } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
+import { LANG_CODE, ObjectIdValidation, BaseQueryValidation } from '@/types';
 const blockchainSchema = Joi.object({
   name: Joi.string().required(),
   //array id of categories
@@ -130,9 +129,9 @@ export const BlockchainValidation = {
   }),
 
   query: validate({
-    [Segments.QUERY]: BaseQueryValidation.keys({}),
+    [Segments.QUERY]: BaseQueryValidation,
   }),
   search: validate({
-    [Segments.QUERY]: BaseQueryValidation.keys({}),
+    [Segments.QUERY]: BaseQueryValidation,
   }),
 };

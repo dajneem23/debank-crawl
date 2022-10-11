@@ -157,10 +157,10 @@ export const NewsValidation = {
     }),
   }),
   getRelated: validate({
-    [Segments.QUERY]: BaseQueryValidation.keys({}),
+    [Segments.QUERY]: BaseQueryValidation,
   }),
   getImportant: validate({
-    [Segments.QUERY]: BaseQueryValidation.keys({}),
+    [Segments.QUERY]: BaseQueryValidation,
   }),
   getTop: validate({
     [Segments.QUERY]: BaseQueryValidation.keys({

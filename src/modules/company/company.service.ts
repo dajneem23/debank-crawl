@@ -1,7 +1,6 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
 import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
@@ -47,12 +46,6 @@ export class CompanyService {
     return ['about', 'short_description', 'features', 'services'];
   }
 
-  /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
   /**
    * Create a new company
    * @param _content

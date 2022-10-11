@@ -87,10 +87,10 @@ export class AssetController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Get('/asset-metric', [AssetValidation.search])
+  @Get('/asset-metric', [AssetValidation.query])
   async assetMetric(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.service.search({
+    const result = await this.assetPriceService.query({
       _filter: filter,
       _query: query,
     } as BaseServiceInput);

@@ -42,12 +42,6 @@ export class FundService {
   }
 
   /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
-  /**
    * Create new Fund
    * @param _content
    * @param _subject

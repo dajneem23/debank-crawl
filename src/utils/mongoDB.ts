@@ -57,6 +57,7 @@ export const $lookup = ({
   reName,
   condition,
   operation = '$eq',
+  lookup,
 }: {
   from: string;
   refFrom: string;
@@ -65,6 +66,7 @@ export const $lookup = ({
   reName: string;
   operation?: string;
   condition?: object;
+  lookup?: object;
 }) => ({
   $lookup: {
     from,
@@ -92,6 +94,7 @@ export const $lookup = ({
           }, {}),
         },
       },
+      ...((lookup && [lookup]) || []),
     ],
     as: reName,
   },
@@ -263,6 +266,15 @@ export const $flatObject = (obj: any, root: any) => {
 export const $keysToProject = (keys: (string | number | symbol)[], root?: any) => {
   return keys.reduce((previous: any, current: string) => {
     previous[current] = root ? `${root}.${current}` : 1;
+    return previous;
+  }, {});
+};
+
+export const $sets = (keys: (string | number | symbol)[], aggregation: any = '$first') => {
+  return keys.reduce((previous: any, current: string) => {
+    previous[current] = {
+      [aggregation]: `$${current}`,
+    };
     return previous;
   }, {});
 };

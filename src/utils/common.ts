@@ -129,7 +129,7 @@ const toPagingOutput = ({
   items: any;
   has_next: boolean;
   total_count: number;
-  keys: string[] | (string | number | symbol)[];
+  keys?: string[] | (string | number | symbol)[];
   nullable?: boolean;
 }): PagingOutput => {
   return {

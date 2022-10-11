@@ -36,13 +36,6 @@ export class SettingService {
   }
 
   /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
-
-  /**
    * Create a new setting
    * @param _content
    * @param subject

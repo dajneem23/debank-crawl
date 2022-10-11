@@ -128,7 +128,7 @@ export const PersonSeed = async () => {
         linkedin,
         company,
         email,
-        categories: ['Angel Investor'],
+        categories: ['Angel Investor', category].filter(Boolean),
         type: 'persons',
       };
     })

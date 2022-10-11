@@ -40,12 +40,7 @@ export class ProductService {
   get transKeys() {
     return ['about', 'short_description', 'features', 'services'];
   }
-  /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
+
   /**
    * Create document
    * @param _content

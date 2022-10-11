@@ -38,12 +38,7 @@ export class PersonService {
   get transKeys() {
     return ['about', 'short_description'];
   }
-  /**
-   * Generate ID
-   */
-  static async generateID() {
-    return alphabetSize12();
-  }
+
   /**
    * Create a new category
    * @param _content

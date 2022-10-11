@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 
 # Add package.json file
 COPY package.json yarn.lock ./
+COPY env.example.json ./env.local.json
 
 # Install packages without generate a yarn.lock lockfile
 RUN yarn --pure-lockfile

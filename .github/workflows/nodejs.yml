@@ -25,6 +25,6 @@ jobs:
         id: create-json
         uses: jsdaniell/create-json@1.1.2
         with:
-          name: "env.local.json"
+          name: 'env.local.json'
           json: ${{ secrets.MONGO }}
-      - run: pm2 restart  wikiblock-backend
+      - run: pm2 restart  0

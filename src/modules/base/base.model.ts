@@ -557,14 +557,14 @@ export class BaseModel {
         (await $refValidation({ collection: 'persons', list: $toObjectId(person_tags) })) &&
         (_content.person_tags = $toObjectId(person_tags));
       coin_tags.length &&
-        (await $refValidation({ collection: 'coins', list: $toObjectId(coin_tags) })) &&
+        (await $refValidation({ collection: 'assets', list: $toObjectId(coin_tags) })) &&
         (_content.coin_tags = $toObjectId(coin_tags));
       fund_tags.length &&
-        (await $refValidation({ collection: 'funds', list: $toObjectId(fund_tags) })) &&
+        (await $refValidation({ collection: 'companies', list: $toObjectId(fund_tags) })) &&
         (_content.fund_tags = $toObjectId(fund_tags));
       cryptocurrencies.length &&
         (await $refValidation({
-          collection: 'coins',
+          collection: 'assets',
           list: $toObjectId(cryptocurrencies),
           Refname: 'cryptocurrencies',
         })) &&

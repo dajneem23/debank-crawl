@@ -1,17 +1,9 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
-import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
+import { toOutPut, toPagingOutput } from '@/utils/common';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import {
-  $toObjectId,
-  $pagination,
-  $toMongoFilter,
-  $queryByList,
-  $keysToProject,
-  $lookup,
-  $sets,
-} from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $keysToProject, $lookup, $sets } from '@/utils/mongoDB';
 import { assetPriceModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { uniq } from 'lodash';

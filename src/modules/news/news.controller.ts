@@ -22,8 +22,7 @@ import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { permission } from './news.middlewares';
-import { UserRolesWeight, UserRole } from '../user';
-import { getHighestRole, getPermission } from '../auth/auth.utils';
+import { getPermission } from '../auth/auth.utils';
 @Controller('/news')
 export class NewsController {
   private service = Container.get(NewsServiceToken);

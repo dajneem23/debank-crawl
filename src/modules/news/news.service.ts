@@ -3,7 +3,14 @@ import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { News, NewsError, NewsModel, _news, newsErrors, newsModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, NewsStatus, PRIVATE_KEYS, TopNewsDateRange } from '@/types/Common';
+import {
+  BaseServiceInput,
+  BaseServiceOutput,
+  NewsStatus,
+  PRIVATE_KEYS,
+  RemoveSlugPattern,
+  TopNewsDateRange,
+} from '@/types/Common';
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
 import slugify from 'slugify';
@@ -76,6 +83,7 @@ export class NewsService {
           const slug = slugify(item.title, {
             trim: true,
             lower: true,
+            remove: RemoveSlugPattern,
           });
           return {
             ...item,
@@ -88,6 +96,7 @@ export class NewsService {
       const _slug = slugify(title, {
         trim: true,
         lower: true,
+        remove: RemoveSlugPattern,
       });
       const slug = (await this.model._collection.findOne({ $or: [{ 'trans.slug': _slug }, { slug: _slug }] }))
         ? _slug + '-' + now.getTime()

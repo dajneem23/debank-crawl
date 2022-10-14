@@ -82,13 +82,13 @@ export const CategorySeed = async () => {
           .split(' ')
           .filter((_item: any) => !spans.includes(_item))
           .join(' '),
-        type: CATEGORY_TYPE.CRYPTO,
+        type: CATEGORY_TYPE.CRYPTO_SECTOR,
       };
     }),
     ...categoriesFile[0]['coin-sectors'].map((item: any) => {
       return {
         title: item['coin-sectors'].split(' ').join(' '),
-        type: CATEGORY_TYPE.CRYPTO,
+        type: CATEGORY_TYPE.CRYPTO_SECTOR,
       };
     }),
     ...categoriesFile[0]['people-categories'].map((item: any) => {
@@ -126,16 +126,6 @@ export const CategorySeed = async () => {
             replacement: '_',
             remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
           }),
-          acronym: item.title
-            .toLowerCase()
-            .match(/[a-zA-Z0-9_ ]+/g)
-            .join('')
-            .trim()
-            .split(' ')
-            .map((word: any, _: any, list: any) => {
-              return list.length > 1 ? word[0] : list.slice(0, 1);
-            })
-            .join(''),
           trans: [],
           deleted: false,
           weight: item.weight || 0,
@@ -149,9 +139,6 @@ export const CategorySeed = async () => {
         return (
           self.findIndex((t) => {
             return t.name === item.name && t.type === item.type;
-          }) === index &&
-          self.findIndex((t) => {
-            return t.acronym === item.acronym && t.type === item.type;
           }) === index
         );
       })

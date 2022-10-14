@@ -65,6 +65,7 @@ export class ExchangeService {
     return ['about', 'short_description'];
   }
   constructor() {
+    // this.fetchExchangeData();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -496,6 +497,7 @@ export class ExchangeService {
           pattern: '* 0 0 * * *',
         },
         jobId: 'exchange:fetch:data',
+        removeOnComplete: true,
       },
     });
   }

@@ -116,7 +116,7 @@ type PagingOutput = {
  * @param {Number} total_count - total count of items
  * @param {Array} [keys = ['id', ...Object.keys(item)]]
  * @param {boolean} [nullable = false] - nullable
- * @return {PagingOutput} - paging output
+ * @returns {PagingOutput} - paging output
  */
 export /** */
 const toPagingOutput = ({

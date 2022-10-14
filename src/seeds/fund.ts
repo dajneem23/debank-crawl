@@ -5,11 +5,12 @@ import Container, { Inject, Service } from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
-
+import AngelInvestorAirtable from '../data/airtable/Angel Investors.json';
+import InvestorAirtable from '../data/airtable/investor.json';
+import FundFounders from '../data/airtable/Funds - Founders.json';
 /* eslint-disable no-console */
 export const FundSeed = async () => {
   const db = Container.get(DIMongoDB);
-  const collection = db.collection('companies');
   const funds = Object.values(
     (Funds as any).data.rows
       .map(
@@ -36,9 +37,23 @@ export const FundSeed = async () => {
             });
           });
           const firms = _firms.map(({ foreignRowId: foreign_id, foreignRowDisplayName: name }: any) => {
+            const {
+              cellValuesByColumnId: {
+                fldNJrXhATbXWYaPV: twitter,
+                fldYxidGVWXbbBlvN: linkedin,
+                fld5Ampq1nE4ddQCZ: website,
+                fldd6JgLkLn5Zi1QY: avatars,
+              },
+            } = (InvestorAirtable as any).data.tableDatas[0].rows.find((item: any) => item.id == foreign_id);
             return {
               foreign_id,
               name,
+              avatar: avatars?.[0]?.url || '',
+              urls: {
+                linkedin,
+                twitter,
+                website,
+              },
             };
           });
           const firm_ids = firms.map((firm: any) => firm.foreign_id);
@@ -62,9 +77,15 @@ export const FundSeed = async () => {
             stage,
             cryptocurrencies,
             partners: partners.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
+              const {
+                cellValuesByColumnId: { fldTsT4wtJYYxc6xN: twitter },
+              } = (FundFounders as any).data.rows.find((item: any) => item.id == foreign_id);
               return {
                 name,
                 foreign_id,
+                urls: {
+                  twitter,
+                },
               };
             }),
             posts: [post].filter(Boolean),
@@ -73,20 +94,64 @@ export const FundSeed = async () => {
             firm_ids,
             person_investors:
               AngelInvestors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
+                const {
+                  cellValuesByColumnId: {
+                    fldj5t3yMdaLI3KtM: twitter,
+                    flduTkjX7gWZXGV9E: linkedin,
+                    fldBWovHdHDSZiqgQ: website,
+                    fldJsLm2w5mTLnBuP: avatars,
+                  },
+                } = (AngelInvestorAirtable as any).data.rows.find((row: any) => row.id === foreign_id);
                 return {
                   name,
                   foreign_id,
                   type: 'Angel Investor',
+                  avatar: avatars?.[0]?.url || '',
+                  urls: {
+                    linkedin,
+                    twitter,
+                    website,
+                  },
                 };
               }) || [],
             company_investors:
               investors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
+                const {
+                  cellValuesByColumnId: {
+                    fldNJrXhATbXWYaPV: twitter,
+                    fldYxidGVWXbbBlvN: linkedin,
+                    fld5Ampq1nE4ddQCZ: website,
+                    fldd6JgLkLn5Zi1QY: avatars,
+                  },
+                } = (InvestorAirtable as any).data.tableDatas[0].rows.find((item: any) => item.id == foreign_id);
+                return {
+                  name,
+                  foreign_id,
+                  type: 'Investor',
+                  avatar: avatars?.[0]?.url || '',
+                  urls: {
+                    linkedin,
+                    twitter,
+                    website,
+                  },
+                };
+              }) || [],
+            investors: [
+              ...(investors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
                 return {
                   name,
                   foreign_id,
                   type: 'Investor',
                 };
-              }) || [],
+              }) || []),
+              ...(AngelInvestors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
+                return {
+                  name,
+                  foreign_id,
+                  type: 'Angel Investor',
+                };
+              }) || []),
+            ],
           };
         },
       )
@@ -235,8 +300,10 @@ export const fundInvestment = async () => {
                   .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
             ) && rest.foreign_id,
         )
-        .map(({ foreign_id, name: investor_name }: any) => ({
+        .map(({ foreign_id, name: investor_name, avatar, urls }: any) => ({
           foreign_id,
+          avatar,
+          urls,
           name: investor_name,
           type: 'company',
         }))
@@ -267,7 +334,7 @@ export const insertFunds = async () => {
     .toArray();
   console.log('inserting funds');
   const fundsFinal = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any).map(
-    ({ name, categories = [], ...rest }: any) => ({
+    ({ name, categories = [], investors, ...rest }: any) => ({
       name,
       categories: [category[0]._id],
       slug: slugify(name, { lower: true, trim: true, remove: RemoveSlugPattern }),

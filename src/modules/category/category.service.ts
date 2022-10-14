@@ -53,6 +53,7 @@ export class CategoryService {
   }
 
   constructor() {
+    // this.fetchAllCategory();
     if (env.MODE === 'production') {
       this.initWorker();
       this.initQueue();
@@ -121,6 +122,7 @@ export class CategoryService {
           every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
         },
         jobId: 'category:fetch:all',
+        removeOnComplete: true,
       },
     });
   }

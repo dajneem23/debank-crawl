@@ -1,9 +1,9 @@
  use('wikiblock')
 
-db.assets.find(
+db['companies'].find(
   {
     name:{
-      $regex:'^airswap$',
+      $regex:'BSC.tools',
       $options:'i'
     }
   }

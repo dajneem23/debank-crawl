@@ -7,7 +7,47 @@
   {
     "title": "Analysis",
     "name": "analysis",
-    "type": "exploration"
+    "type": "exploration",
+    "rank": 0,
+    "weight": 0,
+    "sub_categories": [
+      {
+        "title": "Coin top",
+        "type": "exploration",
+        "rank": 1,
+        "weight": 0
+      },
+      {
+        "title": "Ecosystem",
+        "type": "exploration",
+        "rank": 1,
+        "weight": 1
+      },
+      {
+        "title": "NFT & Web3",
+        "type": "exploration",
+        "rank": 1,
+        "weight": 2
+      },
+      {
+        "title": "Market",
+        "type": "exploration",
+        "rank": 1,
+        "weight": 3
+      },
+      {
+        "title": "Fund",
+        "type": "exploration",
+        "rank": 1,
+        "weight": 4
+      },
+      {
+        "title": "Exchange & Launchpad",
+        "type": "exploration",
+        "rank": 1,
+        "weight": 5
+      }
+    ]
   },
   {
     "title": "Guidelines",
@@ -124,6 +164,7 @@
     "name": "portal",
     "type": "exploration",
     "rank": 0,
+    "weight": 1,
     "sub_categories": [
       {
         "title": "Guidelines",
@@ -147,6 +188,7 @@
     "name": "for_newbies",
     "type": "exploration",
     "rank": 0,
+    "weight": 2,
     "sub_categories": [
       {
         "title": "How to crypto",
@@ -162,7 +204,8 @@
     "title": "Opportunity",
     "name": "opportunity",
     "type": "exploration",
-    "rank": 0
+    "rank": 0,
+    "weight": 3
   },
   {
     "title": "Investor",

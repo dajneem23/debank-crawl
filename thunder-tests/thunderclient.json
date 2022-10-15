@@ -1681,16 +1681,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "search",
-    "url": "{{host}}/categories/search/?q=Gui",
+    "url": "{{host}}/public/categories/search/?keyword=",
     "method": "GET",
     "sortNum": 480000,
     "created": "2022-09-15T02:04:52.411Z",
-    "modified": "2022-09-15T02:11:55.030Z",
+    "modified": "2022-10-14T07:22:53.732Z",
     "headers": [],
     "params": [
       {
-        "name": "q",
-        "value": "Gui",
+        "name": "keyword",
+        "value": "",
         "isPath": false
       }
     ],

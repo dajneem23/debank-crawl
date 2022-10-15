@@ -189,6 +189,7 @@ export class CompanyService {
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
+          { allowDiskUse: true },
         )
         .toArray();
       this.logger.debug('query_success', { total_count, items });

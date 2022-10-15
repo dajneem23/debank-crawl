@@ -53,6 +53,7 @@ export class CategoryService {
   }
 
   constructor() {
+    // this.fetchAllCategory();
     if (env.MODE === 'production') {
       this.initWorker();
       this.initQueue();
@@ -121,6 +122,7 @@ export class CategoryService {
           every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
         },
         jobId: 'category:fetch:all',
+        removeOnComplete: true,
       },
     });
   }
@@ -251,7 +253,7 @@ export class CategoryService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { type, lang, rank = 0, deleted = false } = _filter;
+      const { type, lang, rank, deleted = false } = _filter;
       const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -419,7 +421,7 @@ export class CategoryService {
    */
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, type, rank = 0 } = _filter;
+      const { lang, type, rank } = _filter;
       const { offset = 1, limit = 10, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([

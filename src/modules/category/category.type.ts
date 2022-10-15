@@ -9,7 +9,6 @@ export interface Category extends BaseModel {
 
   sub_categories?: Category[];
 
-  acronym?: string;
   // weight
   weight?: number;
   // type
@@ -44,7 +43,6 @@ export interface Category extends BaseModel {
 export const _category: Category = {
   title: '',
   name: '',
-  acronym: '',
   weight: 0,
   rank: 0,
   type: CATEGORY_TYPE.WIKIBLOCK,

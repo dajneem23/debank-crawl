@@ -56,7 +56,7 @@ export default (app: Application) => {
     AuthController,
     AssetController,
     NewsController,
-    FundController,
+    // FundController,
   ]);
   /**
    * @description Private controllers
@@ -74,6 +74,6 @@ export default (app: Application) => {
     EventPrivateController,
     AssetPrivateController,
     NewsPrivateController,
-    FundPrivateController,
+    // FundPrivateController,
   ]);
 };

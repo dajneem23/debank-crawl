@@ -251,16 +251,16 @@ export type BaseServiceOutput = {
     count: number;
     total: number;
   };
-  data?: Array<any>;
+  data?: any[];
 };
 
 export type TeamPerson = {
   name: string;
   position: string;
-  contacts?: Array<{
+  contacts?: {
     name: string;
     url: string;
-  }>;
+  }[];
 };
 export type Support = {
   name: string;
@@ -354,7 +354,7 @@ export enum FundraisingRound {
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
 }
-export enum FUND_TYPE {
+export enum COMPANY_TYPE {
   NA = 'N/A',
   CRYPTO_VENTURE = 'Crypto Venture',
   EXCHANGE_FUND = 'Exchange Fund',

@@ -56,6 +56,7 @@ export interface Company extends BaseInformationModel {
   rating?: number;
 
   assets_allocation?: string;
+
   trans: {
     lang: string;
     about?: string;

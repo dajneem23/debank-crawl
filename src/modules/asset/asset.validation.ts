@@ -181,6 +181,8 @@ const assetSchema = Joi.object({
 
   fundraising: Joi.string(),
 
+  community_vote: Joi.number(),
+
   token_allocation: Joi.array().items(
     Joi.object({
       name: Joi.string(),
@@ -231,6 +233,20 @@ export const AssetValidation = {
     }),
   }),
   query: validate({
+    [Segments.QUERY]: BaseQueryValidation.keys({
+      community_vote_min: Joi.number(),
+      community_vote_max: Joi.number(),
+      // market_cap_min: Joi.number(),
+      // market_cap_max: Joi.number(),
+      // fully_diluted_market_cap_min: Joi.number(),
+      // fully_diluted_market_cap_max: Joi.number(),
+      backer: Joi.string().valid(...Object.values(BACKER)),
+      development_status: Joi.string(),
+      founded_from: Joi.number(),
+      founded_to: Joi.number(),
+    }),
+  }),
+  assetMetricQuery: validate({
     [Segments.QUERY]: BaseQueryValidation.keys({
       community_vote_min: Joi.number(),
       community_vote_max: Joi.number(),

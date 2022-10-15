@@ -6,7 +6,7 @@ import AuthService from '../auth/auth.service';
 import { $pagination, $toMongoFilter, $keysToProject, $lookup, $sets, $toObjectId } from '@/utils/mongoDB';
 import { assetPriceModelToken } from '.';
 import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
-import { uniq } from 'lodash';
+import { isNil, uniq } from 'lodash';
 const TOKEN_NAME = '_assetPriceService';
 /**
  * A bridge allows another service access to the Model layer
@@ -36,7 +36,7 @@ export class AssetPriceService {
     return this.model._keys;
   }
   get assetKeys() {
-    return ['_id', 'avatar', 'rating', 'founded', 'backer', 'community_vote', 'categories'];
+    return ['_id', 'avatar', 'categories', 'rating', 'founded', 'backer', 'community_vote', 'technologies'];
   }
 
   /**
@@ -115,7 +115,20 @@ export class AssetPriceService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { categories = [], deleted = false } = _filter;
+      const {
+        categories = [],
+        deleted = false,
+        community_vote_min,
+        community_vote_max,
+        market_cap_min,
+        market_cap_max,
+        fully_diluted_market_cap_min,
+        fully_diluted_market_cap_max,
+        backer,
+        development_status,
+        founded_from,
+        founded_to,
+      } = _filter;
       const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
       const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
@@ -130,8 +143,28 @@ export class AssetPriceService {
               ...(keyword && {
                 name: { $regex: keyword, $options: 'i' },
               }),
+              ...(!isNil(market_cap_min) && {
+                'market_data.USD.market_cap': {
+                  $gte: market_cap_min,
+                },
+              }),
+              ...(!isNil(market_cap_max) && {
+                'market_data.USD.market_cap': {
+                  $lte: market_cap_max,
+                },
+              }),
+
+              ...(!isNil(fully_diluted_market_cap_max) && {
+                'market_data.USD.fully_diluted_market_cap': {
+                  $lte: fully_diluted_market_cap_max,
+                },
+              }),
+              ...(!isNil(fully_diluted_market_cap_min) && {
+                'market_data.USD.fully_diluted_market_cap': {
+                  $gte: fully_diluted_market_cap_min,
+                },
+              }),
             },
-            $addFields: this.model.$addFields.categories,
             $lookups: [
               $lookup({
                 from: 'assets',
@@ -154,28 +187,58 @@ export class AssetPriceService {
                   ...$sets(this.assetKeys),
                 },
               },
-              ...((categories.length && [
-                {
-                  $match: {
+              {
+                $match: {
+                  ...((categories.length && {
                     categories: {
                       $in: $toObjectId(categories),
                     },
-                  },
+                  }) ||
+                    {}),
+
+                  ...((!isNil(community_vote_max) && {
+                    community_vote: {
+                      $lte: community_vote_max,
+                    },
+                  }) ||
+                    {}),
+                  ...((!isNil(community_vote_min) && {
+                    community_vote: {
+                      $gte: community_vote_min,
+                    },
+                  }) ||
+                    {}),
+
+                  ...((!isNil(founded_from) && {
+                    founded: {
+                      $gte: founded_from,
+                    },
+                  }) ||
+                    {}),
+                  ...((!isNil(founded_to) && {
+                    founded: {
+                      $lte: founded_to,
+                    },
+                  }) ||
+                    {}),
+
+                  ...((backer && {
+                    backer: { $eq: backer },
+                  }) ||
+                    {}),
+
+                  ...((development_status && {
+                    'technologies.development_status': { $eq: development_status },
+                  }) ||
+                    {}),
                 },
-              ]) ||
-                []),
+              },
+
               {
                 $addFields: this.model.$addFields.categories,
               },
               {
-                ...$lookup({
-                  from: 'categories',
-                  refFrom: '_id',
-                  refTo: 'categories',
-                  select: 'title type name',
-                  reName: 'categories',
-                  operation: '$in',
-                }),
+                ...this.model.$lookups.categories,
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),

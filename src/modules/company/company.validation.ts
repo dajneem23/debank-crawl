@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
+import { LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation, COMPANY_TYPE } from '@/types';
 const coinSchema = Joi.object({
   name: Joi.string(),
 
@@ -109,7 +109,15 @@ export const CompanyValidation = {
   }),
 
   query: validate({
-    [Segments.QUERY]: BaseQueryValidation,
+    [Segments.QUERY]: BaseQueryValidation.keys({
+      funding_min: Joi.number(),
+      funding_max: Joi.number(),
+      launched_from: Joi.number(),
+      launched_to: Joi.number(),
+      tier: Joi.string(),
+      type: Joi.string(),
+      deleted: Joi.boolean(),
+    }),
   }),
   search: validate({
     [Segments.QUERY]: BaseQueryValidation,

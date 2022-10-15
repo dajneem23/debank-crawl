@@ -3,9 +3,9 @@ import Logger from '@/core/logger';
 import { toOutPut, toPagingOutput } from '@/utils/common';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $pagination, $toMongoFilter, $keysToProject, $lookup, $sets } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $keysToProject, $lookup, $sets, $toObjectId } from '@/utils/mongoDB';
 import { assetPriceModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput } from '@/types/Common';
+import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { uniq } from 'lodash';
 const TOKEN_NAME = '_assetPriceService';
 /**
@@ -116,7 +116,8 @@ export class AssetPriceService {
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { categories = [], deleted = false } = _filter;
-      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
+      const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
+      const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
           $pagination({
@@ -129,19 +130,9 @@ export class AssetPriceService {
               ...(keyword && {
                 name: { $regex: keyword, $options: 'i' },
               }),
-              // ...(categories.length && {
-              //   $or: [
-              //     {
-              //       categories: {
-              //         $in: $toObjectId(categories),
-              //       },
-              //     },
-              //   ],
-              // }),
             },
             $addFields: this.model.$addFields.categories,
             $lookups: [
-              this.model.$lookups.categories,
               $lookup({
                 from: 'assets',
                 refFrom: 'slug',
@@ -149,7 +140,6 @@ export class AssetPriceService {
                 select: this.assetKeys.join(' '),
                 reName: '_asset',
                 operation: '$eq',
-                lookup: this.model.$lookups.categories,
               }),
             ],
             $more: [
@@ -163,6 +153,29 @@ export class AssetPriceService {
                 $set: {
                   ...$sets(this.assetKeys),
                 },
+              },
+              ...((categories.length && [
+                {
+                  $match: {
+                    categories: {
+                      $in: $toObjectId(categories),
+                    },
+                  },
+                },
+              ]) ||
+                []),
+              {
+                $addFields: this.model.$addFields.categories,
+              },
+              {
+                ...$lookup({
+                  from: 'categories',
+                  refFrom: '_id',
+                  refTo: 'categories',
+                  select: 'title type name',
+                  reName: 'categories',
+                  operation: '$in',
+                }),
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),

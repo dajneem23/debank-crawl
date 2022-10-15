@@ -85,7 +85,7 @@ export class BaseModel {
         from: 'categories',
         refFrom: '_id',
         refTo: 'categories',
-        select: 'title type',
+        select: 'title type name weight',
         reName: 'categories',
         operation: '$in',
       }),
@@ -501,7 +501,7 @@ export class BaseModel {
   /**
    *  Get document
    *  @param {any[]} pipeline - pipeline
-   *  @param {AggregateOptions} options
+   *  @param {AggregateOptions} options - aggregate options
    *  @return {Promise<AggregationCursor<T>>} - AggregationCursor
    */
   get(pipeline: any[] = [], options: AggregateOptions = {}): AggregationCursor<T> {

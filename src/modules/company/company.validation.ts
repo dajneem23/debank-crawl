@@ -112,8 +112,6 @@ export const CompanyValidation = {
     [Segments.QUERY]: BaseQueryValidation.keys({
       funding_min: Joi.number(),
       funding_max: Joi.number(),
-      launched_from: Joi.number(),
-      launched_to: Joi.number(),
       tier: Joi.string(),
       type: Joi.string(),
       deleted: Joi.boolean(),

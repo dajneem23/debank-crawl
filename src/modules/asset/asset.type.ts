@@ -77,7 +77,6 @@ export interface Asset extends BaseInformationModel {
 export const _asset: Asset = {
   name: '',
   token_id: '',
-  about: '',
   avatar: '',
   categories: [],
   blockchains: [],

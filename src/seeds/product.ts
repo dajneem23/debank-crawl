@@ -6,6 +6,7 @@ import { createDataFile, readDataFromFile } from './utils';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
+import { RemoveSlugPattern } from '@/types';
 
 /* eslint-disable no-console */
 export const ProductSeed = async () => {
@@ -201,7 +202,7 @@ export const insertProducts = async () => {
     JSON.parse(fs.readFileSync(`${__dirname}/data/_products.json`, 'utf8') as any).map(async (item: any) => {
       return {
         ...item,
-        slug: slugify(item.name, { lower: true, trim: true }),
+        slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
         categories: await Promise.all(
           item.categories
             .filter(
@@ -209,45 +210,47 @@ export const insertProducts = async () => {
                 items.findIndex((item2: any) => item2.toLowerCase() == item.toLowerCase()) == index,
             )
             .map(async (_category: any): Promise<any> => {
-              return (
-                categories.find((category) => {
-                  return (
-                    category.title.toLowerCase() == _category.toLowerCase() ||
-                    category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                    _category.toLowerCase().includes(category.title.toLowerCase())
-                  );
-                })?._id ||
-                (
-                  await db.collection('categories').findOneAndUpdate(
-                    {
-                      title: { $regex: _category, $options: 'i' },
-                    },
-                    {
-                      $setOnInsert: {
-                        title: _category,
-                        type: 'product',
-                        name: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
-                        trans: [],
-                        sub_categories: [],
-                        weight: 0,
-                        deleted: false,
-                        created_at: new Date(),
-                        updated_at: new Date(),
-                        created_by: 'admin',
-                      },
-                    },
-                    {
-                      upsert: true,
-                      returnDocument: 'after',
-                    },
-                  )
-                ).value._id
-              );
+              return slugify(_category, { lower: true, trim: true, replacement: '-', remove: RemoveSlugPattern });
+
+              // return (
+              //   categories.find((category) => {
+              //     return (
+              //       category.title.toLowerCase() == _category.toLowerCase() ||
+              //       category.title.toLowerCase().includes(_category.toLowerCase()) ||
+              //       _category.toLowerCase().includes(category.title.toLowerCase())
+              //     );
+              //   })?._id ||
+              //   (
+              //     await db.collection('categories').findOneAndUpdate(
+              //       {
+              //         title: { $regex: _category, $options: 'i' },
+              //       },
+              //       {
+              //         $setOnInsert: {
+              //           title: _category,
+              //           type: 'product',
+              //           name: _category
+              //             .toLowerCase()
+              //             .match(/[a-zA-Z0-9_ ]+/g)
+              //             .join('')
+              //             .trim()
+              //             .replaceAll(' ', '_'),
+              //           trans: [],
+              //           sub_categories: [],
+              //           weight: 0,
+              //           deleted: false,
+              //           created_at: new Date(),
+              //           updated_at: new Date(),
+              //           created_by: 'admin',
+              //         },
+              //       },
+              //       {
+              //         upsert: true,
+              //         returnDocument: 'after',
+              //       },
+              //     )
+              //   ).value._id
+              // );
             }),
         ),
         cryptocurrencies: await Promise.all(

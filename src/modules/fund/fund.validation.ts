@@ -16,7 +16,7 @@ export const FundValidation = {
 
       total_amount: Joi.number().min(0),
 
-      total_investments: Joi.number().min(0),
+      // total_investments: Joi.number().min(0),
 
       type: Joi.string().valid(...Object.values(COMPANY_TYPE)),
 

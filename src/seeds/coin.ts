@@ -137,54 +137,56 @@ export const insertCoins = async () => {
           slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
           categories: await Promise.all(
             item.categories.map(async (_category: any): Promise<any> => {
-              return (
-                categories.find((category) => {
-                  return (
-                    category.title.toLowerCase() == _category.toLowerCase() ||
-                    category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                    _category.toLowerCase().includes(category.title.toLowerCase())
-                  );
-                })?._id ||
-                (
-                  await db.collection('categories').findOneAndUpdate(
-                    {
-                      name: {
-                        $regex: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
-                        $options: 'i',
-                      },
-                    },
-                    {
-                      $setOnInsert: {
-                        title: _category,
-                        type: 'crypto_asset',
-                        name: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
-                        trans: [],
-                        sub_categories: [],
-                        weight: 0,
-                        deleted: false,
-                        created_at: new Date(),
-                        updated_at: new Date(),
-                        created_by: 'admin',
-                        rank: 0,
-                      },
-                    },
-                    {
-                      upsert: true,
-                      returnDocument: 'after',
-                    },
-                  )
-                ).value._id
-              );
+              return slugify(_category, { lower: true, trim: true, replacement: '-', remove: RemoveSlugPattern });
+
+              // return (
+              //   categories.find((category) => {
+              //     return (
+              //       category.title.toLowerCase() == _category.toLowerCase() ||
+              //       category.title.toLowerCase().includes(_category.toLowerCase()) ||
+              //       _category.toLowerCase().includes(category.title.toLowerCase())
+              //     );
+              //   })?._id ||
+              //   (
+              //     await db.collection('categories').findOneAndUpdate(
+              //       {
+              //         name: {
+              //           $regex: _category
+              //             .toLowerCase()
+              //             .match(/[a-zA-Z0-9_ ]+/g)
+              //             .join('')
+              //             .trim()
+              //             .replaceAll(' ', '_'),
+              //           $options: 'i',
+              //         },
+              //       },
+              //       {
+              //         $setOnInsert: {
+              //           title: _category,
+              //           type: 'crypto_asset',
+              //           name: _category
+              //             .toLowerCase()
+              //             .match(/[a-zA-Z0-9_ ]+/g)
+              //             .join('')
+              //             .trim()
+              //             .replaceAll(' ', '_'),
+              //           trans: [],
+              //           sub_categories: [],
+              //           weight: 0,
+              //           deleted: false,
+              //           created_at: new Date(),
+              //           updated_at: new Date(),
+              //           created_by: 'admin',
+              //           rank: 0,
+              //         },
+              //       },
+              //       {
+              //         upsert: true,
+              //         returnDocument: 'after',
+              //       },
+              //     )
+              //   ).value._id
+              // );
             }),
           ),
         };

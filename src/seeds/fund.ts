@@ -222,7 +222,7 @@ export const FundSeed = async () => {
         id: foreign_id,
         about = '',
         name,
-        avatars = [],
+        // avatars = [],
         avatar = '',
         posts = [],
         total_amount = 0,
@@ -259,7 +259,7 @@ export const FundSeed = async () => {
             remove: RemoveSlugPattern,
           }),
           categories: [...new Set(categories)],
-          avatars,
+          // avatars,
           avatar,
           posts,
           total_amount,
@@ -316,7 +316,7 @@ export const fundInvestment = async () => {
       ...rest,
       foreign_id,
       investments,
-      total_investments: investments.length,
+      // total_investments: investments.length,
     };
   });
   fs.writeFileSync(`${__dirname}/data/_funds.json`, JSON.stringify(fundsFinal));

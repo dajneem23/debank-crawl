@@ -111,7 +111,7 @@ export const CoinMarketCapAPI = {
    * @param  {Object} - { params,endpoint }
    * @returns {Promise} - { data }
    */
-  async fetchCoinMarketCapAPI({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+  fetchCoinMarketCapAPI({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
     return axios.get(`${CoinMarketCapAPI.HOST}${endpoint}`, {
       params,
       headers: {

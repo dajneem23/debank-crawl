@@ -1,0 +1,28 @@
+version: '3.5'
+networks:
+  host:
+    driver: host
+services:
+  redis:
+    redis:
+    image: redis:6-alpine
+    restart: always
+    ports:
+      - 63790:6379
+    command: redis-server --save 20 1 --loglevel warning
+
+  api-wikiblock:
+    image: registry.digitalocean.com/wikiblock/wikiblock-backend-staging:latest
+    network_mode: host
+    hostname: api.dev
+    restart: always
+    domainname: wikiblock.pro
+    build: .
+    volumes:
+      - '.:/app'
+    ports:
+      - '9001:9001'
+    depends_on:
+      - redis
+volumes:
+  pgdata:

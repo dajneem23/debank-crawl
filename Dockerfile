@@ -11,9 +11,12 @@ RUN yarn --pure-lockfile
 
 # Copy all file from current dir to /app in container
 COPY . .
+ARG ENV_VARS
+ENV ENV_VARS=$ENV_VARS
+RUN echo $ENV_VARS >env.local.json
 
 # Expose port
-EXPOSE 5050
+EXPOSE 9001
 
 # Start service
 CMD [ "yarn", "start" ]

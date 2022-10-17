@@ -17,7 +17,9 @@ on:
 env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
   IMAGE_NAME: 'wikiblock-backend'
-  DEBUG: false
+  APP_ENV: 'staging'
+  APP_NAME: 'wikiblock'
+  API_PREFIX: ''
 
 #3
 jobs:
@@ -28,7 +30,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build container image
-        run: docker build --build-arg ENV_VARS='${{ secrets.MONGO }}' -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest .
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -42,7 +44,7 @@ jobs:
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,7 +59,6 @@ jobs:
           key: ${{ secrets.DIGITALOCEAN_SECRET_SSH_KEY }}
           passphrase: ${{ secrets.DIGITALOCEAN_PASSPHRASE }}
           envs: IMAGE_NAME,REGISTRY,{{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA,{{secrets.MONGO}}
-          script_stop: true
           script: |
             # Login to registry
             docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
@@ -65,11 +66,8 @@ jobs:
             docker stop $(echo $IMAGE_NAME)
             # Remove old container
             docker rm $(echo $IMAGE_NAME)
-            docker container prune -f
-            docker image prune -f
             # Run a new container from a new image
             docker run -d \
-            -p 127.0.0.1:9001:9001 \
             --restart always \
             --name $(echo $IMAGE_NAME) \
-            $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
+            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)

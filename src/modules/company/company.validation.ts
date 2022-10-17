@@ -1,6 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
+import { LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
 const coinSchema = Joi.object({
   name: Joi.string(),
 
@@ -49,6 +48,8 @@ const coinSchema = Joi.object({
   team: Joi.array().items(Joi.object()),
 
   short_description: Joi.string(),
+
+  recent_twitter: Joi.string(),
 
   urls: urlsValidation,
 

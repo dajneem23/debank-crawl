@@ -19,9 +19,14 @@ export const CompanySeed = async () => {
   });
   const db = Container.get(DIMongoDB);
   const collection = db.collection('companies');
-  const count = await $countCollection({ collection });
+  // const count = await $countCollection({ collection });
   const categories = await db.collection('categories').find({}).toArray();
-  if (count) return;
+  // if (count) return;
+
+  const tableSchemaCryptoCompanies = (InvestorAirtable as any).data.tableSchemas[4];
+  const tableSchemaInvestors = (InvestorAirtable as any).data.tableSchemas[3];
+  const tableSchemaAngelInvestors = (InvestorAirtable as any).data.tableSchemas[13];
+  const tableDatas = (InvestorAirtable as any).data.tableDatas[0].rows;
   const companies = readDataFromFile({ _collection: 'companies' }).map((_company: any) => {
     return {
       name:
@@ -49,7 +54,7 @@ export const CompanySeed = async () => {
           _company.bitcoin_talk[0] &&
           [_company.bitcoin_talk[0]['bitcointalk-href']].filter(Boolean),
         facebook: _company.facebook && _company.facebook[0] && [_company.facebook[0]['facebook-href']].filter(Boolean),
-        youtube: _company.youtube && _company.youtube[0] && _company.youtube[0]['youtube-href'],
+        youtube: _company.youtube && _company.youtube[0] && [_company.youtube[0]['youtube-href']].filter(Boolean),
         blog: _company.blog && _company.blog[0] && [_company.blog[0]['blog-href']].filter(Boolean),
         github: _company.github && _company.github[0] && [_company.github[0]['github-href']].filter(Boolean),
         reddit: _company.reddit && _company.reddit[0] && [_company.reddit[0]['reddit-href']].filter(Boolean),
@@ -156,7 +161,8 @@ export const CompanySeed = async () => {
   });
 
   const airtableCompanies = (cryptoCompaniesFile as any).data.rows
-    .reduce((companies: any, row: any) => {
+    .reduce((companies: any, row: any, rows: any[]) => {
+      // console.log({ rows: (cryptoCompaniesFile as any).data.rows });
       const {
         cellValuesByColumnId: {
           fldYopilw6pRY334s: name,
@@ -171,12 +177,15 @@ export const CompanySeed = async () => {
           fld9wtb94DoZO3bHI: company_investors,
           fldiHg3cVQbfR2FRq,
           flddkP6oXlI26fizf,
+          fldQnKGzZOW0dnf0D,
           fldfmA70dMP31b9Rq: total_amount,
           fldRX4OjNm9Ul1Dyp,
           fldFSvhqgXnNA8Llz,
+          fldK0vbIANJe4oZgL: token,
         },
         id,
       } = row;
+      // console.log({ token });
       const fldQG6489r2BIckRi_Key = fldQG6489r2BIckRi?.includes('discord') ? 'discord' : 'telegram' || 'telegram';
       const websites = fldiL1KEOZO4MHcvW
         ? Object.values(fldiL1KEOZO4MHcvW.valuesByForeignRowId).filter(
@@ -190,21 +199,77 @@ export const CompanySeed = async () => {
       const fundraising_rounds =
         fldiHg3cVQbfR2FRq?.map((item: any) => {
           const {
-            cellValuesByColumnId: { fldjd43zfXdpAWzaq = [], fldT0Fasv4hkjwbb3 = [], fldruqJ51OKbiswEI: projects = [] },
+            cellValuesByColumnId: {
+              fldjd43zfXdpAWzaq = [],
+              fldT0Fasv4hkjwbb3 = [],
+              fldhntVnAppLIOUAl: investors = [],
+              fldruqJ51OKbiswEI: projects = [],
+              fld8ZuXfzyuH1b9Dv: website,
+              fldJHMHegLEl2A56n: about,
+              fldSGmVP3olLGmAID: date,
+              fldZpYosKMqtY2nqQ: founders = [],
+              fldcDMf8A5D64Ecdf: announcement,
+            },
           } = (fundraisingRoundsFile as any).data.rows.find((round: any) => round.id == item.foreignRowId);
+
           return {
             round_id: item.foreignRowId,
             stage: item.foreignRowDisplayName.split('-').at(-1).trim(),
             round_name: item.foreignRowDisplayName,
+            about,
+            date,
+            announcement,
+            founders: founders.map(({ foreignRowId, foreignRowDisplayName }: any) => {
+              return {
+                foreign_id: foreignRowId,
+                name: foreignRowDisplayName,
+              };
+            }),
+            investors: investors.map(({ foreignRowId, foreignRowDisplayName }: any) => {
+              const {
+                cellValuesByColumnId: {
+                  fldNJrXhATbXWYaPV: twitter,
+                  fldd6JgLkLn5Zi1QY: avatars,
+                  fldYxidGVWXbbBlvN: contact,
+                  fld8ZuXfzyuH1b9Dv: investor_website,
+                },
+              } = tableDatas.find((investor: any) => investor.id === foreignRowId) || {};
+
+              const contact_Key = contact?.includes('discord') ? 'discord' : 'telegram' || 'telegram';
+              return {
+                foreign_id: foreignRowId,
+                name: foreignRowDisplayName,
+                avatar: avatars?.[0]?.url,
+                urls: {
+                  twitter: [twitter].filter(Boolean),
+                  [contact_Key]: [contact].filter(Boolean),
+                  [contact_Key == 'discord' ? 'telegram' : 'discord']: [],
+                  website: [investor_website].filter(Boolean),
+                } as any,
+              };
+            }),
+            urls: {
+              website,
+            },
             amount: fldRX4OjNm9Ul1Dyp?.valuesByForeignRowId[item.foreignRowId] || 0,
             categories: [
               ...fldjd43zfXdpAWzaq.map((item: any) => item.foreignRowDisplayName),
               ...fldT0Fasv4hkjwbb3.map((item: any) => item.foreignRowDisplayName),
             ],
-            projects: projects.flatMap((item: any) => {
+            projects: projects.flatMap(({ foreignRowId, foreignRowDisplayName }: any) => {
+              const {
+                cellValuesByColumnId: { fldfxvX3xyd1uBTM4: twitter, fldQG6489r2BIckRi: contact, fldXIqyTI8vVF00vs },
+              } = (cryptoCompaniesFile as any).data.rows.find((company: any) => company.id === foreignRowId) || {};
+              const contact_Key = contact?.includes('discord') ? 'discord' : 'telegram' || 'telegram';
               return {
-                foreign_id: item.foreignRowId,
-                name: item.foreignRowDisplayName,
+                foreign_id: foreignRowId,
+                name: foreignRowDisplayName,
+                avatar: fldXIqyTI8vVF00vs ? fldXIqyTI8vVF00vs[0].url : '',
+                urls: {
+                  twitter: [twitter].filter(Boolean),
+                  [contact_Key]: [contact].filter(Boolean),
+                  [contact_Key == 'discord' ? 'telegram' : 'discord']: [],
+                } as any,
               };
             }),
           };
@@ -251,10 +316,24 @@ export const CompanySeed = async () => {
               return [...acc, current];
             }, []),
           person_investors: (
-            fldFSvhqgXnNA8Llz?.map((investor: any) => {
+            fldFSvhqgXnNA8Llz?.map(({ foreignRowId, foreignRowDisplayName }: any) => {
+              const {
+                cellValuesByColumnId: {
+                  fldj5t3yMdaLI3KtM: twitter,
+                  flduTkjX7gWZXGV9E: contact,
+                  fldJsLm2w5mTLnBuP: avatars,
+                },
+              } = (AngelInvestorAirtable as any).data.rows.find((item: any) => item.id === foreignRowId);
+              const contact_Key = contact?.includes('discord') ? 'discord' : 'telegram' || 'telegram';
               return {
-                foreign_id: investor.foreignRowId,
-                name: investor.foreignRowDisplayName,
+                foreign_id: foreignRowId,
+                name: foreignRowDisplayName,
+                avatar: avatars?.[0]?.url || '',
+                urls: {
+                  twitter: [twitter].filter(Boolean),
+                  [contact_Key]: [contact].filter(Boolean),
+                  [contact_Key == 'discord' ? 'telegram' : 'discord']: [],
+                } as any,
               };
             }) || []
           )
@@ -274,6 +353,101 @@ export const CompanySeed = async () => {
               return [...acc, current];
             }, []),
           company_investors: [
+            ...[
+              ...(fundraisingRoundsFile as any).data.rows
+                .filter((round: any) => {
+                  return fundraising_rounds_ids.includes(round.id);
+                })
+                .reduce((current: any, round: any) => {
+                  return [
+                    ...current,
+                    ...(round.cellValuesByColumnId.fldhntVnAppLIOUAl?.map((item: any) => {
+                      const {
+                        cellValuesByColumnId: {
+                          fldNJrXhATbXWYaPV: twitter,
+                          fldYxidGVWXbbBlvN: linkedin,
+                          fld5Ampq1nE4ddQCZ: website,
+                          fldd6JgLkLn5Zi1QY: avatars,
+                        },
+                      } = (InvestorAirtable as any).data.tableDatas[0].rows.find((_item: any) => {
+                        return _item.id == item.foreignRowId;
+                      });
+                      return {
+                        round_id: round.id,
+                        foreign_id: item.foreignRowId,
+                        name: item.foreignRowDisplayName,
+                        rounds: [round.id],
+                        avatar: avatars?.[0]?.url || '',
+                        urls: {
+                          linkedin,
+                          twitter,
+                          website,
+                        },
+                      };
+                    }) || []),
+                  ];
+                }, []),
+              ...(company_investors?.map(({ foreignRowId, foreignRowDisplayName }: any) => {
+                const {
+                  cellValuesByColumnId: {
+                    fldNJrXhATbXWYaPV: twitter,
+                    fldYxidGVWXbbBlvN: linkedin,
+                    fld5Ampq1nE4ddQCZ: website,
+                    fldd6JgLkLn5Zi1QY: avatars,
+                  },
+                } = (InvestorAirtable as any).data.tableDatas[0].rows.find((item: any) => item.id == foreignRowId);
+                return {
+                  foreign_id: foreignRowId,
+                  name: foreignRowDisplayName,
+                  avatar: avatars?.[0]?.url || '',
+                  urls: {
+                    linkedin,
+                    twitter,
+                    website,
+                  },
+                };
+              }) || []),
+            ]
+              .reduce((current: any, item: any) => {
+                if (!current.find((i: any) => i.foreign_id === item.foreign_id)) {
+                  return [...current, item];
+                } else {
+                  return current;
+                }
+              }, [])
+              .reduce((acc: any, current: any) => {
+                if (acc.some((item: any) => item.name === current.name) && current.round_id) {
+                  const item = acc.find((item: any) => item.name === current.name);
+                  item.rounds = [...new Set([...item.rounds, current.round_id])];
+                  return acc;
+                }
+                return [...acc, current];
+              }, []),
+          ],
+          investors: [
+            ...(
+              fldFSvhqgXnNA8Llz?.map((investor: any) => {
+                return {
+                  foreign_id: investor.foreignRowId,
+                  name: investor.foreignRowDisplayName,
+                };
+              }) || []
+            )
+              .reduce((current: any, item: any) => {
+                if (!current.find((i: any) => i.foreign_id === item.foreign_id)) {
+                  return [...current, item];
+                } else {
+                  return current;
+                }
+              }, [])
+              .reduce((acc: any, current: any) => {
+                if (acc.some((item: any) => item.name === current.name) && current.round_id) {
+                  const item = acc.find((item: any) => item.name === current.name);
+                  item.rounds = [...new Set([...item.rounds, current.round_id])];
+                  return acc;
+                }
+                return [...acc, current];
+              }, []),
             ...[
               ...(fundraisingRoundsFile as any).data.rows
                 .filter((round: any) => {
@@ -315,25 +489,23 @@ export const CompanySeed = async () => {
                 return [...acc, current];
               }, []),
           ],
-          cryptocurrencies: Object.keys(flddkP6oXlI26fizf?.valuesByForeignRowId || {}).map((key: any) => {
-            return (
-              flddkP6oXlI26fizf?.valuesByForeignRowId[key] != 'N/A' && flddkP6oXlI26fizf?.valuesByForeignRowId[key]
-            );
+          blockchains: Object.keys(flddkP6oXlI26fizf?.valuesByForeignRowId || {}).map((key: any) => {
+            return flddkP6oXlI26fizf?.valuesByForeignRowId[key];
           }),
-          fundraising_rounds: fundraising_rounds.map((item: any) => {
-            const { categories, projects, ...rest } = item;
+          fundraising_rounds: fundraising_rounds.map(({ categories, projects, ...rest }: any) => {
             return rest;
           }),
-          projects: fundraising_rounds.map((item: any) => {
-            const { categories, projects = [], ...rest } = item;
+          projects: fundraising_rounds.map(({ categories, projects = [], ...rest }: any) => {
             return projects;
           }),
           categories: fundraising_rounds
-            .map((item: any) => {
-              return item.categories;
+            .map(({ categories }: any) => {
+              return categories;
             })
             .flat()
             .filter((item: any, index: any, self: any) => index === self.findIndex((t: any) => t === item)),
+
+          token: tableSchemaCryptoCompanies.columns[2].typeOptions.choices[token]?.name,
         },
       ];
     }, [])
@@ -345,48 +517,6 @@ export const CompanySeed = async () => {
         ...rest,
       };
     });
-  // const airtableUniqueCompanies = airtableCompanies.filter(
-  //   (company: any, index: any, self: any) => index === self.findIndex((t: any) => t.name === company.name),
-  // );
-  const angelInvestors = await Promise.all(
-    (AngelInvestorAirtable as any).data.rows
-      .map((person: any) => {
-        const {
-          cellValuesByColumnId: {
-            fldjKwS1jKgY2myrS: location = [],
-            fldj5t3yMdaLI3KtM: twitter = '',
-            flduTkjX7gWZXGV9E: linkedin = '',
-            fldJsLm2w5mTLnBuP: avatar = [],
-            fldKYOWLOKiztp8zY: category,
-            fldZYofoqxl8MMpit: company,
-            fldyGkCKPKGZtfAPb: name = 'N/A',
-            fldMXngpMRns0HfyZ: email = '',
-          },
-          id,
-        } = person;
-        return {
-          id,
-          name,
-          location: location[0]?.foreignRowDisplayName || '',
-          avatar: avatar[0]?.url || '',
-          urls: {
-            twitter: [twitter].filter(Boolean),
-            linkedin: [linkedin].filter(Boolean),
-          },
-          company,
-          email,
-          categories: [category].filter(Boolean),
-          type: 'persons',
-        };
-      })
-      .map(async (item: any) => {
-        const { id: foreign_id, ...rest } = item;
-        return {
-          foreign_id,
-          ...rest,
-        };
-      }),
-  );
   const investors = (InvestorAirtable as any).data.tableDatas[0].rows
     .map((investor: any) => {
       const {
@@ -394,26 +524,83 @@ export const CompanySeed = async () => {
         cellValuesByColumnId: {
           fldNJrXhATbXWYaPV: twitter,
           fldYxidGVWXbbBlvN: linkedin,
+          fld5Ampq1nE4ddQCZ: website,
           fld2kiwtDqHbHa0bk: name,
           fldgBla8AxoEeCFU8: email = '',
           fldd6JgLkLn5Zi1QY: [{ url } = { url: '' }] = [],
+          fldeCMQuCqjLHkyV7: anum,
+          fldJr5Fntx0LD7Lrt: type,
+          fldtCm97edmk0HPEC: year_founded,
+          fldNouMK7qhaghYN1: [
+            { foreignRowDisplayName: location } = {
+              foreignRowDisplayName: 'N/A',
+            },
+          ] = [],
+          fldlDOWPWSMAWL0Nd: portfolio_companies = [],
+          fldH5HxvrtaYV0Kth: total_portfolio_companies = 0,
+          fldmoOusFnNm07r5v: investment_fundraising_rounds = [],
+          fldrHBVHyxFD6awkv: actively_investing,
         },
       } = investor;
-      const type = angelInvestors.some((person: any) => person.name.toLowerCase() == name.toLowerCase())
-        ? 'persons'
-        : 'companies';
+      // const type = angelInvestors.some((person: any) => person.name.toLowerCase() == name.toLowerCase())
+      //   ? 'persons'
+      //   : 'companies';
       return {
         id,
         name,
         urls: {
           twitter: [twitter].filter(Boolean),
           linkedin: [linkedin].filter(Boolean),
+          website: [website].filter(Boolean),
         },
+        actively_investing: tableSchemaInvestors.columns[5].typeOptions.choices[actively_investing]?.name,
+        anum: tableSchemaInvestors.columns[3].typeOptions.choices[anum]?.name,
+        year_founded,
+        total_portfolio_companies,
+        location,
         email,
         avatar: url,
-        categories: ['Investor'],
-        type,
-        need_review: type == 'companies',
+        categories: ['Investor', tableSchemaAngelInvestors.columns[6].typeOptions.choices[type]?.name].filter(Boolean),
+        type: tableSchemaAngelInvestors.columns[6].typeOptions.choices[type]?.name,
+        // need_review: type == 'companies',
+        portfolio_companies: portfolio_companies.map(({ foreignRowDisplayName, foreignRowId }: any) => {
+          const {
+            cellValuesByColumnId: {
+              fldfxvX3xyd1uBTM4: twitter,
+              fldQG6489r2BIckRi: contact,
+              fldXIqyTI8vVF00vs: avatars = [],
+              fldK0vbIANJe4oZgL: token,
+              fldiL1KEOZO4MHcvW,
+            },
+          } = (cryptoCompaniesFile as any).data.rows.find((company: any) => company.id == foreignRowId);
+          const contact_Key = contact?.includes('discord') ? 'discord' : 'telegram' || 'telegram';
+
+          const website = fldiL1KEOZO4MHcvW
+            ? Object.values(fldiL1KEOZO4MHcvW.valuesByForeignRowId).filter(
+                (website: any, index: any, self: any) => index === self.findIndex((t: any) => t === website),
+              )
+            : [];
+          return {
+            name: foreignRowDisplayName,
+            foreign_id: foreignRowId,
+            avatar: avatars?.[0]?.url || '',
+            token: tableSchemaCryptoCompanies.columns[2].typeOptions.choices[token]?.name,
+            urls: {
+              twitter: [twitter].filter(Boolean),
+              [contact_Key]: [contact].filter(Boolean),
+              [contact_Key == 'discord' ? 'telegram' : 'discord']: [],
+              website,
+            } as any,
+          };
+        }),
+        investment_fundraising_rounds: investment_fundraising_rounds.map(
+          ({ foreignRowDisplayName, foreignRowId }: any) => {
+            return {
+              name: foreignRowDisplayName,
+              foreign_id: foreignRowId,
+            };
+          },
+        ),
       };
     })
     .map((item: any) => {
@@ -425,7 +612,11 @@ export const CompanySeed = async () => {
     })
     .reduce((acc: any, item: any) => {
       const { type } = item;
-      acc[type] = [...(acc[type] || []), item];
+      if (type == 'Angel Investor') {
+        acc['persons'] = [...(acc['persons'] || []), item];
+      } else {
+        acc['companies'] = [...(acc['companies'] || []), item];
+      }
       return acc;
     }, {});
 
@@ -449,6 +640,22 @@ export const CompanySeed = async () => {
           [lowerName]: {
             ...((current[lowerName] && {
               ...Object.keys({ ...rest, ...current[lowerName] }).reduce((acc: any, key: any) => {
+                if (key == 'urls') {
+                  acc = {
+                    ...acc,
+                    urls: {
+                      ...Object.keys(current[lowerName].urls).reduce((acc: any, key: any) => {
+                        return {
+                          ...acc,
+                          [key]: [...new Set([...(current[lowerName].urls[key] || []), ...(rest.urls[key] || [])])],
+                        };
+                      }, {}),
+                    },
+                  };
+                  delete rest.urls;
+                  return acc;
+                }
+
                 if (
                   !!current[lowerName][key] ||
                   (Array.isArray(current[lowerName][key]) && current[lowerName][key].length)
@@ -603,6 +810,7 @@ export const CompanySeed = async () => {
           metadata,
           need_review,
           reviewed,
+          // type,
           projects: projects.flat().filter(({ foreign_id }: any, index: any) => {
             return projects.flat().findIndex((item: any) => item.foreign_id == foreign_id) == index;
           }),
@@ -638,7 +846,16 @@ export const CompanySeed = async () => {
               ..._item.investors?.reduce(
                 (total: any, investor: any) => [
                   ...total,
-                  ...(foreign_ids.includes(investor.foreign_id) ? [_item.foreign_id] : []),
+                  ...(foreign_ids.includes(investor.foreign_id)
+                    ? [
+                        {
+                          foreign_id: _item.foreign_id,
+                          avatar: _item.avatar,
+                          name: _item.name,
+                          urls: _item.urls,
+                        },
+                      ]
+                    : []),
                 ],
                 [],
               ),
@@ -686,9 +903,11 @@ export const companyInvestment = async () => {
                   .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
             ) && rest.foreign_id,
         )
-        .map(({ foreign_id, name }: any) => ({
+        .map(({ foreign_id, name, avatar, urls }: any) => ({
           foreign_id,
           name,
+          avatar,
+          urls,
           type: 'funds',
         }))
         .filter((_item: any, index: any, items: any) => {
@@ -706,8 +925,9 @@ export const companyInvestment = async () => {
                   .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
             ) && rest.foreign_id,
         )
-        .map(({ foreign_id, name: investor_name }: any) => ({
+        .map(({ foreign_id, name: investor_name, avatar }: any) => ({
           foreign_id,
+          avatar,
           name: investor_name,
           type: 'company',
         }))
@@ -735,6 +955,7 @@ export const insertCompanies = async () => {
   const companiesFinal = await Promise.all(
     JSON.parse(fs.readFileSync(`${__dirname}/data/_companies.json`, 'utf8') as any).map(
       async (item: any, index: any, items: any[]) => {
+        delete item.investors;
         return {
           ...item,
           slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
@@ -775,19 +996,9 @@ export const insertCompanies = async () => {
                           title: _category,
                           type: 'company',
                           name: slugify(_category, { lower: true, trim: true, replacement: '_' }),
-                          acronym: _category
-                            .toLowerCase()
-                            .match(/[a-zA-Z0-9_ ]+/g)
-                            .join('')
-                            .trim()
-                            .split(' ')
-                            .map((word: any, _: any, list: any) => {
-                              return list.length > 1 ? word[0] : list.slice(0, 1);
-                            })
-                            .join(''),
                           trans: [],
                           sub_categories: [],
-                          weight: Math.floor(Math.random() * 100),
+                          weight: 0,
                           deleted: false,
                           created_at: new Date(),
                           updated_at: new Date(),
@@ -839,18 +1050,8 @@ export const insertCompanies = async () => {
                                   title: _category,
                                   type: 'company',
                                   name: slugify(_category, { lower: true, trim: true, replacement: '_' }),
-                                  acronym: _category
-                                    .toLowerCase()
-                                    .match(/[a-zA-Z0-9_ ]+/g)
-                                    .join('')
-                                    .trim()
-                                    .split(' ')
-                                    .map((word: any, _: any, list: any) => {
-                                      return list.length > 1 ? word[0] : list.slice(0, 1);
-                                    })
-                                    .join(''),
                                   sub_categories: [],
-                                  weight: Math.floor(Math.random() * 100),
+                                  weight: 0,
                                   deleted: false,
                                   created_at: new Date(),
                                   updated_at: new Date(),

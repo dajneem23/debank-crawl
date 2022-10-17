@@ -168,19 +168,9 @@ export const insertCoins = async () => {
                           .join('')
                           .trim()
                           .replaceAll(' ', '_'),
-                        acronym: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .split(' ')
-                          .map((word: any, _: any, list: any) => {
-                            return list.length > 1 ? word[0] : list.slice(0, 1);
-                          })
-                          .join(''),
                         trans: [],
                         sub_categories: [],
-                        weight: Math.floor(Math.random() * 100),
+                        weight: 0,
                         deleted: false,
                         created_at: new Date(),
                         updated_at: new Date(),

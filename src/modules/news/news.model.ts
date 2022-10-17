@@ -37,9 +37,6 @@ export class NewsModel extends BaseModel {
           field: {
             'trans.slug': 1,
           },
-          options: {
-            unique: true,
-          },
         },
         {
           field: {

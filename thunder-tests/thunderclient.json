@@ -213,20 +213,17 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
     "name": "Login",
-    "url": "{{host}}/auth/login",
+    "url": "{{host}}/public/auth/login",
     "method": "POST",
     "sortNum": 80000,
     "created": "2022-08-30T09:07:12.400Z",
-    "modified": "2022-09-13T07:30:26.628Z",
+    "modified": "2022-10-14T04:24:43.063Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
       "raw": "{\n    \"username\":\"admin@gmail.com\",\n    \"password\":\"admin@1foxglobal!123\"\n}",
       "form": []
-    },
-    "auth": {
-      "type": "bearer"
     },
     "tests": []
   },
@@ -1011,21 +1008,21 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "aaf8fe8c-7541-47db-aa7d-dfb97d9539d9",
     "name": "create",
-    "url": "{{host}}/news",
+    "url": "{{host}}/private/news/",
     "method": "POST",
     "sortNum": 260000,
     "created": "2022-08-30T09:07:12.433Z",
-    "modified": "2022-09-22T02:38:32.239Z",
+    "modified": "2022-10-14T04:35:14.609Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"photos\": [\n        \"https://cryptoslate.com/wp-content/themes/cryptoslate-2020/imgresize/timthumb.php?src=https://cryptoslate.com/wp-content/uploads/2022/05/coinbase-crypto.jpg&w=600&h=315&q=75\"\n    ],\n    \"categories\": [\"6327d633cda8ec055530eb4e\"],\n    \"source\": \"https://cryptoslate.com/using-share-of-trade-volume-sotv-to-assess-dexs/\",\n    \"keywords\": [],\n    \"number_relate_article\": 2,\n    \"title\": \"vua tao 90 ngay \",\n    \"summary\": \"Inery Acquires Investment From Metavest at $128m Valuation\",\n    \"content\": \"Leading cryptocurrency exchange, Coinbase has launched a new Coinbase Institute to advance policy debate around crypto and the future of Web3. The institute is focused on providing research, analysis, and insights about the Web3 space.According to the official Coinbase website, the institute is designed to bring together leaders across a range of subjects to “fuel progress on decentralization, web3, and the future of finance”. It is centered around four key pillars which include: conducting and publishing research, hosting collaborative discussions with experts, foraging partnerships with institutions, and advancing public knowledge of crypto and Web3. \",\n    \"headings\": [\n        \"New research reports\"\n    ],\n    \"trans\": [\n        {\n            \"title\": \"6327d633cda8ec055530eb4e vi\",\n            \"summary\": \"Ngày Ethereum hợp nhất với Proof-of-sake có thể là thời điểm quan trọng nhất đối với tương lai của Internet\",\n            \"content\": \"Sàn giao dịch tiền điện tử hàng đầu, Coinbase đã ra mắt Viện Coinbase mới để thúc đẩy cuộc tranh luận về chính sách xung quanh tiền điện tử và tương lai của Web3. Viện tập trung vào việc cung cấp các nghiên cứu, phân tích và hiểu biết sâu sắc về không gian Web3. tài chính. Nó tập trung xung quanh bốn trụ cột chính bao gồm: tiến hành và xuất bản nghiên cứu, tổ chức các cuộc thảo luận hợp tác với các chuyên gia, thúc đẩy quan hệ đối tác với các tổ chức và nâng cao kiến thức công khai về tiền điện tử và Web3. \",\n            \"headings\": [\n                \"Báo cáo nghiên cứu mới\"\n            ],\n            \"lang\": \"vi\"\n        }\n    ]\n}",
+      "raw": "{\n    \"title\": \"fafsfaf111\",\n    \"summary\": \"fsafs\",\n    \"categories\": [\n        \"6346485a0865b3e9b49f4501\",\n        \"6346485a0865b3e9b49f44e4\",\n        \"6346485a0865b3e9b49f44c1\",\n        \"6346485a0865b3e9b49f44ad\",\n        \"6346485a0865b3e9b49f44bd\",\n        \"6346485a0865b3e9b49f44a0\",\n        \"6346485a0865b3e9b49f44a8\",\n        \"6346485a0865b3e9b49f44b0\",\n        \"6346485a0865b3e9b49f44b5\"\n    ],\n    \"company_tags\": [\n        \"63464af2381f377633e5fa25\",\n        \"63464af2381f377633e5fa83\",\n        \"63464af2381f377633e5ff04\"\n    ],\n    \"coin_tags\": [\n        \"63464aeb381f377633e5dbd2\",\n        \"63464aeb381f377633e5dcf8\",\n        \"63464aeb381f377633e5de11\",\n        \"63464aeb381f377633e5de25\",\n        \"63464aeb381f377633e5de4c\",\n        \"63464aeb381f377633e5df62\",\n        \"63464aeb381f377633e5def3\",\n        \"63464aeb381f377633e5dffb\",\n        \"63464aeb381f377633e5e0ba\"\n    ],\n    \"product_tags\": [\n        \"63464aeb381f377633e5dbd2\",\n        \"63464aeb381f377633e5dcf8\",\n        \"63464aeb381f377633e5de11\",\n        \"63464aeb381f377633e5de25\",\n        \"63464aeb381f377633e5de4c\",\n        \"63464aeb381f377633e5df62\",\n        \"63464aeb381f377633e5def3\",\n        \"63464aeb381f377633e5dffb\",\n        \"63464aeb381f377633e5e0ba\"\n    ],\n    \"person_tags\": [\n        \"63464aee381f377633e5e589\",\n        \"63464aee381f377633e5e56e\",\n        \"63464aee381f377633e5e580\",\n        \"63464aee381f377633e5e54e\",\n        \"63464aee381f377633e5e56b\",\n        \"63464aee381f377633e5e54d\"\n    ],\n    \"content\": \"<p>afsffsfs</p>\"\n}",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2Mjk4MTMyMiwiZXhwIjoxNjYzODQ1MzIyfQ.S4Kgb9_wHy5HmDb_mXUYJxxO_gf7rZRrP-HjaHsiCBk"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJhZG1pbiIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY2NTcyMTQ4MiwiZXhwIjoxNjY2NTg1NDgyfQ.KV3jAN5uyb4xrWCaRdikZ40A9JIo-6I-8W6rvooOO-8"
     },
     "tests": []
   },
@@ -1684,16 +1681,16 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "d89afff6-3a8a-45cf-8db6-d1e296a1c3d4",
     "name": "search",
-    "url": "{{host}}/categories/search/?q=Gui",
+    "url": "{{host}}/public/categories/search/?keyword=",
     "method": "GET",
     "sortNum": 480000,
     "created": "2022-09-15T02:04:52.411Z",
-    "modified": "2022-09-15T02:11:55.030Z",
+    "modified": "2022-10-14T07:22:53.732Z",
     "headers": [],
     "params": [
       {
-        "name": "q",
-        "value": "Gui",
+        "name": "keyword",
+        "value": "",
         "isPath": false
       }
     ],

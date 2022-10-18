@@ -26,6 +26,7 @@ const LOCAL_ENV_FILEPATH = './env.local.json';
 /**
  * ENV config
  */
+console.log(process.env);
 const env = {
   APP_ENV: getRuntimeEnv('APP_ENV') as AppEnv,
   APP_NAME: getRuntimeEnv('APP_NAME'),

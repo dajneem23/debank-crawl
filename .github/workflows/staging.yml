@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build container image
-        run: docker build --build-arg ENV_VARS='${{ secrets.MONGO_URI }}' -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
+        run: docker build --build-arg ENV_VARS='${{ secrets.MONGO }}' -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -89,7 +89,8 @@ jobs:
             docker stop $(echo $IMAGE_NAME)
             # Remove old container
             docker rm $(echo $IMAGE_NAME) -f 
-            docker image rm $(echo $IMAGE_NAME) -f 
+            docker container prune
+            docker image prune -a 
             # Run a new container from a new image
             docker run -d \
             -p 127.0.0.1:9001:9001 \

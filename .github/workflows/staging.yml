@@ -54,7 +54,7 @@ jobs:
 
       - name: Build container image
         run: docker build \
-        --build-arg ENV_VARS='{"APP_ENV":"$(echo($APP_ENV)",\
+        --build-arg ENV_VARS='{"APP_ENV":"$(echo $APP_ENV)",\
         "API_PREFIX":"$(echo($API_PREFIX)",\
         "APP_NAME":"$(echo APP_NAME)",\
         "APP_PORT":"$(echo($APP_PORT)",\

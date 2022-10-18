@@ -6,7 +6,7 @@ dist/**/*
 build/**/*
 
 # Env files
-# env.local.json
+env.local.json
 
 # Logs
 logs

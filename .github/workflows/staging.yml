@@ -16,34 +16,33 @@ on:
 #2
 env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
-  IMAGE_NAME: 'wikiblock-backend'
+  IMAGE_NAME: 'wikiblock-backend-staging'
   APP_ENV: 'staging'
   APP_NAME: 'wikiblock'
   API_PREFIX: ''
-  APP_VERSION: "1.0.0"
+  APP_VERSION: '1.0.0'
   APP_PORT: 9001,
-  APP_HOST: "${{ secrets.APP_HOST }}"
-  API_PREFIX: ""
-  MONGO_URI: "${{ secrets.MONGO_URI }}"
-  REDIS_URI: "${{ secrets.REDIS_URI }}"
-  AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-  AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-  AWS_REGION: "${{ secrets.AWS_REGION }}"
-  AWS_S3_BUCKET: "${{ secrets.AWS_S3_BUCKET }}"
-  LOG_LEVEL: "debug"
-  FRONTEND_HOST: ""
-  JWT_SECRET: "@secret"
-  JWT_ACCESS_TOKEN_EXP: "10 days"
-  JWT_REFRESH_TOKEN_EXP: "365 days"
-  RESET_PASSWORD_TOKEN_EXP: "30 minutes"
-  VERIFY_EMAIL_TOKEN_EXP: "30 days"
-  CONFIRM_REQUEST_TOKEN_EXP: "5 minutes"
-  MAILGUN_API_KEY: ""
-  MAILGUN_PUBLIC_KEY: ""
-  MAILGUN_DOMAIN: ""
-  COINMARKETCAP_API_KEY: "${{ secrets.COINMARKETCAP_API_KEY }}"
+  APP_HOST: '${{ secrets.APP_HOST }}'
+  MONGO_URI: '${{ secrets.MONGO_URI }}'
+  REDIS_URI: '${{ secrets.REDIS_URI }}'
+  AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+  AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+  AWS_REGION: '${{ secrets.AWS_REGION }}'
+  AWS_S3_BUCKET: '${{ secrets.AWS_S3_BUCKET }}'
+  LOG_LEVEL: 'debug'
+  FRONTEND_HOST: ''
+  JWT_SECRET: '@secret'
+  JWT_ACCESS_TOKEN_EXP: '10 days'
+  JWT_REFRESH_TOKEN_EXP: '365 days'
+  RESET_PASSWORD_TOKEN_EXP: '30 minutes'
+  VERIFY_EMAIL_TOKEN_EXP: '30 days'
+  CONFIRM_REQUEST_TOKEN_EXP: '5 minutes'
+  MAILGUN_API_KEY: ''
+  MAILGUN_PUBLIC_KEY: ''
+  MAILGUN_DOMAIN: ''
+  COINMARKETCAP_API_KEY: '${{ secrets.COINMARKETCAP_API_KEY }}'
   MARKETCAP_FETCH_INTERVAL: 900000
-  MODE: "production"
+  MODE: 'production'
 
 #3
 jobs:
@@ -54,7 +53,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build container image
-        run: docker build --build-arg ENV_VARS='{"APP_ENV":'${{ secrets.MONGO }}'}' -t $(echo $REGISTRY)/$(echo $IMAGE_NAME)-$(echo $APP_ENV):latest .
+        run: docker build --build-arg ENV_VARS='{"APP_ENV":"$APP_ENV","API_PREFIX":"$API_PREFIX","APP_VERSION":"$APP_VERSION",,"APP_VERSION":"$APP_VERSION","APP_VERSION":"$APP_VERSION","APP_VERSION":"$APP_VERSION","APP_VERSION":"$APP_VERSION","APP_VERSION":"$APP_VERSION","APP_VERSION":"$APP_VERSION","APP_VERSION":"$APP_VERSION","APP_VERSION":"$APP_VERSION"}' -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -65,10 +64,10 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove all old images
-        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)-$(echo $APP_ENV)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME)-$(echo $APP_ENV) $(doctl registry repository list-tags $(echo $IMAGE_NAME)-$(echo $APP_ENV) | grep -o "sha.*") --force; else echo "No repository"; fi
+        run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME)-$(echo $APP_ENV):latest
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -87,12 +86,12 @@ jobs:
             # Login to registry
             docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
             # Stop running container
-            docker stop $(echo $IMAGE_NAME)-$(echo $APP_ENV)
+            docker stop $(echo $IMAGE_NAME)
             # Remove old container
-            docker rm $(echo $IMAGE_NAME)-$(echo $APP_ENV)
+            docker rm $(echo $IMAGE_NAME)
             # Run a new container from a new image
             docker run -d \
             -p 127.0.0.1:9001:9001 \
             --restart always \
-            --name $(echo $IMAGE_NAME)-$(echo $APP_ENV) \
-            $(echo $REGISTRY)/$(echo $IMAGE_NAME)-$(echo $APP_ENV):latest
+            --name $(echo $IMAGE_NAME) \
+            $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest

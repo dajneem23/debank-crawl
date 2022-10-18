@@ -11,9 +11,17 @@ const coinSchema = Joi.object({
 
   tel: Joi.string(),
 
+  short_description: Joi.string(),
+
+  description: Joi.string(),
+
   headquarter: Joi.string(),
 
   location: Joi.string(),
+
+  funding: Joi.number(),
+
+  founders: Joi.array().items(Joi.string()),
 
   features: Joi.array().items(Joi.string()),
 
@@ -35,9 +43,13 @@ const coinSchema = Joi.object({
 
   portfolio_funds: Joi.array().items(Joi.string()),
 
-  research_papers: Joi.array().items(Joi.object()),
-
   investment_stage: Joi.array().items(Joi.string()),
+
+  person_investors: Joi.array().items(Joi.string()),
+
+  company_investors: Joi.array().items(Joi.string()),
+
+  research_papers: Joi.array().items(Joi.object()),
 
   supports: Joi.array().items(
     Joi.object().keys({
@@ -46,9 +58,17 @@ const coinSchema = Joi.object({
     }),
   ),
 
-  team: Joi.array().items(Joi.object()),
-
-  short_description: Joi.string(),
+  // team: Joi.array().items(
+  //   Joi.object().keys({
+  //     name: Joi.string(),
+  //     position: Joi.string(),
+  //     avatar: Joi.string(),
+  //     contacts: Joi.object().keys({
+  //       name: Joi.string(),
+  //       url: Joi.string(),
+  //     }),
+  //   }),
+  // ),
 
   recent_twitter: Joi.string(),
 

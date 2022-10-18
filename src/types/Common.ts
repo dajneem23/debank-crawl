@@ -62,7 +62,6 @@ export enum CATEGORY_TYPE {
   PERSON = 'person',
   PRODUCT = 'product',
   COMPANY = 'company',
-  CRYPTO = 'crypto',
   CRYPTO_SECTOR = 'crypto_sector',
   EXPLORATION = 'exploration',
   SUB_EXPLORATION = 'sub_exploration',

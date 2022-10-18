@@ -18,7 +18,9 @@ export interface Company extends BaseInformationModel {
 
   products?: string[];
 
-  portfolios?: string[];
+  portfolio_companies?: string[];
+
+  portfolio_funds?: string[];
 
   supports?: Support[];
 
@@ -32,7 +34,7 @@ export interface Company extends BaseInformationModel {
 
   cryptocurrencies: string[];
 
-  investments?: ForeignReLationship[];
+  // investments?: ForeignReLationship[];
 
   funding?: number;
 
@@ -41,6 +43,8 @@ export interface Company extends BaseInformationModel {
   person_investors?: string[];
 
   company_investors?: string[];
+
+  investment_stage?: string[];
 
   //UI fields
 
@@ -71,7 +75,6 @@ export const _company: Company = {
   clients: [],
   products: [],
   categories: [],
-  portfolios: [],
   supports: [],
   team: [],
   research_papers: [],

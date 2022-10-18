@@ -11,39 +11,40 @@ const coinSchema = Joi.object({
 
   tel: Joi.string(),
 
-  //map location
   headquarter: Joi.string(),
 
-  //array id of persons
+  location: Joi.string(),
+
   features: Joi.array().items(Joi.string()),
 
   services: Joi.array().items(Joi.string()),
 
-  //array id of company
-  clients: Joi.array().items(ObjectIdValidation),
+  clients: Joi.array().items(Joi.string()),
 
-  //array id of project
-  projects: Joi.array().items(ObjectIdValidation),
+  projects: Joi.array().items(Joi.string()),
 
-  //array id of product
-  products: Joi.array().items(ObjectIdValidation),
+  products: Joi.array().items(Joi.string()),
 
   //array id of categories
-  categories: Joi.array().items(ObjectIdValidation),
+  categories: Joi.array().items(Joi.string()),
 
-  galleries: Joi.array().items(Joi.object()),
   //array id of coins
-  cryptocurrencies: Joi.array().items(ObjectIdValidation),
+  cryptocurrencies: Joi.array().items(Joi.string()),
 
-  portfolios: Joi.array().items(Joi.string()),
+  portfolio_companies: Joi.array().items(Joi.string()),
+
+  portfolio_funds: Joi.array().items(Joi.string()),
 
   research_papers: Joi.array().items(Joi.object()),
 
-  sponsored: Joi.boolean(),
+  investment_stage: Joi.array().items(Joi.string()),
 
-  location: Joi.string(),
-
-  supports: Joi.array().items(Joi.object()),
+  supports: Joi.array().items(
+    Joi.object().keys({
+      name: Joi.string(),
+      url: Joi.string(),
+    }),
+  ),
 
   team: Joi.array().items(Joi.object()),
 
@@ -61,7 +62,7 @@ const coinSchema = Joi.object({
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      about: Joi.string(),
+      description: Joi.string(),
       short_description: Joi.string(),
       features: Joi.array().items(Joi.string()),
       services: Joi.array().items(Joi.string()),

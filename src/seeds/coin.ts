@@ -85,11 +85,11 @@ export const CoinSeed = async () => {
             position: _coin.person_position[personIndex + 1].person_position,
           };
         }),
-        companies: _coin.company.map((company: any) => {
+        company: _coin.company.map((company: any) => {
           return {
             name: company['company-title'],
           };
-        }),
+        })[0],
         ico: _coin.ico_details
           .map((ico_detail: any) => {
             return _coin.ico_name
@@ -137,64 +137,62 @@ export const insertCoins = async () => {
           slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
           categories: await Promise.all(
             item.categories.map(async (_category: any): Promise<any> => {
-              return slugify(_category, { lower: true, trim: true, replacement: '-', remove: RemoveSlugPattern });
-
-              // return (
-              //   categories.find((category) => {
-              //     return (
-              //       category.title.toLowerCase() == _category.toLowerCase() ||
-              //       category.title.toLowerCase().includes(_category.toLowerCase()) ||
-              //       _category.toLowerCase().includes(category.title.toLowerCase())
-              //     );
-              //   })?._id ||
-              //   (
-              //     await db.collection('categories').findOneAndUpdate(
-              //       {
-              //         name: {
-              //           $regex: _category
-              //             .toLowerCase()
-              //             .match(/[a-zA-Z0-9_ ]+/g)
-              //             .join('')
-              //             .trim()
-              //             .replaceAll(' ', '_'),
-              //           $options: 'i',
-              //         },
-              //       },
-              //       {
-              //         $setOnInsert: {
-              //           title: _category,
-              //           type: 'crypto_asset',
-              //           name: _category
-              //             .toLowerCase()
-              //             .match(/[a-zA-Z0-9_ ]+/g)
-              //             .join('')
-              //             .trim()
-              //             .replaceAll(' ', '_'),
-              //           trans: [],
-              //           sub_categories: [],
-              //           weight: 0,
-              //           deleted: false,
-              //           created_at: new Date(),
-              //           updated_at: new Date(),
-              //           created_by: 'admin',
-              //           rank: 0,
-              //         },
-              //       },
-              //       {
-              //         upsert: true,
-              //         returnDocument: 'after',
-              //       },
-              //     )
-              //   ).value._id
-              // );
+              return (
+                categories.find((category) => {
+                  return (
+                    category.title.toLowerCase() == _category.toLowerCase() ||
+                    category.title.toLowerCase().includes(_category.toLowerCase()) ||
+                    _category.toLowerCase().includes(category.title.toLowerCase())
+                  );
+                })?.name ||
+                (
+                  await db.collection('categories').findOneAndUpdate(
+                    {
+                      name: {
+                        $regex: slugify(_category, {
+                          lower: true,
+                          trim: true,
+                          replacement: '-',
+                          remove: RemoveSlugPattern,
+                        }),
+                        $options: 'i',
+                      },
+                    },
+                    {
+                      $setOnInsert: {
+                        title: _category,
+                        type: 'crypto_asset',
+                        name: slugify(_category, {
+                          lower: true,
+                          trim: true,
+                          replacement: '-',
+                          remove: RemoveSlugPattern,
+                        }),
+                        trans: [],
+                        sub_categories: [],
+                        weight: 0,
+                        deleted: false,
+                        created_at: new Date(),
+                        updated_at: new Date(),
+                        created_by: 'admin',
+                        rank: 0,
+                      },
+                    },
+                    {
+                      upsert: true,
+                      returnDocument: 'after',
+                    },
+                  )
+                ).value.name
+              );
             }),
           ),
         };
       }),
     );
-    console.log('Inserting coins', coinsFinal.length);
+    console.log('Inserting assets', coinsFinal.length);
     await db.collection('assets').insertMany(coinsFinal);
-    console.log('Inserted coins', coinsFinal.length);
+    console.log('Inserted assets', coinsFinal.length);
   } catch (error) {
     console.log('error', error);
   }

@@ -10,29 +10,36 @@ import {
 import { MarketData } from '../asset-price/asset-price.type';
 
 export interface Asset extends BaseInformationModel {
-  name: string;
-
   token_id: string;
 
   blockchains: string[];
-
   wallets: string[];
-
   exchanges: string[];
 
-  technologies?: Technology;
-
   services: string[];
-
   features: string[];
 
+  product?: string; // product_slug
+  project?: string; // project_slug
+  company?: string; // company_slug
+
   team: TeamPerson[];
-
   ico: IcoDetail[];
-
-  companies: [];
-
+  technologies?: Technology;
   market_data?: MarketData;
+
+  token_allocation?: {
+    name: string;
+    amount: number;
+    percent: number;
+  }[];
+
+  trans: {
+    lang: string;
+    about?: string;
+    features?: string[];
+    services?: string[];
+  }[];
 
   // potential?: string;
 
@@ -58,20 +65,7 @@ export interface Asset extends BaseInformationModel {
 
   // fundraising?: string;
 
-  trans: {
-    lang: string;
-    about?: string;
-    features?: string[];
-    services?: string[];
-  }[];
-
   // community_vote?: number;
-
-  token_allocation?: {
-    name: string;
-    amount: number;
-    percent: number;
-  }[];
 }
 
 export const _asset: Asset = {
@@ -86,7 +80,6 @@ export const _asset: Asset = {
   features: [],
   team: [],
   ico: [],
-  companies: [],
   created_by: '',
   updated_by: '',
   created_at: new Date(),

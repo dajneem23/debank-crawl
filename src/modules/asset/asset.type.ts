@@ -34,29 +34,29 @@ export interface Asset extends BaseInformationModel {
 
   market_data?: MarketData;
 
-  potential?: string;
+  // potential?: string;
 
-  reliability?: string;
+  // reliability?: string;
 
-  rating?: string;
+  // rating?: string;
 
-  years?: number;
+  // years?: number;
 
-  market?: number;
+  // market?: number;
 
-  market_share?: number;
+  // market_share?: number;
 
-  dapp?: number;
+  // dapp?: number;
 
-  founded?: string;
+  // founded?: string;
 
-  stage?: string;
+  // stage?: string;
 
-  eco_market_cap?: number;
+  // eco_market_cap?: number;
 
-  backer?: BACKER;
+  // backer?: BACKER;
 
-  fundraising?: string;
+  // fundraising?: string;
 
   trans: {
     lang: string;
@@ -65,7 +65,7 @@ export interface Asset extends BaseInformationModel {
     services?: string[];
   }[];
 
-  community_vote?: number;
+  // community_vote?: number;
 
   token_allocation?: {
     name: string;
@@ -94,12 +94,12 @@ export const _asset: Asset = {
   deleted: false,
   trans: [],
   market_data: {},
-  potential: 'N/A',
-  reliability: 'N/A',
-  rating: 'N/A',
-  years: 0,
-  market: 0,
-  market_share: 0,
-  community_vote: 0,
+  // potential: 'N/A',
+  // reliability: 'N/A',
+  // rating: 'N/A',
+  // years: 0,
+  // market: 0,
+  // market_share: 0,
+  // community_vote: 0,
   token_allocation: [],
 };

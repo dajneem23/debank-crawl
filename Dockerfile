@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 ARG ENV_VARS
 ENV ENV_VARS=$ENV_VARS
+RUN echo $ENV_VARS
 # Install packages without generate a yarn.lock lockfile
 RUN yarn --pure-lockfile
 

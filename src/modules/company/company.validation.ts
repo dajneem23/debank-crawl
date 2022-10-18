@@ -11,43 +11,64 @@ const coinSchema = Joi.object({
 
   tel: Joi.string(),
 
-  //map location
+  short_description: Joi.string(),
+
+  description: Joi.string(),
+
   headquarter: Joi.string(),
 
-  //array id of persons
+  location: Joi.string(),
+
+  funding: Joi.number(),
+
+  founders: Joi.array().items(Joi.string()),
+
   features: Joi.array().items(Joi.string()),
 
   services: Joi.array().items(Joi.string()),
 
-  //array id of company
-  clients: Joi.array().items(ObjectIdValidation),
+  clients: Joi.array().items(Joi.string()),
 
-  //array id of project
-  projects: Joi.array().items(ObjectIdValidation),
+  projects: Joi.array().items(Joi.string()),
 
-  //array id of product
-  products: Joi.array().items(ObjectIdValidation),
+  products: Joi.array().items(Joi.string()),
 
   //array id of categories
-  categories: Joi.array().items(ObjectIdValidation),
+  categories: Joi.array().items(Joi.string()),
 
-  galleries: Joi.array().items(Joi.object()),
   //array id of coins
-  cryptocurrencies: Joi.array().items(ObjectIdValidation),
+  cryptocurrencies: Joi.array().items(Joi.string()),
 
-  portfolios: Joi.array().items(Joi.string()),
+  portfolio_companies: Joi.array().items(Joi.string()),
+
+  portfolio_funds: Joi.array().items(Joi.string()),
+
+  investment_stage: Joi.array().items(Joi.string()),
+
+  person_investors: Joi.array().items(Joi.string()),
+
+  company_investors: Joi.array().items(Joi.string()),
 
   research_papers: Joi.array().items(Joi.object()),
 
-  sponsored: Joi.boolean(),
+  supports: Joi.array().items(
+    Joi.object().keys({
+      name: Joi.string(),
+      url: Joi.string(),
+    }),
+  ),
 
-  location: Joi.string(),
-
-  supports: Joi.array().items(Joi.object()),
-
-  team: Joi.array().items(Joi.object()),
-
-  short_description: Joi.string(),
+  // team: Joi.array().items(
+  //   Joi.object().keys({
+  //     name: Joi.string(),
+  //     position: Joi.string(),
+  //     avatar: Joi.string(),
+  //     contacts: Joi.object().keys({
+  //       name: Joi.string(),
+  //       url: Joi.string(),
+  //     }),
+  //   }),
+  // ),
 
   recent_twitter: Joi.string(),
 
@@ -61,7 +82,7 @@ const coinSchema = Joi.object({
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      about: Joi.string(),
+      description: Joi.string(),
       short_description: Joi.string(),
       features: Joi.array().items(Joi.string()),
       services: Joi.array().items(Joi.string()),
@@ -112,8 +133,6 @@ export const CompanyValidation = {
     [Segments.QUERY]: BaseQueryValidation.keys({
       funding_min: Joi.number(),
       funding_max: Joi.number(),
-      launched_from: Joi.number(),
-      launched_to: Joi.number(),
       tier: Joi.string(),
       type: Joi.string(),
       deleted: Joi.boolean(),

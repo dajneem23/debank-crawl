@@ -4,11 +4,7 @@ import { ObjectId } from 'mongodb';
 export interface Fund extends BaseInformationModel {
   name: string;
 
-  about?: string;
-
   type?: COMPANY_TYPE;
-
-  avatars?: string[];
 
   posts?: string[];
 
@@ -16,9 +12,7 @@ export interface Fund extends BaseInformationModel {
 
   total_amount?: number;
 
-  fundraising_rounds?: FundraisingRoundDetail[];
-
-  partners?: ForeignReLationship[];
+  founders?: ForeignReLationship[];
 
   launched?: string;
 
@@ -30,7 +24,7 @@ export interface Fund extends BaseInformationModel {
 
   ath_roi?: number;
 
-  total_investments?: number;
+  // total_investments?: number;
 
   investments?: ForeignReLationship[];
 
@@ -48,7 +42,7 @@ export interface Fund extends BaseInformationModel {
 
   trans: {
     lang: string;
-    about?: string;
+    description: string;
     short_description?: string;
   }[];
 
@@ -59,18 +53,12 @@ export const _fund: Fund = {
   name: '',
   type: COMPANY_TYPE.NA,
   categories: [],
-  avatars: [],
-  avatar: '',
-  about: '',
   posts: [],
-  total_amount: 0,
   cryptocurrencies: [],
-  fundraising_rounds: [],
-  total_investments: 0,
+  // total_investments: 0,
   investments: [],
-  partners: [],
+  founders: [],
   firms: [],
-  metadata: {},
   deleted: false,
   trans: [],
   updated_at: new Date(),

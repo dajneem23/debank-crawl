@@ -85,11 +85,11 @@ export const CoinSeed = async () => {
             position: _coin.person_position[personIndex + 1].person_position,
           };
         }),
-        companies: _coin.company.map((company: any) => {
+        company: _coin.company.map((company: any) => {
           return {
             name: company['company-title'],
           };
-        }),
+        })[0],
         ico: _coin.ico_details
           .map((ico_detail: any) => {
             return _coin.ico_name
@@ -144,17 +144,17 @@ export const insertCoins = async () => {
                     category.title.toLowerCase().includes(_category.toLowerCase()) ||
                     _category.toLowerCase().includes(category.title.toLowerCase())
                   );
-                })?._id ||
+                })?.name ||
                 (
                   await db.collection('categories').findOneAndUpdate(
                     {
                       name: {
-                        $regex: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
+                        $regex: slugify(_category, {
+                          lower: true,
+                          trim: true,
+                          replacement: '-',
+                          remove: RemoveSlugPattern,
+                        }),
                         $options: 'i',
                       },
                     },
@@ -162,12 +162,12 @@ export const insertCoins = async () => {
                       $setOnInsert: {
                         title: _category,
                         type: 'crypto_asset',
-                        name: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
+                        name: slugify(_category, {
+                          lower: true,
+                          trim: true,
+                          replacement: '-',
+                          remove: RemoveSlugPattern,
+                        }),
                         trans: [],
                         sub_categories: [],
                         weight: 0,
@@ -183,16 +183,16 @@ export const insertCoins = async () => {
                       returnDocument: 'after',
                     },
                   )
-                ).value._id
+                ).value.name
               );
             }),
           ),
         };
       }),
     );
-    console.log('Inserting coins', coinsFinal.length);
+    console.log('Inserting assets', coinsFinal.length);
     await db.collection('assets').insertMany(coinsFinal);
-    console.log('Inserted coins', coinsFinal.length);
+    console.log('Inserted assets', coinsFinal.length);
   } catch (error) {
     console.log('error', error);
   }

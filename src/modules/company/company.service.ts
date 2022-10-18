@@ -132,8 +132,8 @@ export class CompanyService {
         deleted = false,
         funding_min,
         funding_max,
-        launched_from,
-        launched_to,
+        // launched_from,
+        // launched_to,
         type,
         tier,
       } = _filter;
@@ -164,8 +164,7 @@ export class CompanyService {
               }),
               ...(funding_min && { funding: { $gte: funding_min } }),
               ...(funding_max && { funding: { $lte: funding_max } }),
-              ...(launched_from && { launched: { $gte: launched_from } }),
-              ...(launched_to && { launched: { $lte: launched_to } }),
+
               ...(type && {
                 type,
               }),

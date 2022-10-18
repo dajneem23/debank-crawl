@@ -123,7 +123,7 @@ export const CategorySeed = async () => {
           name: slugify(item.title, {
             lower: true,
             trim: true,
-            replacement: '_',
+            replacement: '-',
             remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
           }),
           trans: [],
@@ -157,7 +157,7 @@ export const CategorySeed = async () => {
                         $regex: slugify(item.title, {
                           lower: true,
                           trim: true,
-                          replacement: '_',
+                          replacement: '-',
                           remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
                         }),
                         $options: 'i',
@@ -176,7 +176,7 @@ export const CategorySeed = async () => {
                         name: slugify(item.title, {
                           lower: true,
                           trim: true,
-                          replacement: '_',
+                          replacement: '-',
                           remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
                         }),
                         // acronym: item.title
@@ -221,7 +221,7 @@ export const CategorySeed = async () => {
             $regex: slugify(item.title, {
               lower: true,
               trim: true,
-              replacement: '_',
+              replacement: '-',
               remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
             }),
             $options: 'i',
@@ -240,7 +240,7 @@ export const CategorySeed = async () => {
             name: slugify(item.title, {
               lower: true,
               trim: true,
-              replacement: '_',
+              replacement: '-',
               remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
             }),
             // acronym: item.title

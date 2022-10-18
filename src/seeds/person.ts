@@ -12,6 +12,7 @@ import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
 import cryptoCompaniesFile from '../data/airtable/Crypto Companies.json';
+import { isNil, uniq } from 'lodash';
 
 /* eslint-disable no-console */
 export const PersonSeed = async () => {
@@ -81,9 +82,9 @@ export const PersonSeed = async () => {
               return work['current_works'].includes(position.current_work_names);
             })?.current_work_names;
             return {
-              company: name,
-              position: position,
-              type: WorkType.CURRENT,
+              company_name: name,
+              title: position,
+              is_current: true,
             };
           }),
           ..._person.previous_works.map((work: any) => {
@@ -97,9 +98,9 @@ export const PersonSeed = async () => {
               return work['previous_works'].includes(position.previous_works_date);
             })?.previous_works_date;
             return {
-              company: name,
-              position: position,
-              type: WorkType.PREVIOUS,
+              company_name: name,
+              title: position,
+              is_current: false,
               period: period,
             };
           }),
@@ -134,9 +135,10 @@ export const PersonSeed = async () => {
       return {
         id,
         name,
-        location: location[0]?.foreignRowDisplayName || '',
+        countries: location.map(({ foreignRowDisplayName }: any) => foreignRowDisplayName),
         avatar: avatar[0]?.url || '',
         urls: {
+          avatar: avatar.map(({ url }: any) => url),
           twitter: twitter ? [twitter] : [],
           linkedin: linkedin ? [linkedin] : [],
           website: website ? [website] : [],
@@ -149,43 +151,17 @@ export const PersonSeed = async () => {
         type: tableSchemaAngelInvestors.columns[5].typeOptions.choices[type]?.name,
         total_portfolio_companies,
         portfolio_companies: portfolio_companies.map(({ foreignRowDisplayName, foreignRowId }: any) => {
-          const {
-            cellValuesByColumnId: {
-              fldfxvX3xyd1uBTM4: twitter,
-              fldQG6489r2BIckRi: contact,
-              fldXIqyTI8vVF00vs: avatars = [],
-              fldK0vbIANJe4oZgL: token,
-              fldiL1KEOZO4MHcvW,
-            },
-          } = (cryptoCompaniesFile as any).data.rows.find((company: any) => company.id == foreignRowId);
-          const contact_Key = contact?.includes('discord') ? 'discord' : 'telegram' || 'telegram';
-
-          const website = fldiL1KEOZO4MHcvW
-            ? Object.values(fldiL1KEOZO4MHcvW.valuesByForeignRowId).filter(
-                (website: any, index: any, self: any) => index === self.findIndex((t: any) => t === website),
-              )
-            : [];
-          return {
-            name: foreignRowDisplayName,
-            foreign_id: foreignRowId,
-            avatar: avatars?.[0]?.url || '',
-            token: tableSchemaCryptoCompanies.columns[2].typeOptions.choices[token]?.name,
-            urls: {
-              twitter: [twitter].filter(Boolean),
-              [contact_Key]: [contact].filter(Boolean),
-              [contact_Key == 'discord' ? 'telegram' : 'discord']: [],
-              website,
-            } as any,
-          };
+          return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
         }),
-        investment_fundraising_rounds: investment_fundraising_rounds.map(
-          ({ foreignRowDisplayName, foreignRowId }: any) => {
-            return {
-              name: foreignRowDisplayName,
-              foreign_id: foreignRowId,
-            };
-          },
-        ),
+        // investment_fundraising_rounds: investment_fundraising_rounds.map(
+        //   ({ foreignRowDisplayName, foreignRowId }: any) => {
+        //     // return {
+        //     //   name: foreignRowDisplayName,
+        //     //   foreign_id: foreignRowId,
+        //     // };
+        //     return foreignRowId;
+        //   },
+        // ),
         investors,
         investment_stage: tableSchemaAngelInvestors.columns[10].typeOptions.choices[investment_stage]?.name,
       };
@@ -220,11 +196,9 @@ export const PersonSeed = async () => {
           fldH5HxvrtaYV0Kth: total_portfolio_companies = 0,
           fldmoOusFnNm07r5v: investment_fundraising_rounds = [],
           fldrHBVHyxFD6awkv: actively_investing,
+          fldiOy8VClYi7B07v: investment_stage = [],
         },
       } = investor;
-      // const type = angelInvestors.some((person: any) => person.name.toLowerCase() == name.toLowerCase())
-      //   ? 'persons'
-      //   : 'companies';
       return {
         id,
         name,
@@ -237,51 +211,17 @@ export const PersonSeed = async () => {
         actively_investing: tableSchemaInvestors.columns[5].typeOptions.choices[actively_investing]?.name,
         year_founded,
         total_portfolio_companies,
-        location,
+        countries: uniq([location]),
         email,
         avatar: url,
         categories: ['Investor', tableSchemaAngelInvestors.columns[6].typeOptions.choices[type]?.name].filter(Boolean),
         type: tableSchemaAngelInvestors.columns[6].typeOptions.choices[type]?.name,
-        // need_review: type == 'companies',
-        portfolio_companies: portfolio_companies.map(({ foreignRowDisplayName, foreignRowId }: any) => {
-          const {
-            cellValuesByColumnId: {
-              fldfxvX3xyd1uBTM4: twitter,
-              fldQG6489r2BIckRi: contact,
-              fldXIqyTI8vVF00vs: avatars = [],
-              fldK0vbIANJe4oZgL: token,
-              fldiL1KEOZO4MHcvW,
-            },
-          } = (cryptoCompaniesFile as any).data.rows.find((company: any) => company.id == foreignRowId);
-          const contact_Key = contact?.includes('discord') ? 'discord' : 'telegram' || 'telegram';
-
-          const website = fldiL1KEOZO4MHcvW
-            ? Object.values(fldiL1KEOZO4MHcvW.valuesByForeignRowId).filter(
-                (website: any, index: any, self: any) => index === self.findIndex((t: any) => t === website),
-              )
-            : [];
-          return {
-            name: foreignRowDisplayName,
-            foreign_id: foreignRowId,
-            avatar: avatars?.[0]?.url || '',
-            token: tableSchemaCryptoCompanies.columns[2].typeOptions.choices[token]?.name,
-            urls: {
-              twitter: [twitter].filter(Boolean),
-              [contact_Key]: [contact].filter(Boolean),
-              [contact_Key == 'discord' ? 'telegram' : 'discord']: [],
-              website,
-            } as any,
-          };
-        }),
-        investment_fundraising_rounds: investment_fundraising_rounds.map(
-          ({ foreignRowDisplayName, foreignRowId }: any) => {
-            return {
-              name: foreignRowDisplayName,
-              foreign_id: foreignRowId,
-            };
-          },
+        investment_stage: investment_stage.map(
+          (stage: any) => tableSchemaInvestors.columns[10].typeOptions.choices[stage]?.name,
         ),
-        // actively_investing
+        portfolio_companies: portfolio_companies.map(({ foreignRowDisplayName, foreignRowId }: any) => {
+          return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
+        }),
       };
     })
     .map((item: any) => {
@@ -315,42 +255,41 @@ export const PersonSeed = async () => {
     return {
       name,
       foreign_id,
-      twitter,
-      funds: Object.values(funds || {}).flatMap((fund: any) => {
-        return fund.map(
-          ({ foreignRowDisplayName, foreignRowId }: { foreignRowDisplayName: string; foreignRowId: string }) => {
-            const {
-              cellValuesByColumnId: {
-                fldNJrXhATbXWYaPV: twitter,
-                fldYxidGVWXbbBlvN: linkedin,
-                fld5Ampq1nE4ddQCZ: website,
-                fldd6JgLkLn5Zi1QY: avatars,
-              },
-            } = (InvestorAirtable as any).data.tableDatas[0].rows.find((item: any) => item.id == foreignRowId);
-            return {
-              name: foreignRowDisplayName,
-              foreign_id: foreignRowId,
-              avatar: avatars?.[0]?.url || '',
-              urls: {
-                linkedin,
-                twitter,
-                website,
-              },
-            };
-          },
-        );
-      }),
+      urls: {
+        twitter,
+      },
+      // funds: Object.values(funds || {}).flatMap((fund: any) => {
+      //   return fund.map(
+      //     ({ foreignRowDisplayName, foreignRowId }: { foreignRowDisplayName: string; foreignRowId: string }) => {
+      //       const {
+      //         cellValuesByColumnId: {
+      //           fldNJrXhATbXWYaPV: twitter,
+      //           fldYxidGVWXbbBlvN: linkedin,
+      //           fld5Ampq1nE4ddQCZ: website,
+      //           fldd6JgLkLn5Zi1QY: avatars,
+      //         },
+      //       } = (InvestorAirtable as any).data.tableDatas[0].rows.find((item: any) => item.id == foreignRowId);
+      //       return {
+      //         name: foreignRowDisplayName,
+      //         foreign_id: foreignRowId,
+      //         avatar: avatars?.[0]?.url || '',
+      //         urls: {
+      //           avatar: avatars.map(({ url }: any) => url),
+      //           linkedin,
+      //           twitter,
+      //           website,
+      //         },
+      //       };
+      //     },
+      //   );
+      // }),
     };
   });
   const persons_final = await Promise.all(
     Object.values(
       [...persons, ...angelInvestors, ...investors.persons, ...fundfouders].reduce((current: any, item: any) => {
         const { name, ...rest } = item;
-        // const lowerName = name
-        //   .replace(/[\W_]+/g, ' ')
-        //   .replace(/  +/g, ' ')
-        //   .toLowerCase()
-        //   .trim();
+
         const lowerName = slugify(name.trim(), {
           lower: true,
           strict: true,
@@ -416,69 +355,57 @@ export const PersonSeed = async () => {
           },
         };
       }, {}),
-    )
-      .map(
-        ({
-          foreign_id = null,
-          need_review = false,
-          reviewed = false,
-          about = '',
-          short_description = '',
-          avatar = '',
-          educations = [],
-          works = [],
-          categories = [],
-          location = '',
-          email = '',
-          type,
-          name,
-          metadata = {},
-          ...rest
-        }: any) => {
-          return {
-            ...rest,
-            // name: name
-            //   .replace(/[\W_]+/g, ' ')
-            //   .replace(/  +/g, ' ')
-            //   .trim(),
-            name: slugify(name.trim(), {
-              lower: true,
-              strict: true,
-              replacement: ' ',
-              remove: RemoveSlugPattern,
-            }),
-            foreign_id,
-            categories: [...new Set(categories)],
-            about,
-            short_description,
-            avatar,
-            educations,
-            works,
-            location,
-            email,
-            metadata,
-            reviewed,
-            need_review,
-            trans: [] as any,
-            deleted: false,
-            created_at: new Date(),
-            updated_at: new Date(),
-            created_by: 'admin',
-          };
-        },
-      )
-      .map(async (item: any, index, items: any[]) => {
+    ).map(
+      ({
+        foreign_id = null,
+        need_review = false,
+        reviewed = false,
+        about = '',
+        short_description = '',
+        avatar = '',
+        educations = [],
+        works = [],
+        categories = [],
+        location = '',
+        email = '',
+        type,
+        name,
+        countries = [],
+        metadata = {},
+        ...rest
+      }: any) => {
         const foreign_ids = [
-          ...new Set([
-            item.foreign_id,
-            ...((item?.metadata?.storage || []).map((item: any) => item?.foreign_id) as []),
-          ]),
+          ...new Set([foreign_id, ...((metadata?.storage || []).map((item: any) => item?.foreign_id) as [])]),
         ].filter(Boolean);
         return {
-          ...item,
+          ...rest,
           foreign_ids,
+          name: slugify(name.trim(), {
+            lower: true,
+            strict: true,
+            replacement: ' ',
+            remove: RemoveSlugPattern,
+          }),
+          slug: slugify(name, { lower: true, trim: true, remove: RemoveSlugPattern }),
+          foreign_id,
+          categories: [...new Set(categories)],
+          countries: [...new Set(countries)],
+          about,
+          short_description,
+          avatar,
+          educations,
+          works,
+          location,
+          email,
+          metadata,
+          trans: [] as any,
+          deleted: false,
+          created_at: new Date(),
+          updated_at: new Date(),
+          created_by: 'admin',
         };
-      }),
+      },
+    ),
   );
   console.log('Inserting persons', {
     angelInvestors: angelInvestors.length,
@@ -511,59 +438,49 @@ export const personInvestment = async () => {
   const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/funds.json`, 'utf8') as any);
   const persons = JSON.parse(fs.readFileSync(`${__dirname}/data/persons_final.json`, 'utf8') as any);
   const db = Container.get(DIMongoDB);
-  const personsFinal = persons.map(({ foreign_id, foreign_ids = [], name, ...rest }: any) => {
-    const investments = [
-      ...(companies as any)
-        .filter(
-          ({ investors = [], ...rest }: any) =>
-            investors.some(
-              ({ foreign_id: investor_id, name: investor_name }: any) =>
-                investor_id == foreign_id ||
-                foreign_ids.includes(investor_id) ||
-                name
-                  .toLowerCase()
-                  .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
-            ) && rest.foreign_id,
-        )
-        .map(({ foreign_id, name: investor_name }: any) => ({
-          foreign_id,
-          name: investor_name,
-          type: 'company',
-        }))
-        .filter((_item: any, index: any, items: any) => {
-          return index == items.findIndex((item: any) => item.foreign_id == _item.foreign_id);
-        }),
-      ...(funds as any)
-        .filter(
-          ({ investors = [], ...rest }: any) =>
-            investors.some(
-              ({ foreign_id: investor_id, name: investor_name }: any) =>
-                investor_id == foreign_id ||
-                foreign_ids.includes(investor_id) ||
-                name
-                  .toLowerCase()
-                  .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
-            ) && rest.foreign_id,
-        )
-        .map(({ foreign_id, name: investor_name, urls, avatar }: any) => ({
-          foreign_id,
-          name: investor_name,
-          urls,
-          avatar,
-          type: 'funds',
-        }))
-        .filter((_item: any, index: any, items: any) => {
-          return index == items.findIndex((item: any) => item.foreign_id == _item.foreign_id);
-        }),
-    ];
-    return {
-      name,
-      ...rest,
-      foreign_id,
-      investments,
-      total_investments: investments.length,
-    };
-  });
+  const personsFinal = persons.map(
+    ({ investors, foreign_id, foreign_ids = [], name, portfolio_companies = [], ...rest }: any) => {
+      const company_investments = uniq([
+        ...(companies as any)
+          .filter(
+            ({ investors = [], ...rest }: any) =>
+              investors.some(
+                ({ foreign_id: investor_id, name: investor_name }: any) =>
+                  investor_id == foreign_id ||
+                  foreign_ids.includes(investor_id) ||
+                  name
+                    .toLowerCase()
+                    .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
+              ) && rest.foreign_id,
+          )
+          .map(({ slug }: any) => slug),
+      ]);
+
+      const portfolio_funds = uniq([
+        ...(funds as any)
+          .filter(
+            ({ investors = [], ...rest }: any) =>
+              investors.some(
+                ({ foreign_id: investor_id, name: investor_name }: any) =>
+                  investor_id == foreign_id ||
+                  foreign_ids.includes(investor_id) ||
+                  name
+                    .toLowerCase()
+                    .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
+              ) && rest.foreign_id,
+          )
+          .map(({ slug }: any) => slug),
+      ]);
+      return {
+        name,
+        ...rest,
+        // foreign_id,
+        portfolio_funds,
+        portfolio_companies: uniq([...portfolio_companies.filter(Boolean), ...company_investments]),
+        // total_investments: investments.length,
+      };
+    },
+  );
   fs.writeFileSync(`${__dirname}/data/_persons.json`, JSON.stringify(personsFinal));
 };
 export const insertPersons = async () => {
@@ -576,7 +493,6 @@ export const insertPersons = async () => {
     JSON.parse(fs.readFileSync(`${__dirname}/data/_persons.json`, 'utf8') as any).map(async (item: any) => {
       return {
         ...item,
-        slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
         categories: await Promise.all(
           item.categories
             .filter(Boolean)
@@ -592,30 +508,30 @@ export const insertPersons = async () => {
                     category.title.toLowerCase().includes(_category.toLowerCase()) ||
                     _category.toLowerCase().includes(category.title.toLowerCase())
                   );
-                })?._id ||
+                })?.name ||
                 (
                   await db.collection('categories').findOneAndUpdate(
                     {
                       name: {
-                        $regex: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
+                        $regex: slugify(_category, {
+                          lower: true,
+                          trim: true,
+                          replacement: '-',
+                          remove: RemoveSlugPattern,
+                        }),
                         $options: 'i',
                       },
                     },
                     {
                       $setOnInsert: {
                         title: _category,
-                        type: 'company',
-                        name: _category
-                          .toLowerCase()
-                          .match(/[a-zA-Z0-9_ ]+/g)
-                          .join('')
-                          .trim()
-                          .replaceAll(' ', '_'),
+                        type: 'person',
+                        name: slugify(_category, {
+                          lower: true,
+                          trim: true,
+                          replacement: '-',
+                          remove: RemoveSlugPattern,
+                        }),
                         trans: [],
                         sub_categories: [],
                         weight: 0,
@@ -630,7 +546,7 @@ export const insertPersons = async () => {
                       returnDocument: 'after',
                     },
                   )
-                ).value._id
+                ).value.name
               );
             }),
         ),
@@ -655,30 +571,30 @@ export const insertPersons = async () => {
                             category.title.toLowerCase().includes(_category.toLowerCase()) ||
                             _category.toLowerCase().includes(category.title.toLowerCase())
                           );
-                        })?._id ||
+                        })?.name ||
                         (
                           await db.collection('categories').findOneAndUpdate(
                             {
                               name: {
-                                $regex: _category
-                                  .toLowerCase()
-                                  .match(/[a-zA-Z0-9_ ]+/g)
-                                  .join('')
-                                  .trim()
-                                  .replaceAll(' ', '_'),
+                                $regex: slugify(_category, {
+                                  lower: true,
+                                  trim: true,
+                                  replacement: '-',
+                                  remove: RemoveSlugPattern,
+                                }),
                                 $options: 'i',
                               },
                             },
                             {
                               $setOnInsert: {
                                 title: _category,
-                                type: 'company',
-                                name: _category
-                                  .toLowerCase()
-                                  .match(/[a-zA-Z0-9_ ]+/g)
-                                  .join('')
-                                  .trim()
-                                  .replaceAll(' ', '_'),
+                                type: 'person',
+                                name: slugify(_category, {
+                                  lower: true,
+                                  trim: true,
+                                  replacement: '-',
+                                  remove: RemoveSlugPattern,
+                                }),
                               },
                             },
                             {
@@ -686,7 +602,7 @@ export const insertPersons = async () => {
                               returnDocument: 'after',
                             },
                           )
-                        ).value._id
+                        ).value.name
                       );
                     }) || [],
                 ),

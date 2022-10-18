@@ -10,53 +10,29 @@ import {
 import { MarketData } from '../asset-price/asset-price.type';
 
 export interface Asset extends BaseInformationModel {
-  name: string;
-
   token_id: string;
 
   blockchains: string[];
-
   wallets: string[];
-
   exchanges: string[];
 
-  technologies?: Technology;
-
   services: string[];
-
   features: string[];
 
+  product?: string; // product_slug
+  project?: string; // project_slug
+  company?: string; // company_slug
+
   team: TeamPerson[];
-
   ico: IcoDetail[];
-
-  companies: [];
-
+  technologies?: Technology;
   market_data?: MarketData;
 
-  potential?: string;
-
-  reliability?: string;
-
-  rating?: string;
-
-  years?: number;
-
-  market?: number;
-
-  market_share?: number;
-
-  dapp?: number;
-
-  founded?: string;
-
-  stage?: string;
-
-  eco_market_cap?: number;
-
-  backer?: BACKER;
-
-  fundraising?: string;
+  token_allocation?: {
+    name: string;
+    amount: number;
+    percent: number;
+  }[];
 
   trans: {
     lang: string;
@@ -65,19 +41,36 @@ export interface Asset extends BaseInformationModel {
     services?: string[];
   }[];
 
-  community_vote?: number;
+  // potential?: string;
 
-  token_allocation?: {
-    name: string;
-    amount: number;
-    percent: number;
-  }[];
+  // reliability?: string;
+
+  // rating?: string;
+
+  // years?: number;
+
+  // market?: number;
+
+  // market_share?: number;
+
+  // dapp?: number;
+
+  // founded?: string;
+
+  // stage?: string;
+
+  // eco_market_cap?: number;
+
+  // backer?: BACKER;
+
+  // fundraising?: string;
+
+  // community_vote?: number;
 }
 
 export const _asset: Asset = {
   name: '',
   token_id: '',
-  about: '',
   avatar: '',
   categories: [],
   blockchains: [],
@@ -87,7 +80,6 @@ export const _asset: Asset = {
   features: [],
   team: [],
   ico: [],
-  companies: [],
   created_by: '',
   updated_by: '',
   created_at: new Date(),
@@ -95,12 +87,12 @@ export const _asset: Asset = {
   deleted: false,
   trans: [],
   market_data: {},
-  potential: 'N/A',
-  reliability: 'N/A',
-  rating: 'N/A',
-  years: 0,
-  market: 0,
-  market_share: 0,
-  community_vote: 0,
+  // potential: 'N/A',
+  // reliability: 'N/A',
+  // rating: 'N/A',
+  // years: 0,
+  // market: 0,
+  // market_share: 0,
+  // community_vote: 0,
   token_allocation: [],
 };

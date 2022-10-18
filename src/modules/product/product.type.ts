@@ -22,9 +22,6 @@ export interface Product extends BaseInformationModel {
 export const _product: Product = {
   name: '',
   avatar: '',
-  verified: false,
-  sponsored: false,
-  about: '',
   contract_addresses: [],
   cryptocurrencies: [],
   categories: [],

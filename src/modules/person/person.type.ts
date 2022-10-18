@@ -1,15 +1,13 @@
 import { BaseInformationModel, WorkType } from '@/types/Common';
 
 export interface Person extends BaseInformationModel {
-  name: string;
-
-  first_name?: string;
-
-  last_name?: string;
-
   position?: PersonPosition[];
 
-  works?: PersonWork[];
+  // works?: PersonWork[];
+
+  countries?: string[];
+
+  work_experiences?: WorkExperience[];
 
   educations?: PersonEducation[];
 
@@ -21,7 +19,7 @@ export interface Person extends BaseInformationModel {
 }
 
 export type PersonPosition = {
-  title?: string;
+  name?: string;
   description?: string;
 };
 export type PersonWork = {
@@ -33,20 +31,28 @@ export type PersonWork = {
   date_end?: Date;
   type?: WorkType;
 };
+export type WorkExperience = {
+  title: string; // position title
+  company_id: string; // linked to company collection
+  description: string;
+  company_name: string;
+  date_start?: Date;
+  date_end?: Date;
+  is_current_work?: boolean; // forced current works for the company
+};
 export type PersonEducation = {
-  title?: string;
+  name?: string;
   description?: string;
+  from_time?: Date;
+  to_time?: Date;
 };
 export const _person: Person = {
   name: '',
-  about: '',
   categories: [],
   position: [],
-  works: [],
+  work_experiences: [],
   educations: [],
   trans: [],
-  verified: false,
-  sponsored: false,
   avatar: '',
   short_description: '',
   deleted: false,

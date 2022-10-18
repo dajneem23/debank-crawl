@@ -9,7 +9,7 @@ import { FundSeed, fundInvestment, insertFunds } from './fund';
 (async () => {
   (await import('../loaders/loggerLoader')).default();
   await (await import('../loaders/mongoDBLoader')).default();
-  await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
+  // await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
   await CompanySeed();
   await CoinSeed();
   await ProductSeed();
@@ -18,11 +18,11 @@ import { FundSeed, fundInvestment, insertFunds } from './fund';
   await companyInvestment();
   await personInvestment();
   await fundInvestment();
-  await insertCoins();
-  await insertFunds();
-  await insertPersons();
-  await insertCompanies();
-  await insertProducts();
+  // await insertCoins();
+  // await insertFunds();
+  // await insertPersons();
+  // await insertCompanies();
+  // await insertProducts();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

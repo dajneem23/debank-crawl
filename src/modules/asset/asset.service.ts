@@ -404,6 +404,7 @@ export class AssetService {
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
+          this.model.$lookups.asset_price,
           this.model.$sets.author,
           ...((lang && [
             {
@@ -467,6 +468,7 @@ export class AssetService {
           {
             $addFields: this.model.$addFields.categories,
           },
+          this.model.$lookups.asset_price,
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$sets.author,
@@ -659,6 +661,7 @@ export class AssetService {
                 },
               },
               name,
+              slug,
             } = item;
             const marketData = omitBy(
               {
@@ -717,13 +720,14 @@ export class AssetService {
               {
                 $or: [
                   { name: { $regex: `^${name}$`, $options: 'i' } },
-                  { name },
                   {
                     slug: {
-                      $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                      $regex: `^${slug}$`,
                       $options: 'i',
                     },
                   },
+                  { name },
+                  { slug },
                 ],
               },
               {
@@ -755,24 +759,21 @@ export class AssetService {
                   {
                     $or: [
                       { name: { $regex: `^${name}$`, $options: 'i' } },
-                      { name },
                       {
                         slug: {
-                          $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                          $regex: `^${slug}$`,
                           $options: 'i',
                         },
                       },
+                      { name },
+                      { slug },
                     ],
                   },
                   {
                     $setOnInsert: {
                       name,
                       token_id: symbol,
-                      slug: slugify(name, {
-                        trim: true,
-                        lower: true,
-                        remove: RemoveSlugPattern,
-                      }),
+                      slug,
                       trans: [] as any,
                       deleted: false,
                       created_at: new Date(),
@@ -790,13 +791,14 @@ export class AssetService {
                 {
                   $or: [
                     { name: { $regex: `^${name}$`, $options: 'i' } },
-                    { name },
                     {
                       slug: {
-                        $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                        $regex: `^${slug}$`,
                         $options: 'i',
                       },
                     },
+                    { name },
+                    { slug },
                   ],
                 },
                 {
@@ -810,11 +812,7 @@ export class AssetService {
                     ],
                     token_id: symbol,
                     ...marketData,
-                    slug: slugify(name, {
-                      trim: true,
-                      lower: true,
-                      remove: RemoveSlugPattern,
-                    }),
+                    slug,
                     deleted: false,
                     created_at: new Date(),
                     updated_at: new Date(),
@@ -889,20 +887,33 @@ export class AssetService {
                 USD: { open, high, low, close, volume },
               },
               name,
+              slug,
             } = item;
             this.logger.debug('success', { name });
             const assetExisting = await this.model._collection.findOne({
               $or: [
                 { name: { $regex: `^${name}$`, $options: 'i' } },
-                { name },
                 {
                   slug: {
-                    $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                    $regex: `^${slug}$`,
                     $options: 'i',
                   },
                 },
+                { name },
+                { slug },
               ],
             });
+            const marketData = omitBy(
+              {
+                'market_data.USD.open': open,
+                'market_data.USD.high': high,
+                'market_data.USD.low': low,
+                'market_data.USD.close': close,
+                'market_data.USD.volume': volume,
+              },
+              isNil,
+            );
+
             const {
               value,
               ok,
@@ -911,22 +922,19 @@ export class AssetService {
               {
                 $or: [
                   { name: { $regex: `^${name}$`, $options: 'i' } },
-                  { name },
                   {
                     slug: {
-                      $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                      $regex: `^${slug}$`,
                       $options: 'i',
                     },
                   },
+                  { name },
+                  { slug },
                 ],
               },
               {
                 $set: {
-                  'market_data.USD.open': open,
-                  'market_data.USD.high': high,
-                  'market_data.USD.low': low,
-                  'market_data.USD.close': close,
-                  'market_data.USD.volume': volume,
+                  ...marketData,
                   updated_at: new Date(),
                   updated_by: 'system',
                 },
@@ -941,23 +949,21 @@ export class AssetService {
                   {
                     $or: [
                       { name: { $regex: `^${name}$`, $options: 'i' } },
-                      { name },
                       {
                         slug: {
-                          $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                          $regex: `^${slug}$`,
                           $options: 'i',
                         },
                       },
+                      { name },
+                      { slug },
                     ],
                   },
                   {
                     $setOnInsert: {
+                      ...marketData,
                       name,
-                      slug: slugify(name, {
-                        trim: true,
-                        lower: true,
-                        remove: RemoveSlugPattern,
-                      }),
+                      slug,
                       trans: [] as any,
                       deleted: false,
                       created_at: new Date(),
@@ -975,28 +981,22 @@ export class AssetService {
                 {
                   $or: [
                     { name: { $regex: `^${name}$`, $options: 'i' } },
-                    { name },
                     {
                       slug: {
-                        $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                        $regex: `^${slug}$`,
                         $options: 'i',
                       },
                     },
+                    { name },
+                    { slug },
                   ],
                 },
                 {
                   $setOnInsert: {
                     name,
-                    slug: slugify(name, {
-                      trim: true,
-                      lower: true,
-                      remove: RemoveSlugPattern,
-                    }),
-                    'market_data.USD.open': open,
-                    'market_data.USD.high': high,
-                    'market_data.USD.low': low,
-                    'market_data.USD.close': close,
-                    'market_data.USD.volume': volume,
+                    slug,
+                    ...marketData,
+
                     deleted: false,
                     created_at: new Date(),
                     updated_at: new Date(),
@@ -1043,6 +1043,7 @@ export class AssetService {
         for (const symbol of Object.keys(pricePerformanceStats)) {
           for (const {
             name,
+            slug,
             periods: {
               all_time: {
                 quote: {
@@ -1349,13 +1350,14 @@ export class AssetService {
               {
                 $or: [
                   { name: { $regex: `^${name}$`, $options: 'i' } },
-                  { name },
                   {
                     slug: {
-                      $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                      $regex: `^${slug}$`,
                       $options: 'i',
                     },
                   },
+                  { name },
+                  { slug },
                 ],
               },
               {
@@ -1375,24 +1377,21 @@ export class AssetService {
                   {
                     $or: [
                       { name: { $regex: `^${name}$`, $options: 'i' } },
-                      { name },
                       {
                         slug: {
-                          $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                          $regex: `^${slug}$`,
                           $options: 'i',
                         },
                       },
+                      { name },
+                      { slug },
                     ],
                   },
                   {
                     $setOnInsert: {
                       name,
                       token_id: symbol,
-                      slug: slugify(name, {
-                        trim: true,
-                        lower: true,
-                        remove: RemoveSlugPattern,
-                      }),
+                      slug,
                       trans: [] as any,
                       deleted: false,
                       created_at: new Date(),
@@ -1410,13 +1409,14 @@ export class AssetService {
                 {
                   $or: [
                     { name: { $regex: `^${name}$`, $options: 'i' } },
-                    { name },
                     {
                       slug: {
-                        $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                        $regex: `^${slug}$`,
                         $options: 'i',
                       },
                     },
+                    { name },
+                    { slug },
                   ],
                 },
                 {
@@ -1445,6 +1445,7 @@ export class AssetService {
       }
       this.logger.debug('success', 'fetchPricePerformanceStats done');
     } catch (error) {
+      // console.log(error);
       this.logger.error(error, 'fetchPricePerformanceStats error');
     }
   }

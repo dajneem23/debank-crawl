@@ -44,8 +44,8 @@ export const PersonSeed = async () => {
                 .replace('Verified', '')
                 .trim()
             : _person.name.trim(),
-        verified: !!_person.verified,
-        about: _person.about,
+        // verified: !!_person.verified,
+        description: _person.about,
         avatar: _person['avatar-src'],
         short_description: _person['short-description'],
         urls: {
@@ -256,7 +256,7 @@ export const PersonSeed = async () => {
       name,
       foreign_id,
       urls: {
-        twitter,
+        twitter: [twitter],
       },
       // funds: Object.values(funds || {}).flatMap((fund: any) => {
       //   return fund.map(
@@ -360,7 +360,7 @@ export const PersonSeed = async () => {
         foreign_id = null,
         need_review = false,
         reviewed = false,
-        about = '',
+        description = '',
         short_description = '',
         avatar = '',
         educations = [],
@@ -390,7 +390,7 @@ export const PersonSeed = async () => {
           foreign_id,
           categories: [...new Set(categories)],
           countries: [...new Set(countries)],
-          about,
+          description,
           short_description,
           avatar,
           educations,
@@ -494,61 +494,48 @@ export const insertPersons = async () => {
       return {
         ...item,
         categories: await Promise.all(
-          item.categories
-            .filter(Boolean)
-            .filter(
-              (item: any, index: any, items: any) =>
-                items.findIndex((item2: any) => item2.toLowerCase() == item.toLowerCase()) == index,
-            )
-            .map(async (_category: any): Promise<any> => {
-              return (
-                categories.find((category) => {
-                  return (
-                    category.title.toLowerCase() == _category.toLowerCase() ||
-                    category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                    _category.toLowerCase().includes(category.title.toLowerCase())
-                  );
-                })?.name ||
-                (
-                  await db.collection('categories').findOneAndUpdate(
-                    {
-                      name: {
-                        $regex: slugify(_category, {
-                          lower: true,
-                          trim: true,
-                          replacement: '-',
-                          remove: RemoveSlugPattern,
-                        }),
-                        $options: 'i',
-                      },
-                    },
-                    {
-                      $setOnInsert: {
-                        title: _category,
-                        type: 'person',
-                        name: slugify(_category, {
-                          lower: true,
-                          trim: true,
-                          replacement: '-',
-                          remove: RemoveSlugPattern,
-                        }),
-                        trans: [],
-                        sub_categories: [],
-                        weight: 0,
-                        deleted: false,
-                        created_at: new Date(),
-                        updated_at: new Date(),
-                        created_by: 'admin',
-                      },
-                    },
-                    {
-                      upsert: true,
-                      returnDocument: 'after',
-                    },
-                  )
-                ).value.name
-              );
-            }),
+          uniq(item.categories).map(async (_category: any): Promise<any> => {
+            return (
+              await db.collection('categories').findOneAndUpdate(
+                {
+                  name: {
+                    $regex: slugify(_category, {
+                      lower: true,
+                      trim: true,
+                      replacement: '-',
+                      remove: RemoveSlugPattern,
+                    }),
+                    $options: 'i',
+                  },
+                },
+                {
+                  $setOnInsert: {
+                    title: _category,
+                    name: slugify(_category, {
+                      lower: true,
+                      trim: true,
+                      replacement: '-',
+                      remove: RemoveSlugPattern,
+                    }),
+                    trans: [],
+                    sub_categories: [],
+                    weight: 0,
+                    deleted: false,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                    created_by: 'admin',
+                  },
+                  $push: {
+                    type: 'person',
+                  } as any,
+                },
+                {
+                  upsert: true,
+                  returnDocument: 'after',
+                },
+              )
+            ).value.name;
+          }),
         ),
         metadata: {
           ...item.metadata,
@@ -557,54 +544,43 @@ export const insertPersons = async () => {
               return {
                 ...storage,
                 categories: await Promise.all(
-                  storage.categories
-                    ?.filter(Boolean)
-                    .filter(
-                      (item: any, index: any, items: any) =>
-                        items.findIndex((item2: any) => item2.toLowerCase() == item.toLowerCase()) == index,
-                    )
-                    .map(async (_category: any): Promise<any> => {
+                  uniq(
+                    storage.categories?.filter(Boolean).map(async (_category: any): Promise<any> => {
                       return (
-                        categories.find((category) => {
-                          return (
-                            category.title.toLowerCase() == _category.toLowerCase() ||
-                            category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                            _category.toLowerCase().includes(category.title.toLowerCase())
-                          );
-                        })?.name ||
-                        (
-                          await db.collection('categories').findOneAndUpdate(
-                            {
-                              name: {
-                                $regex: slugify(_category, {
-                                  lower: true,
-                                  trim: true,
-                                  replacement: '-',
-                                  remove: RemoveSlugPattern,
-                                }),
-                                $options: 'i',
-                              },
+                        await db.collection('categories').findOneAndUpdate(
+                          {
+                            name: {
+                              $regex: slugify(_category, {
+                                lower: true,
+                                trim: true,
+                                replacement: '-',
+                                remove: RemoveSlugPattern,
+                              }),
+                              $options: 'i',
                             },
-                            {
-                              $setOnInsert: {
-                                title: _category,
-                                type: 'person',
-                                name: slugify(_category, {
-                                  lower: true,
-                                  trim: true,
-                                  replacement: '-',
-                                  remove: RemoveSlugPattern,
-                                }),
-                              },
+                          },
+                          {
+                            $setOnInsert: {
+                              title: _category,
+                              name: slugify(_category, {
+                                lower: true,
+                                trim: true,
+                                replacement: '-',
+                                remove: RemoveSlugPattern,
+                              }),
                             },
-                            {
-                              upsert: true,
-                              returnDocument: 'after',
-                            },
-                          )
-                        ).value.name
-                      );
+                            $addToSet: {
+                              type: 'person',
+                            } as any,
+                          },
+                          {
+                            upsert: true,
+                            returnDocument: 'after',
+                          },
+                        )
+                      ).value.name;
                     }) || [],
+                  ),
                 ),
               };
             }) || [],

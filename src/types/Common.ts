@@ -59,6 +59,7 @@ export enum CATEGORY_TYPE {
   APPLICATION = 'application',
   CONSENSUS = 'consensus',
   CRYPTO_ASSET = 'crypto_asset',
+  COINMARKETCAP = 'coinmarketcap',
   PERSON = 'person',
   PRODUCT = 'product',
   COMPANY = 'company',

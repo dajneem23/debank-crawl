@@ -22,27 +22,6 @@ env:
   API_PREFIX: ''
   APP_VERSION: '1.0.0'
   APP_PORT: 9001,
-  APP_HOST: '${{ secrets.APP_HOST }}'
-  MONGO_URI: '${{ secrets.MONGO_URI }}'
-  REDIS_URI: '${{ secrets.REDIS_URI }}'
-  AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
-  AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
-  AWS_REGION: '${{ secrets.AWS_REGION }}'
-  AWS_S3_BUCKET: '${{ secrets.AWS_S3_BUCKET }}'
-  LOG_LEVEL: 'debug'
-  FRONTEND_HOST: ''
-  JWT_SECRET: '@secret'
-  JWT_ACCESS_TOKEN_EXP: '10 days'
-  JWT_REFRESH_TOKEN_EXP: '365 days'
-  RESET_PASSWORD_TOKEN_EXP: '30 minutes'
-  VERIFY_EMAIL_TOKEN_EXP: '30 days'
-  CONFIRM_REQUEST_TOKEN_EXP: '5 minutes'
-  MAILGUN_API_KEY: ''
-  MAILGUN_PUBLIC_KEY: ''
-  MAILGUN_DOMAIN: ''
-  COINMARKETCAP_API_KEY: '${{ secrets.COINMARKETCAP_API_KEY }}'
-  MARKETCAP_FETCH_INTERVAL: 900000
-  MODE: 'production'
 
 #3
 jobs:

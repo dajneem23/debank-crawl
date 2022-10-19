@@ -146,7 +146,6 @@ export class NewsController {
 @Controller('/news')
 export class NewsPrivateController {
   private service = Container.get(NewsServiceToken);
-  // change
   @Post('/', [protectPrivateAPI(), NewsValidation.create])
   async create(
     @Res() _res: Response,

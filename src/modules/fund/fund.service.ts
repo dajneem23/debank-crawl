@@ -153,13 +153,13 @@ export class FundService {
                   }) || {
                     deleted: false,
                   }),
+                  ...(lang && {
+                    'trans.lang': { $eq: lang },
+                  }),
                   ...(funding_min && { funding: { $gte: funding_min } }),
                   ...(funding_max && { funding: { $lte: funding_max } }),
                   ...(launched_from && { launched: { $gte: launched_from } }),
                   ...(launched_to && { launched: { $lte: launched_to } }),
-                  ...(lang && {
-                    'trans.lang': { $eq: lang },
-                  }),
                   ...(type && {
                     type,
                   }),

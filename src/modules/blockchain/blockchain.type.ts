@@ -44,7 +44,6 @@ export interface Blockchain extends BaseInformationModel {
 export const _blockchain: Blockchain = {
   name: '',
   avatar: '',
-  about: '',
   categories: [],
   cryptocurrencies: [],
   deleted: false,

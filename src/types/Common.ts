@@ -70,20 +70,21 @@ export enum CATEGORY_TYPE {
 export type BaseModel = {
   _id?: string;
 
-  foreign_id?: string;
+  name?: string;
 
-  record_id?: string;
+  slug?: string;
 
-  metadata?: {
-    _admin_note?: string;
-    storage?: string;
-  };
+  categories?: ObjectId[] | string[];
 
-  need_review?: boolean;
+  sectors?: string[];
 
-  review_status?: string;
+  tags?: string[];
 
-  reviewed?: boolean;
+  description?: string;
+
+  short_description?: string;
+
+  is_public?: boolean;
 
   updated_by?: string;
 
@@ -98,80 +99,60 @@ export type BaseModel = {
   deleted_at?: Date;
 
   deleted?: boolean;
+
+  comments?: Comment[];
+};
+
+export type Comment = {
+  _id?: string;
+  created_at: number;
+  updated_at?: number;
+  user_id: string;
+  text: string;
+  status: CommentStatus; // default: DRAFT
+};
+enum CommentStatus {
+  DRAFT = 'DRAFT',
+  PRIVATE = 'PRIVATE',
+  PUBLIC = 'PUBLIC',
+}
+
+type Urls = {
+  avatar?: string[];
+  twitter?: string[];
+  telegram?: string[];
+  facebook?: string[];
+  instagram?: string[];
+  linkedin?: string[];
+  github?: string[];
+  medium?: string[];
+  discord?: string[];
+  youtube?: string[];
+  website?: string[];
+  blog?: string[];
+  reddit?: string[];
+  gitter?: string[];
+  bitcoin_talk?: string[];
+  rocket_chat?: string[];
+  stack_exchange: string[];
+  video?: string[];
+  fee?: string;
+  slack?: string[];
+  explorer?: string[];
+  whitepaper?: string[];
+  other?: string[];
 };
 
 export interface BaseInformationModel extends BaseModel {
-  id?: ObjectId;
-
-  name?: string;
-
-  slug?: string;
-
-  about?: string;
-
-  categories?: ObjectId[];
-
-  verified?: boolean;
-
-  sponsored?: boolean;
-
   tel?: string;
 
   email?: string;
 
   avatar?: string;
 
-  short_description?: string;
-
-  description?: string;
-
-  urls?: {
-    twitter?: string[];
-
-    telegram?: string[];
-
-    facebook?: string[];
-
-    instagram?: string[];
-
-    linkedin?: string[];
-
-    github?: string[];
-
-    medium?: string[];
-
-    discord?: string[];
-
-    youtube?: string[];
-
-    website?: string[];
-
-    blog?: string[];
-
-    reddit?: string[];
-
-    gitter?: string[];
-
-    bitcoin_talk?: string[];
-
-    rocket_chat?: string[];
-
-    stack_exchange: string[];
-
-    video?: string[];
-
-    fee?: string;
-
-    slack?: string[];
-
-    explorer?: string[];
-
-    whitepaper?: string[];
-
-    other?: string[];
-  };
-
   recent_tweets?: any[];
+
+  urls?: Urls;
 }
 
 export enum WorkType {
@@ -251,16 +232,16 @@ export type BaseServiceOutput = {
     count: number;
     total: number;
   };
-  data?: Array<any>;
+  data?: any[];
 };
 
 export type TeamPerson = {
   name: string;
   position: string;
-  contacts?: Array<{
+  contacts?: {
     name: string;
     url: string;
-  }>;
+  }[];
 };
 export type Support = {
   name: string;
@@ -354,7 +335,7 @@ export enum FundraisingRound {
   SERIES_E = 'Series E',
   SERIES_F = 'Series F',
 }
-export enum FUND_TYPE {
+export enum COMPANY_TYPE {
   NA = 'N/A',
   CRYPTO_VENTURE = 'Crypto Venture',
   EXCHANGE_FUND = 'Exchange Fund',

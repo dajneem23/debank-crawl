@@ -126,7 +126,17 @@ export class CompanyService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { lang, categories = [], deleted = false } = _filter;
+      const {
+        lang,
+        categories = [],
+        deleted = false,
+        funding_min,
+        funding_max,
+        // launched_from,
+        // launched_to,
+        type,
+        tier,
+      } = _filter;
       const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -151,6 +161,15 @@ export class CompanyService {
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
+              }),
+              ...(funding_min && { funding: { $gte: funding_min } }),
+              ...(funding_max && { funding: { $lte: funding_max } }),
+
+              ...(type && {
+                type,
+              }),
+              ...(tier && {
+                tier,
               }),
             },
             $addFields: this.model.$addFields.categories,

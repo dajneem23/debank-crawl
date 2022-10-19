@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, FUND_TYPE, ObjectIdValidation, BaseQueryValidation } from '@/types';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, COMPANY_TYPE, ObjectIdValidation, BaseQueryValidation } from '@/types';
 import { ObjectIdPattern } from '@/utils/common';
 
 export const FundValidation = {
@@ -16,9 +16,9 @@ export const FundValidation = {
 
       total_amount: Joi.number().min(0),
 
-      total_investments: Joi.number().min(0),
+      // total_investments: Joi.number().min(0),
 
-      type: Joi.string().valid(...Object.values(FUND_TYPE)),
+      type: Joi.string().valid(...Object.values(COMPANY_TYPE)),
 
       fundraising_rounds: Joi.array().items(
         Joi.object().keys({
@@ -278,7 +278,7 @@ export const FundValidation = {
       launched_from: Joi.number(),
       launched_to: Joi.number(),
       tier: Joi.string(),
-      type: Joi.string().valid(...Object.values(FUND_TYPE)),
+      type: Joi.string().valid(...Object.values(COMPANY_TYPE)),
       deleted: Joi.boolean(),
     }),
   }),

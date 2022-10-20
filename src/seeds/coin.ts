@@ -30,7 +30,7 @@ export const CoinSeed = async () => {
     readDataFromFile({ _collection: 'assets' }).map((_coin: any) => {
       return {
         name: _coin.name.trim(),
-        token_id: _coin.token_id,
+        symbol: _coin.token_id,
         about: _coin.about,
         video: _coin.video || '',
         avatar: _coin['avatar-src'] || '',

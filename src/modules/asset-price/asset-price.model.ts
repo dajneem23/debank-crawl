@@ -33,7 +33,7 @@ export class AssetPriceModel extends BaseModel {
         },
         {
           field: {
-            token_id: 1,
+            symbol: 1,
           },
         },
         {

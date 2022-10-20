@@ -64,7 +64,7 @@ export type MarketData = {
 export interface AssetPrice extends BaseModel {
   name: string;
 
-  token_id: string;
+  symbol: string;
 
   slug: string;
 

@@ -115,7 +115,7 @@ const marketDataSchema = Joi.object({}).keys({
 const assetSchema = Joi.object({
   name: Joi.string(),
 
-  token_id: Joi.string(),
+  symbol: Joi.string(),
 
   avatar: Joi.string(),
 

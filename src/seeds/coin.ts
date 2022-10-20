@@ -11,6 +11,7 @@ import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
+import { uniq } from 'lodash';
 //   /* eslint-disable no-console */
 export const CoinSeed = async () => {
   /* eslint-disable no-console */
@@ -29,7 +30,7 @@ export const CoinSeed = async () => {
     readDataFromFile({ _collection: 'assets' }).map((_coin: any) => {
       return {
         name: _coin.name.trim(),
-        token_id: _coin.token_id,
+        symbol: _coin.token_id,
         about: _coin.about,
         video: _coin.video || '',
         avatar: _coin['avatar-src'] || '',
@@ -53,7 +54,14 @@ export const CoinSeed = async () => {
           medium: [_coin['medium-href']].filter(Boolean),
         },
         categories: _coin.sectors.map((sector: any) => sector.sectors),
-        blockchains: _coin.blockchain_tag.map((blockchain: any) => blockchain.blockchain_tag),
+        blockchains: _coin.blockchain_tag.map((blockchain: any) =>
+          slugify(blockchain.blockchain_tag, {
+            lower: true,
+            trim: true,
+            replacement: '-',
+            remove: RemoveSlugPattern,
+          }),
+        ),
         services: _coin.services.map((service: any) => service.services),
         features: _coin.features.map((feature: any) => feature.features),
         technologies: _coin.technologies
@@ -74,8 +82,32 @@ export const CoinSeed = async () => {
           .reduce((pIco: any, cIco: any) => {
             return { ...pIco, ...cIco };
           }, {}),
-        exchanges: _coin.exchanges.map((exchange: any) => exchange['exchanges-title']),
-        wallets: _coin.wallets.map((wallet: any) => wallet['wallets-title']),
+        exchanges: uniq(
+          _coin.exchanges
+            .map((exchange: any) =>
+              slugify(exchange['exchanges-title'], {
+                lower: true,
+                trim: true,
+                replacement: '-',
+                remove: RemoveSlugPattern,
+              }),
+            )
+            .filter(Boolean),
+        ),
+        wallets: uniq(
+          _coin.wallets
+            .map(
+              (wallet: any) =>
+                wallet['wallets-title'] &&
+                slugify(wallet['wallets-title'], {
+                  lower: true,
+                  trim: true,
+                  replacement: '-',
+                  remove: RemoveSlugPattern,
+                }),
+            )
+            .filter(Boolean),
+        ),
         team: _coin.person_name.map((person_name: any) => {
           const personIndex = _coin.person_position.findIndex(
             (person: any) => person.person_position == person_name.person_name,
@@ -86,9 +118,12 @@ export const CoinSeed = async () => {
           };
         }),
         company: _coin.company.map((company: any) => {
-          return {
-            name: company['company-title'],
-          };
+          return slugify(company['company-title'], {
+            lower: true,
+            trim: true,
+            replacement: '-',
+            remove: RemoveSlugPattern,
+          });
         })[0],
         ico: _coin.ico_details
           .map((ico_detail: any) => {
@@ -138,53 +173,46 @@ export const insertCoins = async () => {
           categories: await Promise.all(
             item.categories.map(async (_category: any): Promise<any> => {
               return (
-                categories.find((category) => {
-                  return (
-                    category.title.toLowerCase() == _category.toLowerCase() ||
-                    category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                    _category.toLowerCase().includes(category.title.toLowerCase())
-                  );
-                })?.name ||
-                (
-                  await db.collection('categories').findOneAndUpdate(
-                    {
-                      name: {
-                        $regex: slugify(_category, {
-                          lower: true,
-                          trim: true,
-                          replacement: '-',
-                          remove: RemoveSlugPattern,
-                        }),
-                        $options: 'i',
-                      },
+                await db.collection('categories').findOneAndUpdate(
+                  {
+                    name: {
+                      $regex: slugify(_category, {
+                        lower: true,
+                        trim: true,
+                        replacement: '-',
+                        remove: RemoveSlugPattern,
+                      }),
+                      $options: 'i',
                     },
-                    {
-                      $setOnInsert: {
-                        title: _category,
-                        type: 'crypto_asset',
-                        name: slugify(_category, {
-                          lower: true,
-                          trim: true,
-                          replacement: '-',
-                          remove: RemoveSlugPattern,
-                        }),
-                        trans: [],
-                        sub_categories: [],
-                        weight: 0,
-                        deleted: false,
-                        created_at: new Date(),
-                        updated_at: new Date(),
-                        created_by: 'admin',
-                        rank: 0,
-                      },
+                  },
+                  {
+                    $setOnInsert: {
+                      title: _category,
+                      name: slugify(_category, {
+                        lower: true,
+                        trim: true,
+                        replacement: '-',
+                        remove: RemoveSlugPattern,
+                      }),
+                      trans: [],
+                      sub_categories: [],
+                      weight: 0,
+                      deleted: false,
+                      created_at: new Date(),
+                      updated_at: new Date(),
+                      created_by: 'admin',
+                      rank: 0,
                     },
-                    {
-                      upsert: true,
-                      returnDocument: 'after',
-                    },
-                  )
-                ).value.name
-              );
+                    $addToSet: {
+                      type: 'crypto_asset',
+                    } as any,
+                  },
+                  {
+                    upsert: true,
+                    returnDocument: 'after',
+                  },
+                )
+              ).value.name;
             }),
           ),
         };

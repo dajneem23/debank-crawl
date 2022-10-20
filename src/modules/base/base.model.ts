@@ -50,8 +50,6 @@ export class BaseModel {
     projects: any;
     categories: any;
     author: any;
-    team: any;
-    directors: any;
     cryptocurrencies: any;
     event_tags: any;
     person_tags: any;
@@ -63,27 +61,34 @@ export class BaseModel {
     person_sponsors: any;
     fund_sponsors: any;
     company_sponsors: any;
+    asset_price: any;
+    portfolio_companies: any;
+    portfolio_funds: any;
+    company_investors: any;
+    person_investors: any;
+    company_projects: any;
+    founders: any;
   } {
     return {
       products: $lookup({
         from: 'products',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'products',
-        select: 'name avatar slug',
+        select: 'name avatar slug urls',
         reName: 'products',
         operation: '$in',
       }),
       projects: $lookup({
         from: 'projects',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'projects',
-        select: 'name',
+        select: 'name avatar slug urls',
         reName: 'projects',
         operation: '$in',
       }),
       categories: $lookup({
         from: 'categories',
-        refFrom: '_id',
+        refFrom: 'name',
         refTo: 'categories',
         select: 'title type name weight',
         reName: 'categories',
@@ -97,27 +102,12 @@ export class BaseModel {
         reName: 'author',
         operation: '$eq',
       }),
-      team: $lookup({
-        from: 'team',
-        refFrom: '_id',
-        refTo: 'team',
-        select: 'name avatar',
-        reName: 'team',
-        operation: '$in',
-      }),
-      directors: $lookup({
-        from: 'persons',
-        refFrom: '_id',
-        refTo: 'director',
-        select: 'name avatar',
-        reName: 'director',
-        operation: '$eq',
-      }),
+
       cryptocurrencies: $lookup({
         from: 'coins',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'cryptocurrencies',
-        select: 'name token_id avatar',
+        select: 'name symbol avatar slug urls',
         reName: 'cryptocurrencies',
         operation: '$in',
       }),
@@ -131,55 +121,55 @@ export class BaseModel {
       }),
       coin_tags: $lookup({
         from: 'coins',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'coin_tags',
-        select: 'name avatar slug',
+        select: 'name avatar slug symbol urls',
         reName: 'coin_tags',
         operation: '$in',
       }),
       company_tags: $lookup({
         from: 'companies',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'company_tags',
-        select: 'name slug avatar',
+        select: 'name slug avatar urls',
         reName: 'company_tags',
         operation: '$in',
       }),
       product_tags: $lookup({
         from: 'products',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'product_tags',
-        select: 'name avatar slug',
+        select: 'name avatar slug urls',
         reName: 'product_tags',
         operation: '$in',
       }),
       person_tags: $lookup({
         from: 'persons',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'person_tags',
-        select: 'name avatar slug',
+        select: 'name avatar slug urls',
         reName: 'person_tags',
         operation: '$in',
       }),
       event_tags: $lookup({
         from: 'events',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'event_tags',
-        select: 'name avatar slug',
+        select: 'name avatar slug urls',
         reName: 'event_tags',
         operation: '$in',
       }),
       speakers: $lookup({
         from: 'persons',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'speakers',
-        select: 'name avatar slug',
+        select: 'name avatar slug urls',
         reName: 'speakers',
         operation: '$in',
       }),
       sub_categories: $lookup({
         from: 'categories',
-        refFrom: '_id',
+        refFrom: 'name',
         refTo: 'sub_categories',
         select: 'title type name',
         reName: 'sub_categories',
@@ -187,26 +177,82 @@ export class BaseModel {
       }),
       company_sponsors: $lookup({
         from: 'companies',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'company_sponsors',
-        select: 'name avatar slug',
+        select: 'name avatar slug urls',
         reName: 'company_sponsors',
         operation: '$in',
       }),
       fund_sponsors: $lookup({
         from: 'companies',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'fund_sponsors',
-        select: 'name avatar slug',
+        select: 'name avatar slug urls',
         reName: 'fund_sponsors',
         operation: '$in',
       }),
       person_sponsors: $lookup({
         from: 'persons',
-        refFrom: '_id',
+        refFrom: 'slug',
         refTo: 'person_sponsors',
-        select: 'name avatar slug',
+        select: 'name avatar slug urls',
         reName: 'person_sponsors',
+        operation: '$in',
+      }),
+      asset_price: $lookup({
+        from: 'asset-price',
+        refFrom: 'slug',
+        refTo: 'slug',
+        select: 'market_data',
+        reName: 'asset-price',
+        operation: '$eq',
+      }),
+      portfolio_companies: $lookup({
+        from: 'companies',
+        refFrom: 'slug',
+        refTo: 'portfolio_companies',
+        select: 'name avatar slug',
+        reName: 'portfolio_companies',
+        operation: '$in',
+      }),
+      portfolio_funds: $lookup({
+        from: 'funds',
+        refFrom: 'slug',
+        refTo: 'portfolio_funds',
+        select: 'name avatar slug urls',
+        reName: 'portfolio_funds',
+        operation: '$in',
+      }),
+      company_investors: $lookup({
+        from: 'companies',
+        refFrom: 'slug',
+        refTo: 'company_investors',
+        select: 'name avatar slug urls',
+        reName: 'company_investors',
+        operation: '$in',
+      }),
+      person_investors: $lookup({
+        from: 'persons',
+        refFrom: 'slug',
+        refTo: 'person_investors',
+        select: 'name avatar slug urls',
+        reName: 'person_investors',
+        operation: '$in',
+      }),
+      company_projects: $lookup({
+        from: 'companies',
+        refFrom: 'slug',
+        refTo: 'projects',
+        select: 'name avatar slug urls',
+        reName: 'projects',
+        operation: '$in',
+      }),
+      founders: $lookup({
+        from: 'persons',
+        refFrom: 'slug',
+        refTo: 'founders',
+        select: 'name avatar slug urls',
+        reName: 'founders',
         operation: '$in',
       }),
     };
@@ -227,6 +273,11 @@ export class BaseModel {
         trans: { $first: '$trans' };
       };
     };
+    asset_price: {
+      $set: {
+        market_data: { $first: '$asset-price.market_data' };
+      };
+    };
   } {
     return {
       country: {
@@ -244,6 +295,11 @@ export class BaseModel {
           trans: { $first: '$trans' },
         },
       },
+      asset_price: {
+        $set: {
+          market_data: { $first: '$asset-price.market_data' },
+        },
+      },
     };
   }
   get $addFields(): {
@@ -251,6 +307,12 @@ export class BaseModel {
     products: any;
     projects: any;
     cryptocurrencies: any;
+    portfolio_companies: any;
+    portfolio_funds: any;
+    company_investors: any;
+    person_investors: any;
+    company_projects: any;
+    founders: any;
   } {
     return {
       categories: {
@@ -294,6 +356,73 @@ export class BaseModel {
             },
             then: [],
             else: '$cryptocurrencies',
+          },
+        },
+      },
+      portfolio_companies: {
+        portfolio_companies: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$portfolio_companies' }, 'array'],
+            },
+            then: [],
+            else: '$portfolio_companies',
+          },
+        },
+      },
+      portfolio_funds: {
+        portfolio_funds: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$portfolio_funds' }, 'array'],
+            },
+            then: [],
+            else: '$portfolio_funds',
+          },
+        },
+      },
+      company_investors: {
+        company_investors: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$company_investors' }, 'array'],
+            },
+            then: [],
+            else: '$company_investors',
+          },
+        },
+      },
+      person_investors: {
+        person_investors: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$person_investors' }, 'array'],
+            },
+            then: [],
+            else: '$person_investors',
+          },
+        },
+      },
+
+      company_projects: {
+        projects: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$projects' }, 'array'],
+            },
+            then: [],
+            else: '$projects',
+          },
+        },
+      },
+      founders: {
+        founders: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$founders' }, 'array'],
+            },
+            then: [],
+            else: '$founders',
           },
         },
       },
@@ -532,46 +661,47 @@ export class BaseModel {
         slug,
       } = _content;
       categories.length &&
-        (await $refValidation({ collection: 'categories', list: $toObjectId(categories) })) &&
-        (_content.categories = $toObjectId(categories));
+        (await $refValidation({ collection: 'categories', refKey: 'name', list: $toObjectId(categories) })) &&
+        (_content.categories = categories);
       blockchains.length &&
-        (await $refValidation({ collection: 'blockchains', list: $toObjectId(blockchains) })) &&
-        (_content.blockchains = $toObjectId(blockchains));
+        (await $refValidation({ collection: 'blockchains', list: blockchains })) &&
+        (_content.blockchains = blockchains);
       sub_categories.length &&
         (await $refValidation({
           collection: 'categories',
-          list: $toObjectId(sub_categories),
+          list: sub_categories,
           Refname: 'sub_categories',
+          refKey: 'name',
         })) &&
-        (_content.sub_categories = $toObjectId(sub_categories));
+        (_content.sub_categories = sub_categories);
       event_tags.length &&
-        (await $refValidation({ collection: 'events', list: $toObjectId(event_tags) })) &&
-        (_content.event_tags = $toObjectId(event_tags));
+        (await $refValidation({ collection: 'events', list: event_tags })) &&
+        (_content.event_tags = event_tags);
       product_tags.length &&
-        (await $refValidation({ collection: 'products', list: $toObjectId(product_tags) })) &&
-        (_content.product_tags = $toObjectId(product_tags));
+        (await $refValidation({ collection: 'products', list: product_tags })) &&
+        (_content.product_tags = product_tags);
       company_tags.length &&
-        (await $refValidation({ collection: 'companies', list: $toObjectId(company_tags) })) &&
-        (_content.company_tags = $toObjectId(company_tags));
+        (await $refValidation({ collection: 'companies', list: company_tags })) &&
+        (_content.company_tags = company_tags);
       person_tags.length &&
-        (await $refValidation({ collection: 'persons', list: $toObjectId(person_tags) })) &&
-        (_content.person_tags = $toObjectId(person_tags));
+        (await $refValidation({ collection: 'persons', list: person_tags })) &&
+        (_content.person_tags = person_tags);
       coin_tags.length &&
-        (await $refValidation({ collection: 'assets', list: $toObjectId(coin_tags) })) &&
-        (_content.coin_tags = $toObjectId(coin_tags));
+        (await $refValidation({ collection: 'assets', list: coin_tags })) &&
+        (_content.coin_tags = coin_tags);
       fund_tags.length &&
-        (await $refValidation({ collection: 'companies', list: $toObjectId(fund_tags) })) &&
-        (_content.fund_tags = $toObjectId(fund_tags));
+        (await $refValidation({ collection: 'companies', list: fund_tags })) &&
+        (_content.fund_tags = fund_tags);
       cryptocurrencies.length &&
         (await $refValidation({
           collection: 'assets',
-          list: $toObjectId(cryptocurrencies),
+          list: cryptocurrencies,
           Refname: 'cryptocurrencies',
         })) &&
-        (_content.cryptocurrencies = $toObjectId(cryptocurrencies));
+        (_content.cryptocurrencies = cryptocurrencies);
       speakers.length &&
-        (await $refValidation({ collection: 'persons', list: $toObjectId(speakers), Refname: 'speakers' })) &&
-        (_content.speakers = $toObjectId(speakers));
+        (await $refValidation({ collection: 'persons', list: speakers, Refname: 'speakers' })) &&
+        (_content.speakers = speakers);
       country && (await $refValidation({ collection: 'countries', list: [country], refKey: 'code' }));
       title &&
         !slug &&

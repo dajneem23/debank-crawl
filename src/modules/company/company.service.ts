@@ -244,18 +244,31 @@ export class CompanyService {
             },
           },
           {
+            $limit: 1,
+          },
+          {
             $addFields: {
               ...this.model.$addFields.categories,
+              ...this.model.$addFields.products,
+              ...this.model.$addFields.projects,
               ...this.model.$addFields.cryptocurrencies,
+              ...this.model.$addFields.portfolio_companies,
+              ...this.model.$addFields.portfolio_funds,
+              ...this.model.$addFields.company_investors,
+              ...this.model.$addFields.person_investors,
+              ...this.model.$addFields.company_projects,
+              ...this.model.$addFields.founders,
             },
           },
-          this.model.$lookups.cryptocurrencies,
-          this.model.$lookups.categories,
           this.model.$lookups.author,
-          this.model.$lookups.team,
-          this.model.$lookups.products,
-          this.model.$lookups.projects,
-          this.model.$lookups.country,
+          this.model.$lookups.founders,
+          this.model.$lookups.categories,
+          this.model.$lookups.cryptocurrencies,
+          this.model.$lookups.company_projects,
+          this.model.$lookups.person_investors,
+          this.model.$lookups.company_investors,
+          this.model.$lookups.portfolio_funds,
+          this.model.$lookups.portfolio_companies,
           this.model.$sets.author,
           ...((lang && [
             {
@@ -284,9 +297,6 @@ export class CompanyService {
             },
           ]) ||
             []),
-          {
-            $limit: 1,
-          },
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
@@ -316,21 +326,34 @@ export class CompanyService {
             },
           },
           {
+            $limit: 1,
+          },
+          {
             $addFields: {
               ...this.model.$addFields.categories,
               ...this.model.$addFields.products,
               ...this.model.$addFields.projects,
               ...this.model.$addFields.cryptocurrencies,
+              ...this.model.$addFields.portfolio_companies,
+              ...this.model.$addFields.portfolio_funds,
+              ...this.model.$addFields.company_investors,
+              ...this.model.$addFields.person_investors,
+              ...this.model.$addFields.company_projects,
+              ...this.model.$addFields.founders,
             },
           },
           this.model.$lookups.cryptocurrencies,
           this.model.$lookups.categories,
           this.model.$lookups.author,
-          this.model.$lookups.team,
-          // this.model.$lookups.products,
-          this.model.$lookups.projects,
-          this.model.$lookups.country,
+          this.model.$lookups.portfolio_companies,
+          this.model.$lookups.company_projects,
+          this.model.$lookups.company_investors,
+          this.model.$lookups.person_investors,
+          this.model.$lookups.portfolio_funds,
+          this.model.$lookups.founders,
+
           this.model.$sets.author,
+
           ...((lang && [
             {
               $project: {
@@ -358,9 +381,6 @@ export class CompanyService {
             },
           ]) ||
             []),
-          {
-            $limit: 1,
-          },
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));

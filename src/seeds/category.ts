@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { CATEGORY_TYPE } from '../types/Common';
+import { CATEGORY_TYPE, RemoveSlugPattern } from '../types/Common';
 // import product_category from '../data/crypto_slate/json/product_category.json';
 import categories_event from '../data/crypto_slate/json/event-categories.json';
 import categories_crypto from '../data/crypto_slate/json/cryptoasset-categories.json';
@@ -135,13 +135,6 @@ export const CategorySeed = async () => {
           created_by: 'admin',
         };
       })
-      .filter((item, index, self) => {
-        return (
-          self.findIndex((t) => {
-            return t.name === item.name && t.type === item.type;
-          }) === index
-        );
-      })
       .map(async (_item: any, index) => {
         return {
           ..._item,
@@ -151,14 +144,12 @@ export const CategorySeed = async () => {
                 return (
                   await db.collection('categories').findOneAndUpdate(
                     {
-                      title: item.title,
-                      type: item.type,
                       name: {
                         $regex: slugify(item.title, {
                           lower: true,
                           trim: true,
                           replacement: '-',
-                          remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+                          remove: RemoveSlugPattern,
                         }),
                         $options: 'i',
                       },
@@ -172,23 +163,13 @@ export const CategorySeed = async () => {
                         {}),
                       $setOnInsert: {
                         title: item.title,
-                        type: item.type,
+                        // type: item.type,
                         name: slugify(item.title, {
                           lower: true,
                           trim: true,
                           replacement: '-',
                           remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
                         }),
-                        // acronym: item.title
-                        //   .toLowerCase()
-                        //   .match(/[a-zA-Z0-9_ ]+/g)
-                        //   .join('')
-                        //   .trim()
-                        //   .split(' ')
-                        //   .map((word: any, _: any, list: any) => {
-                        //     return list.length > 1 ? word[0] : list.slice(0, 1);
-                        //   })
-                        // .join(''),
                         trans: [],
                         sub_categories: [],
                         weight: item.weight || 0,
@@ -198,13 +179,16 @@ export const CategorySeed = async () => {
                         created_by: 'admin',
                         rank: item.rank || _item.rank + 1,
                       },
+                      $addToSet: {
+                        type: item.type,
+                      } as any,
                     },
                     {
                       upsert: true,
                       returnDocument: 'after',
                     },
                   )
-                ).value._id;
+                ).value.name;
               }) || [],
             )) ?? [],
           weight: index + 1,
@@ -215,14 +199,12 @@ export const CategorySeed = async () => {
     uniqueCategories.map(async (item: any) => {
       return await db.collection('categories').findOneAndUpdate(
         {
-          title: item.title,
-          type: item.type,
           name: {
             $regex: slugify(item.title, {
               lower: true,
               trim: true,
               replacement: '-',
-              remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+              remove: RemoveSlugPattern,
             }),
             $options: 'i',
           },
@@ -236,23 +218,12 @@ export const CategorySeed = async () => {
             {}),
           $setOnInsert: {
             title: item.title,
-            type: item.type,
             name: slugify(item.title, {
               lower: true,
               trim: true,
               replacement: '-',
-              remove: /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g,
+              remove: RemoveSlugPattern,
             }),
-            // acronym: item.title
-            //   .toLowerCase()
-            //   .match(/[a-zA-Z0-9_ ]+/g)
-            //   .join('')
-            //   .trim()
-            //   .split(' ')
-            //   .map((word: any, _: any, list: any) => {
-            //     return list.length > 1 ? word[0] : list.slice(0, 1);
-            //   })
-            //   .join(''),
             ...((!item.sub_categories?.length && {
               sub_categories: item.sub_categories,
             }) ||
@@ -264,6 +235,9 @@ export const CategorySeed = async () => {
             created_by: 'admin',
             rank: item.rank,
           },
+          $addToSet: {
+            type: item.type,
+          } as any,
         },
         {
           upsert: true,

@@ -219,12 +219,16 @@ export const CompanySeed = async () => {
             description: about,
             date,
             announcement,
-            founders: founders.map(({ foreignRowId, foreignRowDisplayName }: any) => {
-              return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
-            }),
-            investors: investors.map(({ foreignRowId, foreignRowDisplayName }: any) => {
-              return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
-            }),
+            founders: uniq(
+              founders.map(({ foreignRowId, foreignRowDisplayName }: any) => {
+                return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
+              }),
+            ),
+            investors: uniq(
+              investors.map(({ foreignRowId, foreignRowDisplayName }: any) => {
+                return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
+              }),
+            ),
             urls: {
               website,
             },
@@ -566,6 +570,7 @@ export const CompanySeed = async () => {
         investors = [],
         metadata = {},
         fundraising_rounds = [],
+        investment_fundraising_rounds = [],
         services = [],
         supports = [],
         team = [],
@@ -637,7 +642,7 @@ export const CompanySeed = async () => {
         year_founded,
         avatars,
         funding,
-        founders,
+        founders: [...new Set(founders)].filter(Boolean),
         investors,
         // fundraising_rounds,
         services,
@@ -670,7 +675,7 @@ export const CompanySeed = async () => {
         cryptocurrencies,
         metadata,
         // type,
-        projects: projects.flat(10),
+        projects: uniq(projects.flat(10)),
         // investments: items.reduce((_total: any, _item: any) => {
         //   return [
         //     ..._total,
@@ -827,63 +832,52 @@ export const insertCompanies = async () => {
             )) as any
           ).filter(Boolean),
           categories: await Promise.all(
-            item.categories
-              .filter(Boolean)
-              .filter(
-                (item: any, index: any, items: any) =>
-                  items.findIndex((item2: any) => item2.toLowerCase() == item.toLowerCase()) == index,
-              )
-              .map(async (_category: any): Promise<any> => {
+            uniq(
+              item.categories.map(async (_category: any): Promise<any> => {
                 return (
-                  categories.find((category) => {
-                    return (
-                      category.title.toLowerCase() == _category.toLowerCase() ||
-                      category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                      _category.toLowerCase().includes(category.title.toLowerCase())
-                    );
-                  })?.name ||
-                  (
-                    await db.collection('categories').findOneAndUpdate(
-                      {
-                        name: {
-                          $regex: slugify(_category, {
-                            lower: true,
-                            trim: true,
-                            replacement: '-',
-                            remove: RemoveSlugPattern,
-                          }),
-                          $options: 'i',
-                        },
+                  await db.collection('categories').findOneAndUpdate(
+                    {
+                      name: {
+                        $regex: slugify(_category, {
+                          lower: true,
+                          trim: true,
+                          replacement: '-',
+                          remove: RemoveSlugPattern,
+                        }),
+                        $options: 'i',
                       },
-                      {
-                        $setOnInsert: {
-                          title: _category,
-                          type: 'company',
-                          name: slugify(_category, {
-                            lower: true,
-                            trim: true,
-                            replacement: '-',
-                            remove: RemoveSlugPattern,
-                          }),
-                          trans: [],
-                          sub_categories: [],
-                          weight: 0,
-                          deleted: false,
-                          created_at: new Date(),
-                          updated_at: new Date(),
-                          created_by: 'admin',
-                          rank: 0,
-                        },
+                    },
+                    {
+                      $setOnInsert: {
+                        title: _category,
+                        name: slugify(_category, {
+                          lower: true,
+                          trim: true,
+                          replacement: '-',
+                          remove: RemoveSlugPattern,
+                        }),
+                        trans: [],
+                        sub_categories: [],
+                        weight: 0,
+                        deleted: false,
+                        created_at: new Date(),
+                        updated_at: new Date(),
+                        created_by: 'admin',
+                        rank: 0,
                       },
-                      {
-                        upsert: true,
-                        returnDocument: 'after',
-                      },
-                    )
-                  ).value.name
-                );
+                      $addToSet: {
+                        type: 'company',
+                      } as any,
+                    },
+                    {
+                      upsert: true,
+                      returnDocument: 'after',
+                    },
+                  )
+                ).value.name;
                 // return slugify(_category, { lower: true, trim: true, replacement: '-', remove: RemoveSlugPattern });
               }),
+            ),
           ),
           metadata: {
             ...item.metadata,
@@ -892,61 +886,48 @@ export const insertCompanies = async () => {
                 return {
                   ...storage,
                   categories: await Promise.all(
-                    storage.categories
-                      ?.filter(Boolean)
-                      .filter(
-                        (item: any, index: any, items: any) =>
-                          items.findIndex((item2: any) => item2.toLowerCase() == item.toLowerCase()) == index,
-                      )
-                      .map(async (_category: any): Promise<any> => {
-                        return (
-                          categories.find((category) => {
-                            return (
-                              category.title.toLowerCase() == _category.toLowerCase() ||
-                              category.title.toLowerCase().includes(_category.toLowerCase()) ||
-                              _category.toLowerCase().includes(category.title.toLowerCase())
-                            );
-                          })?.name ||
-                          (
-                            await db.collection('categories').findOneAndUpdate(
-                              {
-                                name: {
-                                  $regex: slugify(_category, {
-                                    lower: true,
-                                    trim: true,
-                                    replacement: '-',
-                                    remove: RemoveSlugPattern,
-                                  }),
-                                  $options: 'i',
-                                },
-                              },
-                              {
-                                $setOnInsert: {
-                                  title: _category,
-                                  type: 'company',
-                                  name: slugify(_category, {
-                                    lower: true,
-                                    trim: true,
-                                    replacement: '-',
-                                    remove: RemoveSlugPattern,
-                                  }),
-                                  sub_categories: [],
-                                  weight: 0,
-                                  deleted: false,
-                                  created_at: new Date(),
-                                  updated_at: new Date(),
-                                  created_by: 'admin',
-                                  rank: 0,
-                                },
-                              },
-                              {
-                                upsert: true,
-                                returnDocument: 'after',
-                              },
-                            )
-                          ).value.name
-                        );
-                      }) || [],
+                    storage.categories?.map(async (_category: any): Promise<any> => {
+                      return (
+                        await db.collection('categories').findOneAndUpdate(
+                          {
+                            name: {
+                              $regex: slugify(_category, {
+                                lower: true,
+                                trim: true,
+                                replacement: '-',
+                                remove: RemoveSlugPattern,
+                              }),
+                              $options: 'i',
+                            },
+                          },
+                          {
+                            $setOnInsert: {
+                              title: _category,
+                              name: slugify(_category, {
+                                lower: true,
+                                trim: true,
+                                replacement: '-',
+                                remove: RemoveSlugPattern,
+                              }),
+                              sub_categories: [],
+                              weight: 0,
+                              deleted: false,
+                              created_at: new Date(),
+                              updated_at: new Date(),
+                              created_by: 'admin',
+                              rank: 0,
+                            },
+                            $addToSet: {
+                              type: 'company',
+                            } as any,
+                          },
+                          {
+                            upsert: true,
+                            returnDocument: 'after',
+                          },
+                        )
+                      ).value.name;
+                    }) || [],
                   ),
                 };
               }) || [],

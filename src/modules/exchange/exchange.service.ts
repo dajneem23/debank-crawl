@@ -256,10 +256,6 @@ export class ExchangeService {
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
-          this.model.$lookups.team,
-          this.model.$lookups.products,
-          this.model.$lookups.projects,
-          this.model.$lookups.country,
           this.model.$sets.author,
           ...((lang && [
             {
@@ -330,10 +326,6 @@ export class ExchangeService {
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
-          this.model.$lookups.team,
-          this.model.$lookups.products,
-          this.model.$lookups.projects,
-          this.model.$lookups.country,
           this.model.$sets.author,
           ...((lang && [
             {
@@ -682,7 +674,7 @@ export class ExchangeService {
     );
     if (ok && !updatedExisting) {
       await this.model._collection.findOneAndUpdate(
-        { slug: slug },
+        { slug },
         {
           $setOnInsert: {
             name,

@@ -1,10 +1,10 @@
 import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { $toObjectId, $pagination, $toMongoFilter, $keysToProject, $lookup } from '@/utils/mongoDB';
 import { AssetError, assetErrors, AssetModel, assetModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, assetSortBy, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
-import { chunk, isNil, omit, omitBy } from 'lodash';
+import { chunk, isNil, omit, omitBy, uniq } from 'lodash';
 import { _asset } from '@/modules';
 import { env } from 'process';
 import slugify from 'slugify';
@@ -145,7 +145,7 @@ export class AssetService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'name', 'token_id', 'about', 'categories', 'avatar', 'slug', 'market_data'];
+    return ['id', 'name', 'symbol', 'about', 'categories', 'avatar', 'slug', 'market_data'];
   }
   get transKeys() {
     return ['about', 'features', 'services'];
@@ -266,7 +266,7 @@ export class AssetService {
               ...(keyword && {
                 $or: [
                   { name: { $regex: keyword, $options: 'i' } },
-                  { token_id: { $regex: keyword, $options: 'i' } },
+                  { symbol: { $regex: keyword, $options: 'i' } },
                   { unique_key: { $regex: keyword, $options: 'i' } },
                 ],
               }),
@@ -404,6 +404,7 @@ export class AssetService {
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
+          this.model.$lookups.asset_price,
           this.model.$sets.author,
           ...((lang && [
             {
@@ -465,11 +466,21 @@ export class AssetService {
             },
           },
           {
+            $limit: 1,
+          },
+          {
             $addFields: this.model.$addFields.categories,
           },
+          this.model.$lookups.asset_price,
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$sets.author,
+          this.model.$sets.asset_price,
+          {
+            $project: {
+              'asset-price': 0,
+            },
+          },
           ...((lang && [
             {
               $project: {
@@ -497,9 +508,6 @@ export class AssetService {
             },
           ]) ||
             []),
-          {
-            $limit: 1,
-          },
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
@@ -584,6 +592,138 @@ export class AssetService {
       throw err;
     }
   }
+  async assetPrice({ _id, _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<any> {
+    try {
+      const {
+        categories = [],
+        deleted = false,
+        community_vote_min,
+        community_vote_max,
+        market_cap_min,
+        market_cap_max,
+        fully_diluted_market_cap_min,
+        fully_diluted_market_cap_max,
+        backer,
+        development_status,
+        founded_from,
+        founded_to,
+      } = _filter;
+      const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
+      const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
+      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+        .get(
+          $pagination({
+            $match: {
+              ...((_permission === 'private' && {
+                deleted,
+              }) || {
+                deleted: false,
+              }),
+              ...(keyword && {
+                name: { $regex: keyword, $options: 'i' },
+              }),
+              ...(!isNil(market_cap_min) && {
+                'market_data.USD.market_cap': {
+                  $gte: market_cap_min,
+                },
+              }),
+              ...(!isNil(market_cap_max) && {
+                'market_data.USD.market_cap': {
+                  $lte: market_cap_max,
+                },
+              }),
+
+              ...(!isNil(fully_diluted_market_cap_max) && {
+                'market_data.USD.fully_diluted_market_cap': {
+                  $lte: fully_diluted_market_cap_max,
+                },
+              }),
+              ...(!isNil(fully_diluted_market_cap_min) && {
+                'market_data.USD.fully_diluted_market_cap': {
+                  $gte: fully_diluted_market_cap_min,
+                },
+              }),
+
+              ...((categories.length && {
+                categories: {
+                  $in: $toObjectId(categories),
+                },
+              }) ||
+                {}),
+
+              ...((!isNil(community_vote_max) && {
+                community_vote: {
+                  $lte: community_vote_max,
+                },
+              }) ||
+                {}),
+              ...((!isNil(community_vote_min) && {
+                community_vote: {
+                  $gte: community_vote_min,
+                },
+              }) ||
+                {}),
+
+              ...((!isNil(founded_from) && {
+                founded: {
+                  $gte: founded_from,
+                },
+              }) ||
+                {}),
+              ...((!isNil(founded_to) && {
+                founded: {
+                  $lte: founded_to,
+                },
+              }) ||
+                {}),
+
+              ...((backer && {
+                backer: { $eq: backer },
+              }) ||
+                {}),
+
+              ...((development_status && {
+                'technologies.development_status': { $eq: development_status },
+              }) ||
+                {}),
+            },
+            $addFields: this.model.$addFields.categories,
+            $lookups: [
+              this.model.$lookups.categories,
+              $lookup({
+                from: 'asset-price',
+                refFrom: 'slug',
+                refTo: 'slug',
+                select: 'market_data',
+                reName: '_asset-price',
+                operation: '$eq',
+              }),
+            ],
+            $projects: [
+              {
+                $project: {
+                  ...$keysToProject(this.outputKeys),
+                  ...$keysToProject(['market_data'], '$_asset-price'),
+                },
+              },
+            ],
+            ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
+            items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }],
+          }),
+        )
+        .toArray();
+      this.logger.debug('query_success', { _filter, _query });
+      return toPagingOutput({
+        items,
+        total_count,
+        has_next: total_count > offset * limit,
+        keys: uniq([...this.outputKeys]),
+      });
+    } catch (err) {
+      this.logger.error('query_error', err.message);
+      throw err;
+    }
+  }
   /**
    *
    * @description fetch market data from CoinMarketCap api
@@ -606,7 +746,7 @@ export class AssetService {
             $projects: [
               {
                 $project: {
-                  token_id: 1,
+                  symbol: 1,
                 },
               },
             ],
@@ -615,7 +755,7 @@ export class AssetService {
         ])
         .toArray();
       if (items.length) {
-        const listSymbol = items.map((item) => item.token_id);
+        const listSymbol = items.map((item) => item.symbol);
         const {
           data: { data: quotesLatest },
         } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
@@ -659,27 +799,13 @@ export class AssetService {
                 },
               },
               name,
+              slug,
             } = item;
             const marketData = omitBy(
               {
-                'market_data.cmc_rank': cmc_rank,
                 'market_data.USD.last_updated': last_updated,
 
-                'market_data.USD.price': price,
-
-                'market_data.tvl_ratio': tvl_ratio,
                 'market_data.USD.tvl': tvl,
-
-                'market_data.num_market_pairs': num_market_pairs,
-                'market_data.USD.market_cap': market_cap,
-                'market_data.self_reported_market_cap': self_reported_market_cap,
-                'market_data.USD.market_cap_dominance': market_cap_dominance,
-                'market_data.USD.fully_diluted_market_cap': fully_diluted_market_cap,
-                'market_data.USD.market_cap_by_total_supply': market_cap_by_total_supply,
-                'market_data.total_supply': total_supply,
-                'market_data.circulating_supply': circulating_supply,
-                'market_data.self_reported_circulating_supply': self_reported_circulating_supply,
-                'market_data.max_supply': max_supply,
 
                 'market_data.USD.1h.percent_change': percent_change_1h,
 
@@ -699,31 +825,59 @@ export class AssetService {
               },
               isNil,
             );
-            const assetExisting = await this.model._collection.findOne({
-              $or: [
-                { name: { $regex: `^${name}$`, $options: 'i' } },
-                { name },
-                {
-                  slug: {
-                    $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
-                    $options: 'i',
-                  },
-                },
-              ],
-            });
+
+            const assetMarketData = omitBy(
+              {
+                tvl_ratio,
+                num_market_pairs,
+                market_cap,
+                self_reported_market_cap,
+                market_cap_dominance,
+                fully_diluted_market_cap,
+                market_cap_by_total_supply,
+                total_supply,
+                circulating_supply,
+                self_reported_circulating_supply,
+                max_supply,
+                price,
+                cmc_rank,
+              },
+              isNil,
+            );
             const {
-              lastErrorObject: { updatedExisting: updatedAssetPriceExisting },
-            } = await this.assetPriceModel._collection.findOneAndUpdate(
+              lastErrorObject: { updatedExisting: updatedAssetExisting },
+            } = await this.model._collection.findOneAndUpdate(
               {
                 $or: [
                   { name: { $regex: `^${name}$`, $options: 'i' } },
                   { name },
+                  { slug },
                   {
                     slug: {
                       $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
                       $options: 'i',
                     },
                   },
+                ],
+              },
+              {
+                $set: { ...assetMarketData, updated_at: new Date(), updated_by: 'system' },
+              },
+            );
+            const {
+              lastErrorObject: { updatedExisting: updatedAssetPriceExisting },
+            } = await this.assetPriceModel._collection.findOneAndUpdate(
+              {
+                $or: [
+                  { name: { $regex: `^${name}$`, $options: 'i' } },
+                  {
+                    slug: {
+                      $regex: `^${slug}$`,
+                      $options: 'i',
+                    },
+                  },
+                  { name },
+                  { slug },
                 ],
               },
               {
@@ -750,29 +904,27 @@ export class AssetService {
               },
             );
             if (!updatedAssetPriceExisting) {
-              if (!assetExisting) {
+              if (!updatedAssetExisting) {
                 await this.model._collection.findOneAndUpdate(
                   {
                     $or: [
                       { name: { $regex: `^${name}$`, $options: 'i' } },
-                      { name },
                       {
                         slug: {
-                          $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                          $regex: `^${slug}$`,
                           $options: 'i',
                         },
                       },
+                      { name },
+                      { slug },
                     ],
                   },
                   {
                     $setOnInsert: {
                       name,
-                      token_id: symbol,
-                      slug: slugify(name, {
-                        trim: true,
-                        lower: true,
-                        remove: RemoveSlugPattern,
-                      }),
+                      symbol: symbol,
+                      slug,
+                      ...assetMarketData,
                       trans: [] as any,
                       deleted: false,
                       created_at: new Date(),
@@ -790,13 +942,14 @@ export class AssetService {
                 {
                   $or: [
                     { name: { $regex: `^${name}$`, $options: 'i' } },
-                    { name },
                     {
                       slug: {
-                        $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                        $regex: `^${slug}$`,
                         $options: 'i',
                       },
                     },
+                    { name },
+                    { slug },
                   ],
                 },
                 {
@@ -808,13 +961,9 @@ export class AssetService {
                         timestamp: new Date(),
                       },
                     ],
-                    token_id: symbol,
+                    symbol: symbol,
                     ...marketData,
-                    slug: slugify(name, {
-                      trim: true,
-                      lower: true,
-                      remove: RemoveSlugPattern,
-                    }),
+                    slug,
                     deleted: false,
                     created_at: new Date(),
                     updated_at: new Date(),
@@ -862,7 +1011,7 @@ export class AssetService {
             $projects: [
               {
                 $project: {
-                  token_id: 1,
+                  symbol: 1,
                 },
               },
             ],
@@ -871,7 +1020,7 @@ export class AssetService {
         ])
         .toArray();
       if (items.length) {
-        const listSymbol = items.map((item) => item.token_id);
+        const listSymbol = items.map((item) => item.symbol);
         const {
           data: { data: ohlcvLastest },
         } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
@@ -889,20 +1038,33 @@ export class AssetService {
                 USD: { open, high, low, close, volume },
               },
               name,
+              slug,
             } = item;
             this.logger.debug('success', { name });
             const assetExisting = await this.model._collection.findOne({
               $or: [
                 { name: { $regex: `^${name}$`, $options: 'i' } },
-                { name },
                 {
                   slug: {
-                    $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                    $regex: `^${slug}$`,
                     $options: 'i',
                   },
                 },
+                { name },
+                { slug },
               ],
             });
+            const marketData = omitBy(
+              {
+                'market_data.USD.open': open,
+                'market_data.USD.high': high,
+                'market_data.USD.low': low,
+                'market_data.USD.close': close,
+                'market_data.USD.volume': volume,
+              },
+              isNil,
+            );
+
             const {
               value,
               ok,
@@ -911,22 +1073,19 @@ export class AssetService {
               {
                 $or: [
                   { name: { $regex: `^${name}$`, $options: 'i' } },
-                  { name },
                   {
                     slug: {
-                      $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                      $regex: `^${slug}$`,
                       $options: 'i',
                     },
                   },
+                  { name },
+                  { slug },
                 ],
               },
               {
                 $set: {
-                  'market_data.USD.open': open,
-                  'market_data.USD.high': high,
-                  'market_data.USD.low': low,
-                  'market_data.USD.close': close,
-                  'market_data.USD.volume': volume,
+                  ...marketData,
                   updated_at: new Date(),
                   updated_by: 'system',
                 },
@@ -941,23 +1100,21 @@ export class AssetService {
                   {
                     $or: [
                       { name: { $regex: `^${name}$`, $options: 'i' } },
-                      { name },
                       {
                         slug: {
-                          $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                          $regex: `^${slug}$`,
                           $options: 'i',
                         },
                       },
+                      { name },
+                      { slug },
                     ],
                   },
                   {
                     $setOnInsert: {
+                      ...marketData,
                       name,
-                      slug: slugify(name, {
-                        trim: true,
-                        lower: true,
-                        remove: RemoveSlugPattern,
-                      }),
+                      slug,
                       trans: [] as any,
                       deleted: false,
                       created_at: new Date(),
@@ -975,28 +1132,21 @@ export class AssetService {
                 {
                   $or: [
                     { name: { $regex: `^${name}$`, $options: 'i' } },
-                    { name },
                     {
                       slug: {
-                        $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                        $regex: `^${slug}$`,
                         $options: 'i',
                       },
                     },
+                    { name },
+                    { slug },
                   ],
                 },
                 {
                   $setOnInsert: {
                     name,
-                    slug: slugify(name, {
-                      trim: true,
-                      lower: true,
-                      remove: RemoveSlugPattern,
-                    }),
-                    'market_data.USD.open': open,
-                    'market_data.USD.high': high,
-                    'market_data.USD.low': low,
-                    'market_data.USD.close': close,
-                    'market_data.USD.volume': volume,
+                    slug,
+                    ...marketData,
                     deleted: false,
                     created_at: new Date(),
                     updated_at: new Date(),
@@ -1030,7 +1180,8 @@ export class AssetService {
       const allAssets = await this.model.get().toArray();
       const groupAssets = chunk(allAssets, CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsLimit);
       for (const assets of groupAssets) {
-        const listSymbol = assets.map((asset) => asset.token_id);
+        const listSymbol = assets.map((asset) => asset.symbol);
+        await sleep(300);
         const {
           data: { data: pricePerformanceStats },
         } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
@@ -1043,6 +1194,7 @@ export class AssetService {
         for (const symbol of Object.keys(pricePerformanceStats)) {
           for (const {
             name,
+            slug,
             periods: {
               all_time: {
                 quote: {
@@ -1060,12 +1212,12 @@ export class AssetService {
                   },
                 } = {
                   USD: {
-                    percent_change: 0,
-                    price_change: 0,
-                    open: 0,
-                    high: 0,
-                    low: 0,
-                    close: 0,
+                    percent_change: null,
+                    price_change: null,
+                    open: null,
+                    high: null,
+                    low: null,
+                    close: null,
                     open_timestamp: null,
                     high_timestamp: null,
                     low_timestamp: null,
@@ -1089,12 +1241,12 @@ export class AssetService {
                   },
                 } = {
                   USD: {
-                    percent_change: 0,
-                    price_change: 0,
-                    open: 0,
-                    high: 0,
-                    low: 0,
-                    close: 0,
+                    percent_change: null,
+                    price_change: null,
+                    open: null,
+                    high: null,
+                    low: null,
+                    close: null,
                     open_timestamp: null,
                     high_timestamp: null,
                     low_timestamp: null,
@@ -1118,12 +1270,12 @@ export class AssetService {
                   },
                 } = {
                   USD: {
-                    percent_change: 0,
-                    price_change: 0,
-                    open: 0,
-                    high: 0,
-                    low: 0,
-                    close: 0,
+                    percent_change: null,
+                    price_change: null,
+                    open: null,
+                    high: null,
+                    low: null,
+                    close: null,
                     open_timestamp: null,
                     high_timestamp: null,
                     low_timestamp: null,
@@ -1147,12 +1299,12 @@ export class AssetService {
                   },
                 } = {
                   USD: {
-                    percent_change: 0,
-                    price_change: 0,
-                    open: 0,
-                    high: 0,
-                    low: 0,
-                    close: 0,
+                    percent_change: null,
+                    price_change: null,
+                    open: null,
+                    high: null,
+                    low: null,
+                    close: null,
                     open_timestamp: null,
                     high_timestamp: null,
                     low_timestamp: null,
@@ -1176,12 +1328,12 @@ export class AssetService {
                   },
                 } = {
                   USD: {
-                    percent_change: 0,
-                    price_change: 0,
-                    open: 0,
-                    high: 0,
-                    low: 0,
-                    close: 0,
+                    percent_change: null,
+                    price_change: null,
+                    open: null,
+                    high: null,
+                    low: null,
+                    close: null,
                     open_timestamp: null,
                     high_timestamp: null,
                     low_timestamp: null,
@@ -1205,12 +1357,12 @@ export class AssetService {
                   },
                 } = {
                   USD: {
-                    percent_change: 0,
-                    price_change: 0,
-                    open: 0,
-                    high: 0,
-                    low: 0,
-                    close: 0,
+                    percent_change: null,
+                    price_change: null,
+                    open: null,
+                    high: null,
+                    low: null,
+                    close: null,
                     open_timestamp: null,
                     high_timestamp: null,
                     low_timestamp: null,
@@ -1234,12 +1386,12 @@ export class AssetService {
                   },
                 } = {
                   USD: {
-                    percent_change: 0,
-                    price_change: 0,
-                    open: 0,
-                    high: 0,
-                    low: 0,
-                    close: 0,
+                    percent_change: null,
+                    price_change: null,
+                    open: null,
+                    high: null,
+                    low: null,
+                    close: null,
                     open_timestamp: null,
                     high_timestamp: null,
                     low_timestamp: null,
@@ -1349,13 +1501,14 @@ export class AssetService {
               {
                 $or: [
                   { name: { $regex: `^${name}$`, $options: 'i' } },
-                  { name },
                   {
                     slug: {
-                      $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                      $regex: `^${slug}$`,
                       $options: 'i',
                     },
                   },
+                  { name },
+                  { slug },
                 ],
               },
               {
@@ -1375,24 +1528,21 @@ export class AssetService {
                   {
                     $or: [
                       { name: { $regex: `^${name}$`, $options: 'i' } },
-                      { name },
                       {
                         slug: {
-                          $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                          $regex: `^${slug}$`,
                           $options: 'i',
                         },
                       },
+                      { name },
+                      { slug },
                     ],
                   },
                   {
                     $setOnInsert: {
                       name,
-                      token_id: symbol,
-                      slug: slugify(name, {
-                        trim: true,
-                        lower: true,
-                        remove: RemoveSlugPattern,
-                      }),
+                      symbol: symbol,
+                      slug,
                       trans: [] as any,
                       deleted: false,
                       created_at: new Date(),
@@ -1410,19 +1560,20 @@ export class AssetService {
                 {
                   $or: [
                     { name: { $regex: `^${name}$`, $options: 'i' } },
-                    { name },
                     {
                       slug: {
-                        $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                        $regex: `^${slug}$`,
                         $options: 'i',
                       },
                     },
+                    { name },
+                    { slug },
                   ],
                 },
                 {
                   $setOnInsert: {
                     name,
-                    token_id: symbol,
+                    symbol: symbol,
                     slug: slugify(name, {
                       trim: true,
                       lower: true,
@@ -1445,6 +1596,7 @@ export class AssetService {
       }
       this.logger.debug('success', 'fetchPricePerformanceStats done');
     } catch (error) {
+      // console.log(error);
       this.logger.error(error, 'fetchPricePerformanceStats error');
     }
   }

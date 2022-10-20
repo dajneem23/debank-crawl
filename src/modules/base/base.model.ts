@@ -204,7 +204,7 @@ export class BaseModel {
         refFrom: 'slug',
         refTo: 'slug',
         select: 'market_data',
-        reName: 'market_data',
+        reName: 'asset-price',
         operation: '$eq',
       }),
       portfolio_companies: $lookup({
@@ -273,6 +273,11 @@ export class BaseModel {
         trans: { $first: '$trans' };
       };
     };
+    asset_price: {
+      $set: {
+        market_data: { $first: '$asset-price.market_data' };
+      };
+    };
   } {
     return {
       country: {
@@ -288,6 +293,11 @@ export class BaseModel {
       trans: {
         $set: {
           trans: { $first: '$trans' },
+        },
+      },
+      asset_price: {
+        $set: {
+          market_data: { $first: '$asset-price.market_data' },
         },
       },
     };

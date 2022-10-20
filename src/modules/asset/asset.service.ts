@@ -57,7 +57,7 @@ export class AssetService {
 
   constructor() {
     // this.fetchMarketData();
-    this.fetchPricePerformanceStats();
+    // this.fetchPricePerformanceStats();
     // this.fetchOHLCV();
     if (env.MODE === 'production') {
       // Init Worker
@@ -466,12 +466,21 @@ export class AssetService {
             },
           },
           {
+            $limit: 1,
+          },
+          {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.asset_price,
           this.model.$lookups.categories,
           this.model.$lookups.author,
           this.model.$sets.author,
+          this.model.$sets.asset_price,
+          {
+            $project: {
+              'asset-price': 0,
+            },
+          },
           ...((lang && [
             {
               $project: {
@@ -499,9 +508,6 @@ export class AssetService {
             },
           ]) ||
             []),
-          {
-            $limit: 1,
-          },
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
@@ -1175,6 +1181,7 @@ export class AssetService {
       const groupAssets = chunk(allAssets, CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsLimit);
       for (const assets of groupAssets) {
         const listSymbol = assets.map((asset) => asset.symbol);
+        await sleep(300);
         const {
           data: { data: pricePerformanceStats },
         } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({

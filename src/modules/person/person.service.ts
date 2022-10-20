@@ -33,10 +33,10 @@ export class PersonService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'name', 'about', 'slug', 'categories', 'short_description', 'avatar', 'about'];
+    return ['id', 'name', 'slug', 'categories', 'short_description', 'avatar', 'description'];
   }
   get transKeys() {
-    return ['about', 'short_description'];
+    return ['description', 'short_description'];
   }
 
   /**
@@ -145,7 +145,11 @@ export class PersonService {
               }),
             },
             $addFields: this.model.$addFields.categories,
-            $lookups: [this.model.$lookups.categories],
+            $lookups: [
+              this.model.$lookups.categories,
+              this.model.$lookups.portfolio_companies,
+              this.model.$lookups.portfolio_funds,
+            ],
             $projects: [
               ...((lang && [
                 {
@@ -282,6 +286,8 @@ export class PersonService {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
+          this.model.$lookups.portfolio_companies,
+          this.model.$lookups.portfolio_funds,
           this.model.$lookups.author,
           this.model.$sets.author,
           ...((lang && [

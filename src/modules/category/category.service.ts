@@ -555,9 +555,9 @@ export class CategoryService {
               returnDocument: 'after',
             },
           );
-          return newValue._id;
+          return newValue.name;
         }
-        return value._id;
+        return value.name;
       }),
     );
   }

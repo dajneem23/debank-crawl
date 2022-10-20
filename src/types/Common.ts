@@ -319,23 +319,7 @@ export enum NewsStatus {
   PROCESSING = 'processing',
   PUBLISHED = 'published',
 }
-export enum FundraisingRound {
-  UNKNOWN = 'Unknown',
-  PRE_SEED = 'Pre-Seed',
-  SEED = 'Seed',
-  ANGEL = 'Angel',
-  INVESTORS = 'Investors',
-  BRIDGE = 'Bridge',
-  MEZZABINE = 'Mezzanine',
-  PRE_PUBLIC = 'Pre-Public',
-  PUBLIC = 'Public',
-  SERIES_A = 'Series A',
-  SERIES_B = 'Series B',
-  SERIES_C = 'Series C',
-  SERIES_D = 'Series D',
-  SERIES_E = 'Series E',
-  SERIES_F = 'Series F',
-}
+
 export enum COMPANY_TYPE {
   NA = 'N/A',
   CRYPTO_VENTURE = 'Crypto Venture',
@@ -346,19 +330,7 @@ export enum COMPANY_TYPE {
   PROJECT_BASED = 'Project Based',
   NON_CRYPTO_CAPITAL = 'Non-Crypto Capital',
 }
-export type FundraisingRoundDetail = {
-  round_name: string;
-  valuation?: string;
-  description?: string;
-  announcement?: string;
-  amount?: number;
-  anum?: string;
-  number_of_rounds?: string;
-  record_id?: string;
-  stage: FundraisingRound | string;
-  posts?: string[];
-  date: Date;
-};
+
 export enum COLLECTION_NAMES {
   'common' = 'common',
   events = 'events',

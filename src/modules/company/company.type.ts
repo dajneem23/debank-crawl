@@ -1,11 +1,4 @@
-import {
-  BaseInformationModel,
-  ForeignReLationship,
-  FundraisingRoundDetail,
-  ResearchPaper,
-  Support,
-  TeamPerson,
-} from '@/types/Common';
+import { BaseInformationModel, ForeignReLationship, ResearchPaper, Support, TeamPerson } from '@/types/Common';
 
 export interface Company extends BaseInformationModel {
   headquarter?: string;
@@ -17,6 +10,8 @@ export interface Company extends BaseInformationModel {
   clients?: string[];
 
   products?: string[];
+
+  projects?: string[];
 
   portfolio_companies?: string[];
 

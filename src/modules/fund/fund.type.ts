@@ -1,4 +1,4 @@
-import { BaseInformationModel, FundraisingRoundDetail, ForeignReLationship, COMPANY_TYPE } from '@/types/Common';
+import { BaseInformationModel, COMPANY_TYPE } from '@/types/Common';
 import { ObjectId } from 'mongodb';
 
 export interface Fund extends BaseInformationModel {
@@ -12,13 +12,13 @@ export interface Fund extends BaseInformationModel {
 
   total_amount?: number;
 
-  founders?: ForeignReLationship[];
+  founders?: string[];
 
   launched?: string;
 
-  firms?: ForeignReLationship[];
+  firms?: string[];
 
-  recent_investments?: ForeignReLationship[];
+  recent_investments?: string[];
 
   current_roi?: number;
 
@@ -26,7 +26,7 @@ export interface Fund extends BaseInformationModel {
 
   // total_investments?: number;
 
-  investments?: ForeignReLationship[];
+  investments?: string[];
 
   funding?: number;
 

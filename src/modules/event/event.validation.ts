@@ -152,7 +152,7 @@ export const update = validate({
 
     avatar: Joi.string(),
 
-    about: Joi.string(),
+    description: Joi.string(),
 
     twitter: Joi.string(),
 

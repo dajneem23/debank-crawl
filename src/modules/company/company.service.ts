@@ -40,10 +40,10 @@ export class CompanyService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'avatar', 'slug', 'categories', 'about', 'short_description', 'name', 'author'];
+    return ['id', 'avatar', 'slug', 'categories', 'description', 'short_description', 'name', 'author'];
   }
   get transKeys() {
-    return ['about', 'short_description', 'features', 'services'];
+    return ['description', 'short_description', 'features', 'services'];
   }
 
   /**

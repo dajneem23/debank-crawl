@@ -493,7 +493,7 @@ export class CategoryService {
    * @param update - allow update
    * @returns
    */
-  createSubCategories(categories: Category[] = [], _subject: string, rank = 0, update = false): Promise<ObjectId[]> {
+  createSubCategories(categories: any[] = [], _subject: string, rank = 0, update = false): Promise<ObjectId[]> {
     return Promise.all(
       categories.map(async ({ title, type, sub_categories = [], trans = [], weight }) => {
         const name = slugify(title, {
@@ -513,7 +513,6 @@ export class CategoryService {
               ...((update && {
                 title,
                 name,
-                type,
                 sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1, update),
                 updated_at: new Date(),
                 weight,
@@ -524,6 +523,11 @@ export class CategoryService {
               }) ||
                 {}),
             },
+            $addToSet: {
+              ...(type && {
+                type: { $each: Array.isArray(type) ? type : [type] },
+              }),
+            } as any,
           },
           {
             upsert: false,
@@ -539,7 +543,6 @@ export class CategoryService {
               $setOnInsert: {
                 title,
                 name,
-                type,
                 sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1, update),
                 updated_at: new Date(),
                 created_at: new Date(),
@@ -548,6 +551,11 @@ export class CategoryService {
                 rank,
                 deleted: false,
                 created_by: _subject,
+              },
+              $addToSet: {
+                ...((type && {
+                  type: { $each: Array.isArray(type) ? type : [type] },
+                }) as any),
               },
             },
             {

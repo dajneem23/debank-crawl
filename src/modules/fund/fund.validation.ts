@@ -1,13 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import {
-  ORDER,
-  CATEGORY_TYPE,
-  LANG_CODE,
-  COMPANY_TYPE,
-  ObjectIdValidation,
-  BaseQueryValidation,
-  urlsValidation,
-} from '@/types';
+import { LANG_CODE, COMPANY_TYPE, ObjectIdValidation, BaseQueryValidation, urlsValidation } from '@/types';
 
 const FundValidationSchema = Joi.object({
   name: Joi.string(),
@@ -18,12 +10,8 @@ const FundValidationSchema = Joi.object({
 
   avatar: Joi.string(),
 
-  avatars: Joi.array().items(Joi.string()),
-
   total_amount: Joi.number().min(0),
-
   // total_investments: Joi.number().min(0),
-  type: Joi.string().valid(...Object.values(COMPANY_TYPE)),
 
   fundraising_rounds: Joi.array().items(Joi.string()),
 
@@ -56,8 +44,6 @@ const FundValidationSchema = Joi.object({
   galleries: Joi.array().items(Joi.object()),
   //array id of coins
   cryptocurrencies: Joi.array().items(ObjectIdValidation),
-
-  sponsored: Joi.boolean(),
 
   location: Joi.string(),
 

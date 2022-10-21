@@ -41,6 +41,8 @@ export interface Company extends BaseInformationModel {
 
   investment_stage?: string[];
 
+  funding_rounds?: string[];
+
   //UI fields
 
   // typical_project?: string;

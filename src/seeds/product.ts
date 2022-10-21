@@ -42,7 +42,7 @@ export const ProductSeed = async () => {
         avatar: !!_product['avatar-src'] ? _product['avatar-src'] : '',
         verified: !!_product.verified,
         sponsored: !!_product.sponsored,
-        about: Array.isArray(_product.about) ? _product.about.join('\n') : _product.about,
+        description: Array.isArray(_product.about) ? _product.about.join('\n') : _product.about,
         categories: _product.tags.map((category: any) => category.tags) || [],
         urls: {
           galleries: _product.gallery.map((gallery: any) => gallery['gallery-src']).filter(Boolean),

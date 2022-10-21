@@ -31,7 +31,7 @@ export const CoinSeed = async () => {
       return {
         name: _coin.name.trim(),
         symbol: _coin.token_id,
-        about: _coin.about,
+        description: _coin.about,
         video: _coin.video || '',
         avatar: _coin['avatar-src'] || '',
         explorer: {

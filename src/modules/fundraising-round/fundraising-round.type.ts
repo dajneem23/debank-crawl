@@ -2,19 +2,34 @@ import { BaseInformationModel } from '@/types';
 
 export interface FundraisingRound extends BaseInformationModel {
   project: string; // <project_slug>
-  type: FundraisingRoundType | string;
+
+  name: string;
+
+  asset: string; // <asset_slug> -> bitcoin, ethereum, etc
+
+  fund?: string; // fund_slug  "andreessen-horowitz" -> funds collection
+
+  company: string; // company_slug  "dora-factory" -> companies collection
+
   description?: string;
+
   amount?: number;
+
   date?: Date;
+
   categories: Array<string>;
+
   sub_categories: Array<string>;
-  stages?: Array<FundraisingRoundStage>;
+
+  stage?: Array<FundraisingRoundStage>;
+
   announcements: Array<string>;
+
   //additional fields
-  anum?: string;
-  number_of_rounds?: string;
-  valuation?: string;
-  round_name?: string;
+
+  founders: string[]; // person_slug =>  ["prabhakar-reddy","raghu-yarlagadda"]
+
+  investors: string[]; //      ["accel","coinbase-ventures","cmt-digital"] // person or company
 }
 
 export enum FundraisingRoundType {

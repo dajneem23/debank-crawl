@@ -4,8 +4,6 @@ import { ObjectId } from 'mongodb';
 export interface Fund extends BaseInformationModel {
   name: string;
 
-  type?: COMPANY_TYPE;
-
   posts?: string[];
 
   cryptocurrencies?: string[];
@@ -40,6 +38,8 @@ export interface Fund extends BaseInformationModel {
 
   assets_allocation?: string;
 
+  funding_rounds?: string[];
+
   trans: {
     lang: string;
     description: string;
@@ -51,7 +51,6 @@ export interface Fund extends BaseInformationModel {
 
 export const _fund: Fund = {
   name: '',
-  type: COMPANY_TYPE.NA,
   categories: [],
   posts: [],
   cryptocurrencies: [],

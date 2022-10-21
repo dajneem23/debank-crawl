@@ -29,7 +29,7 @@ const personSchema = Joi.object({
 
   tel: Joi.string(),
 
-  about: Joi.string(),
+  description: Joi.string(),
 
   short_description: Joi.string(),
 
@@ -43,7 +43,7 @@ const personSchema = Joi.object({
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      about: Joi.string(),
+      description: Joi.string(),
       short_description: Joi.string(),
     }),
   ),

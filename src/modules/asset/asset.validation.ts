@@ -119,7 +119,7 @@ const assetSchema = Joi.object({
 
   avatar: Joi.string(),
 
-  about: Joi.string(),
+  description: Joi.string(),
 
   //array id of categories
   categories: Joi.array().items(
@@ -156,7 +156,7 @@ const assetSchema = Joi.object({
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      about: Joi.string(),
+      description: Joi.string(),
       services: Joi.array().items(Joi.string()),
       features: Joi.array().items(Joi.string()),
     }),

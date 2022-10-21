@@ -9,7 +9,7 @@ const blockchainSchema = Joi.object({
 
   short_description: Joi.string(),
 
-  about: Joi.string(),
+  description: Joi.string(),
 
   consensus: Joi.string(),
 
@@ -83,7 +83,7 @@ const blockchainSchema = Joi.object({
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      about: Joi.string(),
+      description: Joi.string(),
       short_description: Joi.string(),
     }),
   ),

@@ -2,30 +2,30 @@ import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { FundError, fundErrors, fundModelToken } from '.';
+import { FundraisingRoundError, fundraisingRoundErrors, fundraisingRoundModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
-const TOKEN_NAME = '_fundService';
+const TOKEN_NAME = '_fundraisingRoundService';
 /**
  * A bridge allows another service access to the Model layer
- * @export FundService
- * @class FundService
+ * @export FundraisingRoundService
+ * @class FundraisingRoundService
  * @extends {BaseService}
  */
-export const FundServiceToken = new Token<FundService>(TOKEN_NAME);
+export const FundraisingRoundServiceToken = new Token<FundraisingRoundService>(TOKEN_NAME);
 /**
- * @class FundService
- * @description Fund service: Fund service for all fund related operations
+ * @class FundraisingRoundService
+ * @description FundraisingRound service: FundraisingRound service for all fundraisingRound related operations
  * @extends BaseService
  */
-@Service(FundServiceToken)
-export class FundService {
-  private logger = new Logger('Funds');
+@Service(FundraisingRoundServiceToken)
+export class FundraisingRoundService {
+  private logger = new Logger('FundraisingRounds');
 
-  private model = Container.get(fundModelToken);
+  private model = Container.get(fundraisingRoundModelToken);
 
-  private error(msg: keyof typeof fundErrors) {
-    return new FundError(msg);
+  private error(msg: keyof typeof fundraisingRoundErrors) {
+    return new FundraisingRoundError(msg);
   }
 
   get outputKeys(): typeof this.model._keys {
@@ -33,7 +33,7 @@ export class FundService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'name', 'avatar', 'description', 'slug'];
+    return ['id', 'name', 'avatar', 'description', 'slug', 'short_description'];
   }
 
   get transKeys() {
@@ -41,7 +41,7 @@ export class FundService {
   }
 
   /**
-   * Create new Fund
+   * Create new FundraisingRound
    * @param _content
    * @param _subject
    * @returns {Promise<BaseServiceOutput>}
@@ -73,7 +73,7 @@ export class FundService {
    * @param _id
    * @param _content
    * @param _subject
-   * @returns {Promise<Fund>}
+   * @returns {Promise<FundraisingRound>}
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
@@ -129,17 +129,7 @@ export class FundService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const {
-        lang,
-        categories = [],
-        funding_min,
-        funding_max,
-        launched_from,
-        launched_to,
-        type,
-        tier,
-        deleted = false,
-      } = _filter;
+      const { lang, categories = [], deleted = false } = _filter;
       const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -154,16 +144,6 @@ export class FundService {
                   }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
-                  }),
-                  ...(funding_min && { funding: { $gte: funding_min } }),
-                  ...(funding_max && { funding: { $lte: funding_max } }),
-                  ...(launched_from && { launched: { $gte: launched_from } }),
-                  ...(launched_to && { launched: { $lte: launched_to } }),
-                  ...(type && {
-                    type,
-                  }),
-                  ...(tier && {
-                    tier,
                   }),
                 },
               ],

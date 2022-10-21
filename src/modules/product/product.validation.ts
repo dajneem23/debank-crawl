@@ -17,7 +17,7 @@ const productSchema = Joi.object({
   sponsored: Joi.boolean(),
   verified: Joi.boolean(),
   urls: urlsValidation,
-  about: Joi.string(),
+  description: Joi.string(),
   avatar: Joi.string(),
   trans: Joi.array().items(
     Joi.object({
@@ -27,7 +27,7 @@ const productSchema = Joi.object({
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      about: Joi.string(),
+      description: Joi.string(),
       features: Joi.array().items(Joi.string()),
       services: Joi.array().items(Joi.string()),
     }),

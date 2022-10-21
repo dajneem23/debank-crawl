@@ -77,6 +77,8 @@ export type BaseModel = {
 
   categories?: ObjectId[] | string[];
 
+  sub_categories?: ObjectId[] | string[];
+
   sectors?: string[];
 
   tags?: string[];
@@ -281,6 +283,7 @@ export type ProductInformation = {
 export type App = {
   name: string;
   url: string;
+  description?: string;
 };
 export type Media = {
   type: string;
@@ -353,6 +356,7 @@ export enum COLLECTION_NAMES {
   'asset-price' = 'asset-price',
   settings = 'settings',
   exchanges = 'exchanges',
+  'fundraising-rounds' = 'fundraising-rounds',
 }
 
 export enum assetSortBy {

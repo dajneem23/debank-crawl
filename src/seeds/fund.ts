@@ -226,7 +226,6 @@ export const FundSeed = async () => {
     .map(
       ({
         id: foreign_id,
-        about = '',
         name,
         // avatars = [],
         avatar = '',
@@ -251,7 +250,6 @@ export const FundSeed = async () => {
           ...rest,
           foreign_id,
           foreign_ids: firms.map(({ foreign_id }: any) => foreign_id),
-          about,
           // name: name
           //   .replace(/[\W_]+/g, ' ')
           //   .replace(/  +/g, ' ')

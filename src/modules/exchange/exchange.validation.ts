@@ -27,7 +27,7 @@ const marketDataSchema = Joi.object({}).keys({
 
 const ExchangeSchema = Joi.object({
   launched: Joi.date(),
-  about: Joi.string(),
+  description: Joi.string(),
   fiats: Joi.array().items(Joi.string()),
   type: Joi.string(),
   countries: Joi.array().items(Joi.string()),

@@ -230,13 +230,11 @@ export const CompanySeed = async () => {
               }),
             ),
             urls: {
-              website,
+              website: [website].filter(Boolean),
             },
             amount: fldRX4OjNm9Ul1Dyp?.valuesByForeignRowId[item.foreignRowId] || 0,
-            categories: [
-              ...fldjd43zfXdpAWzaq.map((item: any) => item.foreignRowDisplayName),
-              ...fldT0Fasv4hkjwbb3.map((item: any) => item.foreignRowDisplayName),
-            ],
+            categories: [...fldjd43zfXdpAWzaq.map((item: any) => item.foreignRowDisplayName)],
+            sub_categories: [...fldT0Fasv4hkjwbb3.map((item: any) => item.foreignRowDisplayName)],
             // projects: projects.flatMap(({ foreignRowId, foreignRowDisplayName }: any) => {
             //   return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
             // }),
@@ -495,7 +493,8 @@ export const CompanySeed = async () => {
     Object.values(
       [...airtableCompanies, ...companies, ...investors.companies].reduce((current: any, item: any) => {
         const { name, ...rest } = item;
-        const lowerName = slugify(name.trim(), {
+        const lowerName = slugify(name, {
+          trim: true,
           lower: true,
           strict: true,
           replacement: ' ',

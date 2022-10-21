@@ -36,7 +36,7 @@ export interface Asset extends BaseInformationModel {
 
   trans: {
     lang: string;
-    about?: string;
+    description?: string;
     features?: string[];
     services?: string[];
   }[];

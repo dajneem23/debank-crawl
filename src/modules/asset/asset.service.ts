@@ -717,7 +717,7 @@ export class AssetService {
         items,
         total_count,
         has_next: total_count > offset * limit,
-        // keys: uniq([...this.outputKeys]),
+        keys: uniq([...this.outputKeys]),
       });
     } catch (err) {
       this.logger.error('query_error', err.message);

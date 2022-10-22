@@ -57,7 +57,7 @@ export class AssetService {
 
   constructor() {
     // this.fetchMarketData();
-    // this.fetchPricePerformanceStats();
+    this.fetchPricePerformanceStats();
     // this.fetchOHLCV();
     if (env.MODE === 'production') {
       // Init Worker
@@ -841,6 +841,11 @@ export class AssetService {
                 max_supply,
                 price,
                 cmc_rank,
+                percent_change_24h,
+                percent_change_7d,
+                percent_change_30d,
+                percent_change_60d,
+                percent_change_90d,
               },
               isNil,
             );
@@ -1483,18 +1488,38 @@ export class AssetService {
               },
               isNil,
             );
-            const assetExisting = await this.model._collection.findOne({
-              $or: [
-                { name: { $regex: `^${name}$`, $options: 'i' } },
-                { name },
-                {
-                  slug: {
-                    $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
-                    $options: 'i',
+            const assetMarketData = omitBy(
+              {
+                percent_change_all_time: all_time_percent_change,
+                percent_change_yesterday: yesterday_percent_change,
+                percent_change_24h: _24h_percent_change,
+                percent_change_7d: _7d_percent_change,
+                percent_change_30d: _30d_percent_change,
+
+                percent_change_90d: _90d_percent_change,
+                percent_change_365d: _365d_percent_change,
+              },
+              isNil,
+            );
+            const {
+              lastErrorObject: { updatedExisting: updatedAssetExisting },
+            } = await this.model._collection.findOneAndUpdate(
+              {
+                $or: [
+                  { name: { $regex: `^${name}$`, $options: 'i' } },
+                  { name },
+                  {
+                    slug: {
+                      $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                      $options: 'i',
+                    },
                   },
-                },
-              ],
-            });
+                ],
+              },
+              {
+                $set: { ...assetMarketData, updated_at: new Date(), updated_by: 'system' },
+              },
+            );
             const {
               lastErrorObject: { updatedAssetPriceExisting },
             } = await this.assetPriceModel._collection.findOneAndUpdate(
@@ -1523,7 +1548,7 @@ export class AssetService {
               },
             );
             if (!updatedAssetPriceExisting) {
-              if (!assetExisting) {
+              if (!updatedAssetExisting) {
                 await this.model._collection.findOneAndUpdate(
                   {
                     $or: [
@@ -1540,6 +1565,7 @@ export class AssetService {
                   },
                   {
                     $setOnInsert: {
+                      ...assetMarketData,
                       name,
                       symbol: symbol,
                       slug,

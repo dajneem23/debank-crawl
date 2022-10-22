@@ -695,15 +695,15 @@ export class AssetService {
                 refFrom: 'slug',
                 refTo: 'slug',
                 select: 'market_data',
-                reName: '_asset-price',
+                reName: 'asset-price',
                 operation: '$eq',
               }),
             ],
+            $sets: [this.model.$sets.asset_price],
             $projects: [
               {
                 $project: {
                   ...$keysToProject(this.outputKeys),
-                  ...$keysToProject(['market_data'], '$_asset-price'),
                 },
               },
             ],
@@ -717,7 +717,7 @@ export class AssetService {
         items,
         total_count,
         has_next: total_count > offset * limit,
-        keys: uniq([...this.outputKeys]),
+        // keys: uniq([...this.outputKeys]),
       });
     } catch (err) {
       this.logger.error('query_error', err.message);

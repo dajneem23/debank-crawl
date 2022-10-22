@@ -511,35 +511,37 @@ export enum TIME_PERIOD {
 export const RemoveSlugPattern = /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g;
 
 export const urlsValidation = Joi.object({
-  twitter: Joi.array().items(Joi.string()),
+  avatar: Joi.array().items(Joi.string().uri()),
 
-  telegram: Joi.array().items(Joi.string()),
+  twitter: Joi.array().items(Joi.string().uri()),
 
-  facebook: Joi.array().items(Joi.string()),
+  telegram: Joi.array().items(Joi.string().uri()),
 
-  instagram: Joi.array().items(Joi.string()),
+  facebook: Joi.array().items(Joi.string().uri()),
 
-  linkedin: Joi.array().items(Joi.string()),
+  instagram: Joi.array().items(Joi.string().uri()),
 
-  github: Joi.array().items(Joi.string()),
+  linkedin: Joi.array().items(Joi.string().uri()),
 
-  medium: Joi.array().items(Joi.string()),
+  github: Joi.array().items(Joi.string().uri()),
 
-  youtube: Joi.array().items(Joi.string()),
+  medium: Joi.array().items(Joi.string().uri()),
 
-  website: Joi.array().items(Joi.string()),
+  youtube: Joi.array().items(Joi.string().uri()),
 
-  blog: Joi.array().items(Joi.string()),
+  website: Joi.array().items(Joi.string().uri()),
 
-  rocket_chat: Joi.array().items(Joi.string()),
+  blog: Joi.array().items(Joi.string().uri()),
 
-  bitcoin_talk: Joi.array().items(Joi.string()),
+  rocket_chat: Joi.array().items(Joi.string().uri()),
 
-  galleries: Joi.array().items(Joi.string()),
+  bitcoin_talk: Joi.array().items(Joi.string().uri()),
 
-  stack_exchange: Joi.array().items(Joi.string()),
+  galleries: Joi.array().items(Joi.string().uri()),
 
-  other: Joi.array().items(Joi.string()),
+  stack_exchange: Joi.array().items(Joi.string().uri()),
+
+  other: Joi.array().items(Joi.string().uri()),
 });
 /**
  * @description - id validation

@@ -5,9 +5,7 @@ import { RequestHandler } from 'express';
 import { UserRole } from '..';
 import { AuthError } from '../auth/auth.error';
 import { getHighestRole } from '../auth/auth.utils';
-const defaultOptions = {
-  ignoreException: false,
-};
+
 type options = {
   ignoreException?: boolean;
   _action: string;

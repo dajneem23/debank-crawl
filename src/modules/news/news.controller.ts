@@ -213,4 +213,42 @@ export class NewsPrivateController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
+
+  @Get('/:id/comment', [protectPrivateAPI(), NewsValidation.getById])
+  async getComment(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.getById({
+      _id: _params.id,
+      _filter: filter,
+      _permission: 'private',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Post('/:id/comment', [protectPrivateAPI(), NewsValidation.getById])
+  async createComment(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const { filter, query } = buildQueryFilter(_query);
+    const result = await this.service.getById({
+      _id: _params.id,
+      _filter: filter,
+      _permission: 'private',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
 }

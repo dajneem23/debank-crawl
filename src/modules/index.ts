@@ -13,3 +13,4 @@ export * from './blockchain';
 export * from './setting';
 // exchange
 export * from './exchange';
+export * from './coingecko';

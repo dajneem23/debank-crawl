@@ -99,23 +99,7 @@ export type BaseModel = {
   deleted_at?: Date;
 
   deleted?: boolean;
-
-  comments?: Comment[];
 };
-
-export type Comment = {
-  _id?: string;
-  created_at: number;
-  updated_at?: number;
-  user_id: string;
-  text: string;
-  status: CommentStatus; // default: DRAFT
-};
-enum CommentStatus {
-  DRAFT = 'DRAFT',
-  PRIVATE = 'PRIVATE',
-  PUBLIC = 'PUBLIC',
-}
 
 type Urls = {
   avatar?: string[];
@@ -380,6 +364,7 @@ export enum COLLECTION_NAMES {
   'asset-price' = 'asset-price',
   settings = 'settings',
   exchanges = 'exchanges',
+  comment = 'comment',
 }
 
 export enum assetSortBy {

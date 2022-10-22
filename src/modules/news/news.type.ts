@@ -1,5 +1,4 @@
 import { BaseModel, NewsStatus } from '@/types';
-import { Company } from '../company';
 
 export interface News extends BaseModel {
   slug: string;
@@ -25,6 +24,8 @@ export interface News extends BaseModel {
   views: number;
 
   keywords: string[];
+
+  comments: string[];
 
   company_tags: string[];
 
@@ -68,6 +69,7 @@ export const _news: News = {
   company_tags: [],
   product_tags: [],
   person_tags: [],
+  comments: [],
   event_tags: [],
   fund_tags: [],
   stars: 0,

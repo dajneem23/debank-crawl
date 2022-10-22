@@ -17,6 +17,7 @@ import {
   AssetController,
   NewsController,
   FundController,
+  CoingeckoController,
   BlockchainPrivateController,
   ExchangePrivateController,
   GlossaryPrivateController,
@@ -60,6 +61,7 @@ export default (app: Application) => {
     AssetController,
     NewsController,
     FundController,
+    CoingeckoController,
   ]);
   /**
    * @description Private controllers

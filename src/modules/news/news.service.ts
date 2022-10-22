@@ -887,4 +887,29 @@ export class NewsService {
       throw err;
     }
   }
+
+  /**
+   * Create comment
+   * @param id - Event ID
+   * @returns { Promise<BaseServiceOutput> } - Event
+   */
+  async createComment({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const value = await this.model.update(
+        $toMongoFilter({
+          _id,
+        }),
+        {
+          $addToSet: {
+            comments: { ..._content },
+          },
+        },
+      );
+      this.logger.debug('update_success', { value });
+      return toOutPut(value);
+    } catch (err) {
+      this.logger.error('update_error', err.message);
+      throw err;
+    }
+  }
 }

@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { toOutPut, toPagingOutput } from '@/utils/common';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $pagination, $toMongoFilter } from '@/utils/mongoDB';
+import { $keysToProject, $pagination, $toMongoFilter } from '@/utils/mongoDB';
 import { assetTrendingModelToken } from '.';
 import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { uniq } from 'lodash';
@@ -34,6 +34,29 @@ export class AssetTrendingService {
 
   get outputKeys(): typeof this.model._keys {
     return this.model._keys;
+  }
+
+  get assetKeys(): any[] {
+    return [
+      'tvl_ratio',
+      'num_market_pairs',
+      'market_cap',
+      'self_reported_market_cap',
+      'market_cap_dominance',
+      'fully_diluted_market_cap',
+      'market_cap_by_total_supply',
+      'total_supply',
+      'circulating_supply',
+      'self_reported_circulating_supply',
+      'max_supply',
+      'price',
+      'cmc_rank',
+      'percent_change_24h',
+      'percent_change_7d',
+      'percent_change_30d',
+      'percent_change_60d',
+      'percent_change_90d',
+    ];
   }
 
   /**
@@ -126,10 +149,15 @@ export class AssetTrendingService {
             $unwind: '$tokens',
           },
           {
+            $replaceRoot: {
+              newRoot: '$tokens',
+            },
+          },
+          {
             $lookup: {
               from: 'assets',
-              localField: 'id_of_sources.CoinGecko',
-              foreignField: 'id_of_sources.CoinGecko',
+              localField: 'id_of_sources.CoinMarketCap',
+              foreignField: 'id_of_sources.CoinMarketCap',
               as: 'assets',
             },
           },
@@ -141,8 +169,9 @@ export class AssetTrendingService {
             },
           },
           {
-            $replaceRoot: {
-              newRoot: '$asset',
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...$keysToProject(this.assetKeys, '$asset'),
             },
           },
         ])
@@ -182,10 +211,15 @@ export class AssetTrendingService {
             $unwind: '$tokens',
           },
           {
+            $replaceRoot: {
+              newRoot: '$tokens',
+            },
+          },
+          {
             $lookup: {
               from: 'assets',
-              localField: 'id_of_sources.CoinGecko',
-              foreignField: 'id_of_sources.CoinGecko',
+              localField: 'id_of_sources.CoinMarketCap',
+              foreignField: 'id_of_sources.CoinMarketCap',
               as: 'assets',
             },
           },
@@ -197,8 +231,9 @@ export class AssetTrendingService {
             },
           },
           {
-            $replaceRoot: {
-              newRoot: '$asset',
+            $project: {
+              ...$keysToProject(this.outputKeys),
+              ...$keysToProject(this.assetKeys, '$asset'),
             },
           },
         ])
@@ -208,7 +243,7 @@ export class AssetTrendingService {
         items,
         total_count,
         has_next: total_count > offset * limit,
-        // keys: uniq([...this.outputKeys]),
+        // keys: uniq([...this.outputKeys, ...this.assetKeys]),
       });
     } catch (err) {
       this.logger.error('query_error', err.message);

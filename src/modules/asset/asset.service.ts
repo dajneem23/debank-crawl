@@ -932,7 +932,7 @@ export class AssetService {
                   {
                     $setOnInsert: {
                       id_of_sources: {
-                        CoinMarketCap: id,
+                        CoinMarketCap: String(id),
                       },
                       name,
                       symbol: symbol,
@@ -969,7 +969,7 @@ export class AssetService {
                   $setOnInsert: {
                     name,
                     id_of_sources: {
-                      CoinMarketCap: id,
+                      CoinMarketCap: String(id),
                     },
                     'market_data.USD.list_price': [
                       {
@@ -1130,7 +1130,7 @@ export class AssetService {
                   {
                     $setOnInsert: {
                       id_of_sources: {
-                        CoinMarketCap: id,
+                        CoinMarketCap: String(id),
                       },
                       ...marketData,
                       name,
@@ -1165,7 +1165,7 @@ export class AssetService {
                 {
                   $setOnInsert: {
                     id_of_sources: {
-                      CoinMarketCap: id,
+                      CoinMarketCap: String(id),
                     },
                     name,
                     slug,
@@ -1595,7 +1595,7 @@ export class AssetService {
                       created_by: 'system',
                       categories: [],
                       id_of_sources: {
-                        CoinMarketCap: id,
+                        CoinMarketCap: String(id),
                       },
                     },
                   },
@@ -1633,7 +1633,7 @@ export class AssetService {
                     updated_at: new Date(),
                     created_by: 'system',
                     id_of_sources: {
-                      CoinMarketCap: id,
+                      CoinMarketCap: String(id),
                     },
                   },
                 },

@@ -290,7 +290,8 @@ export const PersonSeed = async () => {
       [...persons, ...angelInvestors, ...investors.persons, ...fundfouders].reduce((current: any, item: any) => {
         const { name, ...rest } = item;
 
-        const lowerName = slugify(name.trim(), {
+        const lowerName = slugify(name, {
+          trim: true,
           lower: true,
           strict: true,
           replacement: ' ',

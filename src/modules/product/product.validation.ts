@@ -1,24 +1,32 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
 
 const productSchema = Joi.object({
   name: Joi.string(),
+  avatar: Joi.string(),
+  description: Joi.string(),
+
+  company: Joi.string(),
+  project: Joi.string(),
+
   contract_addresses: Joi.array().items(Joi.object()),
   cryptocurrencies: Joi.array().items(ObjectIdValidation),
+
   categories: Joi.array().items(ObjectIdValidation),
+
   features: Joi.array().items(Joi.string()),
+  services: Joi.array().items(Joi.string()),
+
   apps: Joi.array().items(Joi.object()),
+  wallets: Joi.array().items(Joi.object()),
   supports: Joi.array().items(Joi.object()),
+
   information: Joi.array().items(Joi.object()),
+
   team: Joi.array().items(Joi.object()),
-  parent_company: Joi.string(),
-  team_location: Joi.string(),
-  sponsored: Joi.boolean(),
-  verified: Joi.boolean(),
+
   urls: urlsValidation,
-  about: Joi.string(),
-  avatar: Joi.string(),
+
   trans: Joi.array().items(
     Joi.object({
       lang: Joi.string()
@@ -27,7 +35,7 @@ const productSchema = Joi.object({
         .messages({
           'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
         }),
-      about: Joi.string(),
+      description: Joi.string(),
       features: Joi.array().items(Joi.string()),
       services: Joi.array().items(Joi.string()),
     }),

@@ -34,11 +34,11 @@ export class ProductService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'name', 'avatar', 'about', 'slug', 'categories'];
+    return ['id', 'name', 'slug', 'avatar', 'description', 'categories'];
   }
 
   get transKeys() {
-    return ['about', 'short_description', 'features', 'services'];
+    return ['description', 'short_description', 'features', 'services'];
   }
 
   /**

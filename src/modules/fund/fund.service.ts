@@ -1,7 +1,6 @@
 import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
 import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { FundError, fundErrors, fundModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
@@ -34,11 +33,11 @@ export class FundService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'name', 'avatar', 'about', 'slug'];
+    return ['id', 'name', 'avatar', 'description', 'slug'];
   }
 
   get transKeys() {
-    return ['about', 'short_description'];
+    return ['description', 'short_description'];
   }
 
   /**

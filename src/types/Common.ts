@@ -77,6 +77,8 @@ export type BaseModel = {
 
   categories?: ObjectId[] | string[];
 
+  sub_categories?: ObjectId[] | string[];
+
   sectors?: string[];
 
   tags?: string[];
@@ -281,6 +283,7 @@ export type ProductInformation = {
 export type App = {
   name: string;
   url: string;
+  description?: string;
 };
 export type Media = {
   type: string;
@@ -319,23 +322,7 @@ export enum NewsStatus {
   PROCESSING = 'processing',
   PUBLISHED = 'published',
 }
-export enum FundraisingRound {
-  UNKNOWN = 'Unknown',
-  PRE_SEED = 'Pre-Seed',
-  SEED = 'Seed',
-  ANGEL = 'Angel',
-  INVESTORS = 'Investors',
-  BRIDGE = 'Bridge',
-  MEZZABINE = 'Mezzanine',
-  PRE_PUBLIC = 'Pre-Public',
-  PUBLIC = 'Public',
-  SERIES_A = 'Series A',
-  SERIES_B = 'Series B',
-  SERIES_C = 'Series C',
-  SERIES_D = 'Series D',
-  SERIES_E = 'Series E',
-  SERIES_F = 'Series F',
-}
+
 export enum COMPANY_TYPE {
   NA = 'N/A',
   CRYPTO_VENTURE = 'Crypto Venture',
@@ -346,19 +333,7 @@ export enum COMPANY_TYPE {
   PROJECT_BASED = 'Project Based',
   NON_CRYPTO_CAPITAL = 'Non-Crypto Capital',
 }
-export type FundraisingRoundDetail = {
-  round_name: string;
-  valuation?: string;
-  description?: string;
-  announcement?: string;
-  amount?: number;
-  anum?: string;
-  number_of_rounds?: string;
-  record_id?: string;
-  stage: FundraisingRound | string;
-  posts?: string[];
-  date: Date;
-};
+
 export enum COLLECTION_NAMES {
   'common' = 'common',
   events = 'events',
@@ -381,6 +356,7 @@ export enum COLLECTION_NAMES {
   'asset-price' = 'asset-price',
   settings = 'settings',
   exchanges = 'exchanges',
+  'fundraising-rounds' = 'fundraising-rounds',
 }
 
 export enum assetSortBy {
@@ -535,35 +511,37 @@ export enum TIME_PERIOD {
 export const RemoveSlugPattern = /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g;
 
 export const urlsValidation = Joi.object({
-  twitter: Joi.array().items(Joi.string()),
+  avatar: Joi.array().items(Joi.string().uri()),
 
-  telegram: Joi.array().items(Joi.string()),
+  twitter: Joi.array().items(Joi.string().uri()),
 
-  facebook: Joi.array().items(Joi.string()),
+  telegram: Joi.array().items(Joi.string().uri()),
 
-  instagram: Joi.array().items(Joi.string()),
+  facebook: Joi.array().items(Joi.string().uri()),
 
-  linkedin: Joi.array().items(Joi.string()),
+  instagram: Joi.array().items(Joi.string().uri()),
 
-  github: Joi.array().items(Joi.string()),
+  linkedin: Joi.array().items(Joi.string().uri()),
 
-  medium: Joi.array().items(Joi.string()),
+  github: Joi.array().items(Joi.string().uri()),
 
-  youtube: Joi.array().items(Joi.string()),
+  medium: Joi.array().items(Joi.string().uri()),
 
-  website: Joi.array().items(Joi.string()),
+  youtube: Joi.array().items(Joi.string().uri()),
 
-  blog: Joi.array().items(Joi.string()),
+  website: Joi.array().items(Joi.string().uri()),
 
-  rocket_chat: Joi.array().items(Joi.string()),
+  blog: Joi.array().items(Joi.string().uri()),
 
-  bitcoin_talk: Joi.array().items(Joi.string()),
+  rocket_chat: Joi.array().items(Joi.string().uri()),
 
-  galleries: Joi.array().items(Joi.string()),
+  bitcoin_talk: Joi.array().items(Joi.string().uri()),
 
-  stack_exchange: Joi.array().items(Joi.string()),
+  galleries: Joi.array().items(Joi.string().uri()),
 
-  other: Joi.array().items(Joi.string()),
+  stack_exchange: Joi.array().items(Joi.string().uri()),
+
+  other: Joi.array().items(Joi.string().uri()),
 });
 /**
  * @description - id validation

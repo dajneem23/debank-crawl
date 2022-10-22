@@ -230,16 +230,14 @@ export const CompanySeed = async () => {
               }),
             ),
             urls: {
-              website,
+              website: [website].filter(Boolean),
             },
             amount: fldRX4OjNm9Ul1Dyp?.valuesByForeignRowId[item.foreignRowId] || 0,
-            categories: [
-              ...fldjd43zfXdpAWzaq.map((item: any) => item.foreignRowDisplayName),
-              ...fldT0Fasv4hkjwbb3.map((item: any) => item.foreignRowDisplayName),
-            ],
-            projects: projects.flatMap(({ foreignRowId, foreignRowDisplayName }: any) => {
-              return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
-            }),
+            categories: [...fldjd43zfXdpAWzaq.map((item: any) => item.foreignRowDisplayName)],
+            sub_categories: [...fldT0Fasv4hkjwbb3.map((item: any) => item.foreignRowDisplayName)],
+            // projects: projects.flatMap(({ foreignRowId, foreignRowDisplayName }: any) => {
+            //   return slugify(foreignRowDisplayName, { lower: true, trim: true, remove: RemoveSlugPattern });
+            // }),
           };
         }) || [];
       const fundraising_rounds_ids = fundraising_rounds.map((item: any) => item.round_id);
@@ -362,9 +360,9 @@ export const CompanySeed = async () => {
           blockchains: Object.keys(flddkP6oXlI26fizf?.valuesByForeignRowId || {}).map((key: any) => {
             return flddkP6oXlI26fizf?.valuesByForeignRowId[key];
           }),
-          projects: fundraising_rounds.map(({ categories, projects = [], ...rest }: any) => {
-            return projects;
-          }),
+          // projects: fundraising_rounds.map(({ categories, projects = [], ...rest }: any) => {
+          //   return projects;
+          // }),
           categories: fundraising_rounds
             .map(({ categories }: any) => {
               return categories;
@@ -495,7 +493,8 @@ export const CompanySeed = async () => {
     Object.values(
       [...airtableCompanies, ...companies, ...investors.companies].reduce((current: any, item: any) => {
         const { name, ...rest } = item;
-        const lowerName = slugify(name.trim(), {
+        const lowerName = slugify(name, {
+          trim: true,
           lower: true,
           strict: true,
           replacement: ' ',
@@ -675,7 +674,7 @@ export const CompanySeed = async () => {
         cryptocurrencies,
         metadata,
         // type,
-        projects: uniq(projects.flat(10)),
+        // projects: uniq(projects.flat(10)),
         // investments: items.reduce((_total: any, _item: any) => {
         //   return [
         //     ..._total,

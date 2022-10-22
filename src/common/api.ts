@@ -120,3 +120,10 @@ export const CoinMarketCapAPI = {
     });
   },
 };
+/**
+ * @description fetch data from coinmarketcap
+ * @see https://www.coingecko.com/en/api/documentation
+ */
+const CoinGeckoAPI = {
+  coins: {},
+};

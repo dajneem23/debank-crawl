@@ -12,3 +12,4 @@ export * from './glossary';
 export * from './blockchain';
 export * from './setting';
 export * from './exchange';
+export * from './asset-trending';

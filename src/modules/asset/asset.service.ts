@@ -57,7 +57,7 @@ export class AssetService {
 
   constructor() {
     // this.fetchMarketData();
-    this.fetchPricePerformanceStats();
+    // this.fetchPricePerformanceStats();
     // this.fetchOHLCV();
     if (env.MODE === 'production') {
       // Init Worker
@@ -800,6 +800,7 @@ export class AssetService {
               },
               name,
               slug,
+              id,
             } = item;
             const marketData = omitBy(
               {
@@ -866,7 +867,11 @@ export class AssetService {
                 ],
               },
               {
-                $set: { ...assetMarketData, updated_at: new Date(), updated_by: 'system' },
+                $set: {
+                  ...assetMarketData,
+                  updated_at: new Date(),
+                  updated_by: 'system',
+                },
               },
             );
             const {
@@ -926,6 +931,9 @@ export class AssetService {
                   },
                   {
                     $setOnInsert: {
+                      id_of_sources: {
+                        CoinMarketCap: id,
+                      },
                       name,
                       symbol: symbol,
                       slug,
@@ -960,6 +968,9 @@ export class AssetService {
                 {
                   $setOnInsert: {
                     name,
+                    id_of_sources: {
+                      CoinMarketCap: id,
+                    },
                     'market_data.USD.list_price': [
                       {
                         value: marketData['market_data.USD.price'],
@@ -1044,6 +1055,7 @@ export class AssetService {
               },
               name,
               slug,
+              id,
             } = item;
             this.logger.debug('success', { name });
             const assetExisting = await this.model._collection.findOne({
@@ -1117,6 +1129,9 @@ export class AssetService {
                   },
                   {
                     $setOnInsert: {
+                      id_of_sources: {
+                        CoinMarketCap: id,
+                      },
                       ...marketData,
                       name,
                       slug,
@@ -1149,6 +1164,9 @@ export class AssetService {
                 },
                 {
                   $setOnInsert: {
+                    id_of_sources: {
+                      CoinMarketCap: id,
+                    },
                     name,
                     slug,
                     ...marketData,
@@ -1198,6 +1216,7 @@ export class AssetService {
         });
         for (const symbol of Object.keys(pricePerformanceStats)) {
           for (const {
+            id,
             name,
             slug,
             periods: {
@@ -1575,6 +1594,9 @@ export class AssetService {
                       updated_at: new Date(),
                       created_by: 'system',
                       categories: [],
+                      id_of_sources: {
+                        CoinMarketCap: id,
+                      },
                     },
                   },
                   {
@@ -1610,6 +1632,9 @@ export class AssetService {
                     created_at: new Date(),
                     updated_at: new Date(),
                     created_by: 'system',
+                    id_of_sources: {
+                      CoinMarketCap: id,
+                    },
                   },
                 },
                 {

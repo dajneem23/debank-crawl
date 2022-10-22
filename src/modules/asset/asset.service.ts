@@ -1596,7 +1596,6 @@ export class AssetService {
       }
       this.logger.debug('success', 'fetchPricePerformanceStats done');
     } catch (error) {
-      // console.log(error);
       this.logger.error(error, 'fetchPricePerformanceStats error');
     }
   }

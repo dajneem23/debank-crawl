@@ -191,7 +191,6 @@ export const CategorySeed = async () => {
                 ).value.name;
               }) || [],
             )) ?? [],
-          weight: index + 1,
         };
       }),
   );

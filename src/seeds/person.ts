@@ -525,7 +525,7 @@ export const insertPersons = async () => {
                     updated_at: new Date(),
                     created_by: 'admin',
                   },
-                  $push: {
+                  $addToSet: {
                     type: 'person',
                   } as any,
                 },

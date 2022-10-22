@@ -13,7 +13,7 @@ export interface Person extends BaseInformationModel {
 
   trans: {
     lang: string;
-    about: string;
+    description: string;
     short_description: string;
   }[];
 }

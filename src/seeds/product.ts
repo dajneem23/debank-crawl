@@ -7,6 +7,7 @@ import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
+import { uniq } from 'lodash';
 
 /* eslint-disable no-console */
 export const ProductSeed = async () => {
@@ -41,7 +42,7 @@ export const ProductSeed = async () => {
         avatar: !!_product['avatar-src'] ? _product['avatar-src'] : '',
         verified: !!_product.verified,
         sponsored: !!_product.sponsored,
-        about: Array.isArray(_product.about) ? _product.about.join('\n') : _product.about,
+        description: Array.isArray(_product.about) ? _product.about.join('\n') : _product.about,
         categories: _product.tags.map((category: any) => category.tags) || [],
         urls: {
           galleries: _product.gallery.map((gallery: any) => gallery['gallery-src']).filter(Boolean),
@@ -204,59 +205,55 @@ export const insertProducts = async () => {
         ...item,
         slug: slugify(item.name, { lower: true, trim: true, remove: RemoveSlugPattern }),
         categories: await Promise.all(
-          item.categories
-            .filter(
-              (item: any, index: any, items: any) =>
-                items.findIndex((item2: any) => item2.toLowerCase() == item.toLowerCase()) == index,
-            )
-            .map(async (_category: any): Promise<any> => {
-              return slugify(_category, { lower: true, trim: true, replacement: '-', remove: RemoveSlugPattern });
-
-              // return (
-              //   categories.find((category) => {
-              //     return (
-              //       category.title.toLowerCase() == _category.toLowerCase() ||
-              //       category.title.toLowerCase().includes(_category.toLowerCase()) ||
-              //       _category.toLowerCase().includes(category.title.toLowerCase())
-              //     );
-              //   })?._id ||
-              //   (
-              //     await db.collection('categories').findOneAndUpdate(
-              //       {
-              //         title: { $regex: _category, $options: 'i' },
-              //       },
-              //       {
-              //         $setOnInsert: {
-              //           title: _category,
-              //           type: 'product',
-              //           name: _category
-              //             .toLowerCase()
-              //             .match(/[a-zA-Z0-9_ ]+/g)
-              //             .join('')
-              //             .trim()
-              //             .replaceAll(' ', '_'),
-              //           trans: [],
-              //           sub_categories: [],
-              //           weight: 0,
-              //           deleted: false,
-              //           created_at: new Date(),
-              //           updated_at: new Date(),
-              //           created_by: 'admin',
-              //         },
-              //       },
-              //       {
-              //         upsert: true,
-              //         returnDocument: 'after',
-              //       },
-              //     )
-              //   ).value._id
-              // );
+          uniq(
+            item.categories.map(async (_category: any): Promise<any> => {
+              return (
+                await db.collection('categories').findOneAndUpdate(
+                  {
+                    name: {
+                      $regex: slugify(_category, {
+                        lower: true,
+                        trim: true,
+                        replacement: '-',
+                        remove: RemoveSlugPattern,
+                      }),
+                      $options: 'i',
+                    },
+                  },
+                  {
+                    $setOnInsert: {
+                      title: _category,
+                      name: _category
+                        .toLowerCase()
+                        .match(/[a-zA-Z0-9_ ]+/g)
+                        .join('')
+                        .trim()
+                        .replaceAll(' ', '_'),
+                      trans: [],
+                      sub_categories: [],
+                      weight: 0,
+                      deleted: false,
+                      created_at: new Date(),
+                      updated_at: new Date(),
+                      created_by: 'admin',
+                    },
+                    $addToSet: {
+                      type: 'product',
+                    } as any,
+                  },
+                  {
+                    upsert: true,
+                    returnDocument: 'after',
+                  },
+                )
+              ).value.name;
             }),
+          ),
         ),
         cryptocurrencies: await Promise.all(
           item.cryptocurrencies?.map(async (cryptocurrency: any) => {
             const currency = await db.collection('assets').findOne({ name: cryptocurrency });
-            return currency ? currency._id : null;
+            return currency ? currency.slug : null;
           }) || [],
         ),
       };

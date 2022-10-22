@@ -37,7 +37,7 @@ export interface Blockchain extends BaseInformationModel {
   total_transfer_value?: number;
   trans?: {
     lang: string;
-    about?: string;
+    description?: string;
     short_description?: string;
   }[];
 }

@@ -41,10 +41,10 @@ export class GlossaryService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'avatar', 'slug', 'categories', 'about', 'short_description', 'name', 'author'];
+    return ['id', 'avatar', 'slug', 'categories', 'description', 'short_description', 'name', 'author'];
   }
   get transKeys() {
-    return ['about', 'short_description'];
+    return ['description', 'short_description'];
   }
 
   /**
@@ -234,10 +234,6 @@ export class GlossaryService {
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
-          this.model.$lookups.team,
-          this.model.$lookups.products,
-          this.model.$lookups.projects,
-          this.model.$lookups.country,
           this.model.$sets.author,
           ...((lang && [
             {
@@ -302,10 +298,6 @@ export class GlossaryService {
           },
           this.model.$lookups.categories,
           this.model.$lookups.author,
-          this.model.$lookups.team,
-          this.model.$lookups.products,
-          this.model.$lookups.projects,
-          this.model.$lookups.country,
           this.model.$sets.author,
           ...((lang && [
             {

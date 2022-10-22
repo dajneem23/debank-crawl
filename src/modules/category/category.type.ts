@@ -7,14 +7,12 @@ export interface Category extends BaseModel {
 
   name?: string;
 
-  sub_categories?: Category[];
+  sub_categories?: any[]; //avoid circular dependency with Category
 
   // weight
   weight?: number;
   // type
-  type?: CATEGORY_TYPE;
-
-  sub_types?: string[];
+  type?: string[];
 
   rank?: number;
 
@@ -45,7 +43,7 @@ export const _category: Category = {
   name: '',
   weight: 0,
   rank: 0,
-  type: CATEGORY_TYPE.WIKIBLOCK,
+  type: [CATEGORY_TYPE.WIKIBLOCK],
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),

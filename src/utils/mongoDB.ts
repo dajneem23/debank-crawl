@@ -148,7 +148,7 @@ export const $pagination = ({
   $projects?: any[];
   $addFields?: any;
   $sets?: any[];
-  items?: any[];
+  items: any[];
   $lookups?: any[];
   condition?: any;
   $more?: any[];
@@ -161,11 +161,6 @@ export const $pagination = ({
     {
       $match,
     },
-    ...((!!$addFields && [{ $addFields }]) || []),
-    ...((!!$lookups && [...$lookups]) || []),
-    ...((!!$sets && [...$sets]) || []),
-    ...((!!$projects && [...$projects]) || []),
-    ...((!!$more && [...$more]) || []),
     ...(($sort && [
       {
         $sort,
@@ -184,11 +179,14 @@ export const $pagination = ({
             $count: 'total_count',
           },
         ],
-        ...((items && {
-          items,
-        }) || {
-          items: [],
-        }),
+        items: [
+          ...items,
+          ...((!!$addFields && [{ $addFields }]) || []),
+          ...((!!$lookups && [...$lookups]) || []),
+          ...((!!$sets && [...$sets]) || []),
+          ...((!!$projects && [...$projects]) || []),
+          ...((!!$more && [...$more]) || []),
+        ],
       },
     },
 

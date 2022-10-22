@@ -7,13 +7,11 @@ const coinSchema = Joi.object({
 
   avatar: Joi.string(),
 
-  about: Joi.string(),
+  description: Joi.string(),
 
   tel: Joi.string(),
 
   short_description: Joi.string(),
-
-  description: Joi.string(),
 
   headquarter: Joi.string(),
 

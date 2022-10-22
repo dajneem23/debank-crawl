@@ -10,7 +10,7 @@ import {
 import { MarketData } from '../asset-price/asset-price.type';
 
 export interface Asset extends BaseInformationModel {
-  token_id: string;
+  symbol: string;
 
   blockchains: string[];
   wallets: string[];
@@ -36,10 +36,24 @@ export interface Asset extends BaseInformationModel {
 
   trans: {
     lang: string;
-    about?: string;
+    description?: string;
     features?: string[];
     services?: string[];
   }[];
+
+  tvl_ratio?: number;
+  num_market_pairs?: number;
+  market_cap?: number;
+  self_reported_market_cap?: number;
+  market_cap_dominance?: number;
+  fully_diluted_market_cap?: number;
+  market_cap_by_total_supply?: number;
+  total_supply?: number;
+  circulating_supply?: number;
+  self_reported_circulating_supply?: number;
+  max_supply?: number;
+  price?: number;
+  cmc_rank?: number;
 
   // potential?: string;
 
@@ -70,7 +84,7 @@ export interface Asset extends BaseInformationModel {
 
 export const _asset: Asset = {
   name: '',
-  token_id: '',
+  symbol: '',
   avatar: '',
   categories: [],
   blockchains: [],

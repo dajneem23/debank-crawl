@@ -95,7 +95,7 @@ export const FundSeed = async () => {
             posts: [post].filter(Boolean),
             amount,
             firms,
-            firm_ids,
+            // firm_ids,
             person_investors:
               AngelInvestors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
                 // const {
@@ -226,7 +226,6 @@ export const FundSeed = async () => {
     .map(
       ({
         id: foreign_id,
-        about = '',
         name,
         // avatars = [],
         avatar = '',
@@ -251,7 +250,6 @@ export const FundSeed = async () => {
           ...rest,
           foreign_id,
           foreign_ids: firms.map(({ foreign_id }: any) => foreign_id),
-          about,
           // name: name
           //   .replace(/[\W_]+/g, ' ')
           //   .replace(/  +/g, ' ')
@@ -289,9 +287,9 @@ export const fundInvestment = async () => {
   const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/companies_final.json`, 'utf8') as any);
   const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/funds.json`, 'utf8') as any);
   const db = Container.get(DIMongoDB);
-  const fundsFinal = funds.map(({ foreign_id, foreign_ids = [], name, ...rest }: any) => {
+  const fundsFinal = funds.map(({ investors, foreign_id, foreign_ids = [], name, ...rest }: any) => {
     const investments = uniq([
-      ...(companies as any)
+      ...companies
         .filter(
           ({ investors = [], ...rest }: any) =>
             investors.some(
@@ -303,21 +301,12 @@ export const fundInvestment = async () => {
                   .includes(investor_name.toLowerCase() || investor_name.toLowerCase() == name.toLowerCase()),
             ) && rest.foreign_id,
         )
-        .map(
-          ({ foreign_id, name: investor_name, avatar, urls, slug }: any) => slug,
-          // {
-          // foreign_id,
-          // avatar,
-          // urls,
-          // name: investor_name,
-          // type: 'company',
-          // }
-        ),
+        .map(({ foreign_id, name: investor_name, avatar, urls, slug }: any) => slug),
     ]);
     return {
       name,
       ...rest,
-      foreign_id,
+      // foreign_id,
       portfolio_companies: investments,
       // total_investments: investments.length,
     };
@@ -343,6 +332,6 @@ export const insertFunds = async () => {
       ...rest,
     }),
   );
-  await db.collection('companies').insertMany(fundsFinal);
+  await db.collection('funds').insertMany(fundsFinal);
   console.log('funds inserted', fundsFinal.length);
 };

@@ -5,7 +5,7 @@ import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { CategoryModel, CategoryError, Category, _category, categoryModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, CATEGORY_TYPE, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
-import { isNil, omit } from 'lodash';
+import { isNil, omit, omitBy } from 'lodash';
 import slugify from 'slugify';
 import { ObjectId } from 'mongodb';
 import { CoinMarketCapAPI } from '@/common/api';
@@ -493,7 +493,7 @@ export class CategoryService {
    * @param update - allow update
    * @returns
    */
-  createSubCategories(categories: Category[] = [], _subject: string, rank = 0, update = false): Promise<ObjectId[]> {
+  createSubCategories(categories: any[] = [], _subject: string, rank = 0, update = false): Promise<ObjectId[]> {
     return Promise.all(
       categories.map(async ({ title, type, sub_categories = [], trans = [], weight }) => {
         const name = slugify(title, {
@@ -513,7 +513,6 @@ export class CategoryService {
               ...((update && {
                 title,
                 name,
-                type,
                 sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1, update),
                 updated_at: new Date(),
                 weight,
@@ -524,6 +523,11 @@ export class CategoryService {
               }) ||
                 {}),
             },
+            $addToSet: {
+              ...(type && {
+                type: { $each: Array.isArray(type) ? type : [type] },
+              }),
+            } as any,
           },
           {
             upsert: false,
@@ -539,7 +543,6 @@ export class CategoryService {
               $setOnInsert: {
                 title,
                 name,
-                type,
                 sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1, update),
                 updated_at: new Date(),
                 created_at: new Date(),
@@ -549,15 +552,20 @@ export class CategoryService {
                 deleted: false,
                 created_by: _subject,
               },
+              $addToSet: {
+                ...((type && {
+                  type: { $each: Array.isArray(type) ? type : [type] },
+                }) as any),
+              },
             },
             {
               upsert: true,
               returnDocument: 'after',
             },
           );
-          return newValue._id;
+          return newValue.name;
         }
-        return value._id;
+        return value.name;
       }),
     );
   }
@@ -573,21 +581,35 @@ export class CategoryService {
       },
     });
     // this.logger.debug('info', JSON.stringify(categories));
-    for (const category of categories) {
-      this.logger.debug('info', `fetch_category ${category.name}`);
-      const market_data = {
-        'market_data.num_tokens': category.num_tokens,
-        'market_data.avg_price_change': category.avg_price_change,
-        'market_data.market_cap': category.market_cap,
-        'market_data.market_cap_change': category.market_cap_change,
-        'market_data.volume': category.volume,
-        'market_data.volume_change': category.volume_change,
-      };
+    for (const {
+      id,
+      name,
+      description,
+      title,
+      num_tokens,
+      avg_price_change,
+      market_cap,
+      market_cap_change,
+      volume,
+      volume_change,
+    } of categories) {
+      this.logger.debug('info', `fetch_category ${name}`);
+      const market_data = omitBy(
+        {
+          'market_data.num_tokens': num_tokens,
+          'market_data.avg_price_change': avg_price_change,
+          'market_data.market_cap': market_cap,
+          'market_data.market_cap_change': market_cap_change,
+          'market_data.volume': volume,
+          'market_data.volume_change': volume_change,
+        },
+        isNil,
+      );
       const {
         lastErrorObject: { updatedExisting },
       } = await this.model._collection.findOneAndUpdate(
         {
-          name: slugify(category.name, {
+          name: slugify(name, {
             trim: true,
             lower: true,
             remove: RemoveSlugPattern,
@@ -611,7 +633,7 @@ export class CategoryService {
           value: { _id: categoryId },
         } = await this.model._collection.findOneAndUpdate(
           {
-            name: slugify(category.name, {
+            name: slugify(name, {
               trim: true,
               lower: true,
               remove: RemoveSlugPattern,
@@ -619,15 +641,14 @@ export class CategoryService {
           },
           {
             $setOnInsert: {
-              source_id: category.id,
-              title: category.title,
-              name: slugify(category.name, {
+              source_id: id,
+              title: title,
+              name: slugify(name, {
                 trim: true,
                 lower: true,
                 remove: RemoveSlugPattern,
               }),
-              description: category.description,
-              type: CATEGORY_TYPE.CRYPTO_ASSET,
+              description: description,
               sub_categories: [],
               trans: [],
               created_at: new Date(),
@@ -639,6 +660,9 @@ export class CategoryService {
               source: 'coinmarketcap',
               ...market_data,
             },
+            $addToSet: {
+              type: CATEGORY_TYPE.COINMARKETCAP,
+            } as any,
           },
           {
             upsert: true,
@@ -652,20 +676,22 @@ export class CategoryService {
         } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
           endpoint: CoinMarketCapAPI.cryptocurrency.category,
           params: {
-            id: category.id,
+            id,
           },
         });
-        for (const { name } of coins) {
+        for (const { name, slug } of coins) {
           const { value: coin } = await this.AssetModel._collection.findOneAndUpdate(
             {
               $or: [
                 { name: { $regex: `^${name}$`, $options: 'i' } },
                 {
                   slug: {
-                    $regex: `^${slugify(name, { trim: true, lower: true, remove: RemoveSlugPattern })}$`,
+                    $regex: `^${slug}$`,
                     $options: 'i',
                   },
                 },
+                { name },
+                { slug },
               ],
             },
             {

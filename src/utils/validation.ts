@@ -5,7 +5,7 @@ import { ValidateError } from '@/core/errors/ValidateError';
 export const $refValidation = async ({
   collection,
   list,
-  refKey = '_id',
+  refKey = 'slug',
   Refname,
 }: {
   collection: string;

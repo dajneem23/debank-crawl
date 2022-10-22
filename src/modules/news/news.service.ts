@@ -423,6 +423,9 @@ export class NewsService {
             },
           },
           {
+            $limit: 1,
+          },
+          {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
@@ -457,9 +460,6 @@ export class NewsService {
             },
           ]) ||
             []),
-          {
-            $limit: 1,
-          },
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
@@ -502,6 +502,9 @@ export class NewsService {
             }),
           },
           {
+            $limit: 1,
+          },
+          {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
@@ -536,9 +539,6 @@ export class NewsService {
             },
           ]) ||
             []),
-          {
-            $limit: 1,
-          },
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));

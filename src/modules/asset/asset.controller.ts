@@ -8,12 +8,9 @@ import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { getPermission } from '../auth/auth.utils';
-import { AssetPriceServiceToken } from '../asset-price/asset-price.service';
 @Controller('/assets')
 export class AssetController {
   readonly service = Container.get(assetServiceToken);
-
-  readonly assetPriceService = Container.get(AssetPriceServiceToken);
 
   @Get('/', [
     protect({
@@ -42,7 +39,7 @@ export class AssetController {
   @Get('/asset-metric', [AssetValidation.assetMetricQuery])
   async assetMetric(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
-    const result = await this.assetPriceService.query({
+    const result = await this.service.assetPrice({
       _filter: filter,
       _query: query,
     } as BaseServiceInput);

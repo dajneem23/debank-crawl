@@ -1,24 +1,30 @@
 import { BaseInformationModel, ContractAddress, TeamPerson, Support, ProductInformation, App } from '@/types/Common';
 
 export interface Product extends BaseInformationModel {
-  name: string;
-  avatar: string;
-  contract_addresses: ContractAddress[];
-  cryptocurrencies?: string[];
-  features?: string[];
+  company?: string;
+  project?: string;
+
+  wallets?: Wallet[];
   apps: App[];
-  supports: Support[];
-  galleries: string[];
-  information: ProductInformation[];
-  team: TeamPerson[];
-  parent_company: string;
-  team_location: string;
+  contract_addresses?: ContractAddress[];
+  cryptocurrencies?: string[];
+
+  features?: string[];
+  services?: string[];
+  supports?: Support[];
+
+  information?: ProductInformation[];
+
+  team?: TeamPerson[];
+
   trans: {
     lang: string;
-    about?: string;
+    description?: string;
+    short_description?: string;
+    features?: string[];
+    services?: string[];
   }[];
 }
-
 export const _product: Product = {
   name: '',
   avatar: '',
@@ -26,15 +32,18 @@ export const _product: Product = {
   cryptocurrencies: [],
   categories: [],
   features: [],
+  wallets: [],
   apps: [],
   supports: [],
-  galleries: [],
   information: [],
   team: [],
-  parent_company: '',
-  team_location: '',
   trans: [],
   deleted: false,
   created_at: new Date(),
   updated_at: new Date(),
+};
+export type Wallet = {
+  name?: string;
+  address: string;
+  explore_url?: string;
 };

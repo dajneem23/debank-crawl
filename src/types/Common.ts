@@ -59,6 +59,7 @@ export enum CATEGORY_TYPE {
   APPLICATION = 'application',
   CONSENSUS = 'consensus',
   CRYPTO_ASSET = 'crypto_asset',
+  COINMARKETCAP = 'coinmarketcap',
   PERSON = 'person',
   PRODUCT = 'product',
   COMPANY = 'company',
@@ -75,6 +76,8 @@ export type BaseModel = {
   slug?: string;
 
   categories?: ObjectId[] | string[];
+
+  sub_categories?: ObjectId[] | string[];
 
   sectors?: string[];
 
@@ -264,6 +267,7 @@ export type ProductInformation = {
 export type App = {
   name: string;
   url: string;
+  description?: string;
 };
 export type Media = {
   type: string;
@@ -302,23 +306,7 @@ export enum NewsStatus {
   PROCESSING = 'processing',
   PUBLISHED = 'published',
 }
-export enum FundraisingRound {
-  UNKNOWN = 'Unknown',
-  PRE_SEED = 'Pre-Seed',
-  SEED = 'Seed',
-  ANGEL = 'Angel',
-  INVESTORS = 'Investors',
-  BRIDGE = 'Bridge',
-  MEZZABINE = 'Mezzanine',
-  PRE_PUBLIC = 'Pre-Public',
-  PUBLIC = 'Public',
-  SERIES_A = 'Series A',
-  SERIES_B = 'Series B',
-  SERIES_C = 'Series C',
-  SERIES_D = 'Series D',
-  SERIES_E = 'Series E',
-  SERIES_F = 'Series F',
-}
+
 export enum COMPANY_TYPE {
   NA = 'N/A',
   CRYPTO_VENTURE = 'Crypto Venture',
@@ -329,19 +317,7 @@ export enum COMPANY_TYPE {
   PROJECT_BASED = 'Project Based',
   NON_CRYPTO_CAPITAL = 'Non-Crypto Capital',
 }
-export type FundraisingRoundDetail = {
-  round_name: string;
-  valuation?: string;
-  description?: string;
-  announcement?: string;
-  amount?: number;
-  anum?: string;
-  number_of_rounds?: string;
-  record_id?: string;
-  stage: FundraisingRound | string;
-  posts?: string[];
-  date: Date;
-};
+
 export enum COLLECTION_NAMES {
   'common' = 'common',
   events = 'events',
@@ -365,20 +341,22 @@ export enum COLLECTION_NAMES {
   settings = 'settings',
   exchanges = 'exchanges',
   comment = 'comment',
+  'fundraising-rounds' = 'fundraising-rounds',
 }
 
 export enum assetSortBy {
-  'usd_price' = 'market_data.USD.price',
-  'usd_market_cap' = 'market_data.USD.market_cap',
-  'usd_market_cap_dominance' = 'market_data.USD.market_cap_dominance',
+  'usd_price' = 'USD.price',
+  'usd_market_cap' = 'market_cap',
+  'usd_market_cap_dominance' = 'market_cap_dominance',
+  'usd_tvl' = 'tvl',
+
   'usd_volume_24h' = 'market_data.USD.24h.volume',
-  'usd_volume_change_24h' = 'market_data.USD.24h.volume_change',
-  'usd_percent_change_24h' = 'market_data.USD.24h.percent_change',
-  'usd_percent_change_7d' = 'market_data.USD.7d.percent_change',
-  'usd_percent_change_30d' = 'market_data.USD.30d.percent_change',
-  'usd_percent_change_60d' = 'market_data.USD.60d.percent_change',
-  'usd_percent_change_90d' = 'market_data.USD.90d.percent_change',
-  'usd_tvl' = 'market_data.USD.tvl',
+  'usd_volume_change_24h' = 'volume_change_24h',
+  'usd_percent_change_24h' = 'percent_change_24h',
+  'usd_percent_change_7d' = 'percent_change_7d',
+  'usd_percent_change_30d' = 'percent_change_30d',
+  'usd_percent_change_60d' = 'percent_change_60d',
+  'usd_percent_change_90d' = 'percent_change_90d',
   'created_at' = 'created_at',
 }
 
@@ -519,35 +497,37 @@ export enum TIME_PERIOD {
 export const RemoveSlugPattern = /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g;
 
 export const urlsValidation = Joi.object({
-  twitter: Joi.array().items(Joi.string()),
+  avatar: Joi.array().items(Joi.string().uri()),
 
-  telegram: Joi.array().items(Joi.string()),
+  twitter: Joi.array().items(Joi.string().uri()),
 
-  facebook: Joi.array().items(Joi.string()),
+  telegram: Joi.array().items(Joi.string().uri()),
 
-  instagram: Joi.array().items(Joi.string()),
+  facebook: Joi.array().items(Joi.string().uri()),
 
-  linkedin: Joi.array().items(Joi.string()),
+  instagram: Joi.array().items(Joi.string().uri()),
 
-  github: Joi.array().items(Joi.string()),
+  linkedin: Joi.array().items(Joi.string().uri()),
 
-  medium: Joi.array().items(Joi.string()),
+  github: Joi.array().items(Joi.string().uri()),
 
-  youtube: Joi.array().items(Joi.string()),
+  medium: Joi.array().items(Joi.string().uri()),
 
-  website: Joi.array().items(Joi.string()),
+  youtube: Joi.array().items(Joi.string().uri()),
 
-  blog: Joi.array().items(Joi.string()),
+  website: Joi.array().items(Joi.string().uri()),
 
-  rocket_chat: Joi.array().items(Joi.string()),
+  blog: Joi.array().items(Joi.string().uri()),
 
-  bitcoin_talk: Joi.array().items(Joi.string()),
+  rocket_chat: Joi.array().items(Joi.string().uri()),
 
-  galleries: Joi.array().items(Joi.string()),
+  bitcoin_talk: Joi.array().items(Joi.string().uri()),
 
-  stack_exchange: Joi.array().items(Joi.string()),
+  galleries: Joi.array().items(Joi.string().uri()),
 
-  other: Joi.array().items(Joi.string()),
+  stack_exchange: Joi.array().items(Joi.string().uri()),
+
+  other: Joi.array().items(Joi.string().uri()),
 });
 /**
  * @description - id validation

@@ -199,6 +199,9 @@ export class EventService {
             }),
           },
           {
+            $limit: 1,
+          },
+          {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
@@ -237,9 +240,6 @@ export class EventService {
             },
           ]) ||
             []),
-          {
-            $limit: 1,
-          },
         ])
         .toArray();
       if (isNil(item)) throwErr(new EventError('EVENT_NOT_FOUND'));
@@ -269,6 +269,9 @@ export class EventService {
             }),
           },
           {
+            $limit: 1,
+          },
+          {
             $addFields: this.model.$addFields.categories,
           },
           this.model.$lookups.categories,
@@ -307,9 +310,6 @@ export class EventService {
             },
           ]) ||
             []),
-          {
-            $limit: 1,
-          },
         ])
         .toArray();
       if (isNil(item)) throwErr(new EventError('EVENT_NOT_FOUND'));
@@ -349,36 +349,41 @@ export class EventService {
               }),
             },
           },
-          this.model.$addFields.categories,
-          this.model.$lookups.categories,
-          {
-            $project: {
-              ...$keysToProject(this.publicOutputKeys),
-              trans: {
-                $filter: {
-                  input: '$trans',
-                  as: 'trans',
-                  cond: {
-                    $eq: ['$$trans.lang', lang],
-                  },
-                },
-              },
-            },
-          },
-          this.model.$lookups.country,
-          this.model.$sets.country,
-          ...((lang && [this.model.$sets.trans]) || []),
-          {
-            $project: {
-              ...$keysToProject(this.publicOutputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
-            },
-          },
-          { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
+
           {
             $facet: {
               total_count: [{ $count: 'total_count' }],
-              items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }],
+              items: [
+                { $skip: +limit * (+offset - 1) },
+                { $limit: +limit },
+
+                this.model.$addFields.categories,
+                this.model.$lookups.categories,
+                {
+                  $project: {
+                    ...$keysToProject(this.publicOutputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
+                      },
+                    },
+                  },
+                },
+                this.model.$lookups.country,
+                this.model.$sets.country,
+                ...((lang && [this.model.$sets.trans]) || []),
+                {
+                  $project: {
+                    ...$keysToProject(this.publicOutputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
+                },
+                { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
+              ],
             },
           },
         ])
@@ -418,39 +423,76 @@ export class EventService {
               }),
             },
           },
-          {
-            $project: {
-              ...$keysToProject(this.publicOutputKeys),
-              trans: {
-                $filter: {
-                  input: '$trans',
-                  as: 'trans',
-                  cond: {
-                    $eq: ['$$trans.lang', lang],
-                  },
-                },
-              },
-            },
-          },
-          {
-            $addFields: this.model.$addFields.categories,
-          },
-          this.model.$lookups.categories,
-          ...((lang && [this.model.$sets.trans]) || []),
-          this.model.$lookups.country,
-          this.model.$sets.country,
-          {
-            $project: {
-              ...$keysToProject(this.publicOutputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
-            },
-          },
-          { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
+
           {
             $facet: {
               total_count: [{ $count: 'total_count' }],
-              trending: [{ $match: { trending: true } }, { $limit: +limit }],
-              virtual: [{ $match: { type: 'virtual' } }, { $limit: +limit }],
+              trending: [
+                { $match: { trending: true } },
+                { $limit: +limit },
+
+                {
+                  $project: {
+                    ...$keysToProject(this.publicOutputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
+                      },
+                    },
+                  },
+                },
+                {
+                  $addFields: this.model.$addFields.categories,
+                },
+                this.model.$lookups.categories,
+                ...((lang && [this.model.$sets.trans]) || []),
+                this.model.$lookups.country,
+                this.model.$sets.country,
+                {
+                  $project: {
+                    ...$keysToProject(this.publicOutputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
+                },
+                { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
+              ],
+              virtual: [
+                { $match: { type: 'virtual' } },
+                { $limit: +limit },
+
+                {
+                  $project: {
+                    ...$keysToProject(this.publicOutputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
+                      },
+                    },
+                  },
+                },
+                {
+                  $addFields: this.model.$addFields.categories,
+                },
+                this.model.$lookups.categories,
+                ...((lang && [this.model.$sets.trans]) || []),
+                this.model.$lookups.country,
+                this.model.$sets.country,
+                {
+                  $project: {
+                    ...$keysToProject(this.publicOutputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
+                },
+                { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
+              ],
             },
           },
         ])
@@ -489,38 +531,43 @@ export class EventService {
               }),
             },
           },
-          {
-            $project: {
-              ...$keysToProject(this.publicOutputKeys),
-              trans: {
-                $filter: {
-                  input: '$trans',
-                  as: 'trans',
-                  cond: {
-                    $eq: ['$$trans.lang', lang],
-                  },
-                },
-              },
-            },
-          },
-          {
-            $addFields: this.model.$addFields.categories,
-          },
-          ...((lang && [this.model.$sets.trans]) || []),
-          this.model.$lookups.categories,
-          this.model.$lookups.country,
-          this.model.$sets.country,
-          {
-            $project: {
-              ...$keysToProject(this.publicOutputKeys),
-              ...(lang && $keysToProject(this.transKeys, '$trans')),
-            },
-          },
-          { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
+
           {
             $facet: {
               total_count: [{ $count: 'total_count' }],
-              items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }],
+              items: [
+                { $skip: +limit * (+offset - 1) },
+                { $limit: +limit },
+
+                {
+                  $project: {
+                    ...$keysToProject(this.publicOutputKeys),
+                    trans: {
+                      $filter: {
+                        input: '$trans',
+                        as: 'trans',
+                        cond: {
+                          $eq: ['$$trans.lang', lang],
+                        },
+                      },
+                    },
+                  },
+                },
+                {
+                  $addFields: this.model.$addFields.categories,
+                },
+                ...((lang && [this.model.$sets.trans]) || []),
+                this.model.$lookups.categories,
+                this.model.$lookups.country,
+                this.model.$sets.country,
+                {
+                  $project: {
+                    ...$keysToProject(this.publicOutputKeys),
+                    ...(lang && $keysToProject(this.transKeys, '$trans')),
+                  },
+                },
+                { $sort: { start_date: sort_order === 'asc' ? 1 : -1 } },
+              ],
             },
           },
         ])

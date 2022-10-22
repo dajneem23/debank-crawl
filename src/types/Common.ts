@@ -360,17 +360,18 @@ export enum COLLECTION_NAMES {
 }
 
 export enum assetSortBy {
-  'usd_price' = 'market_data.USD.price',
-  'usd_market_cap' = 'market_data.USD.market_cap',
-  'usd_market_cap_dominance' = 'market_data.USD.market_cap_dominance',
+  'usd_price' = 'USD.price',
+  'usd_market_cap' = 'market_cap',
+  'usd_market_cap_dominance' = 'market_cap_dominance',
+  'usd_tvl' = 'tvl',
+
   'usd_volume_24h' = 'market_data.USD.24h.volume',
-  'usd_volume_change_24h' = 'market_data.USD.24h.volume_change',
-  'usd_percent_change_24h' = 'market_data.USD.24h.percent_change',
-  'usd_percent_change_7d' = 'market_data.USD.7d.percent_change',
-  'usd_percent_change_30d' = 'market_data.USD.30d.percent_change',
-  'usd_percent_change_60d' = 'market_data.USD.60d.percent_change',
-  'usd_percent_change_90d' = 'market_data.USD.90d.percent_change',
-  'usd_tvl' = 'market_data.USD.tvl',
+  'usd_volume_change_24h' = 'volume_change_24h',
+  'usd_percent_change_24h' = 'percent_change_24h',
+  'usd_percent_change_7d' = 'percent_change_7d',
+  'usd_percent_change_30d' = 'percent_change_30d',
+  'usd_percent_change_60d' = 'percent_change_60d',
+  'usd_percent_change_90d' = 'percent_change_90d',
   'created_at' = 'created_at',
 }
 

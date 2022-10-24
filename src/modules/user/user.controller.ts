@@ -89,26 +89,26 @@ export class UserController {
   // PRIVATE ROUTES
   // ----------------------------------------------------------------
 
-  @Get('/private/users', [userValidation.privateQuery, protectPrivateAPI()])
+  @Get('/private/users', [userValidation.privateQuery])
   async privateQuery(@Res() res: Response, @Query() query: any) {
     const opts = buildQueryFilter(query);
     const result = await this.userService.query(opts.filter, opts.query);
     res.status(httpStatusCode.OK).json(result);
   }
 
-  @Get('/private/users/me', [protectPrivateAPI()])
+  @Get('/private/users/me', [])
   async privateGetMe(@Res() res: Response, @Auth() auth: JWTPayload) {
     const user = await this.userService.getById(auth.id);
     res.status(httpStatusCode.OK).json(user);
   }
 
-  @Put('/private/users/me', [userValidation.updateMe, protectPrivateAPI()])
+  @Put('/private/users/me', [userValidation.updateMe])
   async privateUpdateMe(@Res() res: Response, @Body() body: any, @Auth() auth: JWTPayload) {
     const user = await this.userService.update(auth.id, body);
     res.status(httpStatusCode.OK).json(user);
   }
 
-  @Get('/private/users/:id', [protectPrivateAPI()])
+  @Get('/private/users/:id', [])
   async privateGetUser(@Res() res: Response, @Params() params: { id: string }) {
     const user = await this.userService.getById(params.id);
     res.status(httpStatusCode.OK).json(user);
@@ -120,31 +120,31 @@ export class UserController {
     res.status(httpStatusCode.CREATED).json(user);
   }
 
-  @Put('/private/users/:id', [userValidation.privateCreateUpdateUser, protectPrivateAPI()])
+  @Put('/private/users/:id', [userValidation.privateCreateUpdateUser])
   async privateUpdateUser(@Res() res: Response, @Body() body: any, @Params() params: { id: string }) {
     const user = await this.userService.update(params.id, body);
     res.status(httpStatusCode.OK).json(user);
   }
 
-  @Delete('/private/users/:id', [protectPrivateAPI()])
+  @Delete('/private/users/:id', [])
   async privateDeleteUser(@Res() res: Response, @Params() params: { id: string }) {
     await this.userService.deleteUserAccount(params.id);
     res.status(httpStatusCode.NO_CONTENT).end();
   }
 
-  @Patch('/private/users/:id/suspend', [protectPrivateAPI()])
+  @Patch('/private/users/:id/suspend', [])
   async privateSuspendUser(@Res() res: Response, @Params() params: { id: string }) {
     await this.userService.suspend(params.id);
     res.status(httpStatusCode.NO_CONTENT).end();
   }
 
-  @Patch('/private/users/:id/unsuspend', [protectPrivateAPI()])
+  @Patch('/private/users/:id/unsuspend', [])
   async privateUnsuspendUser(@Res() res: Response, @Params() params: { id: string }) {
     await this.userService.unsuspend(params.id);
     res.status(httpStatusCode.NO_CONTENT).end();
   }
 
-  @Patch('/private/users/:id/set-roles', [userValidation.privateSetRoles, protectPrivateAPI()])
+  @Patch('/private/users/:id/set-roles', [userValidation.privateSetRoles])
   async privateSetUserRoles(@Res() res: Response, @Body() body: any, @Params() params: { id: string }) {
     const user = await this.authService.setUserRoles(params.id, body.roles);
     res.status(httpStatusCode.OK).json(user);

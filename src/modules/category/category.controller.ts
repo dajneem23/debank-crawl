@@ -128,7 +128,7 @@ export class CategoryPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id', [CategoryValidation.getById, protectPrivateAPI()])
+  @Get('/:id', [CategoryValidation.getById])
   async publicCategory(
     @Res() _res: Response,
     @Req() _req: Request,

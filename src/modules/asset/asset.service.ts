@@ -56,7 +56,7 @@ export class AssetService {
   };
 
   constructor() {
-    this.fetchMarketData();
+    // this.fetchMarketData();
     // this.fetchPricePerformanceStats();
     // this.fetchOHLCV();
     if (env.MODE === 'production') {

@@ -12,7 +12,7 @@ import { BaseServiceInput } from '@/types/Common';
 export class CommentPrivateController {
   private service = Container.get(CommentServiceToken);
 
-  @Put('/:id', [protectPrivateAPI(), CommentValidation.update])
+  @Put('/:id', [CommentValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -29,7 +29,7 @@ export class CommentPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), CommentValidation.delete])
+  @Delete('/:id', [CommentValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,

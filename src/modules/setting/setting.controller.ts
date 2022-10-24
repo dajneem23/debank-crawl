@@ -51,7 +51,7 @@ export class SettingController {
 export class SettingPrivateController {
   private service = Container.get(settingServiceToken);
 
-  @Post('/', [protectPrivateAPI(), SettingValidation.create])
+  @Post('/', [SettingValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -66,7 +66,7 @@ export class SettingPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), SettingValidation.update])
+  @Put('/:id', [SettingValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -83,7 +83,7 @@ export class SettingPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), SettingValidation.delete])
+  @Delete('/:id', [SettingValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -100,7 +100,7 @@ export class SettingPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/:id', [protectPrivateAPI(), SettingValidation.getById])
+  @Get('/:id', [SettingValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

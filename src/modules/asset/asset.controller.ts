@@ -86,7 +86,7 @@ export class AssetController {
 export class AssetPrivateController {
   private service = Container.get(assetServiceToken);
 
-  @Post('/', [protectPrivateAPI(), AssetValidation.create])
+  @Post('/', [AssetValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -101,7 +101,7 @@ export class AssetPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), AssetValidation.update])
+  @Put('/:id', [AssetValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -118,7 +118,7 @@ export class AssetPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), AssetValidation.delete])
+  @Delete('/:id', [AssetValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -135,7 +135,7 @@ export class AssetPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/:id', [protectPrivateAPI(), AssetValidation.getById])
+  @Get('/:id', [AssetValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

@@ -76,7 +76,7 @@ export class GlossaryController {
 export class GlossaryPrivateController {
   private service = Container.get(GlossaryServiceToken);
 
-  @Post('/', [protectPrivateAPI(), GlossaryValidation.create])
+  @Post('/', [GlossaryValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -91,7 +91,7 @@ export class GlossaryPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), GlossaryValidation.update])
+  @Put('/:id', [GlossaryValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -108,7 +108,7 @@ export class GlossaryPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), GlossaryValidation.delete])
+  @Delete('/:id', [GlossaryValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -125,7 +125,7 @@ export class GlossaryPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/', [protectPrivateAPI(), GlossaryValidation.query])
+  @Get('/', [GlossaryValidation.query])
   async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
@@ -136,7 +136,7 @@ export class GlossaryPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id', [protectPrivateAPI(), GlossaryValidation.getById])
+  @Get('/:id', [GlossaryValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

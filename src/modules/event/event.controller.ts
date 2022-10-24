@@ -101,7 +101,7 @@ export class EventController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Patch('/:id/trending', [protectPrivateAPI(), EventValidation.updateTrending])
+  @Patch('/:id/trending', [EventValidation.updateTrending])
   async updateTrendingEvent(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -120,7 +120,7 @@ export class EventController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Patch('/:id/significant', [protectPrivateAPI(), EventValidation.updateSignificant])
+  @Patch('/:id/significant', [EventValidation.updateSignificant])
   async updateSignificantEvent(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -138,7 +138,7 @@ export class EventController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  @Patch('/:id/subscribe', [protectPrivateAPI(), EventValidation.subscribe])
+  @Patch('/:id/subscribe', [EventValidation.subscribe])
   async subscribe(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -192,7 +192,7 @@ export class EventPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), EventValidation.deleteById])
+  @Delete('/:id', [EventValidation.deleteById])
   async delete(
     @Res() _res: Response,
     @Req() _req: Request,

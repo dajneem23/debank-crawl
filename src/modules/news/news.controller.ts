@@ -146,7 +146,7 @@ export class NewsController {
 @Controller('/news')
 export class NewsPrivateController {
   private service = Container.get(NewsServiceToken);
-  @Post('/', [protectPrivateAPI(), NewsValidation.create])
+  @Post('/', [NewsValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -161,7 +161,7 @@ export class NewsPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), NewsValidation.update])
+  @Put('/:id', [NewsValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -178,7 +178,7 @@ export class NewsPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), NewsValidation.delete])
+  @Delete('/:id', [NewsValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -195,7 +195,7 @@ export class NewsPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/:id', [protectPrivateAPI(), NewsValidation.getById])
+  @Get('/:id', [NewsValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -214,7 +214,7 @@ export class NewsPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id/comment', [protectPrivateAPI(), NewsValidation.getById])
+  @Get('/:id/comment', [NewsValidation.getById])
   async getComment(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -233,7 +233,7 @@ export class NewsPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Post('/:id/comment', [protectPrivateAPI(), NewsValidation.getById])
+  @Post('/:id/comment', [NewsValidation.getById])
   async createComment(
     @Res() _res: Response,
     @Req() _req: Request,

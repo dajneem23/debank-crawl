@@ -59,7 +59,7 @@ export class CategoryController {
 export class CategoryPrivateController {
   private service = Container.get(categoryServiceToken);
 
-  @Post('/', [protectPrivateAPI(), CategoryValidation.create])
+  @Post('/', [CategoryValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -74,7 +74,7 @@ export class CategoryPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), CategoryValidation.update])
+  @Put('/:id', [CategoryValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -91,7 +91,7 @@ export class CategoryPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), CategoryValidation.delete])
+  @Delete('/:id', [CategoryValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -128,7 +128,7 @@ export class CategoryPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id/public', [CategoryValidation.getById, protectPrivateAPI()])
+  @Get('/:id/public', [CategoryValidation.getById])
   async publicCategory(
     @Res() _res: Response,
     @Req() _req: Request,

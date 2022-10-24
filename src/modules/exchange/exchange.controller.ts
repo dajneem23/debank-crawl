@@ -76,7 +76,7 @@ export class ExchangeController {
 export class ExchangePrivateController {
   private service = Container.get(ExchangeServiceToken);
 
-  @Post('/', [protectPrivateAPI(), ExchangeValidation.create])
+  @Post('/', [ExchangeValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -91,7 +91,7 @@ export class ExchangePrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), ExchangeValidation.update])
+  @Put('/:id', [ExchangeValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -108,7 +108,7 @@ export class ExchangePrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), ExchangeValidation.delete])
+  @Delete('/:id', [ExchangeValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -125,7 +125,7 @@ export class ExchangePrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/', [protectPrivateAPI(), ExchangeValidation.query])
+  @Get('/', [ExchangeValidation.query])
   async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
@@ -136,7 +136,7 @@ export class ExchangePrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id', [protectPrivateAPI(), ExchangeValidation.getById])
+  @Get('/:id', [ExchangeValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

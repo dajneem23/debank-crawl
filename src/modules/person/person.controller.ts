@@ -75,7 +75,7 @@ export class PersonController {
 export class PersonPrivateController {
   private service = Container.get(personServiceToken);
 
-  @Post('/', [protectPrivateAPI(), PersonValidation.create])
+  @Post('/', [PersonValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -89,7 +89,7 @@ export class PersonPrivateController {
     } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
   }
-  @Put('/:id', [protectPrivateAPI(), PersonValidation.update])
+  @Put('/:id', [PersonValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -105,7 +105,7 @@ export class PersonPrivateController {
     } as BaseServiceInput);
     _res.status(httpStatus.CREATED).json(result);
   }
-  @Delete('/:id', [protectPrivateAPI(), PersonValidation.delete])
+  @Delete('/:id', [PersonValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -122,7 +122,7 @@ export class PersonPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/:id', [protectPrivateAPI(), PersonValidation.getById])
+  @Get('/:id', [PersonValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

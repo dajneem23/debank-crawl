@@ -33,13 +33,13 @@ export default class EmailSubscriptionController {
   // PRIVATE ROUTES
   // ----------------------------------------------------------------
 
-  @Get('/private/users/:id/email-subscription', [protectPrivateAPI()])
+  @Get('/private/users/:id/email-subscription', [])
   async privateGet(@Res() res: Response, @Params() params: { id: string }) {
     const result = await this.emailSubscriptionService.getEmailSubscription(params.id);
     res.status(httpStatusCode.OK).json(result);
   }
 
-  @Put('/private/users/:id/email-subscription', [emailSubscriptionValidation.update, protectPrivateAPI()])
+  @Put('/private/users/:id/email-subscription', [emailSubscriptionValidation.update])
   async privateUpdate(@Res() res: Response, @Params() params: { id: string }, @Body() body: any) {
     const result = await this.emailSubscriptionService.updateEmailSubscription(params.id, body);
     res.status(httpStatusCode.OK).json(result);

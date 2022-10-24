@@ -76,7 +76,7 @@ export class BlockchainController {
 export class BlockchainPrivateController {
   private service = Container.get(BlockchainServiceToken);
 
-  @Post('/', [protectPrivateAPI(), BlockchainValidation.create])
+  @Post('/', [BlockchainValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -91,7 +91,7 @@ export class BlockchainPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), BlockchainValidation.update])
+  @Put('/:id', [BlockchainValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -108,7 +108,7 @@ export class BlockchainPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), BlockchainValidation.delete])
+  @Delete('/:id', [BlockchainValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -125,7 +125,7 @@ export class BlockchainPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/', [protectPrivateAPI(), BlockchainValidation.query])
+  @Get('/', [BlockchainValidation.query])
   async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
@@ -136,7 +136,7 @@ export class BlockchainPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id', [protectPrivateAPI(), BlockchainValidation.getById])
+  @Get('/:id', [BlockchainValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

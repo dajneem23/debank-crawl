@@ -84,7 +84,7 @@ export class AssetTrendingController {
 export class AssetTrendingPrivateController {
   private service = Container.get(assetTrendingServiceToken);
 
-  @Post('/', [protectPrivateAPI()])
+  @Post('/', [])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -99,7 +99,7 @@ export class AssetTrendingPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI()])
+  @Put('/:id', [])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -116,7 +116,7 @@ export class AssetTrendingPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI()])
+  @Delete('/:id', [])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -133,7 +133,7 @@ export class AssetTrendingPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  // @Get('/:id', [protectPrivateAPI()])
+  // @Get('/:id', [])
   // async getByIdPrivate(
   //   @Res() _res: Response,
   //   @Req() _req: Request,

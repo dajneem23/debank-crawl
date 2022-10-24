@@ -57,7 +57,7 @@ export class ProductController {
 @Controller('/products')
 export class ProductPrivateController {
   private service = Container.get(productServiceToken);
-  @Post('/', [protectPrivateAPI(), ProductValidation.create])
+  @Post('/', [ProductValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -72,7 +72,7 @@ export class ProductPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), ProductValidation.update])
+  @Put('/:id', [ProductValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -89,7 +89,7 @@ export class ProductPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), ProductValidation.delete])
+  @Delete('/:id', [ProductValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -106,7 +106,7 @@ export class ProductPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/:id', [protectPrivateAPI(), ProductValidation.getById])
+  @Get('/:id', [ProductValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

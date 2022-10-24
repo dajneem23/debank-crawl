@@ -50,13 +50,12 @@ export const protect =
 
 /**
  * [Private] Authentication middleware
- * @param ignoreException Ignore exception
  * @returns RequestHandler
  */
-export const protectPrivateAPI = (): RequestHandler => async (req, res, next) => {
+export const protectPrivateAPI = async function (req: any, res: any, next: any): Promise<RequestHandler> {
   try {
     const decoded = await verifyAccessToken(req.headers);
-    if (!decoded.roles || !decoded.roles.includes(UserRole.ADMIN)) {
+    if (!decoded?.roles?.includes(UserRole.ADMIN)) {
       throwErr(new AuthError('PERMISSION_DENIED'));
     }
     req.auth = decoded;

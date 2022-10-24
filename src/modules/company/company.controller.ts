@@ -60,7 +60,7 @@ export class CompanyController {
 export class CompanyPrivateController {
   private service = Container.get(CompanyServiceToken);
 
-  @Post('/', [protectPrivateAPI(), CompanyValidation.create])
+  @Post('/', [CompanyValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -75,7 +75,7 @@ export class CompanyPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), CompanyValidation.update])
+  @Put('/:id', [CompanyValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -92,7 +92,7 @@ export class CompanyPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), CompanyValidation.delete])
+  @Delete('/:id', [CompanyValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -109,7 +109,7 @@ export class CompanyPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/', [protectPrivateAPI(), CompanyValidation.query])
+  @Get('/', [CompanyValidation.query])
   async getByAdmin(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
@@ -120,7 +120,7 @@ export class CompanyPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id', [protectPrivateAPI(), CompanyValidation.getById])
+  @Get('/:id', [CompanyValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

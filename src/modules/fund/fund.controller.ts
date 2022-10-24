@@ -78,7 +78,7 @@ export class FundController {
 export class FundPrivateController {
   private service = Container.get(FundServiceToken);
 
-  @Post('/', [protectPrivateAPI(), FundValidation.create])
+  @Post('/', [FundValidation.create])
   async create(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -93,7 +93,7 @@ export class FundPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Put('/:id', [protectPrivateAPI(), FundValidation.update])
+  @Put('/:id', [FundValidation.update])
   async update(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -110,7 +110,7 @@ export class FundPrivateController {
     _res.status(httpStatus.CREATED).json(result);
   }
 
-  @Delete('/:id', [protectPrivateAPI(), FundValidation.delete])
+  @Delete('/:id', [FundValidation.delete])
   async delete(
     @Res() _res: Response,
     @Auth() _auth: JWTPayload,
@@ -127,7 +127,7 @@ export class FundPrivateController {
     _res.status(httpStatus.NO_CONTENT).end();
   }
 
-  @Get('/:id', [protectPrivateAPI(), FundValidation.getById])
+  @Get('/:id', [FundValidation.getById])
   async getByIdPrivate(
     @Res() _res: Response,
     @Req() _req: Request,

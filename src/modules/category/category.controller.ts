@@ -128,7 +128,7 @@ export class CategoryPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id', [CategoryValidation.getById, protectPrivateAPI()])
+  @Get('/:id/public', [CategoryValidation.getById, protectPrivateAPI()])
   async publicCategory(
     @Res() _res: Response,
     @Req() _req: Request,
@@ -138,12 +138,8 @@ export class CategoryPrivateController {
       id: string;
     },
   ) {
-    const { filter } = buildQueryFilter(_query);
-
-    const result = await this.service.getById({
+    const result = await this.service.publicCategory({
       _id: _params.id,
-      _filter: filter,
-      _permission: 'private',
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

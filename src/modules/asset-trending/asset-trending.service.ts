@@ -1,9 +1,7 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { toOutPut, toPagingOutput } from '@/utils/common';
-import AuthSessionModel from '@/modules/auth/authSession.model';
-import AuthService from '../auth/auth.service';
-import { $keysToProject, $pagination, $toMongoFilter } from '@/utils/mongoDB';
+import { $keysToProject, $toMongoFilter } from '@/utils/mongoDB';
 import { assetTrendingModelToken } from '.';
 import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
@@ -31,12 +29,6 @@ export class AssetTrendingService {
   private logger = new Logger('AssetTrendingService');
 
   private model = Container.get(assetTrendingModelToken);
-
-  @Inject()
-  private authSessionModel: AuthSessionModel;
-
-  @Inject()
-  private authService: AuthService;
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 
@@ -84,6 +76,7 @@ export class AssetTrendingService {
       'price',
       'volume',
       'cmc_rank',
+      'slug',
       'percent_change_24h',
       'percent_change_7d',
       'percent_change_30d',
@@ -416,8 +409,7 @@ export class AssetTrendingService {
    **/
   async trendingSoon({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { categories = [], deleted = false } = _filter;
-      const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
+      const { offset = 1, limit, sort_by: _sort_by, sort_order } = _query;
       const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([

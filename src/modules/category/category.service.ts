@@ -352,6 +352,31 @@ export class CategoryService {
       throw err;
     }
   }
+
+  /**
+   * public category
+   * @param _id - Category ID
+   * @returns { Promise<CategoryOutput> } - Category
+   */
+  async publicCategory({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
+    try {
+      const [category] = await this.model.update(
+        {
+          $match: $toMongoFilter({ _id }),
+        },
+
+        {
+          $set: { is_public: { $eq: [false, '$is_public'] } },
+        },
+      );
+      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
+      this.logger.debug('update_success', { category });
+      return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
+    } catch (err) {
+      this.logger.error('get_error', err.message);
+      throw err;
+    }
+  }
   /**
    * Get Category by name
    * @param _id - Category ID

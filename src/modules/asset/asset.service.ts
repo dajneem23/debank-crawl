@@ -691,15 +691,22 @@ export class AssetService {
             $lookups: [
               this.model.$lookups.categories,
               $lookup({
-                from: 'asset-price',
+                from: 'coingecko-assets',
                 refFrom: 'slug',
-                refTo: 'slug',
-                select: 'market_data',
-                reName: 'asset-price',
+                refTo: 'id',
+                select: 'details.market_data.sparkline_7d',
+                reName: 'coingecko-asset',
                 operation: '$eq',
               }),
             ],
-            $sets: [this.model.$sets.asset_price],
+            $sets: [
+              {
+                $set: {
+                  market_data: { $first: '$asset-price.market_data' },
+                  sparkline_7d: { $first: '$coingecko-asset.details.market_data.sparkline_7d' },
+                },
+              },
+            ],
             $projects: [
               {
                 $project: {

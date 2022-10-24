@@ -36,24 +36,6 @@ export class CategoryController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  // @Get('/:id', [CategoryValidation.getById])
-  // async getById(
-  //   @Res() _res: Response,
-  //   @Req() _req: Request,
-  //   @Query() _query: BaseQuery,
-  //   @Params()
-  //   _params: {
-  //     id: string;
-  //   },
-  // ) {
-  //   const { filter, query } = buildQueryFilter(_query);
-
-  //   const result = await this.service.getById({
-  //     _id: _params.id,
-  //     _filter: filter,
-  //   } as BaseServiceInput);
-  //   _res.status(httpStatus.OK).json(result);
-  // }
   @Get('/:name', [CategoryValidation.getByName])
   async getByName(
     @Res() _res: Response,
@@ -128,6 +110,26 @@ export class CategoryPrivateController {
 
   @Get('/:id', [CategoryValidation.getById])
   async getByIdPrivate(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Query() _query: BaseQuery,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const { filter } = buildQueryFilter(_query);
+
+    const result = await this.service.getById({
+      _id: _params.id,
+      _filter: filter,
+      _permission: 'private',
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Get('/:id', [CategoryValidation.getById, protectPrivateAPI()])
+  async publicCategory(
     @Res() _res: Response,
     @Req() _req: Request,
     @Query() _query: BaseQuery,

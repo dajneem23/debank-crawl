@@ -1,4 +1,4 @@
-import { BaseQuery, CATEGORY_TYPE } from '@/types/Common';
+import { CATEGORY_TYPE } from '@/types/Common';
 import { BaseModel } from '@/types/Common';
 
 export interface Category extends BaseModel {

@@ -32,13 +32,14 @@ import {
   FundPrivateController,
 } from '@/modules';
 import StorageController from '@/modules/storage/storage.controller';
+import { protectPrivateAPI } from '@/api/middlewares/protect';
 
 const publicRoute = Router();
 const privateRoute = Router();
 
 export default (app: Application) => {
   app.use(`${env.API_PREFIX}/v1/public`, publicRoute);
-  app.use(`${env.API_PREFIX}/v1/private`, privateRoute);
+  app.use(`${env.API_PREFIX}/v1/private`, protectPrivateAPI(), privateRoute);
   /**
    * @description normal routes
    * @route /v1/public

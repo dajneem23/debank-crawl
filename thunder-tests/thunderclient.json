@@ -217,12 +217,12 @@
     "method": "POST",
     "sortNum": 80000,
     "created": "2022-08-30T09:07:12.400Z",
-    "modified": "2022-10-14T04:24:43.063Z",
+    "modified": "2022-10-24T08:56:38.801Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"username\":\"admin@gmail.com\",\n    \"password\":\"admin@1foxglobal!123\"\n}",
+      "raw": "{\n    \"username\":\"thanh@gmail.com\",\n    \"password\":\"12345asd\"\n}",
       "form": []
     },
     "tests": []
@@ -232,11 +232,11 @@
     "colId": "6f10bce8-c45b-4e17-91eb-2af42ef1a156",
     "containerId": "63e7221c-9a9e-48d4-baaa-9fbe47ada470",
     "name": "create User",
-    "url": "{{host}}/auth/register",
+    "url": "{{host}}/public/auth/register",
     "method": "POST",
     "sortNum": 90000,
     "created": "2022-08-30T09:07:12.401Z",
-    "modified": "2022-08-31T07:37:36.404Z",
+    "modified": "2022-10-24T08:55:47.182Z",
     "headers": [],
     "params": [],
     "body": {

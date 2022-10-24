@@ -140,6 +140,23 @@ export const CoinGeckoAPI = {
       },
     },
   },
+  Categories: {
+    list: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins/categories/list',
+    },
+    listWithMarketData: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins/categories',
+      params: {
+        //? order: market_cap_desc (default), market_cap_asc, name_desc, name_asc, market_cap_change_24h_desc and market_cap_change_24h_asc
+        order: 'market_cap_desc',
+      },
+    },
+  },
+  Blockchains: {
+    list: {
+      endpoint: 'https://api.coingecko.com/api/v3/asset_platforms',
+    },
+  },
   /**
    * @description fetch data from coinmarketcap
    * @param  {Object} - { params,endpoint }

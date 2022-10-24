@@ -7,7 +7,6 @@ import { $pagination, $toMongoFilter, $keysToProject, $lookup, $sets, $toObjectI
 import { assetPriceModelToken } from '.';
 import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, uniq } from 'lodash';
-import { coinGeckoAssetServiceToken } from '../coingecko-asset';
 const TOKEN_NAME = '_assetPriceService';
 /**
  * A bridge allows another service access to the Model layer

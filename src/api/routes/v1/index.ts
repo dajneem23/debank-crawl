@@ -55,7 +55,7 @@ export default (app: Application) => {
     EventController,
     UserController,
     AuthController,
-    //asset trending before asset
+    // ! asset-trending before asset
     AssetTrendingController,
     AssetController,
     NewsController,

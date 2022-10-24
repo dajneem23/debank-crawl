@@ -344,6 +344,8 @@ export enum COLLECTION_NAMES {
   'fundraising-rounds' = 'fundraising-rounds',
   'asset-trending' = 'asset-trending',
   'coingecko-assets' = 'coingecko-assets',
+  'coingecko-categories' = 'coingecko-categories',
+  'coingecko-blockchains' = 'coingecko-blockchains',
 }
 
 export enum assetSortBy {

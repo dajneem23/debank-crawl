@@ -16,7 +16,6 @@ import { AssetJobData, AssetJobNames } from './asset.job';
 import { CoinMarketCapAPI } from '@/common/api';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { AssetPriceModel, assetPriceModelToken } from '../asset-price';
-import { coinGeckoAssetServiceToken } from '../coingecko-asset';
 const TOKEN_NAME = '_assetService';
 /**
  * A bridge allows another service access to the Model layer
@@ -38,8 +37,6 @@ export class AssetService {
   private model = Container.get<AssetModel>(assetModelToken);
 
   private assetPriceModel = Container.get<AssetPriceModel>(assetPriceModelToken);
-
-  private coinGeckoAssetService = Container.get(coinGeckoAssetServiceToken);
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 

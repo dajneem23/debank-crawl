@@ -6,7 +6,6 @@ import AuthService from '../auth/auth.service';
 import { $keysToProject, $pagination, $toMongoFilter } from '@/utils/mongoDB';
 import { assetTrendingModelToken } from '.';
 import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
-import { uniq } from 'lodash';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { SystemError } from '@/core/errors';
 import { env } from 'process';
@@ -83,6 +82,7 @@ export class AssetTrendingService {
       'self_reported_circulating_supply',
       'max_supply',
       'price',
+      'volume',
       'cmc_rank',
       'percent_change_24h',
       'percent_change_7d',
@@ -212,12 +212,8 @@ export class AssetTrendingService {
       const {
         data: { data },
       } = await KyberSwapAPI.fetch({
-        endpoint: KyberSwapAPI.AssetTrending.trending,
-        params: {
-          timeframe: '24h',
-          page_number: 0,
-          page_size: 100,
-        },
+        endpoint: KyberSwapAPI.AssetTrending.trending.enpoint,
+        params: KyberSwapAPI.AssetTrending.trending.params,
       });
       const assetTrending = this.model._collection.findOne({ type: 'trending' });
       if (assetTrending) {
@@ -252,12 +248,8 @@ export class AssetTrendingService {
       const {
         data: { data },
       } = await KyberSwapAPI.fetch({
-        endpoint: KyberSwapAPI.AssetTrending.trending_soon,
-        params: {
-          timeframe: '24h',
-          page_number: 0,
-          page_size: 100,
-        },
+        endpoint: KyberSwapAPI.AssetTrending.trending_soon.endpoint,
+        params: KyberSwapAPI.AssetTrending.trending_soon.params,
       });
       const assetTrending = this.model._collection.findOne({ type: 'trending-soon' });
       if (assetTrending) {

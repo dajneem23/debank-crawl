@@ -125,13 +125,53 @@ export const CoinMarketCapAPI = {
  * @see https://www.coingecko.com/en/api/documentation
  */
 export const CoinGeckoAPI = {
-  coins: {},
+  Coins: {
+    list: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins/list',
+    },
+    detail: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins',
+      params: {
+        tickers: true,
+        market_data: true,
+        community_data: true,
+        developer_data: true,
+        sparkline: true,
+      },
+    },
+  },
+  /**
+   * @description fetch data from coinmarketcap
+   * @param  {Object} - { params,endpoint }
+   * @returns {Promise} - { data }
+   */
+  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+    return axios.get(`${endpoint}`, {
+      params,
+      headers: {},
+    });
+  },
 };
 
 export const KyberSwapAPI = {
   AssetTrending: {
-    trending: 'https://truesight.kyberswap.com/api/v1/trending',
-    trending_soon: 'https://truesight.kyberswap.com/api/v1/trending-soon',
+    trending: {
+      enpoint: 'https://truesight.kyberswap.com/api/v1/trending',
+      params: {
+        timeframe: '24h',
+        page_number: 0,
+        page_size: 100,
+      },
+    },
+
+    trending_soon: {
+      endpoint: 'https://truesight.kyberswap.com/api/v1/trending-soon',
+      params: {
+        timeframe: '24h',
+        page_number: 0,
+        page_size: 100,
+      },
+    },
   },
   /**
    * @description fetch data from coinmarketcap

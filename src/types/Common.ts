@@ -343,6 +343,7 @@ export enum COLLECTION_NAMES {
   comment = 'comment',
   'fundraising-rounds' = 'fundraising-rounds',
   'asset-trending' = 'asset-trending',
+  'coingecko-assets' = 'coingecko-assets',
 }
 
 export enum assetSortBy {

@@ -72,6 +72,7 @@ const _messages = {
   disconnected: '[disconnected]',
   reconnected: '[reconnected]',
   reconnecting: '[reconnecting]',
+  job_error: '[job:error]',
   error: '🆘[error]',
   success: '✅[success]',
   info: 'ℹ️[info]',

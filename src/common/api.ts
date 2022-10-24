@@ -111,7 +111,7 @@ export const CoinMarketCapAPI = {
    * @param  {Object} - { params,endpoint }
    * @returns {Promise} - { data }
    */
-  fetchCoinMarketCapAPI({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
     return axios.get(`${CoinMarketCapAPI.HOST}${endpoint}`, {
       params,
       headers: {
@@ -124,6 +124,24 @@ export const CoinMarketCapAPI = {
  * @description fetch data from coinmarketcap
  * @see https://www.coingecko.com/en/api/documentation
  */
-const CoinGeckoAPI = {
+export const CoinGeckoAPI = {
   coins: {},
+};
+
+export const KyberSwapAPI = {
+  AssetTrending: {
+    trending: 'https://truesight.kyberswap.com/api/v1/trending',
+    trending_soon: 'https://truesight.kyberswap.com/api/v1/trending-soon',
+  },
+  /**
+   * @description fetch data from coinmarketcap
+   * @param  {Object} - { params,endpoint }
+   * @returns {Promise} - { data }
+   */
+  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+    return axios.get(`${endpoint}`, {
+      params,
+      headers: {},
+    });
+  },
 };

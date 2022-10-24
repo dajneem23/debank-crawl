@@ -570,67 +570,44 @@ export class CategoryService {
     );
   }
   async fetchAllCategory(): Promise<void> {
-    this.logger.debug('info', 'fetch_all_category start');
-    const {
-      data: { data: categories },
-    } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
-      endpoint: CoinMarketCapAPI.cryptocurrency.categories,
-      params: {
-        limit: 5000,
-        start: 1,
-      },
-    });
-    // this.logger.debug('info', JSON.stringify(categories));
-    for (const {
-      id,
-      name,
-      description,
-      title,
-      num_tokens,
-      avg_price_change,
-      market_cap,
-      market_cap_change,
-      volume,
-      volume_change,
-    } of categories) {
-      this.logger.debug('info', `fetch_category ${name}`);
-      const market_data = omitBy(
-        {
-          'market_data.num_tokens': num_tokens,
-          'market_data.avg_price_change': avg_price_change,
-          'market_data.market_cap': market_cap,
-          'market_data.market_cap_change': market_cap_change,
-          'market_data.volume': volume,
-          'market_data.volume_change': volume_change,
-        },
-        isNil,
-      );
+    try {
+      this.logger.debug('info', 'fetch_all_category start');
       const {
-        lastErrorObject: { updatedExisting },
-      } = await this.model._collection.findOneAndUpdate(
-        {
-          name: slugify(name, {
-            trim: true,
-            lower: true,
-            remove: RemoveSlugPattern,
-          }),
+        data: { data: categories },
+      } = await CoinMarketCapAPI.fetch({
+        endpoint: CoinMarketCapAPI.cryptocurrency.categories,
+        params: {
+          limit: 5000,
+          start: 1,
         },
-        {
-          $set: {
-            updated_by: 'system',
-            updated_at: new Date(),
-            ...market_data,
+      });
+      // this.logger.debug('info', JSON.stringify(categories));
+      for (const {
+        id,
+        name,
+        description,
+        title,
+        num_tokens,
+        avg_price_change,
+        market_cap,
+        market_cap_change,
+        volume,
+        volume_change,
+      } of categories) {
+        this.logger.debug('info', `fetch_category ${name}`);
+        const market_data = omitBy(
+          {
+            'market_data.num_tokens': num_tokens,
+            'market_data.avg_price_change': avg_price_change,
+            'market_data.market_cap': market_cap,
+            'market_data.market_cap_change': market_cap_change,
+            'market_data.volume': volume,
+            'market_data.volume_change': volume_change,
           },
-        },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
-      if (!updatedExisting) {
-        await sleep(1000);
+          isNil,
+        );
         const {
-          value: { _id: categoryId },
+          lastErrorObject: { updatedExisting },
         } = await this.model._collection.findOneAndUpdate(
           {
             name: slugify(name, {
@@ -640,70 +617,97 @@ export class CategoryService {
             }),
           },
           {
-            $setOnInsert: {
-              source_id: id,
-              title: title,
+            $set: {
+              updated_by: 'system',
+              updated_at: new Date(),
+              ...market_data,
+            },
+          },
+          {
+            upsert: false,
+            returnDocument: 'after',
+          },
+        );
+        if (!updatedExisting) {
+          await sleep(1000);
+          const {
+            value: { _id: categoryId },
+          } = await this.model._collection.findOneAndUpdate(
+            {
               name: slugify(name, {
                 trim: true,
                 lower: true,
                 remove: RemoveSlugPattern,
               }),
-              description: description,
-              sub_categories: [],
-              trans: [],
-              created_at: new Date(),
-              updated_at: new Date(),
-              rank: 0,
-              weight: 0,
-              deleted: false,
-              created_by: 'system',
-              source: 'coinmarketcap',
-              ...market_data,
-            },
-            $addToSet: {
-              type: CATEGORY_TYPE.COINMARKETCAP,
-            } as any,
-          },
-          {
-            upsert: true,
-            returnDocument: 'after',
-          },
-        );
-        const {
-          data: {
-            data: { coins = [] },
-          },
-        } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
-          endpoint: CoinMarketCapAPI.cryptocurrency.category,
-          params: {
-            id,
-          },
-        });
-        for (const { name, slug } of coins) {
-          const { value: coin } = await this.AssetModel._collection.findOneAndUpdate(
-            {
-              $or: [
-                { name: { $regex: `^${name}$`, $options: 'i' } },
-                {
-                  slug: {
-                    $regex: `^${slug}$`,
-                    $options: 'i',
-                  },
-                },
-                { name },
-                { slug },
-              ],
             },
             {
-              $addToSet: {
-                categories: categoryId as never,
+              $setOnInsert: {
+                source_id: id,
+                title: title,
+                name: slugify(name, {
+                  trim: true,
+                  lower: true,
+                  remove: RemoveSlugPattern,
+                }),
+                description: description,
+                sub_categories: [],
+                trans: [],
+                created_at: new Date(),
+                updated_at: new Date(),
+                rank: 0,
+                weight: 0,
+                deleted: false,
+                created_by: 'system',
+                source: 'coinmarketcap',
+                ...market_data,
               },
+              $addToSet: {
+                type: CATEGORY_TYPE.COINMARKETCAP,
+              } as any,
+            },
+            {
+              upsert: true,
+              returnDocument: 'after',
             },
           );
-          // this.logger.debug('info', JSON.stringify({ coin, name }));
+          const {
+            data: {
+              data: { coins = [] },
+            },
+          } = await CoinMarketCapAPI.fetch({
+            endpoint: CoinMarketCapAPI.cryptocurrency.category,
+            params: {
+              id,
+            },
+          });
+          for (const { name, slug } of coins) {
+            const { value: coin } = await this.AssetModel._collection.findOneAndUpdate(
+              {
+                $or: [
+                  { name: { $regex: `^${name}$`, $options: 'i' } },
+                  {
+                    slug: {
+                      $regex: `^${slug}$`,
+                      $options: 'i',
+                    },
+                  },
+                  { name },
+                  { slug },
+                ],
+              },
+              {
+                $addToSet: {
+                  categories: categoryId as never,
+                },
+              },
+            );
+            // this.logger.debug('info', JSON.stringify({ coin, name }));
+          }
         }
       }
+      this.logger.debug('success', 'fetch_all_category DONE');
+    } catch (error) {
+      this.logger.debug('job_error', 'fetchAllCategory', JSON.stringify(error));
     }
-    this.logger.debug('success', 'fetch_all_category DONE');
   }
 }

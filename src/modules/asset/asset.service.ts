@@ -849,6 +849,8 @@ export class AssetService {
                 max_supply,
                 price,
                 cmc_rank,
+                volume_24h,
+                volume_change_24h,
                 percent_change_24h,
                 percent_change_7d,
                 percent_change_30d,

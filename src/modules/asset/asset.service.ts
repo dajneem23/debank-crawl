@@ -903,18 +903,6 @@ export class AssetService {
                   updated_at: new Date(),
                   updated_by: 'system',
                 },
-                $push: {
-                  'market_data.USD.list_price': {
-                    $each: [
-                      {
-                        value: price,
-                        timestamp: new Date(),
-                      },
-                    ],
-                    $position: 0,
-                    $slice: PRICE_STACK_SIZE,
-                  },
-                } as any,
               },
               {
                 upsert: false,
@@ -978,12 +966,6 @@ export class AssetService {
                     id_of_sources: {
                       CoinMarketCap: String(id),
                     },
-                    'market_data.USD.list_price': [
-                      {
-                        value: marketData['market_data.USD.price'],
-                        timestamp: new Date(),
-                      },
-                    ],
                     symbol: symbol,
                     ...marketData,
                     slug,

@@ -125,13 +125,70 @@ export const CoinMarketCapAPI = {
  * @see https://www.coingecko.com/en/api/documentation
  */
 export const CoinGeckoAPI = {
-  coins: {},
+  Coins: {
+    list: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins/list',
+    },
+    detail: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins',
+      params: {
+        tickers: true,
+        market_data: true,
+        community_data: true,
+        developer_data: true,
+        sparkline: true,
+      },
+    },
+  },
+  Categories: {
+    list: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins/categories/list',
+    },
+    listWithMarketData: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins/categories',
+      params: {
+        //? order: market_cap_desc (default), market_cap_asc, name_desc, name_asc, market_cap_change_24h_desc and market_cap_change_24h_asc
+        order: 'market_cap_desc',
+      },
+    },
+  },
+  Blockchains: {
+    list: {
+      endpoint: 'https://api.coingecko.com/api/v3/asset_platforms',
+    },
+  },
+  /**
+   * @description fetch data from coinmarketcap
+   * @param  {Object} - { params,endpoint }
+   * @returns {Promise} - { data }
+   */
+  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+    return axios.get(`${endpoint}`, {
+      params,
+      headers: {},
+    });
+  },
 };
 
 export const KyberSwapAPI = {
   AssetTrending: {
-    trending: 'https://truesight.kyberswap.com/api/v1/trending',
-    trending_soon: 'https://truesight.kyberswap.com/api/v1/trending-soon',
+    trending: {
+      enpoint: 'https://truesight.kyberswap.com/api/v1/trending',
+      params: {
+        timeframe: '24h',
+        page_number: 0,
+        page_size: 100,
+      },
+    },
+
+    trending_soon: {
+      endpoint: 'https://truesight.kyberswap.com/api/v1/trending-soon',
+      params: {
+        timeframe: '24h',
+        page_number: 0,
+        page_size: 100,
+      },
+    },
   },
   /**
    * @description fetch data from coinmarketcap

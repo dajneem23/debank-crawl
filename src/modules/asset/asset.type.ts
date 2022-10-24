@@ -59,6 +59,7 @@ export interface Asset extends BaseInformationModel {
   percent_change_30d?: number;
   percent_change_60d?: number;
   percent_change_90d?: number;
+  sparkline_7d?: any;
 
   // potential?: string;
 

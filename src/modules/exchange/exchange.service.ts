@@ -515,9 +515,9 @@ export class ExchangeService {
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
       .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
   }
-  // /**
-  //  *  @description init BullMQ Worker
-  //  */
+  /**
+   *  @description init BullMQ Worker
+   */
   private initWorker() {
     this.worker = new Worker('exchange', this.workerProcessor.bind(this), {
       connection: this.redisConnection as any,
@@ -561,7 +561,7 @@ export class ExchangeService {
         const exchangeIds = groupExchangeMap.map((exchange: any) => exchange.id);
         const {
           data: { data: exchangeData },
-        } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+        } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.exchange.info,
           params: {
             id: exchangeIds.join(','),
@@ -592,7 +592,7 @@ export class ExchangeService {
   } = {}) {
     const {
       data: { data: exchangeMap },
-    } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+    } = await CoinMarketCapAPI.fetch({
       endpoint: CoinMarketCapAPI.exchange.info,
       params,
     });
@@ -614,7 +614,7 @@ export class ExchangeService {
   } = {}) {
     const {
       data: { data: exchangeMap = [] },
-    } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+    } = await CoinMarketCapAPI.fetch({
       endpoint: CoinMarketCapAPI.exchange.map,
       params,
     });

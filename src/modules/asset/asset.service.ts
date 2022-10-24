@@ -175,7 +175,7 @@ export class AssetService {
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('create_error', err.message);
-      throw err;
+      // throw err;
     }
   }
 
@@ -758,7 +758,7 @@ export class AssetService {
         const listSymbol = items.map((item) => item.symbol);
         const {
           data: { data: quotesLatest },
-        } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+        } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.cryptocurrency.quotesLatest,
           params: {
             symbol: listSymbol.join(','),
@@ -1002,7 +1002,7 @@ export class AssetService {
         this.logger.debug('success', { total_count });
       }
     } catch (err) {
-      this.logger.debug('error', 'fetchMarketData', err.message);
+      this.logger.debug('job_error', 'fetchMarketData', JSON.stringify(err));
       // throw err;
     }
   }
@@ -1039,7 +1039,7 @@ export class AssetService {
         const listSymbol = items.map((item) => item.symbol);
         const {
           data: { data: ohlcvLastest },
-        } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+        } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.cryptocurrency.ohlcvLastest,
           params: {
             symbol: listSymbol.join(','),
@@ -1192,7 +1192,7 @@ export class AssetService {
         return;
       }
     } catch (err) {
-      this.logger.debug('error', 'fetchMarketData', err.message);
+      this.logger.debug('job_error', 'fetchMarketData', JSON.stringify(err));
       // throw err;
     }
   }
@@ -1207,7 +1207,7 @@ export class AssetService {
         await sleep(300);
         const {
           data: { data: pricePerformanceStats },
-        } = await CoinMarketCapAPI.fetchCoinMarketCapAPI({
+        } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.cryptocurrency.pricePerformanceStats,
           params: {
             symbol: listSymbol.join(','),
@@ -1647,7 +1647,7 @@ export class AssetService {
       }
       this.logger.debug('success', 'fetchPricePerformanceStats done');
     } catch (error) {
-      this.logger.error(error, 'fetchPricePerformanceStats error');
+      this.logger.error('job_error', 'fetchPricePerformanceStats', JSON.stringify(error));
     }
   }
   /**

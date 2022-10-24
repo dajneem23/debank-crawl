@@ -342,6 +342,7 @@ export enum COLLECTION_NAMES {
   exchanges = 'exchanges',
   comment = 'comment',
   'fundraising-rounds' = 'fundraising-rounds',
+  'asset-trending' = 'asset-trending',
 }
 
 export enum assetSortBy {

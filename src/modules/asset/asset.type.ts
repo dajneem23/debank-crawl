@@ -54,6 +54,11 @@ export interface Asset extends BaseInformationModel {
   max_supply?: number;
   price?: number;
   cmc_rank?: number;
+  percent_change_24h?: number;
+  percent_change_7d?: number;
+  percent_change_30d?: number;
+  percent_change_60d?: number;
+  percent_change_90d?: number;
 
   // potential?: string;
 

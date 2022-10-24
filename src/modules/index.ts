@@ -11,6 +11,6 @@ export * from './fund';
 export * from './glossary';
 export * from './blockchain';
 export * from './setting';
-// exchange
 export * from './exchange';
+export * from './asset-trending';
 export * from './coingecko';

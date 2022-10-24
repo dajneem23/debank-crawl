@@ -4,7 +4,7 @@ import { keys } from 'ts-transformer-keys';
 import { AssetPrice } from './asset-price.type';
 
 const COLLECTION_NAME = 'asset-price';
-const TOKEN_NAME = '_assetModel';
+const TOKEN_NAME = '_assetPriceModel';
 export const assetPriceModelToken = new Token<AssetPriceModel>(TOKEN_NAME);
 /**
  * @class AssetModel

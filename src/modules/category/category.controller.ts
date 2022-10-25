@@ -1,5 +1,18 @@
 import Container from 'typedi';
-import { Controller, Res, Post, Body, Get, Query, Put, Params, Delete, Req, Auth } from '@/utils/expressDecorators';
+import {
+  Controller,
+  Res,
+  Post,
+  Body,
+  Get,
+  Query,
+  Put,
+  Params,
+  Delete,
+  Req,
+  Auth,
+  Patch,
+} from '@/utils/expressDecorators';
 import { Request, Response } from 'express';
 import { Category, CategoryValidation, categoryServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
@@ -128,7 +141,7 @@ export class CategoryPrivateController {
     _res.status(httpStatus.OK).json(result);
   }
 
-  @Get('/:id/public', [CategoryValidation.getById])
+  @Patch('/:id/public', [CategoryValidation.getById])
   async publicCategory(
     @Res() _res: Response,
     @Req() _req: Request,

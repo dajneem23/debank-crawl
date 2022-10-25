@@ -45,7 +45,7 @@ export class CategoryService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'title', 'name', 'sub_categories', 'weight', 'rank', 'type'];
+    return ['id', 'title', 'name', 'sub_categories', 'weight', 'rank', 'type', 'is_public'];
   }
   get transKeys() {
     return ['title', 'name'];
@@ -359,16 +359,12 @@ export class CategoryService {
    */
   async publicCategory({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const [category] = await this.model.update(
-        {
-          $match: $toMongoFilter({ _id }),
-        },
+      const [savedCategory] = await this.model.get([{ $match: $toMongoFilter({ _id }) }]).toArray();
+      if (isNil(savedCategory)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
 
-        {
-          $set: { is_public: { $eq: [false, '$is_public'] } },
-        },
-      );
-      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
+      const category = await this.model.update($toMongoFilter({ _id }), {
+        $set: { is_public: !savedCategory.is_public },
+      });
       this.logger.debug('update_success', { category });
       return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
     } catch (err) {

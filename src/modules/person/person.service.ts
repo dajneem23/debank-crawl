@@ -125,7 +125,7 @@ export class PersonService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(lang && {
                 'trans.lang': { $eq: lang },
@@ -342,7 +342,7 @@ export class PersonService {
         .get([
           ...$pagination({
             $match: {
-              deleted: false,
+              deleted: { $ne: true },
               ...(keyword && {
                 $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),

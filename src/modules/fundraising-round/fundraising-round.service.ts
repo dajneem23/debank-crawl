@@ -140,7 +140,7 @@ export class FundraisingRoundService {
                   ...((_permission === 'private' && {
                     deleted,
                   }) || {
-                    deleted: false,
+                    deleted: { $ne: true },
                   }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
@@ -335,6 +335,7 @@ export class FundraisingRoundService {
         .get([
           ...$pagination({
             $match: {
+              deleted: { $ne: true },
               ...(keyword && {
                 $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),

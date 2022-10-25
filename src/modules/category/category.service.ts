@@ -261,7 +261,7 @@ export class CategoryService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
@@ -447,6 +447,7 @@ export class CategoryService {
         .get([
           ...$pagination({
             $match: {
+              deleted: { $ne: true },
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
               }),

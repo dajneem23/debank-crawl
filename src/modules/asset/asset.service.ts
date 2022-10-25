@@ -256,7 +256,7 @@ export class AssetService {
                   ...((_permission === 'private' && {
                     deleted,
                   }) || {
-                    deleted: false,
+                    deleted: { $ne: true },
                   }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
@@ -533,7 +533,7 @@ export class AssetService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  deleted: { $ne: true },
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),

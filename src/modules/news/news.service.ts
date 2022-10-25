@@ -321,7 +321,7 @@ export class NewsService {
                   ...((_permission === 'private' && {
                     deleted,
                   }) || {
-                    deleted: false,
+                    deleted: { $ne: true },
                   }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
@@ -564,7 +564,7 @@ export class NewsService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  deleted: { $ne: true },
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),
@@ -721,7 +721,7 @@ export class NewsService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  deleted: { $ne: true },
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),
@@ -788,7 +788,7 @@ export class NewsService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  deleted: { $ne: true },
                   created_at: {
                     $gte: new Date(new Date().getTime() - (+_date_range as any) * 24 * 60 * 60 * 1000),
                   },

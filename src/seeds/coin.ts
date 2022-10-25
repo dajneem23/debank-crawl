@@ -53,15 +53,17 @@ export const CoinSeed = async () => {
           gitter: [_coin['gitter-href']].filter(Boolean),
           medium: [_coin['medium-href']].filter(Boolean),
         },
-        categories: _coin.sectors.map((sector: any) => sector.sectors),
-        blockchains: _coin.blockchain_tag.map((blockchain: any) =>
-          slugify(blockchain.blockchain_tag, {
-            lower: true,
-            trim: true,
-            replacement: '-',
-            remove: RemoveSlugPattern,
-          }),
-        ),
+        categories: [
+          ..._coin.sectors.map((sector: any) => sector.sectors),
+          ..._coin.blockchain_tag.map((blockchain: any) =>
+            slugify(blockchain.blockchain_tag, {
+              lower: true,
+              trim: true,
+              replacement: '-',
+              remove: RemoveSlugPattern,
+            }),
+          ),
+        ],
         services: _coin.services.map((service: any) => service.services),
         features: _coin.features.map((feature: any) => feature.features),
         technologies: _coin.technologies

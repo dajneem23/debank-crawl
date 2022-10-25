@@ -1,7 +1,7 @@
 import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { FundError, fundErrors, fundModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
@@ -171,7 +171,7 @@ export class FundService {
                 name: { $regex: keyword, $options: 'i' },
               }),
               ...(categories.length && {
-                $or: [{ categories: { $in: $toObjectId(categories) } }],
+                $or: [{ categories: { $in: categories } }],
               }),
             },
             $addFields: this.model.$addFields.categories,

@@ -555,7 +555,5 @@ export const BaseQueryValidation = Joi.object().keys({
     }),
   deleted: Joi.boolean(),
 
-  categories: Joi.array().items(
-    Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
-  ),
+  categories: Joi.array().items(Joi.string()),
 });

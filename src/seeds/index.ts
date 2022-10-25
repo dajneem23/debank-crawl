@@ -10,7 +10,9 @@ import { FundraisingRoundSeed, insertFundraisingRounds } from './fundraising-rou
 (async () => {
   (await import('../loaders/loggerLoader')).default();
   await (await import('../loaders/mongoDBLoader')).default();
-  await Promise.all([UserSeed(), CategorySeed(), CountrySeed()]);
+  // await UserSeed();
+  // await CountrySeed();
+  await CategorySeed();
   await CompanySeed();
   await CoinSeed();
   await ProductSeed();

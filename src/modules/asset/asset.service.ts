@@ -1,7 +1,7 @@
 import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { $toObjectId, $pagination, $toMongoFilter, $keysToProject, $lookup } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $keysToProject, $lookup } from '@/utils/mongoDB';
 import { AssetError, assetErrors, AssetModel, assetModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, assetSortBy, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
 import { chunk, isNil, omit, omitBy, uniq } from 'lodash';
@@ -273,7 +273,7 @@ export class AssetService {
               ...(categories.length && {
                 $or: [
                   {
-                    categories: { $in: $toObjectId(categories) },
+                    categories: { $in: categories },
                   },
                 ],
               }),
@@ -646,7 +646,7 @@ export class AssetService {
 
               ...((categories.length && {
                 categories: {
-                  $in: $toObjectId(categories),
+                  $in: categories,
                 },
               }) ||
                 {}),

@@ -605,7 +605,9 @@ export class CategoryService {
           },
           isNil,
         );
+        let _categoryName = '';
         const {
+          value,
           lastErrorObject: { updatedExisting },
         } = await this.model._collection.findOneAndUpdate(
           {
@@ -627,10 +629,10 @@ export class CategoryService {
             returnDocument: 'after',
           },
         );
+        _categoryName = value?.name;
         if (!updatedExisting) {
-          await sleep(1000);
           const {
-            value: { _id: categoryId },
+            value: { name: categoryName },
           } = await this.model._collection.findOneAndUpdate(
             {
               name: slugify(name, {
@@ -669,39 +671,40 @@ export class CategoryService {
               returnDocument: 'after',
             },
           );
-          const {
-            data: {
-              data: { coins = [] },
-            },
-          } = await CoinMarketCapAPI.fetch({
-            endpoint: CoinMarketCapAPI.cryptocurrency.category,
-            params: {
-              id,
-            },
-          });
-          for (const { name, slug } of coins) {
-            const { value: coin } = await this.AssetModel._collection.findOneAndUpdate(
-              {
-                $or: [
-                  { name: { $regex: `^${name}$`, $options: 'i' } },
-                  {
-                    slug: {
-                      $regex: `^${slug}$`,
-                      $options: 'i',
-                    },
+          _categoryName = categoryName;
+        }
+        await sleep(1500);
+        const {
+          data: {
+            data: { coins = [] },
+          },
+        } = await CoinMarketCapAPI.fetch({
+          endpoint: CoinMarketCapAPI.cryptocurrency.category,
+          params: {
+            id,
+          },
+        });
+        for (const { name, slug } of coins) {
+          const { value: coin } = await this.AssetModel._collection.findOneAndUpdate(
+            {
+              $or: [
+                { name: { $regex: `^${name}$`, $options: 'i' } },
+                {
+                  slug: {
+                    $regex: `^${slug}$`,
+                    $options: 'i',
                   },
-                  { name },
-                  { slug },
-                ],
-              },
-              {
-                $addToSet: {
-                  categories: categoryId as never,
                 },
+                { name },
+                { slug },
+              ],
+            },
+            {
+              $addToSet: {
+                categories: _categoryName as never,
               },
-            );
-            // this.logger.debug('info', JSON.stringify({ coin, name }));
-          }
+            },
+          );
         }
       }
       this.logger.debug('success', 'fetch_all_category DONE');

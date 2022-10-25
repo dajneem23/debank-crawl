@@ -1,7 +1,7 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { $toObjectId, $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { News, NewsError, NewsModel, _news, newsErrors, newsModelToken } from '.';
 import {
   BaseServiceInput,
@@ -175,7 +175,7 @@ export class NewsService {
                         {
                           _id: {
                             $not: {
-                              $eq: $toObjectId(_id),
+                              $eq: _id,
                             },
                           },
                         },
@@ -193,7 +193,7 @@ export class NewsService {
                   {
                     _id: {
                       $not: {
-                        $eq: $toObjectId(_id),
+                        $eq: _id,
                       },
                     },
                   },
@@ -329,22 +329,22 @@ export class NewsService {
                 },
               ],
               ...(categories.length && {
-                categories: { $in: $toObjectId(categories) },
+                categories: { $in: categories },
               }),
               ...(coin_tags.length && {
-                coin_tags: { $in: $toObjectId(coin_tags) },
+                coin_tags: { $in: coin_tags },
               }),
               ...(product_tags.length && {
-                product_tags: { $in: $toObjectId(product_tags) },
+                product_tags: { $in: product_tags },
               }),
               ...(person_tags.length && {
-                person_tags: { $in: $toObjectId(person_tags) },
+                person_tags: { $in: person_tags },
               }),
               ...(event_tags.length && {
-                event_tags: { $in: $toObjectId(event_tags) },
+                event_tags: { $in: event_tags },
               }),
               ...(company_tags.length && {
-                company_tags: { $in: $toObjectId(company_tags) },
+                company_tags: { $in: company_tags },
               }),
               ...(keyword && {
                 $or: [

@@ -6,7 +6,7 @@ import InvestorAirtable from '../data/airtable/investor.json';
 import AngelInvestorAirtable from '../data/airtable/Angel Investors.json';
 import FundFounders from '../data/airtable/Funds - Founders.json';
 import { createDataFile, readDataFromFile } from './utils';
-import { $toObjectId, $countCollection } from '@/utils/mongoDB';
+import { $countCollection } from '@/utils/mongoDB';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';

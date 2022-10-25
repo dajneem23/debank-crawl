@@ -14,7 +14,7 @@ import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
 import { CommonError, errors } from '@/core/errors/CommonError';
 import { throwErr } from '@/utils/common';
-import { $lookup, $toMongoFilter, $toObjectId } from '@/utils/mongoDB';
+import { $lookup, $toMongoFilter } from '@/utils/mongoDB';
 import { $refValidation } from '@/utils/validation';
 import { COLLECTION_NAMES, PRIVATE_KEYS, RemoveSlugPattern, T } from '@/types';
 import slugify from 'slugify';
@@ -661,7 +661,7 @@ export class BaseModel {
         slug,
       } = _content;
       categories.length &&
-        (await $refValidation({ collection: 'categories', refKey: 'name', list: $toObjectId(categories) })) &&
+        (await $refValidation({ collection: 'categories', refKey: 'name', list: categories })) &&
         (_content.categories = categories);
       blockchains.length &&
         (await $refValidation({ collection: 'blockchains', list: blockchains })) &&

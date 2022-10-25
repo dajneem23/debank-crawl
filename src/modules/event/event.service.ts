@@ -6,7 +6,7 @@ import { $keysToProject, $toMongoFilter } from '@/utils/mongoDB';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
 import AuthService from '../auth/auth.service';
-import { $toObjectId, $pagination } from '@/utils/mongoDB';
+import { $pagination } from '@/utils/mongoDB';
 import { isNil, omit } from 'lodash';
 import { BaseServiceInput, BaseServiceOutput, EventType, PRIVATE_KEYS } from '@/types';
 import { $refValidation } from '@/utils/validation';
@@ -75,24 +75,24 @@ export class EventService {
       company_sponsors.length &&
         (await $refValidation({
           collection: 'companies',
-          list: $toObjectId(company_sponsors),
+          list: company_sponsors,
           Refname: 'company_sponsors',
         })) &&
-        (_content.company_sponsors = $toObjectId(company_sponsors));
+        (_content.company_sponsors = company_sponsors);
       fund_sponsors.length &&
         (await $refValidation({
           collection: 'funds',
-          list: $toObjectId(fund_sponsors),
+          list: fund_sponsors,
           Refname: 'funds',
         })) &&
-        (_content.fund_sponsors = $toObjectId(fund_sponsors));
+        (_content.fund_sponsors = fund_sponsors);
       person_sponsors.length &&
         (await $refValidation({
           collection: 'persons',
-          list: $toObjectId(person_sponsors),
+          list: person_sponsors,
           Refname: 'person_sponsors',
         })) &&
-        (_content.person_sponsors = $toObjectId(person_sponsors));
+        (_content.person_sponsors = person_sponsors);
       const value = await this.model.create(
         {
           name,
@@ -127,24 +127,24 @@ export class EventService {
       company_sponsors.length &&
         (await $refValidation({
           collection: 'companies',
-          list: $toObjectId(company_sponsors),
+          list: company_sponsors,
           Refname: 'company_sponsors',
         })) &&
-        (_content.company_sponsors = $toObjectId(company_sponsors));
+        (_content.company_sponsors = company_sponsors);
       fund_sponsors.length &&
         (await $refValidation({
           collection: 'funds',
-          list: $toObjectId(fund_sponsors),
+          list: fund_sponsors,
           Refname: 'fund_sponsors',
         })) &&
-        (_content.fund_sponsors = $toObjectId(fund_sponsors));
+        (_content.fund_sponsors = fund_sponsors);
       person_sponsors.length &&
         (await $refValidation({
           collection: 'persons',
-          list: $toObjectId(person_sponsors),
+          list: person_sponsors,
           Refname: 'person_sponsors',
         })) &&
-        (_content.person_sponsors = $toObjectId(person_sponsors));
+        (_content.person_sponsors = person_sponsors);
       const event = await this.model.update($toMongoFilter({ _id }), {
         $set: {
           ..._content,
@@ -337,7 +337,7 @@ export class EventService {
               ...$toMongoFilter({
                 ...otherFilter,
                 ...(categories.length && {
-                  $or: [{ categories: { $in: $toObjectId(categories) } }],
+                  $or: [{ categories: { $in: categories } }],
                 }),
                 // start_date: { $gte: new Date() },
                 ...(keyword && {
@@ -606,7 +606,7 @@ export class EventService {
                 deleted: false,
               }),
               ...(categories.length && {
-                $or: [{ categories: { $in: $toObjectId(categories) } }],
+                $or: [{ categories: { $in: categories } }],
               }),
               ...(keyword && {
                 $or: [{ name: { $regex: keyword, $options: 'i' } }],

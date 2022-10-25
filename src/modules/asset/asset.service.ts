@@ -877,6 +877,7 @@ export class AssetService {
               },
               {
                 $set: {
+                  'id_of_sources.CoinMarketCap': String(id),
                   ...assetMarketData,
                   updated_at: new Date(),
                   updated_by: 'system',
@@ -902,6 +903,7 @@ export class AssetService {
               {
                 $set: {
                   ...marketData,
+                  'id_of_sources.CoinMarketCap': String(id),
                   updated_at: new Date(),
                   updated_by: 'system',
                 },
@@ -910,44 +912,42 @@ export class AssetService {
                 upsert: false,
               },
             );
-            if (!updatedAssetPriceExisting) {
-              if (!updatedAssetExisting) {
-                await this.model._collection.findOneAndUpdate(
-                  {
-                    $or: [
-                      { name: { $regex: `^${name}$`, $options: 'i' } },
-                      {
-                        slug: {
-                          $regex: `^${slug}$`,
-                          $options: 'i',
-                        },
+            if (!updatedAssetExisting) {
+              await this.model._collection.findOneAndUpdate(
+                {
+                  $or: [
+                    { name: { $regex: `^${name}$`, $options: 'i' } },
+                    {
+                      slug: {
+                        $regex: `^${slug}$`,
+                        $options: 'i',
                       },
-                      { name },
-                      { slug },
-                    ],
-                  },
-                  {
-                    $setOnInsert: {
-                      id_of_sources: {
-                        CoinMarketCap: String(id),
-                      },
-                      name,
-                      symbol: symbol,
-                      slug,
-                      ...assetMarketData,
-                      trans: [] as any,
-                      deleted: false,
-                      created_at: new Date(),
-                      updated_at: new Date(),
-                      created_by: 'system',
-                      categories: [],
                     },
+                    { name },
+                    { slug },
+                  ],
+                },
+                {
+                  $setOnInsert: {
+                    'id_of_sources.CoinMarketCap': String(id),
+                    name,
+                    symbol: symbol,
+                    slug,
+                    ...assetMarketData,
+                    trans: [] as any,
+                    deleted: false,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                    created_by: 'system',
+                    categories: [],
                   },
-                  {
-                    upsert: true,
-                  },
-                );
-              }
+                },
+                {
+                  upsert: true,
+                },
+              );
+            }
+            if (!updatedAssetPriceExisting) {
               await this.assetPriceModel._collection.findOneAndUpdate(
                 {
                   $or: [
@@ -965,9 +965,7 @@ export class AssetService {
                 {
                   $setOnInsert: {
                     name,
-                    id_of_sources: {
-                      CoinMarketCap: String(id),
-                    },
+                    'id_of_sources.CoinMarketCap': String(id),
                     symbol: symbol,
                     ...marketData,
                     slug,
@@ -1094,6 +1092,7 @@ export class AssetService {
               {
                 $set: {
                   ...marketData,
+                  'id_of_sources.CoinMarketCap': String(id),
                   updated_at: new Date(),
                   updated_by: 'system',
                 },
@@ -1102,43 +1101,41 @@ export class AssetService {
                 upsert: false,
               },
             );
-            if (!updatedAssetPriceExisting) {
-              if (!assetExisting) {
-                await this.model._collection.findOneAndUpdate(
-                  {
-                    $or: [
-                      { name: { $regex: `^${name}$`, $options: 'i' } },
-                      {
-                        slug: {
-                          $regex: `^${slug}$`,
-                          $options: 'i',
-                        },
+            if (!assetExisting) {
+              await this.model._collection.findOneAndUpdate(
+                {
+                  $or: [
+                    { name: { $regex: `^${name}$`, $options: 'i' } },
+                    {
+                      slug: {
+                        $regex: `^${slug}$`,
+                        $options: 'i',
                       },
-                      { name },
-                      { slug },
-                    ],
-                  },
-                  {
-                    $setOnInsert: {
-                      id_of_sources: {
-                        CoinMarketCap: String(id),
-                      },
-                      ...marketData,
-                      name,
-                      slug,
-                      trans: [] as any,
-                      deleted: false,
-                      created_at: new Date(),
-                      updated_at: new Date(),
-                      created_by: 'system',
-                      categories: [],
                     },
+                    { name },
+                    { slug },
+                  ],
+                },
+                {
+                  $setOnInsert: {
+                    'id_of_sources.CoinMarketCap': String(id),
+                    ...marketData,
+                    name,
+                    slug,
+                    trans: [] as any,
+                    deleted: false,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                    created_by: 'system',
+                    categories: [],
                   },
-                  {
-                    upsert: true,
-                  },
-                );
-              }
+                },
+                {
+                  upsert: true,
+                },
+              );
+            }
+            if (!updatedAssetPriceExisting) {
               await this.assetPriceModel._collection.findOneAndUpdate(
                 {
                   $or: [
@@ -1155,9 +1152,7 @@ export class AssetService {
                 },
                 {
                   $setOnInsert: {
-                    id_of_sources: {
-                      CoinMarketCap: String(id),
-                    },
+                    'id_of_sources.CoinMarketCap': String(id),
                     name,
                     slug,
                     ...marketData,
@@ -1527,7 +1522,12 @@ export class AssetService {
                 ],
               },
               {
-                $set: { ...assetMarketData, updated_at: new Date(), updated_by: 'system' },
+                $set: {
+                  ...assetMarketData,
+                  'id_of_sources.CoinMarketCap': String(id),
+                  updated_at: new Date(),
+                  updated_by: 'system',
+                },
               },
             );
             const {
@@ -1549,6 +1549,7 @@ export class AssetService {
               {
                 $set: {
                   ...marketData,
+                  'id_of_sources.CoinMarketCap': String(id),
                   updated_at: new Date(),
                   updated_by: 'system',
                 },
@@ -1557,44 +1558,42 @@ export class AssetService {
                 upsert: false,
               },
             );
-            if (!updatedAssetPriceExisting) {
-              if (!updatedAssetExisting) {
-                await this.model._collection.findOneAndUpdate(
-                  {
-                    $or: [
-                      { name: { $regex: `^${name}$`, $options: 'i' } },
-                      {
-                        slug: {
-                          $regex: `^${slug}$`,
-                          $options: 'i',
-                        },
-                      },
-                      { name },
-                      { slug },
-                    ],
-                  },
-                  {
-                    $setOnInsert: {
-                      ...assetMarketData,
-                      name,
-                      symbol: symbol,
-                      slug,
-                      trans: [] as any,
-                      deleted: false,
-                      created_at: new Date(),
-                      updated_at: new Date(),
-                      created_by: 'system',
-                      categories: [],
-                      id_of_sources: {
-                        CoinMarketCap: String(id),
+            if (!updatedAssetExisting) {
+              await this.model._collection.findOneAndUpdate(
+                {
+                  $or: [
+                    { name: { $regex: `^${name}$`, $options: 'i' } },
+                    {
+                      slug: {
+                        $regex: `^${slug}$`,
+                        $options: 'i',
                       },
                     },
+                    { name },
+                    { slug },
+                  ],
+                },
+                {
+                  $setOnInsert: {
+                    ...assetMarketData,
+                    name,
+                    symbol: symbol,
+                    slug,
+                    trans: [] as any,
+                    deleted: false,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                    created_by: 'system',
+                    categories: [],
+                    'id_of_sources.CoinMarketCap': String(id),
                   },
-                  {
-                    upsert: true,
-                  },
-                );
-              }
+                },
+                {
+                  upsert: true,
+                },
+              );
+            }
+            if (!updatedAssetPriceExisting) {
               await this.assetPriceModel._collection.findOneAndUpdate(
                 {
                   $or: [
@@ -1623,9 +1622,7 @@ export class AssetService {
                     created_at: new Date(),
                     updated_at: new Date(),
                     created_by: 'system',
-                    id_of_sources: {
-                      CoinMarketCap: String(id),
-                    },
+                    'id_of_sources.CoinMarketCap': String(id),
                   },
                 },
                 {

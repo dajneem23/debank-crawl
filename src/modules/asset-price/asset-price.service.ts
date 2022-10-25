@@ -24,7 +24,7 @@ export const AssetPriceServiceToken = new Token<AssetPriceService>(TOKEN_NAME);
 export class AssetPriceService {
   private logger = new Logger('AssetPriceService');
 
-  private model = Container.get(assetPriceModelToken);
+  readonly model = Container.get(assetPriceModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;

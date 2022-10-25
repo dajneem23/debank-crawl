@@ -24,7 +24,7 @@ export const CompanyServiceToken = new Token<CompanyService>(TOKEN_NAME);
 export class CompanyService {
   private logger = new Logger('CompanyService');
 
-  private model = Container.get(companyModelToken);
+  readonly model = Container.get(companyModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;

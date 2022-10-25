@@ -1,7 +1,6 @@
 import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { PersonError, _person, personModelToken, personErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
@@ -23,7 +22,7 @@ export const personServiceToken = new Token<PersonService>(TOKEN_NAME);
 export class PersonService {
   private logger = new Logger('PersonService');
 
-  private model = Container.get(personModelToken);
+  readonly model = Container.get(personModelToken);
 
   private error(msg: keyof typeof personErrors) {
     return new PersonError(msg);
@@ -75,7 +74,7 @@ export class PersonService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const value = await this.model.update($toMongoFilter({ _id }), {
+      await this.model.update($toMongoFilter({ _id }), {
         $set: {
           ..._content,
           ...(_subject && { updated_by: _subject }),

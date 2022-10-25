@@ -22,7 +22,7 @@ export const FundraisingRoundServiceToken = new Token<FundraisingRoundService>(T
 export class FundraisingRoundService {
   private logger = new Logger('FundraisingRounds');
 
-  private model = Container.get(fundraisingRoundModelToken);
+  readonly model = Container.get(fundraisingRoundModelToken);
 
   private error(msg: keyof typeof fundraisingRoundErrors) {
     return new FundraisingRoundError(msg);
@@ -78,7 +78,7 @@ export class FundraisingRoundService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { categories = [] } = _content;
-      const value = await this.model.update(
+      await this.model.update(
         {
           _id,
         },

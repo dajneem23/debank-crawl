@@ -28,7 +28,7 @@ export const categoryServiceToken = new Token<CategoryService>(TOKEN_NAME);
 export class CategoryService {
   private logger = new Logger('Categories');
 
-  private model = Container.get(categoryModelToken);
+  readonly model = Container.get(categoryModelToken);
 
   private AssetModel = Container.get<AssetModel>(assetModelToken);
 

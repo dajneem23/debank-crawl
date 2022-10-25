@@ -37,23 +37,6 @@ export class GlossaryController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  // @Get('/:id', [GlossaryValidation.getById])
-  // async getByIdPublic(
-  //   @Res() _res: Response,
-  //   @Req() _req: Request,
-  //   @Query() _query: BaseQuery,
-  //   @Params()
-  //   _params: {
-  //     id: string;
-  //   },
-  // ) {
-  //   const { filter, query } = buildQueryFilter(_query);
-  //   const result = await this.service.getById({
-  //     _id: _params.id,
-  //     _filter: filter,
-  //   } as BaseServiceInput);
-  //   _res.status(httpStatus.OK).json(result);
-  // }
   @Get('/:slug', [GlossaryValidation.getBySlug])
   async getBySlugPublic(
     @Res() _res: Response,

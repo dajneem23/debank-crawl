@@ -28,7 +28,7 @@ export const eventServiceToken = new Token<EventService>(TOKEN_NAME);
 export class EventService {
   private logger = new Logger('EventService');
 
-  private model = Container.get(eventModelToken);
+  readonly model = Container.get(eventModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;

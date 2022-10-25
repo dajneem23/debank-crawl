@@ -4,7 +4,6 @@ import { Request, Response } from 'express';
 import { Setting, settingServiceToken, SettingValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
-import { protectPrivateAPI } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 @Controller('/settings')

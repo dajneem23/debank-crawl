@@ -25,7 +25,7 @@ export const GlossaryServiceToken = new Token<GlossaryService>(TOKEN_NAME);
 export class GlossaryService {
   private logger = new Logger('GlossaryService');
 
-  private model = Container.get(glossaryModelToken);
+  readonly model = Container.get(glossaryModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -85,7 +85,7 @@ export class GlossaryService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const value = await this.model.update($toMongoFilter({ _id }), {
+      await this.model.update($toMongoFilter({ _id }), {
         $set: {
           ..._content,
           ...(_subject && { updated_by: _subject }),

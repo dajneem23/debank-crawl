@@ -8,7 +8,6 @@ import {
   ObjectIdValidation,
   BaseQueryValidation,
 } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
 export const NewsValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({

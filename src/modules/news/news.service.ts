@@ -26,7 +26,7 @@ export const NewsServiceToken = new Token<NewsService>(TOKEN_NAME);
 export class NewsService {
   private logger = new Logger('News');
 
-  private model = Container.get(newsModelToken) as NewsModel;
+  readonly model = Container.get(newsModelToken) as NewsModel;
 
   @Inject()
   private userModel: UserModel;

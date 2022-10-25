@@ -78,7 +78,7 @@ export class CoingeckoAsset {
    *  @description init BullMQ Worker
    */
   private initWorker() {
-    this.worker = new Worker('coingecko-asset', this.workerProcessor.bind(this), {
+    this.worker = new Worker('coingecko', this.workerProcessor.bind(this), {
       connection: this.redisConnection as any,
       lockDuration: 1000 * 60 * 5,
       concurrency: 20,
@@ -246,9 +246,7 @@ export class CoingeckoAsset {
         params: CoinGeckoAPI.Categories.listWithMarketData.params,
       });
       this.logger.debug('info', 'fetchCoinGeckoCategoriesList', { num: data.length });
-      for (const asset of data) {
-        const { id, ...rest } = asset;
-
+      for (const { id, ...rest } of data) {
         await this.coinGeckoCategoriesModel._collection.findOneAndUpdate(
           { id },
           {
@@ -273,9 +271,7 @@ export class CoingeckoAsset {
         endpoint: CoinGeckoAPI.Blockchains.list.endpoint,
       });
       this.logger.debug('info', 'fetchCoinGeckoBlockchainsList', { num: data.length });
-      for (const asset of data) {
-        const { id, ...rest } = asset;
-
+      for (const { id, ...rest } of data) {
         await this.coinGeckoBlockchainsModel._collection.findOneAndUpdate(
           { id },
           {

@@ -692,8 +692,8 @@ export class AssetService {
               this.model.$lookups.categories,
               $lookup({
                 from: 'coingecko-assets',
-                refFrom: 'slug',
-                refTo: 'id',
+                refFrom: 'id',
+                refTo: 'slug',
                 select: 'details.market_data.sparkline_7d',
                 reName: 'coingecko-asset',
                 operation: '$eq',

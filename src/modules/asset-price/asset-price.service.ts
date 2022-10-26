@@ -24,7 +24,7 @@ export const AssetPriceServiceToken = new Token<AssetPriceService>(TOKEN_NAME);
 export class AssetPriceService {
   private logger = new Logger('AssetPriceService');
 
-  private model = Container.get(assetPriceModelToken);
+  readonly model = Container.get(assetPriceModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -138,7 +138,7 @@ export class AssetPriceService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(keyword && {
                 name: { $regex: keyword, $options: 'i' },

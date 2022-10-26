@@ -5,7 +5,7 @@ import { CoinGeckoAsset, CoinGeckoBlockchains, CoinGeckoCategories } from './coi
 
 export const coinGeckoAssetModelToken = new Token<CoinGeckoAssetModel>('_coinGeckoAssetModel');
 /**
- * @class AssetModel
+ * @class CoinGeckoAssetModel
  * @extends BaseModel
  * @description Asset model: Asset model for all asset related operations
  */
@@ -21,7 +21,7 @@ export class CoinGeckoAssetModel extends BaseModel {
 }
 export const coinGeckoCategoriesModelToken = new Token<CoinGeckoCategoriesModel>('_coinGeckoCategoriesModel');
 /**
- * @class AssetModel
+ * @class CoinGeckoCategoriesModel
  * @extends BaseModel
  * @description Asset model: Asset model for all asset related operations
  */
@@ -37,7 +37,7 @@ export class CoinGeckoCategoriesModel extends BaseModel {
 }
 export const coinGeckoBlockchainsModelToken = new Token<CoinGeckoBlockchainsModel>('_coinGeckoBlockchainsModel');
 /**
- * @class AssetModel
+ * @class CoinGeckoBlockchainsModel
  * @extends BaseModel
  * @description Asset model: Asset model for all asset related operations
  */

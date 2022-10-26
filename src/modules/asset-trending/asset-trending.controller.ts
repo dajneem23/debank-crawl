@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { AssetTrending, assetTrendingServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
-import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
+import { protect } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { getPermission } from '../auth/auth.utils';

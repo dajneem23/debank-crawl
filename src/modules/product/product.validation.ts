@@ -1,5 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
+import { LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
 
 const productSchema = Joi.object({
   name: Joi.string(),

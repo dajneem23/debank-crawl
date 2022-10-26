@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { Blockchain, BlockchainServiceToken, BlockchainValidation } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
-import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
+import { protect } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { getPermission } from '../auth/auth.utils';
@@ -37,23 +37,6 @@ export class BlockchainController {
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }
-  // @Get('/:id', [BlockchainValidation.getById])
-  // async getByIdPublic(
-  //   @Res() _res: Response,
-  //   @Req() _req: Request,
-  //   @Query() _query: BaseQuery,
-  //   @Params()
-  //   _params: {
-  //     id: string;
-  //   },
-  // ) {
-  //   const { filter, query } = buildQueryFilter(_query);
-  //   const result = await this.service.getById({
-  //     _id: _params.id,
-  //     _filter: filter,
-  //   } as BaseServiceInput);
-  //   _res.status(httpStatus.OK).json(result);
-  // }
   @Get('/:slug', [BlockchainValidation.getBySlug])
   async getBySlugPublic(
     @Res() _res: Response,

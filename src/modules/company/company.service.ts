@@ -24,7 +24,7 @@ export const CompanyServiceToken = new Token<CompanyService>(TOKEN_NAME);
 export class CompanyService {
   private logger = new Logger('CompanyService');
 
-  private model = Container.get(companyModelToken);
+  readonly model = Container.get(companyModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -145,7 +145,7 @@ export class CompanyService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(keyword && {
                 name: { $regex: keyword, $options: 'i' },
@@ -404,7 +404,7 @@ export class CompanyService {
         .get([
           ...$pagination({
             $match: {
-              deleted: false,
+              deleted: { $ne: true },
               ...(keyword && {
                 $or: [
                   { $text: { $search: keyword } },

@@ -1,10 +1,9 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { GlossaryError, glossaryModelToken, glossaryErrors, _glossary } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
@@ -25,7 +24,7 @@ export const GlossaryServiceToken = new Token<GlossaryService>(TOKEN_NAME);
 export class GlossaryService {
   private logger = new Logger('GlossaryService');
 
-  private model = Container.get(glossaryModelToken);
+  readonly model = Container.get(glossaryModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -85,7 +84,7 @@ export class GlossaryService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const value = await this.model.update($toMongoFilter({ _id }), {
+      await this.model.update($toMongoFilter({ _id }), {
         $set: {
           ..._content,
           ...(_subject && { updated_by: _subject }),
@@ -139,7 +138,7 @@ export class GlossaryService {
                   ...((_permission === 'private' && {
                     deleted,
                   }) || {
-                    deleted: false,
+                    deleted: { $ne: true },
                   }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
@@ -352,7 +351,7 @@ export class GlossaryService {
         .get([
           ...$pagination({
             $match: {
-              deleted: false,
+              deleted: { $ne: true },
               ...(keyword && {
                 $or: [
                   { $text: { $search: keyword } },

@@ -28,7 +28,7 @@ export const categoryServiceToken = new Token<CategoryService>(TOKEN_NAME);
 export class CategoryService {
   private logger = new Logger('Categories');
 
-  private model = Container.get(categoryModelToken);
+  readonly model = Container.get(categoryModelToken);
 
   private AssetModel = Container.get<AssetModel>(assetModelToken);
 
@@ -261,7 +261,7 @@ export class CategoryService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(is_public && { is_public: { $eq: is_public } }),
               ...(type && {
@@ -448,6 +448,7 @@ export class CategoryService {
         .get([
           ...$pagination({
             $match: {
+              deleted: { $ne: true },
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
               }),

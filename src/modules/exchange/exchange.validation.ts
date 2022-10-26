@@ -1,6 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, LANG_CODE, ObjectIdValidation, CONVERT_CURRENCY_CODE, BaseQueryValidation } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
 const convertCurrencySchema = Joi.object({
   volume_24h: Joi.number(),

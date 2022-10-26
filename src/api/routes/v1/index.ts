@@ -38,11 +38,14 @@ const publicRoute = Router();
 const privateRoute = Router();
 
 export default (app: Application) => {
+  // ? Public routes for all users
   app.use(`${env.API_PREFIX}/v1/public`, publicRoute);
+  // ? private route for admin
+  // ! require token
   app.use(`${env.API_PREFIX}/v1/private`, protectPrivateAPI, privateRoute);
   /**
    * @description normal routes
-   * @route /v1/public
+   * * /v1/public
    */
   attachControllers(publicRoute, [
     BlockchainController,
@@ -66,7 +69,7 @@ export default (app: Application) => {
   ]);
   /**
    * @description Private controllers
-   * @route /v1/private
+   * * /v1/private
    */
   attachControllers(privateRoute, [
     BlockchainPrivateController,

@@ -28,7 +28,7 @@ export const assetTrendingServiceToken = new Token<AssetTrendingService>(TOKEN_N
 export class AssetTrendingService {
   private logger = new Logger('AssetTrendingService');
 
-  private model = Container.get(assetTrendingModelToken);
+  readonly model = Container.get(assetTrendingModelToken);
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 

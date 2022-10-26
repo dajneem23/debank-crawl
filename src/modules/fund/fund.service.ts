@@ -22,7 +22,7 @@ export const FundServiceToken = new Token<FundService>(TOKEN_NAME);
 export class FundService {
   private logger = new Logger('Funds');
 
-  private model = Container.get(fundModelToken);
+  readonly model = Container.get(fundModelToken);
 
   private error(msg: keyof typeof fundErrors) {
     return new FundError(msg);
@@ -78,7 +78,7 @@ export class FundService {
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { categories = [] } = _content;
-      const value = await this.model.update(
+      await this.model.update(
         {
           _id,
         },
@@ -150,7 +150,7 @@ export class FundService {
                   ...((_permission === 'private' && {
                     deleted,
                   }) || {
-                    deleted: false,
+                    deleted: { $ne: true },
                   }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
@@ -355,6 +355,7 @@ export class FundService {
         .get([
           ...$pagination({
             $match: {
+              deleted: { $ne: true },
               ...(keyword && {
                 $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),

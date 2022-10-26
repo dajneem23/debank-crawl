@@ -1,6 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
 
 const personSchema = Joi.object({
   name: Joi.string(),

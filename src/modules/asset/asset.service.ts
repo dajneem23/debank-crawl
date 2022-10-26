@@ -34,7 +34,7 @@ export const assetServiceToken = new Token<AssetService>(TOKEN_NAME);
 export class AssetService {
   private logger = new Logger('AssetService');
 
-  private model = Container.get<AssetModel>(assetModelToken);
+  readonly model = Container.get<AssetModel>(assetModelToken);
 
   private assetPriceModel = Container.get<AssetPriceModel>(assetPriceModelToken);
 
@@ -256,7 +256,7 @@ export class AssetService {
                   ...((_permission === 'private' && {
                     deleted,
                   }) || {
-                    deleted: false,
+                    deleted: { $ne: true },
                   }),
                   ...(lang && {
                     'trans.lang': { $eq: lang },
@@ -533,7 +533,7 @@ export class AssetService {
             $match: {
               $and: [
                 {
-                  deleted: false,
+                  deleted: { $ne: true },
                   ...(lang && {
                     'trans.lang': { $eq: lang },
                   }),
@@ -623,23 +623,23 @@ export class AssetService {
                 name: { $regex: keyword, $options: 'i' },
               }),
               ...(!isNil(market_cap_min) && {
-                'market_data.USD.market_cap': {
+                market_cap: {
                   $gte: market_cap_min,
                 },
               }),
               ...(!isNil(market_cap_max) && {
-                'market_data.USD.market_cap': {
+                market_cap: {
                   $lte: market_cap_max,
                 },
               }),
 
               ...(!isNil(fully_diluted_market_cap_max) && {
-                'market_data.USD.fully_diluted_market_cap': {
+                fully_diluted_market_cap: {
                   $lte: fully_diluted_market_cap_max,
                 },
               }),
               ...(!isNil(fully_diluted_market_cap_min) && {
-                'market_data.USD.fully_diluted_market_cap': {
+                fully_diluted_market_cap: {
                   $gte: fully_diluted_market_cap_min,
                 },
               }),
@@ -773,42 +773,41 @@ export class AssetService {
           },
         });
         for (const symbol of Object.keys(quotesLatest)) {
-          for (const item of quotesLatest[symbol]) {
-            const {
-              circulating_supply,
-              total_supply,
-              max_supply,
-              num_market_pairs,
-              tvl_ratio,
-              self_reported_circulating_supply,
-              self_reported_market_cap,
-              cmc_rank,
-              quote: {
-                USD: {
-                  price,
-                  volume_24h,
-                  volume_change_24h,
-                  percent_change_1h,
-                  percent_change_24h,
-                  percent_change_7d,
-                  percent_change_30d,
-                  percent_change_60d,
-                  percent_change_90d,
-                  market_cap,
-                  market_cap_dominance,
-                  fully_diluted_market_cap,
-                  tvl,
-                  last_updated,
-                  volume_24h_reported,
-                  volume_7d_reported,
-                  volume_30d_reported,
-                  market_cap_by_total_supply,
-                },
+          for (const {
+            circulating_supply,
+            total_supply,
+            max_supply,
+            num_market_pairs,
+            tvl_ratio,
+            self_reported_circulating_supply,
+            self_reported_market_cap,
+            cmc_rank,
+            quote: {
+              USD: {
+                price,
+                volume_24h,
+                volume_change_24h,
+                percent_change_1h,
+                percent_change_24h,
+                percent_change_7d,
+                percent_change_30d,
+                percent_change_60d,
+                percent_change_90d,
+                market_cap,
+                market_cap_dominance,
+                fully_diluted_market_cap,
+                tvl,
+                last_updated,
+                volume_24h_reported,
+                volume_7d_reported,
+                volume_30d_reported,
+                market_cap_by_total_supply,
               },
-              name,
-              slug,
-              id,
-            } = item;
+            },
+            name,
+            slug,
+            id,
+          } of quotesLatest[symbol]) {
             const marketData = omitBy(
               {
                 'market_data.USD.last_updated': last_updated,
@@ -1036,16 +1035,14 @@ export class AssetService {
         });
         for (const symbol of Object.keys(ohlcvLastest)) {
           this.logger.debug('success', { symbol });
-
-          for (const item of ohlcvLastest[symbol]) {
-            const {
-              quote: {
-                USD: { open, high, low, close, volume },
-              },
-              name,
-              slug,
-              id,
-            } = item;
+          for (const {
+            quote: {
+              USD: { open, high, low, close, volume },
+            },
+            name,
+            slug,
+            id,
+          } of ohlcvLastest[symbol]) {
             this.logger.debug('success', { name });
             const assetExisting = await this.model._collection.findOne({
               $or: [

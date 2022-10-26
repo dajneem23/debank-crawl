@@ -19,7 +19,7 @@ export const GlossaryValidation = {
           name: Joi.string(),
         }),
       ),
-      categories: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(Joi.string()),
       type: Joi.string(),
     }),
   }),
@@ -41,7 +41,7 @@ export const GlossaryValidation = {
           name: Joi.string(),
         }),
       ),
-      categories: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(Joi.string()),
       type: Joi.string(),
     }),
 

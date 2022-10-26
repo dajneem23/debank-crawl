@@ -46,7 +46,9 @@ export class AssetService {
 
   private queueScheduler: QueueScheduler;
 
-  private readonly jobs = {
+  private readonly jobs: {
+    [key in AssetJobNames | 'default']: () => Promise<void>;
+  } = {
     'asset:fetch:marketData': this.fetchMarketData,
     'asset:fetch:pricePerformanceStats': this.fetchPricePerformanceStats,
     'asset:fetch:ohlcv': this.fetchOHLCV,
@@ -1670,9 +1672,8 @@ export class AssetService {
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
       .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
   }
-  workerProcessor(job: Job<AssetJobData>): Promise<void> {
-    const { name } = job;
-    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+  workerProcessor({ name, data }: Job<AssetJobData>): Promise<void> {
+    this.logger.debug('info', `[workerProcessor]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
 }

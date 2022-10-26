@@ -193,9 +193,8 @@ export class AssetTrendingService {
       });
     });
   }
-  workerProcessor(job: Job<AssetTrendingJobData>): Promise<void> {
-    const { name } = job;
-    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+  workerProcessor({ name, data }: Job<AssetTrendingJobData>): Promise<void> {
+    this.logger.debug('info', `[workerProcessor]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
 
@@ -205,7 +204,7 @@ export class AssetTrendingService {
       const {
         data: { data },
       } = await KyberSwapAPI.fetch({
-        endpoint: KyberSwapAPI.AssetTrending.trending.enpoint,
+        endpoint: KyberSwapAPI.AssetTrending.trending.endpoint,
         params: KyberSwapAPI.AssetTrending.trending.params,
       });
       const assetTrending = this.model._collection.findOne({ type: 'trending' });

@@ -58,7 +58,9 @@ export class CategoryService {
       this.initQueue();
     }
   }
-  private readonly jobs = {
+  private readonly jobs: {
+    [key in CategoryJobNames | 'default']?: () => Promise<void>;
+  } = {
     'category:fetch:all': this.fetchAllCategory,
     // 'category:fetch:info': this.fetchCategoryInfo,
     default: () => {
@@ -146,9 +148,8 @@ export class CategoryService {
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
       .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
   }
-  workerProcessor(job: Job<CategoryJobData>): Promise<void> {
-    const { name } = job;
-    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+  workerProcessor({ name, data }: Job<CategoryJobData>): Promise<void> {
+    this.logger.debug('info', `[workerProcessor]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   /**

@@ -554,8 +554,6 @@ export const BaseQueryValidation = Joi.object().keys({
       'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
     }),
   deleted: Joi.boolean(),
-
-  categories: Joi.array().items(
-    Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
-  ),
+  is_public: Joi.boolean(),
+  categories: Joi.array().items(Joi.string()),
 });

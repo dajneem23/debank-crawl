@@ -252,7 +252,7 @@ export class CategoryService {
    **/
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { type, lang, rank, deleted = false } = _filter;
+      const { type, lang, rank, deleted = false, is_public } = _filter;
       const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
@@ -263,6 +263,7 @@ export class CategoryService {
               }) || {
                 deleted: false,
               }),
+              ...(is_public && { is_public: { $eq: is_public } }),
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
               }),

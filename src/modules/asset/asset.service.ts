@@ -592,7 +592,7 @@ export class AssetService {
       throw err;
     }
   }
-  async assetPrice({ _id, _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<any> {
+  async assetPrice({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<any> {
     try {
       const {
         categories = [],
@@ -646,7 +646,7 @@ export class AssetService {
 
               ...((categories.length && {
                 categories: {
-                  $in: $toObjectId(categories),
+                  $in: categories,
                 },
               }) ||
                 {}),

@@ -163,7 +163,7 @@ export class ExchangeService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(keyword && {
                 name: { $regex: keyword, $options: 'i' },

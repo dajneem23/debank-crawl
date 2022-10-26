@@ -4,7 +4,7 @@ import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { _exchange, exchangeModelToken } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { chunk, isNil, omit } from 'lodash';
@@ -172,7 +172,7 @@ export class ExchangeService {
                 $or: [
                   {
                     categories: {
-                      $in: $toObjectId(categories),
+                      $in: categories,
                     },
                   },
                 ],

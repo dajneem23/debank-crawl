@@ -1,5 +1,5 @@
 import Funds from '../data/airtable/Fundraising Rounds - Funds.json';
-import { $toObjectId, $countCollection } from '@/utils/mongoDB';
+import { $countCollection } from '@/utils/mongoDB';
 import fs from 'fs';
 import Container, { Inject, Service } from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';

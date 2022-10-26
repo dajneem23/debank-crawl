@@ -4,7 +4,7 @@ import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { alphabetSize12 } from '@/utils/randomString';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { GlossaryError, glossaryModelToken, glossaryErrors, _glossary } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
@@ -153,7 +153,7 @@ export class GlossaryService {
                 $or: [
                   {
                     categories: {
-                      $in: $toObjectId(categories),
+                      $in: categories,
                     },
                   },
                 ],

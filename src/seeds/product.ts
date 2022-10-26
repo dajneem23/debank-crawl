@@ -1,5 +1,5 @@
 import mongoDBLoader from '@/loaders/mongoDBLoader';
-import { $toObjectId, $countCollection } from '@/utils/mongoDB';
+import { $countCollection } from '@/utils/mongoDB';
 import fs from 'fs';
 import productsFile from '../data/crypto_slate/json/products.json';
 import { createDataFile, readDataFromFile } from './utils';

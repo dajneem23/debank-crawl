@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $toObjectId, $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $queryByList, $keysToProject } from '@/utils/mongoDB';
 import { CompanyError, _company, companyModelToken, companyErrors } from '.';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
 import { isNil, omit } from 'lodash';
@@ -154,7 +154,7 @@ export class CompanyService {
                 $or: [
                   {
                     categories: {
-                      $in: $toObjectId(categories),
+                      $in: categories,
                     },
                   },
                 ],

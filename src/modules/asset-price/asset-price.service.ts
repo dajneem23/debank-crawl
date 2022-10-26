@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { toOutPut, toPagingOutput } from '@/utils/common';
 import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
-import { $pagination, $toMongoFilter, $keysToProject, $lookup, $sets, $toObjectId } from '@/utils/mongoDB';
+import { $pagination, $toMongoFilter, $keysToProject, $lookup, $sets } from '@/utils/mongoDB';
 import { assetPriceModelToken } from '.';
 import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { isNil, uniq } from 'lodash';
@@ -191,7 +191,7 @@ export class AssetPriceService {
                 $match: {
                   ...((categories.length && {
                     categories: {
-                      $in: $toObjectId(categories),
+                      $in: categories,
                     },
                   }) ||
                     {}),

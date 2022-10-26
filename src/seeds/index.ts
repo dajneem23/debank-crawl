@@ -6,7 +6,7 @@ import { CompanySeed, companyInvestment, insertCompanies } from './company';
 import { CoinSeed, insertCoins } from './coin';
 import { UserSeed } from './user';
 import { FundSeed, fundInvestment, insertFunds } from './fund';
-import { FundraisingRoundSeed, insertFundraisingRounds } from './fundraising-round';
+import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFromCoinCarp } from './fundraising-round';
 (async () => {
   (await import('../loaders/loggerLoader')).default();
   await (await import('../loaders/mongoDBLoader')).default();
@@ -28,6 +28,7 @@ import { FundraisingRoundSeed, insertFundraisingRounds } from './fundraising-rou
   // await insertCompanies();
   // await insertProducts();
   // await insertFundraisingRounds();
+  await crawlFundraisingRoundsFromCoinCarp();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

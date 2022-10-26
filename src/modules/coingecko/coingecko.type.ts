@@ -2,6 +2,9 @@ export interface CoinGeckoAsset {
   id: string;
   symbol: string;
   name: string;
+  platforms: {
+    [key: string]: any;
+  };
   details: CoinGeckoAssetDetail;
 }
 export interface CoinGeckoAssetDetail {
@@ -33,7 +36,18 @@ export interface CoinGeckoAssetDetail {
   public_interest_score: number;
   market_data: MarketData;
   community_data: CommunityData;
-  developer_data: DeveloperData;
+  developer_data: {
+    forks: number;
+    stars: number;
+    subscribers: number;
+    total_issues: number;
+    closed_issues: number;
+    pull_requests_merged: number;
+    pull_request_contributors: number;
+    code_additions_deletions_4_weeks: CodeAdditionsDeletions4_Weeks;
+    commit_count_4_weeks: number;
+    last_4_weeks_commit_activity_series: number[];
+  };
   public_interest_stats: PublicInterestStats;
   status_updates: any[];
   last_updated: string;
@@ -51,25 +65,10 @@ export interface CommunityData {
 }
 
 export interface DetailPlatforms {
-  '': Empty;
-}
-
-export interface Empty {
-  decimal_place: any;
-  contract_address: string;
-}
-
-export interface DeveloperData {
-  forks: number;
-  stars: number;
-  subscribers: number;
-  total_issues: number;
-  closed_issues: number;
-  pull_requests_merged: number;
-  pull_request_contributors: number;
-  code_additions_deletions_4_weeks: CodeAdditionsDeletions4_Weeks;
-  commit_count_4_weeks: number;
-  last_4_weeks_commit_activity_series: number[];
+  '': {
+    decimal_place: any;
+    contract_address: string;
+  };
 }
 
 export interface CodeAdditionsDeletions4_Weeks {
@@ -156,12 +155,10 @@ export interface MarketData {
   total_supply: number;
   max_supply: number;
   circulating_supply: number;
-  sparkline_7d: Sparkline7D;
+  sparkline_7d: {
+    price: number[];
+  };
   last_updated: string;
-}
-
-export interface Sparkline7D {
-  price: number[];
 }
 
 export interface Platforms {
@@ -201,15 +198,14 @@ export interface Market {
 }
 
 export enum TargetCoinID {
-  BinanceUsd = 'binance-usd',
-  Bitcoin = 'bitcoin',
   Ripple = 'ripple',
-  Tether = 'tether',
   UsdCoin = 'usd-coin',
-}
-
-export enum TrustScore {
-  Green = 'green',
+  BinanceUsd = 'binance-usd',
+  Binanceidr = 'binanceidr',
+  Bitcoin = 'bitcoin',
+  Dai = 'dai',
+  RupiahToken = 'rupiah-token',
+  Tether = 'tether',
 }
 
 export interface CoinGeckoCategories {
@@ -223,9 +219,83 @@ export interface CoinGeckoCategories {
   updated_at: string;
 }
 
-export interface CoinGeckoBlockchains {
+export interface CoinGeckoBlockchain {
   id: string;
   chain_identifier: number | null;
   name: string;
   shortname: string;
+}
+
+export interface CoinGeckoExchange {
+  name: Name;
+  year_established: number;
+  country: string;
+  description: string;
+  url: string;
+  image: string;
+  facebook_url: string;
+  reddit_url: string;
+  telegram_url: string;
+  slack_url: string;
+  other_url_1: string;
+  other_url_2: string;
+  twitter_handle: TwitterHandle;
+  has_trading_incentive: boolean;
+  centralized: boolean;
+  public_notice: string;
+  alert_notice: string;
+  trust_score: number;
+  trust_score_rank: number;
+  trade_volume_24h_btc: number;
+  trade_volume_24h_btc_normalized: number;
+  tickers: Ticker[];
+  status_updates: StatusUpdate[];
+}
+
+export enum Name {
+  Binance = 'Binance',
+}
+
+export interface StatusUpdate {
+  description: string;
+  category: string;
+  created_at: string;
+  user: string;
+  user_title: string;
+  pin: boolean;
+  project: Project;
+}
+
+export interface Project {
+  type: string;
+  id: TwitterHandle;
+  name: Name;
+  image: Image;
+}
+
+export enum TwitterHandle {
+  Binance = 'binance',
+}
+
+export interface Image {
+  thumb: string;
+  small: string;
+  large: string;
+}
+
+export enum TrustScore {
+  Green = 'green',
+}
+
+export interface CoinGeckoCryptoCurrencyGlobal {
+  active_cryptocurrencies: number;
+  upcoming_icos: number;
+  ongoing_icos: number;
+  ended_icos: number;
+  markets: number;
+  total_market_cap: { [key: string]: number };
+  total_volume: { [key: string]: number };
+  market_cap_percentage: { [key: string]: number };
+  market_cap_change_percentage_24h_usd: number;
+  updated_at: number;
 }

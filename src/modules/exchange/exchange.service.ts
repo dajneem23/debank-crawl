@@ -42,7 +42,9 @@ export class ExchangeService {
 
   private queueScheduler: QueueScheduler;
 
-  private readonly jobs = {
+  private readonly jobs: {
+    [key in ExchangeJobNames | 'default']?: () => Promise<void>;
+  } = {
     'exchange:fetch:data': this.fetchExchangeData,
     default: () => {
       throw new SystemError('Invalid job name');
@@ -544,9 +546,8 @@ export class ExchangeService {
       this.logger.error('error', '[job:exchange:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
     });
   }
-  workerProcessor(job: Job<ExchangeJobData>): Promise<void> {
-    const { name } = job;
-    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+  workerProcessor({ name, data }: Job<ExchangeJobData>): Promise<void> {
+    this.logger.debug('info', `[workerProcessor]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   /**

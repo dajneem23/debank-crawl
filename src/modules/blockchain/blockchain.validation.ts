@@ -3,9 +3,9 @@ import { LANG_CODE, ObjectIdValidation, BaseQueryValidation } from '@/types';
 const blockchainSchema = Joi.object({
   name: Joi.string().required(),
   //array id of categories
-  categories: Joi.array().items(ObjectIdValidation),
+  categories: Joi.array().items(Joi.string()),
   //array id of coins
-  cryptocurrencies: Joi.array().items(ObjectIdValidation),
+  cryptocurrencies: Joi.array().items(Joi.string()),
 
   short_description: Joi.string(),
 

@@ -5,7 +5,7 @@ import { ProductSeed, insertProducts } from './product';
 import { CompanySeed, companyInvestment, insertCompanies } from './company';
 import { CoinSeed, insertCoins } from './coin';
 import { UserSeed } from './user';
-import { FundSeed, fundInvestment, insertFunds } from './fund';
+import { FundSeed, fundInvestment, insertFunds, cryptorankFundsSeed } from './fund';
 import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFromCoinCarp } from './fundraising-round';
 (async () => {
   (await import('../loaders/loggerLoader')).default();
@@ -28,7 +28,7 @@ import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFr
   // await insertCompanies();
   // await insertProducts();
   // await insertFundraisingRounds();
-  await crawlFundraisingRoundsFromCoinCarp();
+  await cryptorankFundsSeed();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

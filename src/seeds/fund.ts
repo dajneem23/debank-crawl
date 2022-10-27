@@ -8,7 +8,9 @@ import { RemoveSlugPattern } from '@/types';
 import AngelInvestorAirtable from '../data/airtable/Angel Investors.json';
 import InvestorAirtable from '../data/airtable/investor.json';
 import FundFounders from '../data/airtable/Funds - Founders.json';
-import { uniq } from 'lodash';
+
+import cryptorankFunds from '../data/cryptorank/funds.json';
+import { omitBy, uniq, isNil } from 'lodash';
 /* eslint-disable no-console */
 export const FundSeed = async () => {
   const db = Container.get(DIMongoDB);
@@ -214,6 +216,7 @@ export const FundSeed = async () => {
 export const fundInvestment = async () => {
   const companies = JSON.parse(fs.readFileSync(`${__dirname}/data/companies_final.json`, 'utf8') as any);
   const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/funds.json`, 'utf8') as any);
+  const crypto_funds = JSON.parse(fs.readFileSync(`${__dirname}/data/cryptorank-funds.json`, 'utf8') as any);
   const db = Container.get(DIMongoDB);
   const fundsFinal = funds.map(({ investors, foreign_id, foreign_ids = [], name, ...rest }: any) => {
     const investments = uniq([
@@ -242,6 +245,101 @@ export const fundInvestment = async () => {
   fs.writeFileSync(`${__dirname}/data/_funds.json`, JSON.stringify(fundsFinal));
 };
 
+export const cryptorankFundsSeed = async () => {
+  const funds = (cryptorankFunds as any[]).map(
+    ({
+      id,
+      name,
+      slug,
+      tier,
+      description,
+      shortDescription: short_description,
+      avgPriceChange: {
+        '24H': avg_price_change_24h = 0,
+        '7D': avg_price_change_7d = 0,
+        '14D': avg_price_change_14d = 0,
+        '30D': avg_price_change_30d = 0,
+        MTD: avg_price_change_mtd = 0,
+        '3M': avg_price_change_3m = 0,
+        '6M': avg_price_change_6m = 0,
+        '1Y': avg_price_change_1y = 0,
+        '3Y': avg_price_change_3y = 0,
+        YTD: avg_price_change_ytd = 0,
+      },
+      images = {},
+      gainers,
+      losers,
+      category: { slug: category_slug } = { slug: null },
+      rankedCoins: ranked_coins,
+      dominance,
+      market_cap,
+      volume24h,
+      categories_distribution,
+    }: any) => {
+      return omitBy(
+        {
+          id_of_sources: {
+            cryptorank: id,
+          },
+          name,
+          slug,
+          tier,
+          avatar: images.native,
+          description,
+          short_description,
+          market_data: {
+            USD: {
+              '24h': {
+                volume: volume24h,
+                avg_price_change: +avg_price_change_24h,
+              },
+              '7d': {
+                avg_price_change: +avg_price_change_7d,
+              },
+              '14d': {
+                avg_price_change: +avg_price_change_14d,
+              },
+              '30d': {
+                avg_price_change: +avg_price_change_30d,
+              },
+              mtd: {
+                avg_price_change: +avg_price_change_mtd,
+              },
+              '90d': {
+                avg_price_change: +avg_price_change_3m,
+              },
+              '180d': {
+                avg_price_change: +avg_price_change_6m,
+              },
+              '365d': {
+                avg_price_change: +avg_price_change_1y,
+              },
+              '1095d': {
+                avg_price_change: +avg_price_change_3y,
+              },
+              ytd: {
+                avg_price_change: +avg_price_change_ytd,
+              },
+            },
+          },
+          market_cap,
+          dominance,
+          urls: {
+            avatar: Object.values(images),
+          },
+          gainers,
+          losers,
+          categories: [category_slug],
+          ranked_coins,
+          categories_distribution,
+        },
+        isNil,
+      );
+    },
+  );
+  fs.writeFileSync(`${__dirname}/data/cryptorank-funds.json`, JSON.stringify(funds));
+};
+
 export const insertFunds = async () => {
   const db = Container.get(DIMongoDB);
   // const count = await db.collection('funds').countDocuments();
@@ -256,7 +354,7 @@ export const insertFunds = async () => {
   const fundsFinal = JSON.parse(fs.readFileSync(`${__dirname}/data/_funds.json`, 'utf8') as any).map(
     ({ name, categories = [], investors, ...rest }: any) => ({
       name,
-      categories: ['funds'],
+      categories: uniq(['funds', ...categories]),
       ...rest,
     }),
   );

@@ -14,6 +14,8 @@ import {
 import { isNil, omit } from 'lodash';
 import { UserModel, UserError } from '../index';
 import slugify from 'slugify';
+import axios from 'axios';
+import env from '@/config/env';
 
 const TOKEN_NAME = '_newsService';
 export const NewsServiceToken = new Token<NewsService>(TOKEN_NAME);
@@ -889,11 +891,29 @@ export class NewsService {
   }
 
   /**
+   *
+   * @param {ObjectId} _id -  ID
+   * @returns { Promise<void> }
+   */
+  async syncStatus({ _id }: BaseServiceInput): Promise<void> {
+    try {
+      await axios.patch(
+        `$${env.CRYPTO_LISTENING_BASE_URL}/content/${_id}/web/status`,
+        { status: 'done' },
+        { headers: { Authorization: env.CRYPTO_LISTENING_KEY } },
+      );
+    } catch (err) {
+      this.logger.error('get_error', err.message);
+      throw err;
+    }
+  }
+
+  /**
    * Create comment
    * @param id - Event ID
    * @returns { Promise<BaseServiceOutput> } - Event
    */
-  async createComment({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
+  async createComment({ _id, _content }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const value = await this.model.update(
         $toMongoFilter({

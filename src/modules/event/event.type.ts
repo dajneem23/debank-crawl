@@ -27,14 +27,14 @@ export interface Event extends BaseInformationModel {
   country?: string;
 
   //array id of persons
-  speakers?: ObjectId[];
+  speakers?: string[];
 
   //array id of persons
-  company_sponsors?: ObjectId[];
+  company_sponsors?: string[];
 
-  person_sponsors?: ObjectId[];
+  person_sponsors?: string[];
 
-  fund_sponsors?: ObjectId[];
+  fund_sponsors?: string[];
 
   subscribers?: string[];
 

@@ -38,7 +38,7 @@ export class SettingController {
       name: string;
     },
   ) {
-    const { filter, query } = buildQueryFilter(_query);
+    const { filter } = buildQueryFilter(_query);
     const result = await this.service.getByName({
       _name: _params.name,
       _filter: filter,

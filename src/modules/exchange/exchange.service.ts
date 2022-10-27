@@ -5,7 +5,7 @@ import AuthSessionModel from '@/modules/auth/authSession.model';
 import AuthService from '../auth/auth.service';
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { _exchange, exchangeModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';
+import { assetSortBy, BaseServiceInput, BaseServiceOutput, exchangeSortBy, PRIVATE_KEYS } from '@/types/Common';
 import { chunk, isNil, omit } from 'lodash';
 import IORedis from 'ioredis';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
@@ -60,7 +60,18 @@ export class ExchangeService {
     return this.model._keys;
   }
   get publicOutputKeys() {
-    return ['id', 'avatar', 'slug', 'categories', 'description', 'short_description', 'name', 'author'];
+    return [
+      'id',
+      'avatar',
+      'slug',
+      // 'categories',
+      // 'description',
+      'short_description',
+      'name',
+      'author',
+      'market_data',
+      'launched',
+    ];
   }
   get transKeys() {
     return ['description', 'short_description'];
@@ -156,7 +167,9 @@ export class ExchangeService {
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang, categories = [], deleted = false } = _filter;
-      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
+      const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
+      const sort_by = exchangeSortBy[_sort_by as keyof typeof exchangeSortBy] || exchangeSortBy['created_at'];
+
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
           $pagination({
@@ -220,7 +233,12 @@ export class ExchangeService {
           }),
         )
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+
+      this.logger.debug(
+        'query_success',
+        { _filter, _query },
+        sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } },
+      );
       return toPagingOutput({
         items,
         total_count,

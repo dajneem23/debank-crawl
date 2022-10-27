@@ -1,7 +1,6 @@
 import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { toOutPut, toPagingOutput } from '@/utils/common';
-import { alphabetSize12 } from '@/utils/randomString';
 
 import { $pagination, $toMongoFilter } from '@/utils/mongoDB';
 import { BaseServiceInput, BaseServiceOutput, PRIVATE_KEYS } from '@/types/Common';

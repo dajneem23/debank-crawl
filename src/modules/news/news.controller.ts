@@ -18,7 +18,7 @@ import { Response, Request } from 'express';
 import { News, NewsValidation, NewsServiceToken } from '.';
 import { buildQueryFilter } from '@/utils/common';
 import httpStatus from 'http-status';
-import { protect, protectPrivateAPI } from '@/api/middlewares/protect';
+import { protect } from '@/api/middlewares/protect';
 import { JWTPayload } from '../auth/authSession.type';
 import { BaseQuery, BaseServiceInput } from '@/types/Common';
 import { permission } from './news.middlewares';
@@ -77,6 +77,21 @@ export class NewsController {
     const result = await this.service.getTop({
       _filter: filter,
       _query: query,
+    } as BaseServiceInput);
+    _res.status(httpStatus.OK).json(result);
+  }
+
+  @Get('/sync-status/:id', [NewsValidation.syncStatus])
+  async syncStatus(
+    @Res() _res: Response,
+    @Req() _req: Request,
+    @Params()
+    _params: {
+      id: string;
+    },
+  ) {
+    const result = await this.service.syncStatus({
+      _id: _params.id,
     } as BaseServiceInput);
     _res.status(httpStatus.OK).json(result);
   }

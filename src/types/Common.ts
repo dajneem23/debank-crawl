@@ -366,6 +366,11 @@ export enum assetSortBy {
   'created_at' = 'created_at',
 }
 
+export enum exchangeSortBy {
+  'usd_spot_volume' = 'market_data.USD.spot_volume_usd',
+  'created_at' = 'created_at',
+}
+
 export enum TopNewsDateRange {
   '1d' = '1',
   '7d' = '7',

@@ -184,4 +184,10 @@ export const NewsValidation = {
       id: ObjectIdValidation,
     }),
   }),
+
+  syncStatus: validate({
+    [Segments.PARAMS]: Joi.object({
+      id: Joi.string(),
+    }),
+  }),
 };

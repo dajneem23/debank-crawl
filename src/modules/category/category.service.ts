@@ -28,7 +28,7 @@ export const categoryServiceToken = new Token<CategoryService>(TOKEN_NAME);
 export class CategoryService {
   private logger = new Logger('Categories');
 
-  private model = Container.get(categoryModelToken);
+  readonly model = Container.get(categoryModelToken);
 
   private AssetModel = Container.get<AssetModel>(assetModelToken);
 
@@ -58,7 +58,9 @@ export class CategoryService {
       this.initQueue();
     }
   }
-  private readonly jobs = {
+  private readonly jobs: {
+    [key in CategoryJobNames | 'default']?: () => Promise<void>;
+  } = {
     'category:fetch:all': this.fetchAllCategory,
     // 'category:fetch:info': this.fetchCategoryInfo,
     default: () => {
@@ -146,9 +148,8 @@ export class CategoryService {
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
       .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
   }
-  workerProcessor(job: Job<CategoryJobData>): Promise<void> {
-    const { name } = job;
-    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+  workerProcessor({ name, data }: Job<CategoryJobData>): Promise<void> {
+    this.logger.debug('info', `[workerProcessor]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   /**
@@ -261,7 +262,7 @@ export class CategoryService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(is_public && { is_public: { $eq: is_public } }),
               ...(type && {
@@ -448,6 +449,7 @@ export class CategoryService {
         .get([
           ...$pagination({
             $match: {
+              deleted: { $ne: true },
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
               }),

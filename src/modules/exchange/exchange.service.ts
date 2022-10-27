@@ -32,7 +32,7 @@ export const ExchangeServiceToken = new Token<ExchangeService>(TOKEN_NAME);
 export class ExchangeService {
   private logger = new Logger('ExchangeService');
 
-  private model = Container.get(exchangeModelToken);
+  readonly model = Container.get(exchangeModelToken);
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 
@@ -42,7 +42,9 @@ export class ExchangeService {
 
   private queueScheduler: QueueScheduler;
 
-  private readonly jobs = {
+  private readonly jobs: {
+    [key in ExchangeJobNames | 'default']?: () => Promise<void>;
+  } = {
     'exchange:fetch:data': this.fetchExchangeData,
     default: () => {
       throw new SystemError('Invalid job name');
@@ -123,7 +125,7 @@ export class ExchangeService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const value = await this.model.update($toMongoFilter({ _id }), {
+      this.model.update($toMongoFilter({ _id }), {
         $set: {
           ..._content,
           ...(_subject && { updated_by: _subject }),
@@ -404,7 +406,7 @@ export class ExchangeService {
         .get([
           ...$pagination({
             $match: {
-              deleted: false,
+              deleted: { $ne: true },
               ...(keyword && {
                 $or: [
                   { $text: { $search: keyword } },
@@ -562,9 +564,8 @@ export class ExchangeService {
       this.logger.error('error', '[job:exchange:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
     });
   }
-  workerProcessor(job: Job<ExchangeJobData>): Promise<void> {
-    const { name } = job;
-    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+  workerProcessor({ name, data }: Job<ExchangeJobData>): Promise<void> {
+    this.logger.debug('info', `[workerProcessor]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   /**

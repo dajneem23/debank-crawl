@@ -63,18 +63,18 @@ export const create = validate({
 
     end_date: Joi.date(),
 
-    categories: Joi.array().items(ObjectIdValidation),
+    categories: Joi.array().items(Joi.string()),
 
     country: Joi.string(),
 
     //array id of persons
-    speakers: Joi.array().items(ObjectIdValidation),
+    speakers: Joi.array().items(Joi.string()),
 
-    fund_sponsors: Joi.array().items(ObjectIdValidation),
+    fund_sponsors: Joi.array().items(Joi.string()),
 
-    person_sponsors: Joi.array().items(ObjectIdValidation),
+    person_sponsors: Joi.array().items(Joi.string()),
 
-    company_sponsors: Joi.array().items(ObjectIdValidation),
+    company_sponsors: Joi.array().items(Joi.string()),
 
     tel: Joi.string().regex(PhoneNumberPattern),
 
@@ -135,18 +135,18 @@ export const update = validate({
 
     end_date: Joi.date(),
 
-    categories: Joi.array().items(ObjectIdValidation),
+    categories: Joi.array().items(Joi.string()),
 
     country: Joi.string(),
 
     //array id of persons
-    speakers: Joi.array().items(ObjectIdValidation),
+    speakers: Joi.array().items(Joi.string()),
 
-    fund_sponsors: Joi.array().items(ObjectIdValidation),
+    fund_sponsors: Joi.array().items(Joi.string()),
 
-    person_sponsors: Joi.array().items(ObjectIdValidation),
+    person_sponsors: Joi.array().items(Joi.string()),
 
-    company_sponsors: Joi.array().items(ObjectIdValidation),
+    company_sponsors: Joi.array().items(Joi.string()),
 
     tel: Joi.string().pattern(new RegExp(PhoneNumberPattern)).message('Invalid phone number'),
 

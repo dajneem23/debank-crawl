@@ -1,6 +1,5 @@
 import validate, { Joi, Segments } from '@/core/validation';
 import { ORDER, LANG_CODE, ObjectIdValidation, BaseQueryValidation } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
 export const GlossaryValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
@@ -20,7 +19,7 @@ export const GlossaryValidation = {
           name: Joi.string(),
         }),
       ),
-      categories: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(Joi.string()),
       type: Joi.string(),
     }),
   }),
@@ -42,7 +41,7 @@ export const GlossaryValidation = {
           name: Joi.string(),
         }),
       ),
-      categories: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(Joi.string()),
       type: Joi.string(),
     }),
 

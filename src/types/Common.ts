@@ -346,6 +346,8 @@ export enum COLLECTION_NAMES {
   'coingecko-assets' = 'coingecko-assets',
   'coingecko-categories' = 'coingecko-categories',
   'coingecko-blockchains' = 'coingecko-blockchains',
+  'coingecko-exchanges' = 'coingecko-exchanges',
+  'coingecko-crypto-currency-global' = 'coingecko-crypto-currency-global',
 }
 
 export enum assetSortBy {

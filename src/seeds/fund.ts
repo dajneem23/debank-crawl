@@ -38,36 +38,12 @@ export const FundSeed = async () => {
             });
           });
           const firms = _firms.map(({ foreignRowId: foreign_id, foreignRowDisplayName: name }: any) => {
-            // const {
-            //   cellValuesByColumnId: {
-            //     fldNJrXhATbXWYaPV: twitter,
-            //     fldYxidGVWXbbBlvN: linkedin,
-            //     fld5Ampq1nE4ddQCZ: website,
-            //     fldd6JgLkLn5Zi1QY: avatars,
-            //   },
-            // } = (InvestorAirtable as any).data.tableDatas[0].rows.find((item: any) => item.id == foreign_id);
-            // return {
-            //   foreign_id,
-            //   name,
-            //   avatar: avatars?.[0]?.url || '',
-            //   urls: {
-            //     linkedin,
-            //     twitter,
-            //     website,
-            //   },
-            // };\
             return slugify(name, { lower: true, trim: true, remove: RemoveSlugPattern });
           });
           const firm_ids = firms.map((firm: any) => firm.foreign_id);
 
           return {
             id,
-            // name: round_name
-            //   .replace(stage, '')
-            //   .replace('-', '')
-            //   .replace(/[\W_]+/g, ' ')
-            //   .replace(/  +/g, ' ')
-            //   .trim(),
             name: slugify(round_name.replace(stage, '').trim(), {
               lower: true,
               strict: true,
@@ -80,16 +56,6 @@ export const FundSeed = async () => {
             investment_stage: [stage],
             cryptocurrencies,
             partners: partners.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
-              // const {
-              //   cellValuesByColumnId: { fldTsT4wtJYYxc6xN: twitter },
-              // } = (FundFounders as any).data.rows.find((item: any) => item.id == foreign_id);
-              // return {
-              //   name,
-              //   foreign_id,
-              //   urls: {
-              //     twitter,
-              //   },
-              // };
               return slugify(name, { lower: true, trim: true, remove: RemoveSlugPattern });
             }),
             posts: [post].filter(Boolean),
@@ -98,48 +64,10 @@ export const FundSeed = async () => {
             // firm_ids,
             person_investors:
               AngelInvestors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
-                // const {
-                //   cellValuesByColumnId: {
-                //     fldj5t3yMdaLI3KtM: twitter,
-                //     flduTkjX7gWZXGV9E: linkedin,
-                //     fldBWovHdHDSZiqgQ: website,
-                //     fldJsLm2w5mTLnBuP: avatars,
-                //   },
-                // } = (AngelInvestorAirtable as any).data.rows.find((row: any) => row.id === foreign_id);
-                // return {
-                //   name,
-                //   foreign_id,
-                //   type: 'Angel Investor',
-                //   avatar: avatars?.[0]?.url || '',
-                //   urls: {
-                //     linkedin,
-                //     twitter,
-                //     website,
-                //   },
-                // };
                 return slugify(name, { lower: true, trim: true, remove: RemoveSlugPattern });
               }) || [],
             company_investors:
               investors?.map(({ foreignRowDisplayName: name, foreignRowId: foreign_id }: any) => {
-                // const {
-                //   cellValuesByColumnId: {
-                //     fldNJrXhATbXWYaPV: twitter,
-                //     fldYxidGVWXbbBlvN: linkedin,
-                //     fld5Ampq1nE4ddQCZ: website,
-                //     fldd6JgLkLn5Zi1QY: avatars,
-                //   },
-                // } = (InvestorAirtable as any).data.tableDatas[0].rows.find((item: any) => item.id == foreign_id);
-                // return {
-                //   name,
-                //   foreign_id,
-                //   type: 'Investor',
-                //   avatar: avatars?.[0]?.url || '',
-                //   urls: {
-                //     linkedin,
-                //     twitter,
-                //     website,
-                //   },
-                // };
                 return slugify(name, { lower: true, trim: true, remove: RemoveSlugPattern });
               }) || [],
             investors: [

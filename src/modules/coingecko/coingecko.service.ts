@@ -12,8 +12,10 @@ import { CoinGeckoAPI } from '@/common/api';
 import { CoinGeckoJobNames, fetchCoinGeckoDataJob } from './coingecko.job';
 import {
   coinGeckoAssetModelToken,
-  coinGeckoBlockchainsModelToken,
+  coinGeckoBlockchainModelToken,
   coinGeckoCategoriesModelToken,
+  coinGeckoCryptoCurrencyGlobalModelToken,
+  coinGeckoExchangeModelToken,
 } from './coingecko.model';
 import axios from 'axios';
 
@@ -24,21 +26,25 @@ const TOKEN_NAME = '_coingeckoService';
  * @class CoingeckoAsset
  * @extends {BaseService}
  */
-export const coinGeckoServiceToken = new Token<CoingeckoAsset>(TOKEN_NAME);
+export const coinGeckoServiceToken = new Token<CoinGecko>(TOKEN_NAME);
 /**
  * @class CoingeckoAsset
  * @extends BaseService
  * @description AssetTrending Service for all coingeckoAsset related operations
  */
 @Service(coinGeckoServiceToken)
-export class CoingeckoAsset {
-  private logger = new Logger('Coingecko');
+export class CoinGecko {
+  private logger = new Logger('CoinGecko');
 
   private coinGeckoAssetModel = Container.get(coinGeckoAssetModelToken);
 
   private coinGeckoCategoriesModel = Container.get(coinGeckoCategoriesModelToken);
 
-  private coinGeckoBlockchainsModel = Container.get(coinGeckoBlockchainsModelToken);
+  private coinGeckoBlockchainModel = Container.get(coinGeckoBlockchainModelToken);
+
+  private coinGeckoExchangeModel = Container.get(coinGeckoExchangeModelToken);
+
+  private coinGeckoCryptoCurrencyGlobalModel = Container.get(coinGeckoCryptoCurrencyGlobalModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -54,11 +60,16 @@ export class CoingeckoAsset {
 
   private queueScheduler: QueueScheduler;
 
-  private readonly jobs = {
-    'coingecko:fetch:asset:list': this.fetchCoinGeckoAssetList,
-    'coingecko:fetch:asset:details': this.fetchCoinGeckoAssetDetails,
+  private readonly jobs: {
+    [key in CoinGeckoJobNames | 'default']?: () => Promise<void>;
+  } = {
+    'coingecko:fetch:assets:list': this.fetchCoinGeckoAssetList,
+    'coingecko:fetch:assets:details': this.fetchCoinGeckoAssetDetails,
     'coingecko:fetch:categories:list': this.fetchCoinGeckoCategoriesList,
     'coingecko:fetch:blockchains:list': this.fetchCoinGeckoBlockchainsList,
+    'coingecko:fetch:exchanges:list': this.fetchCoinGeckoBlockchainsList,
+    'coingecko:fetch:exchanges:details': this.fetchCoinGeckoExchangeDetails,
+    'coingecko:fetch:cryptocurrency:global': this.fetchCoinGeckoCryptoCurrencyGlobal,
     default: () => {
       throw new SystemError('Invalid job name');
     },
@@ -66,6 +77,7 @@ export class CoingeckoAsset {
 
   constructor() {
     // this.fetchCoinGeckoAssetDetails();
+    this.fetchCoinGeckoCryptoCurrencyGlobal();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -78,7 +90,7 @@ export class CoingeckoAsset {
    *  @description init BullMQ Worker
    */
   private initWorker() {
-    this.worker = new Worker('coingecko-asset', this.workerProcessor.bind(this), {
+    this.worker = new Worker('coingecko', this.workerProcessor.bind(this), {
       connection: this.redisConnection as any,
       lockDuration: 1000 * 60 * 5,
       concurrency: 20,
@@ -121,24 +133,24 @@ export class CoingeckoAsset {
   }
   private addFetchingDataJob() {
     this.addJob({
-      name: 'coingecko:fetch:asset:list',
+      name: 'coingecko:fetch:assets:list',
       payload: {},
       options: {
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:asset:list',
+        jobId: 'coingecko:fetch:assets:list',
         removeOnComplete: true,
       },
     });
     this.addJob({
-      name: 'coingecko:fetch:asset:details',
+      name: 'coingecko:fetch:assets:details',
       payload: {},
       options: {
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'coingecko:fetch:asset:details',
+        jobId: 'coingecko:fetch:assets:details',
         removeOnComplete: true,
       },
     });
@@ -164,15 +176,49 @@ export class CoingeckoAsset {
         removeOnComplete: true,
       },
     });
+    this.addJob({
+      name: 'coingecko:fetch:exchanges:list',
+      payload: {},
+      options: {
+        repeat: {
+          pattern: '0 0 * * SUN',
+        },
+        jobId: 'coingecko:fetch:exchanges:list',
+        removeOnComplete: true,
+      },
+    });
+    this.addJob({
+      name: 'coingecko:fetch:exchanges:details',
+      payload: {},
+      options: {
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        jobId: 'coingecko:fetch:exchanges:details',
+        removeOnComplete: true,
+      },
+    });
+    this.addJob({
+      name: 'coingecko:fetch:cryptocurrency:global',
+      payload: {},
+      options: {
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        jobId: 'coingecko:fetch:cryptocurrency:global',
+        removeOnComplete: true,
+      },
+    });
   }
   async fetchCoinGeckoAssetList() {
     try {
       const { data } = await CoinGeckoAPI.fetch({
         endpoint: CoinGeckoAPI.Coins.list.endpoint,
+        params: CoinGeckoAPI.Coins.list.params,
       });
       this.logger.debug('info', 'fetchCoinGeckoAssetList', { num: data.length });
       for (const asset of data) {
-        const { id, name, symbol } = asset;
+        const { id, name, symbol, platforms } = asset;
 
         await this.coinGeckoAssetModel._collection.findOneAndUpdate(
           { id },
@@ -181,6 +227,7 @@ export class CoingeckoAsset {
               id,
               name,
               symbol,
+              platforms,
               updated_at: new Date(),
               updated_by: 'system',
             },
@@ -246,9 +293,7 @@ export class CoingeckoAsset {
         params: CoinGeckoAPI.Categories.listWithMarketData.params,
       });
       this.logger.debug('info', 'fetchCoinGeckoCategoriesList', { num: data.length });
-      for (const asset of data) {
-        const { id, ...rest } = asset;
-
+      for (const { id, ...rest } of data) {
         await this.coinGeckoCategoriesModel._collection.findOneAndUpdate(
           { id },
           {
@@ -273,10 +318,8 @@ export class CoingeckoAsset {
         endpoint: CoinGeckoAPI.Blockchains.list.endpoint,
       });
       this.logger.debug('info', 'fetchCoinGeckoBlockchainsList', { num: data.length });
-      for (const asset of data) {
-        const { id, ...rest } = asset;
-
-        await this.coinGeckoBlockchainsModel._collection.findOneAndUpdate(
+      for (const { id, ...rest } of data) {
+        await this.coinGeckoBlockchainModel._collection.findOneAndUpdate(
           { id },
           {
             $set: {
@@ -294,6 +337,100 @@ export class CoingeckoAsset {
       this.logger.debug('error', 'Fetch CoinGecko Blockchains List', JSON.stringify(error));
     }
   }
+  async fetchCoinGeckoExchangeList() {
+    try {
+      const { data } = await CoinGeckoAPI.fetch({
+        endpoint: CoinGeckoAPI.Exchanges.list.endpoint,
+      });
+      this.logger.debug('info', 'fetchCoinGeckoExchangeList', { num: data.length });
+      for (const { id, name } of data) {
+        await this.coinGeckoExchangeModel._collection.findOneAndUpdate(
+          { id },
+          {
+            $set: {
+              id,
+              name,
+              updated_at: new Date(),
+              updated_by: 'system',
+            },
+          },
+          { upsert: true },
+        );
+      }
+      this.logger.debug('success', 'Fetch CoinGecko Exchange List');
+    } catch (error) {
+      this.logger.debug('error', 'Fetch CoinGecko Exchange List', JSON.stringify(error));
+    }
+  }
+
+  async fetchCoinGeckoExchangeDetails() {
+    try {
+      const exchanges = await this.coinGeckoExchangeModel
+        .get([
+          {
+            $project: {
+              id: 1,
+            },
+          },
+        ])
+        .toArray();
+      this.logger.debug('info', 'fetchCoinGeckoExchangeDetails', { num: exchanges.length });
+      for (const { id } of exchanges) {
+        await sleep(3000);
+        const { data } = await CoinGeckoAPI.fetch({
+          endpoint: `${CoinGeckoAPI.Exchanges.details.endpoint}/${id}`,
+        })
+          .then((res) => {
+            this.logger.debug('success', 'Fetch CoinGecko Exchange Details', { id });
+            return res;
+          })
+          .catch((error) => {
+            this.logger.debug('error', 'Fetch CoinGecko Exchange Details', JSON.stringify(error));
+          });
+        if (data) {
+          const { name, ...details } = data;
+          await this.coinGeckoExchangeModel._collection.findOneAndUpdate(
+            { id },
+            {
+              $set: {
+                details,
+                updated_at: new Date(),
+                updated_by: 'system',
+              },
+            },
+            { upsert: true },
+          );
+        }
+      }
+
+      this.logger.debug('success', 'Fetch CoinGecko Exchange Details');
+    } catch (error) {
+      this.logger.debug('error', 'Fetch CoinGecko Exchange List', JSON.stringify(error));
+    }
+  }
+
+  async fetchCoinGeckoCryptoCurrencyGlobal() {
+    try {
+      const { data } = await CoinGeckoAPI.fetch({
+        endpoint: CoinGeckoAPI.Global.cryptoCurrencyGlobal.endpoint,
+      })
+        .then(({ data }) => data)
+        .catch((error) => {
+          this.logger.debug('error', 'Fetch CoinGecko CryptoCurrency Global', JSON.stringify(error));
+        });
+
+      await this.coinGeckoCryptoCurrencyGlobalModel._collection.insertOne({
+        ...data,
+        updated_at: new Date(),
+        updated_by: 'system',
+      });
+
+      this.logger.debug('success', 'Fetch CoinGecko CryptoCurrencyGlobal');
+    } catch (error) {
+      this.logger.debug('error', 'Fetch CoinGecko CryptoCurrencyGlobal', JSON.stringify(error));
+    }
+  }
+
   /**
    * @description add job to queue
    */
@@ -322,7 +459,7 @@ export class CoingeckoAsset {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', (job: Job<fetchCoinGeckoDataJob>) => {
-      this.logger.debug('success', '[job:coingecko-asset:completed]', {
+      this.logger.debug('success', '[job:coingecko:completed]', {
         id: job.id,
         jobName: job.name,
         data: job.data,
@@ -330,7 +467,7 @@ export class CoingeckoAsset {
     });
     // Failed
     worker.on('failed', (job: Job<fetchCoinGeckoDataJob>, error: Error) => {
-      this.logger.error('error', '[job:coingecko-asset:error]', {
+      this.logger.error('error', '[job:coingecko:error]', {
         jobId: job.id,
         error,
         jobName: job.name,
@@ -338,9 +475,8 @@ export class CoingeckoAsset {
       });
     });
   }
-  workerProcessor(job: Job<fetchCoinGeckoDataJob>): Promise<void> {
-    const { name } = job;
-    this.logger.debug('info', `[workerProcessor]`, { name, data: job.data });
+  workerProcessor({ name, data }: Job<fetchCoinGeckoDataJob>): Promise<void> {
+    this.logger.debug('info', `[workerProcessor]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   async global(): Promise<any> {

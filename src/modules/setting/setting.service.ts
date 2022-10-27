@@ -24,7 +24,7 @@ export const settingServiceToken = new Token<SettingService>(TOKEN_NAME);
 export class SettingService {
   private logger = new Logger('Settings');
 
-  private model = Container.get(settingModelToken);
+  readonly model = Container.get(settingModelToken);
 
   get outputKeys() {
     return this.model._keys;

@@ -24,7 +24,7 @@ export const BlockchainServiceToken = new Token<BlockchainService>(TOKEN_NAME);
 export class BlockchainService {
   private logger = new Logger('BlockchainService');
 
-  private model = Container.get(blockchainModelToken);
+  readonly model = Container.get(blockchainModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -135,7 +135,7 @@ export class BlockchainService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(keyword && {
                 name: { $regex: keyword, $options: 'i' },
@@ -350,7 +350,7 @@ export class BlockchainService {
         .get([
           ...$pagination({
             $match: {
-              deleted: false,
+              deleted: { $ne: true },
               ...(keyword && {
                 $or: [
                   { $text: { $search: keyword } },

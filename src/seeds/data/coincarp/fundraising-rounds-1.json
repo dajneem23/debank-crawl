@@ -1,0 +1,518 @@
+[
+  {
+    "projectcode": "anciliainc",
+    "projectname": "Ancilia.Inc",
+    "logo": "/logo/project/anciliainc.png?style=36&v=1666691265",
+    "categorylist": [{ "code": "web3", "name": "Web3" }],
+    "fundcode": "anciliainc-preseed",
+    "fundstagecode": "pre-seed",
+    "fundstagename": "Pre-Seed",
+    "fundamount": 0,
+    "valulation": 0,
+    "funddate": 1666656000,
+    "investorcodes": "binance-labs",
+    "investornames": "Binance Labs",
+    "investorlogos": "1",
+    "investorcount": 1,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/binance-labs.png?style=36",
+        "investorcode": "binance-labs",
+        "investorname": "Binance Labs"
+      }
+    ]
+  },
+  {
+    "projectcode": "awst",
+    "projectname": "AWST",
+    "logo": "/logo/project/awst.png?style=36&v=1666686169",
+    "categorylist": [{ "code": "nfts", "name": "NFTs" }],
+    "fundcode": "awst-unknown",
+    "fundstagecode": "unknown",
+    "fundstagename": "Unknown",
+    "fundamount": 1700000,
+    "valulation": 0,
+    "funddate": 1666656000,
+    "investorcodes": "east-ventures,500-global,antler",
+    "investornames": "East Ventures,500 Global,Antler",
+    "investorlogos": "1,1,1",
+    "investorcount": 3,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/east-ventures.png?style=36",
+        "investorcode": "east-ventures",
+        "investorname": "East Ventures"
+      },
+      {
+        "investorlogo": "/logo/investor/500-global.png?style=36",
+        "investorcode": "500-global",
+        "investorname": "500 Global"
+      },
+      { "investorlogo": "/logo/investor/antler.png?style=36", "investorcode": "antler", "investorname": "Antler" }
+    ]
+  },
+  {
+    "projectcode": "synota",
+    "projectname": "Synota",
+    "logo": "/logo/project/synota.png?style=36&v=1666684012",
+    "categorylist": [{ "code": "others", "name": "Others" }],
+    "fundcode": "synota-seed",
+    "fundstagecode": "seed",
+    "fundstagename": "Seed",
+    "fundamount": 3000000,
+    "valulation": 0,
+    "funddate": 1666656000,
+    "investorcodes": "ego-death-capital,trammell-venture-partners,rev1-ventures",
+    "investornames": "Ego Death Capital,Trammell Venture Partners,Rev1 Ventures",
+    "investorlogos": "1,1,1",
+    "investorcount": 6,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/ego-death-capital.png?style=36",
+        "investorcode": "ego-death-capital",
+        "investorname": "Ego Death Capital"
+      },
+      {
+        "investorlogo": "/logo/investor/trammell-venture-partners.png?style=36",
+        "investorcode": "trammell-venture-partners",
+        "investorname": "Trammell Venture Partners"
+      },
+      {
+        "investorlogo": "/logo/investor/rev1-ventures.png?style=36",
+        "investorcode": "rev1-ventures",
+        "investorname": "Rev1 Ventures"
+      }
+    ]
+  },
+  {
+    "projectcode": "flox",
+    "projectname": "Flox",
+    "logo": "/logo/project/flox.png?style=36&v=1666680530",
+    "categorylist": [{ "code": "others", "name": "Others" }],
+    "fundcode": "flox-unknown",
+    "fundstagecode": "unknown",
+    "fundstagename": "Unknown",
+    "fundamount": 1128485,
+    "valulation": 0,
+    "funddate": 1666656000,
+    "investorcodes": "",
+    "investornames": "",
+    "investorlogos": "",
+    "investorcount": 0,
+    "investorlist": []
+  },
+  {
+    "projectcode": "yoom",
+    "projectname": "YOOM",
+    "logo": "/logo/project/yoom.png?style=36&v=1666753440",
+    "categorylist": [{ "code": "web3", "name": "Web3" }],
+    "fundcode": "yoom-unknown",
+    "fundstagecode": "unknown",
+    "fundstagename": "Unknown",
+    "fundamount": 15000000,
+    "valulation": 0,
+    "funddate": 1666656000,
+    "investorcodes": "",
+    "investornames": "",
+    "investorlogos": "",
+    "investorcount": 0,
+    "investorlist": []
+  },
+  {
+    "projectcode": "klink-finance",
+    "projectname": "Klink Finance",
+    "logo": "/logo/project/klink-finance.png?style=36&v=1666753959",
+    "categorylist": [{ "code": "cefi", "name": "CeFi" }],
+    "fundcode": "klink-finance-preseed",
+    "fundstagecode": "pre-seed",
+    "fundstagename": "Pre-Seed",
+    "fundamount": 500000,
+    "valulation": 0,
+    "funddate": 1666656000,
+    "investorcodes": "blockchain-founders-fund,uob-venture,signum-capital",
+    "investornames": "Blockchain Founders Fund,UOB Venture,Signum Capital",
+    "investorlogos": "1,1,1",
+    "investorcount": 5,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/blockchain-founders-fund.png?style=36",
+        "investorcode": "blockchain-founders-fund",
+        "investorname": "Blockchain Founders Fund"
+      },
+      {
+        "investorlogo": "/logo/investor/uob-venture.png?style=36",
+        "investorcode": "uob-venture",
+        "investorname": "UOB Venture"
+      },
+      {
+        "investorlogo": "/logo/investor/signum-capital.png?style=36",
+        "investorcode": "signum-capital",
+        "investorname": "Signum Capital"
+      }
+    ]
+  },
+  {
+    "projectcode": "exclusible",
+    "projectname": "Exclusible",
+    "logo": "/logo/project/exclusible.png?style=36",
+    "categorylist": [
+      { "code": "nfts", "name": "NFTs" },
+      { "code": "web3", "name": "Web3" }
+    ],
+    "fundcode": "exclusible-unknown-series",
+    "fundstagecode": "unknown",
+    "fundstagename": "Unknown",
+    "fundamount": 5000000,
+    "valulation": 0,
+    "funddate": 1666656000,
+    "investorcodes": "dan-holzmann,tioga-capital",
+    "investornames": "Dan Holzmann,Tioga Capital",
+    "investorlogos": "1,1",
+    "investorcount": 2,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/dan-holzmann.png?style=36",
+        "investorcode": "dan-holzmann",
+        "investorname": "Dan Holzmann"
+      },
+      {
+        "investorlogo": "/logo/investor/tioga-capital.png?style=36",
+        "investorcode": "tioga-capital",
+        "investorname": "Tioga Capital"
+      }
+    ]
+  },
+  {
+    "projectcode": "sealance",
+    "projectname": "Sealance",
+    "logo": "/logo/project/sealance.png?style=36&v=1666670318",
+    "categorylist": [{ "code": "others", "name": "Others" }],
+    "fundcode": "sealance-seed",
+    "fundstagecode": "seed",
+    "fundstagename": "Seed",
+    "fundamount": 0,
+    "valulation": 0,
+    "funddate": 1666569600,
+    "investorcodes": "galaxy-digital,ribbit-capital,coinbase-ventures",
+    "investornames": "Galaxy Digital,Ribbit Capital,Coinbase Ventures",
+    "investorlogos": "1,1,1",
+    "investorcount": 6,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/galaxy-digital.png?style=36",
+        "investorcode": "galaxy-digital",
+        "investorname": "Galaxy Digital"
+      },
+      {
+        "investorlogo": "/logo/investor/ribbit-capital.png?style=36",
+        "investorcode": "ribbit-capital",
+        "investorname": "Ribbit Capital"
+      },
+      {
+        "investorlogo": "/logo/investor/coinbase-ventures.png?style=36",
+        "investorcode": "coinbase-ventures",
+        "investorname": "Coinbase Ventures"
+      }
+    ]
+  },
+  {
+    "projectcode": "upsidedao",
+    "projectname": "UpsideDAO",
+    "logo": "/logo/project/upsidedao.png?style=36&v=1666678430",
+    "categorylist": [{ "code": "web3", "name": "Web3" }],
+    "fundcode": "upsidedao-unknown-series",
+    "fundstagecode": "unknown",
+    "fundstagename": "Unknown",
+    "fundamount": 5000000,
+    "valulation": 0,
+    "funddate": 1666569600,
+    "investorcodes": "apollo-capital,banxa,caleb-brown",
+    "investornames": "Apollo\n Capital,Banxa,Caleb & Brown",
+    "investorlogos": "1,1,1",
+    "investorcount": 4,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/apollo-capital.png?style=36",
+        "investorcode": "apollo-capital",
+        "investorname": "Apollo\n Capital"
+      },
+      { "investorlogo": "/logo/investor/banxa.png?style=36", "investorcode": "banxa", "investorname": "Banxa" },
+      {
+        "investorlogo": "/logo/investor/caleb-brown.png?style=36",
+        "investorcode": "caleb-brown",
+        "investorname": "Caleb & Brown"
+      }
+    ]
+  },
+  {
+    "projectcode": "wave",
+    "projectname": "Wave",
+    "logo": "/logo/project/wave.png?style=36&v=1666666403",
+    "categorylist": [{ "code": "others", "name": "Others" }],
+    "fundcode": "wave-unknown",
+    "fundstagecode": "seed",
+    "fundstagename": "Seed",
+    "fundamount": 5000000,
+    "valulation": 0,
+    "funddate": 1666569600,
+    "investorcodes": "stellar-development-foundation",
+    "investornames": "Stellar Development Foundation",
+    "investorlogos": "1",
+    "investorcount": 1,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/stellar-development-foundation.png?style=36",
+        "investorcode": "stellar-development-foundation",
+        "investorname": "Stellar Development Foundation"
+      }
+    ]
+  },
+  {
+    "projectcode": "paragraph",
+    "projectname": "Paragraph",
+    "logo": "/logo/project/paragraph.png?style=36&v=1666662225",
+    "categorylist": [{ "code": "web3", "name": "Web3" }],
+    "fundcode": "paragraph-preseed",
+    "fundstagecode": "pre-seed",
+    "fundstagename": "Pre-Seed",
+    "fundamount": 1700000,
+    "valulation": 0,
+    "funddate": 1666569600,
+    "investorcodes": "lemniscap,ftx,binance-labs",
+    "investornames": "Lemniscap,FTX,Binance Labs",
+    "investorlogos": "1,1,1",
+    "investorcount": 5,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/lemniscap.png?style=36",
+        "investorcode": "lemniscap",
+        "investorname": "Lemniscap"
+      },
+      { "investorlogo": "/logo/investor/ftx.png?style=36", "investorcode": "ftx", "investorname": "FTX" },
+      {
+        "investorlogo": "/logo/investor/binance-labs.png?style=36",
+        "investorcode": "binance-labs",
+        "investorname": "Binance Labs"
+      }
+    ]
+  },
+  {
+    "projectcode": "atta",
+    "projectname": "ATTA",
+    "logo": "/logo/project/atta.png?style=36",
+    "categorylist": [{ "code": "nfts", "name": "NFTs" }],
+    "fundcode": "atta-extended-seed",
+    "fundstagecode": "extended-seed",
+    "fundstagename": "Extended Seed",
+    "fundamount": 2000000,
+    "valulation": 0,
+    "funddate": 1666569600,
+    "investorcodes": "guildfi,hashed,shima-capital",
+    "investornames": "GuildFi,Hashed Emergent,Shima Capital",
+    "investorlogos": "1,1,1",
+    "investorcount": 5,
+    "investorlist": [
+      { "investorlogo": "/logo/investor/guildfi.png?style=36", "investorcode": "guildfi", "investorname": "GuildFi" },
+      {
+        "investorlogo": "/logo/investor/hashed.png?style=36",
+        "investorcode": "hashed",
+        "investorname": "Hashed Emergent"
+      },
+      {
+        "investorlogo": "/logo/investor/shima-capital.png?style=36",
+        "investorcode": "shima-capital",
+        "investorname": "Shima Capital"
+      }
+    ]
+  },
+  {
+    "projectcode": "bitgoldex",
+    "projectname": "BitGoldEX",
+    "logo": "/logo/defaultproject.png?style=36",
+    "categorylist": [{ "code": "others", "name": "Others" }],
+    "fundcode": "bitgoldex-seriesa",
+    "fundstagecode": "series-a",
+    "fundstagename": "Series A",
+    "fundamount": 0,
+    "valulation": 0,
+    "funddate": 1666396800,
+    "investorcodes": "baif-group",
+    "investornames": "BAIF Group",
+    "investorlogos": "0",
+    "investorcount": 1,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/defaultproject.png?style=36",
+        "investorcode": "baif-group",
+        "investorname": "BAIF Group"
+      }
+    ]
+  },
+  {
+    "projectcode": "raze",
+    "projectname": "RAZE",
+    "logo": "/logo/project/raze.png?style=36&v=1666423854",
+    "categorylist": [{ "code": "nfts", "name": "NFTs" }],
+    "fundcode": "raze-preseed",
+    "fundstagecode": "pre-seed",
+    "fundstagename": "Pre-Seed",
+    "fundamount": 175000,
+    "valulation": 0,
+    "funddate": 1666310400,
+    "investorcodes": "",
+    "investornames": "",
+    "investorlogos": "",
+    "investorcount": 0,
+    "investorlist": []
+  },
+  {
+    "projectcode": "precog-finance",
+    "projectname": "Precog Finance",
+    "logo": "/logo/project/precog-finance.png?style=36&v=1666582884",
+    "categorylist": [{ "code": "defi", "name": "DeFi" }],
+    "fundcode": "dwf-labs-strategic",
+    "fundstagecode": "strategic",
+    "fundstagename": "Strategic",
+    "fundamount": 3500000,
+    "valulation": 0,
+    "funddate": 1666310400,
+    "investorcodes": "dwf-labs",
+    "investornames": "DWF Labs",
+    "investorlogos": "1",
+    "investorcount": 1,
+    "investorlist": [
+      { "investorlogo": "/logo/investor/dwf-labs.png?style=36", "investorcode": "dwf-labs", "investorname": "DWF Labs" }
+    ]
+  },
+  {
+    "projectcode": "dash-2-trade",
+    "projectname": "Dash 2 Trade",
+    "logo": "/logo/project/dash-2-trade.png?style=36&v=1666408953",
+    "categorylist": [{ "code": "others", "name": "Others" }],
+    "fundcode": "dash-2-trade-ico",
+    "fundstagecode": "ico",
+    "fundstagename": "ICO",
+    "fundamount": 500000,
+    "valulation": 0,
+    "funddate": 1666310400,
+    "investorcodes": "",
+    "investornames": "",
+    "investorlogos": "",
+    "investorcount": 0,
+    "investorlist": []
+  },
+  {
+    "projectcode": "sensat",
+    "projectname": "Sensat",
+    "logo": "/logo/project/sensat.png?style=36&v=1666599003",
+    "categorylist": [{ "code": "infrastructure", "name": "Infrastructure" }],
+    "fundcode": "sensat-series-b",
+    "fundstagecode": "series-b",
+    "fundstagename": "Series B",
+    "fundamount": 20500000,
+    "valulation": 0,
+    "funddate": 1666224000,
+    "investorcodes": "national-grid-partners",
+    "investornames": "National Grid Partners",
+    "investorlogos": "1",
+    "investorcount": 1,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/national-grid-partners.png?style=36",
+        "investorcode": "national-grid-partners",
+        "investorname": "National Grid Partners"
+      }
+    ]
+  },
+  {
+    "projectcode": "mintify",
+    "projectname": "Mintify",
+    "logo": "/logo/project/mintify.png?style=36&v=1666336875",
+    "categorylist": [{ "code": "nfts", "name": "NFTs" }],
+    "fundcode": "mintify-seed",
+    "fundstagecode": "seed",
+    "fundstagename": "Seed",
+    "fundamount": 1600000,
+    "valulation": 0,
+    "funddate": 1666224000,
+    "investorcodes": "arca,alchemy,fasanara-capital",
+    "investornames": "Arca,Alchemy,Fasanara Capital",
+    "investorlogos": "1,1,1",
+    "investorcount": 4,
+    "investorlist": [
+      { "investorlogo": "/logo/investor/arca.png?style=36", "investorcode": "arca", "investorname": "Arca" },
+      { "investorlogo": "/logo/investor/alchemy.png?style=36", "investorcode": "alchemy", "investorname": "Alchemy" },
+      {
+        "investorlogo": "/logo/investor/fasanara-capital.png?style=36",
+        "investorcode": "fasanara-capital",
+        "investorname": "Fasanara Capital"
+      }
+    ]
+  },
+  {
+    "projectcode": "helius",
+    "projectname": "Helius",
+    "logo": "/logo/project/helius.png?style=36&v=1666251893",
+    "categorylist": [{ "code": "infrastructure", "name": "Infrastructure" }],
+    "fundcode": "helius-seed",
+    "fundstagecode": "seed",
+    "fundstagename": "Seed",
+    "fundamount": 3100000,
+    "valulation": 0,
+    "funddate": 1666224000,
+    "investorcodes": "reciprocal-ventures,chapter-one,solana-ventures",
+    "investornames": "Reciprocal Ventures,Chapter One,Solana Ventures",
+    "investorlogos": "1,1,1",
+    "investorcount": 8,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/reciprocal-ventures.png?style=36",
+        "investorcode": "reciprocal-ventures",
+        "investorname": "Reciprocal Ventures"
+      },
+      {
+        "investorlogo": "/logo/investor/chapter-one.png?style=36",
+        "investorcode": "chapter-one",
+        "investorname": "Chapter One"
+      },
+      {
+        "investorlogo": "/logo/investor/solana-ventures.png?style=36",
+        "investorcode": "solana-ventures",
+        "investorname": "Solana Ventures"
+      }
+    ]
+  },
+  {
+    "projectcode": "mercury",
+    "projectname": "Mercury",
+    "logo": "/logo/project/mercury.png?style=36&v=1666323004",
+    "categorylist": [{ "code": "others", "name": "Others" }],
+    "fundcode": "mercury-seed",
+    "fundstagecode": "seed",
+    "fundstagename": "Seed",
+    "fundamount": 7500000,
+    "valulation": 0,
+    "funddate": 1666224000,
+    "investorcodes": "multicoin-capital,north-island-ventures,crosslink-capital",
+    "investornames": "Multicoin Capital,North Island Ventures,CrossLink Capital",
+    "investorlogos": "1,1,1",
+    "investorcount": 4,
+    "investorlist": [
+      {
+        "investorlogo": "/logo/investor/multicoin-capital.png?style=36",
+        "investorcode": "multicoin-capital",
+        "investorname": "Multicoin Capital"
+      },
+      {
+        "investorlogo": "/logo/investor/north-island-ventures.png?style=36",
+        "investorcode": "north-island-ventures",
+        "investorname": "North Island Ventures"
+      },
+      {
+        "investorlogo": "/logo/investor/crosslink-capital.png?style=36",
+        "investorcode": "crosslink-capital",
+        "investorname": "CrossLink Capital"
+      }
+    ]
+  }
+]

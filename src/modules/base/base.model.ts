@@ -18,7 +18,7 @@ import { $lookup, $toMongoFilter } from '@/utils/mongoDB';
 import { $refValidation } from '@/utils/validation';
 import { COLLECTION_NAMES, PRIVATE_KEYS, RemoveSlugPattern, T } from '@/types';
 import slugify from 'slugify';
-import { omit } from 'lodash';
+import { omit, uniq } from 'lodash';
 
 /**
  * @class BaseModel
@@ -443,7 +443,7 @@ export class BaseModel {
       options?: CreateIndexesOptions;
     }[];
   }) {
-    this._keys = [..._keys, ...this._defaultKeys].filter((v, i, a) => a.indexOf(v) === i);
+    this._keys = uniq([..._keys, ...this._defaultKeys]);
     this._collectionName = collectionName;
     this._collection = this.db.collection<any>(collectionName);
     Promise.allSettled(

@@ -17,7 +17,7 @@ export const CommentServiceToken = new Token<CommentService>(TOKEN_NAME);
 export class CommentService {
   private logger = new Logger('Comment');
 
-  private model = Container.get(commentModelToken) as CommentModel;
+  readonly model = Container.get(commentModelToken) as CommentModel;
 
   get outputKeys(): typeof this.model._keys {
     return this.model._keys;

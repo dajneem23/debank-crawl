@@ -8,7 +8,6 @@ import {
   ObjectIdValidation,
   BaseQueryValidation,
 } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
 export const NewsValidation = {
   create: validate({
     [Segments.BODY]: Joi.object({
@@ -24,7 +23,7 @@ export const NewsValidation = {
 
       photos: Joi.array().items(Joi.string()),
 
-      categories: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(Joi.string()),
 
       source: Joi.string(),
 
@@ -51,15 +50,15 @@ export const NewsValidation = {
 
       keywords: Joi.array().items(Joi.string()),
 
-      company_tags: Joi.array().items(ObjectIdValidation),
+      company_tags: Joi.array().items(Joi.string()),
 
-      coin_tags: Joi.array().items(ObjectIdValidation),
+      coin_tags: Joi.array().items(Joi.string()),
 
-      product_tags: Joi.array().items(ObjectIdValidation),
+      product_tags: Joi.array().items(Joi.string()),
 
-      person_tags: Joi.array().items(ObjectIdValidation),
+      person_tags: Joi.array().items(Joi.string()),
 
-      event_tags: Joi.array().items(ObjectIdValidation),
+      event_tags: Joi.array().items(Joi.string()),
     }),
   }),
   update: validate({
@@ -76,7 +75,7 @@ export const NewsValidation = {
 
       photos: Joi.array().items(Joi.string()),
 
-      categories: Joi.array().items(ObjectIdValidation),
+      categories: Joi.array().items(Joi.string()),
 
       source: Joi.string(),
 
@@ -103,15 +102,15 @@ export const NewsValidation = {
 
       keywords: Joi.array().items(Joi.string()),
 
-      company_tags: Joi.array().items(ObjectIdValidation),
+      company_tags: Joi.array().items(Joi.string()),
 
-      coin_tags: Joi.array().items(ObjectIdValidation),
+      coin_tags: Joi.array().items(Joi.string()),
 
-      product_tags: Joi.array().items(ObjectIdValidation),
+      product_tags: Joi.array().items(Joi.string()),
 
-      person_tags: Joi.array().items(ObjectIdValidation),
+      person_tags: Joi.array().items(Joi.string()),
 
-      event_tags: Joi.array().items(ObjectIdValidation),
+      event_tags: Joi.array().items(Joi.string()),
     }),
     [Segments.PARAMS]: Joi.object({
       id: ObjectIdValidation,
@@ -149,11 +148,11 @@ export const NewsValidation = {
   query: validate({
     [Segments.QUERY]: BaseQueryValidation.keys({
       status: Joi.string().valid(...Object.values(NewsStatus)),
-      company_tags: Joi.array().items(ObjectIdValidation),
-      coin_tags: Joi.array().items(ObjectIdValidation),
-      product_tags: Joi.array().items(ObjectIdValidation),
-      person_tags: Joi.array().items(ObjectIdValidation),
-      event_tags: Joi.array().items(ObjectIdValidation),
+      company_tags: Joi.array().items(Joi.string()),
+      coin_tags: Joi.array().items(Joi.string()),
+      product_tags: Joi.array().items(Joi.string()),
+      person_tags: Joi.array().items(Joi.string()),
+      event_tags: Joi.array().items(Joi.string()),
     }),
   }),
   getRelated: validate({

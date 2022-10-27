@@ -128,6 +128,9 @@ export const CoinGeckoAPI = {
   Coins: {
     list: {
       endpoint: 'https://api.coingecko.com/api/v3/coins/list',
+      params: {
+        include_platform: true,
+      },
     },
     detail: {
       endpoint: 'https://api.coingecko.com/api/v3/coins',
@@ -157,6 +160,19 @@ export const CoinGeckoAPI = {
       endpoint: 'https://api.coingecko.com/api/v3/asset_platforms',
     },
   },
+  Exchanges: {
+    list: {
+      endpoint: 'https://api.coingecko.com/api/v3/exchanges/list',
+    },
+    details: {
+      endpoint: 'https://api.coingecko.com/api/v3/exchanges',
+    },
+  },
+  Global: {
+    cryptoCurrencyGlobal: {
+      endpoint: 'https://api.coingecko.com/api/v3/global',
+    },
+  },
   /**
    * @description fetch data from coinmarketcap
    * @param  {Object} - { params,endpoint }
@@ -173,7 +189,7 @@ export const CoinGeckoAPI = {
 export const KyberSwapAPI = {
   AssetTrending: {
     trending: {
-      enpoint: 'https://truesight.kyberswap.com/api/v1/trending',
+      endpoint: 'https://truesight.kyberswap.com/api/v1/trending',
       params: {
         timeframe: '24h',
         page_number: 0,

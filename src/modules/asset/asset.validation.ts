@@ -3,12 +3,11 @@ import {
   LANG_CODE,
   BACKER,
   CONVERT_CURRENCY_CODE,
-  ObjectIdValidation,
   urlsValidation,
   TIME_PERIOD,
   BaseQueryValidation,
+  ObjectIdValidation,
 } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
 import { mapValues } from 'lodash';
 const valueByDateSchema = Joi.object({
   timestamp: Joi.date(),
@@ -122,9 +121,7 @@ const assetSchema = Joi.object({
   description: Joi.string(),
 
   //array id of categories
-  categories: Joi.array().items(
-    Joi.string().pattern(new RegExp(ObjectIdPattern)).message('id must be a valid ObjectId'),
-  ),
+  categories: Joi.array().items(Joi.string()),
 
   explorer: Joi.string(),
 

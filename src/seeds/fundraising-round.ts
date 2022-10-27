@@ -10,6 +10,9 @@ import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
 import { uniq } from 'lodash';
 import fundFundrainsingRoundsFile from '../data/airtable/Fundraising Rounds - Funds.json';
+import axios from 'axios';
+import { sleep } from '@/utils/common';
+
 /* eslint-disable no-console */
 export const FundraisingRoundSeed = async () => {
   const db = Container.get(DIMongoDB);
@@ -125,6 +128,58 @@ export const FundraisingRoundSeed = async () => {
   fs.writeFileSync(`${__dirname}/data/_fundraising-rounds.json`, JSON.stringify(fundraisingRounds));
   // await db.collection('funds').insertMany(funds);
   // return funds;
+};
+
+export const crawlFundraisingRoundsFromCoinCarp = async () => {
+  let draw = 1;
+  let start = 0;
+  const length = 20;
+  let data: any[] = [];
+
+  while (true) {
+    await sleep(10000);
+
+    const {
+      recordstotal,
+      recordsfiltered,
+      code,
+      data: { list },
+    } = await axios
+      .get('https://sapi.coincarp.com/api/v1/market/fundraising/list', {
+        params: {
+          draw,
+          start,
+          length,
+          'columns[0][data]': 'projectname',
+          lang: 'en-US',
+          'columns[0][orderable]': 'false',
+          'columns[3][data]': 'fundamount',
+          'columns[4][search][regex]': false,
+          // 'search[value]': '',
+          'columns[1][searchable]': true,
+          'columns[5][data]': 'funddate',
+          _: 1666748943087,
+          'columns[1][data]': 'categorylist',
+          'columns[3][orderable]': true,
+          'columns[5][searchable]': true,
+          'columns[1][search][regex]': false,
+          'columns[5][orderable]': true,
+          'columns[2][data]': 'fundstagename',
+          'columns[3][search][regex]': false,
+          'columns[4][data]': 'investorlist',
+          'columns[5][search][regex]': false,
+          'columns[2][searchable]': true,
+        },
+      })
+      .then(({ data }) => data);
+
+    console.log({ draw, start, length, code, list: list?.length });
+    if (!list.length) break;
+    fs.writeFileSync(`${__dirname}/data/coincarp/fundraising-rounds-${draw}.json`, JSON.stringify(list));
+    data = [...data, ...list];
+    start += length;
+    draw++;
+  }
 };
 
 export const insertFundraisingRounds = async () => {

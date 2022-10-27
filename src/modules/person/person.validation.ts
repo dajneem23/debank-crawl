@@ -1,11 +1,10 @@
 import validate, { Joi, Segments } from '@/core/validation';
-import { ORDER, CATEGORY_TYPE, LANG_CODE, ObjectIdValidation, urlsValidation, BaseQueryValidation } from '@/types';
-import { ObjectIdPattern } from '@/utils/common';
+import { ORDER, CATEGORY_TYPE, LANG_CODE, urlsValidation, BaseQueryValidation, ObjectIdValidation } from '@/types';
 
 const personSchema = Joi.object({
   name: Joi.string(),
   position: Joi.string(),
-  categories: Joi.array().items(ObjectIdValidation),
+  categories: Joi.array(),
   works: Joi.array().items(
     Joi.object({
       title: Joi.string(),

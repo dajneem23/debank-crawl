@@ -28,7 +28,7 @@ export const eventServiceToken = new Token<EventService>(TOKEN_NAME);
 export class EventService {
   private logger = new Logger('EventService');
 
-  private model = Container.get(eventModelToken);
+  readonly model = Container.get(eventModelToken);
 
   @Inject()
   private authSessionModel: AuthSessionModel;
@@ -603,7 +603,7 @@ export class EventService {
               ...((_permission === 'private' && {
                 deleted,
               }) || {
-                deleted: false,
+                deleted: { $ne: true },
               }),
               ...(categories.length && {
                 $or: [{ categories: { $in: categories } }],
@@ -734,6 +734,7 @@ export class EventService {
         .get([
           ...$pagination({
             $match: {
+              deleted: { $ne: true },
               ...(keyword && {
                 $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),

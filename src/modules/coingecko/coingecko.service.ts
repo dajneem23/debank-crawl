@@ -77,7 +77,7 @@ export class CoinGecko {
 
   constructor() {
     // this.fetchCoinGeckoAssetDetails();
-    this.fetchCoinGeckoCryptoCurrencyGlobal();
+    //this.fetchCoinGeckoCryptoCurrencyGlobal();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();

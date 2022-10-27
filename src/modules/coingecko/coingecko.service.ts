@@ -65,7 +65,7 @@ export class CoingeckoAsset {
   };
 
   constructor() {
-    this.fetchCoinGeckoAssetDetails();
+    // this.fetchCoinGeckoAssetDetails();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();

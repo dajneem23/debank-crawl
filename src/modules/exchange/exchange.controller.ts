@@ -18,7 +18,7 @@ export class ExchangeController {
     }),
     ExchangeValidation.query,
   ])
-  async getByUser(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
+  async query(@Res() _res: Response, @Req() _req: Request, @Query() _query: BaseQuery, @Auth() _auth: JWTPayload) {
     const { filter, query } = buildQueryFilter(_query);
     const result = await this.service.query({
       _filter: filter,

@@ -1,5 +1,5 @@
 export type fetchExchangeDataJob = {
-  name: 'exchange:fetch:data';
+  name: ExchangeJobNames;
 };
 
 export type ExchangeJobNames = 'exchange:fetch:data' | 'exchange:fetch:listingsLatest';

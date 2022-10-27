@@ -1,0 +1,102 @@
+[
+  {
+    "id": 4,
+    "name": "Blockchain Service",
+    "slug": "blockchain-service",
+    "localeNames": {
+      "ru": "Блокчейн Cервисы"
+    },
+    "isIcoList": false
+  },
+  {
+    "id": 56,
+    "name": "Non-Fungible Tokens (NFT)",
+    "slug": "non-fungible-tokens-nft",
+    "localeNames": {
+      "ru": "Невзаимозаменяемые токены (NFT)"
+    },
+    "isIcoList": false
+  },
+  {
+    "id": 21,
+    "name": "GameFi",
+    "slug": "gamefi",
+    "localeNames": {
+      "ru": "Игровая индустрия"
+    },
+    "isIcoList": false
+  },
+  {
+    "id": 44,
+    "name": "Blockchain Infrastructure",
+    "slug": "blockchain-infrastructure",
+    "localeNames": {
+      "ru": "Блокчейн инфраструктура"
+    },
+    "isIcoList": false
+  },
+  {
+    "id": 36,
+    "name": "Social",
+    "slug": "social",
+    "localeNames": {
+      "ru": "Социальные платформы"
+    },
+    "isIcoList": false
+  },
+  {
+    "id": 37,
+    "name": "Stablecoin",
+    "slug": "stablecoin",
+    "localeNames": {
+      "ru": "Стейблкойны"
+    },
+    "isIcoList": false
+  },
+  {
+    "id": 38,
+    "name": "Currency",
+    "slug": "currency",
+    "localeNames": {
+      "ru": "Валюта"
+    },
+    "isIcoList": false
+  },
+  {
+    "id": 57,
+    "name": "Tokenized Stock",
+    "slug": "tokenized-stock",
+    "localeNames": {
+      "ru": "Токенизированные акции"
+    },
+    "isIcoList": false
+  },
+  {
+    "id": 55,
+    "name": "Leveraged token",
+    "slug": "leveraged-token",
+    "localeNames": {},
+    "isIcoList": false
+  },
+  {
+    "id": 59,
+    "name": "Meme",
+    "slug": "meme",
+    "localeNames": {},
+    "isIcoList": false
+  },
+  {
+    "id": 54,
+    "name": "DeFi",
+    "slug": "defi",
+    "localeNames": {},
+    "isIcoList": false
+  },
+  {
+    "id": 63,
+    "name": "CeFi",
+    "slug": "ce-fi",
+    "localeNames": {},
+    "isIcoList": false
+  }
+]

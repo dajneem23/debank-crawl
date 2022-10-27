@@ -1,0 +1,7059 @@
+[
+  {
+    "id": 2,
+    "key": "binance",
+    "name": "Binance",
+    "pairsCount": 1430,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 20028920874,
+        "toBTC": 966526
+      },
+      "week": {
+        "toBTC": 4677723,
+        "toETH": 65567752,
+        "toUSD": 93018914118
+      },
+      "month": {
+        "toBTC": 19910698.666863218,
+        "toETH": 290319720.7127687,
+        "toUSD": 388894274161.2732
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 20033494280,
+        "toBTC": 966746
+      },
+      "week": {
+        "toUSD": 93047793585,
+        "toBTC": 4679180
+      },
+      "month": {
+        "toUSD": 389050804654.7485,
+        "toBTC": 19918731.71643794
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:42.660Z",
+    "percentVolume": 48.53883640981637,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.binance1524663518464.png",
+    "country": "Hong Kong S.A.R.",
+    "refLink": "https://www.binance.com/en/register?ref=TJXL28PT",
+    "refText": "Get 10% Off your trading fees",
+    "group": "main",
+    "num": 1,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 9,
+    "key": "coinbasepro",
+    "name": "CoinBase Pro",
+    "pairsCount": 540,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 2950397231,
+        "toBTC": 142376
+      },
+      "week": {
+        "toBTC": 584612,
+        "toETH": 8134137,
+        "toUSD": 11695218338
+      },
+      "month": {
+        "toBTC": 2212642.9874188583,
+        "toETH": 32169876.815663327,
+        "toUSD": 43330666083.21929
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 2950648634,
+        "toBTC": 142388
+      },
+      "week": {
+        "toUSD": 11696743805,
+        "toBTC": 584684
+      },
+      "month": {
+        "toUSD": 43337954772.98315,
+        "toBTC": 2213001.0240619923
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:01.902Z",
+    "percentVolume": 7.1501030654820195,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.coinbase pro1551970953715.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 2,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 143,
+    "key": "ftx-spot",
+    "name": "FTX Spot",
+    "pairsCount": 435,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 2324193839,
+        "toBTC": 112157
+      },
+      "week": {
+        "toBTC": 487445,
+        "toETH": 6789733,
+        "toUSD": 9743244406
+      },
+      "month": {
+        "toBTC": 1947642.6308916132,
+        "toETH": 28323791.76035711,
+        "toUSD": 38121351564.389435
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 2324293501,
+        "toBTC": 112161
+      },
+      "week": {
+        "toUSD": 9743515885,
+        "toBTC": 487455
+      },
+      "month": {
+        "toUSD": 38122130892.8032,
+        "toBTC": 1947670.1326421485
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:56.019Z",
+    "percentVolume": 5.632538330228768,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.ftx spot1590129803831.png",
+    "country": "Antigua And Barbuda",
+    "refLink": "https://ftx.com/#a=cryptorankio",
+    "refText": "Get 5% Off your trading fees",
+    "group": "main",
+    "num": 4,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 20,
+    "key": "okex",
+    "name": "OKX",
+    "pairsCount": 634,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 2391927957,
+        "toBTC": 115426
+      },
+      "week": {
+        "toBTC": 489396,
+        "toETH": 6833734,
+        "toUSD": 9762888226
+      },
+      "month": {
+        "toBTC": 2080950.9633329618,
+        "toETH": 30331627.99202658,
+        "toUSD": 40671609407.90874
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 2393233438,
+        "toBTC": 115488
+      },
+      "week": {
+        "toUSD": 9769993197,
+        "toBTC": 489752
+      },
+      "month": {
+        "toUSD": 40694827838.08827,
+        "toBTC": 2082126.154560132
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:51.452Z",
+    "percentVolume": 5.796687726676436,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.okex1642496657190.png",
+    "country": "Malta",
+    "refLink": "https://www.okex.com/promotion/WDM5D1",
+    "refText": "Zero Fees and $30 Bonuses",
+    "group": "main",
+    "num": 3,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 173,
+    "key": "bybit-spot",
+    "name": "Bybit Spot",
+    "pairsCount": 267,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1835942450,
+        "toBTC": 88596
+      },
+      "week": {
+        "toBTC": 357951,
+        "toETH": 4979547,
+        "toUSD": 7163515845
+      },
+      "month": {
+        "toBTC": 1309492.0460826573,
+        "toETH": 19012361.052111022,
+        "toUSD": 25661773966.989056
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1835942450,
+        "toBTC": 88596
+      },
+      "week": {
+        "toUSD": 7163515845,
+        "toBTC": 357951
+      },
+      "month": {
+        "toUSD": 25661773966.989056,
+        "toBTC": 1309492.0460826573
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:59.430Z",
+    "percentVolume": 4.449291641771327,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bybit spot1653938202103.png",
+    "country": "Virgin Islands (British)",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 5,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 36,
+    "key": "kucoin",
+    "name": "Kucoin",
+    "pairsCount": 1233,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1776089478,
+        "toBTC": 85707
+      },
+      "week": {
+        "toBTC": 401001,
+        "toETH": 5622869,
+        "toUSD": 7973447893
+      },
+      "month": {
+        "toBTC": 1953528.7430907693,
+        "toETH": 28518228.265822623,
+        "toUSD": 38008008936.034645
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1776319639,
+        "toBTC": 85718
+      },
+      "week": {
+        "toUSD": 7975297985,
+        "toBTC": 401091
+      },
+      "month": {
+        "toUSD": 38013779497.8699,
+        "toBTC": 1953809.9732791854
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:56.139Z",
+    "percentVolume": 4.3042417094846295,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.kucoin1610630695738.png",
+    "country": "Seychelles",
+    "refLink": "https://www.kucoin.com/ucenter/signup?r=E5riPm",
+    "refText": null,
+    "group": "main",
+    "num": 6,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 110,
+    "key": "mxc",
+    "name": "MEXC Global",
+    "pairsCount": 1772,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1212479997,
+        "toBTC": 58510
+      },
+      "week": {
+        "toBTC": 316295,
+        "toETH": 4432696,
+        "toUSD": 6291622452
+      },
+      "month": {
+        "toBTC": 1280501.3534709923,
+        "toETH": 18648072.4368974,
+        "toUSD": 25013282620.44256
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 4963871363,
+        "toBTC": 239539
+      },
+      "week": {
+        "toUSD": 23941909700,
+        "toBTC": 1195689
+      },
+      "month": {
+        "toUSD": 83010856791.65564,
+        "toBTC": 4236913.940675065
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:59.695Z",
+    "percentVolume": 2.938369400667774,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.mexc global1640602693560.png",
+    "country": "Singapore",
+    "refLink": "https://www.mxc.com/auth/signup?inviteCode=13dtD",
+    "refText": null,
+    "group": "main",
+    "num": 8,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 164,
+    "key": "uniswap-v3",
+    "name": "Uniswap V3",
+    "pairsCount": 586,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1249444918,
+        "toBTC": 60293
+      },
+      "week": {
+        "toBTC": 268623,
+        "toETH": 3738064,
+        "toUSD": 5372498743
+      },
+      "month": {
+        "toBTC": 934825.0749906667,
+        "toETH": 13569541.049648644,
+        "toUSD": 18325229260.65133
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1384711575,
+        "toBTC": 66820
+      },
+      "week": {
+        "toUSD": 5969559947,
+        "toBTC": 298385
+      },
+      "month": {
+        "toUSD": 19923539083.968555,
+        "toBTC": 1016136.6398253873
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:33.025Z",
+    "percentVolume": 3.0279515735970164,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.uniswap v31626701112993.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 7,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "key": "binance-us",
+    "name": "Binance US",
+    "pairsCount": 302,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 872961416,
+        "toBTC": 42126
+      },
+      "week": {
+        "toBTC": 155098,
+        "toETH": 2149954,
+        "toUSD": 3112992051
+      },
+      "month": {
+        "toBTC": 561178.8220759,
+        "toETH": 8143806.925639127,
+        "toUSD": 11009144898.516438
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 872961416,
+        "toBTC": 42126
+      },
+      "week": {
+        "toUSD": 3112992051,
+        "toBTC": 155098
+      },
+      "month": {
+        "toUSD": 11009144898.516438,
+        "toBTC": 561178.8220759
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:43.888Z",
+    "percentVolume": 2.115567365304758,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.binance_us1660552504970.png",
+    "country": "United States",
+    "refLink": "https://www.binance.us/?ref=35057691",
+    "refText": null,
+    "group": "main",
+    "num": 9,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 35,
+    "key": "huobipro",
+    "name": "Huobi Global",
+    "pairsCount": 926,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 818272450,
+        "toBTC": 39487
+      },
+      "week": {
+        "toBTC": 213499,
+        "toETH": 3005245,
+        "toUSD": 4231449958
+      },
+      "month": {
+        "toBTC": 944241.261621378,
+        "toETH": 13789930.254479961,
+        "toUSD": 18407233194.152313
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 819422471,
+        "toBTC": 39542
+      },
+      "week": {
+        "toUSD": 4237087951,
+        "toBTC": 213782
+      },
+      "month": {
+        "toUSD": 18456263290.733505,
+        "toBTC": 946751.9391477656
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:51:18.821Z",
+    "percentVolume": 1.9830320784165898,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.huobi_global1656681418923.png",
+    "country": "Singapore",
+    "refLink": "https://www.huobi.com/en-us/topic/invited/?invite_code=bsvx3223",
+    "refText": "Get 10% Off your trading fees",
+    "group": "main",
+    "num": 10,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 10,
+    "key": "kraken",
+    "name": "Kraken",
+    "pairsCount": 609,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 683693743,
+        "toBTC": 32992
+      },
+      "week": {
+        "toBTC": 184991,
+        "toETH": 2594027,
+        "toUSD": 3676079627
+      },
+      "month": {
+        "toBTC": 681371.8982480373,
+        "toETH": 9918265.048415728,
+        "toUSD": 13325172231.441069
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 683702615,
+        "toBTC": 32992
+      },
+      "week": {
+        "toUSD": 3676249887,
+        "toBTC": 184996
+      },
+      "month": {
+        "toUSD": 13326189819.255976,
+        "toBTC": 681410.7784157615
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:39.223Z",
+    "percentVolume": 1.6568890033896506,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.kraken1662115078612.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 11,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 34,
+    "key": "upbit",
+    "name": "Upbit",
+    "pairsCount": 276,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 478689650,
+        "toBTC": 23099
+      },
+      "week": {
+        "toBTC": 179564,
+        "toETH": 2526610,
+        "toUSD": 3553255246
+      },
+      "month": {
+        "toBTC": 600041.7424301178,
+        "toETH": 8730835.565387383,
+        "toUSD": 11709995144.197332
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1379756670,
+        "toBTC": 66581
+      },
+      "week": {
+        "toUSD": 7673770964,
+        "toBTC": 387808
+      },
+      "month": {
+        "toUSD": 30323663146.47618,
+        "toBTC": 1554604.74645863
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:54:42.923Z",
+    "percentVolume": 1.1600744123256381,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.upbit1524822192765.png",
+    "country": "Singapore",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 12,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 3,
+    "key": "bitfinex",
+    "name": "Bitfinex",
+    "pairsCount": 245,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 377327546,
+        "toBTC": 18208
+      },
+      "week": {
+        "toBTC": 61567,
+        "toETH": 843712,
+        "toUSD": 1247474439
+      },
+      "month": {
+        "toBTC": 379319.0008692037,
+        "toETH": 5524962.632013479,
+        "toUSD": 7437562585.515002
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 377329095,
+        "toBTC": 18208
+      },
+      "week": {
+        "toUSD": 1247501859,
+        "toBTC": 61567
+      },
+      "month": {
+        "toUSD": 7437601106.489261,
+        "toBTC": 379319.0008692037
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:43.079Z",
+    "percentVolume": 0.914429696109421,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bitfinex1643884025607.png",
+    "country": "China",
+    "refLink": "https://www.bitfinex.com/?refcode=dE6Q0m54",
+    "refText": null,
+    "group": "main",
+    "num": 14,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 23,
+    "key": "gateio",
+    "name": "Gate.io",
+    "pairsCount": 2549,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 343533492,
+        "toBTC": 16577
+      },
+      "week": {
+        "toBTC": 105331,
+        "toETH": 1490608,
+        "toUSD": 2077849763
+      },
+      "month": {
+        "toBTC": 473068.1156409215,
+        "toETH": 6922595.50960748,
+        "toUSD": 9210434343.317707
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 941512243,
+        "toBTC": 45433
+      },
+      "week": {
+        "toUSD": 5026612553,
+        "toBTC": 253339
+      },
+      "month": {
+        "toUSD": 24908554076.837296,
+        "toBTC": 1277144.6278614139
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:55:59.642Z",
+    "percentVolume": 0.8325319209347315,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.gate.io1653938156211.png",
+    "country": "China",
+    "refLink": "https://www.gate.io/ref/754190",
+    "refText": "Get 10% Off your trading fees",
+    "group": "main",
+    "num": 15,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 57,
+    "key": "bitforex",
+    "name": "Bitforex",
+    "pairsCount": 127,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 378492879,
+        "toBTC": 18264
+      },
+      "week": {
+        "toBTC": 72717,
+        "toETH": 1013374,
+        "toUSD": 1452365135
+      },
+      "month": {
+        "toBTC": 158343.78173667582,
+        "toETH": 2278484.1933647254,
+        "toUSD": 3113448634.25489
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 728721083,
+        "toBTC": 35164
+      },
+      "week": {
+        "toUSD": 3569827537,
+        "toBTC": 179904
+      },
+      "month": {
+        "toUSD": 8017440956.591309,
+        "toBTC": 409339.5678419914
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:47.314Z",
+    "percentVolume": 0.9172538077131264,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bitforex1639041379121.png",
+    "country": "Hong Kong S.A.R.",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 13,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 174,
+    "key": "crypto-com",
+    "name": "Crypto.com",
+    "pairsCount": 393,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 254449542,
+        "toBTC": 12278
+      },
+      "week": {
+        "toBTC": 59320,
+        "toETH": 828493,
+        "toUSD": 1183090868
+      },
+      "month": {
+        "toBTC": 225502.59326683136,
+        "toETH": 3281553.896948809,
+        "toUSD": 4410263767.711371
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 382899350,
+        "toBTC": 18476
+      },
+      "week": {
+        "toUSD": 1793730240,
+        "toBTC": 89900
+      },
+      "month": {
+        "toUSD": 7456692181.765276,
+        "toBTC": 381248.8834374517
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:36.295Z",
+    "percentVolume": 0.6166425426206265,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.crypto.com1641996686369.png",
+    "country": "Cayman Islands",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 19,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 4,
+    "key": "bitstamp",
+    "name": "Bitstamp",
+    "pairsCount": 137,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 200662109,
+        "toBTC": 9683
+      },
+      "week": {
+        "toBTC": 53284,
+        "toETH": 743507,
+        "toUSD": 1063213850
+      },
+      "month": {
+        "toBTC": 204867.3146675009,
+        "toETH": 2980051.672495627,
+        "toUSD": 4009409096.4593062
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 202447713,
+        "toBTC": 9769
+      },
+      "week": {
+        "toUSD": 1076670390,
+        "toBTC": 53958
+      },
+      "month": {
+        "toUSD": 4050621816.614031,
+        "toBTC": 206957.0953234028
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:29.399Z",
+    "percentVolume": 0.4862920645436936,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bitstamp1662116048319.png",
+    "country": "United Kingdom",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 21,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 12,
+    "key": "hitbtc",
+    "name": "HitBTC",
+    "pairsCount": 905,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 304844847,
+        "toBTC": 14710
+      },
+      "week": {
+        "toBTC": 65653,
+        "toETH": 921366,
+        "toUSD": 1304772852
+      },
+      "month": {
+        "toBTC": 299218.9912818502,
+        "toETH": 4369602.307887375,
+        "toUSD": 5839720073.647148
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 2661630711,
+        "toBTC": 128440
+      },
+      "week": {
+        "toUSD": 9197566711,
+        "toBTC": 459406
+      },
+      "month": {
+        "toUSD": 35039198906.53508,
+        "toBTC": 1789679.4057268356
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:48.592Z",
+    "percentVolume": 0.7387724107551188,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.hitbtc1628166473973.png",
+    "country": "China",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 16,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 78,
+    "key": "digifinex",
+    "name": "DigiFinex",
+    "pairsCount": 273,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 272092526,
+        "toBTC": 13130
+      },
+      "week": {
+        "toBTC": 57972,
+        "toETH": 814359,
+        "toUSD": 1151065975
+      },
+      "month": {
+        "toBTC": 211427.99535991254,
+        "toETH": 3080224.4438510938,
+        "toUSD": 4131176350.82816
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1672662679,
+        "toBTC": 80716
+      },
+      "week": {
+        "toUSD": 7426801225,
+        "toBTC": 373212
+      },
+      "month": {
+        "toUSD": 30099172521.83724,
+        "toBTC": 1540146.2613073662
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:44.799Z",
+    "percentVolume": 0.6593992103185193,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.digifinex1650976963764.png",
+    "country": "Singapore",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 17,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 132,
+    "key": "whitebit",
+    "name": "WhiteBIT",
+    "pairsCount": 158,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 234754344,
+        "toBTC": 11328
+      },
+      "week": {
+        "toBTC": 45972,
+        "toETH": 641903,
+        "toUSD": 917113086
+      },
+      "month": {
+        "toBTC": 150229.92022533732,
+        "toETH": 2181807.9856318817,
+        "toUSD": 2942420457.9079986
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1387132726,
+        "toBTC": 66937
+      },
+      "week": {
+        "toUSD": 5374765157,
+        "toBTC": 268927
+      },
+      "month": {
+        "toUSD": 20767393623.845303,
+        "toBTC": 1060395.7351938274
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:47.146Z",
+    "percentVolume": 0.5689124627129303,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.white_bit1662115396669.png",
+    "country": "Estonia",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 20,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 5,
+    "key": "bithumb",
+    "name": "Bithumb",
+    "pairsCount": 186,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 258384905,
+        "toBTC": 12468
+      },
+      "week": {
+        "toBTC": 57799,
+        "toETH": 814363,
+        "toUSD": 1144412159
+      },
+      "month": {
+        "toBTC": 261389.79274887705,
+        "toETH": 3820471.5673321933,
+        "toUSD": 5090520150.546757
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 365874649,
+        "toBTC": 17655
+      },
+      "week": {
+        "toUSD": 1703335880,
+        "toBTC": 86025
+      },
+      "month": {
+        "toUSD": 7241162729.051634,
+        "toBTC": 371657.8253320108
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:24.630Z",
+    "percentVolume": 0.6261796485921323,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bithumb1662117958881.png",
+    "country": "Korea South",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 18,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 84,
+    "key": "bitmax",
+    "name": "AscendEX",
+    "pairsCount": 280,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 129560620,
+        "toBTC": 6252
+      },
+      "week": {
+        "toBTC": 34100,
+        "toETH": 480205,
+        "toUSD": 675674988
+      },
+      "month": {
+        "toBTC": 135546.6063479764,
+        "toETH": 1977537.909581321,
+        "toUSD": 2645427644.5823183
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 133250077,
+        "toBTC": 6430
+      },
+      "week": {
+        "toUSD": 700633301,
+        "toBTC": 35365
+      },
+      "month": {
+        "toUSD": 2849115755.1396184,
+        "toBTC": 145857.84683036956
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:59.938Z",
+    "percentVolume": 0.31398205519389294,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.ascendex (bitmax)1621402176131.png",
+    "country": "Singapore",
+    "refLink": "https://ascendex.com/?utm_source=cryptorank&utm_medium=float%20ad&utm_campaign=bitmax%20registered%20ad#/home?channel=X003",
+    "refText": null,
+    "group": "main",
+    "num": 25,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 195,
+    "key": "bkex",
+    "name": "BKEX",
+    "pairsCount": 483,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 146720781,
+        "toBTC": 7080
+      },
+      "week": {
+        "toBTC": 37569,
+        "toETH": 531007,
+        "toUSD": 742293099
+      },
+      "month": {
+        "toBTC": 336028.2841198946,
+        "toETH": 4932494.928889428,
+        "toUSD": 6555248452.258738
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 874263235,
+        "toBTC": 42188
+      },
+      "week": {
+        "toUSD": 3244426230,
+        "toBTC": 162656
+      },
+      "month": {
+        "toUSD": 37001986563.456055,
+        "toBTC": 1902757.077259339
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:34.308Z",
+    "percentVolume": 0.3555686315643834,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bkex1664291049442.png",
+    "country": "Virgin Islands (British)",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 23,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 152,
+    "key": "pancake-swap",
+    "name": "Pancake Swap",
+    "pairsCount": 2397,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 128006540,
+        "toBTC": 6177
+      },
+      "week": {
+        "toBTC": 34778,
+        "toETH": 490276,
+        "toUSD": 688127543
+      },
+      "month": {
+        "toBTC": 168615.925448006,
+        "toETH": 2465850.943199439,
+        "toUSD": 3291585542.202583
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 139480475,
+        "toBTC": 6730
+      },
+      "week": {
+        "toUSD": 692652941,
+        "toBTC": 34997
+      },
+      "month": {
+        "toUSD": 3301084082.542433,
+        "toBTC": 169082.17795998495
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:34.351Z",
+    "percentVolume": 0.3102158395618921,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.pancake swap1639045175770.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 26,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "key": "probit",
+    "name": "Probit",
+    "pairsCount": 425,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 160445693,
+        "toBTC": 7742
+      },
+      "week": {
+        "toBTC": 45374,
+        "toETH": 642388,
+        "toUSD": 894990353
+      },
+      "month": {
+        "toBTC": 167627.33947798694,
+        "toETH": 2446885.870259569,
+        "toUSD": 3266067733.059131
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 162651935,
+        "toBTC": 7848
+      },
+      "week": {
+        "toUSD": 908234587,
+        "toBTC": 46041
+      },
+      "month": {
+        "toUSD": 3286409454.198239,
+        "toBTC": 168651.3033825002
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:38.101Z",
+    "percentVolume": 0.38883009694726994,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.probit1617291868930.png",
+    "country": "Seychelles",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 22,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 72,
+    "key": "bitmart",
+    "name": "BitMart",
+    "pairsCount": 619,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 137825189,
+        "toBTC": 6650
+      },
+      "week": {
+        "toBTC": 38462,
+        "toETH": 543946,
+        "toUSD": 759382232
+      },
+      "month": {
+        "toBTC": 319264.078996956,
+        "toETH": 4689943.463980142,
+        "toUSD": 6212561403.221851
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 860894848,
+        "toBTC": 41542
+      },
+      "week": {
+        "toUSD": 3993516661,
+        "toBTC": 200647
+      },
+      "month": {
+        "toUSD": 36980686378.06039,
+        "toBTC": 1898797.1080031157
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:29.143Z",
+    "percentVolume": 0.33401072100231327,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bitmart1591625371646.png",
+    "country": "Cayman Islands",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 24,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 8,
+    "key": "gemini",
+    "name": "Gemini",
+    "pairsCount": 124,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 69157870,
+        "toBTC": 3337
+      },
+      "week": {
+        "toBTC": 16824,
+        "toETH": 234820,
+        "toUSD": 335766601
+      },
+      "month": {
+        "toBTC": 67911.7009702556,
+        "toETH": 988792.8065573716,
+        "toUSD": 1329265842.1926308
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 69160231,
+        "toBTC": 3337
+      },
+      "week": {
+        "toUSD": 335784605,
+        "toBTC": 16824
+      },
+      "month": {
+        "toUSD": 1329383843.49309,
+        "toBTC": 67914.04013109475
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:54:23.466Z",
+    "percentVolume": 0.16759977032706444,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.gemini1642150049821.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 32,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 194,
+    "key": "uniswap-arbitrum",
+    "name": "Uniswap (Arbitrum)",
+    "pairsCount": 58,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 97986845,
+        "toBTC": 4728
+      },
+      "week": {
+        "toBTC": 19053,
+        "toETH": 265593,
+        "toUSD": 380748256
+      },
+      "month": {
+        "toBTC": 70478.38943709058,
+        "toETH": 1025295.6776772466,
+        "toUSD": 1383025713.7949498
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 97986845,
+        "toBTC": 4728
+      },
+      "week": {
+        "toUSD": 380748256,
+        "toBTC": 19053
+      },
+      "month": {
+        "toUSD": 1383025738.8019428,
+        "toBTC": 70478.38943709058
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:27.601Z",
+    "percentVolume": 0.23746498723968312,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.uniswap_arbitrum1663318401799.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 27,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Arbitrum",
+        "key": "arbitrum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.arbitrum1649168196637.png",
+        "marketCap": null
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "key": "okcoin",
+    "name": "Okcoin",
+    "pairsCount": 42,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 85812252,
+        "toBTC": 4141
+      },
+      "week": {
+        "toBTC": 16478,
+        "toETH": 229154,
+        "toUSD": 329973707
+      },
+      "month": {
+        "toBTC": 69828.86509362509,
+        "toETH": 1016396.1435685655,
+        "toUSD": 1369821491.7792492
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 85954151,
+        "toBTC": 4147
+      },
+      "week": {
+        "toUSD": 330774796,
+        "toBTC": 16516
+      },
+      "month": {
+        "toUSD": 1370622581.1034815,
+        "toBTC": 69867.23159944077
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:46.076Z",
+    "percentVolume": 0.20796062294064546,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.okcoin1656577689634.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 28,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 15,
+    "key": "bitflyer",
+    "name": "bitFlyer",
+    "pairsCount": 7,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 76967374,
+        "toBTC": 3714
+      },
+      "week": {
+        "toBTC": 16537,
+        "toETH": 230728,
+        "toUSD": 330279467
+      },
+      "month": {
+        "toBTC": 64374.842904068704,
+        "toETH": 936394.9557620458,
+        "toUSD": 1262032454.507314
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 76967374,
+        "toBTC": 3714
+      },
+      "week": {
+        "toUSD": 330279467,
+        "toBTC": 16537
+      },
+      "month": {
+        "toUSD": 1262032454.507314,
+        "toBTC": 64374.842904068704
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:56.172Z",
+    "percentVolume": 0.18652561458409972,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bit_flyer1660923583146.png",
+    "country": "Japan",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 30,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 41,
+    "key": "cointiger",
+    "name": "CoinTiger",
+    "pairsCount": 279,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 79648330,
+        "toBTC": 3843
+      },
+      "week": {
+        "toBTC": 29659,
+        "toETH": 422872,
+        "toUSD": 581916116
+      },
+      "month": {
+        "toBTC": 134597.7099124594,
+        "toETH": 1972772.0999466383,
+        "toUSD": 2618352302.2083077
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 291411627,
+        "toBTC": 14061
+      },
+      "week": {
+        "toUSD": 1784360668,
+        "toBTC": 90389
+      },
+      "month": {
+        "toUSD": 15354035568762.365,
+        "toBTC": 764164472.05515
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:50.102Z",
+    "percentVolume": 0.19302274368678846,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.cointiger1552391666598.png",
+    "country": "Singapore",
+    "refLink": "",
+    "refText": null,
+    "group": "other",
+    "num": 29,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 147,
+    "key": "uniswap",
+    "name": "Uniswap V2",
+    "pairsCount": 1131,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 70952716,
+        "toBTC": 3423
+      },
+      "week": {
+        "toBTC": 19036,
+        "toETH": 268321,
+        "toUSD": 377029167
+      },
+      "month": {
+        "toBTC": 68190.44999784172,
+        "toETH": 994381.1925172891,
+        "toUSD": 1333547950.6344938
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 72166848,
+        "toBTC": 3481
+      },
+      "week": {
+        "toUSD": 381514281,
+        "toBTC": 19255
+      },
+      "month": {
+        "toUSD": 1351004540.2070808,
+        "toBTC": 69067.15664881273
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:55:29.009Z",
+    "percentVolume": 0.17194946729390928,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.uniswap1647861012114.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 31,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "key": "bithumb-global",
+    "name": "BitGlobal",
+    "pairsCount": 291,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 51075759,
+        "toBTC": 2464
+      },
+      "week": {
+        "toBTC": 11703,
+        "toETH": 163891,
+        "toUSD": 233073707
+      },
+      "month": {
+        "toBTC": 53189.663135231254,
+        "toETH": 776154.7313774801,
+        "toUSD": 1039983642.7043941
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 129890653,
+        "toBTC": 6267
+      },
+      "week": {
+        "toUSD": 548187009,
+        "toBTC": 27401
+      },
+      "month": {
+        "toUSD": 2090610802.9388256,
+        "toBTC": 106719.57741132319
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:35.958Z",
+    "percentVolume": 0.1237789058234514,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bitglobal1653938238601.png",
+    "country": "Seychelles",
+    "refLink": "https://www.bithumb.pro/en-us/event-register;i=sx47at",
+    "refText": "Get 15% Off your trading fees",
+    "group": "main",
+    "num": 36,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 83,
+    "key": "cryptology",
+    "name": "Cryptology",
+    "pairsCount": 51,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 47071803,
+        "toBTC": 2271
+      },
+      "week": {
+        "toBTC": 11332,
+        "toETH": 158653,
+        "toUSD": 225626820
+      },
+      "month": {
+        "toBTC": 43620.377367205154,
+        "toETH": 635198.4330896942,
+        "toUSD": 853112805.3364469
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 47268357,
+        "toBTC": 2280
+      },
+      "week": {
+        "toUSD": 226927842,
+        "toBTC": 11395
+      },
+      "month": {
+        "toUSD": 858639141.5523263,
+        "toBTC": 43890.47177279956
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:35.993Z",
+    "percentVolume": 0.1140755690087162,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.cryptology1542019774852.png",
+    "country": "Estonia",
+    "refLink": "https://tracking.tracks.life/click?pid=6&offer_id=2",
+    "refText": "Get $100 Bonus to trade futures",
+    "group": "other",
+    "num": 38,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 17,
+    "key": "exmo",
+    "name": "EXMO",
+    "pairsCount": 156,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 56238510,
+        "toBTC": 2713
+      },
+      "week": {
+        "toBTC": 17372,
+        "toETH": 246061,
+        "toUSD": 342591329
+      },
+      "month": {
+        "toBTC": 76412.95052410717,
+        "toETH": 1117903.481287823,
+        "toUSD": 1488691967.9703546
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 56687779,
+        "toBTC": 2734
+      },
+      "week": {
+        "toUSD": 345677798,
+        "toBTC": 17525
+      },
+      "month": {
+        "toUSD": 1501538955.423255,
+        "toBTC": 77059.07791603754
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:40.662Z",
+    "percentVolume": 0.13629050980801344,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.exmo1637911767044.png",
+    "country": "United Kingdom",
+    "refLink": "https://exmo.com/?ref=534173",
+    "refText": null,
+    "group": "other",
+    "num": 35,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 47,
+    "key": "lbank",
+    "name": "Lbank",
+    "pairsCount": 259,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 56592455,
+        "toBTC": 2730
+      },
+      "week": {
+        "toBTC": 20744,
+        "toETH": 295147,
+        "toUSD": 407548527
+      },
+      "month": {
+        "toBTC": 132422.40049014392,
+        "toETH": 1944316.4752162006,
+        "toUSD": 2574565859.9706903
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 329608074,
+        "toBTC": 15904
+      },
+      "week": {
+        "toUSD": 1981303153,
+        "toBTC": 100465
+      },
+      "month": {
+        "toUSD": 10882688436.708862,
+        "toBTC": 559522.5815298108
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:55.471Z",
+    "percentVolume": 0.13714827336707638,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.lbank1665560854063.png",
+    "country": "China",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 34,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 13,
+    "key": "poloniex",
+    "name": "Poloniex",
+    "pairsCount": 459,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 46602934,
+        "toBTC": 2248
+      },
+      "week": {
+        "toBTC": 14267,
+        "toETH": 202052,
+        "toUSD": 281441629
+      },
+      "month": {
+        "toBTC": 57611.666687096134,
+        "toETH": 842463.2047648923,
+        "toUSD": 1123241504.4480762
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 46604281,
+        "toBTC": 2248
+      },
+      "week": {
+        "toUSD": 281482858,
+        "toBTC": 14267
+      },
+      "month": {
+        "toUSD": 1123428498.5025914,
+        "toBTC": 57613.51284094229
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:49.548Z",
+    "percentVolume": 0.11293929432712926,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.poloniex1663148382112.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 39,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 149,
+    "key": "coinsbit",
+    "name": "Coinsbit",
+    "pairsCount": 61,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 58291245,
+        "toBTC": 2812
+      },
+      "week": {
+        "toBTC": 21560,
+        "toETH": 307046,
+        "toUSD": 422996731
+      },
+      "month": {
+        "toBTC": 161189.5662245061,
+        "toETH": 2367559.123421812,
+        "toUSD": 3142106167.141847
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1365109938,
+        "toBTC": 65874
+      },
+      "week": {
+        "toUSD": 7051521418,
+        "toBTC": 357561
+      },
+      "month": {
+        "toUSD": 27506188472.649216,
+        "toBTC": 1410556.406330909
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:57.839Z",
+    "percentVolume": 0.14126518462871462,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.coinsbit1638803907912.png",
+    "country": "Estonia",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 33,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 154,
+    "key": "sushi-swap",
+    "name": "SushiSwap",
+    "pairsCount": 300,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 39229128,
+        "toBTC": 1893
+      },
+      "week": {
+        "toBTC": 6974,
+        "toETH": 96954,
+        "toUSD": 139823968
+      },
+      "month": {
+        "toBTC": 24054.407255639075,
+        "toETH": 349473.3439003701,
+        "toUSD": 471994968.89602923
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 39394586,
+        "toBTC": 1900
+      },
+      "week": {
+        "toUSD": 236020633,
+        "toBTC": 11936
+      },
+      "month": {
+        "toUSD": 589773762.3999538,
+        "toBTC": 30129.154325276362
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:47.576Z",
+    "percentVolume": 0.09506933690888707,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.sushiswap1617875633554.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 41,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      },
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      },
+      {
+        "name": "Avalanche C-Chain",
+        "key": "avalanche",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.avalanche1629705441155.png",
+        "marketCap": 5121663372.67045
+      },
+      {
+        "name": "Fantom",
+        "key": "fantom",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.fantom1611564619788.png",
+        "marketCap": 570604846.6307337
+      },
+      {
+        "name": "Moonriver",
+        "key": "moonriver",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.moonriver1630066969300.png",
+        "marketCap": 62705139.652894355
+      },
+      {
+        "name": "Harmony",
+        "key": "harmony",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.harmony1644408299550.png",
+        "marketCap": 222743376.81807205
+      },
+      {
+        "name": "Celo",
+        "key": "celo",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.celo1629705547298.png",
+        "marketCap": 322473471.1273315
+      },
+      {
+        "name": "HECO Chain",
+        "key": "huobi-token",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.heco_chain1658763401630.png",
+        "marketCap": 1182957694.738991
+      },
+      {
+        "name": "Stake",
+        "key": "stake",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.xdai chain1632751595750.png",
+        "marketCap": 2494525.37464221
+      }
+    ]
+  },
+  {
+    "id": 187,
+    "key": "deepcoin",
+    "name": "Deepcoin",
+    "pairsCount": 83,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 41169906,
+        "toBTC": 1986
+      },
+      "week": {
+        "toBTC": 9122,
+        "toETH": 128263,
+        "toUSD": 181056511
+      },
+      "month": {
+        "toBTC": 39418.913834217536,
+        "toETH": 575904.520114815,
+        "toUSD": 769386935.8830075
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 3731258854,
+        "toBTC": 180056
+      },
+      "week": {
+        "toUSD": 17019686416,
+        "toBTC": 855375
+      },
+      "month": {
+        "toUSD": 71266790644.67665,
+        "toBTC": 3646436.9053991707
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:39.888Z",
+    "percentVolume": 0.09977269094590151,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.deepcoin1653938265705.png",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 40,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 44,
+    "key": "bitbank",
+    "name": "Bitbank",
+    "pairsCount": 15,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 26425309,
+        "toBTC": 1275
+      },
+      "week": {
+        "toBTC": 6938,
+        "toETH": 97496,
+        "toUSD": 137834050
+      },
+      "month": {
+        "toBTC": 31768.689426748468,
+        "toETH": 464072.2883782127,
+        "toUSD": 620751897.8598044
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 26695860,
+        "toBTC": 1288
+      },
+      "week": {
+        "toUSD": 140527686,
+        "toBTC": 7071
+      },
+      "month": {
+        "toUSD": 627612272.4123865,
+        "toBTC": 32105.223808064948
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:40.954Z",
+    "percentVolume": 0.06404008277325067,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bitbank1527693882176.png",
+    "country": "Japan",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 42,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 7,
+    "key": "zb",
+    "name": "ZB.COM",
+    "pairsCount": 123,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 14533997,
+        "toBTC": 701
+      },
+      "week": {
+        "toBTC": 4620,
+        "toETH": 64521,
+        "toUSD": 92258156
+      },
+      "month": {
+        "toBTC": 17383.658778256988,
+        "toETH": 253447.8538214691,
+        "toUSD": 340174447.6716979
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 455819921,
+        "toBTC": 21995
+      },
+      "week": {
+        "toUSD": 1783214407,
+        "toBTC": 88962
+      },
+      "month": {
+        "toUSD": 7567386484.089486,
+        "toBTC": 386531.21819192905
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:14.992Z",
+    "percentVolume": 0.03522223225114139,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.zb_com1657017437141.png",
+    "country": "China",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 51,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 156,
+    "key": "balancer",
+    "name": "Balancer",
+    "pairsCount": 94,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 47291162,
+        "toBTC": 2282
+      },
+      "week": {
+        "toBTC": 8429,
+        "toETH": 118342,
+        "toUSD": 167411106
+      },
+      "month": {
+        "toBTC": 27739.686138830755,
+        "toETH": 403731.7991295605,
+        "toUSD": 541948111.2133298
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 47291162,
+        "toBTC": 2282
+      },
+      "week": {
+        "toUSD": 167411372,
+        "toBTC": 8429
+      },
+      "month": {
+        "toUSD": 541951598.9401567,
+        "toBTC": 27739.686138830755
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:37.154Z",
+    "percentVolume": 0.11460717181862308,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.balancer1617956298238.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 37,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      },
+      {
+        "name": "Polygon",
+        "key": "matic-network",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.polygon1624610763534.png",
+        "marketCap": 8286496971.63939
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "key": "bittrex",
+    "name": "Bittrex",
+    "pairsCount": 850,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 19943436,
+        "toBTC": 962
+      },
+      "week": {
+        "toBTC": 5879,
+        "toETH": 83021,
+        "toUSD": 116334732
+      },
+      "month": {
+        "toBTC": 26229.735062690997,
+        "toETH": 383237.9018703766,
+        "toUSD": 511254277.3271346
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 19943741,
+        "toBTC": 962
+      },
+      "week": {
+        "toUSD": 116337402,
+        "toBTC": 5879
+      },
+      "month": {
+        "toUSD": 511286998.12818295,
+        "toBTC": 26229.735062690997
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:32.501Z",
+    "percentVolume": 0.048331669166972735,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bittrex1628514717104.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 46,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 93,
+    "key": "oceanex",
+    "name": "OceanEx",
+    "pairsCount": 73,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 23463093,
+        "toBTC": 1132
+      },
+      "week": {
+        "toBTC": 7986,
+        "toETH": 113350,
+        "toUSD": 157285612
+      },
+      "month": {
+        "toBTC": 34870.446177214675,
+        "toETH": 510474.1551127317,
+        "toUSD": 679522738.8978733
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 40339500,
+        "toBTC": 1946
+      },
+      "week": {
+        "toUSD": 273809674,
+        "toBTC": 13908
+      },
+      "month": {
+        "toUSD": 1181375614.2630708,
+        "toBTC": 60640.769100178986
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:50.085Z",
+    "percentVolume": 0.05686133766066759,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.oceanex1554439932830.png",
+    "country": "Luxembourg",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 43,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 92,
+    "key": "coinone",
+    "name": "Coinone",
+    "pairsCount": 144,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 20037918,
+        "toBTC": 966
+      },
+      "week": {
+        "toBTC": 5733,
+        "toETH": 81001,
+        "toUSD": 113349217
+      },
+      "month": {
+        "toBTC": 25705.090268813343,
+        "toETH": 375984.92710538587,
+        "toUSD": 501235864.78496
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 107002066,
+        "toBTC": 5162
+      },
+      "week": {
+        "toUSD": 458788662,
+        "toBTC": 23094
+      },
+      "month": {
+        "toUSD": 2070616257.184118,
+        "toBTC": 106039.06538846745
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:39.384Z",
+    "percentVolume": 0.048560640381673854,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.coinone1662116501861.png",
+    "country": "Korea South",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 45,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 162,
+    "key": "quickswap",
+    "name": "Quickswap",
+    "pairsCount": 190,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 16654153,
+        "toBTC": 803
+      },
+      "week": {
+        "toBTC": 4441,
+        "toETH": 62160,
+        "toUSD": 88434631
+      },
+      "month": {
+        "toBTC": 14482.582861457568,
+        "toETH": 210601.00938825027,
+        "toUSD": 283904541.45486695
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 16686607,
+        "toBTC": 804
+      },
+      "week": {
+        "toUSD": 88625367,
+        "toBTC": 4447
+      },
+      "month": {
+        "toUSD": 284516288.15642697,
+        "toBTC": 14504.71835374306
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:56.604Z",
+    "percentVolume": 0.04036029764641091,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.quickswap1625107518020.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 49,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Polygon",
+        "key": "matic-network",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.polygon1624610763534.png",
+        "marketCap": 8286496971.63939
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "key": "itbit",
+    "name": "itBit",
+    "pairsCount": 3,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 15741794,
+        "toBTC": 759
+      },
+      "week": {
+        "toBTC": 3081,
+        "toETH": 42800,
+        "toUSD": 61867331
+      },
+      "month": {
+        "toBTC": 13109.733594976835,
+        "toETH": 191131.6774389726,
+        "toUSD": 257531879.88210782
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 15741794,
+        "toBTC": 759
+      },
+      "week": {
+        "toUSD": 61867331,
+        "toBTC": 3081
+      },
+      "month": {
+        "toUSD": 257531879.88210782,
+        "toBTC": 13109.733594976835
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:48.848Z",
+    "percentVolume": 0.03814925270162255,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.it_bit1662117153219.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 50,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 150,
+    "key": "vindax",
+    "name": "VinDAX",
+    "pairsCount": 62,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 19932755,
+        "toBTC": 961
+      },
+      "week": {
+        "toBTC": 6681,
+        "toETH": 94826,
+        "toUSD": 131615475
+      },
+      "month": {
+        "toBTC": 30693.41090240742,
+        "toETH": 449017.98389094695,
+        "toUSD": 597122227.0505897
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 125416683,
+        "toBTC": 6051
+      },
+      "week": {
+        "toUSD": 857986952,
+        "toBTC": 43595
+      },
+      "month": {
+        "toUSD": 4081709340.2567873,
+        "toBTC": 210091.20812149512
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:15.766Z",
+    "percentVolume": 0.04830578443184623,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.vindax1606740125738.png",
+    "country": "Vietnam",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 47,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 33,
+    "key": "luno",
+    "name": "Luno",
+    "pairsCount": 17,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 17432489,
+        "toBTC": 841
+      },
+      "week": {
+        "toBTC": 3581,
+        "toETH": 50109,
+        "toUSD": 71455466
+      },
+      "month": {
+        "toBTC": 16290.200131176707,
+        "toETH": 237889.01699997642,
+        "toUSD": 318982606.34742576
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 17495994,
+        "toBTC": 844
+      },
+      "week": {
+        "toUSD": 71718849,
+        "toBTC": 3591
+      },
+      "month": {
+        "toUSD": 319838687.395475,
+        "toBTC": 16319.500610808265
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:43.985Z",
+    "percentVolume": 0.042246546237312936,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.luno1662116626365.png",
+    "country": "United Kingdom",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 48,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 192,
+    "key": "orca",
+    "name": "Orca",
+    "pairsCount": 41,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 22029323,
+        "toBTC": 1063
+      },
+      "week": {
+        "toBTC": 4873,
+        "toETH": 68696,
+        "toUSD": 96644073
+      },
+      "month": {
+        "toBTC": 39765.882652237706,
+        "toETH": 581662.0786049367,
+        "toUSD": 771424699.9234879
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 22029323,
+        "toBTC": 1063
+      },
+      "week": {
+        "toUSD": 96644073,
+        "toBTC": 4873
+      },
+      "month": {
+        "toUSD": 771424699.9234879,
+        "toBTC": 39765.882652237706
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:52.909Z",
+    "percentVolume": 0.05338668578515675,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.orca1661422202482.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 44,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Solana",
+        "key": "solana",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.solana1606979093056.png",
+        "marketCap": 11339564220.50973
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "key": "tidex",
+    "name": "Tidex",
+    "pairsCount": 19,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 11808479,
+        "toBTC": 569
+      },
+      "week": {
+        "toBTC": 2557,
+        "toETH": 35683,
+        "toUSD": 51143351
+      },
+      "month": {
+        "toBTC": 7973.735229909826,
+        "toETH": 115886.40330085301,
+        "toUSD": 156250820.7779247
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 351439949,
+        "toBTC": 16958
+      },
+      "week": {
+        "toUSD": 1563520014,
+        "toBTC": 78479
+      },
+      "month": {
+        "toUSD": 4664657953.2436285,
+        "toBTC": 238647.40110166563
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:57.383Z",
+    "percentVolume": 0.028617109929961172,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.tidex1662128270454.png",
+    "country": "Russia",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 53,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 170,
+    "key": "trader-joe",
+    "name": "Trader Joe",
+    "pairsCount": 186,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 10132852,
+        "toBTC": 488
+      },
+      "week": {
+        "toBTC": 2437,
+        "toETH": 34074,
+        "toUSD": 48698468
+      },
+      "month": {
+        "toBTC": 9269.73450679317,
+        "toETH": 135223.29888262492,
+        "toUSD": 182092983.8440117
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 10132852,
+        "toBTC": 488
+      },
+      "week": {
+        "toUSD": 50019111,
+        "toBTC": 2505
+      },
+      "month": {
+        "toUSD": 183413653.28020358,
+        "toBTC": 9338.430310988973
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:04.362Z",
+    "percentVolume": 0.02455633274937669,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.trader joe1634290703490.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 58,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Avalanche C-Chain",
+        "key": "avalanche",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.avalanche1629705441155.png",
+        "marketCap": 5121663372.67045
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "key": "bigone",
+    "name": "BigONE",
+    "pairsCount": 89,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 14057338,
+        "toBTC": 678
+      },
+      "week": {
+        "toBTC": 4536,
+        "toETH": 64351,
+        "toUSD": 89452158
+      },
+      "month": {
+        "toBTC": 19203.411585020003,
+        "toETH": 281051.16730070824,
+        "toUSD": 374343213.10153735
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1278181099,
+        "toBTC": 61680
+      },
+      "week": {
+        "toUSD": 5714144077,
+        "toBTC": 286971
+      },
+      "month": {
+        "toUSD": 27902730647.961582,
+        "toBTC": 1428398.2438421939
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:37.971Z",
+    "percentVolume": 0.034067078992020945,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bigone1537803679260.png",
+    "country": "United Kingdom",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 52,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 153,
+    "key": "0x-protocol",
+    "name": "0x Protocol",
+    "pairsCount": 60,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 11655450,
+        "toBTC": 562
+      },
+      "week": {
+        "toBTC": 2197,
+        "toETH": 30525,
+        "toUSD": 44130124
+      },
+      "month": {
+        "toBTC": 7367.490087592734,
+        "toETH": 106967.74361779637,
+        "toUSD": 144700191.6487603
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 11655450,
+        "toBTC": 562
+      },
+      "week": {
+        "toUSD": 44130124,
+        "toBTC": 2197
+      },
+      "month": {
+        "toUSD": 144700191.6487603,
+        "toBTC": 7367.490087592734
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:32.821Z",
+    "percentVolume": 0.02824625372439295,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.0x protocol1617968568806.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 54,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      },
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      },
+      {
+        "name": "Polygon",
+        "key": "matic-network",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.polygon1624610763534.png",
+        "marketCap": 8286496971.63939
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "key": "indodax",
+    "name": "Indodax",
+    "pairsCount": 143,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 10703992,
+        "toBTC": 516
+      },
+      "week": {
+        "toBTC": 2532,
+        "toETH": 35533,
+        "toUSD": 50420068
+      },
+      "month": {
+        "toBTC": 9621.13417379229,
+        "toETH": 140370.89466089796,
+        "toUSD": 188270581.99770427
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 10745814,
+        "toBTC": 518
+      },
+      "week": {
+        "toUSD": 50695008,
+        "toBTC": 2542
+      },
+      "month": {
+        "toUSD": 189894443.0483478,
+        "toBTC": 9689.898187952223
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:38.398Z",
+    "percentVolume": 0.025940454799760825,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.indodax1650876545196.png",
+    "country": "Indonesia",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 56,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 25,
+    "key": "cex",
+    "name": "CEX.IO",
+    "pairsCount": 175,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 8928729,
+        "toBTC": 430
+      },
+      "week": {
+        "toBTC": 1948,
+        "toETH": 27286,
+        "toUSD": 38928112
+      },
+      "month": {
+        "toBTC": 6814.891450572784,
+        "toETH": 99270.01784252582,
+        "toUSD": 133657732.63839172
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 8928729,
+        "toBTC": 430
+      },
+      "week": {
+        "toUSD": 38928112,
+        "toBTC": 1948
+      },
+      "month": {
+        "toUSD": 133657865.89713298,
+        "toBTC": 6814.891450572784
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:36.142Z",
+    "percentVolume": 0.021638216007991568,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.cex_io1654703036360.png",
+    "country": "United Kingdom",
+    "refLink": "https://cex.io/r/0/up110969458/0/",
+    "refText": null,
+    "group": "other",
+    "num": 60,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 167,
+    "key": "raydium",
+    "name": "Raydium",
+    "pairsCount": 271,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 7117148,
+        "toBTC": 343
+      },
+      "week": {
+        "toBTC": 2103,
+        "toETH": 29743,
+        "toUSD": 41679734
+      },
+      "month": {
+        "toBTC": 14286.31514115147,
+        "toETH": 209275.19066026295,
+        "toUSD": 277786312.77309996
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 7117170,
+        "toBTC": 343
+      },
+      "week": {
+        "toUSD": 41679878,
+        "toBTC": 2103
+      },
+      "month": {
+        "toUSD": 277792020.7864393,
+        "toBTC": 14286.3850712214
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:17.454Z",
+    "percentVolume": 0.017247962815854886,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.raydium1630935983741.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 65,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Solana",
+        "key": "solana",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.solana1606979093056.png",
+        "marketCap": 11339564220.50973
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "key": "mercatox",
+    "name": "Mercatox",
+    "pairsCount": 240,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 9764744,
+        "toBTC": 471
+      },
+      "week": {
+        "toBTC": 3310,
+        "toETH": 47007,
+        "toUSD": 65233886
+      },
+      "month": {
+        "toBTC": 13997.585537572195,
+        "toETH": 204968.70908717212,
+        "toUSD": 272892566.8259995
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 11981157,
+        "toBTC": 577
+      },
+      "week": {
+        "toUSD": 80783593,
+        "toBTC": 4098
+      },
+      "month": {
+        "toUSD": 340450956.22261,
+        "toBTC": 17455.005536657405
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:26.086Z",
+    "percentVolume": 0.023664246046076615,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.mercatox1540195635844.png",
+    "country": "United Kingdom",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 59,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 61,
+    "key": "coinex",
+    "name": "CoinEx",
+    "pairsCount": 464,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 8897404,
+        "toBTC": 429
+      },
+      "week": {
+        "toBTC": 2132,
+        "toETH": 30076,
+        "toUSD": 42301984
+      },
+      "month": {
+        "toBTC": 8257.217075740586,
+        "toETH": 120708.87244416823,
+        "toUSD": 161418887.90725717
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 26851999,
+        "toBTC": 1295
+      },
+      "week": {
+        "toUSD": 111647933,
+        "toBTC": 5590
+      },
+      "month": {
+        "toUSD": 456522719.4797329,
+        "toBTC": 23317.608348588
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:45.150Z",
+    "percentVolume": 0.021562301830682532,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.coinex1533630702694.png",
+    "country": "China",
+    "refLink": "https://www.coinex.com/register?refer_code=8h9ua",
+    "refText": null,
+    "group": "other",
+    "num": 61,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 193,
+    "key": "ref-finance",
+    "name": "Ref Finance",
+    "pairsCount": 20,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1620758,
+        "toBTC": 78
+      },
+      "week": {
+        "toBTC": 1364,
+        "toETH": 19096,
+        "toUSD": 27162546
+      },
+      "month": {
+        "toBTC": 2313.8759802989866,
+        "toETH": 33268.09557070947,
+        "toUSD": 45850451.36964547
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1620758,
+        "toBTC": 78
+      },
+      "week": {
+        "toUSD": 27162546,
+        "toBTC": 1364
+      },
+      "month": {
+        "toUSD": 45850451.36964547,
+        "toBTC": 2313.8759802989866
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:49.689Z",
+    "percentVolume": 0.003927805592563107,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.ref_finance1663233578299.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 78,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Near Protocol",
+        "key": "near-protocol",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.near protocol1645006343968.png",
+        "marketCap": 2541995050.2075787
+      }
+    ]
+  },
+  {
+    "id": 180,
+    "key": "aex",
+    "name": "AEX",
+    "pairsCount": 267,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 7462662,
+        "toBTC": 360
+      },
+      "week": {
+        "toBTC": 2185,
+        "toETH": 30981,
+        "toUSD": 43194522
+      },
+      "month": {
+        "toBTC": 9621.843652691308,
+        "toETH": 140918.32078669115,
+        "toUSD": 187604811.91901192
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 16365208,
+        "toBTC": 789
+      },
+      "week": {
+        "toUSD": 79563669,
+        "toBTC": 4012
+      },
+      "month": {
+        "toUSD": 318659934.98220134,
+        "toBTC": 16313.498054863918
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:37.326Z",
+    "percentVolume": 0.01808529437399549,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.aex1647616675916.png",
+    "country": "Seychelles",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 62,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 62,
+    "key": "btcalpha",
+    "name": "BTC-Alpha",
+    "pairsCount": 19,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 11252229,
+        "toBTC": 542
+      },
+      "week": {
+        "toBTC": 3410,
+        "toETH": 48622,
+        "toUSD": 67016105
+      },
+      "month": {
+        "toBTC": 16031.263432943219,
+        "toETH": 235111.68577251752,
+        "toUSD": 312249488.26583385
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 159082353,
+        "toBTC": 7675
+      },
+      "week": {
+        "toUSD": 655089116,
+        "toBTC": 33176
+      },
+      "month": {
+        "toUSD": 3220756747.746622,
+        "toBTC": 164917.20050318702
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:31.165Z",
+    "percentVolume": 0.02726907286282146,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.btc-alpha1534242756850.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 55,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 76,
+    "key": "latoken",
+    "name": "LATOKEN",
+    "pairsCount": 340,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 7211150,
+        "toBTC": 347
+      },
+      "week": {
+        "toBTC": 2854,
+        "toETH": 40763,
+        "toUSD": 56023063
+      },
+      "month": {
+        "toBTC": 41841.32434880098,
+        "toETH": 616460.1431760478,
+        "toUSD": 813711219.6524142
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 76926923,
+        "toBTC": 3711
+      },
+      "week": {
+        "toUSD": 610395912,
+        "toBTC": 30998
+      },
+      "month": {
+        "toUSD": 9733022019.24113,
+        "toBTC": 500183.50647002476
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:58.687Z",
+    "percentVolume": 0.017475770780592446,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.latoken1540194351590.png",
+    "country": "Estonia",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 63,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 87,
+    "key": "korbit",
+    "name": "Korbit",
+    "pairsCount": 51,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 6090577,
+        "toBTC": 293
+      },
+      "week": {
+        "toBTC": 1439,
+        "toETH": 20238,
+        "toUSD": 28650489
+      },
+      "month": {
+        "toBTC": 6585.920044066709,
+        "toETH": 96334.22130771213,
+        "toUSD": 128780176.91544
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 6090577,
+        "toBTC": 293
+      },
+      "week": {
+        "toUSD": 28650489,
+        "toBTC": 1439
+      },
+      "month": {
+        "toUSD": 128780176.91544,
+        "toBTC": 6585.920044066709
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:42.198Z",
+    "percentVolume": 0.014760132235988488,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.korbit1545126403930.png",
+    "country": "Korea South",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 66,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 66,
+    "key": "stocks-exchange",
+    "name": "Stex",
+    "pairsCount": 63,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 10500760,
+        "toBTC": 506
+      },
+      "week": {
+        "toBTC": 3686,
+        "toETH": 52611,
+        "toUSD": 72334968
+      },
+      "month": {
+        "toBTC": 12068.314241233402,
+        "toETH": 176676.7295804557,
+        "toUSD": 234986415.5183991
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 11203707,
+        "toBTC": 539
+      },
+      "week": {
+        "toUSD": 76143161,
+        "toBTC": 3874
+      },
+      "month": {
+        "toUSD": 254448374.8121488,
+        "toBTC": 13052.32188571932
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:51.026Z",
+    "percentVolume": 0.02544793476519195,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.stex1538479717739.png",
+    "country": "Estonia",
+    "refLink": "https://app.stex.com?ref=00152765",
+    "refText": null,
+    "group": "other",
+    "num": 57,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 172,
+    "key": "osmosis",
+    "name": "Osmosis",
+    "pairsCount": 49,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 7189339,
+        "toBTC": 346
+      },
+      "week": {
+        "toBTC": 1600,
+        "toETH": 22659,
+        "toUSD": 31701383
+      },
+      "month": {
+        "toBTC": 8696.05066705203,
+        "toETH": 127613.20506652501,
+        "toUSD": 169351110.6796474
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 7189339,
+        "toBTC": 346
+      },
+      "week": {
+        "toUSD": 31701383,
+        "toBTC": 1600
+      },
+      "month": {
+        "toUSD": 169351110.6796474,
+        "toBTC": 8696.05066705203
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:49.836Z",
+    "percentVolume": 0.017422913186936024,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.osmosis1636365933762.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 64,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Cosmos",
+        "key": "cosmos",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.cosmos1552581000995.png",
+        "marketCap": 3760941797.8793283
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "key": "p2pb2b",
+    "name": "P2B",
+    "pairsCount": 140,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 5208782,
+        "toBTC": 251
+      },
+      "week": {
+        "toBTC": 1470,
+        "toETH": 20701,
+        "toUSD": 29253789
+      },
+      "month": {
+        "toBTC": 6905.7834124208075,
+        "toETH": 101108.54573406011,
+        "toUSD": 135066065.48147953
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1054135989,
+        "toBTC": 50868
+      },
+      "week": {
+        "toUSD": 4823969897,
+        "toBTC": 242182
+      },
+      "month": {
+        "toUSD": 24303161437.371548,
+        "toBTC": 1243572.07333926
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:54.609Z",
+    "percentVolume": 0.012623157232629452,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.p_2_b1664183471879.png",
+    "country": "Lithuania",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 67,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 171,
+    "key": "spookyswap",
+    "name": "SpookySwap",
+    "pairsCount": 171,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 5161314,
+        "toBTC": 249
+      },
+      "week": {
+        "toBTC": 1327,
+        "toETH": 18774,
+        "toUSD": 26319071
+      },
+      "month": {
+        "toBTC": 5433.050178385928,
+        "toETH": 79613.13021734846,
+        "toUSD": 106111153.6017996
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 503904374,
+        "toBTC": 24316
+      },
+      "week": {
+        "toUSD": 3515234223,
+        "toBTC": 178793
+      },
+      "month": {
+        "toUSD": 15005237031.198557,
+        "toBTC": 770967.9144222849
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:55:29.285Z",
+    "percentVolume": 0.012508121504983632,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.spookyswap1634648231124.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 68,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Fantom",
+        "key": "fantom",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.fantom1611564619788.png",
+        "marketCap": 570604846.6307337
+      }
+    ]
+  },
+  {
+    "id": 189,
+    "key": "vvs-finance",
+    "name": "VVS Finance",
+    "pairsCount": 0,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 4775517,
+        "toBTC": 230
+      },
+      "week": {
+        "toBTC": 1287,
+        "toETH": 18206,
+        "toUSD": 25562895
+      },
+      "month": {
+        "toBTC": 4571.709506267525,
+        "toETH": 66860.85189968994,
+        "toUSD": 89524883.39446953
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 4775517,
+        "toBTC": 230
+      },
+      "week": {
+        "toUSD": 25562895,
+        "toBTC": 1287
+      },
+      "month": {
+        "toUSD": 89524883.39446953,
+        "toBTC": 4571.709506267525
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T04:07:22.927Z",
+    "percentVolume": 0.01157316661708916,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.vvs_finance1659528242272.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 70,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Cronos",
+        "key": "crypto-com-cro",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.crypto-com-chain1544821574392.png",
+        "marketCap": 2854093367.719135
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "key": "coinegg",
+    "name": "CoinEgg",
+    "pairsCount": 39,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 4919861,
+        "toBTC": 237
+      },
+      "week": {
+        "toBTC": 1507,
+        "toETH": 21384,
+        "toUSD": 29818049
+      },
+      "month": {
+        "toBTC": 6502.830503799971,
+        "toETH": 95285.15095489968,
+        "toUSD": 126974750.06372936
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 27785052,
+        "toBTC": 1340
+      },
+      "week": {
+        "toUSD": 153351493,
+        "toBTC": 7740
+      },
+      "month": {
+        "toUSD": 717715876.1344877,
+        "toBTC": 36770.67982668241
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:40.171Z",
+    "percentVolume": 0.01192297526862932,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.coinegg1527690857168.png",
+    "country": "China",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 69,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 157,
+    "key": "1inch",
+    "name": "1inch",
+    "pairsCount": 53,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 3965763,
+        "toBTC": 191
+      },
+      "week": {
+        "toBTC": 975,
+        "toETH": 13696,
+        "toUSD": 19498763
+      },
+      "month": {
+        "toBTC": 3488.061662021587,
+        "toETH": 50929.470595065504,
+        "toUSD": 68457865.2217236
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 3965763,
+        "toBTC": 191
+      },
+      "week": {
+        "toUSD": 19498763,
+        "toBTC": 975
+      },
+      "month": {
+        "toUSD": 68457865.2217236,
+        "toBTC": 3488.061662021587
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:33.371Z",
+    "percentVolume": 0.00961077846919765,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.1inch1617880107386.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 71,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      },
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      },
+      {
+        "name": "Polygon",
+        "key": "matic-network",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.polygon1624610763534.png",
+        "marketCap": 8286496971.63939
+      }
+    ]
+  },
+  {
+    "id": 182,
+    "key": "sushiswap-arbitrum",
+    "name": "SushiSwap (Arbitrum)",
+    "pairsCount": 38,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 2242022,
+        "toBTC": 108
+      },
+      "week": {
+        "toBTC": 522,
+        "toETH": 7354,
+        "toUSD": 10479765
+      },
+      "month": {
+        "toBTC": 2135.1213903970706,
+        "toETH": 31344.60718644154,
+        "toUSD": 42066975.94938603
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 2242025,
+        "toBTC": 108
+      },
+      "week": {
+        "toUSD": 10479786,
+        "toBTC": 522
+      },
+      "month": {
+        "toUSD": 42067014.50882659,
+        "toBTC": 2135.1213903970706
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T08:00:01.933Z",
+    "percentVolume": 0.005433400020391398,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.sushiswap (arbitrum)1651047742809.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 74,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Arbitrum",
+        "key": "arbitrum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.arbitrum1649168196637.png",
+        "marketCap": null
+      }
+    ]
+  },
+  {
+    "id": 179,
+    "key": "maiar",
+    "name": "Maiar",
+    "pairsCount": 14,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1714603,
+        "toBTC": 82
+      },
+      "week": {
+        "toBTC": 742,
+        "toETH": 10555,
+        "toUSD": 14709611
+      },
+      "month": {
+        "toBTC": 3307.591686629329,
+        "toETH": 48653.077006323554,
+        "toUSD": 64887207.17763064
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1714603,
+        "toBTC": 82
+      },
+      "week": {
+        "toUSD": 14709611,
+        "toBTC": 742
+      },
+      "month": {
+        "toUSD": 64887207.17763064,
+        "toBTC": 3307.591686629329
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:30.735Z",
+    "percentVolume": 0.004155233077625087,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.maiar1645606972850.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 77,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Elrond",
+        "key": "elrond-gold",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.elrond gold1599140486803.png",
+        "marketCap": 1369593616.5616915
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "key": "yobit",
+    "name": "YoBit",
+    "pairsCount": 854,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 2990073,
+        "toBTC": 144
+      },
+      "week": {
+        "toBTC": 921,
+        "toETH": 13079,
+        "toUSD": 18241953
+      },
+      "month": {
+        "toBTC": 3773.9272340516113,
+        "toETH": 55365.03632027627,
+        "toUSD": 73863421.49010545
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 67670321,
+        "toBTC": 3265
+      },
+      "week": {
+        "toUSD": 566179664,
+        "toBTC": 28778
+      },
+      "month": {
+        "toUSD": 2685890884.324147,
+        "toBTC": 137948.65192263472
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:00.729Z",
+    "percentVolume": 0.007246254808905429,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.yobit1528357510647.png",
+    "country": "Panama",
+    "refLink": "https://yobit.io/?bonus=VgXxX",
+    "refText": null,
+    "group": "other",
+    "num": 73,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 160,
+    "key": "pangolin",
+    "name": "Pangolin",
+    "pairsCount": 126,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1784464,
+        "toBTC": 86
+      },
+      "week": {
+        "toBTC": 433,
+        "toETH": 6111,
+        "toUSD": 8703234
+      },
+      "month": {
+        "toBTC": 1762.5500377709436,
+        "toETH": 25917.207519360512,
+        "toUSD": 34795251.65212243
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1784547,
+        "toBTC": 86
+      },
+      "week": {
+        "toUSD": 8703795,
+        "toBTC": 433
+      },
+      "month": {
+        "toUSD": 34799155.58278872,
+        "toBTC": 1762.5500377709436
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:52.245Z",
+    "percentVolume": 0.004324536839508139,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.pangolin1623161687777.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 75,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Avalanche C-Chain",
+        "key": "avalanche",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.avalanche1629705441155.png",
+        "marketCap": 5121663372.67045
+      }
+    ]
+  },
+  {
+    "id": 165,
+    "key": "justswap",
+    "name": "SunSwap",
+    "pairsCount": 23,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 3078893,
+        "toBTC": 148
+      },
+      "week": {
+        "toBTC": 1672,
+        "toETH": 24304,
+        "toUSD": 32444927
+      },
+      "month": {
+        "toBTC": 8496.981266207047,
+        "toETH": 125407.34954264564,
+        "toUSD": 164358533.69000408
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 3078893,
+        "toBTC": 148
+      },
+      "week": {
+        "toUSD": 32444927,
+        "toBTC": 1672
+      },
+      "month": {
+        "toUSD": 164358533.69000408,
+        "toBTC": 8496.981266207047
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:06.731Z",
+    "percentVolume": 0.007461504520911452,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.sunswap1638778739535.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 72,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "TRON",
+        "key": "tron",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.tron1608810047161.png",
+        "marketCap": 5869347127.51182
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "key": "zaif",
+    "name": "Zaif",
+    "pairsCount": 21,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1464881,
+        "toBTC": 70
+      },
+      "week": {
+        "toBTC": 326,
+        "toETH": 4603,
+        "toUSD": 6590518
+      },
+      "month": {
+        "toBTC": 1427.983905137573,
+        "toETH": 21005.026381422398,
+        "toUSD": 28240965.483298875
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1675154,
+        "toBTC": 80
+      },
+      "week": {
+        "toUSD": 7860775,
+        "toBTC": 386
+      },
+      "month": {
+        "toUSD": 32151940.070314053,
+        "toBTC": 1613.2085293554887
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:42.959Z",
+    "percentVolume": 0.0035500474372111303,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.zaif1662117373269.png",
+    "country": "Japan",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 79,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 175,
+    "key": "apeswap",
+    "name": "ApeSwap",
+    "pairsCount": 118,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1760639,
+        "toBTC": 84
+      },
+      "week": {
+        "toBTC": 489,
+        "toETH": 6950,
+        "toUSD": 9758862
+      },
+      "month": {
+        "toBTC": 2200.4565941198125,
+        "toETH": 32345.81288835041,
+        "toUSD": 43220818.58271471
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1760639,
+        "toBTC": 84
+      },
+      "week": {
+        "toUSD": 9758862,
+        "toBTC": 489
+      },
+      "month": {
+        "toUSD": 43220821.67293596,
+        "toBTC": 2200.4565941198125
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:37.631Z",
+    "percentVolume": 0.004266798442879638,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.apeswap1644241768396.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 76,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      },
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      },
+      {
+        "name": "Polygon",
+        "key": "matic-network",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.polygon1624610763534.png",
+        "marketCap": 8286496971.63939
+      }
+    ]
+  },
+  {
+    "id": 166,
+    "key": "sushiswap-polygon",
+    "name": "Sushiswap (Polygon)",
+    "pairsCount": 80,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1433973,
+        "toBTC": 69
+      },
+      "week": {
+        "toBTC": 392,
+        "toETH": 5533,
+        "toUSD": 7877439
+      },
+      "month": {
+        "toBTC": 1383.8791012581771,
+        "toETH": 20337.566194053663,
+        "toUSD": 27384182.789292153
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1433973,
+        "toBTC": 69
+      },
+      "week": {
+        "toUSD": 7877439,
+        "toBTC": 392
+      },
+      "month": {
+        "toUSD": 27384182.789292153,
+        "toBTC": 1383.8791012581771
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:51.952Z",
+    "percentVolume": 0.0034751438333079313,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.sushiswap (polygon)1627996832998.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 80,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Polygon",
+        "key": "matic-network",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.polygon1624610763534.png",
+        "marketCap": 8286496971.63939
+      }
+    ]
+  },
+  {
+    "id": 161,
+    "key": "mdex",
+    "name": "Mdex (BSC)",
+    "pairsCount": 57,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1178788,
+        "toBTC": 56
+      },
+      "week": {
+        "toBTC": 331,
+        "toETH": 4713,
+        "toUSD": 6646423
+      },
+      "month": {
+        "toBTC": 2292.57598003327,
+        "toETH": 33864.42658122954,
+        "toUSD": 44806981.97611876
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1901872,
+        "toBTC": 90
+      },
+      "week": {
+        "toUSD": 8942343,
+        "toBTC": 442
+      },
+      "month": {
+        "toUSD": 91954180.46480441,
+        "toBTC": 4718.154554266594
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:24.746Z",
+    "percentVolume": 0.0028567189542462726,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.mdex1624529946438.png",
+    "country": "Virgin Islands (British)",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 81,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      }
+    ]
+  },
+  {
+    "id": 163,
+    "key": "dodobsc",
+    "name": "Dodo (BSC)",
+    "pairsCount": 262,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 333200,
+        "toBTC": 16
+      },
+      "week": {
+        "toBTC": 165,
+        "toETH": 2368,
+        "toUSD": 3360293
+      },
+      "month": {
+        "toBTC": 300.694166173594,
+        "toETH": 4413.213927451125,
+        "toUSD": 6034210.061356147
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 333200,
+        "toBTC": 16
+      },
+      "week": {
+        "toUSD": 3360293,
+        "toBTC": 165
+      },
+      "month": {
+        "toUSD": 6034210.061356147,
+        "toBTC": 300.694166173594
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:51:02.772Z",
+    "percentVolume": 0.0008074893497005891,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.dodo bsc1625487241855.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 87,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "key": "liquid",
+    "name": "Liquid",
+    "pairsCount": 154,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 827902,
+        "toBTC": 39
+      },
+      "week": {
+        "toBTC": 264,
+        "toETH": 3797,
+        "toUSD": 5263119
+      },
+      "month": {
+        "toBTC": 2423.4753144927686,
+        "toETH": 35788.06003985341,
+        "toUSD": 47467345.312238164
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 908052,
+        "toBTC": 42
+      },
+      "week": {
+        "toUSD": 5866098,
+        "toBTC": 291
+      },
+      "month": {
+        "toUSD": 108020589.8967106,
+        "toBTC": 5532.546336462917
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:57.083Z",
+    "percentVolume": 0.0020063686902635565,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.liquid1539081142604.png",
+    "country": "Japan",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 82,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 176,
+    "key": "solarbeam",
+    "name": "Solarbeam",
+    "pairsCount": 22,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 478212,
+        "toBTC": 23
+      },
+      "week": {
+        "toBTC": 123,
+        "toETH": 1791,
+        "toUSD": 2523804
+      },
+      "month": {
+        "toBTC": 683.7126958539312,
+        "toETH": 10228.785384094515,
+        "toUSD": 13661987.177449044
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 478212,
+        "toBTC": 23
+      },
+      "week": {
+        "toUSD": 2523804,
+        "toBTC": 123
+      },
+      "month": {
+        "toUSD": 13661987.177449044,
+        "toBTC": 683.7126958539312
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:59.102Z",
+    "percentVolume": 0.0011589168574400303,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.solarbeam1644313466683.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 83,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Moonriver",
+        "key": "moonriver",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.moonriver1630066969300.png",
+        "marketCap": 62705139.652894355
+      }
+    ]
+  },
+  {
+    "id": 196,
+    "key": "stella-swap",
+    "name": "StellaSwap",
+    "pairsCount": 15,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 381026,
+        "toBTC": 18
+      },
+      "week": {
+        "toBTC": 121,
+        "toETH": 1764,
+        "toUSD": 2465745
+      },
+      "month": {
+        "toBTC": 716.9330352785692,
+        "toETH": 10722.33421435678,
+        "toUSD": 14236596.64162501
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 381026,
+        "toBTC": 18
+      },
+      "week": {
+        "toUSD": 2465745,
+        "toBTC": 121
+      },
+      "month": {
+        "toUSD": 14236596.64162501,
+        "toBTC": 716.9330352785692
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:51.453Z",
+    "percentVolume": 0.0009233926679442276,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.stella_swap1664462369130.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 85,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Moonbeam",
+        "key": "glimmer",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.glimmer1629096935363.png",
+        "marketCap": 207259261.09531182
+      }
+    ]
+  },
+  {
+    "id": 178,
+    "key": "netswap",
+    "name": "Netswap",
+    "pairsCount": 17,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 272693,
+        "toBTC": 13
+      },
+      "week": {
+        "toBTC": 88,
+        "toETH": 1287,
+        "toUSD": 1815925
+      },
+      "month": {
+        "toBTC": 393.93616230181595,
+        "toETH": 5967.321485782273,
+        "toUSD": 7998379.774194019
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 331973,
+        "toBTC": 15
+      },
+      "week": {
+        "toUSD": 2203432,
+        "toBTC": 103
+      },
+      "month": {
+        "toUSD": 9256310.917731857,
+        "toBTC": 443.2389687769988
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:44.586Z",
+    "percentVolume": 0.0006608544214823011,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.netswap1645614291254.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 91,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Metis Andromeda",
+        "key": "metisdao",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.metisdao1620818079938.png",
+        "marketCap": 130603606.68127964
+      }
+    ]
+  },
+  {
+    "id": 181,
+    "key": "spiritswap",
+    "name": "Spiritswap",
+    "pairsCount": 102,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 454119,
+        "toBTC": 21
+      },
+      "week": {
+        "toBTC": 143,
+        "toETH": 2080,
+        "toUSD": 2901357
+      },
+      "month": {
+        "toBTC": 548.1140314849896,
+        "toETH": 8213.15800146307,
+        "toUSD": 10966123.780689683
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 454119,
+        "toBTC": 21
+      },
+      "week": {
+        "toUSD": 2901357,
+        "toBTC": 143
+      },
+      "month": {
+        "toUSD": 15091517.532437935,
+        "toBTC": 752.1230119781806
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:34.052Z",
+    "percentVolume": 0.0011005289795818782,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.spiritswap1648218035911.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 84,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Fantom",
+        "key": "fantom",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.fantom1611564619788.png",
+        "marketCap": 570604846.6307337
+      }
+    ]
+  },
+  {
+    "id": 186,
+    "key": "beamswap",
+    "name": "BeamSwap",
+    "pairsCount": 17,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 366323,
+        "toBTC": 17
+      },
+      "week": {
+        "toBTC": 155,
+        "toETH": 2268,
+        "toUSD": 3113120
+      },
+      "month": {
+        "toBTC": 817.3926528821409,
+        "toETH": 12212.953020431221,
+        "toUSD": 16139164.01516465
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 366323,
+        "toBTC": 17
+      },
+      "week": {
+        "toUSD": 3113120,
+        "toBTC": 155
+      },
+      "month": {
+        "toUSD": 16139164.01516465,
+        "toBTC": 817.3926528821409
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:32.531Z",
+    "percentVolume": 0.0008877608674981058,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.beamswap1653938306411.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 86,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Moonbeam",
+        "key": "glimmer",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.glimmer1629096935363.png",
+        "marketCap": 207259261.09531182
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "key": "coinmetro",
+    "name": "CoinMetro",
+    "pairsCount": 32,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 314436,
+        "toBTC": 15
+      },
+      "week": {
+        "toBTC": 97,
+        "toETH": 1415,
+        "toUSD": 1979610
+      },
+      "month": {
+        "toBTC": 414.3951353986323,
+        "toETH": 6266.943453007613,
+        "toUSD": 8367902.2232682435
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 314436,
+        "toBTC": 15
+      },
+      "week": {
+        "toUSD": 1979610,
+        "toBTC": 97
+      },
+      "month": {
+        "toUSD": 8367902.2232682435,
+        "toBTC": 414.3951353986323
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:40.288Z",
+    "percentVolume": 0.0007620159698753134,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.coin_metro1657018381353.png",
+    "country": "Estonia",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 88,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 63,
+    "key": "bancor-network",
+    "name": "Bancor Network",
+    "pairsCount": 25,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 312094,
+        "toBTC": 15
+      },
+      "week": {
+        "toBTC": 93,
+        "toETH": 1367,
+        "toUSD": 1896085
+      },
+      "month": {
+        "toBTC": 814.5062757366777,
+        "toETH": 12179.480396691803,
+        "toUSD": 16035398.633261437
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 312094,
+        "toBTC": 15
+      },
+      "week": {
+        "toUSD": 1922018,
+        "toBTC": 93
+      },
+      "month": {
+        "toUSD": 16683308.887113716,
+        "toBTC": 840.9265554569574
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:37.148Z",
+    "percentVolume": 0.0007563402794281382,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bancor network1535034767340.png",
+    "country": "Switzerland",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 89,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      }
+    ]
+  },
+  {
+    "id": 190,
+    "key": "mm-finance",
+    "name": "MMFinance (Polygon)",
+    "pairsCount": 16,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 276884,
+        "toBTC": 13
+      },
+      "week": {
+        "toBTC": 59,
+        "toETH": 882,
+        "toUSD": 1261583
+      },
+      "month": {
+        "toBTC": 484.8317173612754,
+        "toETH": 7308.753668003473,
+        "toUSD": 9728927.704401925
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 526816,
+        "toBTC": 25
+      },
+      "week": {
+        "toUSD": 2717185,
+        "toBTC": 129
+      },
+      "month": {
+        "toUSD": 21693480.10079536,
+        "toBTC": 1085.3126662484524
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:38.847Z",
+    "percentVolume": 0.0006710110477265843,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.mm_finance_polygon1660643914772.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 90,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Polygon",
+        "key": "matic-network",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.polygon1624610763534.png",
+        "marketCap": 8286496971.63939
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "key": "idex",
+    "name": "IDEX",
+    "pairsCount": 6,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 94680,
+        "toBTC": 4
+      },
+      "week": {
+        "toBTC": 15,
+        "toETH": 260,
+        "toUSD": 381511
+      },
+      "month": {
+        "toBTC": 83.46196584682782,
+        "toETH": 1426.8179776865138,
+        "toUSD": 1926518.770003808
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 94680,
+        "toBTC": 4
+      },
+      "week": {
+        "toUSD": 381511,
+        "toBTC": 15
+      },
+      "month": {
+        "toUSD": 1926518.770003808,
+        "toBTC": 83.46196584682782
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:36.488Z",
+    "percentVolume": 0.00022945105531107973,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.idex1528997694121.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 94,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Ethereum",
+        "key": "ethereum",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.ethereum1524754015525.png",
+        "marketCap": 187550519130.11795
+      }
+    ]
+  },
+  {
+    "id": 184,
+    "key": "astroport",
+    "name": "Astroport",
+    "pairsCount": 19,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 109422,
+        "toBTC": 5
+      },
+      "week": {
+        "toBTC": 52,
+        "toETH": 784,
+        "toUSD": 1087746
+      },
+      "month": {
+        "toBTC": 310.7447720741396,
+        "toETH": 4773.0832879483905,
+        "toUSD": 6292368.578431078
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 109600,
+        "toBTC": 5
+      },
+      "week": {
+        "toUSD": 1211124,
+        "toBTC": 56
+      },
+      "month": {
+        "toUSD": 6489727.502356835,
+        "toBTC": 316.22029654966406
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:38.678Z",
+    "percentVolume": 0.0002651773698167403,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.astroport1653938439515.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 93,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Terra Classic",
+        "key": "luna",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.terra classic1654166101471.png",
+        "marketCap": 1694407857.762296
+      }
+    ]
+  },
+  {
+    "id": 155,
+    "key": "bakery-swap",
+    "name": "BakerySwap",
+    "pairsCount": 27,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 90449,
+        "toBTC": 4
+      },
+      "week": {
+        "toBTC": 30,
+        "toETH": 474,
+        "toUSD": 671481
+      },
+      "month": {
+        "toBTC": 105.50849172896986,
+        "toETH": 1733.2299900968758,
+        "toUSD": 2342168.349976198
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 90936,
+        "toBTC": 4
+      },
+      "week": {
+        "toUSD": 672115,
+        "toBTC": 30
+      },
+      "month": {
+        "toUSD": 2343353.6747232107,
+        "toBTC": 105.50849172896986
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:38.970Z",
+    "percentVolume": 0.0002191974915698337,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bakeryswap1617896520812.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 95,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "key": "crex24",
+    "name": "CREX24",
+    "pairsCount": 53,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 141682,
+        "toBTC": 6
+      },
+      "week": {
+        "toBTC": 46,
+        "toETH": 712,
+        "toUSD": 989559
+      },
+      "month": {
+        "toBTC": 206.03787858718405,
+        "toETH": 3190.970139705681,
+        "toUSD": 4261459.628997478
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 146266,
+        "toBTC": 6
+      },
+      "week": {
+        "toUSD": 1151878,
+        "toBTC": 52
+      },
+      "month": {
+        "toUSD": 4425437.628661681,
+        "toBTC": 212.49242404172952
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:58.739Z",
+    "percentVolume": 0.0003433574611172835,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.crex241542879701354.png",
+    "country": "Estonia",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 92,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 73,
+    "key": "bgogo",
+    "name": "Bgogo",
+    "pairsCount": 10,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 43792,
+        "toBTC": 2
+      },
+      "week": {
+        "toBTC": 9,
+        "toETH": 195,
+        "toUSD": 274154
+      },
+      "month": {
+        "toBTC": 32.338078291814945,
+        "toETH": 832.1631701631702,
+        "toUSD": 1123971.7523840491
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 43801,
+        "toBTC": 2
+      },
+      "week": {
+        "toUSD": 274217,
+        "toBTC": 9
+      },
+      "month": {
+        "toUSD": 1124241.7523840491,
+        "toBTC": 32.338078291814945
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:33.189Z",
+    "percentVolume": 0.00010612717167493454,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bgogo1538569009948.png",
+    "country": "Cayman Islands",
+    "refLink": null,
+    "refText": null,
+    "group": "main",
+    "num": 97,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 55,
+    "key": "fatbtc",
+    "name": "FatBtc",
+    "pairsCount": 27,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 53037,
+        "toBTC": 2
+      },
+      "week": {
+        "toBTC": 6,
+        "toETH": 121,
+        "toUSD": 175880
+      },
+      "month": {
+        "toBTC": 23.178519302205007,
+        "toETH": 451.37545785963675,
+        "toUSD": 623956.4936703455
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 619494,
+        "toBTC": 29
+      },
+      "week": {
+        "toUSD": 3985112,
+        "toBTC": 195
+      },
+      "month": {
+        "toUSD": 16743983.046203261,
+        "toBTC": 836.323876866659
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:03.070Z",
+    "percentVolume": 0.0001285318506604746,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.fatbtc1528997610584.png",
+    "country": "China",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 96,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 183,
+    "key": "sushiswap-bsc",
+    "name": "SushiSwap (BSC)",
+    "pairsCount": 14,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 15547,
+        "toBTC": 0
+      },
+      "week": {
+        "toBTC": 5,
+        "toETH": 122,
+        "toUSD": 172797
+      },
+      "month": {
+        "toBTC": 12.521458391852825,
+        "toETH": 361.03006601788326,
+        "toUSD": 501201.1845086214
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 15547,
+        "toBTC": 0
+      },
+      "week": {
+        "toUSD": 172797,
+        "toBTC": 5
+      },
+      "month": {
+        "toUSD": 501201.1845086214,
+        "toBTC": 12.521458391852825
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T08:00:01.504Z",
+    "percentVolume": 0.00003767718163203799,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.sushiswap (bsc)1650982459582.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 98,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "key": "gopax",
+    "name": "Gopax",
+    "pairsCount": 38,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 12860,
+        "toBTC": 0
+      },
+      "week": {
+        "toBTC": 0,
+        "toETH": 38,
+        "toUSD": 60105
+      },
+      "month": {
+        "toBTC": 50.71209282801067,
+        "toETH": 940.2568953075569,
+        "toUSD": 1262138.5752351005
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 12860,
+        "toBTC": 0
+      },
+      "week": {
+        "toUSD": 60105,
+        "toBTC": 0
+      },
+      "month": {
+        "toUSD": 1263448.2785721144,
+        "toBTC": 50.71209282801067
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:38.198Z",
+    "percentVolume": 0.000031165405273558145,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.gopax1540221320676.png",
+    "country": "Korea South",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 99,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 169,
+    "key": "mirror",
+    "name": "Mirror Protocol",
+    "pairsCount": 24,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 4723,
+        "toBTC": 0
+      },
+      "week": {
+        "toBTC": 1,
+        "toETH": 41,
+        "toUSD": 59128
+      },
+      "month": {
+        "toBTC": 3.6773107127159057,
+        "toETH": 140.74089166179104,
+        "toUSD": 203291.11801133337
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 4723,
+        "toBTC": 0
+      },
+      "week": {
+        "toUSD": 59128,
+        "toBTC": 1
+      },
+      "month": {
+        "toUSD": 203291.11801133337,
+        "toBTC": 3.6773107127159057
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:25.378Z",
+    "percentVolume": 0.000011445894953889201,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.mirror protocol1632217925007.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 100,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "Terra Classic",
+        "key": "luna",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.terra classic1654166101471.png",
+        "marketCap": 1694407857.762296
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "key": "switcheo",
+    "name": "Switcheo Network",
+    "pairsCount": 25,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 8,
+        "toBTC": 0
+      },
+      "week": {
+        "toBTC": 0,
+        "toETH": 0,
+        "toUSD": 56
+      },
+      "month": {
+        "toBTC": 0,
+        "toETH": 0,
+        "toUSD": 240
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 8,
+        "toBTC": 0
+      },
+      "week": {
+        "toUSD": 56,
+        "toBTC": 0
+      },
+      "month": {
+        "toUSD": 240,
+        "toBTC": 0
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:52:46.694Z",
+    "percentVolume": 1.9387499392571164e-8,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.switcheo network1529055938207.png",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 101,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "NEO",
+        "key": "neo",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.neo1645006837175.png",
+        "marketCap": 616905373.8182683
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "key": "binance-dex",
+    "name": "Binance Dex",
+    "pairsCount": 89,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 1,
+        "toBTC": 0
+      },
+      "week": {
+        "toBTC": 0,
+        "toETH": 0,
+        "toUSD": 7
+      },
+      "month": {
+        "toBTC": 0,
+        "toETH": 0,
+        "toUSD": 30
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1,
+        "toBTC": 0
+      },
+      "week": {
+        "toUSD": 7,
+        "toBTC": 0
+      },
+      "month": {
+        "toUSD": 30,
+        "toBTC": 0
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:33.450Z",
+    "percentVolume": 2.4234374240713955e-9,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.binance_dex1662117553815.png",
+    "country": "Hong Kong S.A.R.",
+    "refLink": null,
+    "refText": null,
+    "group": "dex",
+    "num": 102,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true,
+    "tokenPlatforms": [
+      {
+        "name": "BNB",
+        "key": "bnb",
+        "iconUrl": "https://img.api.cryptorank.io/coins/60x60.binance coin1645029040254.png",
+        "marketCap": 47242894081.35489
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "key": "bw",
+    "name": "BW.com",
+    "pairsCount": 0,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 0,
+        "toBTC": 0
+      },
+      "week": {
+        "toUSD": 0,
+        "toBTC": 0,
+        "toETH": 0
+      },
+      "month": {
+        "toUSD": 0,
+        "toBTC": 0,
+        "toETH": 0
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 0,
+        "toBTC": 0
+      },
+      "week": {
+        "toUSD": 0,
+        "toBTC": 0
+      },
+      "month": {
+        "toUSD": 0,
+        "toBTC": 0
+      }
+    },
+    "historicalOpenInterest": {
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-09-27T07:04:46.963Z",
+    "percentVolume": 0.006417952978606916,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bw.com1628404911367.png",
+    "country": "Australia",
+    "refLink": null,
+    "refText": null,
+    "group": "other",
+    "num": 103,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 122,
+    "key": "binance-futures",
+    "name": "Binance Futures",
+    "pairsCount": 214,
+    "perpetualCount": 183,
+    "volumes": {
+      "day": {
+        "toUSD": 58403942265,
+        "toBTC": 2818373
+      },
+      "week": {
+        "toBTC": 13486837,
+        "toETH": 188773247,
+        "toUSD": 268507998522
+      },
+      "month": {
+        "toBTC": 54913141.92537661,
+        "toETH": 800016022.4238741,
+        "toUSD": 1073379814358.2721
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 58403942265,
+        "toBTC": 2818373
+      },
+      "week": {
+        "toUSD": 268507998522,
+        "toBTC": 13486837
+      },
+      "month": {
+        "toUSD": 1073379814358.2721,
+        "toBTC": 54913141.92537661
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 60458412674
+      },
+      "month": {
+        "toUSD": 243415489117.7231
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:43.635Z",
+    "percentVolume": 141.53829939830612,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.binance futures1605113349439.png",
+    "country": "Japan",
+    "refLink": "https://www.binance.com/en/futures/ref/38433185",
+    "refText": "Get 10% Off your trading fees",
+    "group": "futures",
+    "num": 1,
+    "openInterest": 9445505330,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 121,
+    "key": "okex-futures",
+    "name": "OKX Futures",
+    "pairsCount": 912,
+    "perpetualCount": 165,
+    "volumes": {
+      "day": {
+        "toUSD": 19321729098,
+        "toBTC": 932400
+      },
+      "week": {
+        "toBTC": 4275385,
+        "toETH": 59679855,
+        "toUSD": 85310043164
+      },
+      "month": {
+        "toBTC": 16459855.681897478,
+        "toETH": 239436248.21052563,
+        "toUSD": 322027379328.792
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 19321729098,
+        "toBTC": 932400
+      },
+      "week": {
+        "toUSD": 85310043164,
+        "toBTC": 4275385
+      },
+      "month": {
+        "toUSD": 322027379328.792,
+        "toBTC": 16459855.681897478
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 31821258530
+      },
+      "month": {
+        "toUSD": 124439276295.95784
+      }
+    },
+    "lastUpdate": "2022-10-27T07:54:36.404Z",
+    "percentVolume": 46.82500139386245,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.okex futures1642497083382.png",
+    "country": "Malta",
+    "refLink": "https://www.okex.com/promotion/WDM5D1",
+    "refText": "Zero Fees and $30 Bonuses",
+    "group": "futures",
+    "num": 2,
+    "openInterest": 4749861297,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 188,
+    "key": "deepcoin-futures",
+    "name": "Deepcoin Futures",
+    "pairsCount": 79,
+    "perpetualCount": 79,
+    "volumes": {
+      "day": {
+        "toUSD": 17445537478,
+        "toBTC": 841861
+      },
+      "week": {
+        "toBTC": 2638481,
+        "toETH": 36303950,
+        "toUSD": 53306801550
+      },
+      "month": {
+        "toBTC": 21333414.427456617,
+        "toETH": 312078318.9339132,
+        "toUSD": 416665208485.9281
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 17445537478,
+        "toBTC": 841861
+      },
+      "week": {
+        "toUSD": 53306801550,
+        "toBTC": 2638481
+      },
+      "month": {
+        "toUSD": 416665208485.9281,
+        "toBTC": 21333414.427456617
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:36.343Z",
+    "percentVolume": 42.278168407225316,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.deepcoin_futures1656330172446.png",
+    "country": "Seychelles",
+    "refLink": null,
+    "refText": null,
+    "group": "futures",
+    "num": 3,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 145,
+    "key": "cryptology-futures",
+    "name": "Cryptology Futures",
+    "pairsCount": 44,
+    "perpetualCount": 31,
+    "volumes": {
+      "day": {
+        "toUSD": 14358412073,
+        "toBTC": 692887
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 14358412073,
+        "toBTC": 692887
+      },
+      "week": {
+        "toUSD": 0,
+        "toBTC": 0
+      },
+      "month": {
+        "toUSD": 0,
+        "toBTC": 0
+      }
+    },
+    "historicalOpenInterest": {},
+    "percentVolume": 34.79671316794675,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.cryptology futures1591962865632.png",
+    "country": "Estonia",
+    "refLink": "https://tracking.tracks.life/click?pid=6&offer_id=2",
+    "refText": "Get $100 Bonus to trade futures",
+    "group": "futures",
+    "num": 4,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 127,
+    "key": "ftx",
+    "name": "FTX",
+    "pairsCount": 284,
+    "perpetualCount": 187,
+    "volumes": {
+      "day": {
+        "toUSD": 12675680935,
+        "toBTC": 611684
+      },
+      "week": {
+        "toBTC": 2635422,
+        "toETH": 36676077,
+        "toUSD": 52717250095
+      },
+      "month": {
+        "toBTC": 9556396.53332013,
+        "toETH": 138804751.94105086,
+        "toUSD": 187192359503.5092
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 12675680935,
+        "toBTC": 611684
+      },
+      "week": {
+        "toUSD": 52717250095,
+        "toBTC": 2635422
+      },
+      "month": {
+        "toUSD": 187192359503.5092,
+        "toBTC": 9556396.53332013
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 43157337760
+      },
+      "month": {
+        "toUSD": 174558602804.18173
+      }
+    },
+    "lastUpdate": "2022-10-27T07:51:12.780Z",
+    "percentVolume": 30.7187195534673,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.ftx1590129810127.png",
+    "country": "Antigua And Barbuda",
+    "refLink": "https://ftx.com/#a=cryptorankio",
+    "refText": "Get 5% Off your trading fees",
+    "group": "futures",
+    "num": 5,
+    "openInterest": 6205421828,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 124,
+    "key": "bybit",
+    "name": "Bybit",
+    "pairsCount": 193,
+    "perpetualCount": 193,
+    "volumes": {
+      "day": {
+        "toUSD": 12106598562,
+        "toBTC": 584222
+      },
+      "week": {
+        "toBTC": 2805989,
+        "toETH": 39240103,
+        "toUSD": 55908696133
+      },
+      "month": {
+        "toBTC": 11667799.070777163,
+        "toETH": 169991712.5911085,
+        "toUSD": 228161402342.28033
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 12106598562,
+        "toBTC": 584222
+      },
+      "week": {
+        "toUSD": 55908696133,
+        "toBTC": 2805989
+      },
+      "month": {
+        "toUSD": 228161402342.28033,
+        "toBTC": 11667799.070777163
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 26287108954
+      },
+      "month": {
+        "toUSD": 103888130279.99959
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:47.440Z",
+    "percentVolume": 29.339584033359746,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bybit1653938378213.png",
+    "country": "Virgin Islands (British)",
+    "refLink": "https://www.bybit.com/app/register?ref=vjxXg",
+    "refText": null,
+    "group": "futures",
+    "num": 6,
+    "openInterest": 3943307644,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 142,
+    "key": "gateio-futures",
+    "name": "Gate.io Futures",
+    "pairsCount": 304,
+    "perpetualCount": 304,
+    "volumes": {
+      "day": {
+        "toUSD": 2870472799,
+        "toBTC": 138519
+      },
+      "week": {
+        "toBTC": 688246,
+        "toETH": 9657911,
+        "toUSD": 13676394887
+      },
+      "month": {
+        "toBTC": 2649372.389403745,
+        "toETH": 38612348.20534196,
+        "toUSD": 51741130767.98532
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 2870472799,
+        "toBTC": 138519
+      },
+      "week": {
+        "toUSD": 13676394887,
+        "toBTC": 688246
+      },
+      "month": {
+        "toUSD": 51741130767.98532,
+        "toBTC": 2649372.389403745
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 12791941357
+      },
+      "month": {
+        "toUSD": 58821071155.82123
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:52.717Z",
+    "percentVolume": 6.956411205875569,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.gate.io futures1653938400875.png",
+    "country": "China",
+    "refLink": null,
+    "refText": null,
+    "group": "futures",
+    "num": 8,
+    "openInterest": 1904965236,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 138,
+    "key": "phemex",
+    "name": "Phemex",
+    "pairsCount": 14,
+    "perpetualCount": 14,
+    "volumes": {
+      "day": {
+        "toUSD": 3294019778,
+        "toBTC": 158958
+      },
+      "week": {
+        "toBTC": 949066,
+        "toETH": 13404527,
+        "toUSD": 18740546584
+      },
+      "month": {
+        "toBTC": 4711619.994039891,
+        "toETH": 68912313.24391693,
+        "toUSD": 91823773407.042
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 3294019778,
+        "toBTC": 158958
+      },
+      "week": {
+        "toUSD": 18740546584,
+        "toBTC": 949066
+      },
+      "month": {
+        "toUSD": 91823773407.042,
+        "toBTC": 4711619.994039891
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 10229095882
+      },
+      "month": {
+        "toUSD": 42526083914.52594
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:33.354Z",
+    "percentVolume": 7.98285080563655,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.phemex1660924716708.png",
+    "country": "Singapore",
+    "refLink": null,
+    "refText": null,
+    "group": "futures",
+    "num": 7,
+    "openInterest": 1608569385,
+    "isPromoted": true,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 123,
+    "key": "huobi-dm",
+    "name": "Huobi Futures",
+    "pairsCount": 183,
+    "perpetualCount": 154,
+    "volumes": {
+      "day": {
+        "toUSD": 1649974796,
+        "toBTC": 79622
+      },
+      "week": {
+        "toBTC": 376682,
+        "toETH": 5257376,
+        "toUSD": 7517135449
+      },
+      "month": {
+        "toBTC": 1491641.3024134017,
+        "toETH": 21716429.95165758,
+        "toUSD": 29180075386.29347
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1649974796,
+        "toBTC": 79622
+      },
+      "week": {
+        "toUSD": 7517135449,
+        "toBTC": 376682
+      },
+      "month": {
+        "toUSD": 29180075386.29347,
+        "toBTC": 1491641.3024134017
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 2813042691
+      },
+      "month": {
+        "toUSD": 11995540950.54692
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:36.871Z",
+    "percentVolume": 3.9986106694009664,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.huobi futures1589875249077.png",
+    "country": "Seychelles",
+    "refLink": "https://futures.huobi.com/en-us/contract/exchange/?invite_code=bsvx3223",
+    "refText": "Get 10% Off your trading fees",
+    "group": "futures",
+    "num": 10,
+    "openInterest": 419432789,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 125,
+    "key": "deribit",
+    "name": "Deribit",
+    "pairsCount": 910,
+    "perpetualCount": 2,
+    "volumes": {
+      "day": {
+        "toUSD": 1194532958,
+        "toBTC": 57644
+      },
+      "week": {
+        "toBTC": 218461,
+        "toETH": 3016346,
+        "toUSD": 4398933008
+      },
+      "month": {
+        "toBTC": 784499.7271093652,
+        "toETH": 11364969.440571154,
+        "toUSD": 15400208961.794138
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 1194532958,
+        "toBTC": 57644
+      },
+      "week": {
+        "toUSD": 4398933008,
+        "toBTC": 218461
+      },
+      "month": {
+        "toUSD": 15400208961.794138,
+        "toBTC": 784499.7271093652
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 70761437622
+      },
+      "month": {
+        "toUSD": 277388373707.4935
+      }
+    },
+    "lastUpdate": "2022-10-27T07:50:55.658Z",
+    "percentVolume": 2.8948758747039047,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.deribit1605113473354.png",
+    "country": "Netherlands",
+    "refLink": "https://www.deribit.com/reg-9022.7186?q=home",
+    "refText": null,
+    "group": "futures",
+    "num": 11,
+    "openInterest": 13182172564,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 135,
+    "key": "mxc-futures",
+    "name": "MEXC Global Futures",
+    "pairsCount": 179,
+    "perpetualCount": 179,
+    "volumes": {
+      "day": {
+        "toUSD": 2783227270,
+        "toBTC": 134308
+      },
+      "week": {
+        "toBTC": 452001,
+        "toETH": 6337847,
+        "toUSD": 8988173766
+      },
+      "month": {
+        "toBTC": 1721529.289817747,
+        "toETH": 25089519.1771496,
+        "toUSD": 33603547060.72643
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 2783227270,
+        "toBTC": 134308
+      },
+      "week": {
+        "toUSD": 8988173766,
+        "toBTC": 452001
+      },
+      "month": {
+        "toUSD": 33603547060.72643,
+        "toBTC": 1721529.289817747
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 8714091336
+      },
+      "month": {
+        "toUSD": 46021968780.22367
+      }
+    },
+    "lastUpdate": "2022-10-27T07:57:26.050Z",
+    "percentVolume": 6.744977125814063,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.mexc global futures (mxc futures)1624286573356.png",
+    "country": "Singapore",
+    "refLink": "https://www.mxc.com/auth/signup?inviteCode=13dtD",
+    "refText": null,
+    "group": "futures",
+    "num": 9,
+    "openInterest": 1912424707,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 120,
+    "key": "bitmex",
+    "name": "BitMEX",
+    "pairsCount": 64,
+    "perpetualCount": 50,
+    "volumes": {
+      "day": {
+        "toUSD": 596640820,
+        "toBTC": 28791
+      },
+      "week": {
+        "toBTC": 161944,
+        "toETH": 2275664,
+        "toUSD": 3214278455
+      },
+      "month": {
+        "toBTC": 777574.8653215339,
+        "toETH": 11362442.931620022,
+        "toUSD": 15173644420.163855
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 596640820,
+        "toBTC": 28791
+      },
+      "week": {
+        "toUSD": 3214278455,
+        "toBTC": 161944
+      },
+      "month": {
+        "toUSD": 15173644420.163855,
+        "toBTC": 777574.8653215339
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 44444414843
+      },
+      "month": {
+        "toUSD": 316089077886.6643
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:58.618Z",
+    "percentVolume": 1.445921691916645,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bit_mex1660921926998.png",
+    "country": "Seychelles",
+    "refLink": "https://www.bitmex.com/register/pggcXN",
+    "refText": null,
+    "group": "futures",
+    "num": 12,
+    "openInterest": 6083342795,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 131,
+    "key": "cme",
+    "name": "CME",
+    "pairsCount": 3,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 30329550,
+        "toBTC": 1463
+      },
+      "week": {
+        "toBTC": 50301,
+        "toETH": 718412,
+        "toUSD": 986102493
+      },
+      "month": {
+        "toBTC": 209650.1790150273,
+        "toETH": 3072430.084771688,
+        "toUSD": 4073148340.636145
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 30329550,
+        "toBTC": 1463
+      },
+      "week": {
+        "toUSD": 986102493,
+        "toBTC": 50301
+      },
+      "month": {
+        "toUSD": 4073148340.636145,
+        "toBTC": 209650.1790150273
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:32.704Z",
+    "percentVolume": 0.0735017665252446,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.cme1593175769577.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "futures",
+    "num": 15,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 129,
+    "key": "kraken-futures",
+    "name": "Kraken Futures",
+    "pairsCount": 97,
+    "perpetualCount": 85,
+    "volumes": {
+      "day": {
+        "toUSD": 153020478,
+        "toBTC": 7384
+      },
+      "week": {
+        "toBTC": 32388,
+        "toETH": 451584,
+        "toUSD": 647120106
+      },
+      "month": {
+        "toBTC": 108280.77676466233,
+        "toETH": 1571007.980563563,
+        "toUSD": 2120638715.4903023
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 153020478,
+        "toBTC": 7384
+      },
+      "week": {
+        "toUSD": 647120106,
+        "toBTC": 32388
+      },
+      "month": {
+        "toUSD": 2120638715.4903023,
+        "toBTC": 108280.77676466233
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 794219338
+      },
+      "month": {
+        "toUSD": 2569751282.6944313
+      }
+    },
+    "lastUpdate": "2022-10-27T07:56:55.449Z",
+    "percentVolume": 0.37083555303449367,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.kraken_futures1660922609504.png",
+    "country": "United Kingdom",
+    "refLink": null,
+    "refText": null,
+    "group": "futures",
+    "num": 13,
+    "openInterest": 115276953,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 126,
+    "key": "bitflyer-lightning",
+    "name": "bitFlyer Lightning",
+    "pairsCount": 4,
+    "perpetualCount": 1,
+    "volumes": {
+      "day": {
+        "toUSD": 152069833,
+        "toBTC": 7338
+      },
+      "week": {
+        "toBTC": 39355,
+        "toETH": 554596,
+        "toUSD": 779565434
+      },
+      "month": {
+        "toBTC": 182122.7113770056,
+        "toETH": 2660502.3830276644,
+        "toUSD": 3554726875.7048273
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 152069833,
+        "toBTC": 7338
+      },
+      "week": {
+        "toUSD": 779565434,
+        "toBTC": 39355
+      },
+      "month": {
+        "toUSD": 3554726875.7048273,
+        "toBTC": 182122.7113770056
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T07:59:57.549Z",
+    "percentVolume": 0.36853172436448733,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bit_flyer_lightning1660923467583.png",
+    "country": "Japan",
+    "refLink": null,
+    "refText": null,
+    "group": "futures",
+    "num": 14,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 134,
+    "key": "bitmax-futures",
+    "name": "AscendEX Futures",
+    "pairsCount": 1,
+    "perpetualCount": 1,
+    "volumes": {
+      "day": {
+        "toUSD": 6945275,
+        "toBTC": 335
+      },
+      "week": {
+        "toBTC": 1418,
+        "toETH": 19806,
+        "toUSD": 28424057
+      },
+      "month": {
+        "toBTC": 3710.880561317442,
+        "toETH": 53809.05824264965,
+        "toUSD": 73094221.90707631
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 6945275,
+        "toBTC": 335
+      },
+      "week": {
+        "toUSD": 28424057,
+        "toBTC": 1418
+      },
+      "month": {
+        "toUSD": 73094221.90707631,
+        "toBTC": 3710.880561317442
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 6264861
+      },
+      "month": {
+        "toUSD": 25823939.466636375
+      }
+    },
+    "lastUpdate": "2022-10-27T07:58:28.212Z",
+    "percentVolume": 0.016831439355467465,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.ascendex (bitmax) futures1621402184421.png",
+    "refLink": "https://ascendex.com/?utm_source=cryptorank&utm_medium=float%20ad&utm_campaign=bitmax%20registered%20ad#/home?channel=X003",
+    "refText": null,
+    "group": "futures",
+    "num": 16,
+    "openInterest": 984839,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  },
+  {
+    "id": 130,
+    "key": "bakkt",
+    "name": "BAKKT",
+    "pairsCount": 1,
+    "perpetualCount": 0,
+    "volumes": {
+      "day": {
+        "toUSD": 20770,
+        "toBTC": 1
+      },
+      "week": {
+        "toBTC": 68,
+        "toETH": 1049,
+        "toUSD": 1433307
+      },
+      "month": {
+        "toBTC": 334.2943837680924,
+        "toETH": 5099.656962185812,
+        "toUSD": 6741963.371030042
+      }
+    },
+    "reportedVolumes": {
+      "day": {
+        "toUSD": 20770,
+        "toBTC": 1
+      },
+      "week": {
+        "toUSD": 1433307,
+        "toBTC": 68
+      },
+      "month": {
+        "toUSD": 6741963.371030042,
+        "toBTC": 334.2943837680924
+      }
+    },
+    "historicalOpenInterest": {
+      "week": {
+        "toUSD": 0
+      },
+      "month": {
+        "toUSD": 0
+      }
+    },
+    "lastUpdate": "2022-10-27T05:57:43.069Z",
+    "percentVolume": 0.000050334795297962885,
+    "icon": "https://img.api.cryptorank.io/exchanges/60x60.bakkt1615377396325.png",
+    "country": "United States",
+    "refLink": null,
+    "refText": null,
+    "group": "futures",
+    "num": 17,
+    "openInterest": 0,
+    "isPromoted": false,
+    "isCalculatePrice": true
+  }
+]

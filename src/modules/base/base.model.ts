@@ -446,31 +446,31 @@ export class BaseModel {
     this._keys = uniq([..._keys, ...this._defaultKeys]);
     this._collectionName = collectionName;
     this._collection = this.db.collection<any>(collectionName);
-    Promise.allSettled(
-      indexes.map(
-        ({
-          field,
-          options = {},
-        }: {
-          field: {
-            [key: string]: IndexDirection;
-          };
-          options?: CreateIndexesOptions;
-        }) => {
-          return this._collection.createIndex(field, options);
-        },
-      ),
-    ).then((results) => {
-      results.forEach((result) => {
-        if (result.status === 'rejected') {
-          this.logger.error(`error`, `[createIndex:${this._collectionName}:error]`, result.reason);
-          throwErr(this.error('common.database'));
-        } else {
-          // this.logger.debug('success', `[createIndex:${this._collectionName}:success]`, result.value);
-        }
-      });
-      this.logger.debug('success', `[createIndex:${this._collectionName}]`);
-    });
+    // Promise.allSettled(
+    //   indexes.map(
+    //     ({
+    //       field,
+    //       options = {},
+    //     }: {
+    //       field: {
+    //         [key: string]: IndexDirection;
+    //       };
+    //       options?: CreateIndexesOptions;
+    //     }) => {
+    //       return this._collection.createIndex(field, options);
+    //     },
+    //   ),
+    // ).then((results) => {
+    //   results.forEach((result) => {
+    //     if (result.status === 'rejected') {
+    //       this.logger.error(`error`, `[createIndex:${this._collectionName}:error]`, result.reason);
+    //       throwErr(this.error('common.database'));
+    //     } else {
+    //       // this.logger.debug('success', `[createIndex:${this._collectionName}:success]`, result.value);
+    //     }
+    //   });
+    //   this.logger.debug('success', `[createIndex:${this._collectionName}]`);
+    // });
   }
 
   /**

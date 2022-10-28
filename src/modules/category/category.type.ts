@@ -18,7 +18,8 @@ export interface Category extends BaseModel {
 
   description?: string;
 
-  source?: string;
+  sources?: string;
+  dics?: string[];
 
   source_id?: string;
 

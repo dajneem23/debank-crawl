@@ -45,7 +45,7 @@ export class CategoryService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'title', 'name', 'sub_categories', 'weight', 'rank', 'type', 'is_public'];
+    return this.model._keys;
   }
   get transKeys() {
     return ['title', 'name'];
@@ -266,7 +266,7 @@ export class CategoryService {
               }),
               ...(is_public && { is_public: { $eq: is_public } }),
               ...(type && {
-                type: { $in: Array.isArray(type) ? type : [type] },
+                sources: { $in: Array.isArray(type) ? type : [type] },
               }),
               ...(!isNil(rank) && {
                 rank: { $eq: rank },
@@ -454,7 +454,7 @@ export class CategoryService {
             $match: {
               deleted: { $ne: true },
               ...(type && {
-                type: { $in: Array.isArray(type) ? type : [type] },
+                sources: { $in: Array.isArray(type) ? type : [type] },
               }),
               ...(!isNil(rank) && {
                 rank: { $eq: rank },

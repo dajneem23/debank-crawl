@@ -1,0 +1,3698 @@
+[
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb7d"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "aptos-labs-ecosystem",
+    "name": "Aptos Labs Ecosystem",
+    "dics": ["aptos-labs-ecosystem", "aptos", "aptos labs", "aptos-labs", "aptos_labs"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb7e"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "internet-computer-ecosystem",
+    "name": "Internet Computer Ecosystem",
+    "dics": ["internet-computer-ecosystem", "internet", "internet computer", "internet-computer", "internet_computer"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb7f"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "farming-as-a-service-faas",
+    "name": "Farming as a Service (FaaS)",
+    "dics": ["farming-as-a-service-faas", "farming", "farming as", "farming-as", "farming_as"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb80"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "doge-chain-ecosystem",
+    "name": "Doge Chain Ecosystem",
+    "dics": ["doge-chain-ecosystem", "doge", "doge chain", "doge-chain", "doge_chain"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb81"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "velas-ecosystem",
+    "name": "Velas Ecosystem",
+    "dics": ["velas-ecosystem", "velas", "velas ecosystem", "velas-ecosystem", "velas_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb82"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "metisdao-ecosystem",
+    "name": "MetisDAO Ecosystem",
+    "dics": [
+      "metisdao-ecosystem",
+      "metisdao",
+      "metisdao ecosystem",
+      "metisdao-ecosystem",
+      "metisdao_ecosystem",
+      "metis-ecosystem",
+      "metis"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb83"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "everscale-ecosystem",
+    "name": "Everscale Ecosystem",
+    "dics": ["everscale-ecosystem", "everscale", "everscale ecosystem", "everscale-ecosystem", "everscale_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb84"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "xdc-ecosystem",
+    "name": "XDC Ecosystem",
+    "dics": ["xdc-ecosystem", "xdc", "xdc ecosystem", "xdc-ecosystem", "xdc_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb85"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "tokenized-gold",
+    "name": "Tokenized Gold",
+    "dics": ["tokenized-gold", "tokenized", "tokenized gold", "tokenized-gold", "tokenized_gold"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb86"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "eur-stablecoin",
+    "name": "EUR Stablecoin",
+    "dics": ["eur-stablecoin", "eur", "eur stablecoin", "eur-stablecoin", "eur_stablecoin"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb87"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "usd-stablecoin",
+    "name": "USD Stablecoin",
+    "dics": ["usd-stablecoin", "usd", "usd stablecoin", "usd-stablecoin", "usd_stablecoin"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb88"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "kommunitas-launchpad",
+    "name": "Kommunitas Launchpad",
+    "dics": [
+      "kommunitas-launchpad",
+      "kommunitas",
+      "kommunitas launchpad",
+      "kommunitas-launchpad",
+      "kommunitas_launchpad"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb89"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "injective-ecosystem",
+    "name": "Injective Ecosystem",
+    "dics": ["injective-ecosystem", "injective", "injective ecosystem", "injective-ecosystem", "injective_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb8a"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "oxbull",
+    "name": "Oxbull",
+    "dics": ["oxbull", "oxbull"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb8b"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "okex-blockdream-ventures-portfolio",
+    "name": "OKEx Blockdream Ventures Portfolio",
+    "dics": ["okex-blockdream-ventures-portfolio", "okex", "okex blockdream", "okex-blockdream", "okex_blockdream"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb8c"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "elrond-ecosystem",
+    "name": "Elrond Ecosystem",
+    "dics": ["elrond-ecosystem", "elrond", "elrond ecosystem", "elrond-ecosystem", "elrond_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb8d"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "cronos-ecosystem",
+    "name": "Cronos Ecosystem",
+    "dics": ["cronos-ecosystem", "cronos", "cronos ecosystem", "cronos-ecosystem", "cronos_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb8e"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "spartan-group",
+    "name": "Spartan Group",
+    "dics": ["spartan-group", "spartan", "spartan group", "spartan-group", "spartan_group"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb8f"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "moonriver-ecosystem",
+    "name": "Moonriver Ecosystem",
+    "dics": ["moonriver-ecosystem", "moonriver", "moonriver ecosystem", "moonriver-ecosystem", "moonriver_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb90"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "vbc-ventures-portfolio",
+    "name": "VBC Ventures Portfolio",
+    "dics": ["vbc-ventures-portfolio", "vbc", "vbc ventures", "vbc-ventures", "vbc_ventures"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb91"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "kenetic-capital-portfolio",
+    "name": "Kenetic Capital Portfolio",
+    "dics": ["kenetic-capital-portfolio", "kenetic", "kenetic capital", "kenetic-capital", "kenetic_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb92"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "harmony-ecosystem",
+    "name": "Harmony Ecosystem",
+    "dics": ["harmony-ecosystem", "harmony", "harmony ecosystem", "harmony-ecosystem", "harmony_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb93"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "protocol-owned-liquidity",
+    "name": "Protocol-Owned Liquidity",
+    "dics": ["protocol-owned-liquidity", "protocol", "protocol owned", "protocol-owned", "protocol_owned"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb94"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko", "company", "application", "news"],
+    "slug": "defi-20",
+    "name": "DeFi 2.0",
+    "dics": ["defi-20", "defi", "defi 20", "defi-20", "defi_20", "decentralized-finance-defi"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb95"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "bluezilla",
+    "name": "BlueZilla",
+    "dics": ["bluezilla", "bluezilla"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb96"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "moon-knight-labs",
+    "name": "Moon Knight Labs",
+    "dics": ["moon-knight-labs", "moon", "moon knight", "moon-knight", "moon_knight"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb97"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "ferrum-network",
+    "name": "Ferrum Network",
+    "dics": ["ferrum-network", "ferrum", "ferrum network", "ferrum-network", "ferrum_network"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb98"
+    },
+    "sources": ["cryptoslate", "coinmarketcap"],
+    "slug": "tron-ecosystem",
+    "name": "TRON Ecosystem",
+    "dics": ["tron-ecosystem", "tron", "tron ecosystem", "tron-ecosystem", "tron_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb99"
+    },
+    "sources": ["coinmarketcap", "coingecko", "person"],
+    "slug": "ethereum-ecosystem",
+    "name": "Ethereum Ecosystem",
+    "dics": ["ethereum-ecosystem", "ethereum", "ethereum ecosystem", "ethereum-ecosystem", "ethereum_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb9a"
+    },
+    "sources": ["cryptoslate", "coinmarketcap"],
+    "slug": "animoca-brands-portfolio",
+    "name": "Animoca Brands Portfolio",
+    "dics": ["animoca-brands-portfolio", "animoca", "animoca brands", "animoca-brands", "animoca_brands"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb9b"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "bullperks-launchpad",
+    "name": "BullPerks Launchpad",
+    "dics": ["bullperks-launchpad", "bullperks", "bullperks launchpad", "bullperks-launchpad", "bullperks_launchpad"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb9c"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "mvb",
+    "name": "MVB",
+    "dics": ["mvb", "mvb"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb9d"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "farastarter",
+    "name": "Farastarter",
+    "dics": ["farastarter", "farastarter"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb9e"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "launchzone",
+    "name": "LaunchZone",
+    "dics": ["launchzone", "launchzone"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cb9f"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "celo-ecosystem",
+    "name": "Celo Ecosystem",
+    "dics": ["celo-ecosystem", "celo", "celo ecosystem", "celo-ecosystem", "celo_ecosystem", "celo-eco"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba0"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "arbitrum-ecosystem",
+    "name": "Arbitrum Ecosystem",
+    "dics": ["arbitrum-ecosystem", "arbitrum", "arbitrum ecosystem", "arbitrum-ecosystem", "arbitrum_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba1"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "near-protocol-ecosystem",
+    "name": "Near Protocol Ecosystem",
+    "dics": ["near-protocol-ecosystem", "near", "near protocol", "near-protocol", "near_protocol"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba2"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "exploration"],
+    "slug": "web3",
+    "name": "Web3",
+    "dics": ["web3", "web3", "nft-and-web3"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba3"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "olympus-pro-ecosystem",
+    "name": "Olympus Pro Ecosystem",
+    "dics": ["olympus-pro-ecosystem", "olympus", "olympus pro", "olympus-pro", "olympus_pro"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba4"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko"],
+    "slug": "terra-ecosystem",
+    "name": "Terra Ecosystem",
+    "dics": ["terra-ecosystem", "terra", "terra ecosystem", "terra-ecosystem", "terra_ecosystem", "terra-eco"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba5"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko"],
+    "slug": "cardano-ecosystem",
+    "name": "Cardano Ecosystem",
+    "dics": ["cardano-ecosystem", "cardano", "cardano ecosystem", "cardano-ecosystem", "cardano_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba6"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "icetea-labs",
+    "name": "Icetea Labs",
+    "dics": ["icetea-labs", "icetea", "icetea labs", "icetea-labs", "icetea_labs"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba7"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko"],
+    "slug": "fantom-ecosystem",
+    "name": "Fantom Ecosystem",
+    "dics": ["fantom-ecosystem", "fantom", "fantom ecosystem", "fantom-ecosystem", "fantom_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba8"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "petrock-capital-portfolio",
+    "name": "PetRock Capital Portfolio",
+    "dics": ["petrock-capital-portfolio", "petrock", "petrock capital", "petrock-capital", "petrock_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cba9"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "doggone-doggerel",
+    "name": "Doggone Doggerel",
+    "dics": ["doggone-doggerel", "doggone", "doggone doggerel", "doggone-doggerel", "doggone_doggerel"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbaa"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "bounce-launchpad",
+    "name": "Bounce Launchpad",
+    "dics": ["bounce-launchpad", "bounce", "bounce launchpad", "bounce-launchpad", "bounce_launchpad"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbab"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko"],
+    "slug": "polygon-ecosystem",
+    "name": "Polygon Ecosystem",
+    "dics": ["polygon-ecosystem", "polygon", "polygon ecosystem", "polygon-ecosystem", "polygon_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbac"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "genpad",
+    "name": "Genpad",
+    "dics": ["genpad", "genpad"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbad"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "chromia-ecosystem",
+    "name": "Chromia Ecosystem",
+    "dics": ["chromia-ecosystem", "chromia", "chromia ecosystem", "chromia-ecosystem", "chromia_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbae"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "heco-ecosystem",
+    "name": "HECO Ecosystem",
+    "dics": [
+      "heco-ecosystem",
+      "heco",
+      "heco ecosystem",
+      "heco-ecosystem",
+      "heco_ecosystem",
+      "heco-chain-ecosystem",
+      "heco-chain"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbaf"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "polkafoundry-red-kite",
+    "name": "PolkaFoundry Red Kite",
+    "dics": ["polkafoundry-red-kite", "polkafoundry", "polkafoundry red", "polkafoundry-red", "polkafoundry_red"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb0"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "hacken-foundation",
+    "name": "Hacken Foundation",
+    "dics": ["hacken-foundation", "hacken", "hacken foundation", "hacken-foundation", "hacken_foundation"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb1"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "trustswap-launchpad",
+    "name": "Trustswap Launchpad",
+    "dics": ["trustswap-launchpad", "trustswap", "trustswap launchpad", "trustswap-launchpad", "trustswap_launchpad"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb2"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "exnetwork-capital-portfolio",
+    "name": "Exnetwork Capital Portfolio",
+    "dics": ["exnetwork-capital-portfolio", "exnetwork", "exnetwork capital", "exnetwork-capital", "exnetwork_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb3"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "poolz-finance-portfolio",
+    "name": "Poolz Finance Portfolio",
+    "dics": ["poolz-finance-portfolio", "poolz", "poolz finance", "poolz-finance", "poolz_finance"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb4"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "paradigm-portfolio",
+    "name": "Paradigm Portfolio",
+    "dics": ["paradigm-portfolio", "paradigm", "paradigm portfolio", "paradigm-portfolio", "paradigm_portfolio"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb5"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "parafi-capital",
+    "name": "ParaFi Capital",
+    "dics": ["parafi-capital", "parafi", "parafi capital", "parafi-capital", "parafi_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb6"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "multicoin-capital-portfolio",
+    "name": "Multicoin Capital Portfolio",
+    "dics": ["multicoin-capital-portfolio", "multicoin", "multicoin capital", "multicoin-capital", "multicoin_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb7"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "pantera-capital-portfolio",
+    "name": "Pantera Capital Portfolio",
+    "dics": ["pantera-capital-portfolio", "pantera", "pantera capital", "pantera-capital", "pantera_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb8"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "placeholder-ventures-portfolio",
+    "name": "Placeholder Ventures Portfolio",
+    "dics": [
+      "placeholder-ventures-portfolio",
+      "placeholder",
+      "placeholder ventures",
+      "placeholder-ventures",
+      "placeholder_ventures"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbb9"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "usv-portfolio",
+    "name": "USV Portfolio",
+    "dics": ["usv-portfolio", "usv", "usv portfolio", "usv-portfolio", "usv_portfolio"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbba"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "winklevoss-capital-portfolio",
+    "name": "Winklevoss Capital Portfolio",
+    "dics": [
+      "winklevoss-capital-portfolio",
+      "winklevoss",
+      "winklevoss capital",
+      "winklevoss-capital",
+      "winklevoss_capital"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbbb"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "1confirmation-portfolio",
+    "name": "1Confirmation Portfolio",
+    "dics": [
+      "1confirmation-portfolio",
+      "1confirmation",
+      "1confirmation portfolio",
+      "1confirmation-portfolio",
+      "1confirmation_portfolio"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbbc"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "a16z-portfolio",
+    "name": "a16z Portfolio",
+    "dics": ["a16z-portfolio", "a16z", "a16z portfolio", "a16z-portfolio", "a16z_portfolio"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbbd"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "alameda-research-portfolio",
+    "name": "Alameda Research Portfolio",
+    "dics": ["alameda-research-portfolio", "alameda", "alameda research", "alameda-research", "alameda_research"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbbe"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "ledgerprime-portfolio",
+    "name": "LedgerPrime Portfolio",
+    "dics": [
+      "ledgerprime-portfolio",
+      "ledgerprime",
+      "ledgerprime portfolio",
+      "ledgerprime-portfolio",
+      "ledgerprime_portfolio"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbbf"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "huobi-capital-portfolio",
+    "name": "Huobi Capital Portfolio",
+    "dics": ["huobi-capital-portfolio", "huobi", "huobi capital", "huobi-capital", "huobi_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc0"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "hashkey-capital-portfolio",
+    "name": "Hashkey Capital Portfolio",
+    "dics": ["hashkey-capital-portfolio", "hashkey", "hashkey capital", "hashkey-capital", "hashkey_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc1"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "galaxy-digital-portfolio",
+    "name": "Galaxy Digital Portfolio",
+    "dics": ["galaxy-digital-portfolio", "galaxy", "galaxy digital", "galaxy-digital", "galaxy_digital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc2"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "fenbushi-capital-portfolio",
+    "name": "Fenbushi Capital Portfolio",
+    "dics": ["fenbushi-capital-portfolio", "fenbushi", "fenbushi capital", "fenbushi-capital", "fenbushi_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc3"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "framework-ventures-portfolio",
+    "name": "Framework Ventures Portfolio",
+    "dics": [
+      "framework-ventures-portfolio",
+      "framework",
+      "framework ventures",
+      "framework-ventures",
+      "framework_ventures"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc4"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "fabric-ventures-portfolio",
+    "name": "Fabric Ventures Portfolio",
+    "dics": ["fabric-ventures-portfolio", "fabric", "fabric ventures", "fabric-ventures", "fabric_ventures"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc5"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "electric-global-portfolio",
+    "name": "Electric Global Portfolio",
+    "dics": ["electric-global-portfolio", "electric", "electric global", "electric-global", "electric_global"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc6"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "dragonfly-capital-portfolio",
+    "name": "DragonFly Capital Portfolio",
+    "dics": ["dragonfly-capital-portfolio", "dragonfly", "dragonfly capital", "dragonfly-capital", "dragonfly_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc7"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "dcg-portfolio",
+    "name": "DCG Portfolio",
+    "dics": ["dcg-portfolio", "dcg", "dcg portfolio", "dcg-portfolio", "dcg_portfolio"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc8"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "coinfund-portfolio",
+    "name": "Coinfund Portfolio",
+    "dics": ["coinfund-portfolio", "coinfund", "coinfund portfolio", "coinfund-portfolio", "coinfund_portfolio"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbc9"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "defiance-capital-portfolio",
+    "name": "DeFiance Capital Portfolio",
+    "dics": ["defiance-capital-portfolio", "defiance", "defiance capital", "defiance-capital", "defiance_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbca"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "cms-holdings-portfolio",
+    "name": "CMS Holdings Portfolio",
+    "dics": ["cms-holdings-portfolio", "cms", "cms holdings", "cms-holdings", "cms_holdings"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbcb"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "boostvc-portfolio",
+    "name": "BoostVC Portfolio",
+    "dics": ["boostvc-portfolio", "boostvc", "boostvc portfolio", "boostvc-portfolio", "boostvc_portfolio"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbcc"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "blockchain-capital-portfolio",
+    "name": "Blockchain Capital Portfolio",
+    "dics": [
+      "blockchain-capital-portfolio",
+      "blockchain",
+      "blockchain capital",
+      "blockchain-capital",
+      "blockchain_capital"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbcd"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "arrington-xrp-capital-portfolio",
+    "name": "Arrington XRP Capital Portfolio",
+    "dics": ["arrington-xrp-capital-portfolio", "arrington", "arrington xrp", "arrington-xrp", "arrington_xrp"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbce"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "dao-maker",
+    "name": "DAO Maker",
+    "dics": ["dao-maker", "dao maker", "dao-maker", "dao_maker"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbcf"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "polkastarter",
+    "name": "Polkastarter",
+    "dics": ["polkastarter", "polkastarter"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd0"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "eth-20-staking",
+    "name": "ETH 2.0 Staking",
+    "dics": ["eth-20-staking", "eth", "eth 20", "eth-20", "eth_20"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd1"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "synthetics",
+    "name": "Synthetics",
+    "dics": ["synthetics", "synthetic-assets"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd2"
+    },
+    "sources": ["coinmarketcap", "company", "news"],
+    "slug": "lending-and-borrowing",
+    "name": "Lending & Borrowing",
+    "dics": ["lending-and-borrowing", "lending", "lending and", "lending-and", "lending_and"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd3"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "options",
+    "name": "Options",
+    "dics": ["options", "decentralized-options"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd4"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "tourism",
+    "name": "Tourism",
+    "dics": ["tourism", "tourism"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd5"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "defi-index",
+    "name": "DeFi Index",
+    "dics": ["defi-index", "defi", "defi index", "defi-index", "defi_index"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd6"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "aave-tokens",
+    "name": "Aave Tokens",
+    "dics": ["aave-tokens", "aave", "aave tokens", "aave-tokens", "aave_tokens"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd7"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "solana-ecosystem",
+    "name": "Solana Ecosystem",
+    "dics": ["solana-ecosystem", "solana", "solana ecosystem", "solana-ecosystem", "solana_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd8"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko"],
+    "slug": "avalanche-ecosystem",
+    "name": "Avalanche Ecosystem",
+    "dics": ["avalanche-ecosystem", "avalanche", "avalanche ecosystem", "avalanche-ecosystem", "avalanche_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbd9"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "binance-labs-portfolio",
+    "name": "Binance Labs Portfolio",
+    "dics": ["binance-labs-portfolio", "binance", "binance labs", "binance-labs", "binance_labs"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbda"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "binance-launchpad",
+    "name": "Binance Launchpad",
+    "dics": ["binance-launchpad", "binance", "binance launchpad", "binance-launchpad", "binance_launchpad"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbdb"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "video",
+    "name": "Video",
+    "dics": ["video", "video"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbdc"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "sharing-economy",
+    "name": "Sharing Economy",
+    "dics": ["sharing-economy", "sharing", "sharing economy", "sharing-economy", "sharing_economy"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbdd"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "music",
+    "name": "Music",
+    "dics": ["music", "music"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbde"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "memes",
+    "name": "Memes",
+    "dics": ["memes", "meme", "meme-token"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbdf"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "e-commerce",
+    "name": "E-commerce",
+    "dics": ["e-commerce", "e", "e commerce", "e-commerce", "e_commerce"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe0"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "loyalty",
+    "name": "Loyalty",
+    "dics": ["loyalty", "loyalty"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe1"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "application"],
+    "slug": "distributed-computing",
+    "name": "Distributed Computing",
+    "dics": [
+      "distributed-computing",
+      "distributed",
+      "distributed computing",
+      "distributed-computing",
+      "distributed_computing",
+      "computing"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe2"
+    },
+    "sources": ["cryptoslate", "coinmarketcap"],
+    "slug": "ai-and-big-data",
+    "name": "AI & Big Data",
+    "dics": ["ai-and-big-data", "ai", "ai and", "ai-and", "ai_and"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe3"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "company"],
+    "slug": "communications-and-social-media",
+    "name": "Communications & Social Media",
+    "dics": [
+      "communications-and-social-media",
+      "communications",
+      "communications and",
+      "communications-and",
+      "communications_and",
+      "media",
+      "entertainment",
+      "communication"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe4"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "vrar",
+    "name": "VR/AR",
+    "dics": ["vrar", "vrar"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe5"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "transport",
+    "name": "Transport",
+    "dics": ["transport", "transport"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe6"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "logistics",
+    "name": "Logistics",
+    "dics": ["logistics", "logistics"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe7"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko", "person"],
+    "slug": "cosmos-ecosystem",
+    "name": "Cosmos Ecosystem",
+    "dics": ["cosmos-ecosystem", "cosmos", "cosmos ecosystem", "cosmos-ecosystem", "cosmos_ecosystem", "cosmos-eco"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe8"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "hospitality",
+    "name": "Hospitality",
+    "dics": ["hospitality", "hospitality"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbe9"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "health",
+    "name": "Health",
+    "dics": ["health", "health"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbea"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "events",
+    "name": "Events",
+    "dics": ["events", "events"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbeb"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "launchpad",
+    "name": "Launchpad",
+    "dics": ["launchpad", "launchpad"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbec"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "rollups",
+    "name": "Rollups",
+    "dics": ["rollups", "rollups"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbed"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "polychain-capital-portfolio",
+    "name": "Polychain Capital Portfolio",
+    "dics": ["polychain-capital-portfolio", "polychain", "polychain capital", "polychain-capital", "polychain_capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbee"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "three-arrows-capital-portfolio",
+    "name": "Three Arrows Capital Portfolio",
+    "dics": ["three-arrows-capital-portfolio", "three", "three arrows", "three-arrows", "three_arrows"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbef"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "coinbase-ventures-portfolio",
+    "name": "Coinbase Ventures Portfolio",
+    "dics": ["coinbase-ventures-portfolio", "coinbase", "coinbase ventures", "coinbase-ventures", "coinbase_ventures"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf0"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "social-money",
+    "name": "Social Money",
+    "dics": ["social-money", "social money", "social-money", "social_money"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf1"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "binance-launchpool",
+    "name": "Binance Launchpool",
+    "dics": ["binance-launchpool", "binance", "binance launchpool", "binance-launchpool", "binance_launchpool"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf2"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "yearn-partnerships",
+    "name": "Yearn Partnerships",
+    "dics": [
+      "yearn-partnerships",
+      "yearn",
+      "yearn partnerships",
+      "yearn-partnerships",
+      "yearn_partnerships",
+      "yearn-yfi-partnerships-mergers"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf3"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "yield-aggregator",
+    "name": "Yield Aggregator",
+    "dics": ["yield-aggregator", "yield", "yield aggregator", "yield-aggregator", "yield_aggregator"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf4"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "seigniorage",
+    "name": "Seigniorage",
+    "dics": ["seigniorage", "seigniorage"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf5"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "fan-token",
+    "name": "Fan Token",
+    "dics": ["fan-token", "fan", "fan token", "fan-token", "fan_token"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf6"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "tokenized-stock",
+    "name": "Tokenized Stock",
+    "dics": ["tokenized-stock", "tokenized", "tokenized stock", "tokenized-stock", "tokenized_stock"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf7"
+    },
+    "sources": ["coinmarketcap", "coingecko"],
+    "slug": "rebase",
+    "name": "Rebase",
+    "dics": ["rebase", "rebase-tokens"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf8"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "algorithmic-stablecoin",
+    "name": "Algorithmic Stablecoin",
+    "dics": [
+      "algorithmic-stablecoin",
+      "algorithmic",
+      "algorithmic stablecoin",
+      "algorithmic-stablecoin",
+      "algorithmic_stablecoin"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbf9"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko", "application"],
+    "slug": "stablecoin",
+    "name": "Stablecoin",
+    "dics": ["stablecoin", "stablecoins"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbfa"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "scaling",
+    "name": "Scaling",
+    "dics": ["scaling", "scaling"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbfb"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko", "application"],
+    "slug": "oracles",
+    "name": "Oracles",
+    "dics": ["oracles", "oracle"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbfc"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko", "application"],
+    "slug": "decentralized-exchange",
+    "name": "Decentralized Exchange",
+    "dics": [
+      "decentralized-exchange",
+      "decentralized",
+      "decentralized exchange",
+      "decentralized-exchange",
+      "decentralized_exchange",
+      "dex"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbfd"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko", "application"],
+    "slug": "centralized-exchange",
+    "name": "Centralized Exchange",
+    "dics": [
+      "centralized-exchange",
+      "centralized",
+      "centralized exchange",
+      "centralized-exchange",
+      "centralized_exchange",
+      "cex",
+      "centralized-exchange-token-cex"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbfe"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "bnb-chain-ecosystem",
+    "name": "BNB Chain",
+    "dics": ["bnb-chain-ecosystem", "bnb", "bnb chain", "bnb-chain", "bnb_chain"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cbff"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko", "company", "news"],
+    "slug": "nfts-and-collectibles",
+    "name": "NFTs & Collectibles",
+    "dics": [
+      "nfts-and-collectibles",
+      "nfts",
+      "nfts and",
+      "nfts-and",
+      "nfts_and",
+      "nft-and-web3",
+      "non-fungible-tokens-nft",
+      "nft"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc00"
+    },
+    "sources": ["cryptoslate", "coinmarketcap", "coingecko", "person"],
+    "slug": "polkadot-ecosystem",
+    "name": "Polkadot",
+    "dics": [
+      "polkadot-ecosystem",
+      "polkadot",
+      "polkadot ecosystem",
+      "polkadot-ecosystem",
+      "polkadot_ecosystem",
+      "polkadot-eco"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc01"
+    },
+    "sources": ["coinmarketcap"],
+    "slug": "aptos-ecosystem",
+    "name": "Aptos Ecosystem",
+    "dics": ["aptos-ecosystem", "aptos", "aptos ecosystem", "aptos-ecosystem", "aptos_ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc02"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "amm",
+    "name": "Automated Market Maker (AMM)",
+    "dics": ["amm", "automated-market-maker-amm"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc03"
+    },
+    "sources": ["cryptoslate", "coingecko", "application"],
+    "slug": "smart-contracts",
+    "name": "Smart Contracts",
+    "dics": [
+      "smart-contracts",
+      "smart",
+      "smart contracts",
+      "smart-contracts",
+      "smart_contracts",
+      "smart-contract",
+      "smart-contract-platform"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc04"
+    },
+    "sources": ["cryptoslate", "coingecko", "application"],
+    "slug": "yield-farming",
+    "name": "Yeild Farming",
+    "dics": ["yield-farming", "yield", "yield farming", "yield-farming", "yield_farming", "yieldfarming"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc05"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "leveraged-tokens",
+    "name": "Leveraged Tokens",
+    "dics": ["leveraged-tokens", "leveraged", "leveraged tokens", "leveraged-tokens", "leveraged_tokens"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc06"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "interoperability",
+    "name": "Interoperability Coins",
+    "dics": [
+      "interoperability",
+      "interoperability",
+      "interoperability coins",
+      "interoperability-coins",
+      "interoperability_coins"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc07"
+    },
+    "sources": ["cryptoslate", "coingecko", "application", "news"],
+    "slug": "privacy",
+    "name": "Privacy",
+    "dics": ["privacy", "privacy-coins"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc08"
+    },
+    "sources": ["cryptoslate", "consensus"],
+    "slug": "pow",
+    "name": "Proof of Work (PoW)",
+    "dics": ["pow", "proof-of-work"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc09"
+    },
+    "sources": ["cryptoslate", "consensus"],
+    "slug": "pos",
+    "name": "Proof-of-Stake (PoS)",
+    "dics": ["pos", "proof-of-stake"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc0a"
+    },
+    "sources": ["cryptoslate", "consensus"],
+    "slug": "dpos",
+    "name": "Delegated Proof Of Stake (DPoS)",
+    "dics": ["dpos", "delegated-proof-of-stake", "delegated-pos"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc0b"
+    },
+    "sources": ["cryptoslate", "consensus"],
+    "slug": "masternodes",
+    "name": "Masternodes",
+    "dics": ["masternodes", "masternode", "masternode-coins"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc0c"
+    },
+    "sources": ["cryptoslate", "application"],
+    "slug": "file-sharing",
+    "name": "File Sharing & Storage",
+    "dics": ["filesharing", "file-sharing", "filesharing-storage", "filesharing-and-storage", "storage"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc0d"
+    },
+    "sources": ["cryptoslate", "exploration"],
+    "slug": "coin-top",
+    "name": "Coin Top",
+    "dics": ["cointop", "coin-top"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc0e"
+    },
+    "sources": ["cryptoslate", "coingecko", "application"],
+    "slug": "governance",
+    "name": "Governance",
+    "dics": ["governance"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc0f"
+    },
+    "sources": ["cryptoslate", "application"],
+    "slug": "deflationary",
+    "name": "Deflationary Coins",
+    "dics": ["deflationary", "deflationary-coins"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc10"
+    },
+    "sources": ["cryptoslate", "application"],
+    "slug": "identity",
+    "name": "Identity",
+    "dics": ["identity"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc11"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "advertising",
+    "name": "Advertising",
+    "dics": ["advertising"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc12"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "debit-cards",
+    "name": "Debit Cards",
+    "dics": ["debit-cards", "debitcards", "debit cards", "debit_cards"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc13"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "wrapped-tokens",
+    "name": "Wrapped Tokens",
+    "dics": ["wrapped-tokens", "wrappedtokens", "wrapped tokens", "wrapped_tokens"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc14"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "ecommerce",
+    "name": "Ecommerce",
+    "dics": ["ecommerce", "e-commerce"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc15"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "abandoned",
+    "name": "Abandoned",
+    "dics": ["abandoned"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc16"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "content-creation",
+    "name": "Content Creation",
+    "dics": ["content-creation", "content creation", "content", "contents"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc17"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "utoken",
+    "name": "Utoken",
+    "dics": ["utoken"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc18"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "eos",
+    "name": "EOS",
+    "dics": ["eos"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc19"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "adult",
+    "name": "Adult",
+    "dics": ["adult"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc1a"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "flow",
+    "name": "Flow",
+    "dics": ["flow"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc1b"
+    },
+    "sources": ["cryptoslate", "coingecko", "application", "news"],
+    "slug": "derivatives",
+    "name": "Cryptocurrency derivatives",
+    "dics": ["derivatives", "cryptocurrency-derivatives", "cryptocurrency derivatives", "decentralized-derivatives"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc1c"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "gambling",
+    "name": "Gambling",
+    "dics": ["gambling"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc1d"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "binance-chain",
+    "name": "Binance Chain",
+    "dics": ["binance-chain", "binance chain", "bsc", "binance-smart-chain"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc1e"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "travel",
+    "name": "Travel",
+    "dics": ["travel"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc1f"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "prediction",
+    "name": "Prediction",
+    "dics": ["prediction", "prediction-markets"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc20"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "omni",
+    "name": "Omni",
+    "dics": ["omni"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc21"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "insurance",
+    "name": "Insurance",
+    "dics": ["insurance"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc22"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "transportation",
+    "name": "Transportation",
+    "dics": ["transportation"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc23"
+    },
+    "sources": ["cryptoslate", "exploration", "company", "news"],
+    "slug": "exchange",
+    "name": "Exchange",
+    "dics": ["exchange", "exchanges"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc24"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "business-service",
+    "name": "Business Service",
+    "dics": ["business-service"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc25"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "real-estate",
+    "name": "Real Estate",
+    "dics": ["real-estate"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc26"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "marketplace",
+    "name": "Marketplace",
+    "dics": ["marketplace"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc27"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "healthcare",
+    "name": "Healthcare",
+    "dics": ["healthcare"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc28"
+    },
+    "sources": ["cryptoslate", "exploration"],
+    "slug": "chart",
+    "name": "Chart",
+    "dics": ["chart"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc29"
+    },
+    "sources": ["cryptoslate", "company"],
+    "slug": "education",
+    "name": "Education",
+    "dics": ["education"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc2a"
+    },
+    "sources": ["cryptoslate", "coingecko", "news"],
+    "slug": "metaverse",
+    "name": "Metaverse",
+    "dics": ["metaverse"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc2b"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "virtual-reality",
+    "name": "Virtual Reality",
+    "dics": ["virtual-reality", "virtual reality"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc2c"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "jobs",
+    "name": "Jobs",
+    "dics": ["jobs"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc2d"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "duckstarter",
+    "name": "Duckstarter",
+    "dics": ["duckstarter"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc2e"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "neo",
+    "name": "Neo",
+    "dics": ["neo"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc2f"
+    },
+    "sources": ["cryptoslate", "application"],
+    "slug": "interest-earning",
+    "name": "Interest Earning",
+    "dics": ["interest-earning"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc30"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "charity",
+    "name": "Charity",
+    "dics": ["charity"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc31"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "lendingborrowing",
+    "name": "Lending Borrowing",
+    "dics": ["lendingborrowing", "lending-borrowing", "lending borrowing"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc32"
+    },
+    "sources": ["cryptoslate", "coingecko", "application"],
+    "slug": "gaming",
+    "name": "Gaming",
+    "dics": ["gaming"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc33"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "iot",
+    "name": "IOT",
+    "dics": ["iot", "internet-of-things-iot", "internet-of-things"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc34"
+    },
+    "sources": ["cryptoslate", "application"],
+    "slug": "evm",
+    "name": "Ethereum Virtual Machine (EVM)",
+    "dics": ["evm"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc35"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "play-to-earn",
+    "name": "Play to Earn",
+    "dics": ["play-to-earn", "play to earn", "playtoearn"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc36"
+    },
+    "sources": ["cryptoslate", "company"],
+    "slug": "dao",
+    "name": "Decentralized Autonomous Organization (DAO)",
+    "dics": ["dao"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc37"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "energy",
+    "name": "Energy",
+    "dics": ["energy"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc38"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "move-to-earn",
+    "name": "Move to Earn",
+    "dics": ["move-to-earn", "move to earn", "movetoearn"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc39"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "crowdfunding",
+    "name": "Crowdfunding",
+    "dics": ["crowdfunding"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc3a"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "fan-tokens",
+    "name": "Fan Tokens",
+    "dics": ["fan-tokens", "fan-token"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc3b"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "agriculture",
+    "name": "Agriculture",
+    "dics": ["agriculture"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc3c"
+    },
+    "sources": ["cryptoslate", "news"],
+    "slug": "memecoins",
+    "name": "Meme Coins",
+    "dics": ["memecoins", "meme-coins", "meme coins"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc3d"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "synthetic-issuer",
+    "name": "Synthetic Issuer",
+    "dics": ["synthetic-issuer", "synthetic issuer"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc3e"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "cybersecurity",
+    "name": "Cybersecurity",
+    "dics": ["cybersecurity"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc3f"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "stellar",
+    "name": "Stellar",
+    "dics": ["stellar"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc40"
+    },
+    "sources": ["cryptoslate", "product"],
+    "slug": "social",
+    "name": "Social",
+    "dics": ["social"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc41"
+    },
+    "sources": ["cryptoslate", "coingecko", "news"],
+    "slug": "sports",
+    "name": "Sports",
+    "dics": ["sports"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc42"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "wanchain",
+    "name": "Wanchain",
+    "dics": ["wanchain"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc43"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "icon",
+    "name": "Icon",
+    "dics": ["icon"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc44"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "nem",
+    "name": "NEM",
+    "dics": ["nem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc45"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "bitshares",
+    "name": "Bitshares",
+    "dics": ["bitshares"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc46"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "waves",
+    "name": "Waves",
+    "dics": ["waves"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc47"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "vechain",
+    "name": "Vechain",
+    "dics": ["vechain", "vechainthor"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc48"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "klaytn",
+    "name": "Klaytn",
+    "dics": ["klaytn"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc49"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "kusama",
+    "name": "Kusama",
+    "dics": ["kusama"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc4a"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "nxt",
+    "name": "Nxt",
+    "dics": ["nxt"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc4b"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "chiliz",
+    "name": "Chiliz",
+    "dics": ["chiliz"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc4c"
+    },
+    "sources": ["cryptoslate", "coingecko"],
+    "slug": "algorand",
+    "name": "Algorand",
+    "dics": ["algorand", "algorand-ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc4d"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "ardor",
+    "name": "Ardor",
+    "dics": ["ardor"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc4e"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "cannabis",
+    "name": "Cannabis",
+    "dics": ["cannabis"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc4f"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "qtum",
+    "name": "Qtum",
+    "dics": ["qtum"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc50"
+    },
+    "sources": ["cryptoslate"],
+    "slug": "ontology",
+    "name": "Ontology",
+    "dics": ["ontology"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc51"
+    },
+    "sources": ["coingecko"],
+    "slug": "exchange-based-tokens",
+    "name": "Exchange-based Tokens",
+    "dics": ["exchange-based-tokens"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc52"
+    },
+    "sources": ["coingecko"],
+    "slug": "arbitrum-nova-ecosystem",
+    "name": "Arbitrum Nova Ecosystem",
+    "dics": ["arbitrum-nova-ecosystem", "arbitrum-nova"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc53"
+    },
+    "sources": ["coingecko"],
+    "slug": "liquid-staking-tokens",
+    "name": "Liquid Staking Tokens",
+    "dics": ["liquid-staking-tokens"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc54"
+    },
+    "sources": ["coingecko"],
+    "slug": "eth-2-0-staking",
+    "name": "Eth 2.0 Staking",
+    "dics": ["eth-2-0-staking"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc55"
+    },
+    "sources": ["coingecko"],
+    "slug": "finance-banking",
+    "name": "Finance / Banking",
+    "dics": ["finance-banking"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc56"
+    },
+    "sources": ["coingecko"],
+    "slug": "asset-backed-tokens",
+    "name": "Asset-backed Tokens",
+    "dics": ["asset-backed-tokens"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc57"
+    },
+    "sources": ["coingecko"],
+    "slug": "decentralized-perpetuals",
+    "name": "Perpetuals",
+    "dics": ["decentralized-perpetuals"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc58"
+    },
+    "sources": ["coingecko"],
+    "slug": "oec-ecosystem",
+    "name": "OEC Ecosystem",
+    "dics": ["oec-ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc59"
+    },
+    "sources": ["coingecko"],
+    "slug": "zilliqa-ecosystem",
+    "name": "Zilliqa Ecosystem",
+    "dics": ["zilliqa-ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc5a"
+    },
+    "sources": ["coingecko"],
+    "slug": "daomaker-ecosystem",
+    "name": "DaoMaker Ecosystem",
+    "dics": ["daomaker-ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc5b"
+    },
+    "sources": ["coingecko"],
+    "slug": "mev-protection",
+    "name": "MEV Protection",
+    "dics": ["mev-protection"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc5c"
+    },
+    "sources": ["coingecko"],
+    "slug": "metagovernance",
+    "name": "Metagovernance",
+    "dics": ["metagovernance"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc5d"
+    },
+    "sources": ["coingecko"],
+    "slug": "guild-scholarship",
+    "name": "Guild and Scholarship",
+    "dics": ["guild-scholarship"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc5e"
+    },
+    "sources": ["coingecko"],
+    "slug": "iotex-ecosystem",
+    "name": "IoTeX Ecosystem",
+    "dics": ["iotex-ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc5f"
+    },
+    "sources": ["coingecko"],
+    "slug": "synths",
+    "name": "Synths",
+    "dics": ["synths"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc60"
+    },
+    "sources": ["coingecko"],
+    "slug": "ohm-fork",
+    "name": "Ohm Fork",
+    "dics": ["ohm-fork"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc61"
+    },
+    "sources": ["coingecko"],
+    "slug": "kardiachain-ecosystem",
+    "name": "KardiaChain Ecosystem",
+    "dics": ["kardiachain-ecosystem", "kardiachain"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc62"
+    },
+    "sources": ["exploration"],
+    "slug": "step-1-what-is-crypto",
+    "name": "Step 1: What is Crypto?",
+    "dics": ["step-1-what-is-crypto"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc63"
+    },
+    "sources": ["exploration"],
+    "slug": "step-2-how-to-earn-crypto",
+    "name": "Step 2: How to Earn Crypto?",
+    "dics": ["step-2-how-to-earn-crypto"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc64"
+    },
+    "sources": ["exploration"],
+    "slug": "step-3-how-to-trade",
+    "name": "Step 3: How to Trade?",
+    "dics": ["step-3-how-to-trade"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc65"
+    },
+    "sources": ["exploration"],
+    "slug": "step-4-what-to-use",
+    "name": "Step 4: What to Use?",
+    "dics": ["step-4-what-to-use"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc66"
+    },
+    "sources": ["exploration"],
+    "slug": "step-5-what-to-read-and-follow",
+    "name": "Step 5: What to Read & Follow?",
+    "dics": ["step-5-what-to-read-and-follow"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc67"
+    },
+    "sources": ["exploration"],
+    "slug": "experience",
+    "name": "Experience",
+    "dics": ["experience"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc68"
+    },
+    "sources": ["exploration"],
+    "slug": "academy",
+    "name": "Academy",
+    "dics": ["academy"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc69"
+    },
+    "sources": ["exploration"],
+    "slug": "glossary",
+    "name": "Glossary",
+    "dics": ["glossary"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc6a"
+    },
+    "sources": ["exploration"],
+    "slug": "guidelines",
+    "name": "Guidelines",
+    "dics": ["guidelines"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc6b"
+    },
+    "sources": ["exploration"],
+    "slug": "how-to-crypto",
+    "name": "How to crypto",
+    "dics": ["how-to-crypto"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc6c"
+    },
+    "sources": ["exploration"],
+    "slug": "market",
+    "name": "Market",
+    "dics": ["market"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc6d"
+    },
+    "sources": ["exploration", "product", "news"],
+    "slug": "wallet",
+    "name": "Wallet",
+    "dics": ["wallet", "wallets"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc6e"
+    },
+    "sources": ["exploration", "news"],
+    "slug": "basic-analysis",
+    "name": "Basic Analysis",
+    "dics": ["basic-analysis"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc6f"
+    },
+    "sources": ["exploration"],
+    "slug": "hold",
+    "name": "Hold",
+    "dics": ["hold"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc70"
+    },
+    "sources": ["exploration", "company", "investor"],
+    "slug": "fund",
+    "name": "Fund",
+    "dics": ["fund", "funds"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc71"
+    },
+    "sources": ["exploration"],
+    "slug": "toolandweb",
+    "name": "Tool&Web",
+    "dics": ["toolandweb"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc72"
+    },
+    "sources": ["exploration"],
+    "slug": "ecosystem",
+    "name": "Ecosystem",
+    "dics": ["ecosystem"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc73"
+    },
+    "sources": ["exploration"],
+    "slug": "candle-and-price-action",
+    "name": "Candle & Price Action",
+    "dics": ["candle-and-price-action"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc74"
+    },
+    "sources": ["exploration"],
+    "slug": "invest",
+    "name": "Invest",
+    "dics": ["invest"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc75"
+    },
+    "sources": ["exploration", "company", "news"],
+    "slug": "research",
+    "name": "Research",
+    "dics": ["research"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc76"
+    },
+    "sources": ["exploration"],
+    "slug": "exchange-and-launchpad",
+    "name": "Exchange & Launchpad",
+    "dics": ["exchange-and-launchpad"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc77"
+    },
+    "sources": ["exploration"],
+    "slug": "learn",
+    "name": "Learn",
+    "dics": ["learn"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc78"
+    },
+    "sources": ["exploration"],
+    "slug": "opportunity",
+    "name": "Opportunity",
+    "dics": ["opportunity"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc79"
+    },
+    "sources": ["exploration"],
+    "slug": "for-newbies",
+    "name": "For Newbies",
+    "dics": ["for-newbies"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc7a"
+    },
+    "sources": ["exploration"],
+    "slug": "portal",
+    "name": "Portal",
+    "dics": ["portal"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc7b"
+    },
+    "sources": ["product", "news"],
+    "slug": "gamefi",
+    "name": "GameFi",
+    "dics": ["gamefi", "games"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc7c"
+    },
+    "sources": ["product"],
+    "slug": "blockchain-explorers",
+    "name": "Blockchain Explorers",
+    "dics": ["blockchain-explorers"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc7d"
+    },
+    "sources": ["product"],
+    "slug": "trading-apps",
+    "name": "Trading Apps",
+    "dics": ["trading-apps"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc7e"
+    },
+    "sources": ["product"],
+    "slug": "asic-miners",
+    "name": "ASIC Miners",
+    "dics": ["asic-miners"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc7f"
+    },
+    "sources": ["product"],
+    "slug": "mining-cards",
+    "name": "Mining Cards",
+    "dics": ["mining-cards"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc80"
+    },
+    "sources": ["product"],
+    "slug": "hard-wallets",
+    "name": "Hard Wallets",
+    "dics": ["hard-wallets"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc81"
+    },
+    "sources": ["product"],
+    "slug": "price-tracking-apps",
+    "name": "Price Tracking Apps",
+    "dics": ["price-tracking-apps", "price_tracker", "price-tracker"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc82"
+    },
+    "sources": ["product", "person"],
+    "slug": "product-directory",
+    "name": "Product Directory",
+    "dics": ["product-directory"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc83"
+    },
+    "sources": ["product", "person"],
+    "slug": "ceo-dapper-collectives",
+    "name": "CEO - Dapper Collectives",
+    "dics": ["ceo-dapper-collectives"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc84"
+    },
+    "sources": ["product"],
+    "slug": "ethereum-dapp",
+    "name": "Ethereum DApp",
+    "dics": ["ethereum_dapp", "ethereum-dapp"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc85"
+    },
+    "sources": ["product"],
+    "slug": "dapp-browser",
+    "name": "DApp Browser",
+    "dics": ["dapp_browser", "dapp-browser"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc86"
+    },
+    "sources": ["product"],
+    "slug": "social-app",
+    "name": "Social App",
+    "dics": ["social-app"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc87"
+    },
+    "sources": ["company", "application", "news"],
+    "slug": "nft-and-web3",
+    "name": "NFT & Web3",
+    "dics": ["nft-and-web3"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc88"
+    },
+    "sources": ["company", "news"],
+    "slug": "legal",
+    "name": "Legal",
+    "dics": ["legal"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc89"
+    },
+    "sources": ["company", "person"],
+    "slug": "company-directory",
+    "name": "Company Directory",
+    "dics": ["company-directory"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc8a"
+    },
+    "sources": ["company", "investor", "person"],
+    "slug": "investors",
+    "name": "Investors",
+    "dics": ["investors"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc8b"
+    },
+    "sources": ["company"],
+    "slug": "retail",
+    "name": "Retail",
+    "dics": ["retail"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc8c"
+    },
+    "sources": ["company"],
+    "slug": "venture-capital",
+    "name": "Venture Capital",
+    "dics": ["venture-capital"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc8d"
+    },
+    "sources": ["company"],
+    "slug": "brokers",
+    "name": "Brokers",
+    "dics": ["brokers"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc8e"
+    },
+    "sources": ["company"],
+    "slug": "nft-marketplaces",
+    "name": "NFT Marketplaces",
+    "dics": ["nft-marketplaces"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc8f"
+    },
+    "sources": ["company", "person"],
+    "slug": "advisory",
+    "name": "Advisory",
+    "dics": ["advisory"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc90"
+    },
+    "sources": ["company"],
+    "slug": "development",
+    "name": "Development",
+    "dics": ["development"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc91"
+    },
+    "sources": ["company"],
+    "slug": "manufacturing",
+    "name": "Manufacturing",
+    "dics": ["manufacturing"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc92"
+    },
+    "sources": ["company"],
+    "slug": "nonprofits",
+    "name": "Nonprofits",
+    "dics": ["nonprofits"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc93"
+    },
+    "sources": ["company"],
+    "slug": "asset-management",
+    "name": "Asset Management",
+    "dics": ["asset-management"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc94"
+    },
+    "sources": ["company"],
+    "slug": "marketing",
+    "name": "Marketing",
+    "dics": ["marketing"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc95"
+    },
+    "sources": ["company"],
+    "slug": "technology",
+    "name": "Technology",
+    "dics": ["technology"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc96"
+    },
+    "sources": ["company"],
+    "slug": "accelerators",
+    "name": "Accelerators",
+    "dics": ["accelerators"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc97"
+    },
+    "sources": ["company"],
+    "slug": "software",
+    "name": "Software",
+    "dics": ["software"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc98"
+    },
+    "sources": ["company", "person"],
+    "slug": "managing-director-corporate-development-and-strategy",
+    "name": "Managing Director, Corporate Development & Strategy",
+    "dics": ["managing-director-corporate-development-and-strategy"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc99"
+    },
+    "sources": ["company"],
+    "slug": "infrastructure",
+    "name": "Infrastructure",
+    "dics": ["infrastructure"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc9a"
+    },
+    "sources": ["company"],
+    "slug": "cefi",
+    "name": "CeFi",
+    "dics": ["cefi"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc9b"
+    },
+    "sources": ["company"],
+    "slug": "foundation",
+    "name": "Foundation",
+    "dics": ["foundation"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc9c"
+    },
+    "sources": ["company"],
+    "slug": "lab",
+    "name": "Lab",
+    "dics": ["lab"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc9d"
+    },
+    "sources": ["company"],
+    "slug": "analytics",
+    "name": "Analytics",
+    "dics": ["analytics"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc9e"
+    },
+    "sources": ["company"],
+    "slug": "mining-pool",
+    "name": "Mining Pool",
+    "dics": ["mining-pool"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cc9f"
+    },
+    "sources": ["company"],
+    "slug": "co-working-space",
+    "name": "Co-Working Space",
+    "dics": ["co-working-space"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca0"
+    },
+    "sources": ["company"],
+    "slug": "payments",
+    "name": "Payments",
+    "dics": ["payments"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca1"
+    },
+    "sources": ["company"],
+    "slug": "philanthropy",
+    "name": "Philanthropy",
+    "dics": ["philanthropy"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca2"
+    },
+    "sources": ["person", "news"],
+    "slug": "partnerships",
+    "name": "Partnerships",
+    "dics": ["partnerships"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca3"
+    },
+    "sources": ["person"],
+    "slug": "founders",
+    "name": "Founders",
+    "dics": ["founders"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca4"
+    },
+    "sources": ["person"],
+    "slug": "influencers",
+    "name": "Influencers",
+    "dics": ["influencers"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca5"
+    },
+    "sources": ["person"],
+    "slug": "bitcoin-maxis",
+    "name": "Bitcoin Maxis",
+    "dics": ["bitcoin-maxis"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca6"
+    },
+    "sources": ["person"],
+    "slug": "celebrities",
+    "name": "Celebrities",
+    "dics": ["celebrities"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca7"
+    },
+    "sources": ["person"],
+    "slug": "athletes",
+    "name": "Athletes",
+    "dics": ["athletes"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca8"
+    },
+    "sources": ["person"],
+    "slug": "regulators",
+    "name": "Regulators",
+    "dics": ["regulators"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cca9"
+    },
+    "sources": ["person"],
+    "slug": "market-analysts",
+    "name": "Market Analysts",
+    "dics": ["market-analysts"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccaa"
+    },
+    "sources": ["person"],
+    "slug": "nft-artists",
+    "name": "NFT Artists",
+    "dics": ["nft-artists"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccab"
+    },
+    "sources": ["person"],
+    "slug": "executives",
+    "name": "Executives",
+    "dics": ["executives"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccac"
+    },
+    "sources": ["person"],
+    "slug": "economists",
+    "name": "Economists",
+    "dics": ["economists"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccad"
+    },
+    "sources": ["person"],
+    "slug": "programmers",
+    "name": "Programmers",
+    "dics": ["programmers"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccae"
+    },
+    "sources": ["person"],
+    "slug": "people-directory",
+    "name": "People Directory",
+    "dics": ["people-directory"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccaf"
+    },
+    "sources": ["person"],
+    "slug": "angel-investor",
+    "name": "Angel Investor",
+    "dics": ["angel-investor"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb0"
+    },
+    "sources": ["person"],
+    "slug": "youtuber",
+    "name": "YouTuber",
+    "dics": ["youtuber"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb1"
+    },
+    "sources": ["person"],
+    "slug": "author",
+    "name": "Author",
+    "dics": ["author"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb2"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-core-contributor",
+    "name": "Co-Founder & Core Contributor",
+    "dics": ["co-founder-and-core-contributor"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb3"
+    },
+    "sources": ["person"],
+    "slug": "managing-director",
+    "name": "Managing Director",
+    "dics": ["managing-director"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb4"
+    },
+    "sources": ["person"],
+    "slug": "founding-partner",
+    "name": "Founding Partner",
+    "dics": ["founding-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb5"
+    },
+    "sources": ["person"],
+    "slug": "podcaster",
+    "name": "Podcaster",
+    "dics": ["podcaster"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb6"
+    },
+    "sources": ["person"],
+    "slug": "journalist",
+    "name": "Journalist",
+    "dics": ["journalist"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb7"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-business-lead",
+    "name": "Co-Founder, Business Lead",
+    "dics": ["co-founder-business-lead"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb8"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-ceo",
+    "name": "Co-Founder & CEO",
+    "dics": ["co-founder-and-ceo"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccb9"
+    },
+    "sources": ["person"],
+    "slug": "celebrity",
+    "name": "Celebrity",
+    "dics": ["celebrity"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccba"
+    },
+    "sources": ["person"],
+    "slug": "chief-strategy-officer",
+    "name": "Chief Strategy Officer",
+    "dics": ["chief-strategy-officer"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccbb"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-coo",
+    "name": "Co-Founder & COO",
+    "dics": ["co-founder-and-coo"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccbc"
+    },
+    "sources": ["person"],
+    "slug": "co-cio",
+    "name": "Co-CIO",
+    "dics": ["co-cio"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccbd"
+    },
+    "sources": ["person"],
+    "slug": "ceo-and-founder",
+    "name": "CEO & Founder",
+    "dics": ["ceo-and-founder"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccbe"
+    },
+    "sources": ["person"],
+    "slug": "managing-partner",
+    "name": "Managing Partner",
+    "dics": ["managing-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccbf"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-managing-partner",
+    "name": "Co-Founder & Managing Partner",
+    "dics": ["co-founder-and-managing-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc0"
+    },
+    "sources": ["person"],
+    "slug": "head-of-institutional-business",
+    "name": "Head of Institutional Business",
+    "dics": ["head-of-institutional-business"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc1"
+    },
+    "sources": ["person"],
+    "slug": "basketball-player",
+    "name": "Basketball Player",
+    "dics": ["basketball-player"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc2"
+    },
+    "sources": ["person"],
+    "slug": "general-partner",
+    "name": "General Partner",
+    "dics": ["general-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc3"
+    },
+    "sources": ["person"],
+    "slug": "actor",
+    "name": "Actor",
+    "dics": ["actor"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc4"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-general-partner",
+    "name": "Co-Founder & General Partner",
+    "dics": ["co-founder-and-general-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc5"
+    },
+    "sources": ["person"],
+    "slug": "head-of-platform",
+    "name": "Head of Platform",
+    "dics": ["head-of-platform"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc6"
+    },
+    "sources": ["person"],
+    "slug": "co-founding-partner",
+    "name": "Co-Founding Partner",
+    "dics": ["co-founding-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc7"
+    },
+    "sources": ["person"],
+    "slug": "chief-marketing-officer",
+    "name": "Chief Marketing Officer",
+    "dics": ["chief-marketing-officer"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc8"
+    },
+    "sources": ["person"],
+    "slug": "chief-product-officer",
+    "name": "Chief Product Officer",
+    "dics": ["chief-product-officer"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccc9"
+    },
+    "sources": ["person"],
+    "slug": "president-and-coo",
+    "name": "President & COO",
+    "dics": ["president-and-coo"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccca"
+    },
+    "sources": ["person"],
+    "slug": "gm-of-consumer",
+    "name": "GM of Consumer",
+    "dics": ["gm-of-consumer"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cccb"
+    },
+    "sources": ["person"],
+    "slug": "core-builder",
+    "name": "Core Builder",
+    "dics": ["core-builder"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cccc"
+    },
+    "sources": ["person"],
+    "slug": "chairman",
+    "name": "Chairman",
+    "dics": ["chairman"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cccd"
+    },
+    "sources": ["person"],
+    "slug": "head-of-business-development",
+    "name": "Head of Business Development",
+    "dics": ["head-of-business-development"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccce"
+    },
+    "sources": ["person"],
+    "slug": "protocol-specialist",
+    "name": "Protocol Specialist",
+    "dics": ["protocol-specialist"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cccf"
+    },
+    "sources": ["person"],
+    "slug": "community",
+    "name": "Community",
+    "dics": ["community"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd0"
+    },
+    "sources": ["person"],
+    "slug": "regional-partner",
+    "name": "Regional Partner",
+    "dics": ["regional-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd1"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-head-of-business",
+    "name": "Co-Founder & Head of Business",
+    "dics": ["co-founder-and-head-of-business"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd2"
+    },
+    "sources": ["person"],
+    "slug": "head-of-institutional-coverage",
+    "name": "Head of Institutional Coverage",
+    "dics": ["head-of-institutional-coverage"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd3"
+    },
+    "sources": ["person"],
+    "slug": "vp-of-research",
+    "name": "VP of Research",
+    "dics": ["vp-of-research"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd4"
+    },
+    "sources": ["person"],
+    "slug": "founder-ceo-engineer",
+    "name": "Founder, CEO, Engineer",
+    "dics": ["founder-ceo-engineer"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd5"
+    },
+    "sources": ["person"],
+    "slug": "ceo-and-co-founder",
+    "name": "CEO & Co-Founder",
+    "dics": ["ceo-and-co-founder"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd6"
+    },
+    "sources": ["person"],
+    "slug": "principal-and-managing-partner",
+    "name": "Principal & Managing Partner",
+    "dics": ["principal-and-managing-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd7"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-cto",
+    "name": "Co-Founder & CTO",
+    "dics": ["co-founder-and-cto"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd8"
+    },
+    "sources": ["person"],
+    "slug": "head-of-crypto",
+    "name": "Head of Crypto",
+    "dics": ["head-of-crypto"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccd9"
+    },
+    "sources": ["person"],
+    "slug": "head-of-strategy",
+    "name": "Head of Strategy",
+    "dics": ["head-of-strategy"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccda"
+    },
+    "sources": ["person"],
+    "slug": "dao-lead-pm-solidity-dev",
+    "name": "DAO Lead, PM, Solidity Dev",
+    "dics": ["dao-lead-pm-solidity-dev"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccdb"
+    },
+    "sources": ["person"],
+    "slug": "vp-of-engineering",
+    "name": "VP of Engineering",
+    "dics": ["vp-of-engineering"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccdc"
+    },
+    "sources": ["person"],
+    "slug": "venture-capitalist",
+    "name": "Venture Capitalist",
+    "dics": ["venture-capitalist"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccdd"
+    },
+    "sources": ["person"],
+    "slug": "ecosystem-growth",
+    "name": "Ecosystem Growth",
+    "dics": ["ecosystem-growth"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccde"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-president",
+    "name": "Co-Founder & President",
+    "dics": ["co-founder-and-president"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccdf"
+    },
+    "sources": ["person"],
+    "slug": "founding-partner-delphi-ventures",
+    "name": "Founding Partner - Delphi Ventures",
+    "dics": ["founding-partner-delphi-ventures"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce0"
+    },
+    "sources": ["person"],
+    "slug": "business-operations-and-strategy",
+    "name": "Business Operations & Strategy",
+    "dics": ["business-operations-and-strategy"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce1"
+    },
+    "sources": ["person"],
+    "slug": "co-founder-and-growth",
+    "name": "Co-Founder & Growth",
+    "dics": ["co-founder-and-growth"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce2"
+    },
+    "sources": ["person"],
+    "slug": "head-of-coinbase-cloud",
+    "name": "Head of Coinbase Cloud",
+    "dics": ["head-of-coinbase-cloud"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce3"
+    },
+    "sources": ["person"],
+    "slug": "head-of-engineering",
+    "name": "Head of Engineering",
+    "dics": ["head-of-engineering"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce4"
+    },
+    "sources": ["person"],
+    "slug": "board-member",
+    "name": "Board Member",
+    "dics": ["board-member"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce5"
+    },
+    "sources": ["person"],
+    "slug": "musical-artist",
+    "name": "Musical Artist",
+    "dics": ["musical-artist"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce6"
+    },
+    "sources": ["person"],
+    "slug": "product-engineer-growth",
+    "name": "Product Engineer, Growth",
+    "dics": ["product-engineer-growth"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce7"
+    },
+    "sources": ["person"],
+    "slug": "sourcing",
+    "name": "Sourcing",
+    "dics": ["sourcing"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce8"
+    },
+    "sources": ["person"],
+    "slug": "co-head-of-franchise-development",
+    "name": "Co-Head of Franchise Development",
+    "dics": ["co-head-of-franchise-development"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cce9"
+    },
+    "sources": ["person"],
+    "slug": "quantitative-researcher",
+    "name": "Quantitative Researcher",
+    "dics": ["quantitative-researcher"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccea"
+    },
+    "sources": ["person"],
+    "slug": "music-artist",
+    "name": "Music Artist",
+    "dics": ["music-artist"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cceb"
+    },
+    "sources": ["person"],
+    "slug": "product-research-and-design",
+    "name": "Product Research & Design",
+    "dics": ["product-research-and-design"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccec"
+    },
+    "sources": ["person"],
+    "slug": "limited-partner",
+    "name": "Limited Partner",
+    "dics": ["limited-partner"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cced"
+    },
+    "sources": ["person"],
+    "slug": "lead-terra-india",
+    "name": "Lead - Terra India",
+    "dics": ["lead-terra-india"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccee"
+    },
+    "sources": ["person"],
+    "slug": "full-time-angel-investor",
+    "name": "Full-time Angel Investor",
+    "dics": ["full-time-angel-investor"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccef"
+    },
+    "sources": ["person"],
+    "slug": "product-strategy",
+    "name": "Product Strategy",
+    "dics": ["product-strategy"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf0"
+    },
+    "sources": ["person"],
+    "slug": "investment-team",
+    "name": "Investment Team",
+    "dics": ["investment-team"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf1"
+    },
+    "sources": ["news"],
+    "slug": "academia",
+    "name": "Academia",
+    "dics": ["academia"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf2"
+    },
+    "sources": ["news"],
+    "slug": "adoption",
+    "name": "Adoption",
+    "dics": ["adoption"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf3"
+    },
+    "sources": ["news"],
+    "slug": "cbdcs",
+    "name": "CBDCs",
+    "dics": ["cbdcs"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf4"
+    },
+    "sources": ["news"],
+    "slug": "censorship",
+    "name": "Censorship",
+    "dics": ["censorship"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf5"
+    },
+    "sources": ["news"],
+    "slug": "crime",
+    "name": "Crime",
+    "dics": ["crime"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf6"
+    },
+    "sources": ["news"],
+    "slug": "culture",
+    "name": "Culture",
+    "dics": ["culture"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf7"
+    },
+    "sources": ["news"],
+    "slug": "earnings",
+    "name": "Earnings",
+    "dics": ["earnings"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf8"
+    },
+    "sources": ["news"],
+    "slug": "hacks",
+    "name": "Hacks",
+    "dics": ["hacks"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccf9"
+    },
+    "sources": ["news"],
+    "slug": "layer2",
+    "name": "Layer2",
+    "dics": ["layer2"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccfa"
+    },
+    "sources": ["news"],
+    "slug": "macro",
+    "name": "Macro",
+    "dics": ["macro"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccfb"
+    },
+    "sources": ["news"],
+    "slug": "investments",
+    "name": "Investments",
+    "dics": ["investments"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccfc"
+    },
+    "sources": ["news"],
+    "slug": "interviews",
+    "name": "Interviews",
+    "dics": ["interviews"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccfd"
+    },
+    "sources": ["news"],
+    "slug": "blocklight",
+    "name": "Blocklight",
+    "dics": ["blocklight"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccfe"
+    },
+    "sources": ["news"],
+    "slug": "banking",
+    "name": "Banking",
+    "dics": ["banking"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46ccff"
+    },
+    "sources": ["news"],
+    "slug": "press-releases",
+    "name": "Press Releases",
+    "dics": ["press-releases"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd00"
+    },
+    "sources": ["news"],
+    "slug": "people",
+    "name": "People",
+    "dics": ["people"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd01"
+    },
+    "sources": ["news"],
+    "slug": "mining",
+    "name": "Mining",
+    "dics": ["mining"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd02"
+    },
+    "sources": ["news"],
+    "slug": "politics",
+    "name": "Politics",
+    "dics": ["politics"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd03"
+    },
+    "sources": ["news"],
+    "slug": "regulation",
+    "name": "Regulation",
+    "dics": ["regulation"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd04"
+    },
+    "sources": ["news"],
+    "slug": "opinion",
+    "name": "Opinion",
+    "dics": ["opinion"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd05"
+    },
+    "sources": ["news"],
+    "slug": "taxes",
+    "name": "Taxes",
+    "dics": ["taxes"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd06"
+    },
+    "sources": ["news"],
+    "slug": "staking",
+    "name": "Staking",
+    "dics": ["staking"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd07"
+    },
+    "sources": ["news"],
+    "slug": "trading",
+    "name": "Trading",
+    "dics": ["trading"]
+  },
+  {
+    "_id": {
+      "$oid": "635807b35dcf0964bd46cd08"
+    },
+    "sources": ["news"],
+    "slug": "merge",
+    "name": "Merge",
+    "dics": ["merge"]
+  }
+]

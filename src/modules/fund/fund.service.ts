@@ -33,7 +33,7 @@ export class FundService {
   }
 
   get publicOutputKeys() {
-    return ['id', 'name', 'avatar', 'description', 'slug'];
+    return ['id', 'name', 'avatar', 'description', 'short_description', 'slug', 'categories_distribution'];
   }
 
   get transKeys() {
@@ -140,7 +140,7 @@ export class FundService {
         tier,
         deleted = false,
       } = _filter;
-      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
+      const { offset = 1, limit, sort_by = 'market_cap', sort_order = 'asc', keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get(
           $pagination({

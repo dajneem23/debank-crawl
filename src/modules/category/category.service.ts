@@ -278,6 +278,7 @@ export class CategoryService {
                 title: { $regex: keyword, $options: 'i' },
               }),
             },
+            $addFields: { ...this.model.$addFields.sub_categories },
             $lookups: [this.model.$lookups.sub_categories],
             $projects: [
               ...((lang && [
@@ -311,7 +312,9 @@ export class CategoryService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            items: [],
+
+            // ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
           }),
         )
         .toArray();

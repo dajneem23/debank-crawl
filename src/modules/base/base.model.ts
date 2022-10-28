@@ -304,6 +304,7 @@ export class BaseModel {
   }
   get $addFields(): {
     categories: any;
+    sub_categories: any;
     products: any;
     projects: any;
     cryptocurrencies: any;
@@ -323,6 +324,17 @@ export class BaseModel {
             },
             then: [],
             else: '$categories',
+          },
+        },
+      },
+      sub_categories: {
+        sub_categories: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$sub_categories' }, 'array'],
+            },
+            then: [],
+            else: '$sub_categories',
           },
         },
       },

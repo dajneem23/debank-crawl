@@ -19,10 +19,10 @@ import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFr
   // await ProductSeed();
   // await PersonSeed();
   // await FundSeed();
-  // await cryptorankFundsSeed();
+  await cryptorankFundsSeed();
   // await companyInvestment();
   // await personInvestment();
-  // await fundInvestment();
+  await fundInvestment();
   // await FundraisingRoundSeed();
   // await insertCoins();
   // await insertFunds();
@@ -30,7 +30,7 @@ import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFr
   // await insertCompanies();
   // await insertProducts();
   // await insertFundraisingRounds();
-  await mappingCoins();
+  // await mappingCoins();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

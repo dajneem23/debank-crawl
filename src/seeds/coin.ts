@@ -11,7 +11,10 @@ import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
-import { uniq } from 'lodash';
+import { uniq, isNil, omitBy, rest } from 'lodash';
+import cryptorankCoins from '../data/cryptorank/coins.json';
+import cryptorankTags from '../data/cryptorank/coin-tags.json';
+import cryptorankFunds from '../data/cryptorank/funds.json';
 //   /* eslint-disable no-console */
 export const CoinSeed = async () => {
   /* eslint-disable no-console */
@@ -157,6 +160,122 @@ export const CoinSeed = async () => {
   // console.log('Inserting coins', coins.length);
   // await db.collection('coins').insertMany(coins);
 };
+export const cryptorankCoinsSeed = async () => {
+  const coins = (cryptorankCoins as any).map(
+    ({
+      name,
+      symbol,
+      key: slug,
+      rank,
+      fundIds = [],
+      fundingRounds: _fundraising_rounds,
+      image = {},
+      category,
+      tagIds = [],
+      tokens = [],
+      fullyDilutedMarketCap: fully_diluted_market_cap,
+      marketCap: market_cap,
+      availableSupply: available_supply,
+      totalSupply: total_supply,
+    }: any) => {
+      const fundraising_rounds = _fundraising_rounds.map(
+        ({
+          id,
+          fundIds,
+          leadFundIds,
+          linkToAnnouncement: announcement,
+          raise: amount,
+          type: stage,
+          priorityRating: priority_rating,
+          coinId,
+          ...rest
+        }: any) => {
+          return {
+            id_of_sources: { cryptorank: id },
+            announcement,
+            amount,
+            stage,
+            asset_slug: slug,
+            asset_symbol: symbol,
+            asset_name: name,
+            funds: fundIds.map((fundId: any) => {
+              return (cryptorankFunds as any).find((fund: any) => fund.id == fundId)?.slug;
+            }),
+            lead_funds: leadFundIds.map((leadFundId: any) => {
+              return (cryptorankFunds as any).find((fund: any) => fund.id == leadFundId)?.slug;
+            }),
+            priority_rating,
+            ...rest,
+            created_at: new Date(),
+            updated_at: new Date(),
+            created_by: 'admin',
+            deleted: false,
+          };
+        },
+      );
+
+      return omitBy(
+        {
+          id_of_sources: {
+            cryptorank: slug,
+          },
+          name,
+          slug,
+          symbol,
+          fundraising_rounds,
+          cr_rank: rank,
+          avatar: image?.native,
+          categories: category?.split(',').map((category: string) =>
+            slugify(category, {
+              lower: true,
+              trim: true,
+              replacement: '-',
+              remove: RemoveSlugPattern,
+            }),
+          ),
+          urls: {
+            avatar: Object.values(image),
+          },
+          fully_diluted_market_cap,
+          market_cap,
+          available_supply,
+          total_supply,
+          tokens: tokens.map(
+            ({ platformName: name, platformKey: key, platformSlug: slug, explorerUrl: explorer, address }: any) => ({
+              name,
+              // key,
+              slug,
+              explorer: {
+                name,
+                url: explorer,
+              },
+              address,
+            }),
+          ),
+          tags: tagIds?.map((tagId: string) => {
+            return cryptorankTags.find((tag: any) => tag.id == tagId).slug;
+          }),
+          funds: fundIds.map((fundId: string) => {
+            return (cryptorankFunds as any).find((fund: any) => fund.id == fundId)?.slug;
+          }),
+        },
+        isNil,
+      );
+    },
+  );
+  const _coins = coins.map(({ fundraising_rounds, ...rest }: any) => {
+    return {
+      ...rest,
+      created_at: new Date(),
+      updated_at: new Date(),
+      created_by: 'admin',
+      deleted: false,
+    };
+  });
+  const fundraising_rounds = coins.map(({ fundraising_rounds }: any) => fundraising_rounds).flat();
+  fs.writeFileSync(`${__dirname}/data/cryptorank-coins.json`, JSON.stringify(_coins));
+  fs.writeFileSync(`${__dirname}/data/cryptorank-coins-fundraising_rounds.json`, JSON.stringify(fundraising_rounds));
+};
 export const insertCoins = async () => {
   const db = Container.get(DIMongoDB);
   const collection = db.collection('assets');
@@ -226,4 +345,78 @@ export const insertCoins = async () => {
   } catch (error) {
     console.log('error', error);
   }
+};
+
+export const mappingCoins = async () => {
+  const db = Container.get(DIMongoDB);
+  const collection = db.collection('assets');
+  const assets = await collection.find({}).toArray();
+  const cryptorankCoins = JSON.parse(fs.readFileSync(`${__dirname}/data/cryptorank-coins.json`, 'utf8') as any);
+  const assetsMapping = assets.map(
+    ({
+      _id,
+      id_of_sources,
+      slug,
+      avatar,
+      tags = [],
+      categories = [],
+      name,
+      fully_diluted_market_cap,
+      market_cap,
+      total_supply,
+      urls: { urls_avatar = [], ...urls_rest } = {},
+      ...rest
+    }: any) => {
+      const {
+        id_of_sources: { cryptorank } = [],
+        urls: { avatar: avatars_cryptorank = [] } = {},
+        avatar: avatar_cryptorank,
+        tags_cryptorank = [],
+        categories_cryptorank = [],
+        tokens,
+        funds,
+        cr_rank,
+        fully_diluted_market_cap: fully_diluted_market_cap_cryptorank,
+        market_cap: market_cap_cryptorank,
+        available_supply,
+        total_supply: total_supply_cryptorank,
+      } = cryptorankCoins.find((coin: any) => coin.slug == slug || coin.name.toLowerCase() == name.toLowerCase()) || {};
+      const index = cryptorankCoins.findIndex(
+        (coin: any) => coin.slug == slug || coin.name.toLowerCase() == name.toLowerCase(),
+      );
+      if (index > -1) {
+        cryptorankCoins.splice(index, 1);
+      }
+      return {
+        id_of_sources: {
+          ...id_of_sources,
+          cryptorank,
+        },
+        name,
+        slug,
+        avatar: avatar_cryptorank || avatar,
+        urls: {
+          avatar: [...urls_avatar, ...avatars_cryptorank],
+          ...urls_rest,
+        },
+        tokens,
+        tags: uniq([...tags, ...tags_cryptorank]),
+        categories: uniq([...categories, ...categories_cryptorank]),
+        funds,
+        cr_rank,
+        fully_diluted_market_cap: fully_diluted_market_cap_cryptorank || fully_diluted_market_cap,
+        market_cap: market_cap_cryptorank || market_cap,
+        available_supply,
+        total_supply: total_supply_cryptorank || total_supply,
+        ...rest,
+      };
+    },
+  );
+  const _assetsMapping = [...assetsMapping, ...cryptorankCoins];
+  console.log({
+    cryptorank: cryptorankCoins.length,
+    assets: assets.length,
+    sum: _assetsMapping.length,
+  });
+  fs.writeFileSync(`${__dirname}/data/assets-mapping-cryptorank.json`, JSON.stringify(_assetsMapping));
 };

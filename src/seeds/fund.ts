@@ -218,7 +218,8 @@ export const fundInvestment = async () => {
   const funds = JSON.parse(fs.readFileSync(`${__dirname}/data/funds.json`, 'utf8') as any);
   const crypto_funds = JSON.parse(fs.readFileSync(`${__dirname}/data/cryptorank-funds.json`, 'utf8') as any);
   const db = Container.get(DIMongoDB);
-  const fundsFinal = funds.map(({ investors, foreign_id, foreign_ids = [], name, ...rest }: any) => {
+  let total_index = 0;
+  const fundsFinal = funds.map(({ investors, foreign_id, foreign_ids = [], name, slug, ...rest }: any) => {
     const investments = uniq([
       ...companies
         .filter(
@@ -234,15 +235,31 @@ export const fundInvestment = async () => {
         )
         .map(({ foreign_id, name: investor_name, avatar, urls, slug }: any) => slug),
     ]);
+    const cryptorank_funds = (crypto_funds.find(
+      ({ slug: cryptorank_slug, name: cryptorank_name }: any) =>
+        cryptorank_slug == slug || cryptorank_name.toLowerCase() == name.toLowerCase(),
+    ) || {}) as any;
+    const index = crypto_funds.findIndex(
+      ({ slug: cryptorank_slug, name: cryptorank_name }: any) =>
+        cryptorank_slug == slug || cryptorank_name.toLowerCase() == name.toLowerCase(),
+    );
+    if (index > -1) {
+      crypto_funds.splice(index, 1);
+      total_index++;
+    }
     return {
+      slug,
       name,
       ...rest,
       // foreign_id,
       portfolio_companies: investments,
       // total_investments: investments.length,
+      ...cryptorank_funds,
     };
   });
-  fs.writeFileSync(`${__dirname}/data/_funds.json`, JSON.stringify(fundsFinal));
+  console.log(total_index);
+  const _funds = [...fundsFinal, ...crypto_funds];
+  fs.writeFileSync(`${__dirname}/data/_funds.json`, JSON.stringify(_funds));
 };
 
 export const cryptorankFundsSeed = async () => {
@@ -272,9 +289,9 @@ export const cryptorankFundsSeed = async () => {
       category: { slug: category_slug } = { slug: null },
       rankedCoins: ranked_coins,
       dominance,
-      market_cap,
+      marketCap: market_cap,
       volume24h,
-      categories_distribution,
+      categoriesDistribution: categories_distribution,
     }: any) => {
       return omitBy(
         {
@@ -332,6 +349,10 @@ export const cryptorankFundsSeed = async () => {
           categories: [category_slug],
           ranked_coins,
           categories_distribution,
+          deleted: false,
+          created_at: new Date(),
+          updated_at: new Date(),
+          created_by: 'system',
         },
         isNil,
       );

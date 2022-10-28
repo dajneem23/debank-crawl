@@ -22,6 +22,7 @@ export interface Asset extends BaseInformationModel {
   product?: string; // product_slug
   project?: string; // project_slug
   company?: string; // company_slug
+  funds?: string[]; // funds_slug
 
   team: TeamPerson[];
   ico: IcoDetail[];
@@ -49,6 +50,7 @@ export interface Asset extends BaseInformationModel {
   fully_diluted_market_cap?: number;
   market_cap_by_total_supply?: number;
   total_supply?: number;
+  available_supply?: number;
   circulating_supply?: number;
   self_reported_circulating_supply?: number;
   max_supply?: number;

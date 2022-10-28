@@ -47,6 +47,12 @@ export interface Fund extends BaseInformationModel {
   }[];
 
   fees?: string;
+
+  categories_distribution?: {
+    name: string;
+    count: number;
+    percentange: number;
+  }[];
 }
 
 export const _fund: Fund = {

@@ -7,7 +7,9 @@ export interface FundraisingRound extends BaseInformationModel {
 
   asset: string; // <asset_slug> -> bitcoin, ethereum, etc
 
-  fund?: string; // fund_slug  "andreessen-horowitz" -> funds collection
+  lead_funds?: string; // fund_slug  "andreessen-horowitz" -> funds collection
+
+  funds: string[]; // fund_slug  "andreessen-horowitz" -> funds collection
 
   company: string; // company_slug  "dora-factory" -> companies collection
 

@@ -3,7 +3,7 @@ import { CategorySeed } from './category';
 import { PersonSeed, personInvestment, insertPersons } from './person';
 import { ProductSeed, insertProducts } from './product';
 import { CompanySeed, companyInvestment, insertCompanies } from './company';
-import { CoinSeed, insertCoins } from './coin';
+import { CoinSeed, insertCoins, cryptorankCoinsSeed, mappingCoins } from './coin';
 import { UserSeed } from './user';
 import { FundSeed, fundInvestment, insertFunds, cryptorankFundsSeed } from './fund';
 import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFromCoinCarp } from './fundraising-round';
@@ -15,9 +15,11 @@ import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFr
   // await CategorySeed();
   // await CompanySeed();
   // await CoinSeed();
+  // await cryptorankCoinsSeed();
   // await ProductSeed();
   // await PersonSeed();
   // await FundSeed();
+  // await cryptorankFundsSeed();
   // await companyInvestment();
   // await personInvestment();
   // await fundInvestment();
@@ -28,7 +30,7 @@ import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFr
   // await insertCompanies();
   // await insertProducts();
   // await insertFundraisingRounds();
-  await cryptorankFundsSeed();
+  await mappingCoins();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

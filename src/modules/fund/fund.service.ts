@@ -213,7 +213,7 @@ export class FundService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         )
         .toArray();
@@ -403,7 +403,7 @@ export class FundService {
               ]) ||
                 []),
             ],
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         ])
         .toArray();

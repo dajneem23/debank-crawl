@@ -58,10 +58,6 @@ export class ProductService {
           ..._content,
           ...(_subject && { created_by: _subject }),
         },
-        {
-          upsert: true,
-          returnDocument: 'after',
-        },
       );
       this.logger.debug('create_success', { _content });
       return toOutPut({ item: value, keys: this.outputKeys });
@@ -80,19 +76,12 @@ export class ProductService {
    */
   async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      await this.model.update(
-        $toMongoFilter({ _id }),
-        {
-          $set: {
-            ..._content,
-            ...(_subject && { updated_by: _subject }),
-          },
+      await this.model.update($toMongoFilter({ _id }), {
+        $set: {
+          ..._content,
+          ...(_subject && { updated_by: _subject }),
         },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      });
       this.logger.debug('update_success', { _content });
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
@@ -109,19 +98,12 @@ export class ProductService {
    */
   async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
     try {
-      await this.model.delete(
-        $toMongoFilter({ _id }),
-        {
-          $set: {
-            deleted: true,
-            ...(_subject && { deleted_by: _subject }),
-          },
+      await this.model.delete($toMongoFilter({ _id }), {
+        $set: {
+          deleted: true,
+          ...(_subject && { deleted_by: _subject }),
         },
-        {
-          upsert: false,
-          returnDocument: 'after',
-        },
-      );
+      });
       this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
@@ -141,7 +123,12 @@ export class ProductService {
     try {
       const { lang, categories = [], deleted = false } = _filter;
       const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get(
           $pagination({
             $match: {
@@ -354,7 +341,12 @@ export class ProductService {
     try {
       const { lang } = _filter;
       const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get([
           ...$pagination({
             $match: {

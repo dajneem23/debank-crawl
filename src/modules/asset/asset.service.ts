@@ -249,7 +249,12 @@ export class AssetService {
       } = _filter;
       const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
       const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get(
           $pagination({
             $match: {
@@ -529,7 +534,12 @@ export class AssetService {
     try {
       const { lang } = _filter;
       const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get([
           ...$pagination({
             $match: {
@@ -612,7 +622,13 @@ export class AssetService {
       } = _filter;
       const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
       const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      // const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get(
           $pagination({
             $match: {
@@ -749,7 +765,12 @@ export class AssetService {
     await sleep(delay);
     try {
       this.logger.debug('success', 'fetchMarketData', { page, per_page });
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get([
           ...$pagination({
             $projects: [
@@ -764,7 +785,7 @@ export class AssetService {
         ])
         .toArray();
       if (items.length) {
-        const listSymbol = items.map((item) => item.symbol);
+        const listSymbol = items.map((item: any) => item.symbol);
         const {
           data: { data: quotesLatest },
         } = await CoinMarketCapAPI.fetch({
@@ -1011,7 +1032,12 @@ export class AssetService {
   } = {}): Promise<void> {
     await sleep(delay);
     try {
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get([
           ...$pagination({
             $projects: [
@@ -1026,7 +1052,7 @@ export class AssetService {
         ])
         .toArray();
       if (items.length) {
-        const listSymbol = items.map((item) => item.symbol);
+        const listSymbol = items.map((item: any) => item.symbol);
         const {
           data: { data: ohlcvLastest },
         } = await CoinMarketCapAPI.fetch({

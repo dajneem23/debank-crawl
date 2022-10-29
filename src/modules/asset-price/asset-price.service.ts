@@ -131,7 +131,12 @@ export class AssetPriceService {
       } = _filter;
       const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
       const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get(
           $pagination({
             $match: {

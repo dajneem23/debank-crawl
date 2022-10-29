@@ -174,7 +174,7 @@ export const $pagination = ({
     ]),
     {
       $facet: {
-        total_count: [
+        paging: [
           {
             $count: 'total_count',
           },
@@ -189,14 +189,13 @@ export const $pagination = ({
         ],
       },
     },
-
-    {
-      $project: {
-        result: { $concatArrays: ['$total_count', '$items'] },
-      },
-    },
-    { $unwind: '$result' },
-    { $replaceRoot: { newRoot: '$result' } },
+    // {
+    //   $project: {
+    //     result: { $concatArrays: ['$total_count', '$items'] },
+    //   },
+    // },
+    // { $unwind: '$result' },
+    // { $replaceRoot: { newRoot: '$result' } },
   ].filter(Boolean);
 };
 /**

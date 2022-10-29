@@ -2,7 +2,7 @@ import { Filter, ObjectId, ReadPreference, TransactionOptions, WithTransactionCa
 import { Container } from 'typedi';
 import mongoDBLoader, { DIMongoClient } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
-import { isNull, omitBy } from 'lodash';
+import { isEmpty, isNil, isNull, omitBy } from 'lodash';
 import { defaultFilter } from '@/types/Common';
 
 const transactionOptions: TransactionOptions = {
@@ -157,6 +157,7 @@ export const $pagination = ({
   Object.keys($match).forEach(
     (key) => ($match[key] = /_id/.test(key) && !$match[key].$in ? new ObjectId($match[key]) : $match[key]),
   );
+
   return [
     {
       $match,
@@ -196,7 +197,7 @@ export const $pagination = ({
     // },
     // { $unwind: '$result' },
     // { $replaceRoot: { newRoot: '$result' } },
-  ].filter(Boolean);
+  ].filter((item) => Boolean(item) && !isEmpty(item) && !isNull(item) && !isNil(item) && !isEmpty(Object.keys(item)));
 };
 /**
  * Convert array of string to array of ObjectId

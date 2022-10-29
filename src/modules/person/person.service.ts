@@ -186,7 +186,7 @@ export class PersonService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
           }),
         )
         .toArray();
@@ -194,7 +194,7 @@ export class PersonService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {
@@ -393,7 +393,7 @@ export class PersonService {
               ]) ||
                 []),
             ],
-            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
@@ -401,7 +401,7 @@ export class PersonService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {

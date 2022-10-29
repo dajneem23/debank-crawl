@@ -391,7 +391,7 @@ export class AssetTrendingService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         // keys: uniq([...this.outputKeys]),
       });
     } catch (err) {
@@ -452,7 +452,7 @@ export class AssetTrendingService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         // keys: uniq([...this.outputKeys, ...this.assetKeys]),
       });
     } catch (err) {

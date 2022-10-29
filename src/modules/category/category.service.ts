@@ -266,7 +266,7 @@ export class CategoryService {
               }),
               ...(is_public && { is_public: { $eq: is_public } }),
               ...(type && {
-                sources: { $in: Array.isArray(type) ? type : [type] },
+                type: { $in: Array.isArray(type) ? type : [type] },
               }),
               ...(!isNil(rank) && {
                 rank: { $eq: rank },
@@ -454,7 +454,7 @@ export class CategoryService {
             $match: {
               deleted: { $ne: true },
               ...(type && {
-                sources: { $in: Array.isArray(type) ? type : [type] },
+                type: { $in: Array.isArray(type) ? type : [type] },
               }),
               ...(!isNil(rank) && {
                 rank: { $eq: rank },

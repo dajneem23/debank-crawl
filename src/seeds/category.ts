@@ -12,6 +12,11 @@ import { $countCollection } from '@/utils/mongoDB';
 import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import slugify from 'slugify';
+import assetCategoriesBK from '../data/backup/asset-categories.json';
+import fs from 'fs';
+import categoriesBK from '../data/backup/categories.json';
+import { omitBy, uniq, isNil } from 'lodash';
+
 export const CategorySeed = async () => {
   const db = Container.get(DIMongoDB);
   const collection = db.collection('categories');
@@ -249,4 +254,31 @@ export const CategorySeed = async () => {
   console.log('Inserting categories', uniqueCategories.length);
   // fs.writeFileSync(`${__dirname}/data/categories_final.json`, JSON.stringify(uniqueCategories).replace(/null/g, '""'));
   // await collection.insertMany(uniqueCategories);
+};
+
+export const mappingCategories = async () => {
+  let count = 0;
+  for (const category of categoriesBK) {
+    for (const assetCategory of assetCategoriesBK) {
+      if (
+        assetCategory.dics.includes(category.title) ||
+        assetCategory.dics.includes(category.name) ||
+        assetCategory.dics.includes(category.title.toLowerCase()) ||
+        assetCategory.dics.includes(category.name.toLowerCase()) ||
+        assetCategory.slug === category.name ||
+        assetCategory.name === category.title
+      ) {
+        (assetCategory as any).type = uniq([...((assetCategory as any).type || []), ...category.type]);
+        count++;
+        break;
+      }
+    }
+  }
+  const mapping = assetCategoriesBK.map(({ name, slug, ...rest }: any) => ({
+    title: name,
+    name: slug,
+    ...rest,
+  }));
+  console.log('Mapping categories', count);
+  fs.writeFileSync(`${__dirname}/data/mapping-categories.json`, JSON.stringify(mapping));
 };

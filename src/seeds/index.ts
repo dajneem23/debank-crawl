@@ -1,5 +1,5 @@
 import { CountrySeed } from './country';
-import { CategorySeed } from './category';
+import { CategorySeed, mappingCategories } from './category';
 import { PersonSeed, personInvestment, insertPersons } from './person';
 import { ProductSeed, insertProducts } from './product';
 import { CompanySeed, companyInvestment, insertCompanies } from './company';
@@ -10,6 +10,8 @@ import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFr
 (async () => {
   (await import('../loaders/loggerLoader')).default();
   await (await import('../loaders/mongoDBLoader')).default();
+
+  await mappingCategories();
   // await UserSeed();
   // await CountrySeed();
   // await CategorySeed();
@@ -19,10 +21,10 @@ import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFr
   // await ProductSeed();
   // await PersonSeed();
   // await FundSeed();
-  await cryptorankFundsSeed();
+  // await cryptorankFundsSeed();
   // await companyInvestment();
   // await personInvestment();
-  await fundInvestment();
+  // await fundInvestment();
   // await FundraisingRoundSeed();
   // await insertCoins();
   // await insertFunds();

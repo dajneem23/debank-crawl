@@ -192,7 +192,7 @@ export class BlockchainService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         )
         .toArray();
@@ -406,7 +406,7 @@ export class BlockchainService {
               ]) ||
                 []),
             ],
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         ])
         .toArray();

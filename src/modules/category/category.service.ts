@@ -505,7 +505,7 @@ export class CategoryService {
               ]) ||
                 []),
             ],
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         ])
         .toArray();

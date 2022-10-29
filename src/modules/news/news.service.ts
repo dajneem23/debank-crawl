@@ -395,7 +395,7 @@ export class NewsService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         ])
         .toArray();
@@ -620,7 +620,7 @@ export class NewsService {
                 },
               },
             ],
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         ])
         .toArray();
@@ -705,7 +705,7 @@ export class NewsService {
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         ])
         .toArray();
@@ -776,7 +776,7 @@ export class NewsService {
               },
             ],
             $sort: { number_relate_article: -1 },
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         ])
         .toArray();
@@ -851,7 +851,7 @@ export class NewsService {
               },
             ],
             $sort: { views: -1 },
-            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         ])
         .toArray();

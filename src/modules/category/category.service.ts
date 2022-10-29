@@ -319,7 +319,7 @@ export class CategoryService {
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
             items: [],
 
-            // ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            // ...(limit && offset && { items: [{ $skip:  (+offset) }, { $limit: +limit }] }),
           }),
         )
         .toArray();
@@ -327,7 +327,7 @@ export class CategoryService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {
@@ -505,7 +505,7 @@ export class CategoryService {
               ]) ||
                 []),
             ],
-            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
@@ -513,7 +513,7 @@ export class CategoryService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {
@@ -643,16 +643,27 @@ export class CategoryService {
           isNil,
         );
         let _categoryName = '';
+        const slugifyName = slugify(name, {
+          trim: true,
+          lower: true,
+          remove: RemoveSlugPattern,
+        });
         const {
           value,
           lastErrorObject: { updatedExisting },
         } = await this.model._collection.findOneAndUpdate(
           {
-            name: slugify(name, {
-              trim: true,
-              lower: true,
-              remove: RemoveSlugPattern,
-            }),
+            $or: [
+              {
+                dics: slugifyName,
+              },
+              {
+                name: slugifyName,
+              },
+              {
+                title,
+              },
+            ],
           },
           {
             $set: {
@@ -667,26 +678,19 @@ export class CategoryService {
           },
         );
         _categoryName = value?.name;
+
         if (!updatedExisting) {
           const {
             value: { name: categoryName },
           } = await this.model._collection.findOneAndUpdate(
             {
-              name: slugify(name, {
-                trim: true,
-                lower: true,
-                remove: RemoveSlugPattern,
-              }),
+              name: slugifyName,
             },
             {
               $setOnInsert: {
-                source_id: id,
+                'id_of_sources.CoinMarketCap': id,
                 title: title,
-                name: slugify(name, {
-                  trim: true,
-                  lower: true,
-                  remove: RemoveSlugPattern,
-                }),
+                name: slugifyName,
                 description: description,
                 sub_categories: [],
                 trans: [],

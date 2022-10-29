@@ -369,7 +369,7 @@ export class AssetService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +offset * (+offset - 1) }, { $limit: +limit }] }),
+            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
           }),
         )
         .toArray();
@@ -377,7 +377,7 @@ export class AssetService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: _permission == 'private' ? this.outputKeys : this.publicOutputKeys,
       });
     } catch (err) {
@@ -588,7 +588,7 @@ export class AssetService {
               ]) ||
                 []),
             ],
-            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
@@ -596,7 +596,7 @@ export class AssetService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: _permission == 'private' ? this.outputKeys : this.publicOutputKeys,
       });
     } catch (err) {
@@ -622,7 +622,7 @@ export class AssetService {
       } = _filter;
       const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
       const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
-      // const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+
       const [
         {
           paging: [{ total_count }],
@@ -733,7 +733,7 @@ export class AssetService {
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }],
+            items: [{ $skip: +offset }, { $limit: +limit }],
           }),
         )
         .toArray();
@@ -741,7 +741,7 @@ export class AssetService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: uniq([...this.outputKeys]),
       });
     } catch (err) {

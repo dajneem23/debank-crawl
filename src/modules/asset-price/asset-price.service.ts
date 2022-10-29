@@ -247,7 +247,7 @@ export class AssetPriceService {
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
           }),
         )
         .toArray();
@@ -255,7 +255,7 @@ export class AssetPriceService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: uniq([...this.outputKeys, ...this.assetKeys]),
       });
     } catch (err) {

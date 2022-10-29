@@ -354,7 +354,7 @@ export class EventService {
             $facet: {
               total_count: [{ $count: 'total_count' }],
               items: [
-                { $skip: +limit * (+offset - 1) },
+                { $skip: +offset },
                 { $limit: +limit },
 
                 this.model.$addFields.categories,
@@ -392,7 +392,7 @@ export class EventService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {
@@ -502,7 +502,7 @@ export class EventService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {
@@ -536,7 +536,7 @@ export class EventService {
             $facet: {
               total_count: [{ $count: 'total_count' }],
               items: [
-                { $skip: +limit * (+offset - 1) },
+                { $skip: +offset },
                 { $limit: +limit },
 
                 {
@@ -577,7 +577,7 @@ export class EventService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {
@@ -673,7 +673,7 @@ export class EventService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
@@ -681,7 +681,7 @@ export class EventService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {
@@ -785,7 +785,7 @@ export class EventService {
               ]) ||
                 []),
             ],
-            ...(limit && offset && { items: [{ $skip: +limit * (+offset - 1) }, { $limit: +limit }] }),
+            ...(limit && offset && { items: [{ $skip: +offset }, { $limit: +limit }] }),
           }),
         ])
         .toArray();
@@ -793,7 +793,7 @@ export class EventService {
       return toPagingOutput({
         items,
         total_count,
-        has_next: total_count > offset * limit,
+        has_next: total_count > offset + limit,
         keys: this.publicOutputKeys,
       });
     } catch (err) {

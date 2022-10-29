@@ -1,4 +1,4 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
@@ -255,7 +255,12 @@ export class CategoryService {
     try {
       const { type, lang, rank, deleted = false, is_public } = _filter;
       const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get(
           $pagination({
             $match: {
@@ -448,7 +453,12 @@ export class CategoryService {
     try {
       const { lang, type, rank } = _filter;
       const { offset = 1, limit = 10, keyword } = _query;
-      const [{ total_count } = { total_count: 0 }, ...items] = await this.model
+      const [
+        {
+          paging: [{ total_count }],
+          items,
+        },
+      ] = await this.model
         .get([
           ...$pagination({
             $match: {

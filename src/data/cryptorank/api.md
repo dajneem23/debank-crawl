@@ -2,8 +2,8 @@
 
 https://api.cryptorank.io/v0/coins?lifeCycle=funding,crowdsale,traded&withFundingRoundsData=true&onlyWithFundingRounds=true
 https://api.cryptorank.io/v0/coins?lifeCycle=funding,crowdsale,traded&withFundingRoundsData=true
-https://api.cryptorank.io/v0/coin-tags
-https://api.cryptorank.io/v0/coin-categories
+https://api.cryptorank.io/v0/coin-tags?withSummary=true
+https://api.cryptorank.io/v0/coin-categories?withSummary=true
 
 https://api.cryptorank.io/v0/ido-platforms?isFull=true
 https://api.cryptorank.io/v0/exchanges

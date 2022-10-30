@@ -314,12 +314,7 @@ export class NewsService {
         company_tags = [],
       } = _filter;
       const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
             $match: {
@@ -565,12 +560,7 @@ export class NewsService {
     try {
       const { lang } = _filter;
       const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
             $match: {
@@ -649,12 +639,7 @@ export class NewsService {
       const { lang } = _filter;
       const { offset = 1, limit = 10, sort_by = 'created_at', sort_order = 'desc' } = _query;
       const { followings = [] } = (await this.userModel.collection.findOne({ id: _subject })) ?? {};
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
             $match: {
@@ -732,12 +717,7 @@ export class NewsService {
     try {
       const { lang } = _filter;
       const { offset = 1, limit } = _query;
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
             $match: {
@@ -804,12 +784,7 @@ export class NewsService {
       const { lang, date_range } = _filter;
       const _date_range = TopNewsDateRange[date_range as keyof typeof TopNewsDateRange] || TopNewsDateRange['1d'];
       const { offset = 1, limit } = _query;
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
             $match: {

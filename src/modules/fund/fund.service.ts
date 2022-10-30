@@ -141,12 +141,7 @@ export class FundService {
         deleted = false,
       } = _filter;
       const { offset = 1, limit, sort_by = 'market_cap', sort_order = 'asc', keyword } = _query;
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get(
           $pagination({
             $match: {
@@ -356,12 +351,7 @@ export class FundService {
     try {
       const { lang } = _filter;
       const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
             $match: {

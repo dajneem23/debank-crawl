@@ -255,12 +255,7 @@ export class CategoryService {
     try {
       const { type, lang, rank, deleted = false, is_public } = _filter;
       const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get(
           $pagination({
             $match: {
@@ -270,6 +265,7 @@ export class CategoryService {
                 deleted: { $ne: true },
               }),
               ...(is_public && { is_public: { $eq: is_public } }),
+
               ...(type && {
                 type: { $in: Array.isArray(type) ? type : [type] },
               }),
@@ -453,12 +449,7 @@ export class CategoryService {
     try {
       const { lang, type, rank } = _filter;
       const { offset = 1, limit = 10, keyword } = _query;
-      const [
-        {
-          paging: [{ total_count }],
-          items,
-        },
-      ] = await this.model
+      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
             $match: {

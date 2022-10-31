@@ -297,9 +297,19 @@ export class FundService {
         .get([
           { $match: $toMongoFilter({ slug: _slug }) },
           {
-            $addFields: this.model.$addFields.categories,
+            $addFields: {
+              ...this.model.$addFields.categories,
+              ...this.model.$addFields.portfolio_companies,
+              ...this.model.$addFields.partners,
+              ...this.model.$addFields.firms,
+              ...this.model.$addFields.company_investors,
+            },
           },
           this.model.$lookups.categories,
+          this.model.$lookups.portfolio_companies,
+          this.model.$lookups.company_investors,
+          this.model.$lookups.firms,
+          this.model.$lookups.partners,
           this.model.$lookups.author,
           this.model.$sets.author,
           ...((lang && [

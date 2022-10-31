@@ -68,6 +68,8 @@ export class BaseModel {
     person_investors: any;
     company_projects: any;
     founders: any;
+    partners: any;
+    firms: any;
   } {
     return {
       products: $lookup({
@@ -231,6 +233,14 @@ export class BaseModel {
         reName: 'company_investors',
         operation: '$in',
       }),
+      firms: $lookup({
+        from: 'companies',
+        refFrom: 'slug',
+        refTo: 'firms',
+        select: 'name avatar slug urls',
+        reName: 'firms',
+        operation: '$in',
+      }),
       person_investors: $lookup({
         from: 'persons',
         refFrom: 'slug',
@@ -253,6 +263,14 @@ export class BaseModel {
         refTo: 'founders',
         select: 'name avatar slug urls',
         reName: 'founders',
+        operation: '$in',
+      }),
+      partners: $lookup({
+        from: 'persons',
+        refFrom: 'slug',
+        refTo: 'partners',
+        select: 'name avatar slug urls',
+        reName: 'partners',
         operation: '$in',
       }),
     };
@@ -314,6 +332,8 @@ export class BaseModel {
     person_investors: any;
     company_projects: any;
     founders: any;
+    partners: any;
+    firms: any;
   } {
     return {
       categories: {
@@ -435,6 +455,28 @@ export class BaseModel {
             },
             then: [],
             else: '$founders',
+          },
+        },
+      },
+      partners: {
+        partners: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$partners' }, 'array'],
+            },
+            then: [],
+            else: '$partners',
+          },
+        },
+      },
+      firms: {
+        firms: {
+          $cond: {
+            if: {
+              $ne: [{ $type: '$firms' }, 'array'],
+            },
+            then: [],
+            else: '$firms',
           },
         },
       },

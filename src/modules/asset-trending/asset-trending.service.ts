@@ -348,7 +348,7 @@ export class AssetTrendingService {
   async trending({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { categories = [], deleted = false } = _filter;
-      const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by: _sort_by, sort_order, keyword } = _query;
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([
           {
@@ -408,7 +408,7 @@ export class AssetTrendingService {
    **/
   async trendingSoon({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
-      const { offset = 1, limit, sort_by: _sort_by, sort_order } = _query;
+      const { offset, limit, sort_by: _sort_by, sort_order } = _query;
       const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
       const [{ total_count } = { total_count: 0 }, ...items] = await this.model
         .get([

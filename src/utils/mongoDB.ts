@@ -1,6 +1,6 @@
-import { Filter, ObjectId, ReadPreference, TransactionOptions, WithTransactionCallback, Collection } from 'mongodb';
+import { Filter, ObjectId, ReadPreference, TransactionOptions, WithTransactionCallback, Collection, Db } from 'mongodb';
 import { Container } from 'typedi';
-import mongoDBLoader, { DIMongoClient } from '@/loaders/mongoDBLoader';
+import mongoDBLoader, { DIMongoClient, DIMongoDB } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
 import { isEmpty, isNil, isNull, omitBy } from 'lodash';
 import { defaultFilter } from '@/types/Common';
@@ -190,13 +190,6 @@ export const $pagination = ({
         ],
       },
     },
-    // {
-    //   $project: {
-    //     result: { $concatArrays: ['$total_count', '$items'] },
-    //   },
-    // },
-    // { $unwind: '$result' },
-    // { $replaceRoot: { newRoot: '$result' } },
   ].filter((item) => Boolean(item) && !isEmpty(item) && !isNull(item) && !isNil(item) && !isEmpty(Object.keys(item)));
 };
 /**
@@ -244,7 +237,7 @@ export const $queryByList = async ({
   values: string[] | ObjectId[];
   filter?: Filter<any>;
 }) => {
-  const db = await mongoDBLoader();
+  const db = Container.get(DIMongoDB) as Db;
   const collectionExist = db.collection(collection);
   const count = await collectionExist.countDocuments({
     [key]: { [operation]: key == '_id' ? $toObjectId(values) : values },

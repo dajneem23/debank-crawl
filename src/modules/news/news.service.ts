@@ -313,7 +313,7 @@ export class NewsService {
         event_tags = [],
         company_tags = [],
       } = _filter;
-      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by, sort_order, keyword } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -394,7 +394,7 @@ export class NewsService {
           }),
         ])
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+      this.logger.debug('query_success', { total_count, _query, _filter });
       return toPagingOutput({
         items,
         total_count,
@@ -559,7 +559,7 @@ export class NewsService {
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by, sort_order, keyword } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -614,7 +614,7 @@ export class NewsService {
           }),
         ])
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+      this.logger.debug('query_success', { total_count, _filter, _query });
       return toPagingOutput({
         items,
         total_count,
@@ -637,7 +637,7 @@ export class NewsService {
   async getRelated({ _subject, _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { offset = 1, limit = 10, sort_by = 'created_at', sort_order = 'desc' } = _query;
+      const { offset, limit, sort_by = 'created_at', sort_order = 'desc' } = _query;
       const { followings = [] } = (await this.userModel.collection.findOne({ id: _subject })) ?? {};
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
@@ -716,7 +716,7 @@ export class NewsService {
   async getImportant({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { offset = 1, limit } = _query;
+      const { offset, limit } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -783,7 +783,7 @@ export class NewsService {
     try {
       const { lang, date_range } = _filter;
       const _date_range = TopNewsDateRange[date_range as keyof typeof TopNewsDateRange] || TopNewsDateRange['1d'];
-      const { offset = 1, limit } = _query;
+      const { offset, limit } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({

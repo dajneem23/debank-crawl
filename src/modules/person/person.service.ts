@@ -117,7 +117,7 @@ export class PersonService {
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang, categories = [], deleted = false } = _filter;
-      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by, sort_order, keyword } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get(
           $pagination({
@@ -185,7 +185,7 @@ export class PersonService {
           }),
         )
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+      this.logger.debug('query_success', { total_count, _query, _filter });
       return toPagingOutput({
         items,
         total_count,
@@ -337,7 +337,7 @@ export class PersonService {
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by, sort_order, keyword } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -387,7 +387,7 @@ export class PersonService {
           }),
         ])
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+      this.logger.debug('query_success', { total_count, _filter, _query });
       return toPagingOutput({
         items,
         total_count,

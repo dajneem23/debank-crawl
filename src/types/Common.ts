@@ -4,8 +4,8 @@ import { Joi } from 'celebrate';
 import { ObjectId } from 'mongodb';
 
 export interface BaseQuery {
-  offset?: number;
-  limit?: number;
+  offset?: 1 | number;
+  limit?: 20 | number;
   sort_by?: string;
   sort_order?: 'desc' | 'asc';
   keyword?: string;

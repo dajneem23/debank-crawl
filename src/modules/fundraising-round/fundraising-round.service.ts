@@ -60,7 +60,7 @@ export class FundraisingRoundService {
           ...(_subject && { created_by: _subject }),
         },
       );
-      this.logger.debug('create_success', { _content });
+      this.logger.debug('create_success', JSON.stringify(_content));
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('create_error', err.message);
@@ -90,7 +90,7 @@ export class FundraisingRoundService {
           },
         },
       );
-      this.logger.debug('update_success', { _content });
+      this.logger.debug('update_success', JSON.stringify(_content));
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('update_error', err.message);
@@ -315,7 +315,7 @@ export class FundraisingRoundService {
         ])
         .toArray();
       if (isNil(item)) throwErr(this.error('NOT_FOUND'));
-      this.logger.debug('get_success', { item });
+      this.logger.debug('get_success', { _slug });
       return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('get_error', err.message);

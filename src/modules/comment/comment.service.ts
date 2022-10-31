@@ -92,7 +92,7 @@ export class CommentService {
           ...(_subject && { created_by: _subject }),
         },
       );
-      this.logger.debug('create_success', { _content });
+      this.logger.debug('create_success', JSON.stringify(_content));
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('create_error', err.message);

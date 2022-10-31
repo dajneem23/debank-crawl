@@ -189,7 +189,7 @@ export class CategoryService {
           ...(_subject && { created_by: _subject }),
         },
       );
-      this.logger.debug('create_success', { _content });
+      this.logger.debug('create_success', JSON.stringify(_content));
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('create_error', err.message);
@@ -215,7 +215,7 @@ export class CategoryService {
           ...(_subject && { updated_by: _subject }),
         },
       });
-      this.logger.debug('update_success', { _content });
+      this.logger.debug('update_success', JSON.stringify(_content));
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('update_error', err.message);

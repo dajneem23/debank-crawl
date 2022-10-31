@@ -56,7 +56,7 @@ export class AssetPriceService {
           ...(_subject && { created_by: _subject }),
         },
       );
-      this.logger.debug('create_success', { _content });
+      this.logger.debug('create_success', JSON.stringify(_content));
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('create_error', err.message);
@@ -79,7 +79,7 @@ export class AssetPriceService {
           ...(_subject && { updated_by: _subject }),
         },
       });
-      this.logger.debug('update_success', { _content });
+      this.logger.debug('update_success', JSON.stringify(_content));
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('update_error', err.message);
@@ -129,7 +129,7 @@ export class AssetPriceService {
         founded_from,
         founded_to,
       } = _filter;
-      const { offset = 1, limit, sort_by: _sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by: _sort_by, sort_order, keyword } = _query;
       const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get(

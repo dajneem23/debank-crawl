@@ -189,7 +189,7 @@ export class CategoryService {
           ...(_subject && { created_by: _subject }),
         },
       );
-      this.logger.debug('create_success', { _content });
+      this.logger.debug('create_success', JSON.stringify(_content));
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('create_error', err.message);
@@ -215,7 +215,7 @@ export class CategoryService {
           ...(_subject && { updated_by: _subject }),
         },
       });
-      this.logger.debug('update_success', { _content });
+      this.logger.debug('update_success', JSON.stringify(_content));
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('update_error', err.message);
@@ -254,7 +254,7 @@ export class CategoryService {
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { type, lang, rank, deleted = false, is_public } = _filter;
-      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by, sort_order, keyword } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get(
           $pagination({
@@ -319,7 +319,7 @@ export class CategoryService {
           }),
         )
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+      this.logger.debug('query_success', { total_count, _query, _filter });
       return toPagingOutput({
         items,
         total_count,
@@ -448,7 +448,7 @@ export class CategoryService {
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang, type, rank } = _filter;
-      const { offset = 1, limit = 10, keyword } = _query;
+      const { offset, limit, keyword } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -500,7 +500,7 @@ export class CategoryService {
           }),
         ])
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+      this.logger.debug('query_success', { total_count, _query, _filter });
       return toPagingOutput({
         items,
         total_count,

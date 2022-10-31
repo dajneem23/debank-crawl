@@ -106,7 +106,7 @@ export class EventService {
           ...(_subject && { created_by: _subject }),
         },
       );
-      this.logger.debug('create_success', { value });
+      this.logger.debug('create_success', JSON.stringify(_content));
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
       this.logger.error('create_error', err.message);
@@ -313,7 +313,7 @@ export class EventService {
         ])
         .toArray();
       if (isNil(item)) throwErr(new EventError('EVENT_NOT_FOUND'));
-      this.logger.debug('get_success', { item });
+      this.logger.debug('get_success', { _slug });
       return _permission == 'private' ? toOutPut({ item }) : omit(toOutPut({ item }), PRIVATE_KEYS);
     } catch (err) {
       this.logger.error('get_error', err.message);
@@ -595,7 +595,7 @@ export class EventService {
   async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { categories = [], lang, start_date, end_date, type, country, deleted = false } = _filter;
-      const { offset = 1, limit, sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by, sort_order, keyword } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -672,7 +672,7 @@ export class EventService {
           }),
         ])
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+      this.logger.debug('query_success', { total_count, _filter, _query });
       return toPagingOutput({
         items,
         total_count,
@@ -729,7 +729,7 @@ export class EventService {
   async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
     try {
       const { lang } = _filter;
-      const { offset = 1, limit = 10, sort_by, sort_order, keyword } = _query;
+      const { offset, limit, sort_by, sort_order, keyword } = _query;
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -779,7 +779,7 @@ export class EventService {
           }),
         ])
         .toArray();
-      this.logger.debug('query_success', { total_count, items });
+      this.logger.debug('query_success', { total_count, _query, _filter });
       return toPagingOutput({
         items,
         total_count,

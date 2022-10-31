@@ -206,7 +206,7 @@ export class CompanyService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
+            items: [{ $skip: (+offset - 1) * +limit }, { $limit: +limit }],
           }),
           { allowDiskUse: true },
         )
@@ -450,7 +450,7 @@ export class CompanyService {
               ]) ||
                 []),
             ],
-            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
+            items: [{ $skip: (+offset - 1) * +limit }, { $limit: +limit }],
           }),
         ])
         .toArray();

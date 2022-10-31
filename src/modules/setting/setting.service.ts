@@ -124,7 +124,7 @@ export class SettingService {
               }),
             },
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
+            items: [{ $skip: (+offset - 1) * +limit }, { $limit: +limit }],
           }),
         )
         .toArray();
@@ -216,7 +216,7 @@ export class SettingService {
                 $or: [{ $text: { $search: keyword } }, { name: { $regex: keyword, $options: 'i' } }],
               }),
             },
-            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
+            items: [{ $skip: (+offset - 1) * +limit }, { $limit: +limit }],
           }),
         ])
         .toArray();

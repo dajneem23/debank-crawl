@@ -192,7 +192,7 @@ export class GlossaryService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
+            items: [{ $skip: (+offset - 1) * +limit }, { $limit: +limit }],
           }),
         )
         .toArray();
@@ -397,7 +397,7 @@ export class GlossaryService {
               ]) ||
                 []),
             ],
-            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
+            items: [{ $skip: (+offset - 1) * +limit }, { $limit: +limit }],
           }),
         ])
         .toArray();

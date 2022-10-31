@@ -364,7 +364,7 @@ export class AssetService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [{ $skip: +offset }, { $limit: +limit }],
+            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
           }),
         )
         .toArray();
@@ -578,7 +578,7 @@ export class AssetService {
               ]) ||
                 []),
             ],
-            items: [{ $skip: +offset }, { $limit: +limit }],
+            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
           }),
         ])
         .toArray();
@@ -718,7 +718,7 @@ export class AssetService {
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [{ $skip: +offset }, { $limit: +limit }],
+            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
           }),
         )
         .toArray();

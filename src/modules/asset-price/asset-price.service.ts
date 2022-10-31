@@ -242,7 +242,7 @@ export class AssetPriceService {
               },
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [{ $skip: +offset }, { $limit: +limit }],
+            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
           }),
         )
         .toArray();

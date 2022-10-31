@@ -229,7 +229,7 @@ export class ExchangeService {
                 []),
             ],
             ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [{ $skip: +offset }, { $limit: +limit }],
+            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
           }),
         )
         .toArray();
@@ -451,7 +451,7 @@ export class ExchangeService {
               ]) ||
                 []),
             ],
-            items: [{ $skip: +offset }, { $limit: +limit }],
+            items: [{ $skip: +offset * +limit }, { $limit: +limit }],
           }),
         ])
         .toArray();

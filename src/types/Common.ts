@@ -548,7 +548,7 @@ export const ObjectIdValidation = Joi.string()
   .message('id must be a valid ObjectId');
 
 export const BaseQueryValidation = Joi.object().keys({
-  offset: Joi.number().default(1).min(0),
+  offset: Joi.number().default(1).min(1),
   limit: Joi.number().default(20).min(1),
   sort_by: Joi.string(),
   sort_order: Joi.string()

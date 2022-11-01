@@ -45,7 +45,7 @@ export class CategoryService {
   }
 
   get publicOutputKeys() {
-    return this.model._keys;
+    return ['id', 'title', 'name', 'weight', 'rank', 'type'];
   }
   get transKeys() {
     return ['title', 'name'];

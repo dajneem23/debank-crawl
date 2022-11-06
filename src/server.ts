@@ -11,6 +11,7 @@ import 'reflect-metadata';
     // Database (mongodb)
     await (await import('./loaders/mongoDBLoader')).default();
     await (await import('./loaders/awsS3Loader')).default();
+    await import('./loaders/discordLoader');
 
     // Caching (Redis)
     await (await import('./loaders/redisClientLoader')).default();

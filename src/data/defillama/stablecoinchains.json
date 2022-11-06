@@ -1,0 +1,688 @@
+[
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 707236455.3784361,
+      "peggedEUR": 966824.9092439662,
+      "peggedVAR": 48553.23741472879
+    },
+    "tokenSymbol": null,
+    "name": "Optimism"
+  },
+  {
+    "gecko_id": "defi-kingdoms",
+    "totalCirculatingUSD": {
+      "peggedUSD": 3700459.9461037936
+    },
+    "tokenSymbol": "JEWEL",
+    "name": "DFK"
+  },
+  {
+    "gecko_id": "kadena",
+    "totalCirculatingUSD": {
+      "peggedUSD": 62626.8135980325
+    },
+    "tokenSymbol": "KDA",
+    "name": "Kadena"
+  },
+  {
+    "gecko_id": "binancecoin",
+    "totalCirculatingUSD": {
+      "peggedUSD": 11298986960.18886
+    },
+    "tokenSymbol": "BNB",
+    "name": "BSC"
+  },
+  {
+    "gecko_id": "flow",
+    "totalCirculatingUSD": {
+      "peggedUSD": 15947583.446705839
+    },
+    "tokenSymbol": "FLOW",
+    "name": "Flow"
+  },
+  {
+    "gecko_id": "dogechain",
+    "totalCirculatingUSD": {
+      "peggedUSD": 5289566.9264480835
+    },
+    "tokenSymbol": "DG",
+    "name": "Dogechain"
+  },
+  {
+    "gecko_id": "astar",
+    "totalCirculatingUSD": {
+      "peggedUSD": 20042410.72829577
+    },
+    "tokenSymbol": "ASTR",
+    "name": "Astar"
+  },
+  {
+    "gecko_id": "oasis-network",
+    "totalCirculatingUSD": {
+      "peggedUSD": 4709401.729064608
+    },
+    "tokenSymbol": "ROSE",
+    "name": "Oasis"
+  },
+  {
+    "gecko_id": "telos",
+    "totalCirculatingUSD": {
+      "peggedUSD": 1370889.2281118887
+    },
+    "tokenSymbol": "TLOS",
+    "name": "Telos"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 1195124386.3568082,
+      "peggedVAR": 120822.90145771689,
+      "peggedEUR": 338594.17287877307
+    },
+    "tokenSymbol": null,
+    "name": "Arbitrum"
+  },
+  {
+    "gecko_id": "tron",
+    "totalCirculatingUSD": {
+      "peggedUSD": 33523543004.945084
+    },
+    "tokenSymbol": "TRON",
+    "name": "Tron"
+  },
+  {
+    "gecko_id": "tomochain",
+    "totalCirculatingUSD": {
+      "peggedUSD": 410351.11949696986
+    },
+    "tokenSymbol": "TOMO",
+    "name": "TomoChain"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 22674042.60619363,
+      "peggedEUR": 44500.7684213414
+    },
+    "tokenSymbol": null,
+    "name": "zkSync"
+  },
+  {
+    "gecko_id": "evmos",
+    "totalCirculatingUSD": {
+      "peggedUSD": 519462.0695820551
+    },
+    "tokenSymbol": "EVMOS",
+    "name": "Evmos"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 765696.6588802872
+    },
+    "tokenSymbol": null,
+    "name": "Arbitrum Nova"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 4250743.866985992
+    },
+    "tokenSymbol": null,
+    "name": "Milkomeda"
+  },
+  {
+    "gecko_id": "sx-network",
+    "totalCirculatingUSD": {
+      "peggedUSD": 2523275.6361188614
+    },
+    "tokenSymbol": "SX",
+    "name": "SXnetwork"
+  },
+  {
+    "gecko_id": "aptos",
+    "totalCirculatingUSD": {
+      "peggedUSD": 38047626.735089675
+    },
+    "tokenSymbol": "APT",
+    "name": "Aptos"
+  },
+  {
+    "gecko_id": "rootstock",
+    "totalCirculatingUSD": {
+      "peggedUSD": 7231020.312643188
+    },
+    "tokenSymbol": "RBTC",
+    "name": "RSK"
+  },
+  {
+    "gecko_id": "moonbeam",
+    "totalCirculatingUSD": {
+      "peggedUSD": 25442065.575331483
+    },
+    "tokenSymbol": "GLMR",
+    "name": "Moonbeam"
+  },
+  {
+    "gecko_id": "hedera",
+    "totalCirculatingUSD": {
+      "peggedUSD": 11636115.1339544
+    },
+    "tokenSymbol": "HBAR",
+    "name": "Hedera"
+  },
+  {
+    "gecko_id": "aurora-near",
+    "totalCirculatingUSD": {
+      "peggedUSD": 80258009.95625035,
+      "peggedEUR": 4234.524072300747
+    },
+    "tokenSymbol": "AURORA",
+    "name": "Aurora"
+  },
+  {
+    "gecko_id": "loopring",
+    "totalCirculatingUSD": {
+      "peggedUSD": 17197329.494929604,
+      "peggedVAR": 66078.09129731238
+    },
+    "tokenSymbol": "LRC",
+    "name": "Loopring"
+  },
+  {
+    "gecko_id": "stellar",
+    "totalCirculatingUSD": {
+      "peggedUSD": 193892002.80582145
+    },
+    "tokenSymbol": "XLM",
+    "name": "Stellar"
+  },
+  {
+    "gecko_id": "algorand",
+    "totalCirculatingUSD": {
+      "peggedUSD": 341240190.42987704,
+      "peggedEUR": 9799.522394846235
+    },
+    "tokenSymbol": "ALGO",
+    "name": "Algorand"
+  },
+  {
+    "gecko_id": "matic-network",
+    "totalCirculatingUSD": {
+      "peggedUSD": 1760283779.3666108,
+      "peggedEUR": 12329210.638079947,
+      "peggedVAR": 72193.99069764759
+    },
+    "tokenSymbol": "MATIC",
+    "name": "Polygon"
+  },
+  {
+    "gecko_id": "defichain",
+    "totalCirculatingUSD": {
+      "peggedUSD": 30759786.95325338
+    },
+    "tokenSymbol": "DFI",
+    "name": "DefiChain"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 130665611.75277083
+    },
+    "tokenSymbol": null,
+    "name": "Canto"
+  },
+  {
+    "gecko_id": "karura",
+    "totalCirculatingUSD": {
+      "peggedUSD": 5491454.64785441
+    },
+    "tokenSymbol": "KAR",
+    "name": "Karura"
+  },
+  {
+    "gecko_id": "metis-token",
+    "totalCirculatingUSD": {
+      "peggedUSD": 49699798.14423894
+    },
+    "tokenSymbol": "METIS",
+    "name": "Metis"
+  },
+  {
+    "gecko_id": "wanchain",
+    "totalCirculatingUSD": {
+      "peggedUSD": 3100889.7975098775
+    },
+    "tokenSymbol": "WAN",
+    "name": "Wanchain"
+  },
+  {
+    "gecko_id": "kava",
+    "totalCirculatingUSD": {
+      "peggedUSD": 231111750.46392345
+    },
+    "tokenSymbol": "KAVA",
+    "name": "Kava"
+  },
+  {
+    "gecko_id": "ontology",
+    "totalCirculatingUSD": {
+      "peggedUSD": 13579807.592681054
+    },
+    "tokenSymbol": "ONT",
+    "name": "Ontology"
+  },
+  {
+    "gecko_id": "moonriver",
+    "totalCirculatingUSD": {
+      "peggedUSD": 62466230.16463515
+    },
+    "tokenSymbol": "MOVR",
+    "name": "Moonriver"
+  },
+  {
+    "gecko_id": "avalanche-2",
+    "totalCirculatingUSD": {
+      "peggedUSD": 1898857789.8139176,
+      "peggedVAR": 315.2719368255184
+    },
+    "tokenSymbol": "AVAX",
+    "name": "Avalanche"
+  },
+  {
+    "gecko_id": "klay-token",
+    "totalCirculatingUSD": {
+      "peggedUSD": 115929028.67771044
+    },
+    "tokenSymbol": "KLAY",
+    "name": "Klaytn"
+  },
+  {
+    "gecko_id": "meter",
+    "totalCirculatingUSD": {
+      "peggedUSD": 2005611.2102322467
+    },
+    "tokenSymbol": "MTRG",
+    "name": "Meter"
+  },
+  {
+    "gecko_id": "rei-network",
+    "totalCirculatingUSD": {
+      "peggedUSD": 79410.04575271042
+    },
+    "tokenSymbol": "REI",
+    "name": "REINetwork"
+  },
+  {
+    "gecko_id": "osmosis",
+    "totalCirculatingUSD": {
+      "peggedUSD": 21980158.66579096
+    },
+    "tokenSymbol": "OSMO",
+    "name": "Osmosis"
+  },
+  {
+    "gecko_id": "ethereum",
+    "totalCirculatingUSD": {
+      "peggedUSD": 87257678722.39227,
+      "peggedEUR": 270716419.40143406,
+      "peggedVAR": 85265458.40622737
+    },
+    "tokenSymbol": "ETH",
+    "name": "Ethereum"
+  },
+  {
+    "gecko_id": "gnosis",
+    "totalCirculatingUSD": {
+      "peggedUSD": 85928787.41294457,
+      "peggedEUR": 2539.4283743181986,
+      "peggedVAR": 2211.0695305316312
+    },
+    "tokenSymbol": "GNO",
+    "name": "Gnosis"
+  },
+  {
+    "gecko_id": "ethereum-classic",
+    "totalCirculatingUSD": {
+      "peggedUSD": 78065.50793383113
+    },
+    "tokenSymbol": "ETC",
+    "name": "EthereumClassic"
+  },
+  {
+    "gecko_id": "celo",
+    "totalCirculatingUSD": {
+      "peggedUSD": 50202944.95104821,
+      "peggedEUR": 30939701.709064644
+    },
+    "tokenSymbol": "CELO",
+    "name": "Celo"
+  },
+  {
+    "gecko_id": "fuse-network-token",
+    "totalCirculatingUSD": {
+      "peggedUSD": 4511356.573923122,
+      "peggedEUR": 54065.41679934099
+    },
+    "tokenSymbol": "FUSE",
+    "name": "Fuse"
+  },
+  {
+    "gecko_id": "fantom",
+    "totalCirculatingUSD": {
+      "peggedUSD": 565261917.4660664,
+      "peggedEUR": 591536.951524951
+    },
+    "tokenSymbol": "FTM",
+    "name": "Fantom"
+  },
+  {
+    "gecko_id": "oec-token",
+    "totalCirculatingUSD": {
+      "peggedUSD": 44151201.756925955
+    },
+    "tokenSymbol": "OKT",
+    "name": "OKExChain"
+  },
+  {
+    "gecko_id": "terra-luna",
+    "totalCirculatingUSD": {
+      "peggedUSD": 332717465.0209548
+    },
+    "tokenSymbol": "LUNA",
+    "name": "Terra Classic"
+  },
+  {
+    "gecko_id": "kardiachain",
+    "totalCirculatingUSD": {
+      "peggedUSD": 935333.0154195908
+    },
+    "tokenSymbol": "KAI",
+    "name": "Kardia"
+  },
+  {
+    "gecko_id": "kucoin-shares",
+    "totalCirculatingUSD": {
+      "peggedUSD": 77939122.46137483
+    },
+    "tokenSymbol": "KCS",
+    "name": "KCC"
+  },
+  {
+    "gecko_id": "near",
+    "totalCirculatingUSD": {
+      "peggedUSD": 140469152.51307362
+    },
+    "tokenSymbol": "NEAR",
+    "name": "Near"
+  },
+  {
+    "gecko_id": "darwinia-crab-network-native-token",
+    "totalCirculatingUSD": {
+      "peggedUSD": 88236.80890238797
+    },
+    "tokenSymbol": "CRAB",
+    "name": "Crab"
+  },
+  {
+    "gecko_id": "elastos",
+    "totalCirculatingUSD": {
+      "peggedUSD": 1219414.5973688962
+    },
+    "tokenSymbol": "ELA",
+    "name": "Elastos"
+  },
+  {
+    "gecko_id": "boba-network",
+    "totalCirculatingUSD": {
+      "peggedUSD": 4212370.769762104
+    },
+    "tokenSymbol": "BOBA",
+    "name": "Boba"
+  },
+  {
+    "gecko_id": "theta-token",
+    "totalCirculatingUSD": {
+      "peggedUSD": 115159.25131733483
+    },
+    "tokenSymbol": "THETA",
+    "name": "Theta"
+  },
+  {
+    "gecko_id": "syscoin",
+    "totalCirculatingUSD": {
+      "peggedUSD": 808830.6349982414
+    },
+    "tokenSymbol": "SYS",
+    "name": "Syscoin"
+  },
+  {
+    "gecko_id": "solana",
+    "totalCirculatingUSD": {
+      "peggedUSD": 3885444542.3203235,
+      "peggedEUR": 154784.7199858727
+    },
+    "tokenSymbol": "SOL",
+    "name": "Solana"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 32946010.76549354
+    },
+    "tokenSymbol": "RON",
+    "name": "Ronin"
+  },
+  {
+    "gecko_id": "elrond-erd-2",
+    "totalCirculatingUSD": {
+      "peggedUSD": 40347065.823810935
+    },
+    "tokenSymbol": "EGLD",
+    "name": "Elrond"
+  },
+  {
+    "gecko_id": "everscale",
+    "totalCirculatingUSD": {
+      "peggedUSD": 6992267.088165546,
+      "peggedEUR": 1555.7524170519512
+    },
+    "tokenSymbol": "EVER",
+    "name": "Everscale"
+  },
+  {
+    "gecko_id": "huobi-token",
+    "totalCirculatingUSD": {
+      "peggedUSD": 113493225.4434847
+    },
+    "tokenSymbol": "HT",
+    "name": "Heco"
+  },
+  {
+    "gecko_id": "crypto-com-chain",
+    "totalCirculatingUSD": {
+      "peggedUSD": 439435.55450923316
+    },
+    "tokenSymbol": "CRO",
+    "name": "Cronos"
+  },
+  {
+    "gecko_id": "harmony",
+    "totalCirculatingUSD": {
+      "peggedUSD": 8826248.365910059
+    },
+    "tokenSymbol": "ONE",
+    "name": "Harmony"
+  },
+  {
+    "gecko_id": "iotex",
+    "totalCirculatingUSD": {
+      "peggedUSD": 3964881.199659544
+    },
+    "tokenSymbol": "IOTX",
+    "name": "IoTeX"
+  },
+  {
+    "gecko_id": "acala",
+    "totalCirculatingUSD": {
+      "peggedUSD": 0
+    },
+    "tokenSymbol": "ACA",
+    "name": "Acala"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 3490343.3908848003
+    },
+    "tokenSymbol": null,
+    "name": "Statemine"
+  },
+  {
+    "gecko_id": "shiden",
+    "totalCirculatingUSD": {
+      "peggedUSD": 58429.65807245935
+    },
+    "tokenSymbol": "SDN",
+    "name": "Shiden"
+  },
+  {
+    "gecko_id": "zilliqa",
+    "totalCirculatingUSD": {
+      "peggedUSD": 3366770.4104102403
+    },
+    "tokenSymbol": "ZIL",
+    "name": "Zilliqa"
+  },
+  {
+    "gecko_id": "tezos",
+    "totalCirculatingUSD": {
+      "peggedUSD": 75586089.39449689,
+      "peggedEUR": 0
+    },
+    "tokenSymbol": "XTZ",
+    "name": "Tezos"
+  },
+  {
+    "gecko_id": "liquidchain",
+    "totalCirculatingUSD": {
+      "peggedUSD": 11713984.67783904
+    },
+    "tokenSymbol": "XLC",
+    "name": "Liquidchain"
+  },
+  {
+    "gecko_id": "omni",
+    "totalCirculatingUSD": {
+      "peggedUSD": 694824651.6666445,
+      "peggedEUR": 1418.884905996
+    },
+    "tokenSymbol": "OMNI",
+    "name": "Omni"
+  },
+  {
+    "gecko_id": "eos",
+    "totalCirculatingUSD": {
+      "peggedUSD": 73257527.361208
+    },
+    "tokenSymbol": "EOS",
+    "name": "EOS"
+  },
+  {
+    "gecko_id": "bittorrent",
+    "totalCirculatingUSD": {
+      "peggedUSD": 6797281.836681669
+    },
+    "tokenSymbol": "BTT",
+    "name": "Bittorrent"
+  },
+  {
+    "gecko_id": "neo",
+    "totalCirculatingUSD": {
+      "peggedUSD": 6856110.70404416
+    },
+    "tokenSymbol": "NEO",
+    "name": "NEO"
+  },
+  {
+    "gecko_id": "thunder-token",
+    "totalCirculatingUSD": {
+      "peggedUSD": 6991.163162735999
+    },
+    "tokenSymbol": "TT",
+    "name": "ThunderCore"
+  },
+  {
+    "gecko_id": "velas",
+    "totalCirculatingUSD": {
+      "peggedUSD": 164355.15108488844
+    },
+    "tokenSymbol": "VLX",
+    "name": "Velas"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 199289.35021661746
+    },
+    "tokenSymbol": null,
+    "name": "StarkNet"
+  },
+  {
+    "gecko_id": null,
+    "totalCirculatingUSD": {
+      "peggedUSD": 2409608.099466449
+    },
+    "tokenSymbol": null,
+    "name": "Aztec"
+  },
+  {
+    "gecko_id": "waves",
+    "totalCirculatingUSD": {
+      "peggedUSD": 90038247.06018676
+    },
+    "tokenSymbol": "WAVES",
+    "name": "Waves"
+  },
+  {
+    "gecko_id": "ergo",
+    "totalCirculatingUSD": {
+      "peggedUSD": 789205.36
+    },
+    "tokenSymbol": "ERG",
+    "name": "Ergo"
+  },
+  {
+    "gecko_id": "mixin",
+    "totalCirculatingUSD": {
+      "peggedUSD": 23613906.17998538
+    },
+    "tokenSymbol": "XIN",
+    "name": "Mixin"
+  },
+  {
+    "gecko_id": "kujira",
+    "totalCirculatingUSD": {
+      "peggedUSD": 305273.43879925
+    },
+    "tokenSymbol": "KUJI",
+    "name": "Kujira"
+  },
+  {
+    "gecko_id": "ethereum-pow-iou",
+    "totalCirculatingUSD": {
+      "peggedUSD": 5118.59
+    },
+    "tokenSymbol": "ETHW",
+    "name": "EthereumPoW"
+  },
+  {
+    "gecko_id": "bitcoin-cash",
+    "totalCirculatingUSD": {
+      "peggedUSD": 26692904.185007498
+    },
+    "tokenSymbol": "BCH",
+    "name": "smartBCH"
+  }
+]

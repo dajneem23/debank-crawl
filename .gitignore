@@ -48,3 +48,6 @@ thunder-tests/thunderActivity.json
 *.env
 
 docker/docker.env
+package-lock.json
+yarn.lock
+yarn.lock

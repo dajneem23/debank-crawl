@@ -611,7 +611,7 @@ export class AssetService {
         founded_to,
       } = _filter;
       const { offset, limit, sort_by: _sort_by, sort_order, keyword } = _query;
-      const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['created_at'];
+      const sort_by = assetSortBy[_sort_by as keyof typeof assetSortBy] || assetSortBy['usd_market_cap'];
 
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get(

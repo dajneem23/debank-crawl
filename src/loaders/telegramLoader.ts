@@ -25,7 +25,7 @@ export const TelegramLoader = async () => {
         rows.map((row) => {
           const [match, sender, quantity, token, usd, receiver] =
             /(.*) sent ([0-9,.]*) (.*) \(\$([0-9,.]*).* to (.*)/g.exec(row) || [];
-          const offset = text.indexOf(row);
+          const offset = text.indexOf('Etherscan');
           const txn = entities.find((entity) => entity.offset === offset);
           let address = null;
           let token_address = null;

@@ -95,34 +95,34 @@ export default class Logger {
   }
 
   trace(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.trace(_messages[message] || _messages['default'], ...args);
+    return this.logger.trace(_messages[message] || message, ...args);
   }
 
   debug(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.debug(_messages[message] || _messages['default'], ...args);
+    return this.logger.debug(_messages[message] || message, ...args);
   }
 
   info(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.info(`ℹ️ ${_messages[message] || _messages['default']}`, ...args);
+    return this.logger.info(`ℹ️ ${_messages[message] || message}`, ...args);
   }
 
   success(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.info(`✅ ${_messages[message] || _messages['default']}`, ...args);
+    return this.logger.info(`✅ ${_messages[message] || message}`, ...args);
   }
 
   warn(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.warn(`⚠️${_messages[message]}` || _messages['default'], ...args);
+    return this.logger.warn(`⚠️${_messages[message]}` || message, ...args);
   }
 
   error(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.error(`🆘 ${_messages[message] || _messages['default']}`, ...args);
+    return this.logger.error(`🆘 ${_messages[message] || message}`, ...args);
   }
 
   fatal(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.fatal(`🔥 ${_messages[message] || _messages['default']}`, ...args);
+    return this.logger.fatal(`🔥 ${_messages[message] || message}`, ...args);
   }
 
   mark(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.mark(_messages[message] || _messages['default'], ...args);
+    return this.logger.mark(_messages[message] || message, ...args);
   }
 }

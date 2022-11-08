@@ -16,7 +16,7 @@ import 'reflect-metadata';
     if (env.MODE == 'production') {
       await (await import('./loaders/pgLoader')).default();
       await (await import('./loaders/telegramLoader')).default();
-      await import('./loaders/discordLoader');
+      // await import('./loaders/discordLoader');
     }
 
     // Caching (Redis)

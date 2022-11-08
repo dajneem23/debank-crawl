@@ -47,7 +47,7 @@ export const TelegramLoader = async () => {
               quantity: +quantity?.replace(/,/g, ''),
               usd: +usd?.replace(/,/g, ''),
               etherscan_url: txn?.url,
-              date: new Date(date * 1000),
+              date: new Date(date * 1000).toISOString(),
               address,
               token_address,
             }

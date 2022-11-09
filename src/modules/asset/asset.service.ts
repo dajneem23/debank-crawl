@@ -61,6 +61,7 @@ export class AssetService {
     // this.fetchMarketData();
     // this.fetchPricePerformanceStats();
     // this.fetchOHLCV();
+    // this.fetchMetadata();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -91,7 +92,7 @@ export class AssetService {
       connection: this.redisConnection as any,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
-        attempts: 5,
+        attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
       },
@@ -771,7 +772,7 @@ export class AssetService {
         } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.cryptocurrency.quotesLatest,
           params: {
-            symbol: listSymbol.join(','),
+            symbol: uniq(listSymbol).join(','),
             aux: 'num_market_pairs,cmc_rank,date_added,tags,platform,max_supply,circulating_supply,total_supply,market_cap_by_total_supply,volume_24h_reported,volume_7d,volume_7d_reported,volume_30d,volume_30d_reported,is_active,is_fiat',
           },
         });
@@ -1033,7 +1034,7 @@ export class AssetService {
         } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.cryptocurrency.ohlcvLastest,
           params: {
-            symbol: listSymbol.join(','),
+            symbol: uniq(listSymbol).join(','),
           },
         });
         for (const symbol of Object.keys(ohlcvLastest)) {
@@ -1196,7 +1197,7 @@ export class AssetService {
         } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.cryptocurrency.pricePerformanceStats,
           params: {
-            symbol: listSymbol.join(','),
+            symbol: uniq(listSymbol).join(','),
             time_period: 'all_time,yesterday,24h,7d,30d,90d,365d',
           },
         });
@@ -1636,6 +1637,94 @@ export class AssetService {
       this.logger.debug('success', 'fetchPricePerformanceStats done');
     } catch (error) {
       this.logger.error('job_error', 'fetchPricePerformanceStats', JSON.stringify(error));
+    }
+  }
+  async fetchMetadata() {
+    try {
+      const coinmarketcapAssets = await this.model
+        .get([
+          {
+            $match: {
+              'id_of_sources.CoinMarketCap': { $exists: true },
+            },
+          },
+          {
+            $sort: {
+              market_cap: -1,
+            },
+          },
+          {
+            $project: {
+              id_of_sources: 1,
+            },
+          },
+        ])
+        .toArray();
+      for (const {
+        _id,
+        id_of_sources: { CoinMarketCap },
+      } of coinmarketcapAssets) {
+        await sleep(2500);
+        const {
+          data: {
+            data: {
+              [CoinMarketCap]: {
+                contract_address,
+                name,
+                urls: {
+                  website = [],
+                  twitter = [],
+                  message_board = [],
+                  chat = [],
+                  facebook = [],
+                  explorer = [],
+                  reddit = [],
+                  technical_doc = [],
+                  source_code = [],
+                  announcement = [],
+                },
+                tags = [],
+                platform,
+              },
+            },
+          },
+        } = await CoinMarketCapAPI.fetch({
+          endpoint: `${CoinMarketCapAPI.cryptocurrency.metaData}`,
+          params: {
+            id: CoinMarketCap,
+          },
+        });
+        await this.model._collection.findOneAndUpdate(
+          {
+            _id,
+          },
+          {
+            $set: {
+              contract_address,
+            },
+            $addToSet: {
+              'urls.website': { $each: website || [] },
+              'urls.twitter': { $each: twitter || [] },
+              'urls.message_board': { $each: message_board || [] },
+              'urls.chat': { $each: chat || [] },
+              'urls.facebook': { $each: facebook || [] },
+              'urls.explorer': { $each: explorer || [] },
+              'urls.reddit': { $each: reddit || [] },
+              'urls.technical_doc': { $each: technical_doc || [] },
+              'urls.source_code': { $each: source_code || [] },
+              'urls.announcement': { $each: announcement || [] },
+              categories: { $each: tags || [] },
+              ...(platform && {
+                platform,
+              }),
+            } as any,
+          },
+        );
+        this.logger.debug('success', name);
+      }
+      this.logger.debug('success', 'fetchMetadata done');
+    } catch (error) {
+      this.logger.error('job_error', 'fetchMetadata', JSON.stringify(error));
     }
   }
   /**

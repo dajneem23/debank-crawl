@@ -754,6 +754,9 @@ export class AssetService {
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
+            $match: {
+              'id_of_sources.CoinMarketCap': { $exists: true },
+            },
             $projects: [
               {
                 $project: {
@@ -1016,6 +1019,9 @@ export class AssetService {
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
+            $match: {
+              'id_of_sources.CoinMarketCap': { $exists: true },
+            },
             $projects: [
               {
                 $project: {
@@ -1187,7 +1193,15 @@ export class AssetService {
   async fetchPricePerformanceStats() {
     try {
       this.logger.debug('info', 'fetchPricePerformanceStats start');
-      const allAssets = await this.model.get().toArray();
+      const allAssets = await this.model
+        .get([
+          {
+            $match: {
+              'id_of_sources.CoinMarketCap': { $exists: true },
+            },
+          },
+        ])
+        .toArray();
       const groupAssets = chunk(allAssets, CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsLimit);
       for (const assets of groupAssets) {
         const listSymbol = assets.map((asset) => asset.symbol);

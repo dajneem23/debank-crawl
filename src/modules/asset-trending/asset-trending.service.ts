@@ -172,7 +172,7 @@ export class AssetTrendingService {
     this.queue
       .add(name, payload, options)
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
+      .catch((err) => this.logger.error('error', `[addJob:error]`, err, name, payload));
   }
   /**
    * Initialize Worker listeners

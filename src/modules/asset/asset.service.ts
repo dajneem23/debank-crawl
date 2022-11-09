@@ -132,7 +132,7 @@ export class AssetService {
       payload: {},
       options: {
         repeat: {
-          pattern: CoinMarketCapAPI.cryptocurrency.pricePerformanceStatsRepeatPattern,
+          pattern: '* 0 0 * * *',
         },
         jobId: 'asset:fetch:pricePerformanceStats',
         removeOnComplete: true,

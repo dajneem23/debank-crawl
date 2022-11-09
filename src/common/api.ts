@@ -67,7 +67,7 @@ export const CoinMarketCapAPI = {
      */
     pricePerformanceStatsLimit: 100,
 
-    pricePerformanceStatsRepeatPattern: env.MARKETCAP_FETCH_SCHEDULE,
+    pricePerformanceStatsRepeatPattern: '* 0 0 * * *',
     /**
      *  @description Returns all static metadata available for one or more cryptocurrencies. This information includes details like logo, description, official website URL, social links, and links to a cryptocurrency's technical documentation.
      *  @see https://coinmarketcap.com/api/documentation/v1/#operation/getV2CryptocurrencyInfo

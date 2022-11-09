@@ -109,7 +109,7 @@ export class CoinGecko {
       connection: this.redisConnection as any,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
-        attempts: 5,
+        attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
       },

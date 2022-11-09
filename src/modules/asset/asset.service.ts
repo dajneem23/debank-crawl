@@ -121,7 +121,7 @@ export class AssetService {
       payload: {},
       options: {
         repeat: {
-          every: +CoinMarketCapAPI.cryptocurrency.INTERVAL,
+          every: 21600000,
         },
         jobId: 'asset:fetch:marketData',
         removeOnComplete: true,

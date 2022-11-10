@@ -471,7 +471,7 @@ export class ExchangeService {
       connection: this.redisConnection as any,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
-        attempts: 5,
+        attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
       },
@@ -527,8 +527,8 @@ export class ExchangeService {
   }) {
     this.queue
       .add(name, payload, options)
-      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
+      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
+      .catch((err) => this.logger.error('error', `[addJob:error]`, err, name, payload));
   }
   /**
    *  @description init BullMQ Worker

@@ -23,7 +23,7 @@ import * as debank from '@/modules/debank';
 
     if (env.MODE == 'production') {
       await (await import('./loaders/telegramLoader')).default();
-      // await import('./loaders/discordLoader');
+      await (await import('./loaders/pgLoader')).default();
     }
 
     // Caching (Redis)

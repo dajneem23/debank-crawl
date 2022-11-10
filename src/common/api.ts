@@ -301,3 +301,19 @@ export const DefillamaAPI = {
     });
   },
 };
+export const DebankAPI = {
+  Project: {
+    list: {
+      endpoint: 'https://api.debank.com/project/v2/list',
+    },
+    users: {
+      endpoint: 'https://api.debank.com/project/portfolios/user_list',
+    },
+  },
+  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+    return axios.get(`${endpoint}`, {
+      params,
+      headers: {},
+    });
+  },
+};

@@ -5,6 +5,8 @@ import 'reflect-metadata';
  */
 /*eslint-disable */
 import * as defillama from '@/modules/defillama';
+
+import * as debank from '@/modules/debank';
 /*eslint-disable */
 (async () => {
   try {
@@ -17,9 +19,9 @@ import * as defillama from '@/modules/defillama';
     // Database (mongodb)
     await (await import('./loaders/mongoDBLoader')).default();
     await (await import('./loaders/awsS3Loader')).default();
+    await (await import('./loaders/pgLoader')).default();
 
     if (env.MODE == 'production') {
-      await (await import('./loaders/pgLoader')).default();
       await (await import('./loaders/telegramLoader')).default();
       // await import('./loaders/discordLoader');
     }

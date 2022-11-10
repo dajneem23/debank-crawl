@@ -90,7 +90,7 @@ export class AssetTrendingService {
   private initWorker() {
     this.worker = new Worker('asset-trending', this.workerProcessor.bind(this), {
       connection: this.redisConnection as any,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
         max: 1,

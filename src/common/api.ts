@@ -242,3 +242,83 @@ export const DataFiAPI = {
     });
   },
 };
+export const DexScreenerAPI = {
+  tradingHistory: {
+    /**
+     * @description fetch tradingHistory recent data from dexscreener
+     * @param  {Object} - { params,endpoint }
+     * @example { params: { q: <address>, t:timestamp} }
+     */
+    recent: {
+      /**
+       *  @example https://io.dexscreener.com/u/trading-history/recent/ethereum/0x3b37c733c3fe51ce68c14cb735a6fcc1ff6533ed?t=1667965727001&q=0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
+       */
+      endpoint: 'https://io.dexscreener.com/u/trading-history/recent',
+      params: {},
+    },
+  },
+  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+    return axios.get(`${endpoint}`, {
+      params,
+      headers: {},
+    });
+  },
+};
+export const DefillamaAPI = {
+  Tvl: {
+    protocols: {
+      list: {
+        endpoint: 'https://api.llama.fi/protocols',
+      },
+      detail: {
+        endpoint: 'https://api.llama.fi/protocol',
+      },
+      tvl: {
+        endpoint: 'https://api.llama.fi/tvl',
+      },
+    },
+    charts: {
+      list: {
+        endpoint: 'https://api.llama.fi/charts',
+      },
+      chain: {
+        endpoint: 'https://api.llama.fi/charts',
+      },
+    },
+    chains: {
+      list: {
+        endpoint: 'https://api.llama.fi/chains',
+      },
+    },
+  },
+  StableCoins: {
+    list: {
+      endpoint: 'https://stablecoins.llama.fi/stablecoins',
+      params: {
+        includePrices: true,
+      },
+    },
+  },
+  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+    return axios.get(`${endpoint}`, {
+      params,
+      headers: {},
+    });
+  },
+};
+export const DebankAPI = {
+  Project: {
+    list: {
+      endpoint: 'https://api.debank.com/project/v2/list',
+    },
+    users: {
+      endpoint: 'https://api.debank.com/project/portfolios/user_list',
+    },
+  },
+  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+    return axios.get(`${endpoint}`, {
+      params,
+      headers: {},
+    });
+  },
+};

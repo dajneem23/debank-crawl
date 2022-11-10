@@ -31,13 +31,13 @@ const pgPool = new Pool({
 const logger = Container.get(DILogger);
 
 const pgLoader = async () => {
-  pgClient.connect((err) => {
-    if (err) {
-      logger.error('db_error', err);
-      return;
-    }
-    logger.success('connected', 'Client Postgres');
-  });
+  // pgClient.connect((err) => {
+  //   if (err) {
+  //     logger.error('db_error', err);
+  //     return;
+  //   }
+  //   logger.success('connected', 'Client Postgres');
+  // });
   pgPool.connect((err) => {
     if (err) {
       logger.error('db_error', err);
@@ -45,9 +45,9 @@ const pgLoader = async () => {
     }
     logger.success('connected', 'Pool Postgres');
   });
-  Container.set(pgClientToken, pgClient);
+  // Container.set(pgClientToken, pgClient);
   Container.set(pgPoolToken, pgPool);
 
-  return pgClient;
+  return pgPool;
 };
 export default pgLoader;

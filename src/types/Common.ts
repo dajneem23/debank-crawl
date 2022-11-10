@@ -1,4 +1,3 @@
-import { UserRole } from '@/modules';
 import { ObjectIdPattern } from '@/utils/common';
 import { Joi } from 'celebrate';
 import { ObjectId } from 'mongodb';
@@ -208,7 +207,6 @@ export type BaseServiceInput = {
     [key: string]: any;
   };
   _permission?: 'public' | 'private';
-  _role?: UserRole;
 };
 
 export type BaseServiceOutput = {

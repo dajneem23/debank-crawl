@@ -11,13 +11,12 @@ import 'reflect-metadata';
     (await import('./loaders/loggerLoader')).default();
     // Database (mongodb)
     await (await import('./loaders/mongoDBLoader')).default();
-    await (await import('./loaders/awsS3Loader')).default();
 
-    if (env.MODE == 'production') {
-      await (await import('./loaders/pgLoader')).default();
-      // await (await import('./loaders/telegramLoader')).default();
-      // await import('./loaders/discordLoader');
-    }
+    // if (env.MODE == 'production') {
+    await (await import('./loaders/pgLoader')).default();
+    await (await import('./loaders/telegramLoader')).default();
+    // await import('./loaders/discordLoader');
+    // }
 
     // Caching (Redis)
     await (await import('./loaders/redisClientLoader')).default();

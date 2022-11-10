@@ -1,8 +1,6 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { toOutPut, toPagingOutput } from '@/utils/common';
-import AuthSessionModel from '@/modules/auth/authSession.model';
-import AuthService from '../auth/auth.service';
 import { $pagination, $toMongoFilter, $keysToProject, $lookup, $sets } from '@/utils/mongoDB';
 import { assetPriceModelToken } from '.';
 import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
@@ -25,12 +23,6 @@ export class AssetPriceService {
   private logger = new Logger('AssetPriceService');
 
   readonly model = Container.get(assetPriceModelToken);
-
-  @Inject()
-  private authSessionModel: AuthSessionModel;
-
-  @Inject()
-  private authService: AuthService;
 
   get outputKeys(): typeof this.model._keys {
     return this.model._keys;

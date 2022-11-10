@@ -3,9 +3,7 @@ import Logger from '@/core/logger';
 import { getDateTime, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
 import { _event, eventModelToken } from '.';
 import { $keysToProject, $toMongoFilter } from '@/utils/mongoDB';
-import AuthSessionModel from '@/modules/auth/authSession.model';
 import { EventError } from './event.error';
-import AuthService from '../auth/auth.service';
 import { $pagination } from '@/utils/mongoDB';
 import { isNil, omit } from 'lodash';
 import { BaseServiceInput, BaseServiceOutput, EventType, PRIVATE_KEYS } from '@/types';
@@ -29,12 +27,6 @@ export class EventService {
   private logger = new Logger('EventService');
 
   readonly model = Container.get(eventModelToken);
-
-  @Inject()
-  private authSessionModel: AuthSessionModel;
-
-  @Inject()
-  private authService: AuthService;
 
   get outputKeys() {
     return this.model._keys;

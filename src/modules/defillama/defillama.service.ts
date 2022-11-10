@@ -67,7 +67,9 @@ export class Defillama {
     // this.fetchTVLProtocolDetails();
     // this.fetchTVLChains();
     // this.fetchTVLCharts();
-    if (env.MODE === 'dev') {
+    this.fetchStableCoinsList();
+    // TODO: CHANGE THIS TO PRODUCTION
+    if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
       // Init Queue
@@ -404,6 +406,21 @@ export class Defillama {
       );
     } catch (error) {
       this.logger.error('error', '[fetchTVLProtocolTVL:error]', error);
+    }
+  }
+  //TODO : Finish this
+  async fetchStableCoinsList() {
+    try {
+      const { data, status } = await DefillamaAPI.fetch({
+        endpoint: DefillamaAPI.StableCoins.list.endpoint,
+        params: DefillamaAPI.StableCoins.list.params,
+      });
+      if (status != 200) {
+        this.logger.error('error', '[fetchStableCoinsList:error]', { status, data });
+        throw new SystemError('fetchStableCoinsList: invalid response');
+      }
+    } catch (error) {
+      this.logger.error('error', '[fetchStableCoinsList:error]', error);
     }
   }
 }

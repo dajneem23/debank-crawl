@@ -1,7 +1,7 @@
 import { env } from 'process';
 import 'reflect-metadata';
 /**
- *  @description this import is required to initialize the DI container
+ *  @description this import is required to initialize service class
  */
 /*eslint-disable */
 import * as defillama from '@/modules/defillama';

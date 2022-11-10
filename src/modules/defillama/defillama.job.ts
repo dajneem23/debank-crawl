@@ -14,5 +14,5 @@ export type DefillamaJobNames =
   | 'defillama:add:tvl:protocol:tvl'
   | 'defillama:fetch:tvl:protocol:tvl'
   | 'defillama:fetch:tvl:chains'
-  | 'defillama:fetch:stablecoins';
+  | 'defillama:fetch:stablecoins:list';
 export type DefillamaJobData = fetchDefillamaDataJob;

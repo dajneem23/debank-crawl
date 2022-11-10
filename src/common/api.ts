@@ -286,6 +286,14 @@ export const DefillamaAPI = {
       },
     },
   },
+  StableCoins: {
+    list: {
+      endpoint: 'https://stablecoins.llama.fi/stablecoins',
+      params: {
+        includePrices: true,
+      },
+    },
+  },
   fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
     return axios.get(`${endpoint}`, {
       params,

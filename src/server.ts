@@ -1,6 +1,11 @@
 import { env } from 'process';
 import 'reflect-metadata';
-
+/**
+ *  @description this import is required to initialize the DI container
+ */
+/*eslint-disable */
+import * as defillama from '@/modules/defillama';
+/*eslint-disable */
 (async () => {
   try {
     // ----------------------------------------------------------------

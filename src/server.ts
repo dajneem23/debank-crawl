@@ -1,6 +1,13 @@
 import { env } from 'process';
 import 'reflect-metadata';
+/**
+ *  @description this import is required to initialize service class
+ */
+/*eslint-disable */
+import * as defillama from '@/modules/defillama';
 
+import * as debank from '@/modules/debank';
+/*eslint-disable */
 (async () => {
   try {
     // ----------------------------------------------------------------
@@ -11,12 +18,11 @@ import 'reflect-metadata';
     (await import('./loaders/loggerLoader')).default();
     // Database (mongodb)
     await (await import('./loaders/mongoDBLoader')).default();
-
-    // if (env.MODE == 'production') {
     await (await import('./loaders/pgLoader')).default();
-    await (await import('./loaders/telegramLoader')).default();
-    // await import('./loaders/discordLoader');
-    // }
+
+    if (env.MODE == 'production') {
+      await (await import('./loaders/telegramLoader')).default();
+    }
 
     // Caching (Redis)
     await (await import('./loaders/redisClientLoader')).default();

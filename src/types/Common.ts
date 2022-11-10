@@ -341,11 +341,19 @@ export enum COLLECTION_NAMES {
   comment = 'comment',
   'fundraising-rounds' = 'fundraising-rounds',
   'asset-trending' = 'asset-trending',
+
   'coingecko-assets' = 'coingecko-assets',
   'coingecko-categories' = 'coingecko-categories',
   'coingecko-blockchains' = 'coingecko-blockchains',
   'coingecko-exchanges' = 'coingecko-exchanges',
   'coingecko-crypto-currency-global' = 'coingecko-crypto-currency-global',
+
+  'defillama-tvl-chains' = 'defillama-tvl-chains',
+  'defillama-tvl-charts' = 'defillama-tvl-charts',
+  'defillama-tvl-protocols' = 'defillama-tvl-protocols',
+  'defillama-stablecoins' = 'defillama-stablecoins',
+  'defillama-stablecoin-price' = 'defillama-stablecoin-price',
+  'defillama-stablecoin-charts' = 'defillama-stablecoin-charts',
 }
 
 export enum assetSortBy {

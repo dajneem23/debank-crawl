@@ -6,3 +6,5 @@ export * from './blockchain';
 export * from './exchange';
 export * from './asset-trending';
 export * from './coingecko';
+export * from './defillama';
+export * from './debank';

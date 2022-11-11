@@ -279,7 +279,7 @@ export class DebankService {
             usd_value,
             user_address,
             updated_at
-          ) VALUES ($1, $2, $3, $4, $5`,
+          ) VALUES ($1, $2, $3, $4, $5)`,
             [projectId, share, usd_value, user_address, new Date()],
           )
           .catch((err) => this.logger.error('error', '[fetchProjectUsers:insert]', err));

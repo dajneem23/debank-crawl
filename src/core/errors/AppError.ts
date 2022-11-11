@@ -1,5 +1,3 @@
-import httpStatusCode from 'http-status';
-
 export type AppErrorLocale = 'vi' | 'en';
 
 export type AppErrorJSON = {
@@ -29,7 +27,7 @@ export class AppError extends Error {
     this.name = this.constructor.name;
     this.message = err.message;
     this.code = err.code || err.status || 500;
-    this.status = err.status || httpStatusCode.INTERNAL_SERVER_ERROR;
+    this.status = err.status || 500;
     this.details = err.details || [];
     this.isPublic = err.isPublic || false;
     this.locales = err.locales;

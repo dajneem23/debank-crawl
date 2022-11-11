@@ -60,8 +60,6 @@ const _messages = {
   db_reconnect: '[db:reconnect]',
   redis_error: '[redis:error]',
   redis_success: '[redis:success]',
-  express_error: '[express:error]',
-  express_success: '[express:success]',
   server_error: '[server:error]',
   server_success: '[server:success]',
   unsuspend_success: '[unsuspend:success]',

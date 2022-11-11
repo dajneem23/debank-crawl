@@ -2,7 +2,6 @@ import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep } from '@/utils/common';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
-import { SystemError } from '@/core/errors';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import IORedis from 'ioredis';
@@ -15,21 +14,7 @@ import {
   defillamaTvlProtocolModelToken,
 } from './defillama.model';
 
-const TOKEN_NAME = '_defillamaServiceTokenService';
-/**
- * A bridge allows another service access to the Model layer
- * @export defillamaServiceToken
- * @class DefillamaAsset
- * @extends {BaseService}
- */
-export const defillamaServiceToken = new Token<Defillama>(TOKEN_NAME);
-/**
- * @class DefillamaAsset
- * @extends BaseService
- * @description AssetTrending Service for all defillamaAsset related operations
- */
-// @Service(defillamaServiceToken)
-export class Defillama {
+export class DefillamaService {
   private logger = new Logger('Defillama');
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
@@ -59,7 +44,7 @@ export class Defillama {
     'defillama:add:tvl:protocol:tvl': this.addFetchTVLProtocolTVLJob,
     'defillama:fetch:tvl:protocol:tvl': this.fetchTVLProtocolTVL,
     default: () => {
-      throw new SystemError('Invalid job name');
+      throw new Error('Invalid job name');
     },
   };
 
@@ -90,6 +75,7 @@ export class Defillama {
         duration: 5 * 60 * 1000,
       },
     });
+    this.logger.debug('info', '[initWorker:defillama]', 'Worker initialized');
     this.initWorkerListeners(this.worker);
   }
   /**
@@ -239,7 +225,7 @@ export class Defillama {
   ) {
     try {
       if (!slug) {
-        throw new SystemError('fetchTVLProtocolDetail: Invalid slug');
+        throw new Error('fetchTVLProtocolDetail: Invalid slug');
       }
       const {
         data: { id, name, slug: _slug, ...details },
@@ -333,14 +319,14 @@ export class Defillama {
   ) {
     try {
       if (!name) {
-        throw new SystemError('fetchTVLChartDetail: Invalid slug');
+        throw new Error('fetchTVLChartDetail: Invalid slug');
       }
       const { data, status } = await DefillamaAPI.fetch({
         endpoint: `${DefillamaAPI.Tvl.charts.chain.endpoint}/${name}`,
       });
       if (status != 200) {
         this.logger.error('error', '[fetchTVLChartChain:error]', { name, status, data });
-        throw new SystemError('fetchTVLChartChain: Invalid response');
+        throw new Error('fetchTVLChartChain: Invalid response');
       }
       await this.defillamaTvlChainModel._collection.updateOne(
         {
@@ -383,14 +369,14 @@ export class Defillama {
   ) {
     try {
       if (!slug) {
-        throw new SystemError('fetchTVLProtocolTVL: Invalid slug');
+        throw new Error('fetchTVLProtocolTVL: Invalid slug');
       }
       const { data, status } = await DefillamaAPI.fetch({
         endpoint: `${DefillamaAPI.Tvl.protocols.tvl.endpoint}/${slug}`,
       });
       if (status != 200) {
         this.logger.error('error', '[fetchTVLProtocolTVL:error]', { slug, status, data });
-        throw new SystemError('fetchTVLProtocolTVL: invalid response');
+        throw new Error('fetchTVLProtocolTVL: invalid response');
       }
       await this.defillamaTvlProtocolModel._collection.updateOne(
         {
@@ -417,11 +403,10 @@ export class Defillama {
       });
       if (status != 200) {
         this.logger.error('error', '[fetchStableCoinsList:error]', { status, data });
-        throw new SystemError('fetchStableCoinsList: invalid response');
+        throw new Error('fetchStableCoinsList: invalid response');
       }
     } catch (error) {
       this.logger.error('error', '[fetchStableCoinsList:error]', error);
     }
   }
 }
-export const _defillama = new Defillama();

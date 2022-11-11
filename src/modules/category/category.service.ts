@@ -11,20 +11,10 @@ import { CoinMarketCapAPI } from '@/common/api';
 import IORedis from 'ioredis';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
-import { SystemError } from '@/core/errors';
 import { CategoryJobData, CategoryJobNames } from './category.job';
 import { env } from 'process';
 import { AssetModel, assetModelToken } from '../asset';
 
-const TOKEN_NAME = '_categoryService';
-/**
- * A bridge allows another service access to the Model layer
- * @export CategoryService
- * @class CategoryService
- * @extends {BaseService}
- */
-export const categoryServiceToken = new Token<CategoryService>(TOKEN_NAME);
-@Service(categoryServiceToken)
 export class CategoryService {
   private logger = new Logger('Categories');
 
@@ -64,7 +54,7 @@ export class CategoryService {
     'category:fetch:all': this.fetchAllCategory,
     // 'category:fetch:info': this.fetchCategoryInfo,
     default: () => {
-      throw new SystemError('Invalid job name');
+      throw new Error('Invalid job name');
     },
   };
 
@@ -81,6 +71,8 @@ export class CategoryService {
         duration: 600000,
       },
     });
+    this.logger.debug('info', '[initWorker:category]', 'Worker initialized');
+
     this.initWorkerListeners(this.worker);
   }
   /**

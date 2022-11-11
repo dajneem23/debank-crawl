@@ -11,26 +11,16 @@ import slugify from 'slugify';
 import { FETCH_MARKET_DATA_DURATION } from './asset.constants';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import IORedis from 'ioredis';
-import { SystemError } from '@/core/errors';
 import { AssetJobData, AssetJobNames } from './asset.job';
 import { CoinMarketCapAPI } from '@/common/api';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { AssetPriceModel, assetPriceModelToken } from '../asset-price';
-const TOKEN_NAME = '_assetService';
-/**
- * A bridge allows another service access to the Model layer
- * @export assetServiceToken
- * @class AssetService
- * @extends {BaseService}
- */
-export const assetServiceToken = new Token<AssetService>(TOKEN_NAME);
 
 /**
  * @class AssetService
  * @extends  BaseService
  * @description Asset Service for all asset related operations
  */
-@Service(assetServiceToken)
 export class AssetService {
   private logger = new Logger('AssetService');
 
@@ -53,7 +43,7 @@ export class AssetService {
     'asset:fetch:pricePerformanceStats': this.fetchPricePerformanceStats,
     'asset:fetch:ohlcv': this.fetchOHLCV,
     default: () => {
-      throw new SystemError('Invalid job name');
+      throw new Error('Invalid job name');
     },
   };
 
@@ -82,6 +72,8 @@ export class AssetService {
         duration: FETCH_MARKET_DATA_DURATION,
       },
     });
+    this.logger.debug('info', '[initWorker:asset]', 'Worker initialized');
+
     this.initWorkerListeners(this.worker);
   }
   /**

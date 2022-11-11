@@ -16,7 +16,7 @@ on:
 #2
 env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
-  IMAGE_NAME: 'wikiblock-backend-staging'
+  IMAGE_NAME: 'wikiblock-cronjob-staging'
   APP_ENV: 'staging'
   APP_NAME: 'wikiblock'
   API_PREFIX: ''

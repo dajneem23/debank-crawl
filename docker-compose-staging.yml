@@ -12,7 +12,7 @@ services:
     command: redis-server --save 20 1 --loglevel warning
 
   api-wikiblock:
-    image: registry.digitalocean.com/wikiblock/wikiblock-backend-staging:latest
+    image: registry.digitalocean.com/wikiblock/wikiblock-cronjob-staging:latest
     network_mode: host
     hostname: api.dev
     restart: always
@@ -21,7 +21,7 @@ services:
     volumes:
       - '.:/app'
     ports:
-      - '9001:9001'
+      - '9002:9002'
     depends_on:
       - redis
 volumes:

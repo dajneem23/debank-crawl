@@ -12,7 +12,6 @@ import Container from 'typedi';
 import { DIMongoDB } from '@/loaders/mongoDBLoader';
 import { DILogger } from '@/loaders/loggerLoader';
 import Logger from '@/core/logger';
-import { CommonError, errors } from '@/core/errors/CommonError';
 import { throwErr } from '@/utils/common';
 import { $lookup, $toMongoFilter } from '@/utils/mongoDB';
 import { $refValidation } from '@/utils/validation';
@@ -40,8 +39,9 @@ export class BaseModel {
   // Get logger Instance from DI
   readonly logger: Logger = Container.get(DILogger) as Logger;
   //init error
-  public error(msg: keyof typeof errors, detail?: any[]): any {
-    return new CommonError(msg, detail);
+  public error(msg: string, detail?: any[]): any {
+    this.logger.error('error', `[${this._collectionName}:error]`, msg, detail);
+    return new Error(msg);
   }
 
   get $lookups(): {

@@ -5,26 +5,12 @@ import { $keysToProject, $toMongoFilter } from '@/utils/mongoDB';
 import { assetTrendingModelToken } from '.';
 import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
-import { SystemError } from '@/core/errors';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import IORedis from 'ioredis';
 import { AssetTrendingJobData, AssetTrendingJobNames } from './asset-trending.job';
 import { KyberSwapAPI } from '@/common/api';
-const TOKEN_NAME = '_assetTrendingService';
-/**
- * A bridge allows another service access to the Model layer
- * @export AssetTrendingService
- * @class AssetTrendingService
- * @extends {BaseService}
- */
-export const assetTrendingServiceToken = new Token<AssetTrendingService>(TOKEN_NAME);
-/**
- * @class AssetTrendingService
- * @extends BaseService
- * @description AssetTrending Service for all assetTrending related operations
- */
-@Service(assetTrendingServiceToken)
+
 export class AssetTrendingService {
   private logger = new Logger('AssetTrendingService');
 
@@ -42,7 +28,7 @@ export class AssetTrendingService {
     'asset-trending:fetch:trending': this.fetchAssetTrending,
     'asset-trending:fetch:trending-soon': this.fetchAssetTrendingSoon,
     default: () => {
-      throw new SystemError('Invalid job name');
+      throw new Error('Invalid job name');
     },
   };
 
@@ -97,6 +83,7 @@ export class AssetTrendingService {
         duration: 5 * 60 * 1000,
       },
     });
+    this.logger.debug('info', '[initWorker:asset-trending]', 'Worker initialized');
     this.initWorkerListeners(this.worker);
   }
   /**

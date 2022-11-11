@@ -1,11 +1,10 @@
-import httpStatusCode from 'http-status';
 import AppError, { AppErrorJSON } from '@/core/errors/AppError';
 import { CommonError } from '@/types/Error';
 const errors = Object.freeze({
   not_found: {
     message: 'Refs Not found',
     code: '1111',
-    status: httpStatusCode.CONFLICT,
+    status: 200,
     isPublic: true,
     locales: {
       vi: 'Refs không tồn tại',

@@ -1,11 +1,10 @@
-import httpStatusCode from 'http-status';
 import AppError, { AppErrorJSON } from '@/core/errors/AppError';
 import { CommonError } from '@/types/Error';
 const errors = Object.freeze({
   CATEGORY_NOT_FOUND: {
     message: 'Category not found',
     code: '5001',
-    status: httpStatusCode.NOT_FOUND,
+    status: 404,
     isPublic: true,
     locales: {
       vi: 'Mục này không tồn tại',
@@ -15,7 +14,7 @@ const errors = Object.freeze({
   CATEGORY_ALREADY_EXIST: {
     message: 'Category already exist',
     code: '5002',
-    status: httpStatusCode.CONFLICT,
+    status: 409,
     isPublic: true,
     locales: {
       vi: 'Mục này đã tồn tại',

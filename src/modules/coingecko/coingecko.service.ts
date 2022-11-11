@@ -1,10 +1,7 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep } from '@/utils/common';
-import AuthSessionModel from '@/modules/auth/authSession.model';
-import AuthService from '../auth/auth.service';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
-import { SystemError } from '@/core/errors';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import IORedis from 'ioredis';
@@ -19,21 +16,12 @@ import {
 } from './coingecko.model';
 import axios from 'axios';
 
-const TOKEN_NAME = '_coingeckoService';
-/**
- * A bridge allows another service access to the Model layer
- * @export CoingeckoAsset
- * @class CoingeckoAsset
- * @extends {BaseService}
- */
-export const coinGeckoServiceToken = new Token<CoinGecko>(TOKEN_NAME);
 /**
  * @class CoingeckoAsset
  * @extends BaseService
  * @description AssetTrending Service for all coingeckoAsset related operations
  */
-@Service(coinGeckoServiceToken)
-export class CoinGecko {
+export class CoinGeckoService {
   private logger = new Logger('CoinGecko');
 
   private coinGeckoAssetModel = Container.get(coinGeckoAssetModelToken);
@@ -45,12 +33,6 @@ export class CoinGecko {
   private coinGeckoExchangeModel = Container.get(coinGeckoExchangeModelToken);
 
   private coinGeckoCryptoCurrencyGlobalModel = Container.get(coinGeckoCryptoCurrencyGlobalModelToken);
-
-  @Inject()
-  private authSessionModel: AuthSessionModel;
-
-  @Inject()
-  private authService: AuthService;
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
 
@@ -71,7 +53,7 @@ export class CoinGecko {
     'coingecko:fetch:exchanges:details': this.fetchCoinGeckoExchangeDetails,
     'coingecko:fetch:cryptocurrency:global': this.fetchCoinGeckoCryptoCurrencyGlobal,
     default: () => {
-      throw new SystemError('Invalid job name');
+      throw new Error('Invalid job name');
     },
   };
 
@@ -99,6 +81,8 @@ export class CoinGecko {
         duration: 5 * 60 * 1000,
       },
     });
+    this.logger.debug('info', '[initWorker:coingecko]', 'Worker initialized');
+
     this.initWorkerListeners(this.worker);
   }
   /**

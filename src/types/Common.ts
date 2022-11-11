@@ -1,5 +1,4 @@
 import { ObjectIdPattern } from '@/utils/common';
-import { Joi } from 'celebrate';
 import { ObjectId } from 'mongodb';
 
 export interface BaseQuery {
@@ -512,61 +511,3 @@ export enum TIME_PERIOD {
  *  @description - Remove all special characters from a string to make it a valid URL
  */
 export const RemoveSlugPattern = /[`~!@#$%^&*()+{}[\]\\|,.//?;':"]/g;
-
-export const urlsValidation = Joi.object({
-  avatar: Joi.array().items(Joi.string().uri()),
-
-  twitter: Joi.array().items(Joi.string().uri()),
-
-  telegram: Joi.array().items(Joi.string().uri()),
-
-  facebook: Joi.array().items(Joi.string().uri()),
-
-  instagram: Joi.array().items(Joi.string().uri()),
-
-  linkedin: Joi.array().items(Joi.string().uri()),
-
-  github: Joi.array().items(Joi.string().uri()),
-
-  medium: Joi.array().items(Joi.string().uri()),
-
-  youtube: Joi.array().items(Joi.string().uri()),
-
-  website: Joi.array().items(Joi.string().uri()),
-
-  blog: Joi.array().items(Joi.string().uri()),
-
-  rocket_chat: Joi.array().items(Joi.string().uri()),
-
-  bitcoin_talk: Joi.array().items(Joi.string().uri()),
-
-  galleries: Joi.array().items(Joi.string().uri()),
-
-  stack_exchange: Joi.array().items(Joi.string().uri()),
-
-  other: Joi.array().items(Joi.string().uri()),
-});
-/**
- * @description - id validation
- */
-export const ObjectIdValidation = Joi.string()
-  .pattern(new RegExp(ObjectIdPattern))
-  .message('id must be a valid ObjectId');
-
-export const BaseQueryValidation = Joi.object().keys({
-  offset: Joi.number().default(1).min(1),
-  limit: Joi.number().default(20).min(1),
-  sort_by: Joi.string(),
-  sort_order: Joi.string()
-    .default(ORDER.ASC)
-    .valid(...Object.values(ORDER)),
-  keyword: Joi.string().allow(''),
-  lang: Joi.string()
-    .valid(...Object.values(LANG_CODE))
-    .messages({
-      'any.only': 'lang must be one of: ' + Object.values(LANG_CODE).join(', ') + ' or empty',
-    }),
-  deleted: Joi.boolean(),
-  is_public: Joi.boolean(),
-  categories: Joi.array().items(Joi.string()),
-});

@@ -2,7 +2,6 @@ import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep } from '@/utils/common';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
-import { SystemError } from '@/core/errors';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import IORedis from 'ioredis';
@@ -12,21 +11,8 @@ import { DebankAPI } from '@/common/api';
 import { pgPoolToken } from '@/loaders/pgLoader';
 
 const pgPool = Container.get(pgPoolToken);
-const TOKEN_NAME = '_debankServiceTokenService';
-/**
- * A bridge allows another service access to the Model layer
- * @export debankServiceToken
- * @class DebankAsset
- * @extends {BaseService}
- */
-export const debankServiceToken = new Token<Debank>(TOKEN_NAME);
-/**
- * @class Debank
- * @extends BaseService
- * @description AssetTrending Service for all debankAsset related operations
- */
-// @Service(debankServiceToken)
-export class Debank {
+
+export class DebankService {
   private logger = new Logger('Debank');
 
   private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
@@ -45,7 +31,7 @@ export class Debank {
     'debank:fetch:project:users': this.fetchProjectUsers,
 
     default: () => {
-      throw new SystemError('Invalid job name');
+      throw new Error('Invalid job name');
     },
   };
 
@@ -76,6 +62,7 @@ export class Debank {
         duration: 5 * 60 * 1000,
       },
     });
+    this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
     this.initWorkerListeners(this.worker);
   }
   /**
@@ -171,7 +158,7 @@ export class Debank {
         endpoint: DebankAPI.Project.list.endpoint,
       });
       if (status !== 200) {
-        throw new SystemError('fetchProjectList: Error fetching project list');
+        throw new Error('fetchProjectList: Error fetching project list');
       }
       const { data: projects = [] } = data;
       for (const {
@@ -214,7 +201,7 @@ export class Debank {
             is_tvl,
             priority,
             updated_at
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) ON CONFLICT (id) DO UPDATE SET name = $2, chain = $3, platform_token_chain = $4, platform_token_id = $5, site_url = $6, tvl = $7, active_user_count_24h = $8, contract_call_count_24h = $9, portfolio_user_count = $10, total_contract_count = $11, total_user_count = $12, total_user_usd = $13, is_stable = $14, is_support_portfolio = $15, is_tvl = $16, priority = $17, updated_at = $18`,
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`,
             [
               id,
               name,
@@ -238,7 +225,6 @@ export class Debank {
           )
           .catch((err) => this.logger.error('error', '[fetchProjectList:insert]', err));
       }
-      // console.log('fetchProjectList:success');
     } catch (error) {
       this.logger.error('error', '[fetchProjectList:error]', error);
     }
@@ -270,7 +256,7 @@ export class Debank {
   ) {
     try {
       if (!projectId) {
-        throw new SystemError('fetchProjectUsers: projectId is required');
+        throw new Error('fetchProjectUsers: projectId is required');
       }
       const { data, status } = await DebankAPI.fetch({
         endpoint: DebankAPI.Project.users.endpoint,
@@ -279,7 +265,7 @@ export class Debank {
         },
       });
       if (status !== 200) {
-        throw new SystemError('fetchProjectUsers: Error fetching project users');
+        throw new Error('fetchProjectUsers: Error fetching project users');
       }
       const {
         data: { user_list = [] },
@@ -293,7 +279,7 @@ export class Debank {
             usd_value,
             user_address,
             updated_at
-          ) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (user_address) DO UPDATE SET share = $2, usd_value = $3, updated_at = $5`,
+          ) VALUES ($1, $2, $3, $4, $5`,
             [projectId, share, usd_value, user_address, new Date()],
           )
           .catch((err) => this.logger.error('error', '[fetchProjectUsers:insert]', err));
@@ -303,4 +289,3 @@ export class Debank {
     }
   }
 }
-export const _debank = new Debank();

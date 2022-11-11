@@ -1,10 +1,8 @@
-import httpStatusCode from 'http-status';
-
 export const CommonError = {
   INPUT_INVALID: {
     message: 'Input invalid',
     code: '400',
-    status: httpStatusCode.BAD_REQUEST,
+    status: 400,
     isPublic: true,
     locales: {
       vi: 'Dữ liệu nhập vào không hợp lệ',
@@ -14,7 +12,7 @@ export const CommonError = {
   DATABASE_ERROR: {
     message: 'Database error',
     code: '500',
-    status: httpStatusCode.INTERNAL_SERVER_ERROR,
+    status: 500,
     isPublic: true,
     locales: {
       vi: 'Lỗi cơ sở dữ liệu',
@@ -24,7 +22,7 @@ export const CommonError = {
   PERMISSION_DENIED: {
     message: 'Permission denied',
     code: '1003',
-    status: httpStatusCode.UNAUTHORIZED,
+    status: 401,
     isPublic: true,
     locales: {
       vi: 'Không có quyền này',

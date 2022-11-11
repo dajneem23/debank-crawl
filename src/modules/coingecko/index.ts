@@ -1,1 +1,1 @@
-export * from './congecko.controller';
+export * from './coingecko.service';

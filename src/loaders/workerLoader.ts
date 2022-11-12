@@ -6,6 +6,7 @@ import {
   DebankService,
   DefillamaService,
   ExchangeService,
+  DexScreenerService,
 } from '@/modules';
 const WorkerLoader = () => {
   new DebankService();
@@ -15,6 +16,7 @@ const WorkerLoader = () => {
   new AssetTrendingService();
   new CategoryService();
   new ExchangeService();
+  new DexScreenerService();
 };
 
 export default WorkerLoader;

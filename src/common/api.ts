@@ -243,7 +243,7 @@ export const DataFiAPI = {
   },
 };
 export const DexScreenerAPI = {
-  tradingHistory: {
+  TradingHistory: {
     /**
      * @description fetch tradingHistory recent data from dexscreener
      * @param  {Object} - { params,endpoint }
@@ -252,9 +252,19 @@ export const DexScreenerAPI = {
     recent: {
       /**
        *  @example https://io.dexscreener.com/u/trading-history/recent/ethereum/0x3b37c733c3fe51ce68c14cb735a6fcc1ff6533ed?t=1667965727001&q=0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
+       *
        */
+      minUsdt: 10000,
       endpoint: 'https://io.dexscreener.com/u/trading-history/recent',
       params: {},
+    },
+  },
+  Pairs: {
+    search: {
+      endpoint: 'https://api.dexscreener.com/latest/dex/search',
+      params: {
+        q: '',
+      },
     },
   },
   fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {

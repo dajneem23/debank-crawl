@@ -7,11 +7,12 @@ import { CoinSeed, insertCoins, cryptorankCoinsSeed, mappingCoins } from './coin
 import { UserSeed } from './user';
 import { FundSeed, fundInvestment, insertFunds, cryptorankFundsSeed } from './fund';
 import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFromCoinCarp } from './fundraising-round';
+import { _mapFTX_ALAMEDA } from './ftx-alamdaresearch';
 (async () => {
   (await import('../loaders/loggerLoader')).default();
   await (await import('../loaders/mongoDBLoader')).default();
 
-  await mappingCategories();
+  // await mappingCategories();
   // await UserSeed();
   // await CountrySeed();
   // await CategorySeed();
@@ -33,6 +34,7 @@ import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFr
   // await insertProducts();
   // await insertFundraisingRounds();
   // await mappingCoins();
+  await _mapFTX_ALAMEDA();
   process.on('exit', () => {
     console.info('✅ Run seed data successfully');
   });

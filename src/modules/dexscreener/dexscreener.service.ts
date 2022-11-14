@@ -331,7 +331,8 @@ export class DexScreenerService {
       );
       return pairs?.rows || [];
     } catch (error) {
-      this.logger.error('error', '[searchPairs:error]', error);
+      this.logger.error('error', '[searchPairsFromDatabase:error]', error);
+      return [];
     }
   }
   async insertTradingHistory({
@@ -368,7 +369,7 @@ export class DexScreenerService {
         base_token_address,
         quote_token_address,
         pair_address
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)`,
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) ON CONFLICT (txn_hash) DO NOTHING`,
       [
         blockNumber,
         blockTimestamp,

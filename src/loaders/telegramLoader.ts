@@ -2,6 +2,7 @@ import { filter } from 'lodash';
 import TelegramBot from 'node-telegram-bot-api';
 import { env } from 'process';
 import Container from 'typedi';
+import { DIDiscordClient } from './discordLoader';
 import { DILogger } from './loggerLoader';
 import { pgPoolToken } from './pgLoader';
 
@@ -10,7 +11,6 @@ const token = env.TELEGRAM_BOT_TOKEN;
 const NANSEN_ALERT_GROUP_ID = env.NANSEN_ALERT_GROUP_ID;
 const pgClient = Container.get(pgPoolToken);
 export const TelegramLoader = async () => {
-  const logger = Container.get(DILogger);
   // Create a bot that uses 'polling' to fetch new updates
   const bot = new TelegramBot(token, { polling: true });
 
@@ -104,13 +104,15 @@ export const TelegramLoader = async () => {
               ],
             )
             .catch((e) => {
-              logger.error('db_error', e);
+              const logger = Container.get(DILogger);
+              logger.error('db_error', 'insert:bot-nansen-transaction', JSON.stringify(e));
             });
         },
       );
-      logger.info('info', 'TelegramLoader', records);
+      // logger.info('info', 'TelegramLoader', records);
     } catch (error) {
-      logger.error('error', error);
+      const logger = Container.get(DILogger);
+      logger.discord('error', JSON.stringify(error));
     }
   });
 };

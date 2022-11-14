@@ -98,9 +98,9 @@ export class AssetService {
 
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'asset:Job failed', jobId, failedReason);
@@ -1149,7 +1149,15 @@ export class AssetService {
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<AssetJobData>, error: Error) => {
-      this.logger.error('error', '[job:asset:error]', id, name, failedReason, JSON.stringify({ data, error }));
+      this.logger.discord(
+        'error',
+        '[job:asset:error]',
+        id,
+        name,
+        failedReason,
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   /**

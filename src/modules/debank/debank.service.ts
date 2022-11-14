@@ -87,9 +87,9 @@ export class DebankService {
     // TODO: ENABLE THIS
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
@@ -131,11 +131,7 @@ export class DebankService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, data, name }: Job<DebankJobData>) => {
-      this.logger.debug('success', '[job:debank:completed]', {
-        id,
-        name,
-        data,
-      });
+      this.logger.discord('success', '[job:debank:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DebankJobData>, error: Error) => {

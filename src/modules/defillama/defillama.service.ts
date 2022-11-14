@@ -103,9 +103,9 @@ export class DefillamaService {
     // TODO: ENABLE THIS
     // this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
@@ -149,15 +149,11 @@ export class DefillamaService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, data, name }: Job<DefillamaJobData>) => {
-      this.logger.debug('success', '[job:defillama:completed]', {
-        id,
-        name,
-        data,
-      });
+      this.logger.discord('success', '[job:defillama:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DefillamaJobData>, error: Error) => {
-      this.logger.error(
+      this.logger.discord(
         'error',
         '[job:defillama:error]',
         id,

@@ -91,9 +91,9 @@ export class DexScreenerService {
     // TODO: ENABLE THIS
     // this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', 'dexscreener:Job failed', jobId, failedReason);
@@ -130,7 +130,7 @@ export class DexScreenerService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, data, name }: Job<DexscreenerJob>) => {
-      this.logger.debug('success', '[job:dexscreener:completed]', id, name, data);
+      this.logger.discord('success', '[job:dexscreener:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DexscreenerJob>, error: Error) => {

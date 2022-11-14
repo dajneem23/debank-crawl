@@ -110,9 +110,9 @@ export class AssetTrendingService {
 
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'asset-trending:Job failed', { jobId, failedReason });
@@ -169,8 +169,8 @@ export class AssetTrendingService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<AssetTrendingJobData>) => {
-      this.logger.debug('success', '[job:asset-trending:completed]', { id: job.id, jobName: job.name, data: job.data });
+    worker.on('completed', ({ id, name, data }: Job<AssetTrendingJobData>) => {
+      this.logger.discord('success', '[job:asset-trending:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<AssetTrendingJobData>, error: Error) => {

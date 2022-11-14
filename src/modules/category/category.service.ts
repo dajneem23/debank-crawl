@@ -97,9 +97,9 @@ export class CategoryService {
 
     // this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'category:Job failed', jobId, failedReason);
@@ -152,8 +152,8 @@ export class CategoryService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<CategoryJobData>) => {
-      this.logger.debug('success', '[job:category:completed]', { id: job.id, jobName: job.name, data: job.data });
+    worker.on('completed', ({ name, id, data }: Job<CategoryJobData>) => {
+      this.logger.discord('success', '[job:category:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<CategoryJobData>, error: Error) => {

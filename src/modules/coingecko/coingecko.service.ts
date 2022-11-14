@@ -107,9 +107,9 @@ export class CoinGeckoService {
 
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'coingecko:Job failed', jobId, failedReason);
@@ -466,7 +466,7 @@ export class CoinGeckoService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, name, data }: Job<fetchCoinGeckoDataJob>) => {
-      this.logger.debug('success', '[job:coingecko:completed]', id, name, JSON.stringify(data));
+      this.logger.discord('success', '[job:coingecko:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<fetchCoinGeckoDataJob>, error: Error) => {

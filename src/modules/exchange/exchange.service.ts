@@ -85,9 +85,9 @@ export class ExchangeService {
 
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'exchange:Job failed', { jobId, failedReason });
@@ -152,8 +152,8 @@ export class ExchangeService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<ExchangeJobData>) => {
-      this.logger.debug('success', '[job:exchange:completed]', { id: job.id, jobName: job.name, data: job.data });
+    worker.on('completed', ({ name, id, data }: Job<ExchangeJobData>) => {
+      this.logger.discord('success', '[job:exchange:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<ExchangeJobData>, error: Error) => {

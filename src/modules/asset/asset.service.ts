@@ -1138,7 +1138,7 @@ export class AssetService {
       }
       this.logger.debug('success', 'asset:fetchMetadata:done');
     } catch (error) {
-      this.logger.error('job_error', 'asset:fetchMetadata', JSON.stringify(error));
+      this.logger.discord('job_error', 'asset:fetchMetadata', JSON.stringify(error));
       throw error;
     }
   }

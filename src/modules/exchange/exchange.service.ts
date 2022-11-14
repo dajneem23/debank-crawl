@@ -99,6 +99,7 @@ export class ExchangeService {
       name: 'exchange:fetch:data',
       payload: {},
       options: {
+        repeatJobKey: 'exchange:fetch:data',
         repeat: {
           // pattern: CoinMarketCapAPI.exchange.INTERVAL,
           pattern: '* 0 0 * * *',
@@ -204,6 +205,7 @@ export class ExchangeService {
       this.logger.debug('success', 'exchange:fetchExchangeData', { end: new Date() });
     } catch (error) {
       this.logger.discord('error', 'exchange:fetchExchangeData', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchExchangeInfo({
@@ -227,6 +229,7 @@ export class ExchangeService {
       this.logger.debug('info', 'exchange:fetchExchangeInfo', { exchangeMap });
     } catch (error) {
       this.logger.discord('error', 'exchange:fetchExchangeInfo', JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -254,6 +257,7 @@ export class ExchangeService {
       return exchangeMap;
     } catch (error) {
       this.logger.discord('error', 'exchange:fetchExchangeMap', JSON.stringify(error));
+      throw error;
     }
   }
   async upsertExchange({
@@ -343,6 +347,7 @@ export class ExchangeService {
       }
     } catch (error) {
       this.logger.discord('error', 'exchange:upsertExchange', JSON.stringify(error));
+      throw error;
     }
   }
 }

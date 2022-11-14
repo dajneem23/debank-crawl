@@ -202,6 +202,7 @@ export class DexScreenerService {
       }
     } catch (error) {
       this.logger.discord('error', '[fetchTradingHistory:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async searchPairs({ baseToken, quoteToken, chain }: { baseToken: string; quoteToken: string; chain: string }) {
@@ -287,6 +288,7 @@ export class DexScreenerService {
       };
     } catch (error) {
       this.logger.discord('error', '[searchPairs:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async searchPairsFromDexScreener({ baseToken, quoteToken }: { baseToken: string; quoteToken: string }) {
@@ -452,6 +454,7 @@ export class DexScreenerService {
     try {
     } catch (error) {
       this.logger.discord('error', '[addFetchTradingHistoriesJob:error]', JSON.stringify(error));
+      throw error;
     }
   }
 }

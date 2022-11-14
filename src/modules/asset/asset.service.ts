@@ -112,6 +112,7 @@ export class AssetService {
       name: 'asset:fetch:marketData',
       payload: {},
       options: {
+        repeatJobKey: 'asset:fetch:marketData',
         repeat: {
           every: 21600000,
         },
@@ -123,6 +124,7 @@ export class AssetService {
       name: 'asset:fetch:pricePerformanceStats',
       payload: {},
       options: {
+        repeatJobKey: 'asset:fetch:pricePerformanceStats',
         repeat: {
           pattern: '* 0 0 * * *',
         },
@@ -395,7 +397,7 @@ export class AssetService {
       }
     } catch (err) {
       this.logger.discord('job_error', 'asset:fetchMarketData', JSON.stringify(err));
-      // throw err;
+      throw err;
     }
   }
   /**
@@ -583,7 +585,7 @@ export class AssetService {
       }
     } catch (err) {
       this.logger.discord('job_error', 'asset:fetchMarketData', JSON.stringify(err));
-      // throw err;
+      throw err;
     }
   }
 
@@ -1048,6 +1050,7 @@ export class AssetService {
       this.logger.debug('success', 'asset:fetchPricePerformanceStats:success');
     } catch (error) {
       this.logger.discord('job_error', 'asset:fetchPricePerformanceStats', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchMetadata() {
@@ -1136,6 +1139,7 @@ export class AssetService {
       this.logger.debug('success', 'asset:fetchMetadata:done');
     } catch (error) {
       this.logger.error('job_error', 'asset:fetchMetadata', JSON.stringify(error));
+      throw error;
     }
   }
   /**

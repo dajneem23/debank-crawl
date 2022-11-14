@@ -111,6 +111,7 @@ export class CategoryService {
       name: 'category:fetch:all',
       payload: {},
       options: {
+        repeatJobKey: 'category:fetch:all',
         repeat: {
           pattern: '* 0 0 * * *',
         },
@@ -315,6 +316,7 @@ export class CategoryService {
       this.logger.debug('success', 'fetch_all_category DONE');
     } catch (error) {
       this.logger.discord('job_error', 'fetchAllCategory', JSON.stringify(error));
+      throw error;
     }
   }
 }

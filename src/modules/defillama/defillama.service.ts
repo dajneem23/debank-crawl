@@ -114,12 +114,66 @@ export class DefillamaService {
     // this.addFetchTVLProtocolTVLJob();
   }
   private addFetchingDataJob() {
-    this.addJob({ name: 'defillama:fetch:tvl:protocols' });
-    this.addJob({ name: 'defillama:fetch:tvl:charts' });
-    this.addJob({ name: 'defillama:fetch:tvl:chains' });
-    this.addJob({ name: 'defillama:add:tvl:protocol:details' });
-    this.addJob({ name: 'defillama:add:tvl:charts:chains' });
-    this.addJob({ name: 'defillama:add:tvl:protocol:tvl' });
+    this.addJob({
+      name: 'defillama:fetch:tvl:protocols',
+      options: {
+        repeatJobKey: 'defillama:fetch:tvl:protocols',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:fetch:tvl:charts',
+      options: {
+        repeatJobKey: 'defillama:fetch:tvl:charts',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:fetch:tvl:chains',
+      options: {
+        repeatJobKey: 'defillama:fetch:tvl:chains',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:add:tvl:protocol:details',
+      options: {
+        repeatJobKey: 'defillama:add:tvl:protocol:details',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:add:tvl:charts:chains',
+      options: {
+        repeatJobKey: 'defillama:add:tvl:charts:chains',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:add:tvl:protocol:tvl',
+      options: {
+        repeatJobKey: 'defillama:add:tvl:protocol:tvl',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+      },
+    });
   }
   /**
    * @description add job to queue
@@ -131,6 +185,7 @@ export class DefillamaService {
       repeat: {
         pattern: '* 0 0 * * *',
       },
+      removeOnComplete: true,
     },
   }: {
     name: DefillamaJobNames;
@@ -199,6 +254,7 @@ export class DefillamaService {
       this.logger.debug('success', `[fetchTVLProtocols:DONE]`, { num: data.length });
     } catch (error) {
       this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      throw error;
     }
   }
   async addFetchTVLProtocolDetails() {
@@ -212,11 +268,13 @@ export class DefillamaService {
           },
           options: {
             // delay: 1000 * 60 * 5,
+            removeOnComplete: true,
           },
         });
       }
     } catch (error) {
       this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      throw error;
     }
   }
   async fetchTVLProtocolDetail(
@@ -247,6 +305,7 @@ export class DefillamaService {
       );
     } catch (error) {
       this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      throw error;
     }
   }
   async fetchTVLCharts() {
@@ -262,6 +321,7 @@ export class DefillamaService {
       });
     } catch (error) {
       this.logger.error('error', '[fetchTVLCharts:error]', error);
+      throw error;
     }
   }
   async fetchTVLChains() {
@@ -293,6 +353,7 @@ export class DefillamaService {
       }
     } catch (error) {
       this.logger.error('error', '[fetchTVLChains:error]', error);
+      throw error;
     }
   }
   async addFetchTvlChartsChainsJob() {
@@ -306,11 +367,13 @@ export class DefillamaService {
           },
           options: {
             // delay: 1000 * 60 * 5,
+            removeOnComplete: true,
           },
         });
       }
     } catch (error) {
       this.logger.error('error', '[addFetchTvlChartsChainsJob:error]', error);
+      throw error;
     }
   }
   async fetchTVLChartChain(
@@ -343,6 +406,7 @@ export class DefillamaService {
       );
     } catch (error) {
       this.logger.error('error', '[fetchTVLChartChain:error]', error);
+      throw error;
     }
   }
   async addFetchTVLProtocolTVLJob() {
@@ -356,11 +420,13 @@ export class DefillamaService {
           },
           options: {
             // delay: 1000 * 60 * 5,
+            removeOnComplete: true,
           },
         });
       }
     } catch (error) {
       this.logger.error('error', '[addFetchTVLProtocolTVLJob:error]', error);
+      throw error;
     }
   }
   async fetchTVLProtocolTVL(
@@ -393,6 +459,7 @@ export class DefillamaService {
       );
     } catch (error) {
       this.logger.error('error', '[fetchTVLProtocolTVL:error]', error);
+      throw error;
     }
   }
   //TODO : Finish this
@@ -408,6 +475,7 @@ export class DefillamaService {
       }
     } catch (error) {
       this.logger.error('error', '[fetchStableCoinsList:error]', error);
+      throw error;
     }
   }
 }

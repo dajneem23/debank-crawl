@@ -120,6 +120,7 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:assets:list',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:assets:list',
         repeat: {
           pattern: '0 0 * * SUN',
         },
@@ -131,6 +132,7 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:assets:details',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:assets:details',
         repeat: {
           pattern: '* 0 0 * * *',
         },
@@ -142,6 +144,7 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:categories:list',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:categories:list',
         repeat: {
           pattern: '0 0 * * SUN',
         },
@@ -153,6 +156,7 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:blockchains:list',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:blockchains:list',
         repeat: {
           pattern: '0 0 * * SUN',
         },
@@ -164,6 +168,7 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:exchanges:list',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:exchanges:list',
         repeat: {
           pattern: '0 0 * * SUN',
         },
@@ -175,6 +180,7 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:exchanges:details',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:exchanges:details',
         repeat: {
           pattern: '* 0 0 * * *',
         },
@@ -186,6 +192,7 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:cryptocurrency:global',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:cryptocurrency:global',
         repeat: {
           pattern: '* 0 0 * * *',
         },
@@ -226,6 +233,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetList', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchCoinGeckoAssetDetails() {
@@ -275,6 +283,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchCoinGeckoCategoriesList() {
@@ -305,6 +314,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoCategoriesList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoCategoriesList', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchCoinGeckoBlockchainsList() {
@@ -334,6 +344,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoBlockchainsList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoBlockchainsList', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchCoinGeckoExchangeList() {
@@ -363,6 +374,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeList', JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -413,6 +425,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeDetails');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -435,6 +448,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify(error));
+      throw error;
     }
   }
 

@@ -1,6 +1,7 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep } from '@/utils/common';
+import { pgPoolToken } from '@/loaders/pgLoader';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
@@ -13,6 +14,8 @@ import {
   defillamaTvlChartModelToken,
   defillamaTvlProtocolModelToken,
 } from './defillama.model';
+
+const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
   private logger = new Logger('Defillama');

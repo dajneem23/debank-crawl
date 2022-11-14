@@ -17,7 +17,7 @@ COPY . .
 
 
 # Expose port
-EXPOSE 9001
+EXPOSE 9002
 
 # Start service
 CMD [ "yarn", "start" ]

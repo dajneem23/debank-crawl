@@ -1,3 +1,4 @@
+import { generateId } from '@/utils/common';
 import { filter } from 'lodash';
 import TelegramBot from 'node-telegram-bot-api';
 import { env } from 'process';
@@ -16,17 +17,18 @@ export const TelegramLoader = async () => {
 
   bot.on('channel_post', async (msg) => {
     try {
-      const { text, chat, entities, date } = msg;
+      const { text, entities, date } = msg;
+      let message = text;
       if (!text) return;
       const rows = text.split('\n');
-      const [ma, alert_name] = /(.*):/g.exec(text);
+      const [_, alert_name] = /(.*):/g.exec(text);
 
       const records = filter(
         rows.map((row) => {
           const [match, sender, quantity, token, usd, receiver] =
-            /(.*) sent ([0-9,.]*) (.*) \(\$([0-9,.]*).* to (.*)/g.exec(row) || [];
+            /(.*) sent (.*) (.*) \(\$(.*)\).* to (.*)/g.exec(row) || [];
           const _match = text.match(/Etherscan|PolygonScan|BscScan/gi);
-          const offset = text.indexOf(_match[0]);
+          const offset = _match?.[0] ? message.indexOf(_match[0]) : -1;
           const txn = entities.find((entity) => entity.offset === offset);
           let address = null;
           let token_address = null;
@@ -36,8 +38,9 @@ export const TelegramLoader = async () => {
             address = url.searchParams.get('address');
             token_address = url.searchParams.get('token_address');
           }
-          const sender_profile = entities.find((entity) => entity.offset === text.indexOf(sender))?.url;
-          const receiver_profile = entities.find((entity) => entity.offset === text.indexOf(receiver))?.url;
+          const sender_profile = entities.find((entity) => entity.offset === message.indexOf(sender))?.url;
+          const receiver_profile = entities.find((entity) => entity.offset === message.indexOf(receiver))?.url;
+          if (match) message = message.replace(row, generateId(row.length));
           return (
             match && {
               sender: sender.trim(),

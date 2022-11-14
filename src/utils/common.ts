@@ -177,3 +177,13 @@ export const getDateTime = ({
 export const sleep = (ms: number): Promise<any> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
+
+export const generateId = (length: number) => {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};

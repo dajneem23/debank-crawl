@@ -58,6 +58,7 @@ export class DexScreenerService {
    */
   private initWorker() {
     this.worker = new Worker('dexscreener', this.workerProcessor.bind(this), {
+      autorun: true,
       connection: this.redisConnection as any,
       lockDuration: 1000 * 60,
       concurrency: 20,

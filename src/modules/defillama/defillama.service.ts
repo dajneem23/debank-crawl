@@ -70,6 +70,7 @@ export class DefillamaService {
    */
   private initWorker() {
     this.worker = new Worker('defillama', this.workerProcessor.bind(this), {
+      autorun: true,
       connection: this.redisConnection as any,
       lockDuration: 1000 * 60,
       concurrency: 20,

@@ -54,6 +54,7 @@ export class DebankService {
    */
   private initWorker() {
     this.worker = new Worker('debank', this.workerProcessor.bind(this), {
+      autorun: true,
       connection: this.redisConnection as any,
       lockDuration: 1000 * 60,
       concurrency: 20,

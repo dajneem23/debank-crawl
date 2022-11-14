@@ -73,11 +73,12 @@ export class CoinGeckoService {
    */
   private initWorker() {
     this.worker = new Worker('coingecko', this.workerProcessor.bind(this), {
+      autorun: true,
       connection: this.redisConnection as any,
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
-        max: 1,
+        max: 3,
         duration: 5 * 60 * 1000,
       },
     });

@@ -28,7 +28,7 @@ export const TelegramLoader = async () => {
           const [match, sender, quantity, token, usd, receiver] =
             /(.*) sent (.*) (.*) \(\$(.*)\).* to (.*)/g.exec(row) || [];
           const _match = text.match(/Etherscan|PolygonScan|BscScan/gi);
-          const offset = message.indexOf(_match[0]);
+          const offset = _match?.[0] ? message.indexOf(_match[0]) : -1;
           const txn = entities.find((entity) => entity.offset === offset);
           let address = null;
           let token_address = null;

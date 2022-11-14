@@ -115,7 +115,7 @@ export class CategoryService {
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'category:fetch:all',
+        // jobId: 'category:fetch:all',
         removeOnComplete: true,
       },
     });

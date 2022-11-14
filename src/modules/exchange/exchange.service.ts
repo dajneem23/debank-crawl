@@ -104,7 +104,7 @@ export class ExchangeService {
           // pattern: CoinMarketCapAPI.exchange.INTERVAL,
           pattern: '* 0 0 * * *',
         },
-        jobId: 'exchange:fetch:data',
+        // jobId: 'exchange:fetch:data',
         removeOnComplete: true,
       },
     });

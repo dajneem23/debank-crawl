@@ -116,7 +116,7 @@ export class AssetService {
         repeat: {
           every: 21600000,
         },
-        jobId: 'asset:fetch:marketData',
+        // jobId: 'asset:fetch:marketData',
         removeOnComplete: true,
       },
     });
@@ -128,7 +128,7 @@ export class AssetService {
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'asset:fetch:pricePerformanceStats',
+        // jobId: 'asset:fetch:pricePerformanceStats',
         removeOnComplete: true,
       },
     });

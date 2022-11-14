@@ -124,7 +124,7 @@ export class CoinGeckoService {
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:assets:list',
+        // jobId: 'coingecko:fetch:assets:list',
         removeOnComplete: true,
       },
     });
@@ -136,7 +136,7 @@ export class CoinGeckoService {
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'coingecko:fetch:assets:details',
+        // jobId: 'coingecko:fetch:assets:details',
         removeOnComplete: true,
       },
     });
@@ -148,7 +148,7 @@ export class CoinGeckoService {
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:categories:list',
+        // jobId: 'coingecko:fetch:categories:list',
         removeOnComplete: true,
       },
     });
@@ -160,7 +160,7 @@ export class CoinGeckoService {
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:blockchains:list',
+        // jobId: 'coingecko:fetch:blockchains:list',
         removeOnComplete: true,
       },
     });
@@ -172,7 +172,7 @@ export class CoinGeckoService {
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:exchanges:list',
+        // jobId: 'coingecko:fetch:exchanges:list',
         removeOnComplete: true,
       },
     });
@@ -184,7 +184,7 @@ export class CoinGeckoService {
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'coingecko:fetch:exchanges:details',
+        // jobId: 'coingecko:fetch:exchanges:details',
         removeOnComplete: true,
       },
     });
@@ -196,7 +196,7 @@ export class CoinGeckoService {
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'coingecko:fetch:cryptocurrency:global',
+        // jobId: 'coingecko:fetch:cryptocurrency:global',
         removeOnComplete: true,
       },
     });

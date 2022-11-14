@@ -85,9 +85,9 @@ export class ExchangeService {
 
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'exchange:Job failed', { jobId, failedReason });
@@ -99,11 +99,12 @@ export class ExchangeService {
       name: 'exchange:fetch:data',
       payload: {},
       options: {
+        repeatJobKey: 'exchange:fetch:data',
         repeat: {
           // pattern: CoinMarketCapAPI.exchange.INTERVAL,
           pattern: '* 0 0 * * *',
         },
-        jobId: 'exchange:fetch:data',
+        // jobId: 'exchange:fetch:data',
         removeOnComplete: true,
       },
     });
@@ -152,8 +153,8 @@ export class ExchangeService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<ExchangeJobData>) => {
-      this.logger.debug('success', '[job:exchange:completed]', { id: job.id, jobName: job.name, data: job.data });
+    worker.on('completed', ({ name, id, data }: Job<ExchangeJobData>) => {
+      this.logger.discord('success', '[job:exchange:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<ExchangeJobData>, error: Error) => {
@@ -204,6 +205,7 @@ export class ExchangeService {
       this.logger.debug('success', 'exchange:fetchExchangeData', { end: new Date() });
     } catch (error) {
       this.logger.discord('error', 'exchange:fetchExchangeData', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchExchangeInfo({
@@ -227,6 +229,7 @@ export class ExchangeService {
       this.logger.debug('info', 'exchange:fetchExchangeInfo', { exchangeMap });
     } catch (error) {
       this.logger.discord('error', 'exchange:fetchExchangeInfo', JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -254,6 +257,7 @@ export class ExchangeService {
       return exchangeMap;
     } catch (error) {
       this.logger.discord('error', 'exchange:fetchExchangeMap', JSON.stringify(error));
+      throw error;
     }
   }
   async upsertExchange({
@@ -343,6 +347,7 @@ export class ExchangeService {
       }
     } catch (error) {
       this.logger.discord('error', 'exchange:upsertExchange', JSON.stringify(error));
+      throw error;
     }
   }
 }

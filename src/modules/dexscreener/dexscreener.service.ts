@@ -91,9 +91,9 @@ export class DexScreenerService {
     // TODO: ENABLE THIS
     // this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', 'dexscreener:Job failed', jobId, failedReason);
@@ -130,7 +130,7 @@ export class DexScreenerService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, data, name }: Job<DexscreenerJob>) => {
-      this.logger.debug('success', '[job:dexscreener:completed]', id, name, data);
+      this.logger.discord('success', '[job:dexscreener:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DexscreenerJob>, error: Error) => {
@@ -202,6 +202,7 @@ export class DexScreenerService {
       }
     } catch (error) {
       this.logger.discord('error', '[fetchTradingHistory:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async searchPairs({ baseToken, quoteToken, chain }: { baseToken: string; quoteToken: string; chain: string }) {
@@ -287,6 +288,7 @@ export class DexScreenerService {
       };
     } catch (error) {
       this.logger.discord('error', '[searchPairs:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async searchPairsFromDexScreener({ baseToken, quoteToken }: { baseToken: string; quoteToken: string }) {
@@ -452,6 +454,7 @@ export class DexScreenerService {
     try {
     } catch (error) {
       this.logger.discord('error', '[addFetchTradingHistoriesJob:error]', JSON.stringify(error));
+      throw error;
     }
   }
 }

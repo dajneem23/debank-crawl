@@ -87,9 +87,9 @@ export class DebankService {
     // TODO: ENABLE THIS
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
@@ -101,6 +101,7 @@ export class DebankService {
     this.addJob({
       name: 'debank:fetch:project:list',
       options: {
+        repeatJobKey: 'debank:fetch:project:list',
         repeat: {
           every: 1000 * 60 * 60,
         },
@@ -109,6 +110,7 @@ export class DebankService {
     this.addJob({
       name: 'debank:add:project:users',
       options: {
+        repeatJobKey: 'debank:add:project:users',
         repeat: {
           every: 1000 * 60 * 60,
         },
@@ -131,11 +133,7 @@ export class DebankService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, data, name }: Job<DebankJobData>) => {
-      this.logger.debug('success', '[job:debank:completed]', {
-        id,
-        name,
-        data,
-      });
+      this.logger.discord('success', '[job:debank:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DebankJobData>, error: Error) => {
@@ -182,9 +180,8 @@ export class DebankService {
         is_tvl,
         priority,
       } of projects) {
-        await pgPool
-          .query(
-            `INSERT INTO "debank-projects" (
+        await pgPool.query(
+          `INSERT INTO "debank-projects" (
             id,
             name,
             chain,
@@ -204,31 +201,32 @@ export class DebankService {
             priority,
             updated_at
           ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`,
-            [
-              id,
-              name,
-              chain,
-              platform_token_chain,
-              platform_token_id,
-              site_url,
-              tvl,
-              active_user_count_24h,
-              contract_call_count_24h,
-              portfolio_user_count,
-              total_contract_count,
-              total_user_count,
-              total_user_usd,
-              is_stable,
-              is_support_portfolio,
-              is_tvl,
-              priority,
-              new Date(),
-            ],
-          )
-          .catch((err) => this.logger.discord('error', '[fetchProjectList:insert]', JSON.stringify(err)));
+          [
+            id,
+            name,
+            chain,
+            platform_token_chain,
+            platform_token_id,
+            site_url,
+            tvl,
+            active_user_count_24h,
+            contract_call_count_24h,
+            portfolio_user_count,
+            total_contract_count,
+            total_user_count,
+            total_user_usd,
+            is_stable,
+            is_support_portfolio,
+            is_tvl,
+            priority,
+            new Date(),
+          ],
+        );
+        // .catch((err) => this.logger.discord('error', '[fetchProjectList:insert]', JSON.stringify(err)));
       }
     } catch (error) {
       this.logger.discord('error', '[fetchProjectList:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async addFetchProjectUsersJobs() {
@@ -249,6 +247,7 @@ export class DebankService {
       }
     } catch (error) {
       this.logger.discord('error', '[addFetchProjectUsersJobs:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchProjectUsers(
@@ -288,6 +287,7 @@ export class DebankService {
       }
     } catch (error) {
       this.logger.discord('error', '[fetchProjectUsers:error]', JSON.stringify(error));
+      throw error;
     }
   }
 }

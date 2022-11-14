@@ -107,9 +107,9 @@ export class CoinGeckoService {
 
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'coingecko:Job failed', jobId, failedReason);
@@ -120,10 +120,11 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:assets:list',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:assets:list',
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:assets:list',
+        // jobId: 'coingecko:fetch:assets:list',
         removeOnComplete: true,
       },
     });
@@ -131,10 +132,11 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:assets:details',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:assets:details',
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'coingecko:fetch:assets:details',
+        // jobId: 'coingecko:fetch:assets:details',
         removeOnComplete: true,
       },
     });
@@ -142,10 +144,11 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:categories:list',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:categories:list',
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:categories:list',
+        // jobId: 'coingecko:fetch:categories:list',
         removeOnComplete: true,
       },
     });
@@ -153,10 +156,11 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:blockchains:list',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:blockchains:list',
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:blockchains:list',
+        // jobId: 'coingecko:fetch:blockchains:list',
         removeOnComplete: true,
       },
     });
@@ -164,10 +168,11 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:exchanges:list',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:exchanges:list',
         repeat: {
           pattern: '0 0 * * SUN',
         },
-        jobId: 'coingecko:fetch:exchanges:list',
+        // jobId: 'coingecko:fetch:exchanges:list',
         removeOnComplete: true,
       },
     });
@@ -175,10 +180,11 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:exchanges:details',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:exchanges:details',
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'coingecko:fetch:exchanges:details',
+        // jobId: 'coingecko:fetch:exchanges:details',
         removeOnComplete: true,
       },
     });
@@ -186,10 +192,11 @@ export class CoinGeckoService {
       name: 'coingecko:fetch:cryptocurrency:global',
       payload: {},
       options: {
+        repeatJobKey: 'coingecko:fetch:cryptocurrency:global',
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'coingecko:fetch:cryptocurrency:global',
+        // jobId: 'coingecko:fetch:cryptocurrency:global',
         removeOnComplete: true,
       },
     });
@@ -226,6 +233,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetList', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchCoinGeckoAssetDetails() {
@@ -275,6 +283,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchCoinGeckoCategoriesList() {
@@ -305,6 +314,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoCategoriesList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoCategoriesList', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchCoinGeckoBlockchainsList() {
@@ -334,6 +344,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoBlockchainsList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoBlockchainsList', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchCoinGeckoExchangeList() {
@@ -363,6 +374,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeList', JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -413,6 +425,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeDetails');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -435,6 +448,7 @@ export class CoinGeckoService {
       this.logger.debug('success', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -466,7 +480,7 @@ export class CoinGeckoService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, name, data }: Job<fetchCoinGeckoDataJob>) => {
-      this.logger.debug('success', '[job:coingecko:completed]', id, name, JSON.stringify(data));
+      this.logger.discord('success', '[job:coingecko:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<fetchCoinGeckoDataJob>, error: Error) => {

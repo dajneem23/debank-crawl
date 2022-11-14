@@ -98,9 +98,9 @@ export class AssetService {
 
     this.addFetchingDataJob();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'asset:Job failed', jobId, failedReason);
@@ -112,10 +112,11 @@ export class AssetService {
       name: 'asset:fetch:marketData',
       payload: {},
       options: {
+        repeatJobKey: 'asset:fetch:marketData',
         repeat: {
           every: 21600000,
         },
-        jobId: 'asset:fetch:marketData',
+        // jobId: 'asset:fetch:marketData',
         removeOnComplete: true,
       },
     });
@@ -123,10 +124,11 @@ export class AssetService {
       name: 'asset:fetch:pricePerformanceStats',
       payload: {},
       options: {
+        repeatJobKey: 'asset:fetch:pricePerformanceStats',
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'asset:fetch:pricePerformanceStats',
+        // jobId: 'asset:fetch:pricePerformanceStats',
         removeOnComplete: true,
       },
     });
@@ -395,7 +397,7 @@ export class AssetService {
       }
     } catch (err) {
       this.logger.discord('job_error', 'asset:fetchMarketData', JSON.stringify(err));
-      // throw err;
+      throw err;
     }
   }
   /**
@@ -583,7 +585,7 @@ export class AssetService {
       }
     } catch (err) {
       this.logger.discord('job_error', 'asset:fetchMarketData', JSON.stringify(err));
-      // throw err;
+      throw err;
     }
   }
 
@@ -1048,6 +1050,7 @@ export class AssetService {
       this.logger.debug('success', 'asset:fetchPricePerformanceStats:success');
     } catch (error) {
       this.logger.discord('job_error', 'asset:fetchPricePerformanceStats', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchMetadata() {
@@ -1136,6 +1139,7 @@ export class AssetService {
       this.logger.debug('success', 'asset:fetchMetadata:done');
     } catch (error) {
       this.logger.error('job_error', 'asset:fetchMetadata', JSON.stringify(error));
+      throw error;
     }
   }
   /**
@@ -1149,7 +1153,15 @@ export class AssetService {
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<AssetJobData>, error: Error) => {
-      this.logger.error('error', '[job:asset:error]', id, name, failedReason, JSON.stringify({ data, error }));
+      this.logger.discord(
+        'error',
+        '[job:asset:error]',
+        id,
+        name,
+        failedReason,
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   /**

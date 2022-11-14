@@ -103,7 +103,7 @@ export class AssetService {
     });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.discord('error', 'asset:Job failed', jobId, failedReason);
     });
   }
 
@@ -147,7 +147,7 @@ export class AssetService {
   } = {}): Promise<void> {
     await sleep(delay);
     try {
-      this.logger.debug('success', 'fetchMarketData', { page, per_page });
+      // this.logger.debug('success', 'fetchMarketData', { page, per_page });
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -385,7 +385,7 @@ export class AssetService {
             }
           }
         }
-        this.logger.debug('success', { items: items.length, total_count });
+        // this.logger.debug('success', { items: items.length, total_count });
         await this.fetchMarketData({
           page: page + 1,
           per_page,
@@ -394,7 +394,7 @@ export class AssetService {
         this.logger.debug('success', { total_count });
       }
     } catch (err) {
-      this.logger.debug('job_error', 'fetchMarketData', JSON.stringify(err));
+      this.logger.discord('job_error', 'asset:fetchMarketData', JSON.stringify(err));
       // throw err;
     }
   }
@@ -441,7 +441,7 @@ export class AssetService {
           },
         });
         for (const symbol of Object.keys(ohlcvLastest)) {
-          this.logger.debug('success', { symbol });
+          // this.logger.debug('success', { symbol });
           for (const {
             quote: {
               USD: { open, high, low, close, volume },
@@ -578,11 +578,11 @@ export class AssetService {
           per_page,
         });
       } else {
-        this.logger.debug('success', { total_count });
+        this.logger.debug('success', 'asset:fetchMarketData', { total_count });
         return;
       }
     } catch (err) {
-      this.logger.debug('job_error', 'fetchMarketData', JSON.stringify(err));
+      this.logger.discord('job_error', 'asset:fetchMarketData', JSON.stringify(err));
       // throw err;
     }
   }
@@ -1045,9 +1045,9 @@ export class AssetService {
           }
         }
       }
-      this.logger.debug('success', 'fetchPricePerformanceStats done');
+      this.logger.debug('success', 'asset:fetchPricePerformanceStats:success');
     } catch (error) {
-      this.logger.error('job_error', 'fetchPricePerformanceStats', JSON.stringify(error));
+      this.logger.discord('job_error', 'asset:fetchPricePerformanceStats', JSON.stringify(error));
     }
   }
   async fetchMetadata() {
@@ -1131,11 +1131,11 @@ export class AssetService {
             } as any,
           },
         );
-        this.logger.debug('success', name);
+        // this.logger.debug('success', name);
       }
-      this.logger.debug('success', 'fetchMetadata done');
+      this.logger.debug('success', 'asset:fetchMetadata:done');
     } catch (error) {
-      this.logger.error('job_error', 'fetchMetadata', JSON.stringify(error));
+      this.logger.error('job_error', 'asset:fetchMetadata', JSON.stringify(error));
     }
   }
   /**
@@ -1144,12 +1144,12 @@ export class AssetService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<AssetJobData>) => {
-      this.logger.debug('success', '[job:asset:completed]', { id: job.id, jobName: job.name, data: job.data });
+    worker.on('completed', ({ id, name, data }: Job<AssetJobData>) => {
+      this.logger.discord('success', '[job:asset:completed]', id, name, JSON.stringify(data));
     });
     // Failed
-    worker.on('failed', (job: Job<AssetJobData>, error: Error) => {
-      this.logger.error('error', '[job:asset:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
+    worker.on('failed', ({ id, name, data, failedReason }: Job<AssetJobData>, error: Error) => {
+      this.logger.error('error', '[job:asset:error]', id, name, failedReason, JSON.stringify({ data, error }));
     });
   }
   /**
@@ -1171,10 +1171,12 @@ export class AssetService {
     this.queue
       .add(name, payload, options)
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, name, payload));
+      .catch((err) =>
+        this.logger.discord('error', `[addJob:error]`, name, JSON.stringify(err), JSON.stringify(payload)),
+      );
   }
   workerProcessor({ name, data }: Job<AssetJobData>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
+    this.logger.discord('info', `[workerProcessor:run]`, name);
+    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
 }

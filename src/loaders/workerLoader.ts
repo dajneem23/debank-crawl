@@ -8,6 +8,8 @@ import {
   ExchangeService,
   DexScreenerService,
 } from '@/modules';
+import Container from 'typedi';
+import { DIDiscordClient, Discord } from './discordLoader';
 const WorkerLoader = () => {
   new DebankService();
   new DefillamaService();
@@ -16,7 +18,8 @@ const WorkerLoader = () => {
   new AssetTrendingService();
   new CategoryService();
   new ExchangeService();
-  new DexScreenerService();
+  // TODO: TURN ON WHEN READY
+  // new DexScreenerService();
 };
 
 export default WorkerLoader;

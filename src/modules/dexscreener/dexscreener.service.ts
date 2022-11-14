@@ -41,6 +41,9 @@ export class DexScreenerService {
     //   chain: 'bsc',
     //   dex: 'uniswap',
     // });
+    // setInterval(() => {
+    //   this.logger.discord('success', 'DexScreenerService is running');
+    // }, 1000);
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -93,7 +96,7 @@ export class DexScreenerService {
     });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.debug('error', 'dexscreener:Job failed', jobId, failedReason);
     });
     // TODO: REMOVE THIS LATER
     // this.addFetchTVLProtocolTVLJob();
@@ -127,25 +130,23 @@ export class DexScreenerService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, data, name }: Job<DexscreenerJob>) => {
-      this.logger.debug('success', '[job:dexscreener:completed]', {
-        id,
-        name,
-        data,
-      });
+      this.logger.debug('success', '[job:dexscreener:completed]', id, name, data);
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DexscreenerJob>, error: Error) => {
-      this.logger.error('error', '[job:dexscreener:error]', {
+      this.logger.discord(
+        'error',
+        '[job:dexscreener:error]',
         id,
         name,
-        data,
-        error,
         failedReason,
-      });
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   workerProcessor({ name, data }: Job<DexscreenerJob>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
+    this.logger.debug('info', `[dexscreener:workerProcessor:run]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async fetchTradingHistories({
@@ -199,9 +200,8 @@ export class DexScreenerService {
           ...item,
         });
       }
-      this.logger.debug('info', `[fetchTradingHistory]`, { data, status });
     } catch (error) {
-      this.logger.error('error', '[fetchTradingHistory:error]', error);
+      this.logger.discord('error', '[fetchTradingHistory:error]', JSON.stringify(error));
     }
   }
   async searchPairs({ baseToken, quoteToken, chain }: { baseToken: string; quoteToken: string; chain: string }) {
@@ -256,11 +256,7 @@ export class DexScreenerService {
         );
       }
       if (!pairs.length) {
-        this.logger.error('error', '[searchPairs:error]', {
-          baseToken,
-          quoteToken,
-          chain,
-        });
+        this.logger.discord('error', '[searchPairs:error]', baseToken, quoteToken, chain);
         throw new Error('No pairs found');
       }
       const baseTokenKey = pairsFromDatabase.length ? 'base_token' : 'baseToken';
@@ -278,12 +274,7 @@ export class DexScreenerService {
           chainId.toLowerCase() == chain.toLowerCase(),
       );
       if (!matchedPair) {
-        this.logger.error('error', '[searchPairs:error]', {
-          baseToken,
-          quoteToken,
-          chain,
-          pairs,
-        });
+        this.logger.discord('error', '[searchPairs:error]', baseToken, quoteToken, chain, pairs);
         throw new Error('No matchedPair found');
       }
       const baseTokenAddress = matchedPair[baseTokenKey].address;
@@ -295,7 +286,7 @@ export class DexScreenerService {
         quoteTokenAddress,
       };
     } catch (error) {
-      this.logger.error('error', '[searchPairs:error]', error);
+      this.logger.discord('error', '[searchPairs:error]', JSON.stringify(error));
     }
   }
   async searchPairsFromDexScreener({ baseToken, quoteToken }: { baseToken: string; quoteToken: string }) {
@@ -309,7 +300,7 @@ export class DexScreenerService {
       const { pairs } = data;
       return pairs;
     } catch (error) {
-      this.logger.error('error', '[searchPairsFromDexScreener:error]', error);
+      this.logger.discord('error', '[searchPairsFromDexScreener:error]', baseToken, quoteToken, JSON.stringify(error));
       return [];
     }
   }
@@ -333,7 +324,14 @@ export class DexScreenerService {
       );
       return pairs?.rows || [];
     } catch (error) {
-      this.logger.error('error', '[searchPairsFromDatabase:error]', error);
+      this.logger.discord(
+        'error',
+        '[searchPairsFromDatabase:error]',
+        baseToken,
+        quoteToken,
+        chain,
+        JSON.stringify(error),
+      );
       return [];
     }
   }
@@ -354,8 +352,9 @@ export class DexScreenerService {
     quoteTokenAddress,
     pairAddress,
   }: TradingHistory) {
-    await pgPool.query(
-      `INSERT INTO public."dexscreener-trading-histories" (
+    await pgPool
+      .query(
+        `INSERT INTO public."dexscreener-trading-histories" (
         block_number,
         block_timestamp,
         txn_hash,
@@ -372,24 +371,27 @@ export class DexScreenerService {
         quote_token_address,
         pair_address
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) ON CONFLICT (txn_hash) DO NOTHING`,
-      [
-        blockNumber,
-        blockTimestamp,
-        txnHash,
-        logIndex,
-        type,
-        priceUsd,
-        volumeUsd,
-        amount0,
-        amount1,
-        updatedAt,
-        baseToken,
-        quoteToken,
-        baseTokenAddress,
-        quoteTokenAddress,
-        pairAddress,
-      ],
-    );
+        [
+          blockNumber,
+          blockTimestamp,
+          txnHash,
+          logIndex,
+          type,
+          priceUsd,
+          volumeUsd,
+          amount0,
+          amount1,
+          updatedAt,
+          baseToken,
+          quoteToken,
+          baseTokenAddress,
+          quoteTokenAddress,
+          pairAddress,
+        ],
+      )
+      .catch((error) => {
+        this.logger.discord('error', '[insertTradingHistoryw:error]', JSON.stringify(error));
+      });
   }
   async insertPair({
     pairAddress,
@@ -443,13 +445,13 @@ export class DexScreenerService {
         ],
       )
       .catch((error) => {
-        this.logger.error('error', '[insertPair:error]', error);
+        this.logger.discord('error', '[insertPair:error]', JSON.stringify(error));
       });
   }
   async addFetchTradingHistoriesJob() {
     try {
     } catch (error) {
-      this.logger.error('error', '[addFetchTradingHistoriesJob:error]', error);
+      this.logger.discord('error', '[addFetchTradingHistoriesJob:error]', JSON.stringify(error));
     }
   }
 }

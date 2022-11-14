@@ -24,7 +24,9 @@ export class AssetTrendingService {
 
   private queueScheduler: QueueScheduler;
 
-  private readonly jobs = {
+  private readonly jobs: {
+    [key in AssetTrendingJobNames | 'default']?: (data?: any) => Promise<void>;
+  } = {
     'asset-trending:fetch:trending': this.fetchAssetTrending,
     'asset-trending:fetch:trending-soon': this.fetchAssetTrendingSoon,
     default: () => {
@@ -113,7 +115,7 @@ export class AssetTrendingService {
     });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.discord('error', 'asset-trending:Job failed', { jobId, failedReason });
     });
   }
   private addFetchingDataJob() {
@@ -159,7 +161,7 @@ export class AssetTrendingService {
     this.queue
       .add(name, payload, options)
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, name, payload));
+      .catch((err) => this.logger.discord('error', `[addJob:error]`, err, name, JSON.stringify(payload)));
   }
   /**
    * Initialize Worker listeners
@@ -171,23 +173,26 @@ export class AssetTrendingService {
       this.logger.debug('success', '[job:asset-trending:completed]', { id: job.id, jobName: job.name, data: job.data });
     });
     // Failed
-    worker.on('failed', (job: Job<AssetTrendingJobData>, error: Error) => {
-      this.logger.error('error', '[job:asset-trending:error]', {
-        jobId: job.id,
-        error,
-        jobName: job.name,
-        data: job.data,
-      });
+    worker.on('failed', ({ id, name, data, failedReason }: Job<AssetTrendingJobData>, error: Error) => {
+      this.logger.discord(
+        'error',
+        '[job:asset-trending:error]',
+        id,
+        name,
+        failedReason,
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   workerProcessor({ name, data }: Job<AssetTrendingJobData>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
+    this.logger.discord('info', `[workerProcessor:run]`, name);
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
 
   async fetchAssetTrending(): Promise<void> {
     try {
-      this.logger.debug('info', 'fetchAssetTrending');
+      // this.logger.debug('info', 'fetchAssetTrending');
       const {
         data: { data },
       } = await KyberSwapAPI.fetch({
@@ -215,15 +220,15 @@ export class AssetTrendingService {
           created_by: 'system',
         });
       }
-      this.logger.debug('info', 'fetchAssetTrending:success');
+      // this.logger.debug('info', 'fetchAssetTrending:success');
     } catch (err) {
-      this.logger.error('job_error', 'fetchAssetTrending', JSON.stringify(err));
+      this.logger.discord('job_error', 'fetchAssetTrending', JSON.stringify(err));
       // throw err;
     }
   }
   async fetchAssetTrendingSoon(): Promise<any> {
     try {
-      this.logger.debug('info', 'fetchAssetTrendingSoon');
+      // this.logger.debug('info', 'fetchAssetTrendingSoon');
       const {
         data: { data },
       } = await KyberSwapAPI.fetch({
@@ -251,9 +256,9 @@ export class AssetTrendingService {
           created_by: 'system',
         });
       }
-      this.logger.debug('info', 'fetchAssetTrendingSoon:success');
+      // this.logger.debug('info', 'fetchAssetTrendingSoon:success');
     } catch (err) {
-      this.logger.error('job_error', 'fetchAssetTrendingSoon', JSON.stringify(err));
+      this.logger.discord('job_error', 'fetchAssetTrendingSoon', JSON.stringify(err));
       // throw err;
     }
     // this.queue.add('asset-trending:fetch:trending', {}, { removeOnComplete: true });
@@ -278,7 +283,7 @@ export class AssetTrendingService {
       this.logger.debug('create_success', JSON.stringify(_content));
       return toOutPut({ item: value, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('create_error', err.message);
+      this.logger.discord('create_error', err.message);
       throw err;
     }
   }
@@ -301,7 +306,7 @@ export class AssetTrendingService {
       this.logger.debug('update_success', JSON.stringify(_content));
       return toOutPut({ item: _content, keys: this.outputKeys });
     } catch (err) {
-      this.logger.error('update_error', err.message);
+      this.logger.discord('update_error', err.message);
       throw err;
     }
   }
@@ -320,7 +325,7 @@ export class AssetTrendingService {
       this.logger.debug('delete_success', { _id });
       return;
     } catch (err) {
-      this.logger.error('delete_error', err.message);
+      this.logger.discord('delete_error', err.message);
       throw err;
     }
   }
@@ -382,7 +387,7 @@ export class AssetTrendingService {
         // keys: uniq([...this.outputKeys]),
       });
     } catch (err) {
-      this.logger.error('query_error', err.message);
+      this.logger.discord('query_error', err.message);
       throw err;
     }
   }
@@ -443,7 +448,7 @@ export class AssetTrendingService {
         // keys: uniq([...this.outputKeys, ...this.assetKeys]),
       });
     } catch (err) {
-      this.logger.error('query_error', err.message);
+      this.logger.discord('query_error', err.message);
       throw err;
     }
   }

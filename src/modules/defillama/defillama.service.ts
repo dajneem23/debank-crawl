@@ -1,6 +1,7 @@
 import Container, { Inject, Service, Token } from 'typedi';
 import Logger from '@/core/logger';
 import { sleep } from '@/utils/common';
+import { pgPoolToken } from '@/loaders/pgLoader';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
@@ -13,6 +14,8 @@ import {
   defillamaTvlChartModelToken,
   defillamaTvlProtocolModelToken,
 } from './defillama.model';
+
+const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
   private logger = new Logger('Defillama');
@@ -105,7 +108,7 @@ export class DefillamaService {
     });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
     });
     // TODO: REMOVE THIS LATER
     // this.addFetchTVLProtocolTVLJob();
@@ -154,17 +157,19 @@ export class DefillamaService {
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DefillamaJobData>, error: Error) => {
-      this.logger.error('error', '[job:defillama:error]', {
+      this.logger.error(
+        'error',
+        '[job:defillama:error]',
         id,
         name,
-        data,
-        error,
         failedReason,
-      });
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   workerProcessor({ name, data }: Job<DefillamaJobData>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
+    this.logger.debug('info', `[defillama:workerProcessor:run]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async fetchTVLProtocols() {

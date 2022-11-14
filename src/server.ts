@@ -1,5 +1,7 @@
 import { env } from 'process';
 import 'reflect-metadata';
+import Container from 'typedi';
+import { DIDiscordClient, Discord } from './loaders/discordLoader';
 /**
  *  @description this import is required to initialize service class
  */
@@ -10,6 +12,9 @@ import 'reflect-metadata';
     // Load modules
     // ----------------------------------------------------------------
     // Logger
+
+    new Discord();
+
     (await import('./loaders/loggerLoader')).default();
     // Database (mongodb)
     await (await import('./loaders/mongoDBLoader')).default();

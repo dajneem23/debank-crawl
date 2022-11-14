@@ -1,0 +1,1360 @@
+[
+  {
+    "Fundraising_Round": "Polygon",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$450,000,000",
+    "Date": "2022/2/7"
+  },
+  {
+    "Fundraising_Round": "Yuga Labs",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$450,000,000",
+    "Date": "2022/3/22"
+  },
+  {
+    "Fundraising_Round": "Circle",
+    "Round": "Unknown",
+    "Entity": "FTX",
+    "Amount": "$440,000,000",
+    "Date": "2021/5/28"
+  },
+  {
+    "Fundraising_Round": "Genesis Digital Assets",
+    "Round": "Strategic",
+    "Entity": "FTX",
+    "Amount": "$431,000,000",
+    "Date": "2021/9/21"
+  },
+  {
+    "Fundraising_Round": "Anchorage Digital",
+    "Round": "Series D",
+    "Entity": "Alameda Research",
+    "Amount": "$350,000,000",
+    "Date": "2021/12/15"
+  },
+  {
+    "Fundraising_Round": "NEAR Protocol",
+    "Round": "Unknown",
+    "Entity": "FTX",
+    "Amount": "$350,000,000",
+    "Date": "2022/4/6"
+  },
+  {
+    "Fundraising_Round": "Solana",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$314,150,000",
+    "Date": "2021/6/9"
+  },
+  {
+    "Fundraising_Round": "BlockFi",
+    "Round": "Debt Financing",
+    "Entity": "FTX",
+    "Amount": "$250,000,000",
+    "Date": "2022/6/21"
+  },
+  {
+    "Fundraising_Round": "Voyager Digital",
+    "Round": "Post IPO Debt",
+    "Entity": "Alameda Research",
+    "Amount": "$200,000,000",
+    "Date": "2022/6/17"
+  },
+  {
+    "Fundraising_Round": "Immutable",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$200,000,000",
+    "Date": "2022/3/7"
+  },
+  {
+    "Fundraising_Round": "Aptos",
+    "Round": "Unknown",
+    "Entity": "FTX",
+    "Amount": "$200,000,000",
+    "Date": "2022/2/24"
+  },
+  {
+    "Fundraising_Round": "Nova Labs",
+    "Round": "Series D",
+    "Entity": "FTX",
+    "Amount": "$200,000,000",
+    "Date": "2022/2/18"
+  },
+  {
+    "Fundraising_Round": "1inch",
+    "Round": "Series B",
+    "Entity": "Alameda Research",
+    "Amount": "$175,000,000",
+    "Date": "2021/12/1"
+  },
+  {
+    "Fundraising_Round": "Sky Mavis",
+    "Round": "Series B",
+    "Entity": "FTX",
+    "Amount": "$152,000,000",
+    "Date": "2021/10/4"
+  },
+  {
+    "Fundraising_Round": "NEAR Protocol",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$150,000,000",
+    "Date": "2022/1/13"
+  },
+  {
+    "Fundraising_Round": "Aptos",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$150,000,000",
+    "Date": "2022/7/25"
+  },
+  {
+    "Fundraising_Round": "Mythical Games",
+    "Round": "Series C",
+    "Entity": "FTX",
+    "Amount": "$150,000,000",
+    "Date": "2021/11/4"
+  },
+  {
+    "Fundraising_Round": "Chipper Cash",
+    "Round": "Series C",
+    "Entity": "FTX",
+    "Amount": "$150,000,000",
+    "Date": "2021/11/1"
+  },
+  {
+    "Fundraising_Round": "LayerZero",
+    "Round": "Extended Series A",
+    "Entity": "FTX",
+    "Amount": "$135,000,000",
+    "Date": "2022/3/30"
+  },
+  {
+    "Fundraising_Round": "Offchain Labs",
+    "Round": "Series B",
+    "Entity": "Alameda Research",
+    "Amount": "$120,000,000",
+    "Date": "2021/8/31"
+  },
+  {
+    "Fundraising_Round": "Liquid Global",
+    "Round": "Debt Financing",
+    "Entity": "FTX",
+    "Amount": "$120,000,000",
+    "Date": "2021/8/25"
+  },
+  {
+    "Fundraising_Round": "SEBA",
+    "Round": "Series C",
+    "Entity": "Alameda Research",
+    "Amount": "$119,000,000",
+    "Date": "2022/1/12"
+  },
+  {
+    "Fundraising_Round": "SEBA",
+    "Round": "Series C",
+    "Entity": "FTX",
+    "Amount": "$119,000,000",
+    "Date": "2022/1/12"
+  },
+  {
+    "Fundraising_Round": "Dave",
+    "Round": "Post IPO Debt",
+    "Entity": "FTX",
+    "Amount": "$100,000,000",
+    "Date": "2022/3/21"
+  },
+  {
+    "Fundraising_Round": "Mina Protocol",
+    "Round": "Unknown",
+    "Entity": "FTX",
+    "Amount": "$92,000,000",
+    "Date": "2022/3/17"
+  },
+  {
+    "Fundraising_Round": "Voyager Digital",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$75,000,000",
+    "Date": "2021/10/28"
+  },
+  {
+    "Fundraising_Round": "Lido",
+    "Round": "Treasury Diversification",
+    "Entity": "Alameda Research",
+    "Amount": "$73,000,000",
+    "Date": "2021/5/5"
+  },
+  {
+    "Fundraising_Round": "Protego Trust Bank",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$70,000,000",
+    "Date": "2021/9/1"
+  },
+  {
+    "Fundraising_Round": "MobileCoin",
+    "Round": "Series B",
+    "Entity": "Alameda Research",
+    "Amount": "$66,000,000",
+    "Date": "2021/8/18"
+  },
+  {
+    "Fundraising_Round": "Voyager Digital",
+    "Round": "Post IPO",
+    "Entity": "Alameda Research",
+    "Amount": "$60,000,000",
+    "Date": "2022/5/16"
+  },
+  {
+    "Fundraising_Round": "Immutable",
+    "Round": "Series B",
+    "Entity": "Alameda Research",
+    "Amount": "$60,000,000",
+    "Date": "2021/9/14"
+  },
+  {
+    "Fundraising_Round": "Delphia",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$60,000,000",
+    "Date": "2022/6/8"
+  },
+  {
+    "Fundraising_Round": "VALR",
+    "Round": "Series B",
+    "Entity": "Alameda Research",
+    "Amount": "$50,000,000",
+    "Date": "2022/3/1"
+  },
+  {
+    "Fundraising_Round": "Alliance DAO",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$50,000,000",
+    "Date": "2022/1/13"
+  },
+  {
+    "Fundraising_Round": "StarkWare",
+    "Round": "Series C",
+    "Entity": "Alameda Research",
+    "Amount": "$50,000,000",
+    "Date": "2021/11/16"
+  },
+  {
+    "Fundraising_Round": "AscendEX",
+    "Round": "Series B",
+    "Entity": "Alameda Research",
+    "Amount": "$50,000,000",
+    "Date": "2021/11/3"
+  },
+  {
+    "Fundraising_Round": "Hidden Road",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$50,000,000",
+    "Date": "2022/7/7"
+  },
+  {
+    "Fundraising_Round": "Metaplex",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$46,000,000",
+    "Date": "2022/1/18"
+  },
+  {
+    "Fundraising_Round": "Paradigm",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$35,000,000",
+    "Date": "2021/12/9"
+  },
+  {
+    "Fundraising_Round": "Pintu",
+    "Round": "Extended Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$35,000,000",
+    "Date": "2021/8/9"
+  },
+  {
+    "Fundraising_Round": "Hxro",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$34,000,000",
+    "Date": "2021/11/30"
+  },
+  {
+    "Fundraising_Round": "Subspace Labs",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$32,900,000",
+    "Date": "2022/3/1"
+  },
+  {
+    "Fundraising_Round": "Espresso",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$32,000,000",
+    "Date": "2022/3/7"
+  },
+  {
+    "Fundraising_Round": "Euler Finance",
+    "Round": "Unknown",
+    "Entity": "FTX",
+    "Amount": "$32,000,000",
+    "Date": "2022/6/7"
+  },
+  {
+    "Fundraising_Round": "Render Network",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$30,000,000",
+    "Date": "2021/12/21"
+  },
+  {
+    "Fundraising_Round": "Stocktwits",
+    "Round": "Series B",
+    "Entity": "Alameda Research",
+    "Amount": "$30,000,000",
+    "Date": "2021/12/16"
+  },
+  {
+    "Fundraising_Round": "BitOasis",
+    "Round": "Series B",
+    "Entity": "Alameda Research",
+    "Amount": "$30,000,000",
+    "Date": "2021/10/6"
+  },
+  {
+    "Fundraising_Round": "C2X",
+    "Round": "Unknown",
+    "Entity": "FTX",
+    "Amount": "$25,000,000",
+    "Date": "2022/3/18"
+  },
+  {
+    "Fundraising_Round": "DuskBreakers",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$24,000,000",
+    "Date": "2022/5/16"
+  },
+  {
+    "Fundraising_Round": "MARA",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$23,000,000",
+    "Date": "2022/5/11"
+  },
+  {
+    "Fundraising_Round": "Sommelier Finance",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$23,000,000",
+    "Date": "2021/10/20"
+  },
+  {
+    "Fundraising_Round": "Cogni",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$23,000,000",
+    "Date": "2022/4/26"
+  },
+  {
+    "Fundraising_Round": "dTrade",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$22,800,000",
+    "Date": "2021/9/14"
+  },
+  {
+    "Fundraising_Round": "Astar Network",
+    "Round": "Strategic",
+    "Entity": "Alameda Research",
+    "Amount": "$22,000,000",
+    "Date": "2022/1/28"
+  },
+  {
+    "Fundraising_Round": "Parallel Finance",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$22,000,000",
+    "Date": "2021/8/30"
+  },
+  {
+    "Fundraising_Round": "Meow",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$22,000,000",
+    "Date": "2022/7/18"
+  },
+  {
+    "Fundraising_Round": "Messari",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$21,000,000",
+    "Date": "2021/8/5"
+  },
+  {
+    "Fundraising_Round": "BetDEX",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$21,000,000",
+    "Date": "2021/11/17"
+  },
+  {
+    "Fundraising_Round": "Faraway",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$21,000,000",
+    "Date": "2021/11/4"
+  },
+  {
+    "Fundraising_Round": "Orderly Network",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$20,000,000",
+    "Date": "2022/6/9"
+  },
+  {
+    "Fundraising_Round": "Reef Finance",
+    "Round": "Strategic",
+    "Entity": "Alameda Research",
+    "Amount": "$20,000,000",
+    "Date": "2021/3/12"
+  },
+  {
+    "Fundraising_Round": "DoraHacks",
+    "Round": "Extended Series B",
+    "Entity": "FTX",
+    "Amount": "$20,000,000",
+    "Date": "2022/5/18"
+  },
+  {
+    "Fundraising_Round": "Solidus Labs",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$20,000,000",
+    "Date": "2021/5/24"
+  },
+  {
+    "Fundraising_Round": "Chingari",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$19,000,000",
+    "Date": "2021/10/8"
+  },
+  {
+    "Fundraising_Round": "Eden",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$17,400,000",
+    "Date": "2021/9/8"
+  },
+  {
+    "Fundraising_Round": "Alethea AI",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$16,000,000",
+    "Date": "2021/8/24"
+  },
+  {
+    "Fundraising_Round": "Coinshift",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$15,000,000",
+    "Date": "2022/5/17"
+  },
+  {
+    "Fundraising_Round": "Praxis Society",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$15,000,000",
+    "Date": "2022/3/3"
+  },
+  {
+    "Fundraising_Round": "Zebec",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$15,000,000",
+    "Date": "2022/2/23"
+  },
+  {
+    "Fundraising_Round": "Salad Ventures",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$13,500,000",
+    "Date": "2022/2/11"
+  },
+  {
+    "Fundraising_Round": "Soba",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$13,500,000",
+    "Date": "2022/6/29"
+  },
+  {
+    "Fundraising_Round": "Web3Auth",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$13,000,000",
+    "Date": "2022/1/12"
+  },
+  {
+    "Fundraising_Round": "TrustToken",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$12,500,000",
+    "Date": "2021/8/4"
+  },
+  {
+    "Fundraising_Round": "Elementus",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$12,000,000",
+    "Date": "2021/10/28"
+  },
+  {
+    "Fundraising_Round": "Nas Academy",
+    "Round": "Unknown",
+    "Entity": "FTX",
+    "Amount": "$12,000,000",
+    "Date": "2022/7/27"
+  },
+  {
+    "Fundraising_Round": "Vybe Network",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$10,500,000",
+    "Date": "2022/6/7"
+  },
+  {
+    "Fundraising_Round": "Big Time Studios",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$10,300,000",
+    "Date": "2021/5/12"
+  },
+  {
+    "Fundraising_Round": "StarryNift",
+    "Round": "Pre Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$10,000,000",
+    "Date": "2022/5/10"
+  },
+  {
+    "Fundraising_Round": "Project Galaxy",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$10,000,000",
+    "Date": "2022/1/25"
+  },
+  {
+    "Fundraising_Round": "pSTAKE",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$10,000,000",
+    "Date": "2021/11/16"
+  },
+  {
+    "Fundraising_Round": "Merge",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$9,500,000",
+    "Date": "2022/5/30"
+  },
+  {
+    "Fundraising_Round": "CoinMENA",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$9,500,000",
+    "Date": "2021/11/8"
+  },
+  {
+    "Fundraising_Round": "Delta One",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$9,100,000",
+    "Date": "2022/4/19"
+  },
+  {
+    "Fundraising_Round": "Fluence Labs",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$9,000,000",
+    "Date": "2022/2/17"
+  },
+  {
+    "Fundraising_Round": "Bastion",
+    "Round": "Series A",
+    "Entity": "FTX",
+    "Amount": "$9,000,000",
+    "Date": "2022/4/21"
+  },
+  {
+    "Fundraising_Round": "Perion",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$8,600,000",
+    "Date": "2021/12/31"
+  },
+  {
+    "Fundraising_Round": "Zeta Markets",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$8,500,000",
+    "Date": "2021/12/9"
+  },
+  {
+    "Fundraising_Round": "Questbook",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$8,300,000",
+    "Date": "2022/5/18"
+  },
+  {
+    "Fundraising_Round": "Genopets",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$8,300,000",
+    "Date": "2021/10/18"
+  },
+  {
+    "Fundraising_Round": "Slope Finance",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$8,000,000",
+    "Date": "2022/2/24"
+  },
+  {
+    "Fundraising_Round": "DROPP GG",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$8,000,000",
+    "Date": "2022/1/26"
+  },
+  {
+    "Fundraising_Round": "Burnt Finance",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$8,000,000",
+    "Date": "2022/1/17"
+  },
+  {
+    "Fundraising_Round": "Syndica",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$8,000,000",
+    "Date": "2021/11/3"
+  },
+  {
+    "Fundraising_Round": "X",
+    "Round": "Margin Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$8,000,000",
+    "Date": "2021/9/13"
+  },
+  {
+    "Fundraising_Round": "Blocto",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$8,000,000",
+    "Date": "2021/5/21"
+  },
+  {
+    "Fundraising_Round": "Cryptocurrencies",
+    "Round": "",
+    "Entity": "Alameda Research",
+    "Amount": "$8,000,000",
+    "Date": "2021/5/20"
+  },
+  {
+    "Fundraising_Round": "Jambo",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$7,500,000",
+    "Date": "2022/2/21"
+  },
+  {
+    "Fundraising_Round": "Spruce",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$7,500,000",
+    "Date": "2021/11/2"
+  },
+  {
+    "Fundraising_Round": "BiLira",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$7,500,000",
+    "Date": "2021/3/29"
+  },
+  {
+    "Fundraising_Round": "Empiric Network",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$7,000,000",
+    "Date": "2022/7/15"
+  },
+  {
+    "Fundraising_Round": "Liquality",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$7,000,000",
+    "Date": "2021/8/10"
+  },
+  {
+    "Fundraising_Round": "Impossible Finance",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$7,000,000",
+    "Date": "2021/6/3"
+  },
+  {
+    "Fundraising_Round": "Composable Finance",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$7,000,000",
+    "Date": "2021/6/1"
+  },
+  {
+    "Fundraising_Round": "MCDEX",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$7,000,000",
+    "Date": "2021/5/21"
+  },
+  {
+    "Fundraising_Round": "Empiric Network",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$7,000,000",
+    "Date": "2022/7/15"
+  },
+  {
+    "Fundraising_Round": "SIPHER",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$6,800,000",
+    "Date": "2021/10/26"
+  },
+  {
+    "Fundraising_Round": "Rainmaker Games",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$6,500,000",
+    "Date": "2021/12/9"
+  },
+  {
+    "Fundraising_Round": "Nestcoin",
+    "Round": "Pre Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$6,450,000",
+    "Date": "2022/2/1"
+  },
+  {
+    "Fundraising_Round": "Umee",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$6,300,000",
+    "Date": "2021/6/15"
+  },
+  {
+    "Fundraising_Round": "SIZE",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$6,000,000",
+    "Date": "2022/6/1"
+  },
+  {
+    "Fundraising_Round": "Sperax",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$6,000,000",
+    "Date": "2021/12/29"
+  },
+  {
+    "Fundraising_Round": "GuildFi",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$6,000,000",
+    "Date": "2021/11/11"
+  },
+  {
+    "Fundraising_Round": "XDefi Wallet",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$6,000,000",
+    "Date": "2021/9/29"
+  },
+  {
+    "Fundraising_Round": "Pintu",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$6,000,000",
+    "Date": "2021/5/26"
+  },
+  {
+    "Fundraising_Round": "GamerGains",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$5,800,000",
+    "Date": "2022/4/26"
+  },
+  {
+    "Fundraising_Round": "Heroes of Mavia",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,500,000",
+    "Date": "2022/1/21"
+  },
+  {
+    "Fundraising_Round": "Friktion",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,500,000",
+    "Date": "2022/1/14"
+  },
+  {
+    "Fundraising_Round": "Port Finance",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "$5,300,000",
+    "Date": "2021/12/24"
+  },
+  {
+    "Fundraising_Round": "Elfin Kingdom",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,250,000",
+    "Date": "2021/12/23"
+  },
+  {
+    "Fundraising_Round": "Float Capital",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,000,000",
+    "Date": "2022/3/15"
+  },
+  {
+    "Fundraising_Round": "Portals",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,000,000",
+    "Date": "2022/2/11"
+  },
+  {
+    "Fundraising_Round": "STEPN",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,000,000",
+    "Date": "2022/1/21"
+  },
+  {
+    "Fundraising_Round": "Exotic Markets",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,000,000",
+    "Date": "2022/1/7"
+  },
+  {
+    "Fundraising_Round": "Tulip",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,000,000",
+    "Date": "2021/10/27"
+  },
+  {
+    "Fundraising_Round": "DoinGud",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,000,000",
+    "Date": "2021/9/29"
+  },
+  {
+    "Fundraising_Round": "Parrot Protocol",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,000,000",
+    "Date": "2021/6/11"
+  },
+  {
+    "Fundraising_Round": "Lithium Finance",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$5,000,000",
+    "Date": "2021/6/1"
+  },
+  {
+    "Fundraising_Round": "Doppel",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$5,000,000",
+    "Date": "2022/5/24"
+  },
+  {
+    "Fundraising_Round": "Alchemix",
+    "Round": "Strategic",
+    "Entity": "Alameda Research",
+    "Amount": "$4,900,000",
+    "Date": "2021/3/14"
+  },
+  {
+    "Fundraising_Round": "Ref Finance",
+    "Round": "Strategic",
+    "Entity": "Alameda Research",
+    "Amount": "$4,800,000",
+    "Date": "2022/2/17"
+  },
+  {
+    "Fundraising_Round": "Jet Protocol",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,800,000",
+    "Date": "2021/6/10"
+  },
+  {
+    "Fundraising_Round": "ZKX",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,500,000",
+    "Date": "2022/7/14"
+  },
+  {
+    "Fundraising_Round": "Earth From Another Sun",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,500,000",
+    "Date": "2022/6/16"
+  },
+  {
+    "Fundraising_Round": "LiveArtX",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,500,000",
+    "Date": "2022/3/15"
+  },
+  {
+    "Fundraising_Round": "Cardinal",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,400,000",
+    "Date": "2022/7/23"
+  },
+  {
+    "Fundraising_Round": "Solice",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,360,000",
+    "Date": "2021/12/2"
+  },
+  {
+    "Fundraising_Round": "Cega",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,300,000",
+    "Date": "2022/3/8"
+  },
+  {
+    "Fundraising_Round": "Router",
+    "Round": "Extended Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,100,000",
+    "Date": "2021/12/10"
+  },
+  {
+    "Fundraising_Round": "DeFi Land",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,100,000",
+    "Date": "2021/9/9"
+  },
+  {
+    "Fundraising_Round": "Delysium",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$4,000,000",
+    "Date": "2022/3/14"
+  },
+  {
+    "Fundraising_Round": "Mirror World",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,000,000",
+    "Date": "2022/3/11"
+  },
+  {
+    "Fundraising_Round": "Swim Protocol",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,000,000",
+    "Date": "2022/3/9"
+  },
+  {
+    "Fundraising_Round": "Ancient8",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,000,000",
+    "Date": "2022/1/19"
+  },
+  {
+    "Fundraising_Round": "Solscan",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,000,000",
+    "Date": "2021/12/16"
+  },
+  {
+    "Fundraising_Round": "Hawku",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$4,000,000",
+    "Date": "2021/10/28"
+  },
+  {
+    "Fundraising_Round": "Coin98 Finance",
+    "Round": "Strategic",
+    "Entity": "Alameda Research",
+    "Amount": "$4,000,000",
+    "Date": "2021/4/6"
+  },
+  {
+    "Fundraising_Round": "OVEX",
+    "Round": "Strategic",
+    "Entity": "Alameda Research",
+    "Amount": "$4,000,000",
+    "Date": "2021/3/31"
+  },
+  {
+    "Fundraising_Round": "Swim Protocol",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$4,000,000",
+    "Date": "2022/3/9"
+  },
+  {
+    "Fundraising_Round": "MomentoNFT",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$4,000,000",
+    "Date": "2021/12/22"
+  },
+  {
+    "Fundraising_Round": "Drift Protocol",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,800,000",
+    "Date": "2021/10/26"
+  },
+  {
+    "Fundraising_Round": "Bridge Network",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$3,800,000",
+    "Date": "2022/4/6"
+  },
+  {
+    "Fundraising_Round": "The Kingdom",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,600,000",
+    "Date": "2022/4/7"
+  },
+  {
+    "Fundraising_Round": "Hedgehog",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,500,000",
+    "Date": "2021/7/27"
+  },
+  {
+    "Fundraising_Round": "Switchboard",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,500,000",
+    "Date": "2021/6/17"
+  },
+  {
+    "Fundraising_Round": "Sommelier Finance",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,500,000",
+    "Date": "2021/3/10"
+  },
+  {
+    "Fundraising_Round": "Sifchain Finance",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,500,000",
+    "Date": "2020/8/15"
+  },
+  {
+    "Fundraising_Round": "Taki",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,450,000",
+    "Date": "2022/4/7"
+  },
+  {
+    "Fundraising_Round": "Taki",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$3,450,000",
+    "Date": "2022/4/7"
+  },
+  {
+    "Fundraising_Round": "Solrise",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,400,000",
+    "Date": "2021/7/7"
+  },
+  {
+    "Fundraising_Round": "Hashflow",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,200,000",
+    "Date": "2021/4/29"
+  },
+  {
+    "Fundraising_Round": "Worldspark Studios",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,000,000",
+    "Date": "2022/2/24"
+  },
+  {
+    "Fundraising_Round": "prysm",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,000,000",
+    "Date": "2021/9/21"
+  },
+  {
+    "Fundraising_Round": "UXD Protocol",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,000,000",
+    "Date": "2021/9/2"
+  },
+  {
+    "Fundraising_Round": "Burnt Finance",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$3,000,000",
+    "Date": "2021/5/6"
+  },
+  {
+    "Fundraising_Round": "Solcial",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$2,900,000",
+    "Date": "2021/9/27"
+  },
+  {
+    "Fundraising_Round": "Lithium Finance",
+    "Round": "Extended Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$2,600,000",
+    "Date": "2021/7/8"
+  },
+  {
+    "Fundraising_Round": "BiLira",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$2,500,000",
+    "Date": "2022/4/21"
+  },
+  {
+    "Fundraising_Round": "Vybe Network",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$2,500,000",
+    "Date": "2022/1/11"
+  },
+  {
+    "Fundraising_Round": "Samudai",
+    "Round": "Pre Seed",
+    "Entity": "FTX",
+    "Amount": "$2,500,000",
+    "Date": "2022/6/8"
+  },
+  {
+    "Fundraising_Round": "Ratio Finance",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$2,250,000",
+    "Date": "2021/7/16"
+  },
+  {
+    "Fundraising_Round": "Eizper Chain",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$2,000,000",
+    "Date": "2022/3/15"
+  },
+  {
+    "Fundraising_Round": "Coinfeeds",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$2,000,000",
+    "Date": "2022/7/27"
+  },
+  {
+    "Fundraising_Round": "Phantasia",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$1,850,000",
+    "Date": "2021/11/2"
+  },
+  {
+    "Fundraising_Round": "Chillchat",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$1,850,000",
+    "Date": "2022/2/22"
+  },
+  {
+    "Fundraising_Round": "Pine Protocol",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$1,500,000",
+    "Date": "2022/5/20"
+  },
+  {
+    "Fundraising_Round": "Strata",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "$1,500,000",
+    "Date": "2022/4/5"
+  },
+  {
+    "Fundraising_Round": "Cosmic Guild",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$1,500,000",
+    "Date": "2021/12/23"
+  },
+  {
+    "Fundraising_Round": "Swoop",
+    "Round": "Seed",
+    "Entity": "FTX",
+    "Amount": "$1,500,000",
+    "Date": "2022/3/29"
+  },
+  {
+    "Fundraising_Round": "Arrow Markets",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$1,400,000",
+    "Date": "2021/11/17"
+  },
+  {
+    "Fundraising_Round": "SundaeSwap",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$1,300,000",
+    "Date": "2021/9/21"
+  },
+  {
+    "Fundraising_Round": "Manta Network",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$1,100,000",
+    "Date": "2021/2/2"
+  },
+  {
+    "Fundraising_Round": "Stacked",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "$1,000,000",
+    "Date": "2020/9/22"
+  },
+  {
+    "Fundraising_Round": "Klaytn Foundation",
+    "Round": "Strategic",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2022/4/21"
+  },
+  {
+    "Fundraising_Round": "Legends of Elumia",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2022/4/13"
+  },
+  {
+    "Fundraising_Round": "Aurigami",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2022/2/15"
+  },
+  {
+    "Fundraising_Round": "Pip",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2022/1/20"
+  },
+  {
+    "Fundraising_Round": "Zenlink",
+    "Round": "Series A",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2021/9/7"
+  },
+  {
+    "Fundraising_Round": "Synthetify",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2021/6/4"
+  },
+  {
+    "Fundraising_Round": "Mercurial Finance",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2021/5/13"
+  },
+  {
+    "Fundraising_Round": "DAOSquare",
+    "Round": "Unknown",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2021/4/22"
+  },
+  {
+    "Fundraising_Round": "mStable",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2020/8/12"
+  },
+  {
+    "Fundraising_Round": "Folkvang",
+    "Round": "Seed",
+    "Entity": "Alameda Research",
+    "Amount": "",
+    "Date": "2020/3/3"
+  },
+  {
+    "Fundraising_Round": "IEX",
+    "Round": "Strategic",
+    "Entity": "FTX",
+    "Amount": "",
+    "Date": "2022/4/5"
+  },
+  {
+    "Fundraising_Round": "Paxos",
+    "Round": "Extended Series D",
+    "Entity": "FTX",
+    "Amount": "",
+    "Date": "2021/7/29"
+  }
+]

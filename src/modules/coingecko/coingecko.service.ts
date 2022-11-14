@@ -112,7 +112,7 @@ export class CoinGeckoService {
     });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.discord('error', 'coingecko:Job failed', jobId, failedReason);
     });
   }
   private addFetchingDataJob() {
@@ -223,9 +223,9 @@ export class CoinGeckoService {
           { upsert: true },
         );
       }
-      this.logger.debug('success', 'Fetch CoinGecko Asset List');
+      this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetList');
     } catch (error) {
-      this.logger.debug('error', 'Fetch CoinGecko Asset List', JSON.stringify(error));
+      this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetList', JSON.stringify(error));
     }
   }
   async fetchCoinGeckoAssetDetails() {
@@ -239,7 +239,7 @@ export class CoinGeckoService {
           },
         ])
         .toArray();
-      this.logger.debug('info', 'fetchCoinGeckoAssetDetails', { num: assets.length });
+      this.logger.debug('info', 'coingecko:fetchCoinGeckoAssetDetails', { num: assets.length });
       for (const { id } of assets) {
         await sleep(3000);
         const { data } = await CoinGeckoAPI.fetch({
@@ -247,11 +247,11 @@ export class CoinGeckoService {
           params: CoinGeckoAPI.Coins.detail.params,
         })
           .then((res) => {
-            this.logger.debug('success', 'Fetch CoinGecko Asset Details', { id });
+            // this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails', { id });
             return res;
           })
           .catch((error) => {
-            this.logger.debug('error', 'Fetch CoinGecko Asset Details', JSON.stringify(error));
+            this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
           });
         if (data) {
           const { id: _id, symbol, name, ...details } = data;
@@ -272,10 +272,9 @@ export class CoinGeckoService {
           );
         }
       }
-
-      this.logger.debug('success', 'Fetch CoinGecko Asset Details');
+      this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails');
     } catch (error) {
-      this.logger.debug('error', 'Fetch CoinGecko Asset List', JSON.stringify(error));
+      this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
     }
   }
   async fetchCoinGeckoCategoriesList() {
@@ -284,7 +283,7 @@ export class CoinGeckoService {
         endpoint: CoinGeckoAPI.Categories.listWithMarketData.endpoint,
         params: CoinGeckoAPI.Categories.listWithMarketData.params,
       });
-      this.logger.debug('info', 'fetchCoinGeckoCategoriesList', { num: data.length });
+      this.logger.debug('info', 'coingecko:fetchCoinGeckoCategoriesList', { num: data.length });
       for (const { id, ...rest } of data) {
         await this.coinGeckoCategoriesModel._collection.findOneAndUpdate(
           { id },
@@ -303,9 +302,9 @@ export class CoinGeckoService {
           { upsert: true },
         );
       }
-      this.logger.debug('success', 'Fetch CoinGecko Categories List');
+      this.logger.debug('success', 'coingecko:fetchCoinGeckoCategoriesList');
     } catch (error) {
-      this.logger.debug('error', 'Fetch CoinGecko Categories List', JSON.stringify(error));
+      this.logger.discord('error', 'coingecko:fetchCoinGeckoCategoriesList', JSON.stringify(error));
     }
   }
   async fetchCoinGeckoBlockchainsList() {
@@ -313,7 +312,7 @@ export class CoinGeckoService {
       const { data } = await CoinGeckoAPI.fetch({
         endpoint: CoinGeckoAPI.Blockchains.list.endpoint,
       });
-      this.logger.debug('info', 'fetchCoinGeckoBlockchainsList', { num: data.length });
+      this.logger.debug('info', 'coingecko:fetchCoinGeckoBlockchainsList', { num: data.length });
       for (const { id, ...rest } of data) {
         await this.coinGeckoBlockchainModel._collection.findOneAndUpdate(
           { id },
@@ -332,9 +331,9 @@ export class CoinGeckoService {
           { upsert: true },
         );
       }
-      this.logger.debug('success', 'Fetch CoinGecko Blockchains List');
+      this.logger.debug('success', 'coingecko:fetchCoinGeckoBlockchainsList');
     } catch (error) {
-      this.logger.debug('error', 'Fetch CoinGecko Blockchains List', JSON.stringify(error));
+      this.logger.discord('error', 'coingecko:fetchCoinGeckoBlockchainsList', JSON.stringify(error));
     }
   }
   async fetchCoinGeckoExchangeList() {
@@ -342,7 +341,7 @@ export class CoinGeckoService {
       const { data } = await CoinGeckoAPI.fetch({
         endpoint: CoinGeckoAPI.Exchanges.list.endpoint,
       });
-      this.logger.debug('info', 'fetchCoinGeckoExchangeList', { num: data.length });
+      this.logger.debug('info', 'coingecko:fetchCoinGeckoExchangeList', { num: data.length });
       for (const { id, name } of data) {
         await this.coinGeckoExchangeModel._collection.findOneAndUpdate(
           { id },
@@ -361,9 +360,9 @@ export class CoinGeckoService {
           { upsert: true },
         );
       }
-      this.logger.debug('success', 'Fetch CoinGecko Exchange List');
+      this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeList');
     } catch (error) {
-      this.logger.debug('error', 'Fetch CoinGecko Exchange List', JSON.stringify(error));
+      this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeList', JSON.stringify(error));
     }
   }
 
@@ -378,18 +377,18 @@ export class CoinGeckoService {
           },
         ])
         .toArray();
-      this.logger.debug('info', 'fetchCoinGeckoExchangeDetails', { num: exchanges.length });
+      this.logger.debug('info', 'coingecko:fetchCoinGeckoExchangeDetails', { num: exchanges.length });
       for (const { id } of exchanges) {
         await sleep(3000);
         const { data } = await CoinGeckoAPI.fetch({
           endpoint: `${CoinGeckoAPI.Exchanges.details.endpoint}/${id}`,
         })
           .then((res) => {
-            this.logger.debug('success', 'Fetch CoinGecko Exchange Details', { id });
+            this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeDetails', { id });
             return res;
           })
           .catch((error) => {
-            this.logger.debug('error', 'Fetch CoinGecko Exchange Details', JSON.stringify(error));
+            this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify(error));
           });
         if (data) {
           const { name, ...details } = data;
@@ -411,9 +410,9 @@ export class CoinGeckoService {
         }
       }
 
-      this.logger.debug('success', 'Fetch CoinGecko Exchange Details');
+      this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeDetails');
     } catch (error) {
-      this.logger.debug('error', 'Fetch CoinGecko Exchange List', JSON.stringify(error));
+      this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify(error));
     }
   }
 
@@ -424,7 +423,7 @@ export class CoinGeckoService {
       })
         .then(({ data }) => data)
         .catch((error) => {
-          this.logger.debug('error', 'Fetch CoinGecko CryptoCurrency Global', JSON.stringify(error));
+          this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify(error));
         });
 
       await this.coinGeckoCryptoCurrencyGlobalModel._collection.insertOne({
@@ -433,9 +432,9 @@ export class CoinGeckoService {
         updated_by: 'system',
       });
 
-      this.logger.debug('success', 'Fetch CoinGecko CryptoCurrencyGlobal');
+      this.logger.debug('success', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal');
     } catch (error) {
-      this.logger.debug('error', 'Fetch CoinGecko CryptoCurrencyGlobal', JSON.stringify(error));
+      this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify(error));
     }
   }
 
@@ -458,7 +457,7 @@ export class CoinGeckoService {
     this.queue
       .add(name, payload, options)
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, name, payload));
+      .catch((err) => this.logger.discord('error', `[addJob:error]`, err, name, JSON.stringify(payload)));
   }
   /**
    * Initialize Worker listeners
@@ -466,26 +465,25 @@ export class CoinGeckoService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<fetchCoinGeckoDataJob>) => {
-      this.logger.debug('success', '[job:coingecko:completed]', {
-        id: job.id,
-        jobName: job.name,
-        data: job.data,
-      });
+    worker.on('completed', ({ id, name, data }: Job<fetchCoinGeckoDataJob>) => {
+      this.logger.debug('success', '[job:coingecko:completed]', id, name, JSON.stringify(data));
     });
     // Failed
-    worker.on('failed', (job: Job<fetchCoinGeckoDataJob>, error: Error) => {
-      this.logger.error('error', '[job:coingecko:error]', {
-        jobId: job.id,
-        error,
-        jobName: job.name,
-        data: job.data,
-      });
+    worker.on('failed', ({ id, name, data, failedReason }: Job<fetchCoinGeckoDataJob>, error: Error) => {
+      this.logger.discord(
+        'error',
+        '[job:coingecko:error]',
+        id,
+        name,
+        failedReason,
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   workerProcessor({ name, data }: Job<fetchCoinGeckoDataJob>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
+    this.logger.debug('info', `[coingecko:workerProcessor:run]`, name);
+    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async global(): Promise<any> {
     try {

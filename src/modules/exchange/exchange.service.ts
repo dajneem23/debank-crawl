@@ -90,7 +90,7 @@ export class ExchangeService {
     });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.discord('error', 'exchange:Job failed', { jobId, failedReason });
     });
   }
 
@@ -128,7 +128,7 @@ export class ExchangeService {
     this.queue
       .add(name, payload, options)
       .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, name, payload));
+      .catch((err) => this.logger.discord('error', `[addJob:error]`, err, name, JSON.stringify(payload)));
   }
   /**
    *  @description init BullMQ Worker
@@ -156,43 +156,55 @@ export class ExchangeService {
       this.logger.debug('success', '[job:exchange:completed]', { id: job.id, jobName: job.name, data: job.data });
     });
     // Failed
-    worker.on('failed', (job: Job<ExchangeJobData>, error: Error) => {
-      this.logger.error('error', '[job:exchange:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
+    worker.on('failed', ({ id, name, data, failedReason }: Job<ExchangeJobData>, error: Error) => {
+      this.logger.discord(
+        'error',
+        '[job:exchange:error]',
+        id,
+        name,
+        failedReason,
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   workerProcessor({ name, data }: Job<ExchangeJobData>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
+    this.logger.debug('info', `[exchange:workerProcessor:run]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   /**
    *  @description fetch all exchanges from CoinMarketCap
    */
   async fetchExchangeData() {
-    this.logger.debug('info', 'fetchExchangeData', { start: new Date() });
-    const exchangeMap = (await this.fetchExchangeMap()) || [];
-    const groupExchangeMap = chunk(exchangeMap, CoinMarketCapAPI.exchange.LIMIT);
-    const exchangeData = await Promise.all(
-      groupExchangeMap.map(async (groupExchangeMap) => {
-        const exchangeIds = groupExchangeMap.map((exchange: any) => exchange.id);
-        const {
-          data: { data: exchangeData },
-        } = await CoinMarketCapAPI.fetch({
-          endpoint: CoinMarketCapAPI.exchange.info,
-          params: {
-            id: exchangeIds.join(','),
-            aux: 'urls,logo,description,date_launched,notice,status',
-          },
-        });
-        return exchangeData;
-      }),
-    );
-    // this.logger.debug('info', 'fetchExchangeData', JSON.stringify(exchangeData));
-    for (const _exchange of exchangeData) {
-      for (const exchange of Object.values(_exchange)) {
-        await this.upsertExchange(exchange);
+    try {
+      this.logger.debug('info', 'fetchExchangeData', { start: new Date() });
+      const exchangeMap = (await this.fetchExchangeMap()) || [];
+      const groupExchangeMap = chunk(exchangeMap, CoinMarketCapAPI.exchange.LIMIT);
+      const exchangeData = await Promise.all(
+        groupExchangeMap.map(async (groupExchangeMap) => {
+          const exchangeIds = groupExchangeMap.map((exchange: any) => exchange.id);
+          const {
+            data: { data: exchangeData },
+          } = await CoinMarketCapAPI.fetch({
+            endpoint: CoinMarketCapAPI.exchange.info,
+            params: {
+              id: exchangeIds.join(','),
+              aux: 'urls,logo,description,date_launched,notice,status',
+            },
+          });
+          return exchangeData;
+        }),
+      );
+      // this.logger.debug('info', 'fetchExchangeData', JSON.stringify(exchangeData));
+      for (const _exchange of exchangeData) {
+        for (const exchange of Object.values(_exchange)) {
+          await this.upsertExchange(exchange);
+        }
       }
+      this.logger.debug('success', 'exchange:fetchExchangeData', { end: new Date() });
+    } catch (error) {
+      this.logger.discord('error', 'exchange:fetchExchangeData', JSON.stringify(error));
     }
-    this.logger.debug('success', 'fetchExchangeData', { end: new Date() });
   }
   async fetchExchangeInfo({
     page = 1,
@@ -205,13 +217,17 @@ export class ExchangeService {
     delay?: number;
     params?: any;
   } = {}) {
-    const {
-      data: { data: exchangeMap },
-    } = await CoinMarketCapAPI.fetch({
-      endpoint: CoinMarketCapAPI.exchange.info,
-      params,
-    });
-    this.logger.debug('info', 'fetchExchangeInfo', { exchangeMap });
+    try {
+      const {
+        data: { data: exchangeMap },
+      } = await CoinMarketCapAPI.fetch({
+        endpoint: CoinMarketCapAPI.exchange.info,
+        params,
+      });
+      this.logger.debug('info', 'exchange:fetchExchangeInfo', { exchangeMap });
+    } catch (error) {
+      this.logger.discord('error', 'exchange:fetchExchangeInfo', JSON.stringify(error));
+    }
   }
 
   async fetchExchangeMap({
@@ -227,14 +243,18 @@ export class ExchangeService {
     delay?: number;
     params?: any;
   } = {}) {
-    const {
-      data: { data: exchangeMap = [] },
-    } = await CoinMarketCapAPI.fetch({
-      endpoint: CoinMarketCapAPI.exchange.map,
-      params,
-    });
-    this.logger.debug('info', 'fetchExchangeInfo', { exchangeMap });
-    return exchangeMap;
+    try {
+      const {
+        data: { data: exchangeMap = [] },
+      } = await CoinMarketCapAPI.fetch({
+        endpoint: CoinMarketCapAPI.exchange.map,
+        params,
+      });
+      this.logger.debug('info', 'exchange:fetchExchangeInfo', { exchangeMap });
+      return exchangeMap;
+    } catch (error) {
+      this.logger.discord('error', 'exchange:fetchExchangeMap', JSON.stringify(error));
+    }
   }
   async upsertExchange({
     id,
@@ -255,43 +275,15 @@ export class ExchangeService {
     urls,
     status,
   }: any) {
-    const {
-      value,
-      ok,
-      lastErrorObject: { updatedExisting },
-    } = await this.model._collection.findOneAndUpdate(
-      { slug: slug },
-      {
-        $set: {
-          name,
-          slug,
-          avatar,
-          description,
-          launched,
-          fiats,
-          notice,
-          countries,
-          type,
-          weekly_visits,
-          urls,
-          status,
-          'market_data.USD.maker_fee': maker_fee,
-          'market_data.USD.taker_fee': taker_fee,
-          'market_data.USD.spot_volume_usd': spot_volume_usd,
-          'market_data.USD.spot_volume_last_updated': spot_volume_last_updated,
-          updated_at: new Date(),
-          updated_by: 'system',
-        },
-      },
-      {
-        upsert: false,
-      },
-    );
-    if (ok && !updatedExisting) {
-      await this.model._collection.findOneAndUpdate(
-        { slug },
+    try {
+      const {
+        value,
+        ok,
+        lastErrorObject: { updatedExisting },
+      } = await this.model._collection.findOneAndUpdate(
+        { slug: slug },
         {
-          $setOnInsert: {
+          $set: {
             name,
             slug,
             avatar,
@@ -308,17 +300,49 @@ export class ExchangeService {
             'market_data.USD.taker_fee': taker_fee,
             'market_data.USD.spot_volume_usd': spot_volume_usd,
             'market_data.USD.spot_volume_last_updated': spot_volume_last_updated,
-            trans: [],
-            categories: [],
-            created_at: new Date(),
             updated_at: new Date(),
-            created_by: 'system',
+            updated_by: 'system',
           },
         },
         {
-          upsert: true,
+          upsert: false,
         },
       );
+      if (ok && !updatedExisting) {
+        await this.model._collection.findOneAndUpdate(
+          { slug },
+          {
+            $setOnInsert: {
+              name,
+              slug,
+              avatar,
+              description,
+              launched,
+              fiats,
+              notice,
+              countries,
+              type,
+              weekly_visits,
+              urls,
+              status,
+              'market_data.USD.maker_fee': maker_fee,
+              'market_data.USD.taker_fee': taker_fee,
+              'market_data.USD.spot_volume_usd': spot_volume_usd,
+              'market_data.USD.spot_volume_last_updated': spot_volume_last_updated,
+              trans: [],
+              categories: [],
+              created_at: new Date(),
+              updated_at: new Date(),
+              created_by: 'system',
+            },
+          },
+          {
+            upsert: true,
+          },
+        );
+      }
+    } catch (error) {
+      this.logger.discord('error', 'exchange:upsertExchange', JSON.stringify(error));
     }
   }
 }

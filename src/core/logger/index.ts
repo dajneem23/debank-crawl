@@ -1,4 +1,6 @@
+import { DIDiscordClient, Discord } from '@/loaders/discordLoader';
 import { configure, getLogger, Logger as JSLogger } from 'log4js';
+import Container, { Inject } from 'typedi';
 
 export type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 
@@ -92,7 +94,7 @@ export default class Logger {
     }
   }
 
-  trace(message: keyof typeof _messages, ...args: any[]): void {
+  trace(message: keyof typeof _messages, cron = false, ...args: any[]): void {
     return this.logger.trace(_messages[message] || message, ...args);
   }
 
@@ -122,5 +124,13 @@ export default class Logger {
 
   mark(message: keyof typeof _messages, ...args: any[]): void {
     return this.logger.mark(_messages[message] || message, ...args);
+  }
+
+  discord(message: keyof typeof _messages, ...args: any[]): Promise<void> {
+    const discordBot = Container.get(DIDiscordClient);
+
+    return discordBot.sendMsg({
+      message: [`${_messages[message] || message}`, ...args].join('\n'),
+    });
   }
 }

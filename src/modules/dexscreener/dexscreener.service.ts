@@ -146,7 +146,7 @@ export class DexScreenerService {
     });
   }
   workerProcessor({ name, data }: Job<DexscreenerJob>): Promise<void> {
-    this.logger.debug('info', `[dexscreener:workerProcessor:run]`, { name, data });
+    // this.logger.debug('info', `[dexscreener:workerProcessor:run]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async fetchTradingHistories({

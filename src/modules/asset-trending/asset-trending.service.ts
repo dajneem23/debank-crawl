@@ -188,7 +188,7 @@ export class AssetTrendingService {
     });
   }
   workerProcessor({ name, data }: Job<AssetTrendingJobData>): Promise<void> {
-    this.logger.discord('info', `[workerProcessor:run]`, name);
+    // this.logger.discord('info', `[workerProcessor:run]`, name);
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
 

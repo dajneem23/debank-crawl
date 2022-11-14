@@ -144,7 +144,7 @@ export class CategoryService {
       );
   }
   workerProcessor({ name, data }: Job<CategoryJobData>): Promise<void> {
-    this.logger.discord('info', `[category:workerProcessor:run]`, name);
+    // this.logger.discord('info', `[category:workerProcessor:run]`, name);
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   /**

@@ -149,7 +149,7 @@ export class DebankService {
     });
   }
   workerProcessor({ name, data }: Job<DebankJobData>): Promise<void> {
-    this.logger.discord('info', `[debank:workerProcessor:run]`, name);
+    // this.logger.discord('info', `[debank:workerProcessor:run]`, name);
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async fetchProjectList() {

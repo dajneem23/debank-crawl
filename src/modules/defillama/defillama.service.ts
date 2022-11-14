@@ -195,7 +195,7 @@ export class DefillamaService {
     this.queue
       .add(name, payload, options)
       .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
+      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
   }
   /**
    * Initialize Worker listeners
@@ -253,7 +253,7 @@ export class DefillamaService {
       }
       this.logger.debug('success', `[fetchTVLProtocols:DONE]`, { num: data.length });
     } catch (error) {
-      this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -273,7 +273,7 @@ export class DefillamaService {
         });
       }
     } catch (error) {
-      this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -304,7 +304,7 @@ export class DefillamaService {
         },
       );
     } catch (error) {
-      this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -320,7 +320,7 @@ export class DefillamaService {
         charts: data,
       });
     } catch (error) {
-      this.logger.error('error', '[fetchTVLCharts:error]', error);
+      this.logger.discord('error', '[fetchTVLCharts:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -352,7 +352,7 @@ export class DefillamaService {
         );
       }
     } catch (error) {
-      this.logger.error('error', '[fetchTVLChains:error]', error);
+      this.logger.discord('error', '[fetchTVLChains:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -372,7 +372,7 @@ export class DefillamaService {
         });
       }
     } catch (error) {
-      this.logger.error('error', '[addFetchTvlChartsChainsJob:error]', error);
+      this.logger.discord('error', '[addFetchTvlChartsChainsJob:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -389,7 +389,7 @@ export class DefillamaService {
         endpoint: `${DefillamaAPI.Tvl.charts.chain.endpoint}/${name}`,
       });
       if (status != 200) {
-        this.logger.error('error', '[fetchTVLChartChain:error]', { name, status, data });
+        this.logger.error('error', '[fetchTVLChartChain:error]', name, status, JSON.stringify(data));
         throw new Error('fetchTVLChartChain: Invalid response');
       }
       await this.defillamaTvlChainModel._collection.updateOne(
@@ -405,7 +405,7 @@ export class DefillamaService {
         },
       );
     } catch (error) {
-      this.logger.error('error', '[fetchTVLChartChain:error]', error);
+      this.logger.discord('error', '[fetchTVLChartChain:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -425,7 +425,7 @@ export class DefillamaService {
         });
       }
     } catch (error) {
-      this.logger.error('error', '[addFetchTVLProtocolTVLJob:error]', error);
+      this.logger.discord('error', '[addFetchTVLProtocolTVLJob:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -442,7 +442,7 @@ export class DefillamaService {
         endpoint: `${DefillamaAPI.Tvl.protocols.tvl.endpoint}/${slug}`,
       });
       if (status != 200) {
-        this.logger.error('error', '[fetchTVLProtocolTVL:error]', { slug, status, data });
+        this.logger.discord('error', '[fetchTVLProtocolTVL:error]', slug, status, JSON.stringify(data));
         throw new Error('fetchTVLProtocolTVL: invalid response');
       }
       await this.defillamaTvlProtocolModel._collection.updateOne(
@@ -458,7 +458,7 @@ export class DefillamaService {
         },
       );
     } catch (error) {
-      this.logger.error('error', '[fetchTVLProtocolTVL:error]', error);
+      this.logger.discord('error', '[fetchTVLProtocolTVL:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -470,11 +470,11 @@ export class DefillamaService {
         params: DefillamaAPI.StableCoins.list.params,
       });
       if (status != 200) {
-        this.logger.error('error', '[fetchStableCoinsList:error]', { status, data });
+        this.logger.discord('error', '[fetchStableCoinsList:error]', status, JSON.stringify(data));
         throw new Error('fetchStableCoinsList: invalid response');
       }
     } catch (error) {
-      this.logger.error('error', '[fetchStableCoinsList:error]', error);
+      this.logger.discord('error', '[fetchStableCoinsList:error]', JSON.stringify(error));
       throw error;
     }
   }

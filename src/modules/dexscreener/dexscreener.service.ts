@@ -23,6 +23,8 @@ export class DexScreenerService {
   private readonly jobs: {
     [key in DexscreenerJobNames | 'default']?: (data?: any) => Promise<void>;
   } = {
+    'dexscreener:fetch:trading-histories': this.fetchTradingHistories,
+    // 'dexscreener:add:fetch:trading-histories': this.addFetchTradingHistoriesJob,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -443,5 +445,11 @@ export class DexScreenerService {
       .catch((error) => {
         this.logger.error('error', '[insertPair:error]', error);
       });
+  }
+  addFetchTradingHistoriesJob() {
+    try {
+    } catch (error) {
+      this.logger.error('error', '[addFetchTradingHistoriesJob:error]', error);
+    }
   }
 }

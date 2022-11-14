@@ -3,4 +3,4 @@ export type DexscreenerJob = {
   payload: any;
 };
 
-export type DexscreenerJobNames = 'dexscreener:fetch:volume:protocols';
+export type DexscreenerJobNames = 'dexscreener:add:fetch:trading-histories' | 'dexscreener:fetch:trading-histories';

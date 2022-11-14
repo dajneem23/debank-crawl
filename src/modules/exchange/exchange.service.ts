@@ -170,7 +170,7 @@ export class ExchangeService {
     });
   }
   workerProcessor({ name, data }: Job<ExchangeJobData>): Promise<void> {
-    this.logger.debug('info', `[exchange:workerProcessor:run]`, { name, data });
+    // this.logger.debug('info', `[exchange:workerProcessor:run]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   /**

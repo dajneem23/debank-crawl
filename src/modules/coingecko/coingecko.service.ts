@@ -496,7 +496,7 @@ export class CoinGeckoService {
     });
   }
   workerProcessor({ name, data }: Job<fetchCoinGeckoDataJob>): Promise<void> {
-    this.logger.debug('info', `[coingecko:workerProcessor:run]`, name);
+    // this.logger.discord('info', `[coingecko:workerProcessor:run]`, name);
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async global(): Promise<any> {

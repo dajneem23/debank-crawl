@@ -220,7 +220,7 @@ export class DefillamaService {
     });
   }
   workerProcessor({ name, data }: Job<DefillamaJobData>): Promise<void> {
-    this.logger.debug('info', `[defillama:workerProcessor:run]`, { name, data });
+    // this.logger.debug('info', `[defillama:workerProcessor:run]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async fetchTVLProtocols() {

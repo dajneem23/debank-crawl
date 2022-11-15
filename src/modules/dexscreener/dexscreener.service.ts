@@ -177,6 +177,9 @@ export class DexScreenerService {
           tb,
         },
       });
+      if (status !== 200) {
+        throw new Error('dexscreener:fetchTradingHistories:Invalid status');
+      }
 
       const { tradingHistory: _tradingHistory } = data;
       const tradingHistory = _tradingHistory.map(

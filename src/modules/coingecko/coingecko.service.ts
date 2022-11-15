@@ -251,7 +251,7 @@ export class CoinGeckoService {
       this.logger.debug('info', 'coingecko:fetchCoinGeckoAssetDetails', { num: assets.length });
       for (const { id } of assets) {
         await sleep(3000);
-        const { data } = await CoinGeckoAPI.fetch({
+        const { data, status } = await CoinGeckoAPI.fetch({
           endpoint: `${CoinGeckoAPI.Coins.detail.endpoint}/${id}`,
           params: CoinGeckoAPI.Coins.detail.params,
         })
@@ -262,24 +262,26 @@ export class CoinGeckoService {
           .catch((error) => {
             this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
           });
-        if (data) {
-          const { id: _id, symbol, name, ...details } = data;
-          await this.coinGeckoAssetModel._collection.findOneAndUpdate(
-            { id },
-            {
-              $set: {
-                details,
-                updated_at: new Date(),
-                updated_by: 'system',
-              },
-              $setOnInsert: {
-                created_at: new Date(),
-                created_by: 'system',
-              },
-            },
-            { upsert: true },
-          );
+        if (status != 200) {
+          this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify({ id, status, data }));
+          continue;
         }
+        const { id: _id, symbol, name, ...details } = data;
+        await this.coinGeckoAssetModel._collection.findOneAndUpdate(
+          { id },
+          {
+            $set: {
+              details,
+              updated_at: new Date(),
+              updated_by: 'system',
+            },
+            $setOnInsert: {
+              created_at: new Date(),
+              created_by: 'system',
+            },
+          },
+          { upsert: true },
+        );
       }
       this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails');
     } catch (error) {
@@ -320,10 +322,14 @@ export class CoinGeckoService {
   }
   async fetchCoinGeckoBlockchainsList() {
     try {
-      const { data } = await CoinGeckoAPI.fetch({
+      const { data, status } = await CoinGeckoAPI.fetch({
         endpoint: CoinGeckoAPI.Blockchains.list.endpoint,
       });
       this.logger.debug('info', 'coingecko:fetchCoinGeckoBlockchainsList', { num: data.length });
+      if (status != 200) {
+        this.logger.discord('error', 'coingecko:fetchCoinGeckoBlockchainsList', JSON.stringify({ status, data }));
+        return;
+      }
       for (const { id, ...rest } of data) {
         await this.coinGeckoBlockchainModel._collection.findOneAndUpdate(
           { id },
@@ -350,10 +356,14 @@ export class CoinGeckoService {
   }
   async fetchCoinGeckoExchangeList() {
     try {
-      const { data } = await CoinGeckoAPI.fetch({
+      const { data, status } = await CoinGeckoAPI.fetch({
         endpoint: CoinGeckoAPI.Exchanges.list.endpoint,
       });
       this.logger.debug('info', 'coingecko:fetchCoinGeckoExchangeList', { num: data.length });
+      if (status != 200) {
+        this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeList', JSON.stringify({ status, data }));
+        return;
+      }
       for (const { id, name } of data) {
         await this.coinGeckoExchangeModel._collection.findOneAndUpdate(
           { id },
@@ -393,7 +403,7 @@ export class CoinGeckoService {
       this.logger.debug('info', 'coingecko:fetchCoinGeckoExchangeDetails', { num: exchanges.length });
       for (const { id } of exchanges) {
         await sleep(3000);
-        const { data } = await CoinGeckoAPI.fetch({
+        const { data, status } = await CoinGeckoAPI.fetch({
           endpoint: `${CoinGeckoAPI.Exchanges.details.endpoint}/${id}`,
         })
           .then((res) => {
@@ -403,24 +413,26 @@ export class CoinGeckoService {
           .catch((error) => {
             this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify(error));
           });
-        if (data) {
-          const { name, ...details } = data;
-          await this.coinGeckoExchangeModel._collection.findOneAndUpdate(
-            { id },
-            {
-              $set: {
-                details,
-                updated_at: new Date(),
-                updated_by: 'system',
-              },
-              $setOnInsert: {
-                created_at: new Date(),
-                created_by: 'system',
-              },
-            },
-            { upsert: true },
-          );
+        if (status != 200) {
+          this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify({ id, status, data }));
+          continue;
         }
+        const { name, ...details } = data;
+        await this.coinGeckoExchangeModel._collection.findOneAndUpdate(
+          { id },
+          {
+            $set: {
+              details,
+              updated_at: new Date(),
+              updated_by: 'system',
+            },
+            $setOnInsert: {
+              created_at: new Date(),
+              created_by: 'system',
+            },
+          },
+          { upsert: true },
+        );
       }
 
       this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeDetails');
@@ -432,13 +444,17 @@ export class CoinGeckoService {
 
   async fetchCoinGeckoCryptoCurrencyGlobal() {
     try {
-      const { data } = await CoinGeckoAPI.fetch({
+      const { data, status } = await CoinGeckoAPI.fetch({
         endpoint: CoinGeckoAPI.Global.cryptoCurrencyGlobal.endpoint,
       })
         .then(({ data }) => data)
         .catch((error) => {
           this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify(error));
         });
+      if (status != 200) {
+        this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify({ status, data }));
+        return;
+      }
 
       await this.coinGeckoCryptoCurrencyGlobalModel._collection.insertOne({
         ...data,

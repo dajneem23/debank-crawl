@@ -400,7 +400,7 @@ export class AssetService {
         this.logger.debug('success', { total_count });
       }
     } catch (err) {
-      this.logger.discord('job_error', 'asset:fetchMarketData', JSON.stringify(err));
+      this.logger.discord('error', 'asset:fetchMarketData', JSON.stringify(err));
       throw err;
     }
   }
@@ -588,7 +588,7 @@ export class AssetService {
         return;
       }
     } catch (err) {
-      this.logger.discord('job_error', 'asset:fetchMarketData', JSON.stringify(err));
+      this.logger.discord('error', 'asset:fetchMarketData', JSON.stringify(err));
       throw err;
     }
   }
@@ -1054,7 +1054,7 @@ export class AssetService {
       }
       this.logger.debug('success', 'asset:fetchPricePerformanceStats:success');
     } catch (error) {
-      this.logger.discord('job_error', 'asset:fetchPricePerformanceStats', JSON.stringify(error));
+      this.logger.discord('error', 'asset:fetchPricePerformanceStats', JSON.stringify(error));
       throw error;
     }
   }
@@ -1143,7 +1143,7 @@ export class AssetService {
       }
       this.logger.debug('success', 'asset:fetchMetadata:done');
     } catch (error) {
-      this.logger.discord('job_error', 'asset:fetchMetadata', JSON.stringify(error));
+      this.logger.discord('error', 'asset:fetchMetadata', JSON.stringify(error));
       throw error;
     }
   }

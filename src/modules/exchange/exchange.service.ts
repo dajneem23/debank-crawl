@@ -1,10 +1,7 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { toOutPut, toPagingOutput } from '@/utils/common';
-import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
 import { _exchange, exchangeModelToken } from '.';
-import { assetSortBy, BaseServiceInput, BaseServiceOutput, exchangeSortBy, PRIVATE_KEYS } from '@/types/Common';
-import { chunk, isNil, omit } from 'lodash';
+import { chunk } from 'lodash';
 import IORedis from 'ioredis';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';

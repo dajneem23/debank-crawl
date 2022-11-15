@@ -8,7 +8,7 @@ export const DILogger = new Token<Logger>('LOGGER');
 const loggerLoader = (): Logger => {
   const logger = new Logger('App', env.LOG_LEVEL);
   Container.set(DILogger, logger);
-  logger.success('load_success', 'Logger');
+  logger.success('success', 'Logger');
 
   return logger;
 };

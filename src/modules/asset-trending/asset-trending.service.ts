@@ -1,9 +1,6 @@
-import Container, { Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { toOutPut, toPagingOutput } from '@/utils/common';
-import { $keysToProject, $toMongoFilter } from '@/utils/mongoDB';
 import { assetTrendingModelToken } from '.';
-import { assetSortBy, BaseServiceInput, BaseServiceOutput } from '@/types/Common';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
@@ -229,7 +226,7 @@ export class AssetTrendingService {
       }
       // this.logger.debug('info', 'fetchAssetTrending:success');
     } catch (err) {
-      this.logger.discord('job_error', 'fetchAssetTrending', JSON.stringify(err));
+      this.logger.discord('error', 'fetchAssetTrending', JSON.stringify(err));
       throw err;
     }
   }
@@ -265,7 +262,7 @@ export class AssetTrendingService {
       }
       // this.logger.debug('info', 'fetchAssetTrendingSoon:success');
     } catch (err) {
-      this.logger.discord('job_error', 'fetchAssetTrendingSoon', JSON.stringify(err));
+      this.logger.discord('error', 'fetchAssetTrendingSoon', JSON.stringify(err));
       throw err;
     }
     // this.queue.add('asset-trending:fetch:trending', {}, { removeOnComplete: true });

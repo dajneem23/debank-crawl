@@ -86,7 +86,7 @@ export class DebankService {
       connection: this.redisConnection as any,
     });
     // TODO: ENABLE THIS
-    // this.addFetchingDataJob();
+    this.addFetchingDataJob();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });

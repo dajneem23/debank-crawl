@@ -232,7 +232,7 @@ export class DebankService {
   }
   async addFetchProjectUsersJobs() {
     try {
-      const { rows: projects } = await pgPool.query(`SELECT id FROM "debank-projects" GROUP BY id"`);
+      const { rows: projects } = await pgPool.query(`SELECT id FROM "debank-projects" GROUP BY id`);
       for (const { id } of projects) {
         this.addJob({
           name: 'debank:fetch:project:users',

@@ -1,6 +1,5 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { sleep } from '@/utils/common';
 import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';

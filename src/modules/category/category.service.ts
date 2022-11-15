@@ -1,12 +1,10 @@
-import Container, { Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { CategoryModel, CategoryError, Category, _category, categoryModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, CATEGORY_TYPE, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
-import { isNil, omit, omitBy } from 'lodash';
+import { sleep } from '@/utils/common';
+import { _category, categoryModelToken } from '.';
+import { CATEGORY_TYPE, RemoveSlugPattern } from '@/types/Common';
+import { isNil, omitBy } from 'lodash';
 import slugify from 'slugify';
-import { ObjectId } from 'mongodb';
 import { CoinMarketCapAPI } from '@/common/api';
 import IORedis from 'ioredis';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
@@ -319,7 +317,7 @@ export class CategoryService {
       }
       this.logger.debug('success', 'fetch_all_category DONE');
     } catch (error) {
-      this.logger.discord('job_error', 'fetchAllCategory', JSON.stringify(error));
+      this.logger.discord('error', 'fetchAllCategory', JSON.stringify(error));
       throw error;
     }
   }

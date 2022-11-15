@@ -35,7 +35,7 @@ const pgLoader = async () => {
     Container.set(pgPoolToken, pgPool);
     logger.success('connected', 'Pool Postgres');
   } catch (err) {
-    logger.error('db_error', err);
+    logger.error('error', 'pool:connect:pg', err);
   }
 };
 export default pgLoader;

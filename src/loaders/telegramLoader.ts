@@ -108,7 +108,7 @@ export const TelegramLoader = async () => {
             )
             .catch((e) => {
               const logger = Container.get(DILogger);
-              logger.error('db_error', 'insert:bot-nansen-transaction', JSON.stringify(e));
+              logger.error('error', 'insert:bot-nansen-transaction', JSON.stringify(e));
             });
         },
       );

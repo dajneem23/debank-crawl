@@ -86,7 +86,7 @@ export class DebankService {
       connection: this.redisConnection as any,
     });
     // TODO: ENABLE THIS
-    this.addFetchingDataJob();
+    // this.addFetchingDataJob();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -240,9 +240,9 @@ export class DebankService {
             projectId: id,
           },
           options: {
-            removeOnComplete: {
-              age: 3600, // keep up to 1 hour
-            },
+            jobId: `debank:fetch:project:users:${id}`,
+            removeOnComplete: true,
+            removeOnFail: true,
           },
         });
       }

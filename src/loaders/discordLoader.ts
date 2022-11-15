@@ -4,6 +4,7 @@ import { Container, Service, Token } from 'typedi';
 import { DILogger } from '@/loaders/loggerLoader';
 import env from '@/config/env';
 import { REST, Routes, GatewayIntentBits, Client, TextChannel, MessagePayload, MessageCreateOptions } from 'discord.js';
+import { isJSON } from '@/utils/text';
 
 export const DIDiscordClient = new Token<Discord>('_discordClient');
 export const DIDiscordRest = new Token<REST>('_discordRest');
@@ -52,5 +53,8 @@ export class Discord {
       const logger = Container.get(DILogger);
       logger.error('error', 'discord', 'sendMsg', error);
     }
+  }
+  decorateMsg(msg: string) {
+    return isJSON(msg) ? `\`\`\`json\n${msg}\`\`\`` : msg;
   }
 }

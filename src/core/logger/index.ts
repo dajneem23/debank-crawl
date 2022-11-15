@@ -130,7 +130,7 @@ export default class Logger {
     const discordBot = Container.get(DIDiscordClient);
 
     return discordBot.sendMsg({
-      message: [`\`\`\`asciidoc${_messages[message] || message}\`\`\``, ...args]
+      message: [`\`\`\`asciidoc\n${_messages[message] || message}\`\`\``, ...args]
         .map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg))
         .map((arg) => discordBot.decorateMsg(arg))
         .join('\n'),

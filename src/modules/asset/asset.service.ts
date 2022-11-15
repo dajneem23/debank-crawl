@@ -118,6 +118,7 @@ export class AssetService {
           every: 21600000,
         },
         // jobId: 'asset:fetch:marketData',
+        removeOnFail: true,
         removeOnComplete: true,
       },
     });
@@ -130,6 +131,7 @@ export class AssetService {
           pattern: '* 0 0 * * *',
         },
         // jobId: 'asset:fetch:pricePerformanceStats',
+        removeOnFail: true,
         removeOnComplete: true,
       },
     });

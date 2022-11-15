@@ -106,6 +106,7 @@ export class ExchangeService {
         },
         // jobId: 'exchange:fetch:data',
         removeOnComplete: true,
+        removeOnFail: true,
       },
     });
   }

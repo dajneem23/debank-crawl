@@ -123,6 +123,7 @@ export class DefillamaService {
           pattern: '* 0 0 * * *',
         },
         removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.addJob({
@@ -133,6 +134,7 @@ export class DefillamaService {
           pattern: '* 0 0 * * *',
         },
         removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.addJob({
@@ -143,6 +145,7 @@ export class DefillamaService {
           pattern: '* 0 0 * * *',
         },
         removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.addJob({
@@ -153,6 +156,7 @@ export class DefillamaService {
           pattern: '* 0 0 * * *',
         },
         removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.addJob({
@@ -163,6 +167,7 @@ export class DefillamaService {
           pattern: '* 0 0 * * *',
         },
         removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.addJob({
@@ -173,6 +178,7 @@ export class DefillamaService {
           pattern: '* 0 0 * * *',
         },
         removeOnComplete: true,
+        removeOnFail: true,
       },
     });
   }
@@ -270,6 +276,7 @@ export class DefillamaService {
           options: {
             // delay: 1000 * 60 * 5,
             removeOnComplete: true,
+            removeOnFail: true,
           },
         });
       }
@@ -369,6 +376,7 @@ export class DefillamaService {
           options: {
             // delay: 1000 * 60 * 5,
             removeOnComplete: true,
+            removeOnFail: true,
           },
         });
       }
@@ -422,6 +430,7 @@ export class DefillamaService {
           options: {
             // delay: 1000 * 60 * 5,
             removeOnComplete: true,
+            removeOnFail: true,
           },
         });
       }

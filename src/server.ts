@@ -12,8 +12,9 @@ import { DIDiscordClient, Discord } from './loaders/discordLoader';
     // Load modules
     // ----------------------------------------------------------------
     // Logger
-
-    new Discord();
+    if (env.MODE == 'production') {
+      new Discord();
+    }
 
     (await import('./loaders/loggerLoader')).default();
     // Database (mongodb)

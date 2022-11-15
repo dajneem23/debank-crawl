@@ -129,6 +129,7 @@ export class AssetTrendingService {
           pattern: '* 0 0 * * *',
         },
         // jobId: 'asset-trending:fetch:trending',
+        removeOnFail: true,
         removeOnComplete: true,
       },
     });
@@ -141,6 +142,7 @@ export class AssetTrendingService {
           pattern: '* 0 0 * * *',
         },
         // jobId: 'asset-trending:fetch:trending-soon',
+        removeOnFail: true,
         removeOnComplete: true,
       },
     });

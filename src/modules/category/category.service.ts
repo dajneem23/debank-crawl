@@ -117,6 +117,7 @@ export class CategoryService {
           pattern: '* 0 0 * * *',
         },
         // jobId: 'category:fetch:all',
+        removeOnFail: true,
         removeOnComplete: true,
       },
     });

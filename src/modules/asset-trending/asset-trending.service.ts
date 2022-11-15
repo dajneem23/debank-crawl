@@ -100,6 +100,8 @@ export class AssetTrendingService {
         attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.queueScheduler = new QueueScheduler('asset-trending', {
@@ -192,7 +194,7 @@ export class AssetTrendingService {
   }
   workerProcessor({ name, data }: Job<AssetTrendingJobData>): Promise<void> {
     // this.logger.discord('info', `[workerProcessor:run]`, name);
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
+    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
 
   async fetchAssetTrending(): Promise<void> {

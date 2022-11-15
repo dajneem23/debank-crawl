@@ -4,14 +4,19 @@ import { Asset } from '../asset/asset.type';
 
 export interface AssetTrending extends Asset {
   token_id: number;
-  id_of_sources: IDOfSources;
+  id_of_sources: {
+    CoinGecko: string;
+    CoinMarketCap: string;
+  };
   order: number;
   name: string;
   rank: number;
   symbol: string;
   logo_url: string;
   official_web: string;
-  platforms: Platforms;
+  platforms: {
+    [key: string]: string;
+  };
   present_on_chains: string[];
   predicted_date: number;
   market_cap: number;
@@ -19,28 +24,15 @@ export interface AssetTrending extends Asset {
   trading_volume: number;
   price: number;
   price_change_percentage_24h: number;
-  social_urls: SocialUrls;
+  social_urls: {
+    [key: string]: string & { twitter: string; facebook: string; reddit: string };
+  };
   tags: string[];
   discovered_on: number;
-  discovered_details: DiscoveredDetails;
-}
-
-export interface DiscoveredDetails {
-  price_discovered: number;
-  trading_volume_discovered: number;
-  market_cap_discovered: number;
-  number_holders_discovered: number;
-}
-
-export interface IDOfSources {
-  CoinGecko: string;
-  CoinMarketCap: string;
-}
-
-export interface Platforms {
-  [key: string]: string;
-}
-
-export interface SocialUrls {
-  [key: string]: string & { twitter: string; facebook: string; reddit: string };
+  discovered_details: {
+    price_discovered: number;
+    trading_volume_discovered: number;
+    market_cap_discovered: number;
+    number_holders_discovered: number;
+  };
 }

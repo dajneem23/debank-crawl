@@ -87,6 +87,8 @@ export class CategoryService {
         attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.queueScheduler = new QueueScheduler('category', {

@@ -1,11 +1,10 @@
-import Container, { Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { sleep, toPagingOutput } from '@/utils/common';
-import { $pagination, $keysToProject, $lookup } from '@/utils/mongoDB';
-import { AssetError, assetErrors, AssetModel, assetModelToken } from '.';
-import { BaseServiceInput, assetSortBy, RemoveSlugPattern } from '@/types/Common';
+import { sleep } from '@/utils/common';
+import { $pagination } from '@/utils/mongoDB';
+import { AssetModel, assetModelToken } from '.';
+import { RemoveSlugPattern } from '@/types/Common';
 import { chunk, isNil, omitBy, uniq } from 'lodash';
-import { _asset } from '@/modules';
 import { env } from 'process';
 import slugify from 'slugify';
 import { FETCH_MARKET_DATA_DURATION } from './asset.constants';
@@ -88,6 +87,8 @@ export class AssetService {
         attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.queueScheduler = new QueueScheduler('asset', {
@@ -610,6 +611,7 @@ export class AssetService {
         await sleep(300);
         const {
           data: { data: pricePerformanceStats },
+          status,
         } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.cryptocurrency.pricePerformanceStats,
           params: {

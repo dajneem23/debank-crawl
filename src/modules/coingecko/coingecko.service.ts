@@ -43,14 +43,16 @@ export class CoinGeckoService {
   private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
-    [key in CoinGeckoJobNames | 'default']?: () => Promise<void>;
+    [key in CoinGeckoJobNames | 'default']?: (data?: any) => Promise<void>;
   } = {
     'coingecko:fetch:assets:list': this.fetchCoinGeckoAssetList,
     'coingecko:fetch:assets:details': this.fetchCoinGeckoAssetDetails,
+    'coingecko:add:fetch:assets:details': this.addFetchCoinGeckoAssetDetails,
     'coingecko:fetch:categories:list': this.fetchCoinGeckoCategoriesList,
     'coingecko:fetch:blockchains:list': this.fetchCoinGeckoBlockchainsList,
     'coingecko:fetch:exchanges:list': this.fetchCoinGeckoBlockchainsList,
     'coingecko:fetch:exchanges:details': this.fetchCoinGeckoExchangeDetails,
+    'coingecko:add:fetch:exchanges:details': this.addFetchCoinGeckoExchangeDetails,
     'coingecko:fetch:cryptocurrency:global': this.fetchCoinGeckoCryptoCurrencyGlobal,
     default: () => {
       throw new Error('Invalid job name');
@@ -97,6 +99,8 @@ export class CoinGeckoService {
         attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
       },
     });
     this.queueScheduler = new QueueScheduler('coingecko', {
@@ -244,7 +248,7 @@ export class CoinGeckoService {
       throw error;
     }
   }
-  async fetchCoinGeckoAssetDetails() {
+  async addFetchCoinGeckoAssetDetails() {
     try {
       const assets = await this.coinGeckoAssetModel
         .get([
@@ -257,40 +261,57 @@ export class CoinGeckoService {
         .toArray();
       this.logger.debug('info', 'coingecko:fetchCoinGeckoAssetDetails', { num: assets.length });
       for (const { id } of assets) {
-        await sleep(3000);
-        const { data, status } = await CoinGeckoAPI.fetch({
-          endpoint: `${CoinGeckoAPI.Coins.detail.endpoint}/${id}`,
-          params: CoinGeckoAPI.Coins.detail.params,
-        })
-          .then((res) => {
-            // this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails', { id });
-            return res;
-          })
-          .catch((error) => {
-            this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
-          });
-        if (status != 200) {
-          this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify({ id, status, data }));
-          continue;
-        }
-        const { id: _id, symbol, name, ...details } = data;
-        await this.coinGeckoAssetModel._collection.findOneAndUpdate(
-          { id },
-          {
-            $set: {
-              details,
-              updated_at: new Date(),
-              updated_by: 'system',
-            },
-            $setOnInsert: {
-              created_at: new Date(),
-              created_by: 'system',
-            },
+        this.addJob({
+          name: 'coingecko:fetch:assets:details',
+          payload: { id },
+          options: {
+            jobId: `coingecko:fetch:assets:details:${id}`,
+            removeOnFail: true,
+            removeOnComplete: true,
+            delay: 1000 * 5,
           },
-          { upsert: true },
-        );
+        });
       }
       this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails');
+    } catch (error) {
+      this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async fetchCoinGeckoAssetDetails({ id }: { id: string }) {
+    try {
+      const { data, status } = await CoinGeckoAPI.fetch({
+        endpoint: `${CoinGeckoAPI.Coins.detail.endpoint}/${id}`,
+        params: CoinGeckoAPI.Coins.detail.params,
+      })
+        .then((res) => {
+          // this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails', { id });
+          return res;
+        })
+        .catch((error) => {
+          this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
+        });
+      if (status != 200) {
+        this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify({ id, status, data }));
+        throw new Error(`coingecko:fetchCoinGeckoAssetDetails:status:${status}`);
+      }
+      const { id: _id, symbol, name, ...details } = data;
+      await this.coinGeckoAssetModel._collection.findOneAndUpdate(
+        { id },
+        {
+          $set: {
+            details,
+            updated_at: new Date(),
+            updated_by: 'system',
+          },
+          $setOnInsert: {
+            created_at: new Date(),
+            created_by: 'system',
+          },
+        },
+        { upsert: true },
+      );
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
       throw error;
@@ -396,7 +417,7 @@ export class CoinGeckoService {
     }
   }
 
-  async fetchCoinGeckoExchangeDetails() {
+  async addFetchCoinGeckoExchangeDetails() {
     try {
       const exchanges = await this.coinGeckoExchangeModel
         .get([
@@ -407,42 +428,51 @@ export class CoinGeckoService {
           },
         ])
         .toArray();
-      this.logger.debug('info', 'coingecko:fetchCoinGeckoExchangeDetails', { num: exchanges.length });
       for (const { id } of exchanges) {
-        await sleep(3000);
-        const { data, status } = await CoinGeckoAPI.fetch({
-          endpoint: `${CoinGeckoAPI.Exchanges.details.endpoint}/${id}`,
-        })
-          .then((res) => {
-            this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeDetails', { id });
-            return res;
-          })
-          .catch((error) => {
-            this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify(error));
-          });
-        if (status != 200) {
-          this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify({ id, status, data }));
-          continue;
-        }
-        const { name, ...details } = data;
-        await this.coinGeckoExchangeModel._collection.findOneAndUpdate(
-          { id },
-          {
-            $set: {
-              details,
-              updated_at: new Date(),
-              updated_by: 'system',
-            },
-            $setOnInsert: {
-              created_at: new Date(),
-              created_by: 'system',
-            },
+        this.addJob({
+          name: 'coingecko:fetch:exchanges:details',
+          payload: { id },
+          options: {
+            jobId: `coingecko:fetch:exchanges:details:${id}`,
+            removeOnFail: true,
+            removeOnComplete: true,
+            delay: 1000 * 5,
           },
-          { upsert: true },
-        );
+        });
       }
 
-      this.logger.debug('success', 'coingecko:fetchCoinGeckoExchangeDetails');
+      this.logger.debug('success', 'coingecko:addFetchCoinGeckoExchangeDetails');
+    } catch (error) {
+      this.logger.discord('error', 'coingecko:addFetchCoinGeckoExchangeDetails', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async fetchCoinGeckoExchangeDetails({ id }: { id: string }) {
+    try {
+      const { data, status } = await CoinGeckoAPI.fetch({
+        endpoint: `${CoinGeckoAPI.Exchanges.details.endpoint}/${id}`,
+      }).catch((error) => {
+        this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify(error));
+      });
+      if (status != 200) {
+        this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify({ id, status, data }));
+      }
+      const { name, ...details } = data;
+      await this.coinGeckoExchangeModel._collection.findOneAndUpdate(
+        { id },
+        {
+          $set: {
+            details,
+            updated_at: new Date(),
+            updated_by: 'system',
+          },
+          $setOnInsert: {
+            created_at: new Date(),
+            created_by: 'system',
+          },
+        },
+        { upsert: true },
+      );
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoExchangeDetails', JSON.stringify(error));
       throw error;
@@ -451,13 +481,14 @@ export class CoinGeckoService {
 
   async fetchCoinGeckoCryptoCurrencyGlobal() {
     try {
-      const { data, status } = await CoinGeckoAPI.fetch({
+      const {
+        data: { data },
+        status,
+      } = await CoinGeckoAPI.fetch({
         endpoint: CoinGeckoAPI.Global.cryptoCurrencyGlobal.endpoint,
-      })
-        .then(({ data }) => data)
-        .catch((error) => {
-          this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify(error));
-        });
+      }).catch((error) => {
+        this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify(error));
+      });
       if (status != 200) {
         this.logger.discord('error', 'coingecko:fetchCoinGeckoCryptoCurrencyGlobal', JSON.stringify({ status, data }));
         return;

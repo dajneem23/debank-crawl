@@ -275,6 +275,7 @@ export class DefillamaService {
             slug,
           },
           options: {
+            jobId: `defillama:fetch:tvl:protocol:detail:${slug}`,
             // delay: 1000 * 60 * 5,
             removeOnComplete: true,
             removeOnFail: true,

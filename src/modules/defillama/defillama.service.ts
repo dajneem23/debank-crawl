@@ -1,7 +1,7 @@
 import Container from 'typedi';
 import Logger from '@/core/logger';
 import { pgPoolToken } from '@/loaders/pgLoader';
-import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import IORedis from 'ioredis';
@@ -76,6 +76,9 @@ export class DefillamaService {
       limiter: {
         max: 10,
         duration: 5 * 60 * 1000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK * 2,
       },
     });
     this.logger.debug('info', '[initWorker:defillama]', 'Worker initialized');

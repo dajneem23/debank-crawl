@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { _exchange, exchangeModelToken } from '.';
 import { chunk } from 'lodash';
 import IORedis from 'ioredis';
-import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { CoinMarketCapAPI } from '@/common/api';
 import { ExchangeJobData, ExchangeJobNames } from './exchange.job';
@@ -14,13 +14,13 @@ export class ExchangeService {
 
   readonly model = Container.get(exchangeModelToken);
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private worker: Worker;
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
     [key in ExchangeJobNames | 'default']?: () => Promise<void>;
@@ -65,7 +65,7 @@ export class ExchangeService {
    */
   private initQueue() {
     this.queue = new Queue('exchange', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 3,
@@ -75,11 +75,11 @@ export class ExchangeService {
         removeOnFail: true,
       },
     });
-    this.queueScheduler = new QueueScheduler('exchange', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('exchange', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('exchange', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
 
     this.initRepeatJobs();
@@ -137,7 +137,7 @@ export class ExchangeService {
   private initWorker() {
     this.worker = new Worker('exchange', this.workerProcessor.bind(this), {
       autorun: true,
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {

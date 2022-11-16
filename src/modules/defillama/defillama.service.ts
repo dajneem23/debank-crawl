@@ -1,7 +1,7 @@
 import Container from 'typedi';
 import Logger from '@/core/logger';
 import { pgPoolToken } from '@/loaders/pgLoader';
-import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import IORedis from 'ioredis';
@@ -19,7 +19,7 @@ const pgPool = Container.get(pgPoolToken);
 export class DefillamaService {
   private logger = new Logger('Defillama');
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private readonly defillamaTvlProtocolModel = Container.get(defillamaTvlProtocolModelToken);
 
@@ -31,7 +31,7 @@ export class DefillamaService {
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
     [key in DefillamaJobNames | 'default']?: () => Promise<void>;
@@ -70,7 +70,7 @@ export class DefillamaService {
   private initWorker() {
     this.worker = new Worker('defillama', this.workerProcessor.bind(this), {
       autorun: true,
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
@@ -89,7 +89,7 @@ export class DefillamaService {
    */
   private initQueue() {
     this.queue = new Queue('defillama', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 5,
@@ -99,11 +99,11 @@ export class DefillamaService {
         removeOnFail: true,
       },
     });
-    this.queueScheduler = new QueueScheduler('defillama', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('defillama', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('defillama', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
     // TODO: ENABLE THIS
     // this.initRepeatJobs();

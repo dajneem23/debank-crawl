@@ -8,7 +8,7 @@ import { chunk, isNil, omitBy, uniq } from 'lodash';
 import { env } from 'process';
 import slugify from 'slugify';
 import { FETCH_MARKET_DATA_DURATION } from './asset.constants';
-import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import IORedis from 'ioredis';
 import { AssetJobData, AssetJobNames } from './asset.job';
 import { CoinMarketCapAPI } from '@/common/api';
@@ -27,13 +27,13 @@ export class AssetService {
 
   private assetPriceModel = Container.get<AssetPriceModel>(assetPriceModelToken);
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private worker: Worker;
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
     [key in AssetJobNames | 'default']: () => Promise<void>;
@@ -64,7 +64,7 @@ export class AssetService {
   private initWorker() {
     this.worker = new Worker('asset', this.workerProcessor.bind(this), {
       autorun: true,
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
@@ -84,7 +84,7 @@ export class AssetService {
    */
   private initQueue() {
     this.queue = new Queue('asset', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 3,
@@ -94,11 +94,11 @@ export class AssetService {
         removeOnFail: true,
       },
     });
-    this.queueScheduler = new QueueScheduler('asset', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('asset', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('asset', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
 
     this.initRepeatJobs();

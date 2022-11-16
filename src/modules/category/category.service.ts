@@ -8,7 +8,7 @@ import slugify from 'slugify';
 import { CoinMarketCapAPI } from '@/common/api';
 import IORedis from 'ioredis';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
-import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { CategoryJobData, CategoryJobNames } from './category.job';
 import { env } from 'process';
 import { AssetModel, assetModelToken } from '../asset';
@@ -20,13 +20,13 @@ export class CategoryService {
 
   private AssetModel = Container.get<AssetModel>(assetModelToken);
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private worker: Worker;
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   get outputKeys() {
     return this.model._keys;
@@ -62,7 +62,7 @@ export class CategoryService {
   private initWorker() {
     this.worker = new Worker('category', this.workerProcessor.bind(this), {
       autorun: true,
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
@@ -82,7 +82,7 @@ export class CategoryService {
    */
   private initQueue() {
     this.queue = new Queue('category', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 3,
@@ -92,11 +92,11 @@ export class CategoryService {
         removeOnFail: true,
       },
     });
-    this.queueScheduler = new QueueScheduler('category', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('category', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('category', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
 
     // this.initRepeatJobs();

@@ -2,7 +2,7 @@ import { DexScreenerAPI } from '@/common/api';
 import Logger from '@/core/logger';
 import { pgPoolToken } from '@/loaders/pgLoader';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
-import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import IORedis from 'ioredis';
 import { env } from 'process';
 import Container from 'typedi';
@@ -12,13 +12,13 @@ const pgPool = Container.get(pgPoolToken);
 export class DexScreenerService {
   private logger = new Logger('DexScreenerService');
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private worker: Worker;
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
     [key in DexscreenerJobNames | 'default']?: (data?: any) => Promise<void>;
@@ -59,7 +59,7 @@ export class DexScreenerService {
   private initWorker() {
     this.worker = new Worker('dexscreener', this.workerProcessor.bind(this), {
       autorun: true,
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
@@ -78,7 +78,7 @@ export class DexScreenerService {
    */
   private initQueue() {
     this.queue = new Queue('dexscreener', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 5,
@@ -88,11 +88,11 @@ export class DexScreenerService {
         removeOnFail: true,
       },
     });
-    this.queueScheduler = new QueueScheduler('dexscreener', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('dexscreener', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('dexscreener', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
     // TODO: ENABLE THIS
     // this.initRepeatJobs();

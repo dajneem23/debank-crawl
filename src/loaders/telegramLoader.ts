@@ -3,7 +3,6 @@ import { filter } from 'lodash';
 import TelegramBot from 'node-telegram-bot-api';
 import { env } from 'process';
 import Container from 'typedi';
-import { DIDiscordClient } from './discordLoader';
 import { DILogger } from './loggerLoader';
 import { pgPoolToken } from './pgLoader';
 
@@ -17,7 +16,7 @@ export const TelegramLoader = async () => {
 
   bot.on('channel_post', async (msg) => {
     try {
-      const { text, entities, date } = msg;
+      const { text, entities = [], date } = msg;
       let message = text;
       if (!text) return;
       const rows = text.split('\n');
@@ -115,7 +114,7 @@ export const TelegramLoader = async () => {
       // logger.info('info', 'TelegramLoader', records);
     } catch (error) {
       const logger = Container.get(DILogger);
-      logger.discord('error', JSON.stringify(error));
+      logger.discord('error', 'TelegramLoader', JSON.stringify(error));
     }
   });
 };

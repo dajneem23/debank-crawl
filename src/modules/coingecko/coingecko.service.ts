@@ -83,7 +83,7 @@ export class CoinGeckoService {
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
-        max: 3,
+        max: 5,
         duration: 5 * 60 * 1000,
       },
     });

@@ -58,7 +58,7 @@ export class DebankService {
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
-        max: 3,
+        max: 10,
         duration: 5 * 60 * 1000,
       },
     });
@@ -107,6 +107,7 @@ export class DebankService {
         repeat: {
           every: 1000 * 60 * 60,
         },
+        priority: 1,
       },
     });
     this.addJob({
@@ -116,6 +117,7 @@ export class DebankService {
         repeat: {
           every: 1000 * 60 * 15,
         },
+        priority: 1,
       },
     });
   }
@@ -244,6 +246,7 @@ export class DebankService {
             jobId: `debank:fetch:project:users:${id}`,
             removeOnComplete: true,
             removeOnFail: true,
+            priority: 10,
           },
         });
       }

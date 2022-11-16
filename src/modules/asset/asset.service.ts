@@ -68,7 +68,7 @@ export class AssetService {
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
-        max: 3,
+        max: 10,
         duration: FETCH_MARKET_DATA_DURATION,
       },
     });

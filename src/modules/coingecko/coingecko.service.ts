@@ -141,7 +141,7 @@ export class CoinGeckoService {
       name: 'coingecko:add:fetch:assets:details',
       payload: {},
       options: {
-        repeatJobKey: 'coingecko:fetch:assets:details',
+        repeatJobKey: 'coingecko:add:fetch:assets:details',
         repeat: {
           pattern: '* 0 0 * * *',
         },
@@ -193,7 +193,7 @@ export class CoinGeckoService {
       name: 'coingecko:add:fetch:exchanges:details',
       payload: {},
       options: {
-        repeatJobKey: 'coingecko:fetch:exchanges:details',
+        repeatJobKey: 'coingecko:add:fetch:exchanges:details',
         repeat: {
           pattern: '* 0 0 * * *',
         },

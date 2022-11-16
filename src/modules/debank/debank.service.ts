@@ -114,7 +114,7 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:project:users',
         repeat: {
-          every: 1000 * 60 * 60,
+          every: 1000 * 60 * 15,
         },
       },
     });

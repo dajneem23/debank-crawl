@@ -8,7 +8,7 @@ import { chunk, isNil, omitBy, uniq } from 'lodash';
 import { env } from 'process';
 import slugify from 'slugify';
 import { FETCH_MARKET_DATA_DURATION } from './asset.constants';
-import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import IORedis from 'ioredis';
 import { AssetJobData, AssetJobNames } from './asset.job';
 import { CoinMarketCapAPI } from '@/common/api';
@@ -70,6 +70,9 @@ export class AssetService {
       limiter: {
         max: 10,
         duration: FETCH_MARKET_DATA_DURATION,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK * 2,
       },
     });
     this.logger.debug('info', '[initWorker:asset]', 'Worker initialized');

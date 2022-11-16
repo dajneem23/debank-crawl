@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { _exchange, exchangeModelToken } from '.';
 import { chunk } from 'lodash';
 import IORedis from 'ioredis';
-import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { CoinMarketCapAPI } from '@/common/api';
 import { ExchangeJobData, ExchangeJobNames } from './exchange.job';
@@ -143,6 +143,9 @@ export class ExchangeService {
       limiter: {
         max: 10,
         duration: CoinMarketCapAPI.exchange.DURATION,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK * 2,
       },
     });
     this.logger.debug('info', '[initWorker:exchange]', 'Worker initialized');

@@ -8,7 +8,7 @@ import slugify from 'slugify';
 import { CoinMarketCapAPI } from '@/common/api';
 import IORedis from 'ioredis';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
-import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
 import { CategoryJobData, CategoryJobNames } from './category.job';
 import { env } from 'process';
 import { AssetModel, assetModelToken } from '../asset';
@@ -68,6 +68,9 @@ export class CategoryService {
       limiter: {
         max: 10,
         duration: 600000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK * 2,
       },
     });
     this.logger.debug('info', '[initWorker:category]', 'Worker initialized');

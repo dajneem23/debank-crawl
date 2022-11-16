@@ -70,7 +70,7 @@ export class CategoryService {
         duration: 600000,
       },
       metrics: {
-        maxDataPoints: MetricsTime.ONE_WEEK * 2,
+        maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:category]', 'Worker initialized');

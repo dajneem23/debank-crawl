@@ -64,6 +64,7 @@ export class CoinGeckoService {
     // this.fetchCoinGeckoAssetDetails({
     //   id: 'bitcoin',
     // });
+    this.addFetchCoinGeckoExchangeDetails();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -137,7 +138,7 @@ export class CoinGeckoService {
       },
     });
     this.addJob({
-      name: 'coingecko:fetch:assets:details',
+      name: 'coingecko:add:fetch:assets:details',
       payload: {},
       options: {
         repeatJobKey: 'coingecko:fetch:assets:details',
@@ -189,7 +190,7 @@ export class CoinGeckoService {
       },
     });
     this.addJob({
-      name: 'coingecko:fetch:exchanges:details',
+      name: 'coingecko:add:fetch:exchanges:details',
       payload: {},
       options: {
         repeatJobKey: 'coingecko:fetch:exchanges:details',
@@ -283,6 +284,9 @@ export class CoinGeckoService {
 
   async fetchCoinGeckoAssetDetails({ id }: { id: string }) {
     try {
+      if (!id) {
+        throw new Error('coingecko:fetchCoinGeckoAssetDetails id is required');
+      }
       const { data, status } = await CoinGeckoAPI.fetch({
         endpoint: `${CoinGeckoAPI.Coins.detail.endpoint}/${id}`,
         params: CoinGeckoAPI.Coins.detail.params,
@@ -441,6 +445,9 @@ export class CoinGeckoService {
   }
   async fetchCoinGeckoExchangeDetails({ id }: { id: string }) {
     try {
+      if (!id) {
+        throw new Error('coingecko:fetchCoinGeckoExchangeDetails id is required');
+      }
       const { data, status } = await CoinGeckoAPI.fetch({
         endpoint: `${CoinGeckoAPI.Exchanges.details.endpoint}/${id}`,
       });

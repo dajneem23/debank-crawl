@@ -141,7 +141,7 @@ export class ExchangeService {
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
-        max: 3,
+        max: 10,
         duration: CoinMarketCapAPI.exchange.DURATION,
       },
     });

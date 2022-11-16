@@ -98,7 +98,7 @@ export class AssetService {
       connection: this.redisConnection as any,
     });
 
-    this.addFetchingDataJob();
+    this.initRepeatJobs();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -109,7 +109,7 @@ export class AssetService {
     });
   }
 
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'asset:fetch:marketData',
       payload: {},
@@ -123,19 +123,19 @@ export class AssetService {
         removeOnComplete: true,
       },
     });
-    this.addJob({
-      name: 'asset:fetch:pricePerformanceStats',
-      payload: {},
-      options: {
-        repeatJobKey: 'asset:fetch:pricePerformanceStats',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        // jobId: 'asset:fetch:pricePerformanceStats',
-        removeOnFail: true,
-        removeOnComplete: true,
-      },
-    });
+    // this.addJob({
+    //   name: 'asset:fetch:pricePerformanceStats',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'asset:fetch:pricePerformanceStats',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     // jobId: 'asset:fetch:pricePerformanceStats',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
   }
 
   /**
@@ -151,7 +151,7 @@ export class AssetService {
     per_page?: number;
     delay?: number;
   } = {}): Promise<void> {
-    await sleep(delay);
+    // await sleep(delay);
     try {
       // this.logger.debug('success', 'fetchMarketData', { page, per_page });
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model

@@ -96,7 +96,7 @@ export class CategoryService {
       connection: this.redisConnection as any,
     });
 
-    // this.addFetchingDataJob();
+    // this.initRepeatJobs();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -107,7 +107,7 @@ export class CategoryService {
     });
   }
 
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'category:fetch:all',
       payload: {},

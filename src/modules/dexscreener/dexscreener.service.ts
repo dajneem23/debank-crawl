@@ -92,7 +92,7 @@ export class DexScreenerService {
       connection: this.redisConnection as any,
     });
     // TODO: ENABLE THIS
-    // this.addFetchingDataJob();
+    // this.initRepeatJobs();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -104,7 +104,7 @@ export class DexScreenerService {
     // TODO: REMOVE THIS LATER
     // this.addFetchTVLProtocolTVLJob();
   }
-  // private addFetchingDataJob() {}
+  // private initRepeatJobs() {}
   /**
    * @description add job to queue
    */

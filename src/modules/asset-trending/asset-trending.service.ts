@@ -108,7 +108,7 @@ export class AssetTrendingService {
       connection: this.redisConnection as any,
     });
 
-    this.addFetchingDataJob();
+    this.initRepeatJobs();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -118,7 +118,7 @@ export class AssetTrendingService {
       this.logger.discord('error', 'asset-trending:Job failed', { jobId, failedReason });
     });
   }
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'asset-trending:fetch:trending',
       payload: {},

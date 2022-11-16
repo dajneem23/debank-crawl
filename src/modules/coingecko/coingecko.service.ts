@@ -113,7 +113,7 @@ export class CoinGeckoService {
       connection: this.redisConnection as any,
     });
 
-    this.addFetchingDataJob();
+    this.initRepeatJobs();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -123,7 +123,7 @@ export class CoinGeckoService {
       this.logger.discord('error', 'coingecko:Job failed', jobId, failedReason);
     });
   }
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'coingecko:fetch:assets:list',
       payload: {},

@@ -82,7 +82,7 @@ export class ExchangeService {
       connection: this.redisConnection as any,
     });
 
-    this.addFetchingDataJob();
+    this.initRepeatJobs();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -93,7 +93,7 @@ export class ExchangeService {
     });
   }
 
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'exchange:fetch:data',
       payload: {},

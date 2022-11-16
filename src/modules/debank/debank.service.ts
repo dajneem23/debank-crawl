@@ -87,7 +87,7 @@ export class DebankService {
       connection: this.redisConnection as any,
     });
     // TODO: ENABLE THIS
-    this.addFetchingDataJob();
+    this.initRepeatJobs();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -99,7 +99,7 @@ export class DebankService {
     // TODO: REMOVE THIS LATER
     // this.addFetchProjectUsersJobs();
   }
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'debank:fetch:project:list',
       options: {

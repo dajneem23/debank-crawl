@@ -145,7 +145,7 @@ export class ExchangeService {
         duration: CoinMarketCapAPI.exchange.DURATION,
       },
       metrics: {
-        maxDataPoints: MetricsTime.ONE_WEEK * 2,
+        maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:exchange]', 'Worker initialized');

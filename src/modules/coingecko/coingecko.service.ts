@@ -87,7 +87,7 @@ export class CoinGeckoService {
         duration: 5 * 60 * 1000,
       },
       metrics: {
-        maxDataPoints: MetricsTime.ONE_WEEK * 2,
+        maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:coingecko]', 'Worker initialized');

@@ -72,7 +72,7 @@ export class AssetService {
         duration: FETCH_MARKET_DATA_DURATION,
       },
       metrics: {
-        maxDataPoints: MetricsTime.ONE_WEEK * 2,
+        maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:asset]', 'Worker initialized');

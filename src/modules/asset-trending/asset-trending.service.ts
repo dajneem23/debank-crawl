@@ -78,7 +78,7 @@ export class AssetTrendingService {
       concurrency: 20,
       limiter: {
         max: 10,
-        duration: 5 * 60 * 1000,
+        duration: 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,

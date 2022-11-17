@@ -61,10 +61,10 @@ export class DexScreenerService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 20,
+      concurrency: 50,
       limiter: {
         max: 10,
-        duration: 5 * 60 * 1000,
+        duration: 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,

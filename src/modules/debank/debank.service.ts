@@ -55,9 +55,9 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 100,
+      concurrency: 200,
       limiter: {
-        max: 50,
+        max: 100,
         duration: 60 * 1000,
       },
       metrics: {
@@ -79,10 +79,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 15,
+          age: 1000 * 60 * 30,
         },
         removeOnFail: {
-          age: 1000 * 60 * 15,
+          age: 1000 * 60 * 30,
         },
       },
     });
@@ -251,10 +251,10 @@ export class DebankService {
           options: {
             jobId: `debank:fetch:project:users:${id}`,
             removeOnComplete: {
-              age: 1000 * 60 * 15,
+              age: 1000 * 60 * 30,
             },
             removeOnFail: {
-              age: 1000 * 60 * 15,
+              age: 1000 * 60 * 30,
             },
             priority: 10,
           },

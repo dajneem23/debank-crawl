@@ -105,8 +105,12 @@ export class CoinGeckoService {
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 1000 * 60 * 5 },
-        removeOnComplete: true,
-        removeOnFail: true,
+        removeOnComplete: {
+          age: 1000 * 60 * 60 * 24 * 7,
+        },
+        removeOnFail: {
+          age: 1000 * 60 * 60 * 24 * 7,
+        },
       },
     });
     // this.queueScheduler = new QueueScheduler('coingecko', {
@@ -273,9 +277,13 @@ export class CoinGeckoService {
           name: 'coingecko:fetch:assets:details',
           payload: { id },
           options: {
-            jobId: `coingecko:fetch:assets:details:${id}`,
-            removeOnFail: true,
-            removeOnComplete: true,
+            jobId: `coingecko:fetch:assets:details:${id}:${Date.now()}`,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24 * 7,
+            },
+            removeOnComplete: {
+              age: 1000 * 60 * 60 * 24 * 7,
+            },
             delay: 1000 * 30,
           },
         });
@@ -434,9 +442,13 @@ export class CoinGeckoService {
           name: 'coingecko:fetch:exchanges:details',
           payload: { id },
           options: {
-            jobId: `coingecko:fetch:exchanges:details:${id}`,
-            removeOnFail: true,
-            removeOnComplete: true,
+            jobId: `coingecko:fetch:exchanges:details:${id}:${Date.now()}`,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24 * 7,
+            },
+            removeOnComplete: {
+              age: 1000 * 60 * 60 * 24 * 7,
+            },
             delay: 1000 * 30,
           },
         });

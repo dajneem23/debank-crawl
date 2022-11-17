@@ -64,7 +64,7 @@ export class CoinGeckoService {
     // this.fetchCoinGeckoAssetDetails({
     //   id: 'bitcoin',
     // });
-    this.addFetchCoinGeckoAssetDetails();
+    // this.addFetchCoinGeckoAssetDetails();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -125,6 +125,8 @@ export class CoinGeckoService {
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'coingecko:Job failed', jobId, failedReason);
     });
+    //TODO: remove this
+    this.addFetchCoinGeckoAssetDetails();
   }
   private initRepeatJobs() {
     this.addJob({

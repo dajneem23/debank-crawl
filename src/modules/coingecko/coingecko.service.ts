@@ -248,7 +248,7 @@ export class CoinGeckoService {
           { upsert: true },
         );
       }
-      this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetList');
+      // this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetList');
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetList', JSON.stringify(error));
       throw error;
@@ -310,7 +310,7 @@ export class CoinGeckoService {
         },
         { upsert: true },
       );
-      this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails', { id });
+      // this.logger.debug('success', 'coingecko:fetchCoinGeckoAssetDetails', { id });
     } catch (error) {
       this.logger.discord('error', 'coingecko:fetchCoinGeckoAssetDetails', JSON.stringify(error));
       throw error;

@@ -11,6 +11,7 @@ import {
 import Container from 'typedi';
 import { DIDiscordClient, Discord } from './discordLoader';
 const WorkerLoader = () => {
+  new DexScreenerService();
   new DebankService();
   new DefillamaService();
   new CoinGeckoService();

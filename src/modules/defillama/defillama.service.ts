@@ -54,7 +54,7 @@ export class DefillamaService {
     // this.fetchTVLProtocolDetails();
     // this.fetchTVLChains();
     // this.fetchTVLCharts();
-    this.fetchStableCoinsList();
+    // this.fetchStableCoinsList();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -106,7 +106,7 @@ export class DefillamaService {
       connection: this.redisConnection,
     });
     // TODO: ENABLE THIS
-    // this.initRepeatJobs();
+    this.initRepeatJobs();
 
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });

@@ -36,9 +36,9 @@ export class DexScreenerService {
     // this.fetchTVLCharts();
     //TODO: REMOVE THIS LATER
     // this.fetchTradingHistories({
-    //   baseToken: 'CCDS',
-    //   quoteToken: 'WBNB',
-    //   chain: 'bsc',
+    //   baseToken: 'CHZ',
+    //   quoteToken: 'USDT',
+    //   chain: 'ethereum',
     //   dex: 'uniswap',
     // });
     // setInterval(() => {
@@ -176,7 +176,7 @@ export class DexScreenerService {
       });
 
       const { data, status } = await DexScreenerAPI.fetch({
-        endpoint: `${DexScreenerAPI.TradingHistory.recent.endpoint}/bsc/${pairAddress}`,
+        endpoint: `${DexScreenerAPI.TradingHistory.recent.endpoint}/${chain}/${pairAddress}`,
         params: {
           q: baseTokenAddress,
           tb,

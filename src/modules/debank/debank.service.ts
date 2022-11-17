@@ -129,7 +129,7 @@ export class DebankService {
   addJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
     this.queue
       .add(name, payload, options)
-      .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
+      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
       .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
   }
   /**

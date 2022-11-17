@@ -128,7 +128,7 @@ export class ExchangeService {
   }) {
     this.queue
       .add(name, payload, options)
-      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
+      // .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
       .catch((err) => this.logger.discord('error', `[addJob:error]`, err, name, JSON.stringify(payload)));
   }
   /**

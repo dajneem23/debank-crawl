@@ -205,7 +205,7 @@ export class DefillamaService {
   }) {
     this.queue
       .add(name, payload, options)
-      .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
+      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
       .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
   }
   /**

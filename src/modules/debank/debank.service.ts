@@ -78,8 +78,12 @@ export class DebankService {
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 60 * 1000 },
-        removeOnComplete: true,
-        removeOnFail: true,
+        removeOnComplete: {
+          age: 1000 * 60 * 5,
+        },
+        removeOnFail: {
+          age: 1000 * 60 * 5,
+        },
       },
     });
     // this.queueScheduler = new QueueScheduler('debank', {
@@ -246,8 +250,12 @@ export class DebankService {
           },
           options: {
             jobId: `debank:fetch:project:users:${id}`,
-            removeOnComplete: true,
-            removeOnFail: true,
+            removeOnComplete: {
+              age: 1000 * 60 * 5,
+            },
+            removeOnFail: {
+              age: 1000 * 60 * 5,
+            },
             priority: 10,
           },
         });

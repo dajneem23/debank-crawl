@@ -126,7 +126,7 @@ export class CoinGeckoService {
       this.logger.discord('error', 'coingecko:Job failed', jobId, failedReason);
     });
     //TODO: remove this
-    this.addFetchCoinGeckoAssetDetails();
+    // this.addFetchCoinGeckoAssetDetails();
   }
   private initRepeatJobs() {
     this.addJob({

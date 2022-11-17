@@ -249,7 +249,7 @@ export class DebankService {
             projectId: id,
           },
           options: {
-            jobId: `debank:fetch:project:users:${id}`,
+            jobId: `debank:fetch:project:users:${id}:${Date.now()}`,
             removeOnComplete: {
               age: 1000 * 60 * 30,
             },

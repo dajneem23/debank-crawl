@@ -64,7 +64,7 @@ export class CoinGeckoService {
     // this.fetchCoinGeckoAssetDetails({
     //   id: 'bitcoin',
     // });
-    // this.addFetchCoinGeckoExchangeDetails();
+    this.addFetchCoinGeckoAssetDetails();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -274,7 +274,7 @@ export class CoinGeckoService {
             jobId: `coingecko:fetch:assets:details:${id}`,
             removeOnFail: true,
             removeOnComplete: true,
-            delay: 1000 * 5,
+            delay: 1000 * 60 * 5,
           },
         });
       }
@@ -435,7 +435,7 @@ export class CoinGeckoService {
             jobId: `coingecko:fetch:exchanges:details:${id}`,
             removeOnFail: true,
             removeOnComplete: true,
-            delay: 1000 * 5,
+            delay: 1000 * 60 * 5,
           },
         });
       }

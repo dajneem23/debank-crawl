@@ -79,10 +79,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 5,
+          age: 1000 * 60 * 15,
         },
         removeOnFail: {
-          age: 1000 * 60 * 5,
+          age: 1000 * 60 * 15,
         },
       },
     });
@@ -251,10 +251,10 @@ export class DebankService {
           options: {
             jobId: `debank:fetch:project:users:${id}`,
             removeOnComplete: {
-              age: 1000 * 60 * 5,
+              age: 1000 * 60 * 15,
             },
             removeOnFail: {
-              age: 1000 * 60 * 5,
+              age: 1000 * 60 * 15,
             },
             priority: 10,
           },

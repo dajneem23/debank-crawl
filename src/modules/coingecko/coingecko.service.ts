@@ -81,10 +81,10 @@ export class CoinGeckoService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 20,
+      concurrency: 50,
       limiter: {
-        max: 5,
-        duration: 5 * 60 * 1000,
+        max: 20,
+        duration: 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,

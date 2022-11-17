@@ -57,7 +57,7 @@ export class DebankService {
       lockDuration: 1000 * 60,
       concurrency: 100,
       limiter: {
-        max: 25,
+        max: 50,
         duration: 60 * 1000,
       },
       metrics: {
@@ -77,7 +77,7 @@ export class DebankService {
         // The total number of attempts to try the job until it completes
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 3000 },
+        backoff: { type: 'exponential', delay: 60 * 1000 },
         removeOnComplete: true,
         removeOnFail: true,
       },

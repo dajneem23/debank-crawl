@@ -104,7 +104,7 @@ export class CoinGeckoService {
         // The total number of attempts to try the job until it completes
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 1000 * 60 },
+        backoff: { type: 'exponential', delay: 1000 * 60 * 5 },
         removeOnComplete: true,
         removeOnFail: true,
       },
@@ -274,7 +274,7 @@ export class CoinGeckoService {
             jobId: `coingecko:fetch:assets:details:${id}`,
             removeOnFail: true,
             removeOnComplete: true,
-            delay: 1000 * 60 * 5,
+            delay: 1000 * 30,
           },
         });
       }
@@ -435,7 +435,7 @@ export class CoinGeckoService {
             jobId: `coingecko:fetch:exchanges:details:${id}`,
             removeOnFail: true,
             removeOnComplete: true,
-            delay: 1000 * 60 * 5,
+            delay: 1000 * 30,
           },
         });
       }

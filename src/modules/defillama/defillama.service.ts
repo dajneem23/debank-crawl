@@ -1,7 +1,7 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { sleep } from '@/utils/common';
-import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { pgPoolToken } from '@/loaders/pgLoader';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import IORedis from 'ioredis';
@@ -14,10 +14,12 @@ import {
   defillamaTvlProtocolModelToken,
 } from './defillama.model';
 
+const pgPool = Container.get(pgPoolToken);
+
 export class DefillamaService {
   private logger = new Logger('Defillama');
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private readonly defillamaTvlProtocolModel = Container.get(defillamaTvlProtocolModelToken);
 
@@ -29,7 +31,7 @@ export class DefillamaService {
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
     [key in DefillamaJobNames | 'default']?: () => Promise<void>;
@@ -52,7 +54,7 @@ export class DefillamaService {
     // this.fetchTVLProtocolDetails();
     // this.fetchTVLChains();
     // this.fetchTVLCharts();
-    this.fetchStableCoinsList();
+    // this.fetchStableCoinsList();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -67,12 +69,16 @@ export class DefillamaService {
    */
   private initWorker() {
     this.worker = new Worker('defillama', this.workerProcessor.bind(this), {
-      connection: this.redisConnection as any,
+      autorun: true,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 20,
+      concurrency: 50,
       limiter: {
-        max: 3,
-        duration: 5 * 60 * 1000,
+        max: 20,
+        duration: 60 * 1000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:defillama]', 'Worker initialized');
@@ -83,40 +89,102 @@ export class DefillamaService {
    */
   private initQueue() {
     this.queue = new Queue('defillama', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
       },
     });
-    this.queueScheduler = new QueueScheduler('defillama', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('defillama', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('defillama', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
     // TODO: ENABLE THIS
-    // this.addFetchingDataJob();
+    this.initRepeatJobs();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
     });
     // TODO: REMOVE THIS LATER
     // this.addFetchTVLProtocolTVLJob();
   }
-  private addFetchingDataJob() {
-    this.addJob({ name: 'defillama:fetch:tvl:protocols' });
-    this.addJob({ name: 'defillama:fetch:tvl:charts' });
-    this.addJob({ name: 'defillama:fetch:tvl:chains' });
-    this.addJob({ name: 'defillama:add:tvl:protocol:details' });
-    this.addJob({ name: 'defillama:add:tvl:charts:chains' });
-    this.addJob({ name: 'defillama:add:tvl:protocol:tvl' });
+  private initRepeatJobs() {
+    this.addJob({
+      name: 'defillama:fetch:tvl:protocols',
+      options: {
+        repeatJobKey: 'defillama:fetch:tvl:protocols',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:fetch:tvl:charts',
+      options: {
+        repeatJobKey: 'defillama:fetch:tvl:charts',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:fetch:tvl:chains',
+      options: {
+        repeatJobKey: 'defillama:fetch:tvl:chains',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:add:tvl:protocol:details',
+      options: {
+        repeatJobKey: 'defillama:add:tvl:protocol:details',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:add:tvl:charts:chains',
+      options: {
+        repeatJobKey: 'defillama:add:tvl:charts:chains',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    this.addJob({
+      name: 'defillama:add:tvl:protocol:tvl',
+      options: {
+        repeatJobKey: 'defillama:add:tvl:protocol:tvl',
+        repeat: {
+          pattern: '* 0 0 * * *',
+        },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
   }
   /**
    * @description add job to queue
@@ -128,6 +196,7 @@ export class DefillamaService {
       repeat: {
         pattern: '* 0 0 * * *',
       },
+      removeOnComplete: true,
     },
   }: {
     name: DefillamaJobNames;
@@ -136,8 +205,8 @@ export class DefillamaService {
   }) {
     this.queue
       .add(name, payload, options)
-      .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
+      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
+      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
   }
   /**
    * Initialize Worker listeners
@@ -146,25 +215,23 @@ export class DefillamaService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, data, name }: Job<DefillamaJobData>) => {
-      this.logger.debug('success', '[job:defillama:completed]', {
-        id,
-        name,
-        data,
-      });
+      this.logger.discord('success', '[job:defillama:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DefillamaJobData>, error: Error) => {
-      this.logger.error('error', '[job:defillama:error]', {
+      this.logger.discord(
+        'error',
+        '[job:defillama:error]',
         id,
         name,
-        data,
-        error,
         failedReason,
-      });
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   workerProcessor({ name, data }: Job<DefillamaJobData>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
+    // this.logger.debug('info', `[defillama:workerProcessor:run]`, { name, data });
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async fetchTVLProtocols() {
@@ -197,7 +264,8 @@ export class DefillamaService {
       }
       this.logger.debug('success', `[fetchTVLProtocols:DONE]`, { num: data.length });
     } catch (error) {
-      this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async addFetchTVLProtocolDetails() {
@@ -210,12 +278,16 @@ export class DefillamaService {
             slug,
           },
           options: {
+            jobId: `defillama:fetch:tvl:protocol:detail:${slug}`,
             // delay: 1000 * 60 * 5,
+            removeOnComplete: true,
+            removeOnFail: true,
           },
         });
       }
     } catch (error) {
-      this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchTVLProtocolDetail(
@@ -245,7 +317,8 @@ export class DefillamaService {
         },
       );
     } catch (error) {
-      this.logger.error('error', '[fetchTVLProtocols:error]', error);
+      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchTVLCharts() {
@@ -260,7 +333,8 @@ export class DefillamaService {
         charts: data,
       });
     } catch (error) {
-      this.logger.error('error', '[fetchTVLCharts:error]', error);
+      this.logger.discord('error', '[fetchTVLCharts:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchTVLChains() {
@@ -291,7 +365,8 @@ export class DefillamaService {
         );
       }
     } catch (error) {
-      this.logger.error('error', '[fetchTVLChains:error]', error);
+      this.logger.discord('error', '[fetchTVLChains:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async addFetchTvlChartsChainsJob() {
@@ -305,11 +380,14 @@ export class DefillamaService {
           },
           options: {
             // delay: 1000 * 60 * 5,
+            removeOnComplete: true,
+            removeOnFail: true,
           },
         });
       }
     } catch (error) {
-      this.logger.error('error', '[addFetchTvlChartsChainsJob:error]', error);
+      this.logger.discord('error', '[addFetchTvlChartsChainsJob:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchTVLChartChain(
@@ -325,7 +403,7 @@ export class DefillamaService {
         endpoint: `${DefillamaAPI.Tvl.charts.chain.endpoint}/${name}`,
       });
       if (status != 200) {
-        this.logger.error('error', '[fetchTVLChartChain:error]', { name, status, data });
+        this.logger.error('error', '[fetchTVLChartChain:error]', name, status, JSON.stringify(data));
         throw new Error('fetchTVLChartChain: Invalid response');
       }
       await this.defillamaTvlChainModel._collection.updateOne(
@@ -341,7 +419,8 @@ export class DefillamaService {
         },
       );
     } catch (error) {
-      this.logger.error('error', '[fetchTVLChartChain:error]', error);
+      this.logger.discord('error', '[fetchTVLChartChain:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async addFetchTVLProtocolTVLJob() {
@@ -355,11 +434,14 @@ export class DefillamaService {
           },
           options: {
             // delay: 1000 * 60 * 5,
+            removeOnComplete: true,
+            removeOnFail: true,
           },
         });
       }
     } catch (error) {
-      this.logger.error('error', '[addFetchTVLProtocolTVLJob:error]', error);
+      this.logger.discord('error', '[addFetchTVLProtocolTVLJob:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchTVLProtocolTVL(
@@ -375,7 +457,7 @@ export class DefillamaService {
         endpoint: `${DefillamaAPI.Tvl.protocols.tvl.endpoint}/${slug}`,
       });
       if (status != 200) {
-        this.logger.error('error', '[fetchTVLProtocolTVL:error]', { slug, status, data });
+        this.logger.discord('error', '[fetchTVLProtocolTVL:error]', slug, status, JSON.stringify(data));
         throw new Error('fetchTVLProtocolTVL: invalid response');
       }
       await this.defillamaTvlProtocolModel._collection.updateOne(
@@ -391,7 +473,8 @@ export class DefillamaService {
         },
       );
     } catch (error) {
-      this.logger.error('error', '[fetchTVLProtocolTVL:error]', error);
+      this.logger.discord('error', '[fetchTVLProtocolTVL:error]', JSON.stringify(error));
+      throw error;
     }
   }
   //TODO : Finish this
@@ -402,11 +485,12 @@ export class DefillamaService {
         params: DefillamaAPI.StableCoins.list.params,
       });
       if (status != 200) {
-        this.logger.error('error', '[fetchStableCoinsList:error]', { status, data });
+        this.logger.discord('error', '[fetchStableCoinsList:error]', status, JSON.stringify(data));
         throw new Error('fetchStableCoinsList: invalid response');
       }
     } catch (error) {
-      this.logger.error('error', '[fetchStableCoinsList:error]', error);
+      this.logger.discord('error', '[fetchStableCoinsList:error]', JSON.stringify(error));
+      throw error;
     }
   }
 }

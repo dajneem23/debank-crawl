@@ -11,13 +11,12 @@ const token = env.TELEGRAM_BOT_TOKEN;
 const NANSEN_ALERT_GROUP_ID = env.NANSEN_ALERT_GROUP_ID;
 const pgClient = Container.get(pgPoolToken);
 export const TelegramLoader = async () => {
-  const logger = Container.get(DILogger);
   // Create a bot that uses 'polling' to fetch new updates
   const bot = new TelegramBot(token, { polling: true });
 
   bot.on('channel_post', async (msg) => {
     try {
-      const { text, entities, date } = msg;
+      const { text, entities = [], date } = msg;
       let message = text;
       if (!text) return;
       const rows = text.split('\n');
@@ -26,9 +25,9 @@ export const TelegramLoader = async () => {
       const records = filter(
         rows.map((row) => {
           const [match, sender, quantity, token, usd, receiver] =
-            /(.*) sent ([0-9,.]*) (.*) \(\$([0-9,.]*).* to (.*)/g.exec(row) || [];
+            /(.*) sent (.*) (.*) \(\$(.*)\).* to (.*)/g.exec(row) || [];
           const _match = text.match(/Etherscan|PolygonScan|BscScan/gi);
-          const offset = message.indexOf(_match[0]);
+          const offset = _match?.[0] ? message.indexOf(_match[0]) : -1;
           const txn = entities.find((entity) => entity.offset === offset);
           let address = null;
           let token_address = null;
@@ -107,12 +106,15 @@ export const TelegramLoader = async () => {
               ],
             )
             .catch((e) => {
-              logger.error('db_error', e);
+              const logger = Container.get(DILogger);
+              logger.error('error', 'insert:bot-nansen-transaction', JSON.stringify(e));
             });
         },
       );
+      // logger.info('info', 'TelegramLoader', records);
     } catch (error) {
-      logger.error('error', error);
+      const logger = Container.get(DILogger);
+      logger.discord('error', 'TelegramLoader', JSON.stringify(error));
     }
   });
 };

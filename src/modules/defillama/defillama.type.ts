@@ -20,7 +20,7 @@ export interface DefillamaTvlProtocol {
   oracles?: string[];
   slug: string;
   tvl: number;
-  chainTvls: { [key: string]: number };
+  // chainTvls: { [key: string]: number };
   change_1h: number | null;
   change_1d: number | null;
   change_7d: number | null;
@@ -33,6 +33,39 @@ export interface DefillamaTvlProtocol {
   pool2?: number;
   forkedFrom?: string[];
   listedAt?: number;
+
+  chainTvls: {
+    [key: string]: {
+      tvl: {
+        date: number;
+        totalLiquidityUSD: number;
+      }[];
+      tokens: null;
+      tokensInUsd: null;
+    };
+  };
+  tokens: null;
+  tokensInUsd: null;
+  tvls: {
+    date: number;
+    totalLiquidityUSD: number;
+  }[];
+  isParentProtocol: boolean;
+  raises: {
+    date: number;
+    name: string;
+    round: null | string;
+    amount: number;
+    chains: string[];
+    sector: string;
+    leadInvestors: string[];
+    otherInvestors: any[];
+    valuation: null;
+    defillamaId: number;
+    source?: string;
+  }[];
+  otherProtocols: string[];
+  hallmarks: Array<Array<number | string>>;
 }
 
 enum Category {
@@ -325,3 +358,5 @@ export interface DefillamaStableCoinChart {
 export interface Total {
   peggedUSD: number;
 }
+
+// export interface DefillamaTvlProtocolDetail {}

@@ -1,15 +1,14 @@
-import Container, { Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { sleep, toPagingOutput } from '@/utils/common';
-import { $pagination, $keysToProject, $lookup } from '@/utils/mongoDB';
-import { AssetError, assetErrors, AssetModel, assetModelToken } from '.';
-import { BaseServiceInput, assetSortBy, RemoveSlugPattern } from '@/types/Common';
+import { sleep } from '@/utils/common';
+import { $pagination } from '@/utils/mongoDB';
+import { AssetModel, assetModelToken } from '.';
+import { RemoveSlugPattern } from '@/types/Common';
 import { chunk, isNil, omitBy, uniq } from 'lodash';
-import { _asset } from '@/modules';
 import { env } from 'process';
 import slugify from 'slugify';
 import { FETCH_MARKET_DATA_DURATION } from './asset.constants';
-import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import IORedis from 'ioredis';
 import { AssetJobData, AssetJobNames } from './asset.job';
 import { CoinMarketCapAPI } from '@/common/api';
@@ -28,13 +27,13 @@ export class AssetService {
 
   private assetPriceModel = Container.get<AssetPriceModel>(assetPriceModelToken);
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private worker: Worker;
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
     [key in AssetJobNames | 'default']: () => Promise<void>;
@@ -64,12 +63,16 @@ export class AssetService {
    */
   private initWorker() {
     this.worker = new Worker('asset', this.workerProcessor.bind(this), {
-      connection: this.redisConnection as any,
+      autorun: true,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
-        max: 1,
+        max: 10,
         duration: FETCH_MARKET_DATA_DURATION,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:asset]', 'Worker initialized');
@@ -81,55 +84,61 @@ export class AssetService {
    */
   private initQueue() {
     this.queue = new Queue('asset', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
       },
     });
-    this.queueScheduler = new QueueScheduler('asset', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('asset', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('asset', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
 
-    this.addFetchingDataJob();
+    this.initRepeatJobs();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.discord('error', 'asset:Job failed', jobId, failedReason);
     });
   }
 
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'asset:fetch:marketData',
       payload: {},
       options: {
+        repeatJobKey: 'asset:fetch:marketData',
         repeat: {
           every: 21600000,
         },
-        jobId: 'asset:fetch:marketData',
+        // jobId: 'asset:fetch:marketData',
+        removeOnFail: true,
         removeOnComplete: true,
       },
     });
-    this.addJob({
-      name: 'asset:fetch:pricePerformanceStats',
-      payload: {},
-      options: {
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        jobId: 'asset:fetch:pricePerformanceStats',
-        removeOnComplete: true,
-      },
-    });
+    // this.addJob({
+    //   name: 'asset:fetch:pricePerformanceStats',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'asset:fetch:pricePerformanceStats',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     // jobId: 'asset:fetch:pricePerformanceStats',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
   }
 
   /**
@@ -145,9 +154,9 @@ export class AssetService {
     per_page?: number;
     delay?: number;
   } = {}): Promise<void> {
-    await sleep(delay);
+    // await sleep(delay);
     try {
-      this.logger.debug('success', 'fetchMarketData', { page, per_page });
+      // this.logger.debug('success', 'fetchMarketData', { page, per_page });
       const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
         .get([
           ...$pagination({
@@ -385,7 +394,7 @@ export class AssetService {
             }
           }
         }
-        this.logger.debug('success', { items: items.length, total_count });
+        // this.logger.debug('success', { items: items.length, total_count });
         await this.fetchMarketData({
           page: page + 1,
           per_page,
@@ -394,8 +403,8 @@ export class AssetService {
         this.logger.debug('success', { total_count });
       }
     } catch (err) {
-      this.logger.debug('job_error', 'fetchMarketData', JSON.stringify(err));
-      // throw err;
+      this.logger.discord('error', 'asset:fetchMarketData', JSON.stringify(err));
+      throw err;
     }
   }
   /**
@@ -441,7 +450,7 @@ export class AssetService {
           },
         });
         for (const symbol of Object.keys(ohlcvLastest)) {
-          this.logger.debug('success', { symbol });
+          // this.logger.debug('success', { symbol });
           for (const {
             quote: {
               USD: { open, high, low, close, volume },
@@ -578,12 +587,12 @@ export class AssetService {
           per_page,
         });
       } else {
-        this.logger.debug('success', { total_count });
+        this.logger.debug('success', 'asset:fetchMarketData', { total_count });
         return;
       }
     } catch (err) {
-      this.logger.debug('job_error', 'fetchMarketData', JSON.stringify(err));
-      // throw err;
+      this.logger.discord('error', 'asset:fetchMarketData', JSON.stringify(err));
+      throw err;
     }
   }
 
@@ -605,6 +614,7 @@ export class AssetService {
         await sleep(300);
         const {
           data: { data: pricePerformanceStats },
+          status,
         } = await CoinMarketCapAPI.fetch({
           endpoint: CoinMarketCapAPI.cryptocurrency.pricePerformanceStats,
           params: {
@@ -1045,9 +1055,10 @@ export class AssetService {
           }
         }
       }
-      this.logger.debug('success', 'fetchPricePerformanceStats done');
+      this.logger.debug('success', 'asset:fetchPricePerformanceStats:success');
     } catch (error) {
-      this.logger.error('job_error', 'fetchPricePerformanceStats', JSON.stringify(error));
+      this.logger.discord('error', 'asset:fetchPricePerformanceStats', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchMetadata() {
@@ -1131,11 +1142,12 @@ export class AssetService {
             } as any,
           },
         );
-        this.logger.debug('success', name);
+        // this.logger.debug('success', name);
       }
-      this.logger.debug('success', 'fetchMetadata done');
+      this.logger.debug('success', 'asset:fetchMetadata:done');
     } catch (error) {
-      this.logger.error('job_error', 'fetchMetadata', JSON.stringify(error));
+      this.logger.discord('error', 'asset:fetchMetadata', JSON.stringify(error));
+      throw error;
     }
   }
   /**
@@ -1144,12 +1156,20 @@ export class AssetService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<AssetJobData>) => {
-      this.logger.debug('success', '[job:asset:completed]', { id: job.id, jobName: job.name, data: job.data });
+    worker.on('completed', ({ id, name, data }: Job<AssetJobData>) => {
+      this.logger.discord('success', '[job:asset:completed]', id, name, JSON.stringify(data));
     });
     // Failed
-    worker.on('failed', (job: Job<AssetJobData>, error: Error) => {
-      this.logger.error('error', '[job:asset:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
+    worker.on('failed', ({ id, name, data, failedReason }: Job<AssetJobData>, error: Error) => {
+      this.logger.discord(
+        'error',
+        '[job:asset:error]',
+        id,
+        name,
+        failedReason,
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   /**
@@ -1170,11 +1190,13 @@ export class AssetService {
   }) {
     this.queue
       .add(name, payload, options)
-      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, name, payload));
+      // .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
+      .catch((err) =>
+        this.logger.discord('error', `[addJob:error]`, name, JSON.stringify(err), JSON.stringify(payload)),
+      );
   }
   workerProcessor({ name, data }: Job<AssetJobData>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
+    // this.logger.discord('info', `[workerProcessor:run]`, name);
+    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
 }

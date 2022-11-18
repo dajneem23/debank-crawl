@@ -1,16 +1,14 @@
-import Container, { Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { sleep, throwErr, toOutPut, toPagingOutput } from '@/utils/common';
-import { $pagination, $toMongoFilter, $keysToProject } from '@/utils/mongoDB';
-import { CategoryModel, CategoryError, Category, _category, categoryModelToken } from '.';
-import { BaseServiceInput, BaseServiceOutput, CATEGORY_TYPE, PRIVATE_KEYS, RemoveSlugPattern } from '@/types/Common';
-import { isNil, omit, omitBy } from 'lodash';
+import { sleep } from '@/utils/common';
+import { _category, categoryModelToken } from '.';
+import { CATEGORY_TYPE, RemoveSlugPattern } from '@/types/Common';
+import { isNil, omitBy } from 'lodash';
 import slugify from 'slugify';
-import { ObjectId } from 'mongodb';
 import { CoinMarketCapAPI } from '@/common/api';
 import IORedis from 'ioredis';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
-import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { CategoryJobData, CategoryJobNames } from './category.job';
 import { env } from 'process';
 import { AssetModel, assetModelToken } from '../asset';
@@ -22,13 +20,13 @@ export class CategoryService {
 
   private AssetModel = Container.get<AssetModel>(assetModelToken);
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private worker: Worker;
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   get outputKeys() {
     return this.model._keys;
@@ -63,12 +61,16 @@ export class CategoryService {
    */
   private initWorker() {
     this.worker = new Worker('category', this.workerProcessor.bind(this), {
-      connection: this.redisConnection as any,
+      autorun: true,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 20,
       limiter: {
-        max: 1,
+        max: 10,
         duration: 600000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:category]', 'Worker initialized');
@@ -80,41 +82,45 @@ export class CategoryService {
    */
   private initQueue() {
     this.queue = new Queue('category', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 3,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
       },
     });
-    this.queueScheduler = new QueueScheduler('category', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('category', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('category', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
 
-    // this.addFetchingDataJob();
+    // this.initRepeatJobs();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.discord('error', 'category:Job failed', jobId, failedReason);
     });
   }
 
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'category:fetch:all',
       payload: {},
       options: {
+        repeatJobKey: 'category:fetch:all',
         repeat: {
           pattern: '* 0 0 * * *',
         },
-        jobId: 'category:fetch:all',
+        // jobId: 'category:fetch:all',
+        removeOnFail: true,
         removeOnComplete: true,
       },
     });
@@ -137,11 +143,13 @@ export class CategoryService {
   }) {
     this.queue
       .add(name, payload, options)
-      .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, name, payload));
+      // .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
+      .catch((err) =>
+        this.logger.discord('error', `[addJob:error]`, err, name, JSON.stringify(payload), JSON.stringify(err)),
+      );
   }
   workerProcessor({ name, data }: Job<CategoryJobData>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
+    // this.logger.discord('info', `[category:workerProcessor:run]`, name);
     return this.jobs[name as keyof typeof this.jobs]?.call(this, {}) || this.jobs.default();
   }
   /**
@@ -150,444 +158,23 @@ export class CategoryService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', (job: Job<CategoryJobData>) => {
-      this.logger.debug('success', '[job:category:completed]', { id: job.id, jobName: job.name, data: job.data });
+    worker.on('completed', ({ name, id, data }: Job<CategoryJobData>) => {
+      this.logger.discord('success', '[job:category:completed]', id, name, JSON.stringify(data));
     });
     // Failed
-    worker.on('failed', (job: Job<CategoryJobData>, error: Error) => {
-      this.logger.error('error', '[job:category:error]', { jobId: job.id, error, jobName: job.name, data: job.data });
+    worker.on('failed', ({ id, name, data, failedReason }: Job<CategoryJobData>, error: Error) => {
+      this.logger.discord(
+        'error',
+        '[job:category:error]',
+        id,
+        name,
+        failedReason,
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
-  /**
-   * Create a new category
-   * @param _content
-   * @param subject
-   * @returns {Promise<CategoryOutput>}
-   */
-  async create({ _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const { title, sub_categories = [] } = _content;
-      sub_categories.length && (_content.sub_categories = await this.createSubCategories(sub_categories, _subject));
-      _content.name = slugify(title, {
-        trim: true,
-        lower: true,
-        remove: RemoveSlugPattern,
-      });
-      const value = await this.model.create(
-        { name: _content.name },
-        {
-          ..._category,
-          ..._content,
-          ...(_subject && { created_by: _subject }),
-        },
-      );
-      this.logger.debug('create_success', JSON.stringify(_content));
-      return toOutPut({ item: value, keys: this.outputKeys });
-    } catch (err) {
-      this.logger.error('create_error', err.message);
-      throw err;
-    }
-  }
 
-  /**
-   * Update category
-   * @param _id
-   * @param _content
-   * @param _subject
-   * @returns {Promise<Category>}
-   */
-  async update({ _id, _content, _subject }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const { sub_categories = [] } = _content;
-      sub_categories.length &&
-        (_content.sub_categories = await this.createSubCategories(sub_categories, _subject, 0, true));
-      await this.model.update($toMongoFilter({ _id }), {
-        $set: {
-          ..._content,
-          ...(_subject && { updated_by: _subject }),
-        },
-      });
-      this.logger.debug('update_success', JSON.stringify(_content));
-      return toOutPut({ item: _content, keys: this.outputKeys });
-    } catch (err) {
-      this.logger.error('update_error', err.message);
-      throw err;
-    }
-  }
-
-  /**
-   * Delete category
-   * @param _id
-   * @param {ObjectId} _subject
-   * @returns {Promise<Category>}
-   */
-  async delete({ _id, _subject }: BaseServiceInput): Promise<void> {
-    try {
-      await this.model.delete($toMongoFilter({ _id }), {
-        $set: {
-          ...(_subject && { deleted_by: _subject }),
-        },
-      });
-      this.logger.debug('delete_success', { _id });
-      return;
-    } catch (err) {
-      this.logger.error('delete_error', err.message);
-      throw err;
-    }
-  }
-
-  /**
-   *  Query category
-   * @param {any} _filter
-   * @param {BaseQuery} _query
-   * @returns {Promise<BaseServiceOutput>}
-   *
-   **/
-  async query({ _filter, _query, _permission = 'public' }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const { type, lang, rank, deleted = false, is_public } = _filter;
-      const { offset, limit, sort_by, sort_order, keyword } = _query;
-      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
-        .get(
-          $pagination({
-            $match: {
-              ...((_permission === 'private' && {
-                deleted,
-              }) || {
-                deleted: { $ne: true },
-              }),
-              ...(is_public && { is_public: { $eq: is_public } }),
-
-              ...(type && {
-                type: { $in: Array.isArray(type) ? type : [type] },
-              }),
-              ...(!isNil(rank) && {
-                rank: { $eq: rank },
-              }),
-              ...(lang && {
-                'trans.lang': { $eq: lang },
-              }),
-              ...(keyword && {
-                title: { $regex: keyword, $options: 'i' },
-              }),
-            },
-            $addFields: { ...this.model.$addFields.sub_categories },
-            $lookups: [this.model.$lookups.sub_categories],
-            $projects: [
-              ...((lang && [
-                {
-                  $project: {
-                    ...$keysToProject(this.outputKeys),
-                    trans: {
-                      $filter: {
-                        input: '$trans',
-                        as: 'trans',
-                        cond: {
-                          $eq: ['$$trans.lang', lang],
-                        },
-                      },
-                    },
-                  },
-                },
-              ]) ||
-                []),
-            ],
-            $more: [
-              ...((lang && [this.model.$sets.trans]) || []),
-              ...((lang && [
-                {
-                  $project: {
-                    ...$keysToProject(this.outputKeys),
-                    ...(lang && $keysToProject(this.transKeys, '$trans')),
-                  },
-                },
-              ]) ||
-                []),
-            ],
-            ...(sort_by && sort_order && { $sort: { [sort_by]: sort_order == 'asc' ? 1 : -1 } }),
-            items: [],
-
-            // ...(limit && offset && { items: [{ $skip:  (+offset) }, { $limit: +limit }] }),
-          }),
-        )
-        .toArray();
-      this.logger.debug('query_success', { total_count, _query, _filter });
-      return toPagingOutput({
-        items,
-        total_count,
-        has_next: total_count > offset + limit,
-        keys: this.publicOutputKeys,
-      });
-    } catch (err) {
-      this.logger.error('query_error', err.message);
-      throw err;
-    }
-  }
-  /**
-   * Get Category by ID
-   * @param _id - Category ID
-   * @returns { Promise<CategoryOutput> } - Category
-   */
-  async getById({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const [category] = await this.model
-        .get([
-          {
-            $match: $toMongoFilter({ _id }),
-          },
-          this.model.$lookups.sub_categories,
-          {
-            $limit: 1,
-          },
-        ])
-        .toArray();
-      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
-      this.logger.debug('get_success', { category });
-      return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
-    } catch (err) {
-      this.logger.error('get_error', err.message);
-      throw err;
-    }
-  }
-
-  /**
-   * public category
-   * @param _id - Category ID
-   * @returns { Promise<CategoryOutput> } - Category
-   */
-  async publicCategory({ _id }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const [savedCategory] = await this.model.get([{ $match: $toMongoFilter({ _id }) }]).toArray();
-      if (isNil(savedCategory)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
-
-      const category = await this.model.update($toMongoFilter({ _id }), {
-        $set: { is_public: !savedCategory.is_public },
-      });
-      this.logger.debug('update_success', { category });
-      return omit(toOutPut({ item: category }), ['deleted', 'updated_at']);
-    } catch (err) {
-      this.logger.error('get_error', err.message);
-      throw err;
-    }
-  }
-  /**
-   * Get Category by name
-   * @param _id - Category ID
-   * @returns { Promise<CategoryOutput> } - Category
-   */
-  async getByName({ _name, _filter, _permission }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const { lang, type } = _filter;
-      const [category] = await this.model
-        .get([
-          {
-            $match: $toMongoFilter({
-              name: { $regex: _name, $options: 'i' },
-              ...((type && type) || {}),
-              ...(lang && {
-                'trans.lang': { $eq: lang },
-              }),
-            }),
-          },
-          { ...this.model.$lookups.sub_categories },
-          ...((lang && [
-            {
-              $project: {
-                ...$keysToProject(this.outputKeys),
-                trans: {
-                  $filter: {
-                    input: '$trans',
-                    as: 'trans',
-                    cond: {
-                      $eq: ['$$trans.lang', lang],
-                    },
-                  },
-                },
-              },
-            },
-          ]) ||
-            []),
-          ...((lang && [this.model.$sets.trans]) || []),
-          ...((lang && [
-            {
-              $project: {
-                ...$keysToProject(this.outputKeys),
-                ...(lang && $keysToProject(this.transKeys, '$trans')),
-              },
-            },
-          ]) ||
-            []),
-
-          {
-            $limit: 1,
-          },
-        ])
-        .toArray();
-      if (isNil(category)) throwErr(new CategoryError('CATEGORY_NOT_FOUND'));
-      this.logger.debug('get_success', { category });
-      return _permission == 'private' ? toOutPut({ item: category }) : omit(toOutPut({ item: category }), PRIVATE_KEYS);
-    } catch (err) {
-      this.logger.error('get_error', err.message);
-      throw err;
-    }
-  }
-  /**
-   *  Search category
-   * @param {any} _filter
-   * @param {BaseQuery} _query
-   * @returns {Promise<BaseServiceOutput>}
-   */
-  async search({ _filter, _query }: BaseServiceInput): Promise<BaseServiceOutput> {
-    try {
-      const { lang, type, rank } = _filter;
-      const { offset, limit, keyword } = _query;
-      const [{ paging: [{ total_count = 0 } = {}] = [{ total_count: 0 }], items }] = await this.model
-        .get([
-          ...$pagination({
-            $match: {
-              deleted: { $ne: true },
-              ...(type && {
-                type: { $in: Array.isArray(type) ? type : [type] },
-              }),
-              ...(!isNil(rank) && {
-                rank: { $eq: rank },
-              }),
-              ...(keyword && {
-                $or: [{ $text: { $search: keyword } }, { title: { $regex: keyword, $options: 'i' } }],
-              }),
-            },
-
-            $projects: [
-              ...((lang && [
-                {
-                  $project: {
-                    ...$keysToProject(this.outputKeys),
-                    trans: {
-                      $filter: {
-                        input: '$trans',
-                        as: 'trans',
-                        cond: {
-                          $eq: ['$$trans.lang', lang],
-                        },
-                      },
-                    },
-                  },
-                },
-              ]) ||
-                []),
-            ],
-            $more: [
-              ...((lang && [this.model.$sets.trans]) || []),
-              ...((lang && [
-                {
-                  $project: {
-                    ...$keysToProject(this.outputKeys),
-                    ...(lang && $keysToProject(this.transKeys, '$trans')),
-                  },
-                },
-              ]) ||
-                []),
-            ],
-            items: [{ $skip: (+offset - 1) * +limit }, { $limit: +limit }],
-          }),
-        ])
-        .toArray();
-      this.logger.debug('query_success', { total_count, _query, _filter });
-      return toPagingOutput({
-        items,
-        total_count,
-        has_next: total_count > offset + limit,
-        keys: this.publicOutputKeys,
-      });
-    } catch (err) {
-      this.logger.error('query_error', err.message);
-      throw err;
-    }
-  }
-  /**
-   *
-   * @param categories - Categories to be created or updated
-   * @param _subject - User who created or updated the categories
-   * @param rank - Rank of the categories
-   * @param update - allow update
-   * @returns
-   */
-  createSubCategories(categories: any[] = [], _subject: string, rank = 0, update = false): Promise<ObjectId[]> {
-    return Promise.all(
-      categories.map(async ({ title, type, sub_categories = [], trans = [], weight }) => {
-        const name = slugify(title, {
-          trim: true,
-          lower: true,
-          remove: RemoveSlugPattern,
-        });
-        const {
-          value,
-          lastErrorObject: { updatedExisting },
-        } = await this.model._collection.findOneAndUpdate(
-          {
-            name,
-          },
-          {
-            $set: {
-              ...((update && {
-                title,
-                name,
-                sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1, update),
-                updated_at: new Date(),
-                weight,
-                trans,
-                rank,
-                deleted: false,
-                updated_by: _subject,
-              }) ||
-                {}),
-            },
-            $addToSet: {
-              ...(type && {
-                type: { $each: Array.isArray(type) ? type : [type] },
-              }),
-            } as any,
-          },
-          {
-            upsert: false,
-            returnDocument: 'after',
-          },
-        );
-        if (!updatedExisting) {
-          const { value: newValue } = await this.model._collection.findOneAndUpdate(
-            {
-              name,
-            },
-            {
-              $setOnInsert: {
-                title,
-                name,
-                sub_categories: await this.createSubCategories(sub_categories, _subject, rank + 1, update),
-                updated_at: new Date(),
-                created_at: new Date(),
-                weight,
-                trans,
-                rank,
-                deleted: false,
-                created_by: _subject,
-              },
-              $addToSet: {
-                ...((type && {
-                  type: { $each: Array.isArray(type) ? type : [type] },
-                }) as any),
-              },
-            },
-            {
-              upsert: true,
-              returnDocument: 'after',
-            },
-          );
-          return newValue.name;
-        }
-        return value.name;
-      }),
-    );
-  }
   async fetchAllCategory(): Promise<void> {
     try {
       this.logger.debug('info', 'fetch_all_category start');
@@ -733,7 +320,8 @@ export class CategoryService {
       }
       this.logger.debug('success', 'fetch_all_category DONE');
     } catch (error) {
-      this.logger.debug('job_error', 'fetchAllCategory', JSON.stringify(error));
+      this.logger.discord('error', 'fetchAllCategory', JSON.stringify(error));
+      throw error;
     }
   }
 }

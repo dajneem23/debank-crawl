@@ -1,4 +1,6 @@
+import { DIDiscordClient, Discord } from '@/loaders/discordLoader';
 import { configure, getLogger, Logger as JSLogger } from 'log4js';
+import Container, { Inject } from 'typedi';
 
 export type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 
@@ -32,51 +34,16 @@ configure({
   },
 });
 const _messages = {
-  get_error: 'get_error',
-  get_success: 'get_success',
-  create_error: '[create:error]',
-  create_success: '[create:success]',
-  update_error: '[update:error]',
-  update_success: '[update:success]',
-  delete_error: '[delete:error]',
-  delete_success: '[delete:success]',
-  find_error: '[find:error]',
-  find_success: '[find:success]',
-  count_error: '[count:error]',
-  count_success: '[count:success]',
-  query_error: '[query:error]',
-  query_success: '[query:success]',
-  upload_error: '[upload:error]',
-  validate_error: '[validate:error]',
-  validate_success: '[validate:success]',
-  upload_success: '[upload:success]',
-  download_error: '[download:error]',
-  download_success: '[download:success]',
-  load_error: '[load:error]',
-  load_success: '[load:success]',
-  db_error: '[db:error]',
-  db_success: '[db:success]',
-  db_disconnect: '[db:disconnect]',
-  db_reconnect: '[db:reconnect]',
-  redis_error: '[redis:error]',
-  redis_success: '[redis:success]',
-  server_error: '[server:error]',
-  server_success: '[server:success]',
-  unsuspend_success: '[unsuspend:success]',
-  unsuspend_error: '[unsuspend:error]',
-  suspend_success: '[suspend:success]',
-  suspend_error: '[suspend:error]',
-  connected: '[connected]',
-  disconnected: '[disconnected]',
-  reconnected: '[reconnected]',
-  reconnecting: '[reconnecting]',
-  job_error: '[job:error]',
-  error: '🆘[error]',
-  success: '✅[success]',
-  info: 'ℹ️[info]',
-  warn: '⚠️[warn]',
-  end: '🔚[end]',
-  delete: '🚮[delete]',
+  disconnected: '- ☠️ [Disconnected]',
+  reconnected: '+ 🔌 [Reconnected]',
+  reconnecting: '+ 🛠️ [Reconnecting]',
+  connected: '+ ✅ [Connected]',
+  error: '- 🆘 [Error]',
+  success: '+ ✅ [Success]',
+  info: '+ ℹ️ [Info]',
+  warn: '- ⚠️ [Warn]',
+  end: '- 🔚 [End]',
+  delete: '- 🗑️ [Delete]',
   default: '😃⁉️',
 };
 /**
@@ -92,7 +59,7 @@ export default class Logger {
     }
   }
 
-  trace(message: keyof typeof _messages, ...args: any[]): void {
+  trace(message: keyof typeof _messages, cron = false, ...args: any[]): void {
     return this.logger.trace(_messages[message] || message, ...args);
   }
 
@@ -122,5 +89,16 @@ export default class Logger {
 
   mark(message: keyof typeof _messages, ...args: any[]): void {
     return this.logger.mark(_messages[message] || message, ...args);
+  }
+
+  discord(message: keyof typeof _messages, ...args: any[]): Promise<void> {
+    const discordBot = Container.get(DIDiscordClient);
+
+    return discordBot.sendMsg({
+      message: [`\`\`\`diff\n${_messages[message] || message}\`\`\``, ...args]
+        .map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg))
+        .map((arg) => discordBot.decorateMsg(arg))
+        .join('\n'),
+    });
   }
 }

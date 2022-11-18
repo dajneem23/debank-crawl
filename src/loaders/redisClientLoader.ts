@@ -6,7 +6,7 @@ import IORedis from 'ioredis';
 
 export const DIRedisClient = new Token<RedisClientType>('redisClient');
 
-export const DIRedisConnection = new Token<IORedis.Redis>('redisClient');
+export const DIRedisConnection = new Token<IORedis>('redisClient');
 
 export const redisClientLoader = async () => {
   const logger = Container.get(DILogger);

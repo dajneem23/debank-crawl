@@ -1,7 +1,6 @@
-import Container, { Inject, Service, Token } from 'typedi';
+import Container from 'typedi';
 import Logger from '@/core/logger';
-import { sleep } from '@/utils/common';
-import { Job, JobsOptions, Queue, QueueEvents, QueueScheduler, Worker } from 'bullmq';
+import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import IORedis from 'ioredis';
@@ -15,13 +14,13 @@ const pgPool = Container.get(pgPoolToken);
 export class DebankService {
   private logger = new Logger('Debank');
 
-  private readonly redisConnection: IORedis.Redis = Container.get(DIRedisConnection);
+  private readonly redisConnection = Container.get(DIRedisConnection);
 
   private worker: Worker;
 
   private queue: Queue;
 
-  private queueScheduler: QueueScheduler;
+  // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: () => Promise<void>;
@@ -29,7 +28,6 @@ export class DebankService {
     'debank:fetch:project:list': this.fetchProjectList,
     'debank:add:project:users': this.addFetchProjectUsersJobs,
     'debank:fetch:project:users': this.fetchProjectUsers,
-
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -54,12 +52,16 @@ export class DebankService {
    */
   private initWorker() {
     this.worker = new Worker('debank', this.workerProcessor.bind(this), {
-      connection: this.redisConnection as any,
+      autorun: true,
+      connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 20,
+      concurrency: 200,
       limiter: {
-        max: 3,
-        duration: 5 * 60 * 1000,
+        max: 100,
+        duration: 60 * 1000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
@@ -70,48 +72,60 @@ export class DebankService {
    */
   private initQueue() {
     this.queue = new Queue('debank', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 3000 },
+        backoff: { type: 'exponential', delay: 60 * 1000 },
+        removeOnComplete: {
+          age: 1000 * 60 * 30,
+        },
+        removeOnFail: {
+          age: 1000 * 60 * 30,
+        },
       },
     });
-    this.queueScheduler = new QueueScheduler('debank', {
-      connection: this.redisConnection as any,
-    });
+    // this.queueScheduler = new QueueScheduler('debank', {
+    //   connection: this.redisConnection,
+    // });
     const queueEvents = new QueueEvents('debank', {
-      connection: this.redisConnection as any,
+      connection: this.redisConnection,
     });
     // TODO: ENABLE THIS
-    this.addFetchingDataJob();
+    this.initRepeatJobs();
 
-    queueEvents.on('completed', ({ jobId }) => {
-      this.logger.debug('success', 'Job completed', { jobId });
-    });
+    // queueEvents.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.debug('error', 'Job failed', { jobId, failedReason });
+      this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
     });
     // TODO: REMOVE THIS LATER
     // this.addFetchProjectUsersJobs();
   }
-  private addFetchingDataJob() {
+  private initRepeatJobs() {
     this.addJob({
       name: 'debank:fetch:project:list',
       options: {
+        repeatJobKey: 'debank:fetch:project:list',
         repeat: {
-          every: 1000 * 60 * 60,
+          // every: 1000 * 60 * 60,
+          pattern: '* 0 0 * * *',
         },
+        priority: 1,
       },
     });
     this.addJob({
       name: 'debank:add:project:users',
       options: {
+        repeatJobKey: 'debank:add:project:users',
         repeat: {
-          every: 1000 * 60 * 60,
+          // every: 1000 * 60 * 30,
+          pattern: '* 0 0 * * *',
         },
+        priority: 1,
       },
     });
   }
@@ -121,8 +135,8 @@ export class DebankService {
   addJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
     this.queue
       .add(name, payload, options)
-      .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
-      .catch((err) => this.logger.error('error', `[addJob:error]`, err, payload));
+      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
+      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
   }
   /**
    * Initialize Worker listeners
@@ -131,25 +145,23 @@ export class DebankService {
   private initWorkerListeners(worker: Worker) {
     // Completed
     worker.on('completed', ({ id, data, name }: Job<DebankJobData>) => {
-      this.logger.debug('success', '[job:debank:completed]', {
-        id,
-        name,
-        data,
-      });
+      this.logger.discord('success', '[job:debank:completed]', id, name, JSON.stringify(data));
     });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DebankJobData>, error: Error) => {
-      this.logger.error('error', '[job:debank:error]', {
+      this.logger.discord(
+        'error',
+        '[job:debank:error]',
         id,
         name,
-        data,
-        error,
         failedReason,
-      });
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
     });
   }
   workerProcessor({ name, data }: Job<DebankJobData>): Promise<void> {
-    this.logger.debug('info', `[workerProcessor]`, { name, data });
+    // this.logger.discord('info', `[debank:workerProcessor:run]`, name);
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async fetchProjectList() {
@@ -180,9 +192,8 @@ export class DebankService {
         is_tvl,
         priority,
       } of projects) {
-        await pgPool
-          .query(
-            `INSERT INTO "debank-projects" (
+        await pgPool.query(
+          `INSERT INTO "debank-projects" (
             id,
             name,
             chain,
@@ -202,36 +213,37 @@ export class DebankService {
             priority,
             updated_at
           ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`,
-            [
-              id,
-              name,
-              chain,
-              platform_token_chain,
-              platform_token_id,
-              site_url,
-              tvl,
-              active_user_count_24h,
-              contract_call_count_24h,
-              portfolio_user_count,
-              total_contract_count,
-              total_user_count,
-              total_user_usd,
-              is_stable,
-              is_support_portfolio,
-              is_tvl,
-              priority,
-              new Date(),
-            ],
-          )
-          .catch((err) => this.logger.error('error', '[fetchProjectList:insert]', err));
+          [
+            id,
+            name,
+            chain,
+            platform_token_chain,
+            platform_token_id,
+            site_url,
+            tvl,
+            active_user_count_24h,
+            contract_call_count_24h,
+            portfolio_user_count,
+            total_contract_count,
+            total_user_count,
+            total_user_usd,
+            is_stable,
+            is_support_portfolio,
+            is_tvl,
+            priority,
+            new Date(),
+          ],
+        );
+        // .catch((err) => this.logger.discord('error', '[fetchProjectList:insert]', JSON.stringify(err)));
       }
     } catch (error) {
-      this.logger.error('error', '[fetchProjectList:error]', error);
+      this.logger.discord('error', '[fetchProjectList:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async addFetchProjectUsersJobs() {
     try {
-      const { rows: projects } = await pgPool.query(`SELECT id FROM "debank-projects"`);
+      const { rows: projects } = await pgPool.query(`SELECT id FROM "debank-projects" GROUP BY id`);
       for (const { id } of projects) {
         this.addJob({
           name: 'debank:fetch:project:users',
@@ -239,14 +251,20 @@ export class DebankService {
             projectId: id,
           },
           options: {
+            jobId: `debank:fetch:project:users:${id}:${Date.now()}`,
             removeOnComplete: {
-              age: 3600, // keep up to 1 hour
+              age: 1000 * 60 * 60 * 24 * 7,
             },
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24 * 7,
+            },
+            priority: 10,
           },
         });
       }
     } catch (error) {
-      this.logger.error('error', '[addFetchProjectUsersJobs:error]', error);
+      this.logger.discord('error', '[addFetchProjectUsersJobs:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async fetchProjectUsers(
@@ -282,10 +300,11 @@ export class DebankService {
           ) VALUES ($1, $2, $3, $4, $5)`,
             [projectId, share, usd_value, user_address, new Date()],
           )
-          .catch((err) => this.logger.error('error', '[fetchProjectUsers:insert]', err));
+          .catch((err) => this.logger.discord('error', '[fetchProjectUsers:insert]', JSON.stringify(err)));
       }
     } catch (error) {
-      this.logger.error('error', '[fetchProjectUsers:error]', error);
+      this.logger.discord('error', '[fetchProjectUsers:error]', JSON.stringify(error));
+      throw error;
     }
   }
 }

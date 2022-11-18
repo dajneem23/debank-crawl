@@ -111,7 +111,8 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:fetch:project:list',
         repeat: {
-          every: 1000 * 60 * 60,
+          // every: 1000 * 60 * 60,
+          pattern: '* 0 0 * * *',
         },
         priority: 1,
       },
@@ -121,7 +122,8 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:project:users',
         repeat: {
-          every: 1000 * 60 * 30,
+          // every: 1000 * 60 * 30,
+          pattern: '* 0 0 * * *',
         },
         priority: 1,
       },

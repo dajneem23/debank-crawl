@@ -51,7 +51,7 @@ export class Discord {
       await channel.send(message);
     } catch (error) {
       const logger = Container.get(DILogger);
-      logger.error('error', 'discord', 'sendMsg', error);
+      logger.error('error', 'discord', 'sendMsg', error, message);
     }
   }
   decorateMsg(msg: string) {

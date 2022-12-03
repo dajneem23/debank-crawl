@@ -242,25 +242,7 @@ export class DefillamaService {
       });
       this.logger.debug('info', `[fetchTVLProtocols]`, { num: data.length });
       for (const protocol of data) {
-        await this.defillamaTvlProtocolModel._collection.findOneAndUpdate(
-          {
-            slug: protocol.slug,
-          },
-          {
-            $set: {
-              ...protocol,
-              updated_at: new Date(),
-              updated_by: 'system',
-            },
-            $setOnInsert: {
-              created_at: new Date(),
-              created_by: 'system',
-            },
-          },
-          {
-            upsert: true,
-          },
-        );
+        await this.insertProtocolToMongoDb(protocol);
       }
       this.logger.debug('success', `[fetchTVLProtocols:DONE]`, { num: data.length });
     } catch (error) {
@@ -268,6 +250,39 @@ export class DefillamaService {
       throw error;
     }
   }
+  async insertProtocolToMongoDb(protocol: any) {
+    await this.defillamaTvlProtocolModel._collection.findOneAndUpdate(
+      {
+        slug: protocol.slug,
+      },
+      {
+        $set: {
+          ...protocol,
+          updated_at: new Date(),
+          updated_by: 'system',
+        },
+        $setOnInsert: {
+          created_at: new Date(),
+          created_by: 'system',
+        },
+      },
+      {
+        upsert: true,
+      },
+    );
+  }
+
+  async insertProtocolToPG(protocol: any) {
+    await pgPool.query(
+      `
+      INSERT INTO defillama_tvl_protocols (
+        slug,
+        name,
+        category,
+      `,
+    );
+  }
+
   async addFetchTVLProtocolDetails() {
     try {
       const protocols = await this.defillamaTvlProtocolModel._collection.find({}).toArray();

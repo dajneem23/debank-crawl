@@ -325,6 +325,56 @@ export const DebankAPI = {
       endpoint: 'https://api.debank.com/project/portfolios/user_list',
     },
   },
+  Token: {
+    /**
+     * @description fetch token list from debank
+     * @requires user_addr: string
+     */
+    balanceList: {
+      endpoint: 'https://api.debank.com/token/balance_list',
+    },
+    /**
+     * @description fetch token list from debank
+     * @requires user_addr: string
+     */
+    cacheBalanceList: {
+      endpoint: 'https://api.debank.com/token/cache_balance_list',
+    },
+  },
+  Social: {
+    /**
+     * @description fetch social list from debank
+     * @requires page_num: number,page_count: number
+     * @example { params: { page_num: 1, page_count: 100 } }
+     */
+    socialRanking: {
+      endpoint: 'https://api.debank.com/social_ranking/list',
+      params: {
+        page_num: 1,
+        page_count: 50,
+      },
+    },
+  },
+  Portfolio: {
+    /**
+     * @description fetch portfolio list from debank
+     * @requires user_addr: string
+     * @example https://api.debank.com/portfolio/list?user_addr=0x3b37c733c3fe51ce68c14cb735a6fcc1ff6533ed
+     */
+    projectList: {
+      endpoint: 'https://api.debank.com/portfolio/project_list',
+    },
+  },
+  Asset: {
+    /**
+     * @description fetch asset list from debank
+     * @requires user_addr: string
+     * @example https://api.debank.com/asset/list?user_addr=0x3b37c733c3fe51ce68c14cb735a6fcc1ff6533ed
+     */
+    classify: {
+      endpoint: 'https://api.debank.com/asset/classify',
+    },
+  },
   fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
     return axios.get(`${endpoint}`, {
       params,

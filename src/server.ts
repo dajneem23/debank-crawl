@@ -28,7 +28,7 @@ import { DIDiscordClient, Discord } from './loaders/discordLoader';
     // Caching (Redis)
     await (await import('./loaders/redisClientLoader')).default();
 
-    (await import('./loaders/workerLoader')).default();
+    // (await import('./loaders/workerLoader')).default();
   } catch (err) {
     console.error(err);
     process.exit(1);

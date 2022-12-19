@@ -1,5 +1,5 @@
 import { env } from 'process';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 /**
  * @description CoinMarketCap API
@@ -375,10 +375,18 @@ export const DebankAPI = {
       endpoint: 'https://api.debank.com/asset/classify',
     },
   },
-  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
+  fetch({
+    params = {},
+    endpoint,
+    config = {},
+  }: {
+    endpoint: string;
+    params?: any;
+    config?: AxiosRequestConfig;
+  }): Promise<any> {
     return axios.get(`${endpoint}`, {
       params,
-      headers: {},
+      ...config,
     });
   },
 };

@@ -32,7 +32,9 @@ const pgLoader = async () => {
   const logger = Container.get(DILogger);
   try {
     await pgPool.connect();
+    await pgClient.connect();
     Container.set(pgPoolToken, pgPool);
+    Container.set(pgClientToken, pgClient);
     logger.success('connected', 'Pool Postgres');
   } catch (err) {
     logger.error('error', 'pool:connect:pg', err);

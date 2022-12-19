@@ -92,8 +92,11 @@ export default class Logger {
   }
 
   discord(message: keyof typeof _messages, ...args: any[]): Promise<void> {
+    if (process.env.MODE !== 'production') {
+      this.logger.info(_messages[message] || message, ...args);
+      return Promise.resolve();
+    }
     const discordBot = Container.get(DIDiscordClient);
-
     return discordBot.sendMsg({
       message: [`\`\`\`diff\n${_messages[message] || message}\`\`\``, ...args]
         .map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg))

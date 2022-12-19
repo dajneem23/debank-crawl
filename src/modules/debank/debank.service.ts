@@ -6,11 +6,11 @@ import { DIRedisConnection } from '@/loaders/redisClientLoader';
 
 import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
-import { pgPoolToken } from '@/loaders/pgLoader';
+import { pgClientToken, pgPoolToken } from '@/loaders/pgLoader';
 import { sleep } from '@/utils/common';
 
 const pgPool = Container.get(pgPoolToken);
-
+const pgClient = Container.get(pgClientToken);
 export class DebankService {
   private logger = new Logger('Debank');
 
@@ -20,14 +20,18 @@ export class DebankService {
 
   private queue: Queue;
 
+  count = 0;
+
   // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
-    [key in DebankJobNames | 'default']?: () => Promise<void>;
+    [key in DebankJobNames | 'default']?: (payload?: any) => Promise<void>;
   } = {
     'debank:fetch:project:list': this.fetchProjectList,
     'debank:add:project:users': this.addFetchProjectUsersJobs,
     'debank:fetch:project:users': this.fetchProjectUsers,
+    'debank:fetch:social:user': this.fetchSocialRankingByUserAddress,
+    'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -60,13 +64,11 @@ export class DebankService {
     //   select: 'user_address',
     // }).then(async ({ rows }: any) => {
     //   for (const { user_address } of rows) {
-    //     console.log(user_address);
-    //     await sleep(20 * 1000);
+    //     //from index 42
     //     await this.fetchSocialRankingByUserAddress({
     //       user_address,
     //     });
     //   }
-    //   console.log(rows.length);
     // });
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
@@ -85,9 +87,9 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 200,
+      concurrency: 40,
       limiter: {
-        max: 100,
+        max: 20,
         duration: 60 * 1000,
       },
       metrics: {
@@ -107,7 +109,7 @@ export class DebankService {
         // The total number of attempts to try the job until it completes
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 60 * 1000 },
+        backoff: { type: 'exponential', delay: 5 * 60 * 1000 },
         removeOnComplete: {
           age: 1000 * 60 * 60 * 24 * 7,
         },
@@ -136,24 +138,36 @@ export class DebankService {
     // this.addFetchProjectUsersJobs();
   }
   private initRepeatJobs() {
+    // this.addJob({
+    //   name: 'debank:fetch:project:list',
+    //   options: {
+    //     repeatJobKey: 'debank:fetch:project:list',
+    //     repeat: {
+    //       // every: 1000 * 60 * 60,
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 1,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'debank:add:project:users',
+    //   options: {
+    //     repeatJobKey: 'debank:add:project:users',
+    //     repeat: {
+    //       // every: 1000 * 60 * 30,
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 1,
+    //   },
+    // });
     this.addJob({
-      name: 'debank:fetch:project:list',
+      name: 'debank:add:social:users',
       options: {
-        repeatJobKey: 'debank:fetch:project:list',
+        repeatJobKey: 'debank:add:social:users',
         repeat: {
-          // every: 1000 * 60 * 60,
-          pattern: '* 0 0 * * *',
-        },
-        priority: 1,
-      },
-    });
-    this.addJob({
-      name: 'debank:add:project:users',
-      options: {
-        repeatJobKey: 'debank:add:project:users',
-        repeat: {
-          // every: 1000 * 60 * 30,
-          pattern: '* 0 0 * * *',
+          //repeat every 4 hours
+          every: 1000 * 60 * 60 * 4,
+          // pattern: '* 0 0 * * *',
         },
         priority: 1,
       },
@@ -523,20 +537,21 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
       }
+      await sleep(20000);
       const { data: fetchProjectListData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Portfolio.projectList.endpoint,
         params: {
           user_addr: user_address,
         },
       });
-      await sleep(1000);
+      await sleep(20000);
       const { data: fetchAssetClassifyData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Asset.classify.endpoint,
         params: {
           user_addr: user_address,
         },
       });
-      await sleep(1000);
+      await sleep(20000);
       const { data: fetchTokenBalanceListData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Token.cacheBalanceList.endpoint,
         params: {
@@ -567,10 +582,10 @@ export class DebankService {
   }
   async insertUserAssetPortfolio({
     user_address,
-    token_list,
-    coin_list,
-    balance_list,
-    project_list,
+    token_list = [],
+    coin_list = [],
+    balance_list = [],
+    project_list = [],
   }: {
     user_address: string;
     token_list: any;
@@ -578,25 +593,99 @@ export class DebankService {
     balance_list: any;
     project_list: any;
   }) {
-    await pgPool.query(
+    const now = new Date();
+    await pgClient.query(
       `
-      INSERT INTO "test-debank-user-asset-portfolio" (
+      INSERT INTO "debank-user-address-list" (
         user_address,
-        token_list,
-        coin_list,
-        balance_list,
-        project_list,
         updated_at
-      ) VALUES ($1, $2, $3, $4, $5, $6)
+      ) VALUES ($1, $2) ON CONFLICT (user_address) DO UPDATE SET updated_at = $2
     `,
-      [
-        user_address,
-        JSON.stringify(token_list),
-        JSON.stringify(coin_list),
-        JSON.stringify(balance_list),
-        JSON.stringify(project_list),
-        new Date(),
-      ],
+      [user_address, now],
     );
+    await Promise.all(
+      token_list.map(async (token: any) => {
+        await pgClient.query(
+          `
+        INSERT INTO "debank-user-asset-portfolio-tokens"(
+          user_address,
+          details,
+          updated_at
+        )
+        VALUES ($1, $2, $3)
+        `,
+          [user_address, JSON.stringify(token), now],
+        );
+      }),
+    );
+    await Promise.all(
+      coin_list.map(async (coin: any) => {
+        await pgClient.query(
+          `
+        INSERT INTO "debank-user-asset-portfolio-coins"(
+          user_address,
+          details,
+          updated_at
+        )
+        VALUES ($1, $2, $3)
+        `,
+          [user_address, JSON.stringify(coin), now],
+        );
+      }),
+    );
+    await Promise.all(
+      balance_list.map(async (balance: any) => {
+        await pgClient.query(
+          `
+        INSERT INTO "debank-user-asset-portfolio-balances"(
+          user_address,
+          details,
+          updated_at
+        )
+        VALUES ($1, $2, $3)
+        `,
+          [user_address, JSON.stringify(balance), now],
+        );
+      }),
+    );
+    await Promise.all(
+      project_list.map(async (project: any) => {
+        await pgClient.query(
+          `
+        INSERT INTO "debank-user-asset-portfolio-projects"(
+          user_address,
+          details,
+          updated_at
+        )
+        VALUES ($1, $2, $3)
+        `,
+          [user_address, JSON.stringify(project), now],
+        );
+      }),
+    );
+  }
+  async addFetchSocialRankingByUsersAddressJob() {
+    const { rows } = await this.querySocialRanking({
+      select: 'user_address',
+    });
+    for (const { user_address } of rows) {
+      this.addJob({
+        name: 'debank:fetch:social:user',
+        payload: {
+          user_address,
+        },
+        options: {
+          jobId: `debank:fetch:social:user:${user_address}:${Date.now()}`,
+          removeOnComplete: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          removeOnFail: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          priority: 10,
+          delay: 1000 * 60,
+        },
+      });
+    }
   }
 }

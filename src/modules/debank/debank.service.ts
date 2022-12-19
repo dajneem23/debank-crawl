@@ -20,8 +20,6 @@ export class DebankService {
 
   private queue: Queue;
 
-  count = 0;
-
   // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
@@ -89,7 +87,7 @@ export class DebankService {
       lockDuration: 1000 * 60,
       concurrency: 40,
       limiter: {
-        max: 20,
+        max: 5,
         duration: 60 * 1000,
       },
       metrics: {

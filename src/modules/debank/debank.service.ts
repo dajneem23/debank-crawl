@@ -542,21 +542,21 @@ export class DebankService {
           user_addr: user_address,
         },
       });
-      await sleep(20000);
+      await sleep(30000);
       const { data: fetchAssetClassifyData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Asset.classify.endpoint,
         params: {
           user_addr: user_address,
         },
       });
-      await sleep(20000);
+      await sleep(30000);
       const { data: fetchTokenBalanceListData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Token.cacheBalanceList.endpoint,
         params: {
           user_addr: user_address,
         },
       });
-      await sleep(20000);
+      await sleep(30000);
 
       const error_code =
         fetchProjectListData.error_code || fetchAssetClassifyData.error_code || fetchTokenBalanceListData.error_code;

@@ -387,6 +387,12 @@ export const DebankAPI = {
     return axios.get(`${endpoint}`, {
       params,
       ...config,
+      proxy: {
+        host: '127.0.0.1',
+        port: 5566,
+        // auth: { username: 'lildpslw-rotate', password: 'o988eyomghcu' },
+        protocol: 'socks5',
+      },
     });
   },
 };

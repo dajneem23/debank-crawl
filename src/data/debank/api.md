@@ -25,3 +25,5 @@ https://api.debank.com/social_ranking/list?page_num=1&page_count=50
 https://api.debank.com/user/addr_base_info_dict
 
 https://api.debank.com/asset/classify?user_addr=0xe3e39161d35e9a81edec667a5387bfae85752854
+
+curl --proxy "http://lildpslw:o988eyomghcu@185.199.229.156:7492/" https://api.debank.com/portfolio/list\?user_addr\=0x425d16b0e08a28a3ff9e4404ae99d78c0a076c5a\&project_id\=uniswap

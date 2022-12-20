@@ -62,6 +62,7 @@ export class DebankService {
     //   select: 'user_address',
     // }).then(async ({ rows }: any) => {
     //   for (const { user_address } of rows) {
+    //     console.log(user_address);
     //     //from index 42
     //     await this.fetchSocialRankingByUserAddress({
     //       user_address,
@@ -87,8 +88,8 @@ export class DebankService {
       lockDuration: 1000 * 60,
       concurrency: 40,
       limiter: {
-        max: 1,
-        duration: 30 * 1000,
+        max: 5,
+        duration: 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -535,7 +536,6 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
       }
-      await sleep(20000);
       const { data: fetchProjectListData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Portfolio.projectList.endpoint,
         params: {
@@ -556,6 +556,8 @@ export class DebankService {
           user_addr: user_address,
         },
       });
+      await sleep(20000);
+
       const error_code =
         fetchProjectListData.error_code || fetchAssetClassifyData.error_code || fetchTokenBalanceListData.error_code;
       if (error_code) {

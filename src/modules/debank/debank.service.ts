@@ -53,11 +53,11 @@ export class DebankService {
 
     //?fetch socials ranking 20page
     //TODO: remove this
-    // for (let i = 1; i <= 20; i++) {
-    //   this.fetchSocialRanking({
-    //     page_num: i,
-    //   });
-    // }
+    for (let i = 1; i <= 100; i++) {
+      this.fetchSocialRanking({
+        page_num: i,
+      });
+    }
     // this.querySocialRanking({
     //   select: 'user_address',
     // }).then(async ({ rows }: any) => {
@@ -86,7 +86,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 20,
+      concurrency: 5,
       limiter: {
         max: 1,
         duration: 60 * 1000,
@@ -165,7 +165,7 @@ export class DebankService {
         repeatJobKey: 'debank:add:social:users',
         repeat: {
           //repeat every 4 hours
-          every: 1000 * 60 * 60 * 4,
+          every: 1000 * 60 * 60 * 8,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,

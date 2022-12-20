@@ -53,11 +53,11 @@ export class DebankService {
 
     //?fetch socials ranking 20page
     //TODO: remove this
-    for (let i = 1; i <= 100; i++) {
-      this.fetchSocialRanking({
-        page_num: i,
-      });
-    }
+    // for (let i = 1; i <= 100; i++) {
+    //   this.fetchSocialRanking({
+    //     page_num: i,
+    //   });
+    // }
     // this.querySocialRanking({
     //   select: 'user_address',
     // }).then(async ({ rows }: any) => {

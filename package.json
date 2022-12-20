@@ -37,6 +37,7 @@
     "bullmq": "^3.2.2",
     "dayjs": "^1.10.7",
     "discord.js": "^14.6.0",
+    "https-proxy-agent": "^5.0.1",
     "ioredis": "^5.2.4",
     "lodash": "^4.17.21",
     "log4js": "^6.3.0",
@@ -47,6 +48,7 @@
     "redis": "^4.5.0",
     "reflect-metadata": "^0.1.13",
     "slugify": "^1.6.5",
+    "socks-proxy-agent": "^7.0.0",
     "ts-transformer-keys": "^0.4.3",
     "typedi": "^0.10.0"
   },

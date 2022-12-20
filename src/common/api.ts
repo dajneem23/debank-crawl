@@ -1,6 +1,6 @@
 import { env } from 'process';
 import axios, { AxiosRequestConfig } from 'axios';
-import { TOR_PROXY_HTTP_AGENT } from './proxy';
+import { TOR_PROXY_HTTP_AGENT, WEBSHARE_PROXY_HTTP } from './proxy';
 
 /**
  * @description CoinMarketCap API
@@ -393,6 +393,7 @@ export const DebankAPI = {
       // port: 5566,
       // auth: { username: 'lildpslw-rotate', password: 'o988eyomghcu' },
       // },
+      proxy: WEBSHARE_PROXY_HTTP,
       // proxy: false,
       // httpsAgent: TOR_PROXY_HTTP_AGENT,
       // httpAgent: TOR_PROXY_HTTP_AGENT,

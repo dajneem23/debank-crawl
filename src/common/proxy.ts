@@ -18,3 +18,11 @@ export const WEBSHARE_PROXY_HTTP: AxiosProxyConfig = {
     password: 'o988eyomghcu',
   },
 };
+export const MUAPROXY_PROXY_HTTP: AxiosProxyConfig = {
+  host: '176.103.91.142',
+  port: 64728,
+  auth: {
+    username: 'EAzGMRSu',
+    password: 'ZiNQDnXh',
+  },
+};

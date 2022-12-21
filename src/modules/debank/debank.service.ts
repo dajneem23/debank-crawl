@@ -89,7 +89,7 @@ export class DebankService {
       concurrency: 5,
       limiter: {
         max: 1,
-        duration: 3 * 60 * 1000,
+        duration: 5 * 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,

@@ -8,7 +8,7 @@ import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
 import { pgClientToken, pgPoolToken } from '@/loaders/pgLoader';
 import { sleep } from '@/utils/common';
-
+import STABLE_COINS from '../../data/defillama/stablecoins.json';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
 export class DebankService {
@@ -378,6 +378,7 @@ export class DebankService {
           protocol_id,
           updated_at,
           chain,
+          is_stable_coin: STABLE_COINS.some((stableCoin) => stableCoin.symbol === symbol),
         });
       }
     } catch (error) {
@@ -420,6 +421,7 @@ export class DebankService {
     protocol_id,
     chain,
     updated_at = new Date(),
+    is_stable_coin = false,
   }: {
     user_address: string;
     symbol: string;
@@ -431,6 +433,7 @@ export class DebankService {
     protocol_id: string;
     chain: string;
     updated_at: Date;
+    is_stable_coin: boolean;
   }) {
     await pgPool
       .query(
@@ -444,9 +447,22 @@ export class DebankService {
             price,
             protocol_id,
             chain,
+            is_stable_coin,
             updated_at
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
-        [user_address, symbol, optimized_symbol, token_name, token_id, amount, price, protocol_id, chain, updated_at],
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+        [
+          user_address,
+          symbol,
+          optimized_symbol,
+          token_name,
+          token_id,
+          amount,
+          price,
+          protocol_id,
+          chain,
+          is_stable_coin,
+          updated_at,
+        ],
       )
       .catch((err) => this.logger.discord('error', '[debank:insertUserBalance]', JSON.stringify(err)));
   }
@@ -644,7 +660,14 @@ export class DebankService {
         )
         VALUES ($1, $2, $3)
         `,
-          [user_address, JSON.stringify(balance), now],
+          [
+            user_address,
+            JSON.stringify({
+              ...balance,
+              is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+            }),
+            now,
+          ],
         );
       }),
     );

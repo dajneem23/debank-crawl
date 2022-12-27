@@ -30,6 +30,8 @@ export class DebankService {
     'debank:fetch:project:users': this.fetchProjectUsers,
     'debank:fetch:social:user': this.fetchSocialRankingByUserAddress,
     'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
+    'debank:fetch:social:rankings': this.fetchSocialRankings,
+    'debank:add:social:users:rankings': this.addFetchSocialRankingJob,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -54,7 +56,7 @@ export class DebankService {
     //?fetch socials ranking 20page
     //TODO: remove this
     // for (let i = 1; i <= 100; i++) {
-    //   this.fetchSocialRanking({
+    //   this.fetchSocialRankings({
     //     page_num: i,
     //   });
     // }
@@ -89,7 +91,7 @@ export class DebankService {
       concurrency: 5,
       limiter: {
         max: 1,
-        duration: 5 * 60 * 1000,
+        duration: 3 * 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -164,8 +166,20 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:social:users',
         repeat: {
-          //repeat every 4 hours
+          //repeat every 8 hours
           every: 1000 * 60 * 60 * 8,
+          // pattern: '* 0 0 * * *',
+        },
+        priority: 1,
+      },
+    });
+    this.addJob({
+      name: 'debank:add:social:users:rankings',
+      options: {
+        repeatJobKey: 'debank:add:social:users:rankings',
+        repeat: {
+          //repeat every 24 hours
+          every: 1000 * 60 * 60 * 24,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -481,7 +495,7 @@ export class DebankService {
       throw error;
     }
   }
-  async fetchSocialRanking({ page_num = 1, page_count = 50 }: { page_num: number; page_count?: number }) {
+  async fetchSocialRankings({ page_num = 1, page_count = 50 }: { page_num: number; page_count?: number }) {
     try {
       const { data, status } = await DebankAPI.fetch({
         endpoint: DebankAPI.Social.socialRanking.endpoint,
@@ -491,7 +505,7 @@ export class DebankService {
         },
       });
       if (status !== 200) {
-        throw new Error('fetchSocialRanking: Error fetching social ranking');
+        throw new Error('fetchSocialRankings: Error fetching social ranking');
       }
       const {
         data: { social_ranking_list },
@@ -500,7 +514,33 @@ export class DebankService {
         await this.insertSocialRanking({ user_address, rank, base_score, total_score, score_dict, value_dict });
       }
     } catch (error) {
-      this.logger.discord('error', '[fetchSocialRanking:error]', JSON.stringify(error));
+      this.logger.discord('error', '[fetchSocialRankings:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async addFetchSocialRankingJob() {
+    try {
+      for (let page_num = 1; page_num <= 1000; page_num++) {
+        this.addJob({
+          name: 'debank:fetch:social:rankings',
+          payload: {
+            page_num,
+          },
+          options: {
+            jobId: `debank:fetch:social:rankings:${page_num}:${Date.now()}`,
+            removeOnComplete: {
+              age: 1000 * 60 * 60 * 24,
+            },
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24,
+            },
+            priority: 5,
+            delay: 1000 * 60,
+          },
+        });
+      }
+    } catch (error) {
+      this.logger.discord('error', '[addFetchSocialRankingJob:error]', JSON.stringify(error));
       throw error;
     }
   }

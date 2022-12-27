@@ -7,5 +7,7 @@ export type DebankJobNames =
   | 'debank:add:project:users'
   | 'debank:fetch:project:users'
   | 'debank:add:social:users'
-  | 'debank:fetch:social:user';
+  | 'debank:fetch:social:user'
+  | 'debank:fetch:social:rankings'
+  | 'debank:add:social:users:rankings';
 export type DebankJobData = fetchDebankDataJob;

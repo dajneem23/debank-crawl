@@ -91,7 +91,7 @@ export class DebankService {
       concurrency: 5,
       limiter: {
         max: 1,
-        duration: 3 * 60 * 1000,
+        duration: 2 * 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -167,7 +167,7 @@ export class DebankService {
         repeatJobKey: 'debank:add:social:users',
         repeat: {
           //repeat every 8 hours
-          every: 1000 * 60 * 60 * 8,
+          every: 1000 * 60 * 60 * 24,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -179,7 +179,7 @@ export class DebankService {
         repeatJobKey: 'debank:add:social:users:rankings',
         repeat: {
           //repeat every 24 hours
-          every: 1000 * 60 * 60 * 24,
+          every: 1000 * 60 * 60 * 24 * 7,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -535,7 +535,7 @@ export class DebankService {
               age: 1000 * 60 * 60 * 24,
             },
             priority: 5,
-            delay: 1000 * 60,
+            delay: 1000 * 30,
           },
         });
       }
@@ -598,21 +598,21 @@ export class DebankService {
           user_addr: user_address,
         },
       });
-      await sleep(30000);
+      await sleep(10000);
       const { data: fetchAssetClassifyData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Asset.classify.endpoint,
         params: {
           user_addr: user_address,
         },
       });
-      await sleep(30000);
+      await sleep(10000);
       const { data: fetchTokenBalanceListData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Token.cacheBalanceList.endpoint,
         params: {
           user_addr: user_address,
         },
       });
-      await sleep(30000);
+      await sleep(10000);
 
       const error_code =
         fetchProjectListData.error_code || fetchAssetClassifyData.error_code || fetchTokenBalanceListData.error_code;
@@ -746,7 +746,7 @@ export class DebankService {
             age: 1000 * 60 * 60 * 24 * 7,
           },
           priority: 10,
-          delay: 1000 * 60,
+          delay: 1000 * 30,
         },
       });
     }

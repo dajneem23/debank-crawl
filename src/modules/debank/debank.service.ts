@@ -25,13 +25,16 @@ export class DebankService {
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => Promise<void>;
   } = {
-    'debank:fetch:project:list': this.fetchProjectList,
+    'debank:fetch:project:list': this.queryProjectList,
     'debank:add:project:users': this.addFetchProjectUsersJobs,
     'debank:fetch:project:users': this.fetchProjectUsers,
     'debank:fetch:social:user': this.fetchSocialRankingByUserAddress,
     'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
     'debank:fetch:social:rankings': this.fetchSocialRankings,
     'debank:add:social:users:rankings': this.addFetchSocialRankingJob,
+    'debank:fetch:user:project-list': this.fetchUserProjectList,
+    'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
+    'debank:fetch:user:token-balances': this.fetchUserBalanceList,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -39,7 +42,7 @@ export class DebankService {
 
   constructor() {
     //TODO: remove this
-    // this.fetchProjectList();
+    // this.queryProjectList();
     // this.fetchProjectUsers({
     //   projectId: '0x',
     // });
@@ -221,13 +224,13 @@ export class DebankService {
     // this.logger.discord('info', `[debank:workerProcessor:run]`, name);
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
-  async fetchProjectList() {
+  async queryProjectList() {
     try {
       const { data, status } = await DebankAPI.fetch({
         endpoint: DebankAPI.Project.list.endpoint,
       });
       if (status !== 200) {
-        throw new Error('fetchProjectList: Error fetching project list');
+        throw new Error('queryProjectList: Error fetching project list');
       }
       const { data: projects = [] } = data;
       for (const {
@@ -291,10 +294,10 @@ export class DebankService {
             new Date(),
           ],
         );
-        // .catch((err) => this.logger.discord('error', '[fetchProjectList:insert]', JSON.stringify(err)));
+        // .catch((err) => this.logger.discord('error', '[queryProjectList:insert]', JSON.stringify(err)));
       }
     } catch (error) {
-      this.logger.discord('error', '[fetchProjectList:error]', JSON.stringify(error));
+      this.logger.discord('error', '[queryProjectList:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -592,20 +595,128 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
       }
+      this.addJob({
+        name: 'debank:fetch:user:project-list',
+        payload: {
+          user_address,
+        },
+        options: {
+          jobId: `debank:fetch:user:project-list:${user_address}:${Date.now()}`,
+          removeOnComplete: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          removeOnFail: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          priority: 2,
+          delay: 1000 * 10,
+        },
+      });
+      this.addJob({
+        name: 'debank:fetch:user:token-balances',
+        payload: {
+          user_address,
+        },
+        options: {
+          jobId: `debank:fetch:user:token-balances:${user_address}:${Date.now()}`,
+          removeOnComplete: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          removeOnFail: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          priority: 2,
+          delay: 1000 * 10,
+        },
+      });
+      this.addJob({
+        name: 'debank:fetch:user:assets-portfolios',
+        payload: {
+          user_address,
+        },
+        options: {
+          jobId: `debank:fetch:user:assets-portfolios:${user_address}:${Date.now()}`,
+          removeOnComplete: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          removeOnFail: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          priority: 2,
+          delay: 1000 * 10,
+        },
+      });
+    } catch (error) {
+      this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async fetchUserProjectList({ user_address }: { user_address: string }) {
+    try {
+      if (!user_address) {
+        throw new Error('fetchSocialRankingByUserAddress: user_address is required');
+      }
       const { data: fetchProjectListData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Portfolio.projectList.endpoint,
         params: {
           user_addr: user_address,
         },
       });
-      await sleep(10000);
+
+      const error_code = fetchProjectListData.error_code;
+      if (error_code) {
+        //TODO: handle error change this to discord
+        this.logger.debug('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error_code), {
+          msg1: fetchProjectListData.error_msg,
+        });
+        throw new Error('fetchSocialRankingByUserAddress: Error fetching social ranking');
+      }
+
+      const { data: project_list } = fetchProjectListData;
+      await this.insertUserAssetPortfolio({ user_address, project_list });
+    } catch (error) {
+      this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async fetchUserAssetClassify({ user_address }: { user_address: string }) {
+    try {
+      if (!user_address) {
+        throw new Error('fetchSocialRankingByUserAddress: user_address is required');
+      }
+
       const { data: fetchAssetClassifyData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Asset.classify.endpoint,
         params: {
           user_addr: user_address,
         },
       });
-      await sleep(10000);
+
+      const error_code = fetchAssetClassifyData.error_code;
+      if (error_code) {
+        //TODO: handle error change this to discord
+        this.logger.debug('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error_code), {
+          msg2: fetchAssetClassifyData.error_msg,
+        });
+        throw new Error('fetchSocialRankingByUserAddress: Error fetching social ranking');
+      }
+      const {
+        data: { coin_list, token_list },
+      } = fetchAssetClassifyData;
+      await this.insertUserAssetPortfolio({ user_address, coin_list, token_list });
+    } catch (error) {
+      this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async fetchUserTokenBalanceList({ user_address }: { user_address: string }) {
+    try {
+      if (!user_address) {
+        throw new Error('fetchSocialRankingByUserAddress: user_address is required');
+      }
       const { data: fetchTokenBalanceListData } = await DebankAPI.fetch({
         endpoint: DebankAPI.Token.cacheBalanceList.endpoint,
         params: {
@@ -614,23 +725,17 @@ export class DebankService {
       });
       await sleep(10000);
 
-      const error_code =
-        fetchProjectListData.error_code || fetchAssetClassifyData.error_code || fetchTokenBalanceListData.error_code;
+      const error_code = fetchTokenBalanceListData.error_code;
       if (error_code) {
         //TODO: handle error change this to discord
         this.logger.debug('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error_code), {
-          msg1: fetchProjectListData.error_msg,
-          msg2: fetchAssetClassifyData.error_msg,
           msg3: fetchTokenBalanceListData.error_msg,
         });
         throw new Error('fetchSocialRankingByUserAddress: Error fetching social ranking');
       }
-      const {
-        data: { coin_list, token_list },
-      } = fetchAssetClassifyData;
+
       const { data: balance_list } = fetchTokenBalanceListData;
-      const { data: project_list } = fetchProjectListData;
-      await this.insertUserAssetPortfolio({ user_address, balance_list, coin_list, token_list, project_list });
+      await this.insertUserAssetPortfolio({ user_address, balance_list });
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
       throw error;
@@ -644,10 +749,10 @@ export class DebankService {
     project_list = [],
   }: {
     user_address: string;
-    token_list: any;
-    coin_list: any;
-    balance_list: any;
-    project_list: any;
+    token_list?: any;
+    coin_list?: any;
+    balance_list?: any;
+    project_list?: any;
   }) {
     const now = new Date();
     await pgClient.query(

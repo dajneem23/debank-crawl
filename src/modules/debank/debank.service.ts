@@ -93,7 +93,7 @@ export class DebankService {
       lockDuration: 1000 * 60,
       concurrency: 5,
       limiter: {
-        max: 40,
+        max: 30,
         duration: 60 * 1000,
       },
       metrics: {

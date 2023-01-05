@@ -370,7 +370,7 @@ export const DebankAPI = {
     /**
      * @description fetch asset list from debank
      * @requires user_addr: string
-     * @example https://api.debank.com/asset/list?user_addr=0x3b37c733c3fe51ce68c14cb735a6fcc1ff6533ed
+     * @example https://api.debank.com/asset/classify?user_addr=0x3b37c733c3fe51ce68c14cb735a6fcc1ff6533ed
      */
     classify: {
       endpoint: 'https://api.debank.com/asset/classify',

@@ -723,7 +723,6 @@ export class DebankService {
           user_addr: user_address,
         },
       });
-      await sleep(10000);
 
       const error_code = fetchTokenBalanceListData.error_code;
       if (error_code) {
@@ -853,7 +852,6 @@ export class DebankService {
             age: 1000 * 60 * 60 * 12,
           },
           priority: 2,
-          delay: 1000 * 30,
         },
       });
     }

@@ -59,7 +59,11 @@ export default class Logger {
     }
   }
 
-  trace(message: keyof typeof _messages, cron = false, ...args: any[]): void {
+  log(...args: any[]): void {
+    return this.logger.log('log', ...args);
+  }
+
+  trace(message: keyof typeof _messages, ...args: any[]): void {
     return this.logger.trace(_messages[message] || message, ...args);
   }
 
@@ -76,7 +80,7 @@ export default class Logger {
   }
 
   warn(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.warn(`⚠️${_messages[message]}` || message, ...args);
+    return this.logger.warn(`⚠️${_messages[message] || message}`, ...args);
   }
 
   error(message: keyof typeof _messages, ...args: any[]): void {

@@ -97,7 +97,7 @@ export class DebankService {
         duration: 60 * 1000,
       },
       metrics: {
-        maxDataPoints: MetricsTime.TWO_WEEKS,
+        maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
     this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
@@ -842,16 +842,10 @@ export class DebankService {
           user_address,
         },
         options: {
-          jobId: `debank:fetch:social:user:${user_address}}`,
-          removeOnComplete: {
-            // 12 hours
-            age: 1000 * 60 * 60 * 12,
-          },
-          removeOnFail: {
-            // 12 hours
-            age: 1000 * 60 * 60 * 12,
-          },
-          priority: 2,
+          jobId: `debank:fetch:social:user:${user_address}`,
+          removeOnComplete: true,
+          removeOnFail: true,
+          priority: 10,
         },
       });
     }

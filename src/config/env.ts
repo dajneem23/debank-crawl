@@ -35,6 +35,7 @@ const env = {
   APP_HOST: getRuntimeEnv('APP_HOST'),
   API_PREFIX: getRuntimeEnv('API_PREFIX'),
   MONGO_URI: getRuntimeEnv('MONGO_URI'),
+  MONGO_URI_BINANCE: getRuntimeEnv('MONGO_URI_BINANCE'),
 
   REDIS_URI: getRuntimeEnv('REDIS_URI'),
   AWS_ACCESS_KEY_ID: getRuntimeEnv('AWS_ACCESS_KEY_ID'),
@@ -71,6 +72,8 @@ const env = {
   MB_DB_USER: getRuntimeEnv('MB_DB_USER'),
   MB_DB_PASS: getRuntimeEnv('MB_DB_PASS'),
   MB_DB_HOST: getRuntimeEnv('MB_DB_HOST'),
+  BINANCE_API_KEY: getRuntimeEnv('BINANCE_API_KEY'),
+  BINANCE_API_SECRET: getRuntimeEnv('BINANCE_API_SECRET'),
 };
 
 export default env;

@@ -33,3 +33,33 @@ export const isJSON = (str: string) => {
   }
   return true;
 };
+export const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
+//output abc, def, ghi, jkl, mno, pqrs, tuv, wxyz
+export const Group3Alphabet = {
+  a: 'abc',
+  b: 'abc',
+  c: 'abc',
+  d: 'def',
+  e: 'def',
+  f: 'def',
+  g: 'ghi',
+  h: 'ghi',
+  i: 'ghi',
+  j: 'jkl',
+  k: 'jkl',
+  l: 'jkl',
+  m: 'mno',
+  n: 'mno',
+  o: 'mno',
+  p: 'pqr',
+  q: 'pqr',
+  r: 'pqr',
+  s: 'stu',
+  t: 'stu',
+  u: 'stu',
+  v: 'vwx',
+  w: 'vwx',
+  x: 'vwx',
+  y: 'yz',
+  z: 'yz',
+};

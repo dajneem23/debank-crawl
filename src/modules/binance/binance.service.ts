@@ -31,7 +31,7 @@ export class BinanceService {
     batchOrders: 20,
     reconnect: true, // set to true to reconnect automatically when connection is lost
     verbose: true,
-    log: this.logger.in.bind(this),
+    log: this.logger.warn.bind(this),
   });
 
   // private queueScheduler: QueueScheduler;

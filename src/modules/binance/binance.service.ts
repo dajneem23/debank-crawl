@@ -30,8 +30,8 @@ export class BinanceService {
     recvWindow: 60000,
     batchOrders: 20,
     reconnect: true, // set to true to reconnect automatically when connection is lost
-    verbose: env.MODE !== 'production',
-    log: this.logger.discord.bind(this),
+    verbose: true,
+    log: this.logger.in.bind(this),
   });
 
   // private queueScheduler: QueueScheduler;

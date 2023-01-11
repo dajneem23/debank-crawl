@@ -532,10 +532,10 @@ export class DebankService {
           options: {
             jobId: `debank:fetch:social:rankings:${page_num}:${Date.now()}`,
             removeOnComplete: {
-              age: 1000 * 60 * 60 * 24,
+              age: 1000 * 60 * 60 * 24 * 7,
             },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 24,
+              age: 1000 * 60 * 60 * 24 * 7,
             },
             priority: 5,
             // delay: 1000 * 30,
@@ -602,9 +602,7 @@ export class DebankService {
         },
         options: {
           jobId: `debank:fetch:user:project-list:${user_address}:${Date.now()}`,
-          removeOnComplete: {
-            age: 1000 * 60 * 60 * 24 * 7,
-          },
+          removeOnComplete: true,
           removeOnFail: {
             age: 1000 * 60 * 60 * 24 * 7,
           },
@@ -619,9 +617,7 @@ export class DebankService {
         },
         options: {
           jobId: `debank:fetch:user:token-balances:${user_address}:${Date.now()}`,
-          removeOnComplete: {
-            age: 1000 * 60 * 60 * 24 * 7,
-          },
+          removeOnComplete: true,
           removeOnFail: {
             age: 1000 * 60 * 60 * 24 * 7,
           },
@@ -636,9 +632,7 @@ export class DebankService {
         },
         options: {
           jobId: `debank:fetch:user:assets-portfolios:${user_address}:${Date.now()}`,
-          removeOnComplete: {
-            age: 1000 * 60 * 60 * 24 * 7,
-          },
+          removeOnComplete: true,
           removeOnFail: {
             age: 1000 * 60 * 60 * 24 * 7,
           },

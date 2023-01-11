@@ -800,6 +800,11 @@ export class DebankService {
         INSERT INTO "debank-user-asset-portfolio-balances"(
           user_address,
           details,
+          is_stable_coin,
+          price,
+          symbol,
+          optimized_symbol,
+          amount,
           updated_at
         )
         VALUES ($1, $2, $3)
@@ -810,6 +815,11 @@ export class DebankService {
               ...balance,
               is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
             }),
+            STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+            balance.price,
+            balance.symbol,
+            balance.optimized_symbol,
+            balance.amount,
             now,
           ],
         );

@@ -34,7 +34,7 @@ export class DebankService {
     'debank:add:social:users:rankings': this.addFetchSocialRankingJob,
     'debank:fetch:user:project-list': this.fetchUserProjectList,
     'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
-    'debank:fetch:user:token-balances': this.fetchUserBalanceList,
+    'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
     default: () => {
       throw new Error('Invalid job name');
     },

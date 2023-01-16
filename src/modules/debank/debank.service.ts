@@ -799,10 +799,9 @@ export class DebankService {
           symbol,
           optimized_symbol,
           amount,
-          time_at,
           updated_at
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         `,
           [
             user_address,
@@ -815,7 +814,6 @@ export class DebankService {
             balance.symbol,
             balance.optimized_symbol,
             balance.amount,
-            balance.time_at ? new Date(balance.time_at * 1000) : null,
             now,
           ],
         );

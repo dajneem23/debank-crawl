@@ -815,7 +815,7 @@ export class DebankService {
             balance.symbol,
             balance.optimized_symbol,
             balance.amount,
-            new Date(balance.time_at * 1000).toISOString(),
+            balance.time_at ? new Date(balance.time_at * 1000) : null,
             now,
           ],
         );

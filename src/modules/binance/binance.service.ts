@@ -266,7 +266,7 @@ export class BinanceService {
               quote_volume: +quoteVolume,
               buy_volume: +buyVolume,
               quote_buy_volume: +quoteBuyVolume,
-              time_stamp: new Date(timeStamp),
+              time_stamp: timeStamp,
             },
           } as any,
         },

@@ -33,8 +33,6 @@ export class AssetService {
 
   private queue: Queue;
 
-  // private queueScheduler: QueueScheduler;
-
   private readonly jobs: {
     [key in AssetJobNames | 'default']: () => Promise<void>;
   } = {
@@ -94,9 +92,6 @@ export class AssetService {
         removeOnFail: true,
       },
     });
-    // this.queueScheduler = new QueueScheduler('asset', {
-    //   connection: this.redisConnection,
-    // });
     const queueEvents = new QueueEvents('asset', {
       connection: this.redisConnection,
     });

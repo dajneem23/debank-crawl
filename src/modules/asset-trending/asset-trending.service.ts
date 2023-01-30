@@ -102,9 +102,6 @@ export class AssetTrendingService {
         removeOnFail: true,
       },
     });
-    // this.queueScheduler = new QueueScheduler('asset-trending', {
-    //   connection: this.redisConnection,
-    // });
     const queueEvents = new QueueEvents('asset-trending', {
       connection: this.redisConnection,
     });

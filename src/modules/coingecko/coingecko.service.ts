@@ -39,8 +39,6 @@ export class CoinGeckoService {
 
   private queue: Queue;
 
-  // private queueScheduler: QueueScheduler;
-
   private readonly jobs: {
     [key in CoinGeckoJobNames | 'default']?: (data?: any) => Promise<void>;
   } = {
@@ -113,9 +111,7 @@ export class CoinGeckoService {
         },
       },
     });
-    // this.queueScheduler = new QueueScheduler('coingecko', {
-    //   connection: this.redisConnection,
-    // });
+
     const queueEvents = new QueueEvents('coingecko', {
       connection: this.redisConnection,
     });

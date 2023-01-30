@@ -26,8 +26,6 @@ export class CategoryService {
 
   private queue: Queue;
 
-  // private queueScheduler: QueueScheduler;
-
   get outputKeys() {
     return this.model._keys;
   }
@@ -92,9 +90,7 @@ export class CategoryService {
         removeOnFail: true,
       },
     });
-    // this.queueScheduler = new QueueScheduler('category', {
-    //   connection: this.redisConnection,
-    // });
+
     const queueEvents = new QueueEvents('category', {
       connection: this.redisConnection,
     });

@@ -20,8 +20,6 @@ export class ExchangeService {
 
   private queue: Queue;
 
-  // private queueScheduler: QueueScheduler;
-
   private readonly jobs: {
     [key in ExchangeJobNames | 'default']?: () => Promise<void>;
   } = {
@@ -75,9 +73,7 @@ export class ExchangeService {
         removeOnFail: true,
       },
     });
-    // this.queueScheduler = new QueueScheduler('exchange', {
-    //   connection: this.redisConnection,
-    // });
+
     const queueEvents = new QueueEvents('exchange', {
       connection: this.redisConnection,
     });

@@ -31,8 +31,6 @@ export class DefillamaService {
 
   private queue: Queue;
 
-  // private queueScheduler: QueueScheduler;
-
   private readonly jobs: {
     [key in DefillamaJobNames | 'default']?: () => Promise<void>;
   } = {
@@ -99,9 +97,7 @@ export class DefillamaService {
         removeOnFail: true,
       },
     });
-    // this.queueScheduler = new QueueScheduler('defillama', {
-    //   connection: this.redisConnection,
-    // });
+
     const queueEvents = new QueueEvents('defillama', {
       connection: this.redisConnection,
     });

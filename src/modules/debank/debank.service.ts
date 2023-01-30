@@ -7,7 +7,6 @@ import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
 import { pgClientToken, pgPoolToken } from '@/loaders/pgLoader';
-import { sleep } from '@/utils/common';
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
@@ -19,8 +18,6 @@ export class DebankService {
   private worker: Worker;
 
   private queue: Queue;
-
-  // private queueScheduler: QueueScheduler;
 
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => Promise<void>;
@@ -122,9 +119,7 @@ export class DebankService {
         },
       },
     });
-    // this.queueScheduler = new QueueScheduler('debank', {
-    //   connection: this.redisConnection,
-    // });
+
     const queueEvents = new QueueEvents('debank', {
       connection: this.redisConnection,
     });
@@ -169,7 +164,7 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:social:users',
         repeat: {
-          //repeat every 8 hours
+          //repeat every 24 hours
           every: 1000 * 60 * 60 * 24,
           // pattern: '* 0 0 * * *',
         },
@@ -181,7 +176,7 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:social:users:rankings',
         repeat: {
-          //repeat every 24 hours
+          //repeat every 7 days
           every: 1000 * 60 * 60 * 24 * 7,
           // pattern: '* 0 0 * * *',
         },

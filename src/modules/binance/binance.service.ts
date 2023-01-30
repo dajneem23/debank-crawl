@@ -34,8 +34,6 @@ export class BinanceService {
     log: this.logger.warn.bind(this),
   });
 
-  // private queueScheduler: QueueScheduler;
-
   private readonly jobs: {
     [key in BinanceJobNames | 'default']?: (payload?: any) => Promise<void>;
   } = {
@@ -107,9 +105,7 @@ export class BinanceService {
         },
       },
     });
-    // this.queueScheduler = new QueueScheduler('binance', {
-    //   connection: this.redisConnection,
-    // });
+
     const queueEvents = new QueueEvents('binance', {
       connection: this.redisConnection,
     });
@@ -260,6 +256,7 @@ export class BinanceService {
           },
           $push: {
             candles: {
+              symbol,
               open: +open,
               high: +high,
               low: +low,
@@ -269,7 +266,7 @@ export class BinanceService {
               quote_volume: +quoteVolume,
               buy_volume: +buyVolume,
               quote_buy_volume: +quoteBuyVolume,
-              timeStamp: new Date(timeStamp),
+              time_stamp: new Date(timeStamp),
             },
           } as any,
         },

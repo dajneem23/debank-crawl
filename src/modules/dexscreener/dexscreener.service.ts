@@ -18,8 +18,6 @@ export class DexScreenerService {
 
   private queue: Queue;
 
-  // private queueScheduler: QueueScheduler;
-
   private readonly jobs: {
     [key in DexscreenerJobNames | 'default']?: (data?: any) => Promise<void>;
   } = {
@@ -88,9 +86,7 @@ export class DexScreenerService {
         removeOnFail: true,
       },
     });
-    // this.queueScheduler = new QueueScheduler('dexscreener', {
-    //   connection: this.redisConnection,
-    // });
+
     const queueEvents = new QueueEvents('dexscreener', {
       connection: this.redisConnection,
     });

@@ -74,9 +74,9 @@ export class BinanceService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 10,
+      concurrency: 50,
       limiter: {
-        max: 50,
+        max: 200,
         duration: 60 * 1000,
       },
       metrics: {

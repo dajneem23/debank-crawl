@@ -97,9 +97,7 @@ export class BinanceService {
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 5 * 60 * 1000 },
-        removeOnComplete: {
-          age: 1000 * 60 * 60 * 24 * 7,
-        },
+        removeOnComplete: true,
         removeOnFail: {
           age: 1000 * 60 * 60 * 24 * 7,
         },
@@ -197,9 +195,7 @@ export class BinanceService {
           timeStamp,
         },
         options: {
-          removeOnComplete: {
-            age: 1000 * 60 * 60 * 24 * 7,
-          },
+          removeOnComplete: true,
           removeOnFail: {
             age: 1000 * 60 * 60 * 24 * 7,
           },

@@ -7,6 +7,8 @@ import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
 import { pgClientToken, pgPoolToken } from '@/loaders/pgLoader';
+import { v4 as uuidv4 } from 'uuid';
+
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
@@ -585,7 +587,7 @@ export class DebankService {
     const { rows } = await pgPool.query(`SELECT ${select} FROM "debank-social-ranking" ORDER BY rank ASC`);
     return { rows };
   }
-  async fetchSocialRankingByUserAddress({ user_address }: { user_address: string }) {
+  async fetchSocialRankingByUserAddress({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
     try {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
@@ -594,6 +596,7 @@ export class DebankService {
         name: 'debank:fetch:user:project-list',
         payload: {
           user_address,
+          crawl_id,
         },
         options: {
           jobId: `debank:fetch:user:project-list:${user_address}:${Date.now()}`,
@@ -609,6 +612,7 @@ export class DebankService {
         name: 'debank:fetch:user:token-balances',
         payload: {
           user_address,
+          crawl_id,
         },
         options: {
           jobId: `debank:fetch:user:token-balances:${user_address}:${Date.now()}`,
@@ -624,6 +628,7 @@ export class DebankService {
         name: 'debank:fetch:user:assets-portfolios',
         payload: {
           user_address,
+          crawl_id,
         },
         options: {
           jobId: `debank:fetch:user:assets-portfolios:${user_address}:${Date.now()}`,
@@ -641,7 +646,7 @@ export class DebankService {
     }
   }
 
-  async fetchUserProjectList({ user_address }: { user_address: string }) {
+  async fetchUserProjectList({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
     try {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
@@ -663,14 +668,14 @@ export class DebankService {
       }
 
       const { data: project_list } = fetchProjectListData;
-      await this.insertUserAssetPortfolio({ user_address, project_list });
+      await this.insertUserAssetPortfolio({ user_address, project_list, crawl_id });
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
       throw error;
     }
   }
 
-  async fetchUserAssetClassify({ user_address }: { user_address: string }) {
+  async fetchUserAssetClassify({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
     try {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
@@ -694,14 +699,14 @@ export class DebankService {
       const {
         data: { coin_list, token_list },
       } = fetchAssetClassifyData;
-      await this.insertUserAssetPortfolio({ user_address, coin_list, token_list });
+      await this.insertUserAssetPortfolio({ user_address, coin_list, token_list, crawl_id });
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
       throw error;
     }
   }
 
-  async fetchUserTokenBalanceList({ user_address }: { user_address: string }) {
+  async fetchUserTokenBalanceList({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
     try {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
@@ -723,7 +728,7 @@ export class DebankService {
       }
 
       const { data: balance_list } = fetchTokenBalanceListData;
-      await this.insertUserAssetPortfolio({ user_address, balance_list });
+      await this.insertUserAssetPortfolio({ user_address, balance_list, crawl_id });
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
       throw error;
@@ -735,12 +740,14 @@ export class DebankService {
     coin_list = [],
     balance_list = [],
     project_list = [],
+    crawl_id,
   }: {
     user_address: string;
     token_list?: any;
     coin_list?: any;
     balance_list?: any;
     project_list?: any;
+    crawl_id: string;
   }) {
     try {
       const now = new Date();
@@ -760,11 +767,12 @@ export class DebankService {
         INSERT INTO "debank-user-asset-portfolio-tokens"(
           user_address,
           details,
+          crawl_id,
           updated_at
         )
         VALUES ($1, $2, $3)
         `,
-            [user_address, JSON.stringify(token).replace(/\\u0000/g, ''), now],
+            [user_address, JSON.stringify(token).replace(/\\u0000/g, ''), crawl_id, now],
           );
         }),
       );
@@ -775,11 +783,12 @@ export class DebankService {
         INSERT INTO "debank-user-asset-portfolio-coins"(
           user_address,
           details,
+          crawl_id,
           updated_at
         )
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2, $3, $4)
         `,
-            [user_address, JSON.stringify(coin).replace(/\\u0000/g, ''), now],
+            [user_address, JSON.stringify(coin).replace(/\\u0000/g, ''), crawl_id, now],
           );
         }),
       );
@@ -795,9 +804,10 @@ export class DebankService {
           symbol,
           optimized_symbol,
           amount,
+          crawl_id,
           updated_at
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         `,
             [
               user_address,
@@ -810,6 +820,7 @@ export class DebankService {
               balance.symbol,
               balance.optimized_symbol,
               balance.amount,
+              crawl_id,
               now,
             ],
           );
@@ -822,11 +833,12 @@ export class DebankService {
         INSERT INTO "debank-user-asset-portfolio-projects"(
           user_address,
           details,
+          crawl_id,
           updated_at
         )
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2, $3, $4)
         `,
-            [user_address, JSON.stringify(project).replace(/\\u0000/g, ''), now],
+            [user_address, JSON.stringify(project).replace(/\\u0000/g, ''), crawl_id, now],
           );
         }),
       );
@@ -855,6 +867,7 @@ export class DebankService {
         name: 'debank:fetch:social:user',
         payload: {
           user_address,
+          crawl_id: uuidv4(),
         },
         options: {
           jobId: `debank:fetch:social:user:${user_address}`,

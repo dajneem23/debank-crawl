@@ -265,6 +265,9 @@ export class BinanceService {
               time_stamp: timeStamp,
             },
           } as any,
+          $set: {
+            updated_at: new Date(),
+          },
         },
         {
           upsert: true,

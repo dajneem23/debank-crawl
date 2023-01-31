@@ -360,7 +360,7 @@ export const DebankAPI = {
     /**
      * @description fetch portfolio list from debank
      * @requires user_addr: string
-     * @example https://api.debank.com/portfolio/list?user_addr=0x3b37c733c3fe51ce68c14cb735a6fcc1ff6533ed
+     * @example https://api.debank.com/portfolio/project_list?user_addr=0x3b37c733c3fe51ce68c14cb735a6fcc1ff6533ed
      */
     projectList: {
       endpoint: 'https://api.debank.com/portfolio/project_list',

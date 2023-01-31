@@ -742,20 +742,21 @@ export class DebankService {
     balance_list?: any;
     project_list?: any;
   }) {
-    const now = new Date();
-    await pgClient.query(
-      `
+    try {
+      const now = new Date();
+      await pgClient.query(
+        `
       INSERT INTO "debank-user-address-list" (
         user_address,
         updated_at
       ) VALUES ($1, $2) ON CONFLICT (user_address) DO UPDATE SET updated_at = $2
     `,
-      [user_address, now],
-    );
-    await Promise.all(
-      token_list.map(async (token: any) => {
-        await pgClient.query(
-          `
+        [user_address, now],
+      );
+      await Promise.all(
+        token_list.map(async (token: any) => {
+          await pgClient.query(
+            `
         INSERT INTO "debank-user-asset-portfolio-tokens"(
           user_address,
           details,
@@ -763,14 +764,14 @@ export class DebankService {
         )
         VALUES ($1, $2, $3)
         `,
-          [user_address, JSON.stringify(token), now],
-        );
-      }),
-    );
-    await Promise.all(
-      coin_list.map(async (coin: any) => {
-        await pgClient.query(
-          `
+            [user_address, JSON.stringify(token).replace(/\\u0000/g, ''), now],
+          );
+        }),
+      );
+      await Promise.all(
+        coin_list.map(async (coin: any) => {
+          await pgClient.query(
+            `
         INSERT INTO "debank-user-asset-portfolio-coins"(
           user_address,
           details,
@@ -778,14 +779,14 @@ export class DebankService {
         )
         VALUES ($1, $2, $3)
         `,
-          [user_address, JSON.stringify(coin), now],
-        );
-      }),
-    );
-    await Promise.all(
-      balance_list.map(async (balance: any) => {
-        await pgClient.query(
-          `
+            [user_address, JSON.stringify(coin).replace(/\\u0000/g, ''), now],
+          );
+        }),
+      );
+      await Promise.all(
+        balance_list.map(async (balance: any) => {
+          await pgClient.query(
+            `
         INSERT INTO "debank-user-asset-portfolio-balances"(
           user_address,
           details,
@@ -798,26 +799,26 @@ export class DebankService {
         )
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         `,
-          [
-            user_address,
-            JSON.stringify({
-              ...balance,
-              is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-            }),
-            STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-            balance.price,
-            balance.symbol,
-            balance.optimized_symbol,
-            balance.amount,
-            now,
-          ],
-        );
-      }),
-    );
-    await Promise.all(
-      project_list.map(async (project: any) => {
-        await pgClient.query(
-          `
+            [
+              user_address,
+              JSON.stringify({
+                ...balance,
+                is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+              }).replace(/\\u0000/g, ''),
+              STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+              balance.price,
+              balance.symbol,
+              balance.optimized_symbol,
+              balance.amount,
+              now,
+            ],
+          );
+        }),
+      );
+      await Promise.all(
+        project_list.map(async (project: any) => {
+          await pgClient.query(
+            `
         INSERT INTO "debank-user-asset-portfolio-projects"(
           user_address,
           details,
@@ -825,10 +826,25 @@ export class DebankService {
         )
         VALUES ($1, $2, $3)
         `,
-          [user_address, JSON.stringify(project), now],
-        );
-      }),
-    );
+            [user_address, JSON.stringify(project).replace(/\\u0000/g, ''), now],
+          );
+        }),
+      );
+    } catch (error) {
+      this.logger.error(
+        'error',
+        '[insertUserAssetPortfolio:error]',
+        JSON.stringify(error),
+        JSON.stringify({
+          user_address,
+          token_list,
+          coin_list,
+          balance_list,
+          project_list,
+        }),
+      );
+      throw error;
+    }
   }
   async addFetchSocialRankingByUsersAddressJob() {
     const { rows } = await this.querySocialRanking({

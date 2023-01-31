@@ -770,7 +770,7 @@ export class DebankService {
           crawl_id,
           updated_at
         )
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2, $3,$4)
         `,
             [user_address, JSON.stringify(token).replace(/\\u0000/g, ''), crawl_id, now],
           );

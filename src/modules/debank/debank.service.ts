@@ -90,9 +90,9 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 5,
+      concurrency: 10,
       limiter: {
-        max: 50,
+        max: 100,
         duration: 60 * 1000,
       },
       metrics: {
@@ -112,7 +112,7 @@ export class DebankService {
         // The total number of attempts to try the job until it completes
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 5 * 60 * 1000 },
+        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
           age: 1000 * 60 * 60 * 24 * 7,
         },
@@ -605,7 +605,7 @@ export class DebankService {
             age: 1000 * 60 * 60 * 24 * 7,
           },
           priority: 5,
-          delay: 1000 * 10,
+          // delay: 1000 * 10,
         },
       });
       this.addJob({
@@ -621,7 +621,7 @@ export class DebankService {
             age: 1000 * 60 * 60 * 24 * 7,
           },
           priority: 5,
-          delay: 1000 * 10,
+          // delay: 1000 * 10,
         },
       });
       this.addJob({
@@ -637,7 +637,7 @@ export class DebankService {
             age: 1000 * 60 * 60 * 24 * 7,
           },
           priority: 5,
-          delay: 1000 * 10,
+          // delay: 1000 * 10,
         },
       });
     } catch (error) {

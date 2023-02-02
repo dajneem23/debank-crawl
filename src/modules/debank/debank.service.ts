@@ -849,7 +849,7 @@ export class DebankService {
       select: 'user_address',
     });
 
-    const crawl_id = (await this.queryLastCrawlIdToday()) + 1;
+    const crawl_id = await this.getCrawlId();
     for (const { user_address } of rows) {
       this.addJob({
         name: 'debank:fetch:social:user',
@@ -869,7 +869,7 @@ export class DebankService {
     }
   }
 
-  async queryLastCrawlIdToday() {
+  async getCrawlId() {
     const { rows } = await pgClient.query(`
       SELECT
         last_crawl_id
@@ -882,6 +882,6 @@ export class DebankService {
           LIMIT 1
     `);
 
-    return +(rows[0]?.last_crawl_id || `${formatDate(new Date(), 'YYYYMMDD')}1`);
+    return +(rows[0]?.last_crawl_id ? rows[0]?.last_crawl_id + 1 : `${formatDate(new Date(), 'YYYYMMDD')}1`);
   }
 }

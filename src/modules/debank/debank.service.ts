@@ -884,6 +884,8 @@ export class DebankService {
           LIMIT 1
     `);
 
-    return +(rows[0]?.last_crawl_id ? rows[0]?.last_crawl_id + 1 : `${formatDate(new Date(), 'YYYYMMDD')}1`);
+    return +(rows[0]?.last_crawl_id && rows[0].last_crawl_id
+      ? +rows[0].last_crawl_id + 1
+      : `${formatDate(new Date(), 'YYYYMMDD')}1`);
   }
 }

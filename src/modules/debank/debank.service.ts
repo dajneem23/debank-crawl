@@ -596,17 +596,15 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
       }
-      const [{ balance_list }, { project_list }, { coin_list, token_list }] = await Promise.all([
-        this.fetchUserTokenBalanceList({
-          user_address,
-        }),
-        this.fetchUserProjectList({
-          user_address,
-        }),
-        this.fetchUserAssetClassify({
-          user_address,
-        }),
-      ]);
+      const { balance_list } = await this.fetchUserTokenBalanceList({
+        user_address,
+      });
+      const { project_list } = await this.fetchUserProjectList({
+        user_address,
+      });
+      const { coin_list, token_list } = await this.fetchUserAssetClassify({
+        user_address,
+      });
       await this.insertUserAssetPortfolio({
         user_address,
         balance_list,
@@ -859,8 +857,12 @@ export class DebankService {
         },
         options: {
           jobId: `debank:fetch:social:user:${user_address}`,
-          removeOnComplete: true,
-          removeOnFail: true,
+          removeOnComplete: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          removeOnFail: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
           priority: 10,
           delay: 1000 * 10,
           attempts: 10,

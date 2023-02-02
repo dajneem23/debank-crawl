@@ -10,6 +10,7 @@ import { pgClientToken, pgPoolToken } from '@/loaders/pgLoader';
 import { v4 as uuidv4 } from 'uuid';
 
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
+import { formatDate } from '@/utils/date';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
 export class DebankService {
@@ -22,7 +23,7 @@ export class DebankService {
   private queue: Queue;
 
   private readonly jobs: {
-    [key in DebankJobNames | 'default']?: (payload?: any) => Promise<void>;
+    [key in DebankJobNames | 'default']?: (payload?: any) => any;
   } = {
     'debank:fetch:project:list': this.queryProjectList,
     'debank:add:project:users': this.addFetchProjectUsersJobs,
@@ -72,6 +73,9 @@ export class DebankService {
     //       user_address,
     //     });
     //   }
+    // });
+    // this.queryLastCrawlIdToday().then(async (res) => {
+    //   console.log(res);
     // });
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
@@ -592,53 +596,24 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
       }
-      this.addJob({
-        name: 'debank:fetch:user:project-list',
-        payload: {
+      const [{ balance_list }, { project_list }, { coin_list, token_list }] = await Promise.all([
+        this.fetchUserTokenBalanceList({
           user_address,
-          crawl_id,
-        },
-        options: {
-          jobId: `debank:fetch:user:project-list:${user_address}:${Date.now()}`,
-          removeOnComplete: true,
-          removeOnFail: {
-            age: 1000 * 60 * 60 * 24 * 7,
-          },
-          priority: 5,
-          // delay: 1000 * 10,
-        },
-      });
-      this.addJob({
-        name: 'debank:fetch:user:token-balances',
-        payload: {
+        }),
+        this.fetchUserProjectList({
           user_address,
-          crawl_id,
-        },
-        options: {
-          jobId: `debank:fetch:user:token-balances:${user_address}:${Date.now()}`,
-          removeOnComplete: true,
-          removeOnFail: {
-            age: 1000 * 60 * 60 * 24 * 7,
-          },
-          priority: 5,
-          // delay: 1000 * 10,
-        },
-      });
-      this.addJob({
-        name: 'debank:fetch:user:assets-portfolios',
-        payload: {
+        }),
+        this.fetchUserAssetClassify({
           user_address,
-          crawl_id,
-        },
-        options: {
-          jobId: `debank:fetch:user:assets-portfolios:${user_address}:${Date.now()}`,
-          removeOnComplete: true,
-          removeOnFail: {
-            age: 1000 * 60 * 60 * 24 * 7,
-          },
-          priority: 5,
-          // delay: 1000 * 10,
-        },
+        }),
+      ]);
+      await this.insertUserAssetPortfolio({
+        user_address,
+        balance_list,
+        project_list,
+        coin_list,
+        token_list,
+        crawl_id,
       });
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
@@ -646,7 +621,7 @@ export class DebankService {
     }
   }
 
-  async fetchUserProjectList({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
+  async fetchUserProjectList({ user_address }: { user_address: string }) {
     try {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
@@ -668,14 +643,17 @@ export class DebankService {
       }
 
       const { data: project_list } = fetchProjectListData;
-      await this.insertUserAssetPortfolio({ user_address, project_list, crawl_id });
+      // await this.insertUserAssetPortfolio({ user_address, project_list, crawl_id });
+      return {
+        project_list,
+      };
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
       throw error;
     }
   }
 
-  async fetchUserAssetClassify({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
+  async fetchUserAssetClassify({ user_address }: { user_address: string }) {
     try {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
@@ -699,14 +677,18 @@ export class DebankService {
       const {
         data: { coin_list, token_list },
       } = fetchAssetClassifyData;
-      await this.insertUserAssetPortfolio({ user_address, coin_list, token_list, crawl_id });
+      // await this.insertUserAssetPortfolio({ user_address, coin_list, token_list, crawl_id });
+      return {
+        coin_list,
+        token_list,
+      };
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
       throw error;
     }
   }
 
-  async fetchUserTokenBalanceList({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
+  async fetchUserTokenBalanceList({ user_address }: { user_address: string }) {
     try {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
@@ -728,7 +710,10 @@ export class DebankService {
       }
 
       const { data: balance_list } = fetchTokenBalanceListData;
-      await this.insertUserAssetPortfolio({ user_address, balance_list, crawl_id });
+      // await this.insertUserAssetPortfolio({ user_address, balance_list, crawl_id });
+      return {
+        balance_list,
+      };
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
       throw error;
@@ -755,10 +740,11 @@ export class DebankService {
         `
       INSERT INTO "debank-user-address-list" (
         user_address,
+        last_crawl_id,
         updated_at
-      ) VALUES ($1, $2) ON CONFLICT (user_address) DO UPDATE SET updated_at = $2
+      ) VALUES ($1, $2,$3) ON CONFLICT (user_address) DO UPDATE SET updated_at = $2 , last_crawl_id = $2
     `,
-        [user_address, now],
+        [user_address, crawl_id, now],
       );
       await Promise.all(
         token_list.map(async (token: any) => {
@@ -862,20 +848,40 @@ export class DebankService {
     const { rows } = await this.querySocialRanking({
       select: 'user_address',
     });
+
+    const crawl_id = (await this.queryLastCrawlIdToday()) + 1;
     for (const { user_address } of rows) {
       this.addJob({
         name: 'debank:fetch:social:user',
         payload: {
           user_address,
-          crawl_id: uuidv4(),
+          crawl_id,
         },
         options: {
           jobId: `debank:fetch:social:user:${user_address}`,
           removeOnComplete: true,
           removeOnFail: true,
           priority: 10,
+          delay: 1000 * 10,
+          attempts: 10,
         },
       });
     }
+  }
+
+  async queryLastCrawlIdToday() {
+    const { rows } = await pgClient.query(`
+      SELECT
+        last_crawl_id
+      FROM
+        "debank-user-address-list"
+      Where
+        updated_at > now() - interval '1 day'
+      ORDER BY
+        updated_at DESC
+          LIMIT 1
+    `);
+
+    return +(rows[0]?.last_crawl_id || `${formatDate(new Date(), 'YYYYMMDD')}1`);
   }
 }

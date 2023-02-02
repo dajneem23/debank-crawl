@@ -43,6 +43,7 @@
     "lodash": "^4.17.21",
     "log4js": "^6.3.0",
     "mailgun.js": "^8.0.2",
+    "moment": "^2.29.4",
     "mongodb": "^4.2.1",
     "node-binance-api": "^0.13.1",
     "node-telegram-bot-api": "^0.60.0",

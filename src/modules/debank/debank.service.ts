@@ -742,7 +742,7 @@ export class DebankService {
         user_address,
         last_crawl_id,
         updated_at
-      ) VALUES ($1, $2,$3) ON CONFLICT (user_address) DO UPDATE SET updated_at = $2 , last_crawl_id = $2
+      ) VALUES ($1, $2,$3) ON CONFLICT (user_address) DO UPDATE SET updated_at = $3 , last_crawl_id = $2
     `,
         [user_address, crawl_id, now],
       );

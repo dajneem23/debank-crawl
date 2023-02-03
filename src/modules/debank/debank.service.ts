@@ -1098,6 +1098,8 @@ export class DebankService {
       } else {
         return `${formatDate(new Date(), 'YYYYMMDD')}1`;
       }
+    } else {
+      return `${formatDate(new Date(), 'YYYYMMDD')}1`;
     }
   }
   async insertUserAddress({ user_address }: { user_address: string }) {

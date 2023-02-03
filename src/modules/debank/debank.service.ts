@@ -771,6 +771,11 @@ export class DebankService {
   async insertWhaleList({ whales, crawl_id }: { whales: any[]; crawl_id: number }) {
     try {
       //insert all whale list
+      await pgClient.query(
+        `
+         BEGIN;
+         `,
+      );
       await Promise.all([
         whales.map(async ({ id, ...rest }) => {
           await pgClient.query(
@@ -787,7 +792,17 @@ export class DebankService {
           );
         }),
       ]);
+      await pgClient.query(
+        `
+          COMMIT;
+          `,
+      );
     } catch (error) {
+      await pgClient.query(
+        `
+          ROLLBACK;
+          `,
+      );
       this.logger.discord('error', '[insertWhaleList:error]', JSON.stringify(error));
       throw error;
     }
@@ -820,9 +835,33 @@ export class DebankService {
         });
       }
       await this.insertWhaleList({ whales, crawl_id });
+      //insert all address
+      await insertUserAddressList(whales);
     } catch (error) {
       this.logger.discord('error', '[addFetchWhaleListJob:error]', JSON.stringify(error));
       throw error;
+    }
+
+    async function insertUserAddressList(whales: any) {
+      try {
+        await pgClient.query(`
+        BEGIN;
+      `);
+        await Promise.all([
+          whales.map(async ({ id }: { id: string }) => {
+            await this.insertUserAddress({ user_address: id });
+          }),
+        ]);
+        await pgClient.query(`
+        COMMIT;
+      `);
+      } catch (error) {
+        await pgClient.query(`
+        ROLLBACK;
+      `);
+        this.logger.discord('error', '[fetchWhalesPaging:error]', JSON.stringify(error));
+        throw error;
+      }
     }
   }
   async addFetchWhalesPagingJob() {
@@ -864,6 +903,11 @@ export class DebankService {
   }) {
     try {
       const now = new Date();
+      await pgClient.query(
+        `
+      BEGIN;
+      `,
+      );
       await pgClient.query(
         `
       INSERT INTO "debank-user-address-list" (
@@ -956,7 +1000,13 @@ export class DebankService {
           );
         }),
       );
+      await pgClient.query(`
+      COMMIT;
+    `);
     } catch (error) {
+      await pgClient.query(`
+      ROLLBACK;
+    `);
       this.logger.error(
         'error',
         '[insertUserAssetPortfolio:error]',
@@ -1046,5 +1096,18 @@ export class DebankService {
         return `${formatDate(new Date(), 'YYYYMMDD')}1`;
       }
     }
+  }
+  async insertUserAddress({ user_address }: { user_address: string }) {
+    const now = new Date();
+    pgClient.query(
+      `
+      INSERT INTO "debank-user-address-list"(
+        user_address,
+        updated_at
+      )
+      VALUES ($1, $2) ON CONFLICT (user_address) DO NOTHING
+    `,
+      [user_address, now],
+    );
   }
 }

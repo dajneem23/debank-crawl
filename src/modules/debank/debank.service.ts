@@ -856,7 +856,7 @@ export class DebankService {
           crawl_id,
         },
         options: {
-          jobId: `debank:fetch:social:user:${user_address}`,
+          jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
           removeOnComplete: true,
           removeOnFail: {
             age: 1000 * 60 * 60 * 24 * 7,
@@ -881,9 +881,17 @@ export class DebankService {
         updated_at DESC
           LIMIT 1
     `);
-
-    return +(rows[0]?.last_crawl_id && rows[0].last_crawl_id
-      ? +rows[0].last_crawl_id + 1
-      : `${formatDate(new Date(), 'YYYYMMDD')}1`);
+    if (rows[0]?.last_crawl_id && rows[0].last_crawl_id) {
+      const last_crawl_id = rows[0].last_crawl_id;
+      const last_crawl_id_date = last_crawl_id.slice(0, 8);
+      const last_crawl_id_number = parseInt(last_crawl_id.slice(8));
+      if (last_crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
+        return `${last_crawl_id_date}${last_crawl_id_number + 1}`;
+      } else {
+        return `${formatDate(new Date(), 'YYYYMMDD')}1`;
+      }
+    } else {
+      return `${formatDate(new Date(), 'YYYYMMDD')}1`;
+    }
   }
 }

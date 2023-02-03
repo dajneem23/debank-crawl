@@ -376,14 +376,14 @@ export const DebankAPI = {
       endpoint: 'https://api.debank.com/asset/classify',
     },
   },
-  Whales: {
+  Whale: {
     /*
      * @description fetch whale list from debank
      * @requires start: number,limit: number,order_by: string
      * @example https://api.debank.com/whales/list?start=0&limit=100&order_by=usd_value
      */
     list: {
-      endpoint: 'https://api.debank.com/whales/list',
+      endpoint: 'https://api.debank.com/whale/list',
       params: {
         start: 0,
         limit: 100,

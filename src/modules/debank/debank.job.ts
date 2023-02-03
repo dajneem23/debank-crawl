@@ -12,5 +12,8 @@ export type DebankJobNames =
   | 'debank:add:social:users:rankings'
   | 'debank:fetch:user:project-list'
   | 'debank:fetch:user:assets-portfolios'
-  | 'debank:fetch:user:token-balances';
+  | 'debank:fetch:user:token-balances'
+  | 'debank:fetch:whales:paging'
+  | 'debank:add::fetch:whales:paging';
+
 export type DebankJobData = fetchDebankDataJob;

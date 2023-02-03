@@ -35,6 +35,8 @@ export class DebankService {
     'debank:fetch:user:project-list': this.fetchUserProjectList,
     'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
     'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
+    'debank:fetch:whales:paging': this.fetchWhalesPaging,
+    'debank:add::fetch:whales:paging': this.addFetchWhalesPagingJob,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -185,6 +187,17 @@ export class DebankService {
           //repeat every 7 days
           every: 1000 * 60 * 60 * 24 * 7,
           // pattern: '* 0 0 * * *',
+        },
+        priority: 1,
+      },
+    });
+    this.addJob({
+      name: 'debank:add::fetch:whales:paging',
+      options: {
+        repeatJobKey: 'debank:add::fetch:whales:paging',
+        repeat: {
+          //repeat every 24 hours
+          every: 1000 * 60 * 60 * 24,
         },
         priority: 1,
       },
@@ -717,6 +730,123 @@ export class DebankService {
       throw error;
     }
   }
+
+  async fetchWhaleList(
+    {
+      start = 0,
+      limit = DebankAPI.Whale.list.params.limit,
+      order_by = DebankAPI.Whale.list.params.order_by,
+    }: {
+      start: number;
+      limit: number;
+      order_by: string;
+    } = DebankAPI.Whale.list.params,
+  ) {
+    try {
+      const { data, status } = await DebankAPI.fetch({
+        endpoint: DebankAPI.Whale.list.endpoint,
+        params: {
+          start,
+          limit,
+          order_by,
+        },
+      });
+      if (status !== 200) {
+        this.logger.discord('error', '[fetchWhaleList:error]', JSON.stringify(data));
+        throw new Error('fetchWhaleList: Error fetching social ranking');
+      }
+      const { whales, total_count } = data;
+      return {
+        whales,
+        total_count,
+        start,
+        limit,
+      };
+    } catch (error) {
+      this.logger.discord('error', '[fetchWhaleList:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async insertWhaleList({ whales, crawl_id }: { whales: any[]; crawl_id: number }) {
+    try {
+      //insert all whale list
+      await Promise.all([
+        whales.map(async ({ id, ...rest }) => {
+          await pgClient.query(
+            `
+          INSERT INTO "debank-whales" (
+            user_address,
+            details,
+            crawl_id,
+            created_at
+          )
+          VALUES ($1, $2, $3, $4)
+          `,
+            [id, JSON.stringify(rest), crawl_id, new Date()],
+          );
+        }),
+      ]);
+    } catch (error) {
+      this.logger.discord('error', '[insertWhaleList:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async fetchWhalesPaging({ start, crawl_id }: { start: number; crawl_id: number }) {
+    try {
+      const { whales, total_count } = await this.fetchWhaleList({
+        start,
+        limit: DebankAPI.Whale.list.params.limit,
+        order_by: DebankAPI.Whale.list.params.order_by,
+      });
+      if (total_count == DebankAPI.Whale.list.params.limit) {
+        this.addJob({
+          name: 'debank:fetch:whales:paging',
+          payload: {
+            start: start + DebankAPI.Whale.list.params.limit,
+            crawl_id,
+          },
+          options: {
+            jobId: `debank:fetch:whales:paging:${crawl_id}:${start}`,
+            removeOnComplete: true,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24 * 7,
+            },
+            priority: 9,
+            delay: 1000 * 10,
+            attempts: 10,
+          },
+        });
+      }
+      await this.insertWhaleList({ whales, crawl_id });
+    } catch (error) {
+      this.logger.discord('error', '[addFetchWhaleListJob:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async addFetchWhalesPagingJob() {
+    try {
+      const crawl_id = await this.getWhalesCrawlId();
+      this.addJob({
+        name: 'debank:fetch:whales:paging',
+        payload: {
+          start: 0,
+          crawl_id,
+        },
+        options: {
+          jobId: `debank:fetch:whales:paging:${crawl_id}:${0}`,
+          removeOnComplete: true,
+          removeOnFail: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          priority: 9,
+          delay: 1000 * 10,
+          attempts: 10,
+        },
+      });
+    } catch (error) {}
+  }
   async insertUserAssetPortfolio({
     user_address,
     token_list = [],
@@ -892,6 +1022,29 @@ export class DebankService {
       }
     } else {
       return `${formatDate(new Date(), 'YYYYMMDD')}1`;
+    }
+  }
+  async getWhalesCrawlId() {
+    const { rows } = await pgClient.query(`
+      SELECT
+        crawl_id
+      FROM
+        "debank-whales"
+      Where
+        updated_at > now() - interval '1 day'
+      ORDER BY
+        updated_at DESC
+          LIMIT 1
+    `);
+    if (rows[0]?.crawl_id && rows[0].crawl_id) {
+      const crawl_id = rows[0].crawl_id;
+      const crawl_id_date = crawl_id.slice(0, 8);
+      const crawl_id_number = parseInt(crawl_id.slice(8));
+      if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
+        return `${crawl_id_date}${crawl_id_number + 1}`;
+      } else {
+        return `${formatDate(new Date(), 'YYYYMMDD')}1`;
+      }
     }
   }
 }

@@ -743,7 +743,10 @@ export class DebankService {
     } = DebankAPI.Whale.list.params,
   ) {
     try {
-      const { data, status } = await DebankAPI.fetch({
+      const {
+        data: { data, error_code },
+        status,
+      } = await DebankAPI.fetch({
         endpoint: DebankAPI.Whale.list.endpoint,
         params: {
           start,
@@ -751,8 +754,13 @@ export class DebankService {
           order_by,
         },
       });
-      if (status !== 200) {
-        this.logger.discord('error', '[fetchWhaleList:error]', JSON.stringify(data));
+      if (status !== 200 || error_code) {
+        this.logger.discord(
+          'error',
+          '[fetchWhaleList:error]',
+          JSON.stringify(data),
+          JSON.stringify({ status, error_code }),
+        );
         throw new Error('fetchWhaleList: Error fetching social ranking');
       }
       const { whales, total_count } = data;

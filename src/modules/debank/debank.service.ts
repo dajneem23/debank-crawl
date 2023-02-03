@@ -96,7 +96,7 @@ export class DebankService {
       lockDuration: 1000 * 60,
       concurrency: 10,
       limiter: {
-        max: 100,
+        max: 150,
         duration: 60 * 1000,
       },
       metrics: {
@@ -857,9 +857,7 @@ export class DebankService {
         },
         options: {
           jobId: `debank:fetch:social:user:${user_address}`,
-          removeOnComplete: {
-            age: 1000 * 60 * 60 * 24 * 7,
-          },
+          removeOnComplete: true,
           removeOnFail: {
             age: 1000 * 60 * 60 * 24 * 7,
           },

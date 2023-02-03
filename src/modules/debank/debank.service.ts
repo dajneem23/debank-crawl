@@ -884,7 +884,10 @@ export class DebankService {
           attempts: 10,
         },
       });
-    } catch (error) {}
+    } catch (error) {
+      this.logger.discord('error', '[addFetchWhalesPagingJob:error]', JSON.stringify(error));
+      throw error;
+    }
   }
   async insertUserAssetPortfolio({
     user_address,

@@ -41,6 +41,7 @@ export class DebankService {
     'debank:fetch:whales:paging': this.fetchWhalesPaging,
     'debank:add::fetch:whales:paging': this.addFetchWhalesPagingJob,
     'debank:insert:whale': this.insertWhale,
+    'debank:insert:user-address': this.insertUserAddress,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -901,21 +902,26 @@ export class DebankService {
 
     async function insertUserAddressList(whales: any) {
       try {
-        await pgClient.query(`
-        BEGIN;
-      `);
         await Promise.all([
           whales.map(async ({ id }: { id: string }) => {
-            await this.insertUserAddress({ user_address: id });
+            this.addInsertJob({
+              name: 'debank:insert:user-address',
+              payload: {
+                user_address: id,
+                updated_at: new Date(),
+              },
+              options: {
+                removeOnComplete: true,
+                removeOnFail: {
+                  age: 1000 * 60 * 60 * 24 * 7,
+                },
+                priority: 5,
+                attempts: 10,
+              },
+            });
           }),
         ]);
-        await pgClient.query(`
-        COMMIT;
-      `);
       } catch (error) {
-        await pgClient.query(`
-        ROLLBACK;
-      `);
         this.logger.discord('error', '[fetchWhalesPaging:error]', JSON.stringify(error));
         throw error;
       }
@@ -1159,7 +1165,7 @@ export class DebankService {
       return `${formatDate(new Date(), 'YYYYMMDD')}1`;
     }
   }
-  async insertUserAddress({ user_address }: { user_address: string }) {
+  async insertUserAddress({ user_address, updated_at }: { user_address: string; updated_at: Date }) {
     const now = new Date();
     pgClient.query(
       `
@@ -1169,7 +1175,7 @@ export class DebankService {
       )
       VALUES ($1, $2) ON CONFLICT (user_address) DO NOTHING
     `,
-      [user_address, now],
+      [user_address, updated_at || now],
     );
   }
 }

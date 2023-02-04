@@ -898,7 +898,7 @@ export class DebankService {
           },
         });
       }
-      await this.insertWhaleList({ whales, crawl_id });
+      this.insertWhaleList({ whales, crawl_id });
       //insert all address
       await insertUserAddressList(whales);
     } catch (error) {

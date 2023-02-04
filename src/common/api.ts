@@ -403,17 +403,12 @@ export const DebankAPI = {
     return axios.get(`${endpoint}`, {
       params,
       ...config,
-      proxy: {
-        host: WEBSHARE_PROXY_HTTP.host,
-        port: WEBSHARE_PROXY_HTTP.port,
-        auth: { username: WEBSHARE_PROXY_HTTP.auth.username, password: WEBSHARE_PROXY_HTTP.auth.password },
-        protocol: WEBSHARE_PROXY_HTTP.protocol,
-      },
-      // proxy: MUAPROXY_PROXY_HTTP,
-      // proxy: false,
-      // httpsAgent: TOR_PROXY_HTTP_AGENT,
-      // httpAgent: TOR_PROXY_HTTP_AGENT,
-      // timeout: 60000,
+      // proxy: {
+      //   host: WEBSHARE_PROXY_HTTP.host,
+      //   port: WEBSHARE_PROXY_HTTP.port,
+      //   auth: { username: WEBSHARE_PROXY_HTTP.auth.username, password: WEBSHARE_PROXY_HTTP.auth.password },
+      //   protocol: WEBSHARE_PROXY_HTTP.protocol,
+      // },
     });
   },
 };

@@ -42,6 +42,7 @@ export class DebankService {
     'debank:add::fetch:whales:paging': this.addFetchWhalesPagingJob,
     'debank:insert:whale': this.insertWhale,
     'debank:insert:user-address': this.insertUserAddress,
+    'debank:insert:user-assets-portfolio': this.insertUserAssetPortfolio,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -117,9 +118,9 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 20,
+      concurrency: 50,
       limiter: {
-        max: 200,
+        max: 2000,
         duration: 60 * 1000,
       },
       metrics: {
@@ -671,13 +672,32 @@ export class DebankService {
       const { coin_list, token_list } = await this.fetchUserAssetClassify({
         user_address,
       });
-      await this.insertUserAssetPortfolio({
-        user_address,
-        balance_list,
-        project_list,
-        coin_list,
-        token_list,
-        crawl_id,
+      // await this.insertUserAssetPortfolio({
+      //   user_address,
+      //   balance_list,
+      //   project_list,
+      //   coin_list,
+      //   token_list,
+      //   crawl_id,
+      // });
+      this.addInsertJob({
+        name: 'debank:insert:user-assets-portfolio',
+        payload: {
+          user_address,
+          balance_list,
+          project_list,
+          coin_list,
+          token_list,
+          crawl_id,
+        },
+        options: {
+          removeOnComplete: true,
+          removeOnFail: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
+          priority: 5,
+          attempts: 10,
+        },
       });
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));

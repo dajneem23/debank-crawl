@@ -155,7 +155,6 @@ export class DebankService {
     });
     // TODO: ENABLE THIS
     this.initRepeatJobs();
-
     // queueEvents.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
     // });
@@ -879,7 +878,7 @@ export class DebankService {
         limit: DebankAPI.Whale.list.params.limit,
         order_by: DebankAPI.Whale.list.params.order_by,
       });
-      if (total_count == DebankAPI.Whale.list.params.limit) {
+      if (whales?.length == DebankAPI.Whale.list.params.limit) {
         this.addJob({
           name: 'debank:fetch:whales:paging',
           payload: {
@@ -944,7 +943,9 @@ export class DebankService {
         },
         options: {
           jobId: `debank:fetch:whales:paging:${crawl_id}:${0}`,
-          removeOnComplete: true,
+          removeOnComplete: {
+            age: 1000 * 60 * 60 * 24 * 7,
+          },
           removeOnFail: {
             age: 1000 * 60 * 60 * 24 * 7,
           },

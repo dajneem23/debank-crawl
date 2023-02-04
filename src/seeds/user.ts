@@ -1,7 +1,7 @@
 import { $countCollection } from '@/utils/mongoDB';
 import bcrypt from 'bcryptjs';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 /* eslint-disable no-console */
 export const UserSeed = async () => {
   console.log('Running event seed');

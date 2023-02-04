@@ -10,7 +10,7 @@ import addon_categories from '../data/addon_categories.json';
 // import categories_crypto from '../data/categories_crypto_asset.json';
 import { $countCollection } from '@/utils/mongoDB';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 import slugify from 'slugify';
 import assetCategoriesBK from '../data/backup/asset-categories.json';
 import fs from 'fs';

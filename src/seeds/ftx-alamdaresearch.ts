@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { createDataFile, readDataFromFile } from './utils';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 import sourceData from '../data/backup/FTX - Alameda Research.json';
 export const _mapFTX_ALAMEDA = async () => {
   const db = Container.get(DIMongoDB);

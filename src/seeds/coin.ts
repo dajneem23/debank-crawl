@@ -8,7 +8,7 @@ import { createDataFile, readDataFromFile } from './utils';
 import { $countCollection } from '@/utils/mongoDB';
 import fs from 'fs';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
 import { uniq, isNil, omitBy, rest } from 'lodash';

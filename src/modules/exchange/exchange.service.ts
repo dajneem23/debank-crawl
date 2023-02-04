@@ -4,7 +4,7 @@ import { _exchange, exchangeModelToken } from '.';
 import { chunk } from 'lodash';
 import IORedis from 'ioredis';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
-import { DIRedisConnection } from '@/loaders/redisClientLoader';
+import { DIRedisConnection } from '@/loaders/redis.loader';
 import { CoinMarketCapAPI } from '@/common/api';
 import { ExchangeJobData, ExchangeJobNames } from './exchange.job';
 import { env } from 'process';

@@ -1,7 +1,7 @@
 import { Db, MongoClient } from 'mongodb';
 import { Container, Service, Token } from 'typedi';
 
-import { DILogger } from '@/loaders/loggerLoader';
+import { DILogger } from '@/loaders/logger.loader';
 import env from '@/config/env';
 import { REST, Routes, GatewayIntentBits, Client, TextChannel, MessagePayload, MessageCreateOptions } from 'discord.js';
 import { isJSON } from '@/utils/text';

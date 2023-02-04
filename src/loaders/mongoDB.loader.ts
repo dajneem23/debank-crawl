@@ -1,7 +1,7 @@
 import { Db, MongoClient } from 'mongodb';
 import { Container, Token } from 'typedi';
 
-import { DILogger } from '@/loaders/loggerLoader';
+import { DILogger } from '@/loaders/logger.loader';
 import env from '@/config/env';
 
 export const DIMongoDB = new Token<Db>('mongoDB');

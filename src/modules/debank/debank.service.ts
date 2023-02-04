@@ -2,11 +2,11 @@ import Container from 'typedi';
 import Logger from '@/core/logger';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
-import { DIRedisConnection } from '@/loaders/redisClientLoader';
+import { DIRedisConnection } from '@/loaders/redis.loader';
 
 import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
-import { pgClientToken, pgPoolToken } from '@/loaders/pgLoader';
+import { pgClientToken, pgPoolToken } from '@/loaders/pg.loader';
 
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
@@ -52,7 +52,7 @@ export class DebankService {
     // this.queryProjectList();
     // this.fetchProjectUsers({
     //   projectId: '0x',
-    // });
+    // }).then(console.log);
     // this.queryUserAddressByProjectId({
     //   projectId: 'matic_aave',
     // }).then(async (res) => {
@@ -62,7 +62,9 @@ export class DebankService {
     //     });
     //   }
     // });
-
+    // DebankAPI.fetch({
+    //   endpoint: 'http://checkip.dyndns.org',
+    // }).then(console.log);
     //?fetch socials ranking 20page
     //TODO: remove this
     // for (let i = 1; i <= 100; i++) {
@@ -101,9 +103,9 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 10,
+      concurrency: 20,
       limiter: {
-        max: 150,
+        max: 400,
         duration: 60 * 1000,
       },
       metrics: {

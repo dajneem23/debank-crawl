@@ -1,9 +1,9 @@
 import Container from 'typedi';
 import Logger from '@/core/logger';
-import { pgPoolToken } from '@/loaders/pgLoader';
+import { pgPoolToken } from '@/loaders/pg.loader';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
-import { DIRedisConnection } from '@/loaders/redisClientLoader';
+import { DIRedisConnection } from '@/loaders/redis.loader';
 import IORedis from 'ioredis';
 
 import { DefillamaJobData, DefillamaJobNames } from './defillama.job';

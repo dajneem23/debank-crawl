@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { assetTrendingModelToken } from '.';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
-import { DIRedisConnection } from '@/loaders/redisClientLoader';
+import { DIRedisConnection } from '@/loaders/redis.loader';
 import IORedis from 'ioredis';
 import { AssetTrendingJobData, AssetTrendingJobNames } from './asset-trending.job';
 import { KyberSwapAPI } from '@/common/api';

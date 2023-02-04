@@ -2,7 +2,7 @@ import Container from 'typedi';
 import Logger from '@/core/logger';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
-import { DIRedisConnection } from '@/loaders/redisClientLoader';
+import { DIRedisConnection } from '@/loaders/redis.loader';
 import IORedis from 'ioredis';
 import { CoinGeckoAPI } from '@/common/api';
 import { CoinGeckoJobNames, fetchCoinGeckoDataJob } from './coingecko.job';

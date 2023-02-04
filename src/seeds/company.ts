@@ -7,7 +7,7 @@ import AngelInvestorAirtable from '../data/airtable/Angel Investors.json';
 import fs from 'fs';
 import { createDataFile, readDataFromFile } from './utils';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
 import { uniq } from 'lodash';

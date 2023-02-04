@@ -1,7 +1,7 @@
 import { Client, Pool } from 'pg';
 import { env } from 'process';
 import Container, { Token } from 'typedi';
-import { DILogger } from './loggerLoader';
+import { DILogger } from './logger.loader';
 
 export const pgClientToken = new Token<Client>('_pgClient');
 export const pgPoolToken = new Token<Pool>('_pgPool');

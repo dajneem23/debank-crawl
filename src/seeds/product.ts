@@ -1,10 +1,10 @@
-import mongoDBLoader from '@/loaders/mongoDBLoader';
+import mongoDBLoader from '@/loaders/mongoDB.loader';
 import { $countCollection } from '@/utils/mongoDB';
 import fs from 'fs';
 import productsFile from '../data/crypto_slate/json/products.json';
 import { createDataFile, readDataFromFile } from './utils';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
 import { uniq } from 'lodash';

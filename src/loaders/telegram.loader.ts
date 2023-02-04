@@ -3,8 +3,8 @@ import { filter } from 'lodash';
 import TelegramBot from 'node-telegram-bot-api';
 import { env } from 'process';
 import Container from 'typedi';
-import { DILogger } from './loggerLoader';
-import { pgPoolToken } from './pgLoader';
+import { DILogger } from './logger.loader';
+import { pgPoolToken } from './pg.loader';
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = env.TELEGRAM_BOT_TOKEN;

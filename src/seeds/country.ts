@@ -1,8 +1,8 @@
-import mongoDBLoader from '@/loaders/mongoDBLoader';
+import mongoDBLoader from '@/loaders/mongoDB.loader';
 import { $countCollection } from '@/utils/mongoDB';
 import contries from '../data/contries.json';
 import Container, { Inject, Service } from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 /* eslint-disable no-console */
 export const CountrySeed = async () => {
   console.log('Running country seed');

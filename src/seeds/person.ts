@@ -1,4 +1,4 @@
-import mongoDBLoader from '@/loaders/mongoDBLoader';
+import mongoDBLoader from '@/loaders/mongoDB.loader';
 import { WorkType } from '@/types';
 import fs from 'fs';
 import peoplesFile from '../data/crypto_slate/json/peoples.json';
@@ -8,7 +8,7 @@ import FundFounders from '../data/airtable/Funds - Founders.json';
 import { createDataFile, readDataFromFile } from './utils';
 import { $countCollection } from '@/utils/mongoDB';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
 import cryptoCompaniesFile from '../data/airtable/Crypto Companies.json';

@@ -1,7 +1,7 @@
 import { Filter, ObjectId, ReadPreference, TransactionOptions, WithTransactionCallback, Collection, Db } from 'mongodb';
 import { Container } from 'typedi';
-import mongoDBLoader, { DIMongoClient, DIMongoDB } from '@/loaders/mongoDBLoader';
-import { DILogger } from '@/loaders/loggerLoader';
+import mongoDBLoader, { DIMongoClient, DIMongoDB } from '@/loaders/mongoDB.loader';
+import { DILogger } from '@/loaders/logger.loader';
 import { isEmpty, isNil, isNull, omitBy } from 'lodash';
 import { defaultFilter } from '@/types/Common';
 

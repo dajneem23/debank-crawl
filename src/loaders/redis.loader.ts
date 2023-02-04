@@ -1,6 +1,6 @@
 import { createClient, RedisClientType } from 'redis';
 import { Container, Token } from 'typedi';
-import { DILogger } from '@/loaders/loggerLoader';
+import { DILogger } from '@/loaders/logger.loader';
 import env from '@/config/env';
 import IORedis from 'ioredis';
 

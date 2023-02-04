@@ -9,7 +9,7 @@ import {
   DexScreenerService,
 } from '@/modules';
 import Container from 'typedi';
-import { DIDiscordClient, Discord } from './discordLoader';
+import { DIDiscordClient, Discord } from './discord.loader';
 import { BinanceService } from '@/modules/binance/binance.service';
 const WorkerLoader = () => {
   // new DexScreenerService();

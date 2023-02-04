@@ -12,7 +12,7 @@ import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullm
 import IORedis from 'ioredis';
 import { AssetJobData, AssetJobNames } from './asset.job';
 import { CoinMarketCapAPI } from '@/common/api';
-import { DIRedisConnection } from '@/loaders/redisClientLoader';
+import { DIRedisConnection } from '@/loaders/redis.loader';
 import { AssetPriceModel, assetPriceModelToken } from '../asset-price';
 
 /**

@@ -9,8 +9,8 @@ import {
   WithId,
 } from 'mongodb';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
-import { DILogger } from '@/loaders/loggerLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
+import { DILogger } from '@/loaders/logger.loader';
 import Logger from '@/core/logger';
 import { throwErr } from '@/utils/common';
 import { $lookup, $toMongoFilter } from '@/utils/mongoDB';

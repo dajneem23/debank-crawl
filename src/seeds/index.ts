@@ -9,8 +9,8 @@ import { FundSeed, fundInvestment, insertFunds, cryptorankFundsSeed } from './fu
 import { FundraisingRoundSeed, insertFundraisingRounds, crawlFundraisingRoundsFromCoinCarp } from './fundraising-round';
 import { _mapFTX_ALAMEDA } from './ftx-alamdaresearch';
 (async () => {
-  (await import('../loaders/loggerLoader')).default();
-  await (await import('../loaders/mongoDBLoader')).default();
+  (await import('../loaders/logger.loader')).default();
+  await (await import('../loaders/mongoDB.loader')).default();
 
   // await mappingCategories();
   // await UserSeed();

@@ -7,7 +7,7 @@ import { isNil, omitBy } from 'lodash';
 import slugify from 'slugify';
 import { CoinMarketCapAPI } from '@/common/api';
 import IORedis from 'ioredis';
-import { DIRedisConnection } from '@/loaders/redisClientLoader';
+import { DIRedisConnection } from '@/loaders/redis.loader';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { CategoryJobData, CategoryJobNames } from './category.job';
 import { env } from 'process';

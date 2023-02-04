@@ -1,4 +1,4 @@
-import { DIDiscordClient, Discord } from '@/loaders/discordLoader';
+import { DIDiscordClient, Discord } from '@/loaders/discord.loader';
 import { configure, getLogger, Logger as JSLogger } from 'log4js';
 import Container, { Inject } from 'typedi';
 

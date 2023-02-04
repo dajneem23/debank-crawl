@@ -1,7 +1,7 @@
 import { env } from 'process';
 import 'reflect-metadata';
 import Container from 'typedi';
-import { DIDiscordClient, Discord } from './loaders/discordLoader';
+import { DIDiscordClient, Discord } from './loaders/discord.loader';
 /**
  *  @description this import is required to initialize service class
  */
@@ -16,19 +16,19 @@ import { DIDiscordClient, Discord } from './loaders/discordLoader';
       new Discord();
     }
 
-    (await import('./loaders/loggerLoader')).default();
+    (await import('./loaders/logger.loader')).default();
     // Database (mongodb)
-    await (await import('./loaders/mongoDBLoader')).default();
-    await (await import('./loaders/pgLoader')).default();
+    await (await import('./loaders/mongoDB.loader')).default();
+    await (await import('./loaders/pg.loader')).default();
 
     if (env.MODE == 'production') {
-      await (await import('./loaders/telegramLoader')).default();
+      await (await import('./loaders/telegram.loader')).default();
     }
 
     // Caching (Redis)
-    await (await import('./loaders/redisClientLoader')).default();
+    await (await import('./loaders/redis.loader')).default();
 
-    (await import('./loaders/workerLoader')).default();
+    (await import('./loaders/worker.loader')).default();
   } catch (err) {
     console.error(err);
     process.exit(1);

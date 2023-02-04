@@ -2,7 +2,7 @@ import Funds from '../data/airtable/Fundraising Rounds - Funds.json';
 import { $countCollection } from '@/utils/mongoDB';
 import fs from 'fs';
 import Container, { Inject, Service } from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDBLoader';
+import { DIMongoDB } from '@/loaders/mongoDB.loader';
 import slugify from 'slugify';
 import { RemoveSlugPattern } from '@/types';
 import AngelInvestorAirtable from '../data/airtable/Angel Investors.json';

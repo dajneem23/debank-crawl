@@ -1097,6 +1097,7 @@ export class DebankService {
   async addFetchSocialRankingByUsersAddressJob() {
     const { rows } = await this.querySocialRanking({
       select: 'user_address',
+      limit: 10000,
     });
 
     const crawl_id = await this.getCrawlId();

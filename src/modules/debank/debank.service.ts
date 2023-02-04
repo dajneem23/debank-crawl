@@ -7,7 +7,6 @@ import { DIRedisConnection } from '@/loaders/redisClientLoader';
 import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
 import { pgClientToken, pgPoolToken } from '@/loaders/pgLoader';
-import { v4 as uuidv4 } from 'uuid';
 
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
@@ -20,7 +19,11 @@ export class DebankService {
 
   private worker: Worker;
 
+  private workerInsert: Worker;
+
   private queue: Queue;
+
+  private queueInsert: Queue;
 
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => any;
@@ -37,6 +40,7 @@ export class DebankService {
     'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
     'debank:fetch:whales:paging': this.fetchWhalesPaging,
     'debank:add::fetch:whales:paging': this.addFetchWhalesPagingJob,
+    'debank:insert:whale': this.insertWhale,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -105,8 +109,23 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
+
+    this.workerInsert = new Worker('debank-insert', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60,
+      concurrency: 20,
+      limiter: {
+        max: 200,
+        duration: 60 * 1000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK,
+      },
+    });
     this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
     this.initWorkerListeners(this.worker);
+    this.initWorkerListeners(this.workerInsert);
   }
   /**
    *  @description init BullMQ Queue
@@ -143,6 +162,28 @@ export class DebankService {
     });
     // TODO: REMOVE THIS LATER
     // this.addFetchProjectUsersJobs();
+
+    this.queueInsert = new Queue('debank-insert', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        removeOnComplete: {
+          age: 1000 * 60 * 60 * 24 * 7,
+        },
+        removeOnFail: {
+          age: 1000 * 60 * 60 * 24 * 7,
+        },
+      },
+    });
+    const queueInsertEvents = new QueueEvents('debank-insert', {
+      connection: this.redisConnection,
+    });
+    queueInsertEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
+    });
   }
   private initRepeatJobs() {
     // this.addJob({
@@ -208,6 +249,12 @@ export class DebankService {
    */
   addJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
     this.queue
+      .add(name, payload, options)
+      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
+      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
+  }
+  addInsertJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
+    this.queueInsert
       .add(name, payload, options)
       // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
       .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
@@ -776,18 +823,36 @@ export class DebankService {
     }
   }
 
-  async insertWhaleList({ whales, crawl_id }: { whales: any[]; crawl_id: number }) {
+  insertWhaleList({ whales, crawl_id }: { whales: any[]; crawl_id: number }) {
     try {
       //insert all whale list
-      await pgClient.query(
-        `
-         BEGIN;
-         `,
-      );
-      await Promise.all([
-        whales.map(async ({ id, ...rest }) => {
-          await pgClient.query(
-            `
+      whales.map((whale) => {
+        this.addInsertJob({
+          name: 'debank:insert:whale',
+          payload: {
+            whale,
+            crawl_id,
+            updated_at: new Date(),
+          },
+          options: {
+            removeOnComplete: true,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24 * 7,
+            },
+            priority: 5,
+            attempts: 10,
+          },
+        });
+      });
+    } catch (error) {
+      this.logger.discord('error', '[insertWhaleList:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  private async insertWhale({ whale, crawl_id, updated_at }: { whale: any; crawl_id: number; updated_at?: Date }) {
+    await pgClient.query(
+      `
           INSERT INTO "debank-whales" (
             user_address,
             details,
@@ -796,24 +861,8 @@ export class DebankService {
           )
           VALUES ($1, $2, $3, $4)
           `,
-            [id, JSON.stringify(rest), crawl_id, new Date()],
-          );
-        }),
-      ]);
-      await pgClient.query(
-        `
-          COMMIT;
-          `,
-      );
-    } catch (error) {
-      await pgClient.query(
-        `
-          ROLLBACK;
-          `,
-      );
-      this.logger.discord('error', '[insertWhaleList:error]', JSON.stringify(error));
-      throw error;
-    }
+      [whale.id, JSON.stringify(whale), crawl_id, updated_at || new Date()],
+    );
   }
 
   async fetchWhalesPaging({ start, crawl_id }: { start: number; crawl_id: number }) {

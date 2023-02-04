@@ -1,6 +1,6 @@
 import { env } from 'process';
 import axios, { AxiosRequestConfig } from 'axios';
-import { MUAPROXY_PROXY_HTTP, TOR_PROXY_HTTP_AGENT, WEBSHARE_PROXY_HTTP } from './proxy';
+import { TOR_PROXY_HTTP_AGENT, WEBSHARE_PROXY_HTTP } from './proxy';
 
 /**
  * @description CoinMarketCap API

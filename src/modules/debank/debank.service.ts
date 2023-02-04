@@ -228,8 +228,8 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:social:users:rankings',
         repeat: {
-          //repeat every 7 days
-          every: 1000 * 60 * 60 * 24 * 7,
+          //repeat every 24 hours
+          every: 1000 * 60 * 60 * 24,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -650,8 +650,12 @@ export class DebankService {
 
     // .catch((err) => this.logger.discord('error', '[debank:insertSocialRanking]', JSON.stringify(err)));
   }
-  async querySocialRanking({ select = '*' }: { select: string } = { select: '*' }) {
-    const { rows } = await pgPool.query(`SELECT ${select} FROM "debank-social-ranking" ORDER BY rank ASC`);
+  async querySocialRanking(
+    { select = '*', limit = 10000 }: { select: string; limit: number } = { select: '*', limit: 10000 },
+  ) {
+    const { rows } = await pgPool.query(
+      `SELECT ${select} FROM "debank-social-ranking" ORDER BY rank ASC LIMIT ${limit}`,
+    );
     return { rows };
   }
   async fetchSocialRankingByUserAddress({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {

@@ -106,7 +106,7 @@ export class DebankService {
       lockDuration: 1000 * 60,
       concurrency: 1000,
       limiter: {
-        max: 12000,
+        max: 2000,
         duration: 60 * 1000,
       },
       stalledInterval: 1000 * 60,

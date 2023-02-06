@@ -14,7 +14,7 @@ export const WEBSHARE_PROXY_HTTP: AxiosProxyConfig = {
   port: 80,
   protocol: 'http',
   auth: {
-    username: 'lildpslw-rotate',
-    password: 'o988eyomghcu',
+    username: 'wicagssg-rotate',
+    password: 'gv8luczj7lw0',
   },
 };

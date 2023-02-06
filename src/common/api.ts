@@ -380,7 +380,7 @@ export const DebankAPI = {
     /*
      * @description fetch whale list from debank
      * @requires start: number,limit: number,order_by: string
-     * @example https://api.debank.com/whales/list?start=0&limit=100&order_by=usd_value
+     * @example https://api.debank.com/whale/list?start=0&limit=100&order_by=usd_value
      */
     list: {
       endpoint: 'https://api.debank.com/whale/list',
@@ -403,12 +403,12 @@ export const DebankAPI = {
     return axios.get(`${endpoint}`, {
       params,
       ...config,
-      // proxy: {
-      //   host: WEBSHARE_PROXY_HTTP.host,
-      //   port: WEBSHARE_PROXY_HTTP.port,
-      //   auth: { username: WEBSHARE_PROXY_HTTP.auth.username, password: WEBSHARE_PROXY_HTTP.auth.password },
-      //   protocol: WEBSHARE_PROXY_HTTP.protocol,
-      // },
+      proxy: {
+        host: WEBSHARE_PROXY_HTTP.host,
+        port: WEBSHARE_PROXY_HTTP.port,
+        auth: { username: WEBSHARE_PROXY_HTTP.auth.username, password: WEBSHARE_PROXY_HTTP.auth.password },
+        protocol: WEBSHARE_PROXY_HTTP.protocol,
+      },
     });
   },
 };

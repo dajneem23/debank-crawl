@@ -76,7 +76,7 @@ export class BinanceService {
       lockDuration: 1000 * 60,
       concurrency: 50,
       limiter: {
-        max: 200,
+        max: 1000,
         duration: 60 * 1000,
       },
       metrics: {

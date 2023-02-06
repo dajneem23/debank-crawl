@@ -106,7 +106,7 @@ export class DebankService {
       lockDuration: 1000 * 60,
       concurrency: 50,
       limiter: {
-        max: 1200,
+        max: 2000,
         duration: 60 * 1000,
       },
       metrics: {
@@ -221,6 +221,7 @@ export class DebankService {
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
+        attempts: 5,
       },
     });
     this.addJob({
@@ -233,6 +234,7 @@ export class DebankService {
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
+        attempts: 5,
       },
     });
     this.addJob({
@@ -244,6 +246,7 @@ export class DebankService {
           every: 1000 * 60 * 60 * 24,
         },
         priority: 1,
+        attempts: 5,
       },
     });
   }
@@ -595,9 +598,7 @@ export class DebankService {
           },
           options: {
             jobId: `debank:fetch:social:rankings:${page_num}:${Date.now()}`,
-            removeOnComplete: {
-              age: 1000 * 60 * 60 * 24 * 7,
-            },
+            removeOnComplete: true,
             removeOnFail: {
               age: 1000 * 60 * 60 * 24 * 7,
             },
@@ -898,25 +899,10 @@ export class DebankService {
         limit: DebankAPI.Whale.list.params.limit,
         order_by: DebankAPI.Whale.list.params.order_by,
       });
-      if (whales?.length == DebankAPI.Whale.list.params.limit) {
-        this.addJob({
-          name: 'debank:fetch:whales:paging',
-          payload: {
-            start: start + DebankAPI.Whale.list.params.limit,
-            crawl_id,
-          },
-          options: {
-            jobId: `debank:fetch:whales:paging:${crawl_id}:${start}`,
-            removeOnComplete: true,
-            removeOnFail: {
-              age: 1000 * 60 * 60 * 24 * 7,
-            },
-            priority: 9,
-            delay: 1000 * 10,
-            attempts: 10,
-          },
-        });
+      if (!whales.length) {
+        return;
       }
+      //insert all whale list
       this.insertWhaleList({ whales, crawl_id });
       //insert all address
       await insertUserAddressList(whales);
@@ -955,24 +941,45 @@ export class DebankService {
   async addFetchWhalesPagingJob() {
     try {
       const crawl_id = await this.getWhalesCrawlId();
-      this.addJob({
-        name: 'debank:fetch:whales:paging',
-        payload: {
-          start: 0,
-          crawl_id,
+
+      const { whales, total_count } = await this.fetchWhaleList({
+        start: 0,
+        limit: DebankAPI.Whale.list.params.limit,
+        order_by: DebankAPI.Whale.list.params.order_by,
+      });
+
+      //create list index from total count divine limit each list index will be a job
+      // const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Whale.list.params.limit)).keys());
+      const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Whale.list.params.limit))).reduce(
+        (acc, curr, index) => {
+          acc.push(index * DebankAPI.Whale.list.params.limit);
+          return acc;
         },
-        options: {
-          jobId: `debank:fetch:whales:paging:${crawl_id}:${0}`,
-          removeOnComplete: {
-            age: 1000 * 60 * 60 * 24 * 7,
+        [],
+      );
+      //create job for each list index
+      listIndex.map((index: number) => {
+        this.addJob({
+          name: 'debank:fetch:whales:paging',
+          payload: {
+            start: index,
+            crawl_id,
           },
-          removeOnFail: {
-            age: 1000 * 60 * 60 * 24 * 7,
+          options: {
+            jobId: `debank:fetch:whales:paging:${crawl_id}:${index}`,
+            removeOnComplete: {
+              // keep in 6 hours
+              age: 1000 * 60 * 60 * 6,
+            },
+            removeOnFail: {
+              // keep in 6 hours
+              age: 1000 * 60 * 60 * 6,
+            },
+            priority: 8,
+            delay: 1000 * 10,
+            attempts: 10,
           },
-          priority: 9,
-          delay: 1000 * 10,
-          attempts: 10,
-        },
+        });
       });
     } catch (error) {
       this.logger.discord('error', '[addFetchWhalesPagingJob:error]', JSON.stringify(error));

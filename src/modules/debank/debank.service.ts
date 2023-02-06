@@ -216,8 +216,8 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:social:users',
         repeat: {
-          //repeat every 24 hours
-          every: 1000 * 60 * 60 * 24,
+          //repeat every 2 hours
+          every: 1000 * 60 * 60 * 2,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -229,8 +229,8 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:social:users:rankings',
         repeat: {
-          //repeat every 24 hours
-          every: 1000 * 60 * 60 * 24,
+          //repeat every 30 minutes
+          every: 1000 * 60 * 30,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -242,8 +242,8 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add::fetch:whales:paging',
         repeat: {
-          //repeat every 24 hours
-          every: 1000 * 60 * 60 * 24,
+          //repeat every 30 minutes
+          every: 1000 * 60 * 30,
         },
         priority: 1,
         attempts: 5,
@@ -966,14 +966,10 @@ export class DebankService {
             crawl_id,
           },
           options: {
-            jobId: `debank:fetch:whales:paging:${crawl_id}:${index}`,
-            removeOnComplete: {
-              // keep in 6 hours
-              age: 1000 * 60 * 60 * 6,
-            },
+            jobId: `debank:fetch:whales:paging:${crawl_id}:${index}:${Date.now()}}`,
+            removeOnComplete: true,
             removeOnFail: {
-              // keep in 6 hours
-              age: 1000 * 60 * 60 * 6,
+              age: 1000 * 60 * 60 * 1,
             },
             priority: 8,
             delay: 1000 * 10,

@@ -391,6 +391,24 @@ export const DebankAPI = {
       },
     },
   },
+  Coin: {
+    /**
+     * @description fetch coin list from debank
+     * @example https://api.debank.com/coin/list
+     */
+    list: {
+      endpoint: 'https://api.debank.com/coin/list',
+    },
+    top_holders: {
+      endpoint: 'https://api.debank.com/coin/top_holders',
+      params: {
+        // coin id from list
+        id: '',
+        start: 0,
+        limit: 100,
+      },
+    },
+  },
   fetch({
     params = {},
     endpoint,

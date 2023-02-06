@@ -104,11 +104,12 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 50,
+      concurrency: 1000,
       limiter: {
-        max: 2000,
+        max: 12000,
         duration: 60 * 1000,
       },
+      stalledInterval: 1000 * 60,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
@@ -905,37 +906,34 @@ export class DebankService {
       //insert all whale list
       this.insertWhaleList({ whales, crawl_id });
       //insert all address
-      await insertUserAddressList(whales);
+      this.insertUserAddressList({ whales });
     } catch (error) {
       this.logger.discord('error', '[addFetchWhaleListJob:error]', JSON.stringify(error));
       throw error;
     }
-
-    async function insertUserAddressList(whales: any) {
-      try {
-        await Promise.all([
-          whales.map(async ({ id }: { id: string }) => {
-            this.addInsertJob({
-              name: 'debank:insert:user-address',
-              payload: {
-                user_address: id,
-                updated_at: new Date(),
-              },
-              options: {
-                removeOnComplete: true,
-                removeOnFail: {
-                  age: 1000 * 60 * 60 * 24 * 7,
-                },
-                priority: 5,
-                attempts: 10,
-              },
-            });
-          }),
-        ]);
-      } catch (error) {
-        this.logger.discord('error', '[fetchWhalesPaging:error]', JSON.stringify(error));
-        throw error;
-      }
+  }
+  insertUserAddressList({ whales }: { whales: any }) {
+    try {
+      whales.map(({ id }: { id: string }) => {
+        this.addInsertJob({
+          name: 'debank:insert:user-address',
+          payload: {
+            user_address: id,
+            updated_at: new Date(),
+          },
+          options: {
+            removeOnComplete: true,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24 * 7,
+            },
+            priority: 5,
+            attempts: 10,
+          },
+        });
+      });
+    } catch (error) {
+      this.logger.discord('error', '[fetchWhalesPaging:error]', JSON.stringify(error));
+      throw error;
     }
   }
   async addFetchWhalesPagingJob() {
@@ -966,7 +964,7 @@ export class DebankService {
             crawl_id,
           },
           options: {
-            jobId: `debank:fetch:whales:paging:${crawl_id}:${index}:${Date.now()}}`,
+            jobId: `debank:fetch:whales:paging:${crawl_id}:${index}:${Date.now()}`,
             removeOnComplete: true,
             removeOnFail: {
               age: 1000 * 60 * 60 * 1,
@@ -1208,5 +1206,69 @@ export class DebankService {
     `,
       [user_address, updated_at || now],
     );
+  }
+
+  async fetchCoins() {
+    try {
+      const {
+        data: { data, error_code },
+        status,
+      } = await DebankAPI.fetch({
+        endpoint: DebankAPI.Coin.list.endpoint,
+      });
+      if (status !== 200 || error_code) {
+        this.logger.discord(
+          'error',
+          '[fetchCoins:error]',
+          JSON.stringify(data),
+          JSON.stringify({ status, error_code }),
+        );
+        throw new Error('fetchCoins:error');
+      }
+      const { coins } = data;
+      return {
+        coins,
+      };
+    } catch (error) {
+      this.logger.error('error', '[fetchCoins:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async fetchTopHolders(
+    { id, start = 0, limit = 100 }: { id: string; start: number; limit: number } = {
+      id: '',
+      start: 0,
+      limit: DebankAPI.Coin.top_holders.params.limit,
+    },
+  ) {
+    try {
+      const {
+        data: { data, error_code },
+        status,
+      } = await DebankAPI.fetch({
+        endpoint: DebankAPI.Coin.top_holders.endpoint,
+        params: {
+          id,
+          start,
+          limit,
+        },
+      });
+      if (status !== 200 || error_code) {
+        this.logger.discord(
+          'error',
+          '[fetchTopHolders:error]',
+          JSON.stringify(data),
+          JSON.stringify({ status, error_code }),
+        );
+        throw new Error('fetchTopHolders:error');
+      }
+      const { coins } = data;
+      return {
+        coins,
+      };
+    } catch (error) {
+      this.logger.error('error', '[fetchTopHolders:error]', JSON.stringify(error));
+      throw error;
+    }
   }
 }

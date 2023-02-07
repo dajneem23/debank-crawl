@@ -10,6 +10,7 @@ import { pgClientToken, pgPoolToken } from '@/loaders/pg.loader';
 
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
+import lodash from 'lodash';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
 export class DebankService {
@@ -55,44 +56,6 @@ export class DebankService {
   };
 
   constructor() {
-    //TODO: remove this
-    // this.queryProjectList();
-    // this.fetchProjectUsers({
-    //   projectId: '0x',
-    // }).then(console.log);
-    // this.queryUserAddressByProjectId({
-    //   projectId: 'matic_aave',
-    // }).then(async (res) => {
-    //   for (const { user_address } of res) {
-    //     await this.fetchUserBalanceList({
-    //       user_address,
-    //     });
-    //   }
-    // });
-    // DebankAPI.fetch({
-    //   endpoint: 'http://checkip.dyndns.org',
-    // }).then(console.log);
-    //?fetch socials ranking 20page
-    //TODO: remove this
-    // for (let i = 1; i <= 100; i++) {
-    //   this.fetchSocialRankings({
-    //     page_num: i,
-    //   });
-    // }
-    // this.querySocialRanking({
-    //   select: 'user_address',
-    // }).then(async ({ rows }: any) => {
-    //   for (const { user_address } of rows) {
-    //     console.log(user_address);
-    //     //from index 42
-    //     await this.fetchSocialRankingByUserAddress({
-    //       user_address,
-    //     });
-    //   }
-    // });
-    // this.queryLastCrawlIdToday().then(async (res) => {
-    //   console.log(res);
-    // });
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -112,8 +75,8 @@ export class DebankService {
       lockDuration: 1000 * 60 * 2,
       concurrency: 200,
       limiter: {
-        max: 2000,
-        duration: 60 * 1000,
+        max: 35,
+        duration: 1000,
       },
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
@@ -126,10 +89,10 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2,
-      concurrency: 500,
+      concurrency: 5000,
       limiter: {
-        max: 6000,
-        duration: 60 * 1000,
+        max: 100,
+        duration: 1,
       },
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
@@ -1039,7 +1002,6 @@ export class DebankService {
               age: 1000 * 60 * 60 * 1,
             },
             priority: 8,
-            delay: 1000 * 10,
             attempts: 10,
           },
         });
@@ -1066,11 +1028,7 @@ export class DebankService {
   }) {
     try {
       const now = new Date();
-      await pgClient.query(
-        `
-      BEGIN;
-      `,
-      );
+
       await pgClient.query(
         `
       INSERT INTO "debank-user-address-list" (
@@ -1082,6 +1040,7 @@ export class DebankService {
     `,
         [user_address, crawl_id, now, now],
       );
+      //bulk
       await Promise.all(
         token_list.map(async (token: any) => {
           await pgClient.query(
@@ -1148,6 +1107,7 @@ export class DebankService {
           );
         }),
       );
+
       await Promise.all(
         project_list.map(async (project: any) => {
           await pgClient.query(
@@ -1164,13 +1124,7 @@ export class DebankService {
           );
         }),
       );
-      await pgClient.query(`
-      COMMIT;
-    `);
     } catch (error) {
-      await pgClient.query(`
-      ROLLBACK;
-    `);
       this.logger.error(
         'error',
         '[insertUserAssetPortfolio:error]',
@@ -1207,7 +1161,6 @@ export class DebankService {
             age: 1000 * 60 * 60 * 24,
           },
           priority: 10,
-          delay: 1000 * 10,
           attempts: 10,
         },
       });
@@ -1340,7 +1293,7 @@ export class DebankService {
         updated_at
       )
       VALUES ($1, $2, $3, $4, $5) ON CONFLICT (user_address) DO UPDATE SET
-        debank_whales_time = NULLIF($2, "debank-whales_time"),
+        debank_whales_time = NULLIF($2, "debank_whales_time"),
         debank_top_holders_time = NULLIF($3, "debank_top_holders_time"),
         debank_ranking_time = NULLIF($4, "debank_ranking_time"),
         updated_at = $5
@@ -1407,8 +1360,10 @@ export class DebankService {
         );
         throw new Error('fetchTopHolders:error');
       }
+      //100
       const { holders } = data;
       this.insertTopHolders({ holders, crawl_id });
+
       this.insertUserAddressList({
         holders,
         last_crawl_id: crawl_id,
@@ -1467,7 +1422,6 @@ export class DebankService {
               age: 1000 * 60 * 60 * 1,
             },
             priority: 8,
-            delay: 1000 * 10,
             attempts: 10,
           },
         });
@@ -1481,6 +1435,7 @@ export class DebankService {
     try {
       const crawl_id = await this.getTopHoldersCrawlId();
       const allCoins = await this.queryAllCoins();
+      //164
       for (const { symbol } of allCoins) {
         this.addJob({
           name: 'debank:fetch:top-holders',
@@ -1495,7 +1450,7 @@ export class DebankService {
               age: 1000 * 60 * 60 * 24,
             },
             priority: 10,
-            delay: 1000 * 10,
+            // delay: 1000 * 10,
             attempts: 10,
           },
         });

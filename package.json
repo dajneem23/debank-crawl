@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
-    "start": "ts-node --compiler ttypescript -r tsconfig-paths/register src/server.ts",
+    "start": "ts-node --compiler ttypescript -r tsconfig-paths/register src/server.ts --max-old-space-size=4096",
     "type-check": "tsc --pretty --noEmit --skipLibCheck",
     "lint": "eslint .",
     "fix": "eslint --fix .",

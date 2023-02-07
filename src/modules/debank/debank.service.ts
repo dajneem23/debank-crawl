@@ -704,28 +704,20 @@ export class DebankService {
       const { balance_list } = await this.fetchUserTokenBalanceList({
         user_address,
       });
-      const { project_list } = await this.fetchUserProjectList({
-        user_address,
-      });
-      const { coin_list, token_list } = await this.fetchUserAssetClassify({
-        user_address,
-      });
-      // await this.insertUserAssetPortfolio({
+      // const { project_list } = await this.fetchUserProjectList({
       //   user_address,
-      //   balance_list,
-      //   project_list,
-      //   coin_list,
-      //   token_list,
-      //   crawl_id,
+      // });
+      // const { coin_list, token_list } = await this.fetchUserAssetClassify({
+      //   user_address,
       // });
       this.addInsertJob({
         name: 'debank:insert:user-assets-portfolio',
         payload: {
           user_address,
           balance_list,
-          project_list,
-          coin_list,
-          token_list,
+          project_list: [],
+          coin_list: [],
+          token_list: [],
           crawl_id,
         },
         options: {

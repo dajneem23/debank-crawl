@@ -104,7 +104,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 1000,
+      concurrency: 200,
       limiter: {
         max: 2000,
         duration: 60 * 1000,
@@ -119,11 +119,12 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 50,
+      concurrency: 500,
       limiter: {
-        max: 2000,
+        max: 6000,
         duration: 60 * 1000,
       },
+      stalledInterval: 1000 * 60,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
@@ -906,13 +907,29 @@ export class DebankService {
       //insert all whale list
       this.insertWhaleList({ whales, crawl_id });
       //insert all address
-      this.insertUserAddressList({ whales });
+      this.insertUserAddressList({
+        whales,
+        debank_whales_time: new Date(),
+        last_crawl_id: crawl_id,
+      });
     } catch (error) {
       this.logger.discord('error', '[addFetchWhaleListJob:error]', JSON.stringify(error));
       throw error;
     }
   }
-  insertUserAddressList({ whales }: { whales: any }) {
+  insertUserAddressList({
+    whales,
+    debank_ranking_time,
+    debank_whales_time,
+    debank_top_holders_time,
+    last_crawl_id,
+  }: {
+    whales: any;
+    debank_whales_time?: Date;
+    debank_top_holders_time?: Date;
+    debank_ranking_time?: Date;
+    last_crawl_id?: number;
+  }) {
     try {
       whales.map(({ id }: { id: string }) => {
         this.addInsertJob({
@@ -920,6 +937,9 @@ export class DebankService {
           payload: {
             user_address: id,
             updated_at: new Date(),
+            debank_whales_time,
+            debank_top_holders_time,
+            debank_ranking_time,
           },
           options: {
             removeOnComplete: true,
@@ -1007,10 +1027,11 @@ export class DebankService {
       INSERT INTO "debank-user-address-list" (
         user_address,
         last_crawl_id,
+        debank_ranking_time,
         updated_at
-      ) VALUES ($1, $2,$3) ON CONFLICT (user_address) DO UPDATE SET updated_at = $3 , last_crawl_id = $2
+      ) VALUES ($1, $2, $3, $4) ON CONFLICT (user_address) DO UPDATE SET updated_at = $4 , last_crawl_id = $2, debank_ranking_time = $3;
     `,
-        [user_address, crawl_id, now],
+        [user_address, crawl_id, now, now],
       );
       await Promise.all(
         token_list.map(async (token: any) => {
@@ -1194,17 +1215,37 @@ export class DebankService {
       return `${formatDate(new Date(), 'YYYYMMDD')}1`;
     }
   }
-  async insertUserAddress({ user_address, updated_at }: { user_address: string; updated_at: Date }) {
+  async insertUserAddress({
+    user_address,
+    updated_at,
+    debank_whales_time,
+    debank_top_holders_time,
+    debank_ranking_time,
+  }: {
+    user_address: string;
+    updated_at: Date;
+    debank_whales_time: Date;
+    debank_top_holders_time: Date;
+    debank_ranking_time: Date;
+  }) {
     const now = new Date();
-    pgClient.query(
+    // update if exists else insert
+    await pgClient.query(
       `
       INSERT INTO "debank-user-address-list"(
         user_address,
+        debank_whales_time,
+        debank_top_holders_time,
+        debank_ranking_time,
         updated_at
       )
-      VALUES ($1, $2) ON CONFLICT (user_address) DO NOTHING
+      VALUES ($1, $2, $3, $4, $5) ON CONFLICT (user_address) DO UPDATE SET
+        debank_whales_time = NULLIF($2, "debank-whales_time"),
+        debank_top_holders_time = NULLIF($3, "debank_top_holders_time"),
+        debank_ranking_time = NULLIF($4, "debank_ranking_time"),
+        updated_at = $5
     `,
-      [user_address, updated_at || now],
+      [user_address, debank_whales_time, debank_top_holders_time, debank_ranking_time, now],
     );
   }
 

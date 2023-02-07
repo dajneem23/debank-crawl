@@ -43,6 +43,12 @@ export class DebankService {
     'debank:insert:whale': this.insertWhale,
     'debank:insert:user-address': this.insertUserAddress,
     'debank:insert:user-assets-portfolio': this.insertUserAssetPortfolio,
+    'debank:insert:coin': this.insertCoin,
+    'debank:add:fetch:coins': this.addFetchCoinsJob,
+    'debank:fetch:top-holders': this.fetchTopHolders,
+    'debank:fetch:top-holders:page': this.fetchTopHoldersPage,
+    'debank:insert:top-holder': this.insertTopHolder,
+    'debank:add:fetch:top-holders': this.addFetchTopHoldersJob,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -103,13 +109,14 @@ export class DebankService {
     this.worker = new Worker('debank', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
+      lockDuration: 1000 * 60 * 2,
       concurrency: 200,
       limiter: {
         max: 2000,
         duration: 60 * 1000,
       },
       stalledInterval: 1000 * 60,
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
@@ -118,13 +125,14 @@ export class DebankService {
     this.workerInsert = new Worker('debank-insert', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
+      lockDuration: 1000 * 60 * 2,
       concurrency: 500,
       limiter: {
         max: 6000,
         duration: 60 * 1000,
       },
       stalledInterval: 1000 * 60,
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
@@ -217,6 +225,33 @@ export class DebankService {
       name: 'debank:add:social:users',
       options: {
         repeatJobKey: 'debank:add:social:users',
+        repeat: {
+          //repeat every 2 hours
+          every: 1000 * 60 * 60 * 2,
+          // pattern: '* 0 0 * * *',
+        },
+        priority: 1,
+        attempts: 5,
+      },
+    });
+    this.addJob({
+      name: 'debank:add:fetch:coins',
+      options: {
+        repeatJobKey: 'debank:add:fetch:coins',
+        repeat: {
+          //repeat every 24 hours
+          every: 1000 * 60 * 60 * 24,
+          // pattern: '* 0 0 * * *',
+        },
+        priority: 1,
+        attempts: 5,
+      },
+    });
+
+    this.addJob({
+      name: 'debank:add:fetch:top-holders',
+      options: {
+        repeatJobKey: 'debank:add:fetch:top-holders',
         repeat: {
           //repeat every 2 hours
           every: 1000 * 60 * 60 * 2,
@@ -696,7 +731,7 @@ export class DebankService {
         options: {
           removeOnComplete: true,
           removeOnFail: {
-            age: 1000 * 60 * 60 * 24 * 7,
+            age: 1000 * 60 * 60 * 24,
           },
           priority: 5,
           attempts: 10,
@@ -866,7 +901,7 @@ export class DebankService {
           options: {
             removeOnComplete: true,
             removeOnFail: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 1000 * 60 * 60 * 24,
             },
             priority: 5,
             attempts: 10,
@@ -918,13 +953,15 @@ export class DebankService {
     }
   }
   insertUserAddressList({
-    whales,
+    whales = [],
+    holders = [],
     debank_ranking_time,
     debank_whales_time,
     debank_top_holders_time,
     last_crawl_id,
   }: {
-    whales: any;
+    whales?: any;
+    holders?: any;
     debank_whales_time?: Date;
     debank_top_holders_time?: Date;
     debank_ranking_time?: Date;
@@ -944,7 +981,27 @@ export class DebankService {
           options: {
             removeOnComplete: true,
             removeOnFail: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 1000 * 60 * 60 * 24,
+            },
+            priority: 5,
+            attempts: 10,
+          },
+        });
+      });
+      holders.map(({ id }: { id: string }) => {
+        this.addInsertJob({
+          name: 'debank:insert:user-address',
+          payload: {
+            user_address: id,
+            updated_at: new Date(),
+            debank_whales_time,
+            debank_top_holders_time,
+            debank_ranking_time,
+          },
+          options: {
+            removeOnComplete: true,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24,
             },
             priority: 5,
             attempts: 10,
@@ -969,7 +1026,7 @@ export class DebankService {
       //create list index from total count divine limit each list index will be a job
       // const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Whale.list.params.limit)).keys());
       const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Whale.list.params.limit))).reduce(
-        (acc, curr, index) => {
+        (acc, _, index) => {
           acc.push(index * DebankAPI.Whale.list.params.limit);
           return acc;
         },
@@ -1155,7 +1212,7 @@ export class DebankService {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
           removeOnComplete: true,
           removeOnFail: {
-            age: 1000 * 60 * 60 * 24 * 7,
+            age: 1000 * 60 * 60 * 24,
           },
           priority: 10,
           delay: 1000 * 10,
@@ -1184,10 +1241,10 @@ export class DebankService {
       if (last_crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
         return `${last_crawl_id_date}${last_crawl_id_number + 1}`;
       } else {
-        return `${formatDate(new Date(), 'YYYYMMDD')}1`;
+        return `${formatDate(new Date(), 'YYYYMMDD')}01`;
       }
     } else {
-      return `${formatDate(new Date(), 'YYYYMMDD')}1`;
+      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
     }
   }
   async getWhalesCrawlId() {
@@ -1196,6 +1253,57 @@ export class DebankService {
         crawl_id
       FROM
         "debank-whales"
+      Where
+        updated_at > now() - interval '1 day'
+      ORDER BY
+        updated_at DESC
+          LIMIT 1
+    `);
+    if (rows[0]?.crawl_id && rows[0].crawl_id) {
+      const crawl_id = rows[0].crawl_id;
+      const crawl_id_date = crawl_id.slice(0, 8);
+      const crawl_id_number = parseInt(crawl_id.slice(8));
+      if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
+        return `${crawl_id_date}${crawl_id_number + 1}`;
+      } else {
+        return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+      }
+    } else {
+      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+    }
+  }
+  async getTopHoldersCrawlId() {
+    const { rows } = await pgClient.query(`
+      SELECT
+        crawl_id
+      FROM
+        "debank-top-holders"
+      Where
+        updated_at > now() - interval '1 day'
+      ORDER BY
+        updated_at DESC
+          LIMIT 1
+    `);
+    if (rows[0]?.crawl_id && rows[0].crawl_id) {
+      const crawl_id = rows[0].crawl_id;
+      const crawl_id_date = crawl_id.slice(0, 8);
+      const crawl_id_number = parseInt(crawl_id.slice(8));
+      if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
+        return `${crawl_id_date}${crawl_id_number + 1}`;
+      } else {
+        return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+      }
+    } else {
+      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+    }
+  }
+
+  async getCoinsCrawlId() {
+    const { rows } = await pgClient.query(`
+      SELECT
+        crawl_id
+      FROM
+        "debank-coins"
       Where
         updated_at > now() - interval '1 day'
       ORDER BY
@@ -1275,13 +1383,17 @@ export class DebankService {
       throw error;
     }
   }
-  async fetchTopHolders(
-    { id, start = 0, limit = 100 }: { id: string; start: number; limit: number } = {
-      id: '',
-      start: 0,
-      limit: DebankAPI.Coin.top_holders.params.limit,
-    },
-  ) {
+  async fetchTopHoldersPage({
+    id,
+    start = 0,
+    limit = DebankAPI.Coin.top_holders.params.limit,
+    crawl_id,
+  }: {
+    id: string;
+    start: number;
+    limit: number;
+    crawl_id: number;
+  }) {
     try {
       const {
         data: { data, error_code },
@@ -1303,12 +1415,243 @@ export class DebankService {
         );
         throw new Error('fetchTopHolders:error');
       }
-      const { coins } = data;
+      const { holders } = data;
+      this.insertTopHolders({ holders, crawl_id });
+      this.insertUserAddressList({
+        holders,
+        last_crawl_id: crawl_id,
+        debank_top_holders_time: new Date(),
+      });
       return {
-        coins,
+        holders,
       };
     } catch (error) {
       this.logger.error('error', '[fetchTopHolders:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async fetchTopHolders({ id, crawl_id }: { id: string; crawl_id: number }) {
+    try {
+      const {
+        data: { data, error_code },
+        status,
+      } = await DebankAPI.fetch({
+        endpoint: DebankAPI.Coin.top_holders.endpoint,
+        params: {
+          id,
+        },
+      });
+      if (status !== 200 || error_code) {
+        this.logger.discord(
+          'error',
+          '[fetchTopHolders:error]',
+          JSON.stringify(data),
+          JSON.stringify({ status, error_code }),
+        );
+        throw new Error('fetchTopHolders:error');
+      }
+      const { total_count } = data;
+
+      const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Coin.top_holders.params.limit))).reduce(
+        (acc, _, index) => {
+          acc.push(index * DebankAPI.Coin.top_holders.params.limit);
+          return acc;
+        },
+        [],
+      );
+      listIndex.map((index: number) => {
+        this.addJob({
+          name: 'debank:fetch:top-holders:page',
+          payload: {
+            id,
+            start: index,
+            limit: DebankAPI.Coin.top_holders.params.limit,
+            crawl_id,
+          },
+          options: {
+            jobId: `debank:fetch:top-holders:page:${crawl_id}:${index}:${Date.now()}`,
+            removeOnComplete: true,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 1,
+            },
+            priority: 8,
+            delay: 1000 * 10,
+            attempts: 10,
+          },
+        });
+      });
+    } catch (error) {
+      this.logger.error('error', '[fetchTopHolders:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async addFetchTopHoldersJob() {
+    try {
+      const crawl_id = await this.getTopHoldersCrawlId();
+      const allCoins = await this.queryAllCoins();
+      for (const { symbol } of allCoins) {
+        this.addJob({
+          name: 'debank:fetch:top-holders',
+          payload: {
+            id: symbol,
+            crawl_id,
+          },
+          options: {
+            jobId: `debank:fetch:social:user:${crawl_id}:${symbol}`,
+            removeOnComplete: true,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24,
+            },
+            priority: 10,
+            delay: 1000 * 10,
+            attempts: 10,
+          },
+        });
+      }
+    } catch (error) {
+      this.logger.error('error', '[addFetchTopHoldersJob:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async addFetchCoinsJob() {
+    try {
+      const crawl_id = await this.getCoinsCrawlId();
+
+      const {
+        data: { data, error_code },
+        status,
+      } = await DebankAPI.fetch({
+        endpoint: DebankAPI.Coin.list.endpoint,
+      });
+      if (status !== 200 || error_code) {
+        this.logger.discord(
+          'error',
+          '[addFetchCoinsJob:error]',
+          JSON.stringify(data),
+          JSON.stringify({ status, error_code }),
+        );
+        throw new Error('addFetchCoinsJob:error');
+      }
+      const { coins } = data;
+      this.insertCoins({
+        coins,
+        crawl_id,
+      });
+    } catch (error) {
+      this.logger.error('error', '[addFetchCoinsJob:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async insertCoins({ coins, crawl_id }: { coins: any[]; crawl_id: string }) {
+    try {
+      coins.forEach((coin) => {
+        this.addInsertJob({
+          name: 'debank:insert:coin',
+          payload: {
+            coin,
+            crawl_id,
+            updated_at: new Date(),
+          },
+          options: {
+            removeOnComplete: true,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24,
+            },
+            priority: 5,
+            attempts: 10,
+          },
+        });
+      });
+    } catch (error) {
+      this.logger.error('error', '[insertCoins:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async insertCoin({ coin, crawl_id, updated_at }: { coin: any; crawl_id: number; updated_at: Date }) {
+    try {
+      await pgClient.query(
+        `
+        INSERT INTO "debank-coins"(
+          symbol,
+          crawl_id,
+          details,
+          updated_at
+        )
+        VALUES ($1, $2, $3, $4) ON CONFLICT (symbol) DO UPDATE
+          SET details = $3, updated_at = $4, crawl_id = $2
+      `,
+        [coin.symbol, crawl_id, JSON.stringify(coin), updated_at ?? new Date()],
+      );
+    } catch (error) {
+      this.logger.error('error', '[insertCoin:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async queryAllCoins() {
+    try {
+      const { rows } = await pgClient.query(`
+        SELECT symbol, details FROM "debank-coins"
+      `);
+      return rows;
+    } catch (error) {
+      this.logger.error('error', '[queryAllCoins:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async insertTopHolders({ holders, crawl_id }: { holders: any[]; crawl_id: number }) {
+    try {
+      holders.forEach((holder) => {
+        this.addInsertJob({
+          name: 'debank:insert:top-holder',
+          payload: {
+            user_address: holder.id,
+            holder,
+            crawl_id,
+            updated_at: new Date(),
+          },
+          options: {
+            removeOnComplete: true,
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 24,
+            },
+            priority: 5,
+            attempts: 10,
+          },
+        });
+      });
+    } catch (error) {
+      this.logger.error('error', '[insertTopHolders:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async insertTopHolder({
+    user_address,
+    holder,
+    crawl_id,
+    updated_at,
+  }: {
+    user_address: string;
+    holder: any;
+    crawl_id: number;
+    updated_at: Date;
+  }) {
+    try {
+      await pgClient.query(
+        `
+        INSERT INTO "debank-top-holders"(
+          user_address,
+          crawl_id,
+          details,
+          updated_at)
+        VALUES ($1, $2, $3, $4)
+      `,
+        [user_address, crawl_id, JSON.stringify(holder), updated_at ?? new Date()],
+      );
+    } catch (error) {
+      this.logger.error('error', '[insertTopHolder:error]', JSON.stringify(error));
       throw error;
     }
   }

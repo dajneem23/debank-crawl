@@ -16,7 +16,13 @@ export type DebankJobNames =
   | 'debank:fetch:whales:paging'
   | 'debank:add::fetch:whales:paging'
   | 'debank:insert:whale'
+  | 'debank:insert:top-holder'
   | 'debank:insert:user-address'
-  | 'debank:insert:user-assets-portfolio';
+  | 'debank:insert:user-assets-portfolio'
+  | 'debank:insert:coin'
+  | 'debank:add:fetch:coins'
+  | 'debank:fetch:top-holders'
+  | 'debank:fetch:top-holders:page'
+  | 'debank:add:fetch:top-holders';
 
 export type DebankJobData = fetchDebankDataJob;

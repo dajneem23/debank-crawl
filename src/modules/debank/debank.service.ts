@@ -1482,7 +1482,7 @@ export class DebankService {
           payload: {
             coin,
             crawl_id,
-            updated_at: new Date(),
+            crawl_time: new Date(),
           },
           options: {
             removeOnComplete: true,
@@ -1500,7 +1500,7 @@ export class DebankService {
     }
   }
 
-  async insertCoin({ coin, crawl_id, updated_at }: { coin: any; crawl_id: number; updated_at: Date }) {
+  async insertCoin({ coin, crawl_id, crawl_time }: { coin: any; crawl_id: number; crawl_time: Date }) {
     try {
       await pgClient.query(
         `
@@ -1508,12 +1508,12 @@ export class DebankService {
           symbol,
           crawl_id,
           details,
-          updated_at
+          crawl_time
         )
         VALUES ($1, $2, $3, $4) ON CONFLICT (symbol) DO UPDATE
-          SET details = $3, updated_at = $4, crawl_id = $2
+          SET details = $3, crawl_time = $4, crawl_id = $2
       `,
-        [coin.symbol, crawl_id, JSON.stringify(coin), updated_at ?? new Date()],
+        [coin.symbol, crawl_id, JSON.stringify(coin), crawl_time ?? new Date()],
       );
     } catch (error) {
       this.logger.error('error', '[insertCoin:error]', JSON.stringify(error));
@@ -1553,12 +1553,13 @@ export class DebankService {
       //     },
       //   });
       // });
+      const crawl_time = new Date();
       const values = holders.map((holder) => ({
         symbol,
         details: JSON.stringify(holder),
         user_address: holder.id,
         crawl_id,
-        updated_at: new Date(),
+        crawl_time,
       }));
       await bulkInsert({
         data: values,
@@ -1574,12 +1575,12 @@ export class DebankService {
     user_address,
     holder,
     crawl_id,
-    updated_at,
+    crawl_time,
   }: {
     user_address: string;
     holder: any;
     crawl_id: number;
-    updated_at: Date;
+    crawl_time: Date;
     symbol: string;
   }) {
     try {
@@ -1590,10 +1591,10 @@ export class DebankService {
           crawl_id,
           details,
           symbol,
-          updated_at)
+          crawl_time)
         VALUES ($1, $2, $3, $4, $5)
       `,
-        [user_address, crawl_id, JSON.stringify(holder), symbol, updated_at ?? new Date()],
+        [user_address, crawl_id, JSON.stringify(holder), symbol, crawl_time ?? new Date()],
       );
     } catch (error) {
       this.logger.error('error', '[insertTopHolder:error]', JSON.stringify(error));

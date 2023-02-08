@@ -27,7 +27,7 @@ const pgPool = new Pool({
     rejectUnauthorized: false,
   },
 });
-const pgPromiseDb = pgPromise()({
+const pgPromiseClient = pgPromise()({
   host: env.MB_DB_HOST,
   user: env.MB_DB_USER,
   password: env.MB_DB_PASS,
@@ -38,17 +38,20 @@ const pgPromiseDb = pgPromise()({
   },
 });
 
-export const pgPromiseDBToken = new Token<typeof pgPromiseDb>('_pgPromiseDb');
+export const pgPromiseClientToken = new Token<typeof pgPromiseClient>('_pgPromiseClientToken');
 
+const pgp = pgPromise();
+export const pgpToken = new Token<typeof pgp>('_pgpToken');
 const pgLoader = async () => {
   const logger = Container.get(DILogger);
   try {
     await pgPool.connect();
     await pgClient.connect();
-    await pgPromiseDb.connect();
+    await pgPromiseClient.connect();
     Container.set(pgPoolToken, pgPool);
     Container.set(pgClientToken, pgClient);
-    Container.set(pgPromiseDBToken, pgPromiseDb);
+    Container.set(pgPromiseClientToken, pgPromiseClient);
+    Container.set(pgpToken, pgp);
     logger.success('connected', 'Pool Postgres');
   } catch (err) {
     logger.error('error', 'pool:connect:pg', err);

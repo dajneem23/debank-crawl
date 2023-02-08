@@ -11,6 +11,7 @@ import { pgClientToken, pgPoolToken } from '@/loaders/pg.loader';
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
 import lodash from 'lodash';
+import { bulkInsert } from '@/utils/pg';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
 export class DebankService {
@@ -897,11 +898,11 @@ export class DebankService {
       //insert all whale list
       this.insertWhaleList({ whales, crawl_id });
       //insert all address
-      this.insertUserAddressList({
-        whales,
-        debank_whales_time: new Date(),
-        last_crawl_id: crawl_id,
-      });
+      // this.insertUserAddressList({
+      //   whales,
+      //   debank_whales_time: new Date(),
+      //   last_crawl_id: crawl_id,
+      // });
     } catch (error) {
       this.logger.discord('error', '[addFetchWhaleListJob:error]', JSON.stringify(error));
       throw error;
@@ -1029,17 +1030,17 @@ export class DebankService {
     try {
       const now = new Date();
 
-      await pgClient.query(
-        `
-      INSERT INTO "debank-user-address-list" (
-        user_address,
-        last_crawl_id,
-        debank_ranking_time,
-        updated_at
-      ) VALUES ($1, $2, $3, $4) ON CONFLICT (user_address) DO UPDATE SET updated_at = $4 , last_crawl_id = $2, debank_ranking_time = $3;
-    `,
-        [user_address, crawl_id, now, now],
-      );
+      //   await pgClient.query(
+      //     `
+      //   INSERT INTO "debank-user-address-list" (
+      //     user_address,
+      //     last_crawl_id,
+      //     debank_ranking_time,
+      //     updated_at
+      //   ) VALUES ($1, $2, $3, $4) ON CONFLICT (user_address) DO UPDATE SET updated_at = $4 , last_crawl_id = $2, debank_ranking_time = $3;
+      // `,
+      //     [user_address, crawl_id, now, now],
+      //   );
       //bulk
       await Promise.all(
         token_list.map(async (token: any) => {
@@ -1362,13 +1363,17 @@ export class DebankService {
       }
       //100
       const { holders } = data;
-      this.insertTopHolders({ holders, crawl_id });
-
-      this.insertUserAddressList({
+      this.insertTopHolders({
         holders,
-        last_crawl_id: crawl_id,
-        debank_top_holders_time: new Date(),
+        crawl_id,
+        symbol: id,
       });
+
+      // this.insertUserAddressList({
+      //   holders,
+      //   last_crawl_id: crawl_id,
+      //   debank_top_holders_time: new Date(),
+      // });
       return {
         holders,
       };
@@ -1548,26 +1553,38 @@ export class DebankService {
       throw error;
     }
   }
-  async insertTopHolders({ holders, crawl_id }: { holders: any[]; crawl_id: number }) {
+  async insertTopHolders({ holders, crawl_id, symbol }: { holders: any[]; crawl_id: number; symbol: string }) {
     try {
-      holders.forEach((holder) => {
-        this.addInsertJob({
-          name: 'debank:insert:top-holder',
-          payload: {
-            user_address: holder.id,
-            holder,
-            crawl_id,
-            updated_at: new Date(),
-          },
-          options: {
-            removeOnComplete: true,
-            removeOnFail: {
-              age: 1000 * 60 * 60 * 24,
-            },
-            priority: 5,
-            attempts: 10,
-          },
-        });
+      // holders.forEach((holder) => {
+      //   this.addInsertJob({
+      //     name: 'debank:insert:top-holder',
+      //     payload: {
+      //       symbol,
+      //       user_address: holder.id,
+      //       holder,
+      //       crawl_id,
+      //       updated_at: new Date(),
+      //     },
+      //     options: {
+      //       removeOnComplete: true,
+      //       removeOnFail: {
+      //         age: 1000 * 60 * 60 * 24,
+      //       },
+      //       priority: 5,
+      //       attempts: 10,
+      //     },
+      //   });
+      // });
+      const values = holders.map((holder) => ({
+        symbol,
+        details: JSON.stringify(holder),
+        user_address: holder.id,
+        crawl_id,
+        updated_at: new Date(),
+      }));
+      await bulkInsert({
+        data: values,
+        table: 'debank-top-holders-test',
       });
     } catch (error) {
       this.logger.error('error', '[insertTopHolders:error]', JSON.stringify(error));
@@ -1575,6 +1592,7 @@ export class DebankService {
     }
   }
   async insertTopHolder({
+    symbol,
     user_address,
     holder,
     crawl_id,
@@ -1584,6 +1602,7 @@ export class DebankService {
     holder: any;
     crawl_id: number;
     updated_at: Date;
+    symbol: string;
   }) {
     try {
       await pgClient.query(
@@ -1596,7 +1615,7 @@ export class DebankService {
           updated_at)
         VALUES ($1, $2, $3, $4, $5)
       `,
-        [user_address, crawl_id, JSON.stringify(holder), holder.symbol, updated_at ?? new Date()],
+        [user_address, crawl_id, JSON.stringify(holder), symbol, updated_at ?? new Date()],
       );
     } catch (error) {
       this.logger.error('error', '[insertTopHolder:error]', JSON.stringify(error));

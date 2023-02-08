@@ -5,6 +5,9 @@ import { DILogger } from '@/loaders/logger.loader';
 import env from '@/config/env';
 import { REST, Routes, GatewayIntentBits, Client, TextChannel, MessagePayload, MessageCreateOptions } from 'discord.js';
 import { isJSON } from '@/utils/text';
+import { execSync } from 'child_process';
+import { table } from 'table';
+import { arrayObjectToTable } from '@/utils/table';
 
 export const DIDiscordClient = new Token<Discord>('_discordClient');
 export const DIDiscordRest = new Token<REST>('_discordRest');
@@ -12,6 +15,22 @@ const commands = [
   {
     name: 'ping',
     description: 'Replies with Pong!',
+  },
+  {
+    name: 'crawler',
+    description: 'Crawler commands',
+    options: [
+      {
+        name: 'status',
+        description: 'Get crawler status',
+        type: 1,
+      },
+      {
+        name: 'dockers_stats',
+        description: 'Get dockers stats',
+        type: 1,
+      },
+    ],
   },
 ];
 const TOKEN = env.DISCORD_BOT_TOKEN;
@@ -21,8 +40,16 @@ const NOTIFICATION_CHANNEL_ID = env.DISCORD_NOTIFICATION_CHANNEL_ID;
 export class Discord {
   readonly client: Client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
   readonly rest = new REST({ version: '10' }).setToken(TOKEN);
+  readonly commands = {
+    ping: this.pingCommand,
+    crawler: this.crawlerCommand,
+  };
+  readonly crawlerCommands = {
+    dockers_stats: this.dockersStatsCommand,
+    status: this.crawlerStatusCommand,
+  };
   constructor() {
-    // await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+    this.rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
     // console.log('Successfully reloaded application (/) commands.');
 
     this.client.on('ready', async () => {
@@ -32,10 +59,8 @@ export class Discord {
     });
     this.client.on('interactionCreate', async (interaction: any) => {
       if (!interaction.isChatInputCommand()) return;
-
-      if (interaction.commandName === 'ping') {
-        await interaction.reply('Pong!');
-      }
+      await interaction.reply(':gear: Working on it');
+      await this.commands[interaction.commandName as keyof typeof this.commands]?.call(this, { interaction });
     });
     this.client.login(TOKEN);
   }
@@ -56,5 +81,46 @@ export class Discord {
   }
   decorateMsg(msg: string) {
     return isJSON(msg) ? `\`\`\`json\n${msg}\`\`\`` : msg;
+  }
+
+  async pingCommand({ interaction }: { interaction: any }) {
+    return interaction.editReply('Pong!');
+  }
+
+  async dockersStatsCommand({ interaction }: { interaction: any }) {
+    try {
+      const dockerStats = execSync('docker stats --no-stream  --format "{{json .}}"').toString();
+
+      const dockerStatsArray = dockerStats
+        .split('\n')
+        .map((item) => isJSON(item) && JSON.parse(item))
+        .filter(Boolean);
+      const dockerStatsTable = table(arrayObjectToTable(dockerStatsArray), {
+        header: {
+          content: 'Docker Stats',
+        },
+      });
+
+      const markDownTable = `\`\`\`markdown\n${dockerStatsTable}\`\`\``;
+      await interaction.editReply(markDownTable);
+      return;
+    } catch (error) {
+      return interaction.editReply('Error');
+    }
+  }
+  async crawlerCommand({ interaction }: { interaction: any }) {
+    await this.crawlerCommands[interaction.options.getSubcommand() as keyof typeof this.crawlerCommands]?.call(this, {
+      interaction,
+    });
+  }
+  async crawlerStatusCommand({ interaction }: { interaction: any }) {
+    try {
+      const crawlerStatus = execSync('htop').toString();
+
+      await interaction.editReply(crawlerStatus);
+      return;
+    } catch (error) {
+      return interaction.editReply('Error');
+    }
   }
 }

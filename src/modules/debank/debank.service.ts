@@ -185,19 +185,19 @@ export class DebankService {
     //     priority: 1,
     //   },
     // });
-    // this.addJob({
-    //   name: 'debank:add:social:users',
-    //   options: {
-    //     repeatJobKey: 'debank:add:social:users',
-    //     repeat: {
-    //       //repeat every 2 hours
-    //       every: 1000 * 60 * 60 * 2,
-    //       // pattern: '* 0 0 * * *',
-    //     },
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // });
+    this.addJob({
+      name: 'debank:add:social:users',
+      options: {
+        repeatJobKey: 'debank:add:social:users',
+        repeat: {
+          //repeat every 2 hours
+          every: 1000 * 60 * 60 * 3,
+          // pattern: '* 0 0 * * *',
+        },
+        priority: 1,
+        attempts: 5,
+      },
+    });
     // this.addJob({
     //   name: 'debank:add:fetch:coins',
     //   options: {
@@ -653,10 +653,25 @@ export class DebankService {
     // .catch((err) => this.logger.discord('error', '[debank:insertSocialRanking]', JSON.stringify(err)));
   }
   async querySocialRanking(
-    { select = '*', limit = 10000 }: { select: string; limit: number } = { select: '*', limit: 10000 },
+    {
+      select = '*',
+      limit = 10000,
+      orderBy = 'rank',
+      order = 'ASC',
+    }: {
+      select: string;
+      limit: number;
+      orderBy: string;
+      order: 'DESC' | 'ASC';
+    } = {
+      select: '*',
+      limit: 10000,
+      orderBy: 'rank',
+      order: 'ASC',
+    },
   ) {
     const { rows } = await pgPool.query(
-      `SELECT ${select} FROM "debank-social-ranking" ORDER BY rank ASC LIMIT ${limit}`,
+      `SELECT ${select} FROM "debank-social-ranking" ORDER BY ${orderBy} ${order} LIMIT ${limit}`,
     );
     return { rows };
   }
@@ -846,28 +861,10 @@ export class DebankService {
   async insertWhaleList({ whales, crawl_id }: { whales: any[]; crawl_id: number }) {
     try {
       //insert all whale list
-      // whales.map((whale) => {
-      //   this.addInsertJob({
-      //     name: 'debank:insert:whale',
-      //     payload: {
-      //       whale,
-      //       crawl_id,
-      //       updated_at: new Date(),
-      //     },
-      //     options: {
-      //       removeOnComplete: true,
-      //       removeOnFail: {
-      //         age: 1000 * 60 * 60 * 24,
-      //       },
-      //       priority: 5,
-      //       attempts: 10,
-      //     },
-      //   });
-      // });
       const data = whales.map((whale) => ({
         details: JSON.stringify(whale),
         crawl_id,
-        updated_at: new Date(),
+        crawl_time: new Date(),
       }));
       await bulkInsert({
         data,
@@ -1123,6 +1120,8 @@ export class DebankService {
     const { rows } = await this.querySocialRanking({
       select: 'user_address',
       limit: 10000,
+      orderBy: 'debank_top_holders_time',
+      order: 'DESC',
     });
 
     const crawl_id = await this.getCrawlId();
@@ -1268,14 +1267,12 @@ export class DebankService {
         user_address,
         debank_whales_time,
         debank_top_holders_time,
-        debank_ranking_time,
-        updated_at
+        debank_ranking_time
       )
       VALUES ($1, $2, $3, $4, $5) ON CONFLICT (user_address) DO UPDATE SET
         debank_whales_time = COALESCE(NULLIF($2,''), "debank-user-address-list".debank_whales_time),
         debank_top_holders_time = COALESCE(NULLIF($3,''), "debank-user-address-list".debank_top_holders_time),
-        debank_ranking_time = COALESCE(NULLIF($4,''), "debank-user-address-list".debank_ranking_time),
-        updated_at = $5
+        debank_ranking_time = COALESCE(NULLIF($4,''), "debank-user-address-list".debank_ranking_time)
     `,
       [user_address, debank_whales_time, debank_top_holders_time, debank_ranking_time, now],
     );
@@ -1346,12 +1343,6 @@ export class DebankService {
         crawl_id,
         symbol: id,
       });
-
-      // this.insertUserAddressList({
-      //   holders,
-      //   last_crawl_id: crawl_id,
-      //   debank_top_holders_time: new Date(),
-      // });
       return {
         holders,
       };
@@ -1476,23 +1467,14 @@ export class DebankService {
 
   async insertCoins({ coins, crawl_id }: { coins: any[]; crawl_id: string }) {
     try {
-      coins.forEach((coin) => {
-        this.addInsertJob({
-          name: 'debank:insert:coin',
-          payload: {
-            coin,
-            crawl_id,
-            crawl_time: new Date(),
-          },
-          options: {
-            removeOnComplete: true,
-            removeOnFail: {
-              age: 1000 * 60 * 60 * 24,
-            },
-            priority: 5,
-            attempts: 10,
-          },
-        });
+      const data = coins.map((coin) => ({
+        details: JSON.stringify(coin),
+        crawl_id,
+        crawl_time: new Date(),
+      }));
+      await bulkInsert({
+        table: 'debank-coins',
+        data,
       });
     } catch (error) {
       this.logger.error('error', '[insertCoins:error]', JSON.stringify(error));
@@ -1533,26 +1515,6 @@ export class DebankService {
   }
   async insertTopHolders({ holders, crawl_id, symbol }: { holders: any[]; crawl_id: number; symbol: string }) {
     try {
-      // holders.forEach((holder) => {
-      //   this.addInsertJob({
-      //     name: 'debank:insert:top-holder',
-      //     payload: {
-      //       symbol,
-      //       user_address: holder.id,
-      //       holder,
-      //       crawl_id,
-      //       updated_at: new Date(),
-      //     },
-      //     options: {
-      //       removeOnComplete: true,
-      //       removeOnFail: {
-      //         age: 1000 * 60 * 60 * 24,
-      //       },
-      //       priority: 5,
-      //       attempts: 10,
-      //     },
-      //   });
-      // });
       const crawl_time = new Date();
       const values = holders.map((holder) => ({
         symbol,

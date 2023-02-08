@@ -41,7 +41,7 @@ export class DebankService {
     'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
     'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
     'debank:fetch:whales:paging': this.fetchWhalesPaging,
-    'debank:add::fetch:whales:paging': this.addFetchWhalesPagingJob,
+    'debank:add:fetch:whales:paging': this.addFetchWhalesPagingJob,
     'debank:insert:whale': this.insertWhale,
     'debank:insert:user-address': this.insertUserAddress,
     'debank:insert:user-assets-portfolio': this.insertUserAssetPortfolio,
@@ -185,32 +185,32 @@ export class DebankService {
     //     priority: 1,
     //   },
     // });
-    this.addJob({
-      name: 'debank:add:social:users',
-      options: {
-        repeatJobKey: 'debank:add:social:users',
-        repeat: {
-          //repeat every 2 hours
-          every: 1000 * 60 * 60 * 2,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 1,
-        attempts: 5,
-      },
-    });
-    this.addJob({
-      name: 'debank:add:fetch:coins',
-      options: {
-        repeatJobKey: 'debank:add:fetch:coins',
-        repeat: {
-          //repeat every 24 hours
-          every: 1000 * 60 * 60 * 24,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 1,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: 'debank:add:social:users',
+    //   options: {
+    //     repeatJobKey: 'debank:add:social:users',
+    //     repeat: {
+    //       //repeat every 2 hours
+    //       every: 1000 * 60 * 60 * 2,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'debank:add:fetch:coins',
+    //   options: {
+    //     repeatJobKey: 'debank:add:fetch:coins',
+    //     repeat: {
+    //       //repeat every 24 hours
+    //       every: 1000 * 60 * 60 * 24,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
 
     this.addJob({
       name: 'debank:add:fetch:top-holders',
@@ -225,31 +225,31 @@ export class DebankService {
         attempts: 5,
       },
     });
-    this.addJob({
-      name: 'debank:add:social:users:rankings',
-      options: {
-        repeatJobKey: 'debank:add:social:users:rankings',
-        repeat: {
-          //repeat every 30 minutes
-          every: 1000 * 60 * 30,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 1,
-        attempts: 5,
-      },
-    });
-    this.addJob({
-      name: 'debank:add::fetch:whales:paging',
-      options: {
-        repeatJobKey: 'debank:add::fetch:whales:paging',
-        repeat: {
-          //repeat every 30 minutes
-          every: 1000 * 60 * 30,
-        },
-        priority: 1,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: 'debank:add:social:users:rankings',
+    //   options: {
+    //     repeatJobKey: 'debank:add:social:users:rankings',
+    //     repeat: {
+    //       //repeat every 30 minutes
+    //       every: 1000 * 60 * 30,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'debank:add:fetch:whales:paging',
+    //   options: {
+    //     repeatJobKey: 'debank:add:fetch:whales:paging',
+    //     repeat: {
+    //       //repeat every 30 minutes
+    //       every: 1000 * 60 * 30,
+    //     },
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
   }
   /**
    * @description add job to queue

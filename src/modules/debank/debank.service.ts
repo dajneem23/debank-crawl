@@ -1293,9 +1293,9 @@ export class DebankService {
         updated_at
       )
       VALUES ($1, $2, $3, $4, $5) ON CONFLICT (user_address) DO UPDATE SET
-        debank_whales_time = NULLIF($2, "debank_whales_time"),
-        debank_top_holders_time = NULLIF($3, "debank_top_holders_time"),
-        debank_ranking_time = NULLIF($4, "debank_ranking_time"),
+        debank_whales_time = COALESCE(NULLIF($2,''), "debank-user-address-list".debank_whales_time),
+        debank_top_holders_time = COALESCE(NULLIF($3,''), "debank-user-address-list".debank_top_holders_time),
+        debank_ranking_time = COALESCE(NULLIF($4,''), "debank-user-address-list".debank_ranking_time),
         updated_at = $5
     `,
       [user_address, debank_whales_time, debank_top_holders_time, debank_ranking_time, now],
@@ -1592,10 +1592,11 @@ export class DebankService {
           user_address,
           crawl_id,
           details,
+          symbol,
           updated_at)
-        VALUES ($1, $2, $3, $4)
+        VALUES ($1, $2, $3, $4, $5)
       `,
-        [user_address, crawl_id, JSON.stringify(holder), updated_at ?? new Date()],
+        [user_address, crawl_id, JSON.stringify(holder), holder.symbol, updated_at ?? new Date()],
       );
     } catch (error) {
       this.logger.error('error', '[insertTopHolder:error]', JSON.stringify(error));

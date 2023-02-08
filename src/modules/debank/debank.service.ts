@@ -217,8 +217,8 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:fetch:top-holders',
         repeat: {
-          //repeat every 30 minutes
-          every: 1000 * 60 * 60 * 0.5,
+          //repeat every 15 minutes
+          every: 1000 * 60 * 15,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,

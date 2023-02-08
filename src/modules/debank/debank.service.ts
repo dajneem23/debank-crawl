@@ -1055,13 +1055,13 @@ export class DebankService {
         user_address,
         details: JSON.stringify(token).replace(/\\u0000/g, ''),
         crawl_id,
-        updated_at: now,
+        crawl_time: now,
       }));
       const coins_rows = coin_list.map((coin: any) => ({
         user_address,
         details: JSON.stringify(coin).replace(/\\u0000/g, ''),
         crawl_id,
-        now,
+        crawl_time: now,
       }));
       const balances_rows = balance_list.map(async (balance: any) => ({
         user_address,
@@ -1075,13 +1075,13 @@ export class DebankService {
         optimized_symbol: balance.optimized_symbol,
         amount: balance.amount,
         crawl_id,
-        updated_at: now,
+        crawl_time: now,
       }));
       const projects_rows = project_list.map((project: any) => ({
         user_address,
         details: JSON.stringify(project).replace(/\\u0000/g, ''),
         crawl_id,
-        updated_at: now,
+        crawl_time: now,
       }));
       tokens_rows.length &&
         (await bulkInsert({

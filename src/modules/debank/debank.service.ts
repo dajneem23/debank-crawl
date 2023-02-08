@@ -1188,7 +1188,7 @@ export class DebankService {
       const crawl_id_date = crawl_id.slice(0, 8);
       const crawl_id_number = parseInt(crawl_id.slice(8));
       if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return `${crawl_id_date}${crawl_id_number + 1}`;
+        return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
       } else {
         return `${formatDate(new Date(), 'YYYYMMDD')}01`;
       }
@@ -1213,7 +1213,7 @@ export class DebankService {
       const crawl_id_date = crawl_id.slice(0, 8);
       const crawl_id_number = parseInt(crawl_id.slice(8));
       if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return `${crawl_id_date}${crawl_id_number + 1}`;
+        return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
       } else {
         return `${formatDate(new Date(), 'YYYYMMDD')}01`;
       }
@@ -1239,7 +1239,7 @@ export class DebankService {
       const crawl_id_date = crawl_id.slice(0, 8);
       const crawl_id_number = parseInt(crawl_id.slice(8));
       if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return `${crawl_id_date}${crawl_id_number + 1}`;
+        return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
       } else {
         return `${formatDate(new Date(), 'YYYYMMDD')}1`;
       }
@@ -1394,7 +1394,7 @@ export class DebankService {
           name: 'debank:fetch:top-holders:page',
           payload: {
             id,
-            start: index,
+            start: index * DebankAPI.Coin.top_holders.params.limit,
             limit: DebankAPI.Coin.top_holders.params.limit,
             crawl_id,
           },
@@ -1427,7 +1427,7 @@ export class DebankService {
             crawl_id,
           },
           options: {
-            jobId: `debank:fetch:social:user:${crawl_id}:${symbol}`,
+            jobId: `debank:fetch:top-holders:${crawl_id}:${symbol}`,
             removeOnComplete: true,
             removeOnFail: {
               age: 1000 * 60 * 60 * 24,
@@ -1562,7 +1562,7 @@ export class DebankService {
       }));
       await bulkInsert({
         data: values,
-        table: 'debank-top-holders-test',
+        table: 'debank-top-holders',
       });
     } catch (error) {
       this.logger.error('error', '[insertTopHolders:error]', JSON.stringify(error));

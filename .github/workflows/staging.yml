@@ -70,7 +70,7 @@ jobs:
             # Remove old container
             docker rm $(echo $IMAGE_NAME) -f
             docker container prune
-            docker image prune -a
+            docker image prune -a -f --filter "until=24h"
             # Run a new container from a new image
             docker run -d \
             -p 127.0.0.1:9002:9002 \

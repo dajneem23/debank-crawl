@@ -843,26 +843,35 @@ export class DebankService {
     }
   }
 
-  insertWhaleList({ whales, crawl_id }: { whales: any[]; crawl_id: number }) {
+  async insertWhaleList({ whales, crawl_id }: { whales: any[]; crawl_id: number }) {
     try {
       //insert all whale list
-      whales.map((whale) => {
-        this.addInsertJob({
-          name: 'debank:insert:whale',
-          payload: {
-            whale,
-            crawl_id,
-            updated_at: new Date(),
-          },
-          options: {
-            removeOnComplete: true,
-            removeOnFail: {
-              age: 1000 * 60 * 60 * 24,
-            },
-            priority: 5,
-            attempts: 10,
-          },
-        });
+      // whales.map((whale) => {
+      //   this.addInsertJob({
+      //     name: 'debank:insert:whale',
+      //     payload: {
+      //       whale,
+      //       crawl_id,
+      //       updated_at: new Date(),
+      //     },
+      //     options: {
+      //       removeOnComplete: true,
+      //       removeOnFail: {
+      //         age: 1000 * 60 * 60 * 24,
+      //       },
+      //       priority: 5,
+      //       attempts: 10,
+      //     },
+      //   });
+      // });
+      const data = whales.map((whale) => ({
+        details: JSON.stringify(whale),
+        crawl_id,
+        updated_at: new Date(),
+      }));
+      await bulkInsert({
+        data,
+        table: 'debank-whales',
       });
     } catch (error) {
       this.logger.discord('error', '[insertWhaleList:error]', JSON.stringify(error));
@@ -896,7 +905,7 @@ export class DebankService {
         return;
       }
       //insert all whale list
-      this.insertWhaleList({ whales, crawl_id });
+      await this.insertWhaleList({ whales, crawl_id });
       //insert all address
       // this.insertUserAddressList({
       //   whales,
@@ -1041,90 +1050,59 @@ export class DebankService {
       // `,
       //     [user_address, crawl_id, now, now],
       //   );
-      //bulk
-      await Promise.all(
-        token_list.map(async (token: any) => {
-          await pgClient.query(
-            `
-        INSERT INTO "debank-user-asset-portfolio-tokens"(
-          user_address,
-          details,
-          crawl_id,
-          updated_at
-        )
-        VALUES ($1, $2, $3,$4)
-        `,
-            [user_address, JSON.stringify(token).replace(/\\u0000/g, ''), crawl_id, now],
-          );
-        }),
-      );
-      await Promise.all(
-        coin_list.map(async (coin: any) => {
-          await pgClient.query(
-            `
-        INSERT INTO "debank-user-asset-portfolio-coins"(
-          user_address,
-          details,
-          crawl_id,
-          updated_at
-        )
-        VALUES ($1, $2, $3, $4)
-        `,
-            [user_address, JSON.stringify(coin).replace(/\\u0000/g, ''), crawl_id, now],
-          );
-        }),
-      );
-      await Promise.all(
-        balance_list.map(async (balance: any) => {
-          await pgClient.query(
-            `
-        INSERT INTO "debank-user-asset-portfolio-balances"(
-          user_address,
-          details,
-          is_stable_coin,
-          price,
-          symbol,
-          optimized_symbol,
-          amount,
-          crawl_id,
-          updated_at
-        )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-        `,
-            [
-              user_address,
-              JSON.stringify({
-                ...balance,
-                is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-              }).replace(/\\u0000/g, ''),
-              STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-              balance.price,
-              balance.symbol,
-              balance.optimized_symbol,
-              balance.amount,
-              crawl_id,
-              now,
-            ],
-          );
-        }),
-      );
 
-      await Promise.all(
-        project_list.map(async (project: any) => {
-          await pgClient.query(
-            `
-        INSERT INTO "debank-user-asset-portfolio-projects"(
-          user_address,
-          details,
-          crawl_id,
-          updated_at
-        )
-        VALUES ($1, $2, $3, $4)
-        `,
-            [user_address, JSON.stringify(project).replace(/\\u0000/g, ''), crawl_id, now],
-          );
-        }),
-      );
+      const tokens_rows = token_list.map((token: any) => ({
+        user_address,
+        details: JSON.stringify(token).replace(/\\u0000/g, ''),
+        crawl_id,
+        updated_at: now,
+      }));
+      const coins_rows = coin_list.map((coin: any) => ({
+        user_address,
+        details: JSON.stringify(coin).replace(/\\u0000/g, ''),
+        crawl_id,
+        now,
+      }));
+      const balances_rows = balance_list.map(async (balance: any) => ({
+        user_address,
+        details: JSON.stringify({
+          ...balance,
+          is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+        }).replace(/\\u0000/g, ''),
+        is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+        price: balance.price,
+        symbol: balance.symbol,
+        optimized_symbol: balance.optimized_symbol,
+        amount: balance.amount,
+        crawl_id,
+        updated_at: now,
+      }));
+      const projects_rows = project_list.map((project: any) => ({
+        user_address,
+        details: JSON.stringify(project).replace(/\\u0000/g, ''),
+        crawl_id,
+        updated_at: now,
+      }));
+      tokens_rows.length &&
+        (await bulkInsert({
+          data: tokens_rows,
+          table: 'debank-user-asset-portfolio-tokens',
+        }));
+      coins_rows.length &&
+        (await bulkInsert({
+          data: coins_rows,
+          table: 'debank-user-asset-portfolio-coins',
+        }));
+      balances_rows.length &&
+        (await bulkInsert({
+          data: balances_rows,
+          table: 'debank-user-asset-portfolio-balances',
+        }));
+      projects_rows.length &&
+        (await bulkInsert({
+          data: projects_rows,
+          table: 'debank-user-asset-portfolio-projects',
+        }));
     } catch (error) {
       this.logger.error(
         'error',

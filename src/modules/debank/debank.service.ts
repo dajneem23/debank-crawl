@@ -1610,10 +1610,11 @@ export class DebankService {
         crawl_id,
         crawl_time,
       }));
-      await bulkInsert({
-        data: values,
-        table: 'debank-top-holders',
-      });
+      values.length &&
+        (await bulkInsert({
+          data: values,
+          table: 'debank-top-holders',
+        }));
     } catch (error) {
       this.logger.error('error', '[insertTopHolders:error]', JSON.stringify(error));
       throw error;

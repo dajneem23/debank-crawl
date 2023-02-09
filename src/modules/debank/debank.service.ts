@@ -202,19 +202,19 @@ export class DebankService {
     //     attempts: 5,
     //   },
     // });
-    this.addJob({
-      name: 'debank:add:fetch:user-address:top-holders',
-      options: {
-        repeatJobKey: 'debank:add:fetch:user-address:top-holders',
-        repeat: {
-          //repeat every 3 hours
-          every: 1000 * 60 * 60 * 3,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 1,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: 'debank:add:fetch:user-address:top-holders',
+    //   options: {
+    //     repeatJobKey: 'debank:add:fetch:user-address:top-holders',
+    //     repeat: {
+    //       //repeat every 3 hours
+    //       every: 1000 * 60 * 60 * 3,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
     // this.addJob({
     //   name: 'debank:add:fetch:coins',
     //   options: {
@@ -890,10 +890,11 @@ export class DebankService {
         crawl_id,
         crawl_time: new Date(),
       }));
-      await bulkInsert({
-        data,
-        table: 'debank-whales',
-      });
+      data.length &&
+        (await bulkInsert({
+          data,
+          table: 'debank-whales',
+        }));
     } catch (error) {
       this.logger.discord('error', '[insertWhaleList:error]', JSON.stringify(error));
       throw error;
@@ -1260,13 +1261,15 @@ export class DebankService {
   async getTopHoldersCrawlId() {
     const { rows } = await pgClient.query(`
       SELECT
-        crawl_id
+        max(crawl_id) as crawl_id
       FROM
         "debank-top-holders"
       Where
         updated_at > now() - interval '1 day'
+      GROUP BY
+          crawl_id
       ORDER BY
-        updated_at DESC
+        crawl_id DESC
           LIMIT 1
     `);
     if (rows[0]?.crawl_id && rows[0].crawl_id) {
@@ -1550,10 +1553,11 @@ export class DebankService {
         crawl_id,
         crawl_time: new Date(),
       }));
-      await bulkInsert({
-        table: 'debank-coins',
-        data,
-      });
+      data.length &&
+        (await bulkInsert({
+          table: 'debank-coins',
+          data,
+        }));
     } catch (error) {
       this.logger.error('error', '[insertCoins:error]', JSON.stringify(error));
       throw error;

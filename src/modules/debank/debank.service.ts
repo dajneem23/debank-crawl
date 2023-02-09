@@ -78,9 +78,9 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2,
-      concurrency: 350,
+      concurrency: 500,
       limiter: {
-        max: 35,
+        max: 50,
         duration: 1000,
       },
       stalledInterval: 1000 * 60,
@@ -208,7 +208,7 @@ export class DebankService {
         repeatJobKey: 'debank:add:fetch:user-address:top-holders',
         repeat: {
           //repeat every 3 hours
-          every: 1000 * 60 * 30,
+          every: 1000 * 60 * 60,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -235,7 +235,7 @@ export class DebankService {
         repeatJobKey: 'debank:add:fetch:top-holders',
         repeat: {
           //repeat every 60 minutes
-          every: 1000 * 60 * 15,
+          every: 1000 * 60 * 60,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -888,6 +888,7 @@ export class DebankService {
     try {
       //insert all whale list
       const data = whales.map((whale) => ({
+        user_address: whale.id,
         details: JSON.stringify(whale),
         crawl_id,
         crawl_time: new Date(),
@@ -941,67 +942,7 @@ export class DebankService {
       throw error;
     }
   }
-  insertUserAddressList({
-    whales = [],
-    holders = [],
-    debank_ranking_time,
-    debank_whales_time,
-    debank_top_holders_time,
-    last_crawl_id,
-  }: {
-    whales?: any;
-    holders?: any;
-    debank_whales_time?: Date;
-    debank_top_holders_time?: Date;
-    debank_ranking_time?: Date;
-    last_crawl_id?: number;
-  }) {
-    try {
-      whales.map(({ id }: { id: string }) => {
-        this.addInsertJob({
-          name: 'debank:insert:user-address',
-          payload: {
-            user_address: id,
-            updated_at: new Date(),
-            debank_whales_time,
-            debank_top_holders_time,
-            debank_ranking_time,
-          },
-          options: {
-            removeOnComplete: true,
-            removeOnFail: {
-              age: 1000 * 60 * 60 * 24,
-            },
-            priority: 5,
-            attempts: 10,
-          },
-        });
-      });
-      holders.map(({ id }: { id: string }) => {
-        this.addInsertJob({
-          name: 'debank:insert:user-address',
-          payload: {
-            user_address: id,
-            updated_at: new Date(),
-            debank_whales_time,
-            debank_top_holders_time,
-            debank_ranking_time,
-          },
-          options: {
-            removeOnComplete: true,
-            removeOnFail: {
-              age: 1000 * 60 * 60 * 24,
-            },
-            priority: 5,
-            attempts: 10,
-          },
-        });
-      });
-    } catch (error) {
-      this.logger.discord('error', '[fetchWhalesPaging:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
+
   async addFetchWhalesPagingJob() {
     try {
       const crawl_id = await this.getWhalesCrawlId();
@@ -1126,7 +1067,7 @@ export class DebankService {
       balances_rows.length &&
         (await bulkInsert({
           data: balances_rows,
-          table: 'debank-user-asset-portfolio-balances-test',
+          table: 'debank-user-asset-portfolio-balances',
         }));
       projects_rows.length &&
         (await bulkInsert({
@@ -1168,7 +1109,9 @@ export class DebankService {
         },
         options: {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
-          removeOnComplete: true,
+          removeOnComplete: {
+            age: 1000 * 60 * 30,
+          },
           removeOnFail: {
             age: 1000 * 60 * 60 * 24,
           },
@@ -1211,14 +1154,9 @@ export class DebankService {
   async getCrawlId() {
     const { rows } = await pgClient.query(`
       SELECT
-        last_crawl_id
+        max(last_crawl_id) as last_crawl_id
       FROM
         "debank-user-address-list"
-      Where
-        updated_at > now() - interval '1 day'
-      ORDER BY
-        updated_at DESC
-          LIMIT 1
     `);
     if (rows[0]?.last_crawl_id && rows[0].last_crawl_id) {
       const last_crawl_id = rows[0].last_crawl_id;
@@ -1237,15 +1175,10 @@ export class DebankService {
   }
   async getWhalesCrawlId() {
     const { rows } = await pgClient.query(`
-      SELECT
-        crawl_id
+  	  SELECT
+        max(crawl_id) as crawl_id
       FROM
         "debank-whales"
-      Where
-        updated_at > now() - interval '1 day'
-      ORDER BY
-        updated_at DESC
-          LIMIT 1
     `);
     if (rows[0]?.crawl_id && rows[0].crawl_id) {
       const crawl_id = rows[0].crawl_id;
@@ -1266,13 +1199,6 @@ export class DebankService {
         max(crawl_id) as crawl_id
       FROM
         "debank-top-holders"
-      Where
-        updated_at > now() - interval '1 day'
-      GROUP BY
-          crawl_id
-      ORDER BY
-        crawl_id DESC
-          LIMIT 1
     `);
     if (rows[0]?.crawl_id && rows[0].crawl_id) {
       const crawl_id = rows[0].crawl_id;
@@ -1290,15 +1216,10 @@ export class DebankService {
 
   async getCoinsCrawlId() {
     const { rows } = await pgClient.query(`
-      SELECT
-        crawl_id
-      FROM
-        "debank-coins"
-      Where
-        updated_at > now() - interval '1 day'
-      ORDER BY
-        updated_at DESC
-          LIMIT 1
+    SELECT
+        max(crawl_id) as crawl_id
+    FROM
+      "debank-coins"
     `);
     if (rows[0]?.crawl_id && rows[0].crawl_id) {
       const crawl_id = rows[0].crawl_id;

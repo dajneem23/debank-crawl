@@ -23,6 +23,7 @@ export type DebankJobNames =
   | 'debank:add:fetch:coins'
   | 'debank:fetch:top-holders'
   | 'debank:fetch:top-holders:page'
-  | 'debank:add:fetch:top-holders';
+  | 'debank:add:fetch:top-holders'
+  | 'debank:add:fetch:user-address:top-holders';
 
 export type DebankJobData = fetchDebankDataJob;

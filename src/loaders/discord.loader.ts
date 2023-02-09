@@ -49,7 +49,7 @@ export class Discord {
     status: this.crawlerStatusCommand,
   };
   constructor() {
-    this.rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+    // this.rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
     // console.log('Successfully reloaded application (/) commands.');
 
     this.client.on('ready', async () => {
@@ -115,6 +115,8 @@ export class Discord {
   }
   async crawlerStatusCommand({ interaction }: { interaction: any }) {
     try {
+      //TODO: get crawler status and send it to discord
+      //! not done yet
       const crawlerStatus = execSync('htop').toString();
 
       await interaction.editReply(crawlerStatus);

@@ -202,19 +202,19 @@ export class DebankService {
     //     attempts: 5,
     //   },
     // });
-    // this.addJob({
-    //   name: 'debank:add:fetch:user-address:top-holders',
-    //   options: {
-    //     repeatJobKey: 'debank:add:fetch:user-address:top-holders',
-    //     repeat: {
-    //       //repeat every 3 hours
-    //       every: 1000 * 60 * 60 * 3,
-    //       // pattern: '* 0 0 * * *',
-    //     },
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // });
+    this.addJob({
+      name: 'debank:add:fetch:user-address:top-holders',
+      options: {
+        repeatJobKey: 'debank:add:fetch:user-address:top-holders',
+        repeat: {
+          //repeat every 3 hours
+          every: 1000 * 60 * 30,
+          // pattern: '* 0 0 * * *',
+        },
+        priority: 1,
+        attempts: 5,
+      },
+    });
     // this.addJob({
     //   name: 'debank:add:fetch:coins',
     //   options: {
@@ -235,7 +235,7 @@ export class DebankService {
         repeatJobKey: 'debank:add:fetch:top-holders',
         repeat: {
           //repeat every 60 minutes
-          every: 1000 * 60 * 60,
+          every: 1000 * 60 * 15,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -704,7 +704,9 @@ export class DebankService {
     order: 'DESC' | 'ASC';
   }) {
     const { rows } = await pgPool.query(
-      `SELECT ${select} FROM "debank-user-address-list" ORDER BY ${orderBy} ${order}  ${limit ? 'LIMIT ' + limit : ''}`,
+      `SELECT ${select} FROM "debank-user-address-list"
+      WHERE debank_top_holders_time is not null
+      ORDER BY ${orderBy} ${order}  ${limit ? 'LIMIT ' + limit : ''}`,
     );
     return {
       rows,
@@ -1180,7 +1182,7 @@ export class DebankService {
     const { rows } = await this.queryAddressList({
       select: 'user_address',
       //10000
-      limit: 10000,
+      limit: 50000,
       orderBy: 'debank_top_holders_time',
       order: 'DESC',
     });

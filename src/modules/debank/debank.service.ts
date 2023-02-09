@@ -14,6 +14,9 @@ import lodash from 'lodash';
 import { bulkInsert } from '@/utils/pg';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
+
+const account =
+  '{"random_at":1675919820,"random_id":"7c7daa4df5744190a78835c2eb44930e","session_id":"8145eab5f7cc45399adb380e564c7b1d","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 export class DebankService {
   private logger = new Logger('Debank');
 
@@ -75,7 +78,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2,
-      concurrency: 200,
+      concurrency: 350,
       limiter: {
         max: 35,
         duration: 1000,
@@ -231,8 +234,8 @@ export class DebankService {
       options: {
         repeatJobKey: 'debank:add:fetch:top-holders',
         repeat: {
-          //repeat every 15 minutes
-          every: 1000 * 60 * 15,
+          //repeat every 60 minutes
+          every: 1000 * 60 * 60,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
@@ -701,7 +704,7 @@ export class DebankService {
     order: 'DESC' | 'ASC';
   }) {
     const { rows } = await pgPool.query(
-      `SELECT ${select} FROM "debank-user-address-list" ORDER BY ${orderBy} ${order} LIMIT ${limit}`,
+      `SELECT ${select} FROM "debank-user-address-list" ORDER BY ${orderBy} ${order}  ${limit ? 'LIMIT ' + limit : ''}`,
     );
     return {
       rows,
@@ -1007,7 +1010,6 @@ export class DebankService {
       });
 
       //create list index from total count divine limit each list index will be a job
-      // const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Whale.list.params.limit)).keys());
       const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Whale.list.params.limit))).reduce(
         (acc, _, index) => {
           acc.push(index * DebankAPI.Whale.list.params.limit);
@@ -1017,6 +1019,7 @@ export class DebankService {
       );
       //create job for each list index
       listIndex.map((index: number) => {
+        if (index === 0) return;
         this.addJob({
           name: 'debank:fetch:whales:paging',
           payload: {
@@ -1034,6 +1037,7 @@ export class DebankService {
           },
         });
       });
+      await this.insertWhaleList({ whales, crawl_id: +crawl_id });
     } catch (error) {
       this.logger.discord('error', '[addFetchWhalesPagingJob:error]', JSON.stringify(error));
       throw error;
@@ -1384,6 +1388,11 @@ export class DebankService {
           start,
           limit,
         },
+        config: {
+          headers: {
+            account,
+          },
+        },
       });
       if (status !== 200 || error_code) {
         this.logger.discord(
@@ -1394,9 +1403,8 @@ export class DebankService {
         );
         throw new Error('fetchTopHolders:error');
       }
-      //100
       const { holders } = data;
-      this.insertTopHolders({
+      await this.insertTopHolders({
         holders,
         crawl_id,
         symbol: id,
@@ -1419,6 +1427,11 @@ export class DebankService {
         params: {
           id,
         },
+        config: {
+          headers: {
+            account,
+          },
+        },
       });
       if (status !== 200 || error_code) {
         this.logger.discord(
@@ -1429,7 +1442,7 @@ export class DebankService {
         );
         throw new Error('fetchTopHolders:error');
       }
-      const { total_count } = data;
+      const { total_count, holders } = data;
 
       const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Coin.top_holders.params.limit))).reduce(
         (acc, _, index) => {
@@ -1438,7 +1451,9 @@ export class DebankService {
         },
         [],
       );
+
       listIndex.map((index: number) => {
+        if (index === 0) return;
         this.addJob({
           name: 'debank:fetch:top-holders:page',
           payload: {
@@ -1448,15 +1463,20 @@ export class DebankService {
             crawl_id,
           },
           options: {
-            jobId: `debank:fetch:top-holders:page:${crawl_id}:${index}:${Date.now()}`,
+            jobId: `debank:fetch:top-holders:page:${crawl_id}:${id}:${index}`,
             removeOnComplete: true,
             removeOnFail: {
               age: 1000 * 60 * 60 * 1,
             },
-            priority: 8,
+            priority: 7,
             attempts: 10,
           },
         });
+      });
+      await this.insertTopHolders({
+        holders,
+        crawl_id,
+        symbol: id,
       });
     } catch (error) {
       this.logger.error('error', '[fetchTopHolders:error]', JSON.stringify(error));
@@ -1574,6 +1594,11 @@ export class DebankService {
   async insertTopHolders({ holders, crawl_id, symbol }: { holders: any[]; crawl_id: number; symbol: string }) {
     try {
       const crawl_time = new Date();
+      //TODO: filter out holders that already exist
+      // const { rows } = await this.queryTopHoldersByCrawlId({
+      //   symbol,
+      //   crawl_id,
+      // });
       const values = holders.map((holder) => ({
         symbol,
         details: JSON.stringify(holder),
@@ -1618,6 +1643,20 @@ export class DebankService {
       );
     } catch (error) {
       this.logger.error('error', '[insertTopHolder:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async queryTopHoldersByCrawlId({ symbol, crawl_id }: { symbol: string; crawl_id: number }) {
+    try {
+      const { rows } = await pgClient.query(
+        `
+        SELECT * FROM "debank-top-holders" WHERE symbol = $1 AND crawl_id = $2
+      `,
+        [symbol, crawl_id],
+      );
+      return { rows };
+    } catch (error) {
+      this.logger.error('error', '[queryTopHolders:error]', JSON.stringify(error));
       throw error;
     }
   }

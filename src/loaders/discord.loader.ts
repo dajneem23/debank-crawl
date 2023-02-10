@@ -126,8 +126,8 @@ export class Discord {
       const CrawlerStatusTable = table(
         arrayObjectToTable([
           {
-            memLoad,
             cpuLoad,
+            memLoad,
           },
         ]),
         {

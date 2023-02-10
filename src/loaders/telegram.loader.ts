@@ -8,7 +8,6 @@ import { pgPoolToken } from './pg.loader';
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = env.TELEGRAM_BOT_TOKEN;
-const NANSEN_ALERT_GROUP_ID = env.NANSEN_ALERT_GROUP_ID;
 const pgClient = Container.get(pgPoolToken);
 export const TelegramLoader = async () => {
   // Create a bot that uses 'polling' to fetch new updates

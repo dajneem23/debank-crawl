@@ -84,7 +84,7 @@ export const CoinMarketCapAPI = {
     /**
      *  @description schedule of fetching data
      */
-    INTERVAL: env.MARKETCAP_FETCH_SCHEDULE,
+    INTERVAL: env.MARKETCAP_FETCH_SCHEDULE || '* 0 0 * * *',
     /**
      * @description Returns all static metadata for one or more exchanges. This information includes details like launch date, logo, official website URL, social links, and market fee documentation URL.
      * @see https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeInfo
@@ -224,25 +224,7 @@ export const KyberSwapAPI = {
     });
   },
 };
-export const DataFiAPI = {
-  login(
-    { username, password }: { username: string; password: string } = {
-      username: env.DATAFI_USERNAME,
-      password: env.DATAFI_PASSWORD,
-    },
-  ) {
-    return axios.post(`${env.DATAFI_API_URL}/api/session`, {
-      username,
-      password,
-    });
-  },
-  fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
-    return axios.get(`${endpoint}`, {
-      params,
-      headers: {},
-    });
-  },
-};
+
 export const DexScreenerAPI = {
   TradingHistory: {
     /**

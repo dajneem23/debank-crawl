@@ -18,8 +18,8 @@ export const dockerContainerStats = async () => {
     // id,
     name,
     state,
-    memPercent,
-    cpuPercent,
+    cpu: `${cpuPercent.toFixed(2)}%`,
+    mem: `${memPercent.toFixed(2)}%`,
     pids,
   }));
   return dockerStatsArray;

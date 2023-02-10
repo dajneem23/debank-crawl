@@ -104,6 +104,23 @@ export class Discord {
         header: {
           content: 'Docker Stats',
         },
+        columns: [
+          {
+            width: 20,
+          },
+          {
+            width: 10,
+          },
+          {
+            width: 5,
+          },
+          {
+            width: 5,
+          },
+          {
+            width: 5,
+          },
+        ],
       });
 
       return interaction.editReply(markdownMarkup(dockerStatsTable));

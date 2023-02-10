@@ -72,6 +72,6 @@ jobs:
             docker run -d \
             -p 127.0.0.1:9002:9002 \
             --restart always \
-            --name $(echo $IMAGE_NAME) \
             -v /var/run/docker.sock:/var/run/docker.sock \
-            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) 
+            --name $(echo $IMAGE_NAME) \
+            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)

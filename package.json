@@ -54,6 +54,7 @@
     "slugify": "^1.6.5",
     "socket.io": "^4.5.4",
     "socks-proxy-agent": "^7.0.0",
+    "systeminformation": "^5.17.8",
     "table": "^6.8.1",
     "ts-transformer-keys": "^0.4.3",
     "typedi": "^0.10.0",

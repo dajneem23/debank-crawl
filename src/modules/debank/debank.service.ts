@@ -1522,6 +1522,7 @@ export class DebankService {
     try {
       const crawl_time = new Date();
       //TODO: filter out holders that already exist
+      //!: remove this and replace by trigger
       // const { rows } = await this.queryTopHoldersByCrawlId({
       //   symbol,
       //   crawl_id,

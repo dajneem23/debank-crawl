@@ -8,9 +8,12 @@ import { isJSON } from '@/utils/text';
 import { execSync } from 'child_process';
 import { table } from 'table';
 import { arrayObjectToTable } from '@/utils/table';
-
+import os from 'os';
+import { dockerContainerStats, systemInfo } from '@/utils/system';
+import { markdownMarkup } from '@/utils/markdown';
 export const DIDiscordClient = new Token<Discord>('_discordClient');
 export const DIDiscordRest = new Token<REST>('_discordRest');
+
 const commands = [
   {
     name: 'ping',
@@ -48,15 +51,22 @@ export class Discord {
     dockers_stats: this.dockersStatsCommand,
     status: this.crawlerStatusCommand,
   };
+  readonly roles = {
+    dev: {
+      id: '988646008588234773',
+      name: 'dev',
+    },
+  };
   constructor() {
     // this.rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
     // console.log('Successfully reloaded application (/) commands.');
 
     this.client.on('ready', async () => {
       const channel = this.client.channels.cache.get(NOTIFICATION_CHANNEL_ID) as TextChannel;
-      channel.send('Hello world!');
+      // channel.send('Hello world!');
       Container.set(DIDiscordClient, this);
     });
+
     this.client.on('interactionCreate', async (interaction: any) => {
       if (!interaction.isChatInputCommand()) return;
       await interaction.reply(':gear: Working on it');
@@ -89,27 +99,21 @@ export class Discord {
 
   async dockersStatsCommand({ interaction }: { interaction: any }) {
     try {
-      const dockerStats = execSync('docker stats --no-stream  --format "{{json .}}"').toString();
-
-      const dockerStatsArray = dockerStats
-        .split('\n')
-        .map((item) => isJSON(item) && JSON.parse(item))
-        .filter(Boolean);
-      const dockerStatsTable = table(arrayObjectToTable(dockerStatsArray), {
+      const dockerStats = await dockerContainerStats();
+      const dockerStatsTable = table(arrayObjectToTable(dockerStats), {
         header: {
           content: 'Docker Stats',
         },
       });
 
-      const markDownTable = `\`\`\`markdown\n${dockerStatsTable}\`\`\``;
-      await interaction.editReply(markDownTable);
-      return;
+      return interaction.editReply(markdownMarkup(dockerStatsTable));
     } catch (error) {
-      return interaction.editReply('Error');
+      await interaction.editReply('Error');
+      return;
     }
   }
-  async crawlerCommand({ interaction }: { interaction: any }) {
-    await this.crawlerCommands[interaction.options.getSubcommand() as keyof typeof this.crawlerCommands]?.call(this, {
+  crawlerCommand({ interaction }: { interaction: any }) {
+    return this.crawlerCommands[interaction.options.getSubcommand() as keyof typeof this.crawlerCommands]?.call(this, {
       interaction,
     });
   }
@@ -117,12 +121,25 @@ export class Discord {
     try {
       //TODO: get crawler status and send it to discord
       //! not done yet
-      const crawlerStatus = execSync('htop').toString();
-
-      await interaction.editReply(crawlerStatus);
-      return;
+      // const crawlerStatus = execSync('htop').toString();
+      const { memLoad, cpuLoad } = await systemInfo();
+      const CrawlerStatusTable = table(
+        arrayObjectToTable([
+          {
+            memLoad,
+            cpuLoad,
+          },
+        ]),
+        {
+          header: {
+            content: 'Crawler Status',
+          },
+        },
+      );
+      return interaction.editReply(markdownMarkup(CrawlerStatusTable));
     } catch (error) {
-      return interaction.editReply('Error');
+      await interaction.editReply('Error');
+      return;
     }
   }
 }

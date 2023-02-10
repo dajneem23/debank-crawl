@@ -1,12 +1,10 @@
 import { Container, Token } from 'typedi';
 
 import Logger from '@/core/logger';
-import env from '@/config/env';
-
 export const DILogger = new Token<Logger>('LOGGER');
 
 const loggerLoader = (): Logger => {
-  const logger = new Logger('App', env.LOG_LEVEL);
+  const logger = new Logger('App', process.env.MODE == 'production' ? 'error' : 'debug');
   Container.set(DILogger, logger);
   logger.success('success', 'Logger');
 

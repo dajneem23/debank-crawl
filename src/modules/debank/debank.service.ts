@@ -720,12 +720,12 @@ export class DebankService {
       const { balance_list } = await this.fetchUserTokenBalanceList({
         user_address,
       });
-      // const { project_list } = await this.fetchUserProjectList({
-      //   user_address,
-      // });
-      // const { coin_list, token_list } = await this.fetchUserAssetClassify({
-      //   user_address,
-      // });
+      const { project_list } = await this.fetchUserProjectList({
+        user_address,
+      });
+      const { coin_list, token_list } = await this.fetchUserAssetClassify({
+        user_address,
+      });
       await this.insertUserAssetPortfolio({
         user_address,
         balance_list,

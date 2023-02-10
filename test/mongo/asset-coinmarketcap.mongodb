@@ -1,5 +1,0 @@
- use('wikiblock')
-// 1. insert trending
-db['coingecko-assets'].deleteMany({
-  id:{$exists:0}
-})

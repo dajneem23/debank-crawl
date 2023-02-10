@@ -729,9 +729,9 @@ export class DebankService {
       await this.insertUserAssetPortfolio({
         user_address,
         balance_list,
-        project_list: [],
-        coin_list: [],
-        token_list: [],
+        project_list,
+        coin_list,
+        token_list,
         crawl_id,
       });
     } catch (error) {

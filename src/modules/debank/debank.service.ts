@@ -1,22 +1,23 @@
-import Container from 'typedi';
+import Container, { Token } from 'typedi';
 import Logger from '@/core/logger';
-import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
+import { Job, JobType, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
 import { DIRedisConnection } from '@/loaders/redis.loader';
 
 import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
-import { pgClientToken, pgPoolToken } from '@/loaders/pg.loader';
+import { pgClientToken, pgPoolToken, pgpToken } from '@/loaders/pg.loader';
 
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
 import lodash from 'lodash';
-import { bulkInsert } from '@/utils/pg';
+import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
-
+const debankServiceToken = new Token<DebankService>('__debank_service__');
 const account =
   '{"random_at":1675919820,"random_id":"7c7daa4df5744190a78835c2eb44930e","session_id":"8145eab5f7cc45399adb380e564c7b1d","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
+
 export class DebankService {
   private logger = new Logger('Debank');
 
@@ -38,12 +39,12 @@ export class DebankService {
     'debank:fetch:project:users': this.fetchProjectUsers,
     'debank:fetch:social:user': this.fetchSocialRankingByUserAddress,
     'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
-    'debank:fetch:social:rankings': this.fetchSocialRankings,
+    'debank:fetch:social:rankings:page': this.fetchSocialRankingsPage,
     'debank:add:social:users:rankings': this.addFetchSocialRankingJob,
     'debank:fetch:user:project-list': this.fetchUserProjectList,
     'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
     'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
-    'debank:fetch:whales:paging': this.fetchWhalesPaging,
+    'debank:fetch:whales:page': this.fetchWhalesPage,
     'debank:add:fetch:whales:paging': this.addFetchWhalesPagingJob,
     'debank:insert:whale': this.insertWhale,
     'debank:insert:user-address': this.insertUserAddress,
@@ -61,6 +62,7 @@ export class DebankService {
   };
 
   constructor() {
+    Container.set(debankServiceToken, this);
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -108,6 +110,10 @@ export class DebankService {
     this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
     this.initWorkerListeners(this.worker);
     this.initWorkerListeners(this.workerInsert);
+  }
+
+  public async getCountOfJob(jobName: DebankJobNames, jobTypes: JobType[] = ['wait', 'active', 'failed']) {
+    return this.queue.getJobCounts(...jobTypes);
   }
   /**
    *  @description init BullMQ Queue
@@ -206,11 +212,15 @@ export class DebankService {
       name: 'debank:add:fetch:user-address:top-holders',
       options: {
         repeatJobKey: 'debank:add:fetch:user-address:top-holders',
+        jobId: `debank:add:fetch:user-address:top-holders:${Date.now()}`,
+        removeOnComplete: true,
         repeat: {
           //repeat every 3 hours
-          every: 1000 * 60 * 60,
+          every: 1000 * 60 * 60 * 3,
           // pattern: '* 0 0 * * *',
         },
+        //delay for 5 minutes when the job is added for done other jobs
+        delay: 1000 * 60 * 5,
         priority: 1,
         attempts: 5,
       },
@@ -233,40 +243,49 @@ export class DebankService {
       name: 'debank:add:fetch:top-holders',
       options: {
         repeatJobKey: 'debank:add:fetch:top-holders',
+        jobId: `debank:add:fetch:top-holders:${Date.now()}`,
+        removeOnComplete: true,
         repeat: {
           //repeat every 60 minutes
-          every: 1000 * 60 * 60,
+          every: 1000 * 60 * 60 * 3,
           // pattern: '* 0 0 * * *',
         },
         priority: 1,
         attempts: 5,
+        lifo: true,
       },
     });
-    // this.addJob({
-    //   name: 'debank:add:social:users:rankings',
-    //   options: {
-    //     repeatJobKey: 'debank:add:social:users:rankings',
-    //     repeat: {
-    //       //repeat every 30 minutes
-    //       every: 1000 * 60 * 30,
-    //       // pattern: '* 0 0 * * *',
-    //     },
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // });
-    // this.addJob({
-    //   name: 'debank:add:fetch:whales:paging',
-    //   options: {
-    //     repeatJobKey: 'debank:add:fetch:whales:paging',
-    //     repeat: {
-    //       //repeat every 30 minutes
-    //       every: 1000 * 60 * 30,
-    //     },
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // });
+    this.addJob({
+      name: 'debank:add:social:users:rankings',
+      options: {
+        repeatJobKey: 'debank:add:social:users:rankings',
+        jobId: `debank:add:social:users:rankings:${Date.now()}`,
+        removeOnComplete: true,
+        repeat: {
+          //repeat every 3 hours
+          every: 1000 * 60 * 60 * 3,
+          // pattern: '* 0 0 * * *',
+        },
+        priority: 1,
+        attempts: 5,
+        lifo: true,
+      },
+    });
+    this.addJob({
+      name: 'debank:add:fetch:whales:paging',
+      options: {
+        repeatJobKey: 'debank:add:fetch:whales:paging',
+        jobId: `debank:add:fetch:whales:paging:${Date.now()}`,
+        removeOnComplete: true,
+        repeat: {
+          //repeat every 3 hours
+          every: 1000 * 60 * 60 * 3,
+        },
+        priority: 1,
+        attempts: 5,
+        lifo: true,
+      },
+    });
   }
   /**
    * @description add job to queue
@@ -274,6 +293,12 @@ export class DebankService {
   addJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
     this.queue
       .add(name, payload, options)
+      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
+      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
+  }
+  addBulkJob({ name, payload = [], options }: { name: DebankJobNames; payload?: any[]; options?: JobsOptions }) {
+    this.queue
+      .addBulk(payload.map((p) => ({ name, data: p, options })))
       // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
       .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
   }
@@ -583,45 +608,81 @@ export class DebankService {
       throw error;
     }
   }
-  async fetchSocialRankings({ page_num = 1, page_count = 50 }: { page_num: number; page_count?: number }) {
+  async fetchSocialRankingsPage({
+    page_num = 1,
+    page_count = 50,
+    crawl_id,
+  }: {
+    page_num: number;
+    page_count?: number;
+    crawl_id: number;
+  }) {
     try {
-      const { data, status } = await DebankAPI.fetch({
+      const {
+        data: { data, error_code },
+        status,
+      } = await DebankAPI.fetch({
         endpoint: DebankAPI.Social.socialRanking.endpoint,
         params: {
           page_num,
           page_count,
         },
       });
-      if (status !== 200) {
-        throw new Error('fetchSocialRankings: Error fetching social ranking');
+      if (status !== 200 || error_code) {
+        throw new Error('fetchSocialRankingsPage: Error fetching social ranking');
       }
-      const {
-        data: { social_ranking_list },
-      } = data;
-      for (const { id: user_address, rank, base_score, score_dict, value_dict, total_score } of social_ranking_list) {
-        await this.insertSocialRanking({ user_address, rank, base_score, total_score, score_dict, value_dict });
-      }
+      const { social_ranking_list } = data;
+      const crawl_time = new Date();
+      const rows = social_ranking_list.map(
+        ({ id: user_address, rank, base_score, total_score, score_dict, value_dict }: any) => ({
+          user_address,
+          rank,
+          base_score,
+          total_score,
+          score_dict,
+          value_dict,
+          crawl_id,
+          crawl_time,
+        }),
+      );
+      const pgp = Container.get(pgpToken);
+      const cs = new pgp.helpers.ColumnSet(
+        ['rank', 'base_score', 'score_dict', 'value_dict', 'total_score', 'crawl_time', 'crawl_id'],
+        {
+          table: 'debank-social-ranking',
+        },
+      );
+      const onConflict = `UPDATE SET  ${cs.assignColumns({ from: 'EXCLUDED', skip: ['user_address'] })}`;
+      await bulkInsertOnConflict({
+        table: 'debank-social-ranking',
+        data: rows,
+        conflict: 'user_address',
+        onConflict,
+      });
     } catch (error) {
-      this.logger.discord('error', '[fetchSocialRankings:error]', JSON.stringify(error));
+      this.logger.discord('error', '[fetchSocialRankingsPage:error]', JSON.stringify(error));
       throw error;
     }
   }
   async addFetchSocialRankingJob() {
     try {
+      const crawl_id = await this.getSocialRankingCrawlId();
       for (let page_num = 1; page_num <= 1000; page_num++) {
         this.addJob({
-          name: 'debank:fetch:social:rankings',
+          name: 'debank:fetch:social:rankings:page',
           payload: {
             page_num,
+            crawl_id,
           },
           options: {
-            jobId: `debank:fetch:social:rankings:${page_num}:${Date.now()}`,
+            jobId: `debank:fetch:social:rankings:page:${page_num}:${crawl_id}`,
             removeOnComplete: true,
             removeOnFail: {
               age: 1000 * 60 * 60 * 24 * 7,
             },
             priority: 5,
             // delay: 1000 * 30,
+            lifo: true,
           },
         });
       }
@@ -896,6 +957,7 @@ export class DebankService {
       data.length &&
         (await bulkInsert({
           data,
+          //TODO: change this to prod table
           table: 'debank-whales',
         }));
     } catch (error) {
@@ -919,7 +981,7 @@ export class DebankService {
     );
   }
 
-  async fetchWhalesPaging({ start, crawl_id }: { start: number; crawl_id: number }) {
+  async fetchWhalesPage({ start, crawl_id }: { start: number; crawl_id: number }) {
     try {
       const { whales, total_count } = await this.fetchWhaleList({
         start,
@@ -938,7 +1000,7 @@ export class DebankService {
       //   last_crawl_id: crawl_id,
       // });
     } catch (error) {
-      this.logger.discord('error', '[addFetchWhaleListJob:error]', JSON.stringify(error));
+      this.logger.discord('error', '[fetchWhalesPage:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -965,19 +1027,20 @@ export class DebankService {
       listIndex.map((index: number) => {
         if (index === 0) return;
         this.addJob({
-          name: 'debank:fetch:whales:paging',
+          name: 'debank:fetch:whales:page',
           payload: {
             start: index,
             crawl_id,
           },
           options: {
-            jobId: `debank:fetch:whales:paging:${crawl_id}:${index}:${Date.now()}`,
+            jobId: `debank:fetch:whales:page:${crawl_id}:${index}`,
             removeOnComplete: true,
             removeOnFail: {
               age: 1000 * 60 * 60 * 1,
             },
-            priority: 8,
+            priority: 5,
             attempts: 10,
+            lifo: true,
           },
         });
       });
@@ -1115,7 +1178,7 @@ export class DebankService {
           removeOnFail: {
             age: 1000 * 60 * 60 * 24,
           },
-          priority: 10,
+          priority: 15,
           attempts: 10,
         },
       });
@@ -1232,6 +1295,27 @@ export class DebankService {
       }
     } else {
       return `${formatDate(new Date(), 'YYYYMMDD')}1`;
+    }
+  }
+
+  async getSocialRankingCrawlId() {
+    const { rows } = await pgClient.query(`
+    SELECT
+        max(crawl_id) as crawl_id
+    FROM
+      "debank-social-ranking"
+    `);
+    if (rows[0]?.crawl_id && rows[0].crawl_id) {
+      const crawl_id = rows[0].crawl_id;
+      const crawl_id_date = crawl_id.slice(0, 8);
+      const crawl_id_number = parseInt(crawl_id.slice(8));
+      if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
+        return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
+      } else {
+        return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+      }
+    } else {
+      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
     }
   }
   async insertUserAddress({
@@ -1427,9 +1511,10 @@ export class DebankService {
             removeOnFail: {
               age: 1000 * 60 * 60 * 24,
             },
-            priority: 10,
+            priority: 5,
             // delay: 1000 * 10,
             attempts: 10,
+            lifo: true,
           },
         });
       }

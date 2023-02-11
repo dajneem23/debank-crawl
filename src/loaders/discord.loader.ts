@@ -3,7 +3,16 @@ import { Container, Service, Token } from 'typedi';
 
 import { DILogger } from '@/loaders/logger.loader';
 import env from '@/config/env';
-import { REST, Routes, GatewayIntentBits, Client, TextChannel, MessagePayload, MessageCreateOptions } from 'discord.js';
+import {
+  REST,
+  Routes,
+  GatewayIntentBits,
+  Client,
+  TextChannel,
+  MessagePayload,
+  MessageCreateOptions,
+  SlashCommandBuilder,
+} from 'discord.js';
 import { isJSON } from '@/utils/text';
 import { execSync } from 'child_process';
 import { table } from 'table';
@@ -33,9 +42,23 @@ const commands = [
         description: 'Get dockers stats',
         type: 1,
       },
+      {
+        name: 'queue',
+        description: 'Get crawler queue',
+        type: 1,
+        choices: [
+          {
+            name: 'debank',
+            description: 'debank',
+            type: 1,
+            required: true,
+          },
+        ],
+      },
     ],
   },
 ];
+
 const TOKEN = env.DISCORD_BOT_TOKEN;
 const CLIENT_ID = env.DISCORD_BOT_CLIENT_ID;
 const NOTIFICATION_CHANNEL_ID = env.DISCORD_NOTIFICATION_CHANNEL_ID;
@@ -50,6 +73,7 @@ export class Discord {
   readonly crawlerCommands = {
     dockers_stats: this.dockersStatsCommand,
     status: this.crawlerStatusCommand,
+    queue: this.crawlerQueueCommand,
   };
   readonly roles = {
     dev: {
@@ -57,10 +81,9 @@ export class Discord {
       name: 'dev',
     },
   };
-  constructor() {
-    // this.rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
-    // console.log('Successfully reloaded application (/) commands.');
 
+  constructor() {
+    // this.initCommands();
     this.client.on('ready', async () => {
       const channel = this.client.channels.cache.get(NOTIFICATION_CHANNEL_ID) as TextChannel;
       // channel.send('Hello world!');
@@ -73,6 +96,11 @@ export class Discord {
       await this.commands[interaction.commandName as keyof typeof this.commands]?.call(this, { interaction });
     });
     this.client.login(TOKEN);
+  }
+
+  async initCommands() {
+    await this.rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+    console.info('Successfully reloaded application (/) commands.');
   }
   async sendMsg({
     message,
@@ -154,6 +182,18 @@ export class Discord {
         },
       );
       return interaction.editReply(markdownMarkup(CrawlerStatusTable));
+    } catch (error) {
+      await interaction.editReply('Error');
+      return;
+    }
+  }
+
+  async crawlerQueueCommand({ interaction }: { interaction: any }) {
+    try {
+      console.info({ interaction });
+      const choice = interaction.options.getSubcommand();
+      // console.log({ choice });
+      await interaction.editReply('Not implemented yet 🚸');
     } catch (error) {
       await interaction.editReply('Error');
       return;

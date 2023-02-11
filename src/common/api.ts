@@ -368,7 +368,7 @@ export const DebankAPI = {
       endpoint: 'https://api.debank.com/whale/list',
       params: {
         start: 0,
-        limit: 50,
+        limit: 100,
         order_by: 'usd_value',
       },
     },

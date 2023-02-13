@@ -91,7 +91,7 @@ export class DebankService {
   constructor() {
     Container.set(debankServiceToken, this);
     // TODO: CHANGE THIS TO PRODUCTION
-    if (env.MODE === 'production' || 1) {
+    if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
       // Init Queue

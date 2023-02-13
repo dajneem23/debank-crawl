@@ -15,16 +15,14 @@ import { dockerContainerStats, systemInfo } from './utils/system';
     // ----------------------------------------------------------------
     // Logger
 
-    if (env.MODE == 'production') {
-      new Discord();
-    }
-
     (await import('./loaders/logger.loader')).default();
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();
     await (await import('./loaders/pg.loader')).default();
 
-    new Discord();
+    if (env.MODE == 'production') {
+      new Discord();
+    }
 
     if (env.MODE == 'production') {
       await (await import('./loaders/telegram.loader')).default();

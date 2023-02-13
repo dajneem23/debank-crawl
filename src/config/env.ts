@@ -36,13 +36,15 @@ const env = {
 
   DISCORD_BOT_TOKEN: getRuntimeEnv('DISCORD_BOT_TOKEN'),
   DISCORD_BOT_CLIENT_ID: getRuntimeEnv('DISCORD_BOT_CLIENT_ID'),
-  DISCORD_NOTIFICATION_CHANNEL_ID: getRuntimeEnv('DISCORD_NOTIFICATION_CHANNEL_ID'),
+
   TELEGRAM_BOT_TOKEN: getRuntimeEnv('TELEGRAM_BOT_TOKEN'),
+
   MB_DB_DBNAME: getRuntimeEnv('MB_DB_DBNAME'),
   MB_DB_PORT: getRuntimeEnv('MB_DB_PORT'),
   MB_DB_USER: getRuntimeEnv('MB_DB_USER'),
   MB_DB_PASS: getRuntimeEnv('MB_DB_PASS'),
   MB_DB_HOST: getRuntimeEnv('MB_DB_HOST'),
+
   BINANCE_API_KEY: getRuntimeEnv('BINANCE_API_KEY'),
   BINANCE_API_SECRET: getRuntimeEnv('BINANCE_API_SECRET'),
 };

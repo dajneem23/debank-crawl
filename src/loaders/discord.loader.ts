@@ -54,7 +54,7 @@ const commands = [
 
 const TOKEN = env.DISCORD_BOT_TOKEN;
 const CLIENT_ID = env.DISCORD_BOT_CLIENT_ID;
-const NOTIFICATION_CHANNEL_ID = env.DISCORD_NOTIFICATION_CHANNEL_ID;
+const NOTIFICATION_CHANNEL_ID = '1011856604989247560';
 @Service(DIDiscordClient)
 export class Discord {
   readonly client: Client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
@@ -213,7 +213,7 @@ export class Discord {
               width: 10,
             },
             {
-              width: 4,
+              width: 5,
             },
             {
               width: 7,

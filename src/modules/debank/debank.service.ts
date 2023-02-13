@@ -57,6 +57,9 @@ export class DebankService {
 
   private queueRanking: Queue;
 
+  // TODO: adjust this value
+  readonly totalRepeatableJobs = 4;
+
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => any;
   } = {
@@ -329,6 +332,86 @@ export class DebankService {
         JSON.stringify(error),
       );
     });
+    worker.on('drained', async () => {
+      const messageTable = table(
+        arrayObjectToTable([
+          {
+            name: 'debank',
+            ...(await this.getCountOfJob('debank')),
+          },
+          {
+            name: 'top holder',
+            ...(await this.getCountOfJob('debankTopHolder')),
+          },
+          {
+            name: 'ranking',
+            ...(await this.getCountOfJob('debankRanking')),
+          },
+          {
+            name: 'whale',
+            ...(await this.getCountOfJob('debankWhale')),
+          },
+        ]),
+        {
+          header: {
+            content: 'Crawler queue debank',
+          },
+          columns: [
+            {
+              width: 10,
+            },
+            {
+              width: 5,
+            },
+            {
+              width: 7,
+            },
+            {
+              width: 7,
+            },
+            {
+              width: 6,
+            },
+            {
+              width: 9,
+            },
+            {
+              width: 6,
+            },
+            {
+              width: 6,
+            },
+          ],
+        },
+      );
+      console.info('workerDrained');
+      console.info(messageTable);
+
+      // let totalNotFinishedJobs = Object.values(
+      //   lodash(notFinishedJobs).pick('delayed', 'waiting', 'active', 'wait'),
+      // ).reduce((a, b) => a + b, 0);
+      // if (id == 'debank') {
+      //   totalNotFinishedJobs -= this.totalRepeatableJobs;
+      // }
+      // if (totalNotFinishedJobs === 0) {
+      //   const discord = Container.get(DIDiscordClient);
+      //   const messageTable = table(
+      //     arrayObjectToTable([
+      //       {
+      //         ...lodash(notFinishedJobs).pick('completed', 'failed'),
+      //       },
+      //     ]),
+      //     {
+      //       header: {
+      //         content: id,
+      //       },
+      //     },
+      //   );
+      //   await discord.sendMsg({
+      //     message: markdownMarkup(messageTable),
+      //   });
+      // }
+    });
   }
   private initQueueListeners(queueEvents: QueueEvents) {
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
@@ -336,29 +419,61 @@ export class DebankService {
     });
 
     queueEvents.on('drained', async (id) => {
-      const queue = this.getQueue(id);
-      const notFinishedJobs = await queue.getJobCounts('delayed', 'waiting', 'active', 'wait', 'failed', 'completed');
-      const totalNotFinishedJobs = Object.values(
-        lodash(notFinishedJobs).pick('delayed', 'waiting', 'active', 'wait'),
-      ).reduce((a, b) => a + b, 0);
-      if (totalNotFinishedJobs === 0) {
-        const discord = Container.get(DIDiscordClient);
-        const messageTable = table(
-          arrayObjectToTable([
-            {
-              ...lodash(notFinishedJobs).pick('completed', 'failed'),
-            },
-          ]),
+      console.info({
+        queueDrained: id,
+      });
+      const messageTable = table(
+        arrayObjectToTable([
           {
-            header: {
-              content: id,
-            },
+            name: 'debank',
+            ...(await this.getCountOfJob('debank')),
           },
-        );
-        await discord.sendMsg({
-          message: markdownMarkup(messageTable),
-        });
-      }
+          {
+            name: 'top holder',
+            ...(await this.getCountOfJob('debankTopHolder')),
+          },
+          {
+            name: 'ranking',
+            ...(await this.getCountOfJob('debankRanking')),
+          },
+          {
+            name: 'whale',
+            ...(await this.getCountOfJob('debankWhale')),
+          },
+        ]),
+        {
+          header: {
+            content: 'Crawler queue debank',
+          },
+          columns: [
+            {
+              width: 10,
+            },
+            {
+              width: 5,
+            },
+            {
+              width: 7,
+            },
+            {
+              width: 7,
+            },
+            {
+              width: 6,
+            },
+            {
+              width: 9,
+            },
+            {
+              width: 6,
+            },
+            {
+              width: 6,
+            },
+          ],
+        },
+      );
+      console.info(messageTable);
     });
     // queue.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
@@ -1725,6 +1840,7 @@ export class DebankService {
       listIndex.map((index: number) => {
         if (index === 0) return;
         this.addJob({
+          queue: this.queueName.debankTopHolder,
           name: 'debank:fetch:top-holders:page',
           payload: {
             id,

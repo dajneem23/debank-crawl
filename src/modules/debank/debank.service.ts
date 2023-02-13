@@ -209,10 +209,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
       },
     });
@@ -233,10 +233,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
       },
     });
@@ -253,10 +253,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
       },
     });
@@ -273,10 +273,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
       },
     });
@@ -293,10 +293,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 2.5,
+          age: 1000 * 60 * 60 * 1,
         },
       },
     });
@@ -306,7 +306,7 @@ export class DebankService {
     this.initQueueListeners(queueRankingEvents);
 
     // TODO: ENABLE THIS
-    // this.initRepeatJobs();
+    this.initRepeatJobs();
   }
   /**
    * Initialize Worker listeners
@@ -1407,7 +1407,7 @@ export class DebankService {
         options: {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
           removeOnComplete: {
-            age: 1000 * 60 * 30,
+            age: 1000 * 60 * 60,
           },
           removeOnFail: {
             age: 1000 * 60 * 60 * 2,

@@ -21,7 +21,8 @@ import { dockerContainerStats, systemInfo } from './utils/system';
     await (await import('./loaders/pg.loader')).default();
 
     if (env.MODE == 'production') {
-      new Discord();
+      const discord = new Discord();
+      await discord.init();
     }
 
     if (env.MODE == 'production') {

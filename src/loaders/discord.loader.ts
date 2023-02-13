@@ -75,12 +75,15 @@ export class Discord {
     },
   };
 
-  constructor() {
-    // this.initCommands();
+  // constructor() {}
+
+  async init() {
+    // ? enable this if you want to reload commands
+    // await this.initCommands();
+
     this.client.on('ready', async () => {
       const channel = this.client.channels.cache.get(NOTIFICATION_CHANNEL_ID) as TextChannel;
-      // channel.send('Hello world!');
-      Container.set(DIDiscordClient, this);
+      channel.send('Hello world! i am ready! :robot:');
     });
 
     this.client.on('interactionCreate', async (interaction: any) => {
@@ -88,7 +91,8 @@ export class Discord {
       await interaction.reply(':gear: Working on it');
       await this.commands[interaction.commandName as keyof typeof this.commands]?.call(this, { interaction });
     });
-    this.client.login(TOKEN);
+    await this.client.login(TOKEN);
+    Container.set(DIDiscordClient, this);
   }
 
   async initCommands() {

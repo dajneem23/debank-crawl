@@ -350,7 +350,7 @@ export class DebankService {
             },
           },
         );
-        discord.sendMsg({
+        await discord.sendMsg({
           message: markdownMarkup(messageTable),
         });
       }

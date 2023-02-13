@@ -14,7 +14,7 @@ import lodash from 'lodash';
 import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
-const debankServiceToken = new Token<DebankService>('__debank_service__');
+const debankServiceToken = new Token<DebankService>('_debankService');
 const account =
   '{"random_at":1675919820,"random_id":"7c7daa4df5744190a78835c2eb44930e","session_id":"8145eab5f7cc45399adb380e564c7b1d","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 
@@ -212,8 +212,11 @@ export class DebankService {
       name: 'debank:add:fetch:user-address:top-holders',
       options: {
         repeatJobKey: 'debank:add:fetch:user-address:top-holders',
-        jobId: `debank:add:fetch:user-address:top-holders:${Date.now()}`,
-        removeOnComplete: true,
+        jobId: `debank:add:fetch:user-address:top-holders`,
+        removeOnComplete: {
+          //remove after 1 hour
+          age: 1000 * 60 * 60 * 1,
+        },
         repeat: {
           //repeat every 3 hours
           every: 1000 * 60 * 60 * 3,
@@ -243,8 +246,11 @@ export class DebankService {
       name: 'debank:add:fetch:top-holders',
       options: {
         repeatJobKey: 'debank:add:fetch:top-holders',
-        jobId: `debank:add:fetch:top-holders:${Date.now()}`,
-        removeOnComplete: true,
+        jobId: `debank:add:fetch:top-holders`,
+        removeOnComplete: {
+          //remove after 1 hour
+          age: 1000 * 60 * 60 * 1,
+        },
         repeat: {
           //repeat every 60 minutes
           every: 1000 * 60 * 60 * 3,
@@ -259,8 +265,11 @@ export class DebankService {
       name: 'debank:add:social:users:rankings',
       options: {
         repeatJobKey: 'debank:add:social:users:rankings',
-        jobId: `debank:add:social:users:rankings:${Date.now()}`,
-        removeOnComplete: true,
+        jobId: `debank:add:social:users:rankings`,
+        removeOnComplete: {
+          //remove job after 1 hours
+          age: 1000 * 60 * 60 * 1,
+        },
         repeat: {
           //repeat every 3 hours
           every: 1000 * 60 * 60 * 3,
@@ -275,8 +284,11 @@ export class DebankService {
       name: 'debank:add:fetch:whales:paging',
       options: {
         repeatJobKey: 'debank:add:fetch:whales:paging',
-        jobId: `debank:add:fetch:whales:paging:${Date.now()}`,
-        removeOnComplete: true,
+        jobId: `debank:add:fetch:whales:paging`,
+        removeOnComplete: {
+          //remove job after 1 hours
+          age: 1000 * 60 * 60 * 1,
+        },
         repeat: {
           //repeat every 3 hours
           every: 1000 * 60 * 60 * 3,
@@ -676,9 +688,11 @@ export class DebankService {
           },
           options: {
             jobId: `debank:fetch:social:rankings:page:${page_num}:${crawl_id}`,
-            removeOnComplete: true,
+            removeOnComplete: {
+              age: 1000 * 60 * 60 * 1,
+            },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 1000 * 60 * 60 * 2,
             },
             priority: 5,
             // delay: 1000 * 30,
@@ -773,7 +787,7 @@ export class DebankService {
       rows,
     };
   }
-  async fetchSocialRankingByUserAddress({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
+  async fetchSocialRankingByUserAddress({ user_address, crawl_id }: { user_address: string; crawl_id: number }) {
     try {
       if (!user_address) {
         throw new Error('fetchSocialRankingByUserAddress: user_address is required');
@@ -815,7 +829,6 @@ export class DebankService {
 
       const error_code = fetchProjectListData.error_code;
       if (error_code) {
-        //TODO: handle error change this to discord
         this.logger.debug('error', '[fetchUserProjectList:error]', JSON.stringify(error_code), {
           msg1: fetchProjectListData.error_msg,
         });
@@ -848,7 +861,6 @@ export class DebankService {
 
       const error_code = fetchAssetClassifyData.error_code;
       if (error_code) {
-        //TODO: handle error change this to discord
         this.logger.debug('error', '[fetchUserAssetClassify:error]', JSON.stringify(error_code), {
           msg2: fetchAssetClassifyData.error_msg,
         });
@@ -950,7 +962,7 @@ export class DebankService {
       //insert all whale list
       const data = whales.map((whale) => ({
         user_address: whale.id,
-        details: JSON.stringify(whale),
+        details: JSON.stringify(whale).replace(/\\u0000/g, ''),
         crawl_id,
         crawl_time: new Date(),
       }));
@@ -1034,9 +1046,12 @@ export class DebankService {
           },
           options: {
             jobId: `debank:fetch:whales:page:${crawl_id}:${index}`,
-            removeOnComplete: true,
-            removeOnFail: {
+            removeOnComplete: {
+              // remove job after 1 hour
               age: 1000 * 60 * 60 * 1,
+            },
+            removeOnFail: {
+              age: 1000 * 60 * 60 * 2,
             },
             priority: 5,
             attempts: 10,
@@ -1063,7 +1078,7 @@ export class DebankService {
     coin_list?: any;
     balance_list?: any;
     project_list?: any;
-    crawl_id: string;
+    crawl_id: number;
   }) {
     try {
       const now = new Date();
@@ -1122,16 +1137,19 @@ export class DebankService {
           data: tokens_rows,
           table: 'debank-user-asset-portfolio-tokens',
         }));
+
       coins_rows.length &&
         (await bulkInsert({
           data: coins_rows,
           table: 'debank-user-asset-portfolio-coins',
         }));
+
       balances_rows.length &&
         (await bulkInsert({
           data: balances_rows,
           table: 'debank-user-asset-portfolio-balances',
         }));
+
       projects_rows.length &&
         (await bulkInsert({
           data: projects_rows,
@@ -1158,7 +1176,7 @@ export class DebankService {
       select: 'user_address',
       //10000
       orderBy: 'rank',
-      limit: 10000,
+      limit: 50000,
       order: 'DESC',
     });
 
@@ -1176,7 +1194,7 @@ export class DebankService {
             age: 1000 * 60 * 30,
           },
           removeOnFail: {
-            age: 1000 * 60 * 60 * 24,
+            age: 1000 * 60 * 60 * 2,
           },
           priority: 15,
           attempts: 10,
@@ -1203,9 +1221,11 @@ export class DebankService {
         },
         options: {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
-          removeOnComplete: true,
+          removeOnComplete: {
+            age: 1000 * 60 * 60,
+          },
           removeOnFail: {
-            age: 1000 * 60 * 60 * 24,
+            age: 1000 * 60 * 60 * 2,
           },
           priority: 10,
           attempts: 10,
@@ -1507,9 +1527,11 @@ export class DebankService {
           },
           options: {
             jobId: `debank:fetch:top-holders:${crawl_id}:${symbol}`,
-            removeOnComplete: true,
+            removeOnComplete: {
+              age: 1000 * 60 * 60 * 1,
+            },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 24,
+              age: 1000 * 60 * 60 * 2,
             },
             priority: 5,
             // delay: 1000 * 10,

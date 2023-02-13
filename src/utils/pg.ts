@@ -36,3 +36,7 @@ export const bulkInsertOnConflict = async ({
   const query = pgp.helpers.insert(data, cs) + ` ON CONFLICT (${conflict}) DO ${onConflict}`;
   return await pgClient.none(query);
 };
+
+export const escapeQuery = (str: string) => {
+  return str.replace(/\\u0000/g, '');
+};

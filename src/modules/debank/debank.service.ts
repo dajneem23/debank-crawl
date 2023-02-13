@@ -23,37 +23,58 @@ export class DebankService {
 
   private readonly redisConnection = Container.get(DIRedisConnection);
 
+  readonly queueName = {
+    debank: 'debank',
+    debankInsert: 'debank-insert',
+    debankWhale: 'debank-whale',
+    debankTopHolder: 'debank-top-holder',
+    debankRanking: 'debank-ranking',
+  };
+
   private worker: Worker;
 
   private workerInsert: Worker;
+
+  private workerWhale: Worker;
+
+  private workerTopHolder: Worker;
+
+  private workerRanking: Worker;
 
   private queue: Queue;
 
   private queueInsert: Queue;
 
+  private queueWhale: Queue;
+
+  private queueTopHolder: Queue;
+
+  private queueRanking: Queue;
+
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => any;
   } = {
     'debank:fetch:project:list': this.queryProjectList,
-    'debank:add:project:users': this.addFetchProjectUsersJobs,
     'debank:fetch:project:users': this.fetchProjectUsers,
     'debank:fetch:social:user': this.fetchSocialRankingByUserAddress,
-    'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
     'debank:fetch:social:rankings:page': this.fetchSocialRankingsPage,
-    'debank:add:social:users:rankings': this.addFetchSocialRankingJob,
     'debank:fetch:user:project-list': this.fetchUserProjectList,
     'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
     'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
     'debank:fetch:whales:page': this.fetchWhalesPage,
-    'debank:add:fetch:whales:paging': this.addFetchWhalesPagingJob,
     'debank:insert:whale': this.insertWhale,
     'debank:insert:user-address': this.insertUserAddress,
     'debank:insert:user-assets-portfolio': this.insertUserAssetPortfolio,
     'debank:insert:coin': this.insertCoin,
-    'debank:add:fetch:coins': this.addFetchCoinsJob,
     'debank:fetch:top-holders': this.fetchTopHolders,
     'debank:fetch:top-holders:page': this.fetchTopHoldersPage,
     'debank:insert:top-holder': this.insertTopHolder,
+
+    'debank:add:project:users': this.addFetchProjectUsersJobs,
+    'debank:add:fetch:coins': this.addFetchCoinsJob,
+    'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
+    'debank:add:social:users:rankings': this.addFetchSocialRankingJob,
+    'debank:add:fetch:whales:paging': this.addFetchWhalesPagingJob,
     'debank:add:fetch:top-holders': this.addFetchTopHoldersJob,
     'debank:add:fetch:user-address:top-holders': this.addFetchTopHoldersByUsersAddressJob,
     default: () => {
@@ -91,6 +112,7 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
+    this.initWorkerListeners(this.worker);
 
     this.workerInsert = new Worker('debank-insert', this.workerProcessor.bind(this), {
       autorun: true,
@@ -107,9 +129,60 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
-    this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
-    this.initWorkerListeners(this.worker);
     this.initWorkerListeners(this.workerInsert);
+
+    this.workerWhale = new Worker('debank-whale', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60 * 2,
+      concurrency: 5000,
+      limiter: {
+        max: 100,
+        duration: 1,
+      },
+      stalledInterval: 1000 * 60,
+      maxStalledCount: 5,
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK,
+      },
+    });
+    this.initWorkerListeners(this.workerWhale);
+
+    this.workerTopHolder = new Worker('debank-top-holder', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60 * 2,
+      concurrency: 5000,
+      limiter: {
+        max: 100,
+        duration: 1,
+      },
+      stalledInterval: 1000 * 60,
+      maxStalledCount: 5,
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK,
+      },
+    });
+    this.initWorkerListeners(this.workerTopHolder);
+
+    this.workerRanking = new Worker('debank-ranking', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60 * 2,
+      concurrency: 5000,
+      limiter: {
+        max: 100,
+        duration: 1,
+      },
+      stalledInterval: 1000 * 60,
+      maxStalledCount: 5,
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK,
+      },
+    });
+    this.initWorkerListeners(this.workerRanking);
+
+    this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
   }
 
   public async getCountOfJob(jobName: DebankJobNames, jobTypes: JobType[] = ['wait', 'active', 'failed']) {
@@ -127,10 +200,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 24 * 7,
+          age: 1000 * 60 * 60 * 2.5,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 24 * 7,
+          age: 1000 * 60 * 60 * 2.5,
         },
       },
     });
@@ -138,15 +211,8 @@ export class DebankService {
     const queueEvents = new QueueEvents('debank', {
       connection: this.redisConnection,
     });
-    // TODO: ENABLE THIS
-    this.initRepeatJobs();
-    // queueEvents.on('completed', ({ jobId }) => {
-    //   this.logger.debug('success', 'Job completed', { jobId });
-    // });
+    this.initQueueListeners(queueEvents);
 
-    queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
-    });
     // TODO: REMOVE THIS LATER
     // this.addFetchProjectUsersJobs();
 
@@ -158,19 +224,89 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 24 * 7,
+          age: 1000 * 60 * 60 * 2.5,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 24 * 7,
+          age: 1000 * 60 * 60 * 2.5,
         },
       },
     });
     const queueInsertEvents = new QueueEvents('debank-insert', {
       connection: this.redisConnection,
     });
-    queueInsertEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+    this.initQueueListeners(queueInsertEvents);
+
+    this.queueWhale = new Queue('debank-whale', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        removeOnComplete: {
+          age: 1000 * 60 * 60 * 2.5,
+        },
+        removeOnFail: {
+          age: 1000 * 60 * 60 * 2.5,
+        },
+      },
+    });
+    const queueWhaleEvents = new QueueEvents('debank-whale', {
+      connection: this.redisConnection,
+    });
+    this.initQueueListeners(queueWhaleEvents);
+
+    this.queueTopHolder = new Queue('debank-top-holder', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        removeOnComplete: {
+          age: 1000 * 60 * 60 * 2.5,
+        },
+        removeOnFail: {
+          age: 1000 * 60 * 60 * 2.5,
+        },
+      },
+    });
+    const queueTopHolderEvents = new QueueEvents('debank-top-holder', {
+      connection: this.redisConnection,
+    });
+    this.initQueueListeners(queueTopHolderEvents);
+
+    this.queueRanking = new Queue('debank-ranking', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        removeOnComplete: {
+          age: 1000 * 60 * 60 * 2.5,
+        },
+        removeOnFail: {
+          age: 1000 * 60 * 60 * 2.5,
+        },
+      },
+    });
+    const queueRankingEvents = new QueueEvents('debank-insert', {
+      connection: this.redisConnection,
+    });
+    this.initQueueListeners(queueRankingEvents);
+
+    // TODO: ENABLE THIS
+    // this.initRepeatJobs();
+  }
+
+  private initQueueListeners(queue: QueueEvents) {
+    queue.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
     });
+    // queue.on('completed', ({ jobId }) => {
+    //   this.logger.debug('success', 'Job completed', { jobId });
+    // });
   }
   private initRepeatJobs() {
     // this.addJob({
@@ -258,7 +394,6 @@ export class DebankService {
         },
         priority: 1,
         attempts: 5,
-        lifo: true,
       },
     });
     this.addJob({
@@ -277,7 +412,6 @@ export class DebankService {
         },
         priority: 1,
         attempts: 5,
-        lifo: true,
       },
     });
     this.addJob({
@@ -295,18 +429,46 @@ export class DebankService {
         },
         priority: 1,
         attempts: 5,
-        lifo: true,
       },
     });
   }
   /**
    * @description add job to queue
    */
-  addJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
-    this.queue
-      .add(name, payload, options)
-      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
-      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
+  addJob({
+    queue = this.queueName.debank,
+    name,
+    payload = {},
+    options,
+  }: {
+    queue?: keyof typeof this.queueName;
+    name: DebankJobNames;
+    payload?: any;
+    options?: JobsOptions;
+  }) {
+    try {
+      switch (queue) {
+        case this.queueName.debankWhale:
+          this.queueWhale.add(name, payload, options);
+          break;
+        case this.queueName.debankInsert:
+          this.queueInsert.add(name, payload, options);
+          break;
+        case this.queueName.debankRanking:
+          this.queueRanking.add(name, payload, options);
+          break;
+        case this.queueName.debankTopHolder:
+          this.queueTopHolder.add(name, payload, options);
+          break;
+
+        case this.queueName.debank:
+        default:
+          this.queue.add(name, payload, options);
+          break;
+      }
+    } catch (error) {
+      this.logger.discord('error', `[addJob:debank:error]`, JSON.stringify(error), JSON.stringify(payload));
+    }
   }
   addBulkJob({ name, payload = [], options }: { name: DebankJobNames; payload?: any[]; options?: JobsOptions }) {
     this.queue
@@ -342,9 +504,14 @@ export class DebankService {
       );
     });
   }
-  workerProcessor({ name, data }: Job<DebankJobData>): Promise<void> {
+  workerProcessor({ name, data = {}, id }: Job<any>): Promise<void> {
     // this.logger.discord('info', `[debank:workerProcessor:run]`, name);
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
+    return (
+      this.jobs[name as keyof typeof this.jobs]?.call(this, {
+        jobId: id,
+        ...((data && data) || {}),
+      }) || this.jobs.default()
+    );
   }
   async queryProjectList() {
     try {
@@ -681,6 +848,7 @@ export class DebankService {
       const crawl_id = await this.getSocialRankingCrawlId();
       for (let page_num = 1; page_num <= 1000; page_num++) {
         this.addJob({
+          queue: this.queueName.debankRanking,
           name: 'debank:fetch:social:rankings:page',
           payload: {
             page_num,
@@ -696,7 +864,6 @@ export class DebankService {
             },
             priority: 5,
             // delay: 1000 * 30,
-            lifo: true,
           },
         });
       }
@@ -1039,6 +1206,7 @@ export class DebankService {
       listIndex.map((index: number) => {
         if (index === 0) return;
         this.addJob({
+          queue: this.queueName.debankWhale,
           name: 'debank:fetch:whales:page',
           payload: {
             start: index,
@@ -1055,11 +1223,10 @@ export class DebankService {
             },
             priority: 5,
             attempts: 10,
-            lifo: true,
           },
         });
       });
-      await this.insertWhaleList({ whales, crawl_id: +crawl_id });
+      await this.insertWhaleList({ whales, crawl_id });
     } catch (error) {
       this.logger.discord('error', '[addFetchWhalesPagingJob:error]', JSON.stringify(error));
       throw error;
@@ -1202,7 +1369,28 @@ export class DebankService {
       });
     }
   }
-  async addFetchTopHoldersByUsersAddressJob() {
+  async addFetchTopHoldersByUsersAddressJob({ jobId }: { jobId: string }) {
+    const debankWhaleJobs = await this.queueWhale.getJobCounts('active', 'delayed', 'waiting');
+    const debankTopHolderJobs = await this.queueTopHolder.getJobCounts('active', 'delayed', 'waiting');
+    const debankRankingJobs = await this.queueRanking.getJobCounts('active', 'delayed', 'waiting');
+
+    const totalJobs =
+      debankWhaleJobs.active +
+      debankWhaleJobs.delayed +
+      debankWhaleJobs.waiting +
+      debankTopHolderJobs.active +
+      debankTopHolderJobs.delayed +
+      debankTopHolderJobs.waiting +
+      debankRankingJobs.active +
+      debankRankingJobs.delayed +
+      debankRankingJobs.waiting;
+
+    if (totalJobs > 0) {
+      //delay 1 minutes until all jobs are done
+      (await this.queue.getJob(jobId)).moveToDelayed(1000 * 60);
+      return;
+    }
+
     const { rows } = await this.queryAddressList({
       select: 'user_address',
       //10000
@@ -1268,12 +1456,12 @@ export class DebankService {
       const crawl_id_date = crawl_id.slice(0, 8);
       const crawl_id_number = parseInt(crawl_id.slice(8));
       if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
+        return +`${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
       } else {
-        return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+        return +`${formatDate(new Date(), 'YYYYMMDD')}01`;
       }
     } else {
-      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+      return +`${formatDate(new Date(), 'YYYYMMDD')}01`;
     }
   }
   async getTopHoldersCrawlId() {
@@ -1520,6 +1708,7 @@ export class DebankService {
       //164
       for (const { symbol } of allCoins) {
         this.addJob({
+          queue: this.queueName.debankTopHolder,
           name: 'debank:fetch:top-holders',
           payload: {
             id: symbol,
@@ -1536,7 +1725,6 @@ export class DebankService {
             priority: 5,
             // delay: 1000 * 10,
             attempts: 10,
-            lifo: true,
           },
         });
       }

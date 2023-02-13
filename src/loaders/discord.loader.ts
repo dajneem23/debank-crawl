@@ -20,6 +20,7 @@ import { arrayObjectToTable } from '@/utils/table';
 import os from 'os';
 import { dockerContainerStats, systemInfo } from '@/utils/system';
 import { markdownMarkup } from '@/utils/markdown';
+import { debankServiceToken } from '@/modules';
 export const DIDiscordClient = new Token<Discord>('_discordClient');
 export const DIDiscordRest = new Token<REST>('_discordRest');
 
@@ -43,17 +44,9 @@ const commands = [
         type: 1,
       },
       {
-        name: 'queue',
-        description: 'Get crawler queue',
+        name: 'queue_debank',
+        description: 'Get crawler queue debank',
         type: 1,
-        choices: [
-          {
-            name: 'debank',
-            description: 'debank',
-            type: 1,
-            required: true,
-          },
-        ],
       },
     ],
   },
@@ -73,7 +66,7 @@ export class Discord {
   readonly crawlerCommands = {
     dockers_stats: this.dockersStatsCommand,
     status: this.crawlerStatusCommand,
-    queue: this.crawlerQueueCommand,
+    queue_debank: this.crawlerQueueCommand,
   };
   readonly roles = {
     dev: {
@@ -190,10 +183,60 @@ export class Discord {
 
   async crawlerQueueCommand({ interaction }: { interaction: any }) {
     try {
-      console.info({ interaction });
-      const choice = interaction.options.getSubcommand();
-      // console.log({ choice });
-      await interaction.editReply('Not implemented yet 🚸');
+      // console.info({ interaction });
+      const debankService = Container.get(debankServiceToken);
+      const messageTable = table(
+        arrayObjectToTable([
+          {
+            name: 'debank',
+            ...(await debankService.getCountOfJob('debank')),
+          },
+          {
+            name: 'top holder',
+            ...(await debankService.getCountOfJob('debankTopHolder')),
+          },
+          {
+            name: 'ranking',
+            ...(await debankService.getCountOfJob('debankRanking')),
+          },
+          {
+            name: 'whale',
+            ...(await debankService.getCountOfJob('debankWhale')),
+          },
+        ]),
+        {
+          header: {
+            content: 'Crawler queue debank',
+          },
+          columns: [
+            {
+              width: 10,
+            },
+            {
+              width: 4,
+            },
+            {
+              width: 7,
+            },
+            {
+              width: 7,
+            },
+            {
+              width: 6,
+            },
+            {
+              width: 9,
+            },
+            {
+              width: 6,
+            },
+            {
+              width: 6,
+            },
+          ],
+        },
+      );
+      return interaction.editReply(markdownMarkup(messageTable));
     } catch (error) {
       await interaction.editReply('Error');
       return;

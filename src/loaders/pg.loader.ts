@@ -42,16 +42,18 @@ export const pgPromiseClientToken = new Token<typeof pgPromiseClient>('_pgPromis
 
 const pgp = pgPromise();
 export const pgpToken = new Token<typeof pgp>('_pgpToken');
+
+Container.set(pgPoolToken, pgPool);
+Container.set(pgClientToken, pgClient);
+Container.set(pgPromiseClientToken, pgPromiseClient);
+Container.set(pgpToken, pgp);
 const pgLoader = async () => {
   const logger = Container.get(DILogger);
   try {
     await pgPool.connect();
     await pgClient.connect();
     await pgPromiseClient.connect();
-    Container.set(pgPoolToken, pgPool);
-    Container.set(pgClientToken, pgClient);
-    Container.set(pgPromiseClientToken, pgPromiseClient);
-    Container.set(pgpToken, pgp);
+
     logger.success('connected', 'Pool Postgres');
   } catch (err) {
     logger.error('error', 'pool:connect:pg', err);

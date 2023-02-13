@@ -16,9 +16,8 @@ import { DIDiscordClient } from '@/loaders/discord.loader';
 import { arrayObjectToTable } from '@/utils/table';
 import { table } from 'table';
 import { markdownMarkup } from '@/utils/markdown';
-const pgPool = Container.get(pgPoolToken);
-const pgClient = Container.get(pgClientToken);
-const debankServiceToken = new Token<DebankService>('_debankService');
+
+export const debankServiceToken = new Token<DebankService>('_debankService');
 const account =
   '{"random_at":1675919820,"random_id":"7c7daa4df5744190a78835c2eb44930e","session_id":"8145eab5f7cc45399adb380e564c7b1d","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 
@@ -34,6 +33,9 @@ export class DebankService {
     debankTopHolder: 'debank-top-holder',
     debankRanking: 'debank-ranking',
   };
+  private pgPool = Container.get(pgPoolToken);
+
+  private pgClient = Container.get(pgClientToken);
 
   private worker: Worker;
 
@@ -89,7 +91,7 @@ export class DebankService {
   constructor() {
     Container.set(debankServiceToken, this);
     // TODO: CHANGE THIS TO PRODUCTION
-    if (env.MODE === 'production') {
+    if (env.MODE === 'production' || 1) {
       // Init Worker
       this.initWorker();
       // Init Queue
@@ -189,8 +191,11 @@ export class DebankService {
     this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
   }
 
-  public async getCountOfJob(jobName: DebankJobNames, jobTypes: JobType[] = ['wait', 'active', 'failed']) {
-    return this.queue.getJobCounts(...jobTypes);
+  public async getCountOfJob(
+    queue: keyof typeof this.queueName,
+    jobTypes: JobType[] = ['wait', 'delayed', 'waiting', 'active', 'completed', 'failed'],
+  ) {
+    return this.getQueue(this.queueName[queue]).getJobCounts(...jobTypes);
   }
   /**
    *  @description init BullMQ Queue
@@ -585,7 +590,7 @@ export class DebankService {
         is_tvl,
         priority,
       } of projects) {
-        await pgPool.query(
+        await this.pgPool.query(
           `INSERT INTO "debank-projects" (
             id,
             name,
@@ -636,7 +641,7 @@ export class DebankService {
   }
   async addFetchProjectUsersJobs() {
     try {
-      const { rows: projects } = await pgPool.query(`SELECT id FROM "debank-projects" GROUP BY id`);
+      const { rows: projects } = await this.pgPool.query(`SELECT id FROM "debank-projects" GROUP BY id`);
       for (const { id } of projects) {
         this.addJob({
           name: 'debank:fetch:project:users',
@@ -747,7 +752,7 @@ export class DebankService {
     usd_value: any;
     user_address: any;
   }) {
-    await pgPool
+    await this.pgPool
       .query(
         `INSERT INTO "debank-project-users" (
             project_id,
@@ -785,7 +790,7 @@ export class DebankService {
     updated_at: Date;
     is_stable_coin: boolean;
   }) {
-    await pgPool
+    await this.pgPool
       .query(
         `INSERT INTO "debank-user-balance" (
             user_address,
@@ -821,7 +826,7 @@ export class DebankService {
       if (!projectId) {
         throw new Error('queryUserAddressByProjectId: projectId is required');
       }
-      const { rows } = await pgPool.query(
+      const { rows } = await this.pgPool.query(
         `SELECT user_address FROM "debank-project-users" WHERE project_id = $1 GROUP BY user_address`,
         [projectId],
       );
@@ -931,7 +936,7 @@ export class DebankService {
     value_dict: any;
     total_score: number;
   }) {
-    await pgPool.query(
+    await this.pgPool.query(
       `
         INSERT INTO "debank-social-ranking" (
           user_address,
@@ -973,7 +978,7 @@ export class DebankService {
       order: 'ASC',
     },
   ) {
-    const { rows } = await pgPool.query(
+    const { rows } = await this.pgPool.query(
       `SELECT ${select} FROM "debank-social-ranking" ORDER BY ${orderBy} ${order} LIMIT ${limit}`,
     );
     return { rows };
@@ -989,7 +994,7 @@ export class DebankService {
     orderBy: string;
     order: 'DESC' | 'ASC';
   }) {
-    const { rows } = await pgPool.query(
+    const { rows } = await this.pgPool.query(
       `SELECT ${select} FROM "debank-user-address-list"
       WHERE debank_top_holders_time is not null
       ORDER BY ${orderBy} ${order}  ${limit ? 'LIMIT ' + limit : ''}`,
@@ -1190,7 +1195,7 @@ export class DebankService {
   }
 
   async insertWhale({ whale, crawl_id, updated_at }: { whale: any; crawl_id: number; updated_at?: Date }) {
-    await pgClient.query(
+    await this.pgClient.query(
       `
           INSERT INTO "debank-whales" (
             user_address,
@@ -1470,7 +1475,7 @@ export class DebankService {
   }
 
   async getCrawlId() {
-    const { rows } = await pgClient.query(`
+    const { rows } = await this.pgClient.query(`
       SELECT
         max(last_crawl_id) as last_crawl_id
       FROM
@@ -1492,7 +1497,7 @@ export class DebankService {
     }
   }
   async getWhalesCrawlId() {
-    const { rows } = await pgClient.query(`
+    const { rows } = await this.pgClient.query(`
   	  SELECT
         max(crawl_id) as crawl_id
       FROM
@@ -1512,7 +1517,7 @@ export class DebankService {
     }
   }
   async getTopHoldersCrawlId() {
-    const { rows } = await pgClient.query(`
+    const { rows } = await this.pgClient.query(`
       SELECT
         max(crawl_id) as crawl_id
       FROM
@@ -1533,7 +1538,7 @@ export class DebankService {
   }
 
   async getCoinsCrawlId() {
-    const { rows } = await pgClient.query(`
+    const { rows } = await this.pgClient.query(`
     SELECT
         max(crawl_id) as crawl_id
     FROM
@@ -1554,7 +1559,7 @@ export class DebankService {
   }
 
   async getSocialRankingCrawlId() {
-    const { rows } = await pgClient.query(`
+    const { rows } = await this.pgClient.query(`
     SELECT
         max(crawl_id) as crawl_id
     FROM
@@ -1588,7 +1593,7 @@ export class DebankService {
   }) {
     const now = new Date();
     // update if exists else insert
-    await pgClient.query(
+    await this.pgClient.query(
       `
       INSERT INTO "debank-user-address-list"(
         user_address,
@@ -1831,7 +1836,7 @@ export class DebankService {
 
   async insertCoin({ coin, crawl_id, crawl_time }: { coin: any; crawl_id: number; crawl_time: Date }) {
     try {
-      await pgClient.query(
+      await this.pgClient.query(
         `
         INSERT INTO "debank-coins"(
           symbol,
@@ -1851,7 +1856,7 @@ export class DebankService {
   }
   async queryAllCoins() {
     try {
-      const { rows } = await pgClient.query(`
+      const { rows } = await this.pgClient.query(`
         SELECT symbol, details FROM "debank-coins"
       `);
       return rows;
@@ -1900,7 +1905,7 @@ export class DebankService {
     symbol: string;
   }) {
     try {
-      await pgClient.query(
+      await this.pgClient.query(
         `
         INSERT INTO "debank-top-holders"(
           user_address,
@@ -1919,7 +1924,7 @@ export class DebankService {
   }
   async queryTopHoldersByCrawlId({ symbol, crawl_id }: { symbol: string; crawl_id: number }) {
     try {
-      const { rows } = await pgClient.query(
+      const { rows } = await this.pgClient.query(
         `
         SELECT * FROM "debank-top-holders" WHERE symbol = $1 AND crawl_id = $2
       `,

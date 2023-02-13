@@ -13,7 +13,8 @@ import { dockerContainerStats, systemInfo } from './utils/system';
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------
-    w; // Logger
+    // Logger
+
     if (env.MODE == 'production') {
       new Discord();
     }
@@ -22,6 +23,8 @@ import { dockerContainerStats, systemInfo } from './utils/system';
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();
     await (await import('./loaders/pg.loader')).default();
+
+    new Discord();
 
     if (env.MODE == 'production') {
       await (await import('./loaders/telegram.loader')).default();

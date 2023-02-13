@@ -1024,7 +1024,7 @@ export class DebankService {
               age: 1000 * 60 * 60 * 1,
             },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 2,
+              age: 1000 * 60 * 60 * 1,
             },
             priority: 5,
             // delay: 1000 * 30,
@@ -1383,7 +1383,7 @@ export class DebankService {
               age: 1000 * 60 * 60 * 1,
             },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 2,
+              age: 1000 * 60 * 60 * 1,
             },
             priority: 5,
             attempts: 10,
@@ -1525,7 +1525,7 @@ export class DebankService {
             age: 1000 * 60 * 60,
           },
           removeOnFail: {
-            age: 1000 * 60 * 60 * 2,
+            age: 1000 * 60 * 60 * 1,
           },
           priority: 15,
           attempts: 10,
@@ -1577,10 +1577,10 @@ export class DebankService {
         options: {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
           removeOnComplete: {
-            age: 1000 * 60 * 60,
+            age: 1000 * 60 * 30,
           },
           removeOnFail: {
-            age: 1000 * 60 * 60 * 2,
+            age: 1000 * 60 * 30,
           },
           priority: 10,
           attempts: 10,
@@ -1888,7 +1888,7 @@ export class DebankService {
               age: 1000 * 60 * 60 * 1,
             },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 2,
+              age: 1000 * 60 * 60 * 1,
             },
             priority: 5,
             // delay: 1000 * 10,

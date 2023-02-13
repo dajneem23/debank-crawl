@@ -60,8 +60,10 @@ export const TelegramLoader = async () => {
       );
       if (records.length == 1) {
         // const [, etherscan] = /A new token transfer (\(.*)\)/g.exec(text);
+        console.info({
+          records,
+        });
         const _match = text.match(/Etherscan|PolygonScan|BscScan/gi);
-
         const offset = text.indexOf(_match[0]);
         const _etherscan_url = entities.find((entity) => entity.offset === offset)?.url;
         if (_etherscan_url) {

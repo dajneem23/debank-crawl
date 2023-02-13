@@ -84,7 +84,7 @@ export class BinanceService {
       },
     });
     this.logger.debug('info', '[initWorker:binance]', 'Worker initialized');
-    this.initWorkerListeners(this.worker);
+    // this.initWorkerListeners(this.worker);
   }
   /**
    *  @description init BullMQ Queue

@@ -317,9 +317,9 @@ export class DebankService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', ({ id, data, name }: Job<DebankJobData>) => {
-      this.logger.discord('success', '[job:debank:completed]', id, name, JSON.stringify(data));
-    });
+    // worker.on('completed', ({ id, data, name }: Job<DebankJobData>) => {
+    //   this.logger.discord('success', '[job:debank:completed]', id, name, JSON.stringify(data));
+    // });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DebankJobData>, error: Error) => {
       this.logger.discord(

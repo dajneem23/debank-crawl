@@ -55,6 +55,7 @@ const commands = [
 const TOKEN = env.DISCORD_BOT_TOKEN;
 const CLIENT_ID = env.DISCORD_BOT_CLIENT_ID;
 const NOTIFICATION_CHANNEL_ID = '1041620555188682793';
+const ERROR_CHANNEL_ID = '1072390465246212096';
 @Service(DIDiscordClient)
 export class Discord {
   readonly client: Client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
@@ -74,6 +75,9 @@ export class Discord {
       name: 'dev',
     },
   };
+  readonly notifyChannelId = NOTIFICATION_CHANNEL_ID;
+
+  readonly errorChannelId = ERROR_CHANNEL_ID;
 
   // constructor() {}
 

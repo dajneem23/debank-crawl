@@ -106,6 +106,7 @@ export default class Logger {
         .map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg))
         .map((arg) => discordBot.decorateMsg(arg))
         .join('\n'),
+      channelId: message === 'error' ? discordBot.errorChannelId : discordBot.notifyChannelId,
     });
   }
 }

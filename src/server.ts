@@ -13,7 +13,7 @@ import { dockerContainerStats, systemInfo } from './utils/system';
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------
-    // Logger
+    w; // Logger
     if (env.MODE == 'production') {
       new Discord();
     }

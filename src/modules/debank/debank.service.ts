@@ -12,6 +12,10 @@ import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
 import lodash from 'lodash';
 import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
+import { DIDiscordClient } from '@/loaders/discord.loader';
+import { arrayObjectToTable } from '@/utils/table';
+import { table } from 'table';
+import { markdownMarkup } from '@/utils/markdown';
 const pgPool = Container.get(pgPoolToken);
 const pgClient = Container.get(pgClientToken);
 const debankServiceToken = new Token<DebankService>('_debankService');
@@ -299,14 +303,75 @@ export class DebankService {
     // TODO: ENABLE THIS
     // this.initRepeatJobs();
   }
-
-  private initQueueListeners(queue: QueueEvents) {
-    queue.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+  /**
+   * Initialize Worker listeners
+   * @private
+   */
+  private initWorkerListeners(worker: Worker) {
+    // Completed
+    worker.on('completed', ({ id, data, name }: Job<DebankJobData>) => {
+      this.logger.discord('success', '[job:debank:completed]', id, name, JSON.stringify(data));
+    });
+    // Failed
+    worker.on('failed', ({ id, name, data, failedReason }: Job<DebankJobData>, error: Error) => {
+      this.logger.discord(
+        'error',
+        '[job:debank:error]',
+        id,
+        name,
+        failedReason,
+        JSON.stringify(data),
+        JSON.stringify(error),
+      );
+    });
+  }
+  private initQueueListeners(queueEvents: QueueEvents) {
+    queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
+    });
+
+    queueEvents.on('drained', async (id) => {
+      const queue = this.getQueue(id);
+      const notFinishedJobs = await queue.getJobCounts('delayed', 'waiting', 'active', 'wait', 'failed', 'completed');
+      const totalNotFinishedJobs = Object.values(
+        lodash(notFinishedJobs).pick('delayed', 'waiting', 'active', 'wait'),
+      ).reduce((a, b) => a + b, 0);
+      if (totalNotFinishedJobs === 0) {
+        const discord = Container.get(DIDiscordClient);
+        const messageTable = table(
+          arrayObjectToTable([
+            {
+              ...lodash(notFinishedJobs).pick('completed', 'failed'),
+            },
+          ]),
+          {
+            header: {
+              content: id,
+            },
+          },
+        );
+        discord.sendMsg({
+          message: markdownMarkup(messageTable),
+        });
+      }
     });
     // queue.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
     // });
+  }
+  getQueue(id: string) {
+    switch (id) {
+      case 'debank':
+        return this.queue;
+      case 'debank-insert':
+        return this.queueInsert;
+      case 'debank-whale':
+        return this.queueWhale;
+      case 'debank-top-holder':
+        return this.queueTopHolder;
+      case 'debank-ranking':
+        return this.queueRanking;
+    }
   }
   private initRepeatJobs() {
     // this.addJob({
@@ -482,28 +547,7 @@ export class DebankService {
       // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
       .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
   }
-  /**
-   * Initialize Worker listeners
-   * @private
-   */
-  private initWorkerListeners(worker: Worker) {
-    // Completed
-    worker.on('completed', ({ id, data, name }: Job<DebankJobData>) => {
-      this.logger.discord('success', '[job:debank:completed]', id, name, JSON.stringify(data));
-    });
-    // Failed
-    worker.on('failed', ({ id, name, data, failedReason }: Job<DebankJobData>, error: Error) => {
-      this.logger.discord(
-        'error',
-        '[job:debank:error]',
-        id,
-        name,
-        failedReason,
-        JSON.stringify(data),
-        JSON.stringify(error),
-      );
-    });
-  }
+
   workerProcessor({ name, data = {}, id }: Job<any>): Promise<void> {
     // this.logger.discord('info', `[debank:workerProcessor:run]`, name);
     return (
@@ -1370,20 +1414,23 @@ export class DebankService {
     }
   }
   async addFetchTopHoldersByUsersAddressJob({ jobId }: { jobId: string }) {
-    const debankWhaleJobs = await this.queueWhale.getJobCounts('active', 'delayed', 'waiting');
-    const debankTopHolderJobs = await this.queueTopHolder.getJobCounts('active', 'delayed', 'waiting');
-    const debankRankingJobs = await this.queueRanking.getJobCounts('active', 'delayed', 'waiting');
+    const debankWhaleJobs = await this.queueWhale.getJobCounts('active', 'delayed', 'waiting', 'wait');
+    const debankTopHolderJobs = await this.queueTopHolder.getJobCounts('active', 'delayed', 'waiting', 'wait');
+    const debankRankingJobs = await this.queueRanking.getJobCounts('active', 'delayed', 'waiting', 'wait');
 
     const totalJobs =
       debankWhaleJobs.active +
       debankWhaleJobs.delayed +
       debankWhaleJobs.waiting +
+      debankWhaleJobs.wait +
       debankTopHolderJobs.active +
       debankTopHolderJobs.delayed +
       debankTopHolderJobs.waiting +
+      debankTopHolderJobs.wait +
       debankRankingJobs.active +
       debankRankingJobs.delayed +
-      debankRankingJobs.waiting;
+      debankRankingJobs.waiting +
+      debankRankingJobs.wait;
 
     if (totalJobs > 0) {
       //delay 1 minutes until all jobs are done

@@ -221,9 +221,6 @@ export class Discord {
               width: 10,
             },
             {
-              width: 5,
-            },
-            {
               width: 7,
             },
             {

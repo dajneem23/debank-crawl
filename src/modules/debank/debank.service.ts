@@ -120,6 +120,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
+      drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.worker);
 
@@ -137,6 +138,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
+      drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerInsert);
 
@@ -154,6 +156,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
+      drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerWhale);
 
@@ -171,6 +174,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
+      drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerTopHolder);
 
@@ -188,6 +192,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
+      drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerRanking);
 
@@ -196,7 +201,7 @@ export class DebankService {
 
   public async getCountOfJob(
     queue: keyof typeof this.queueName,
-    jobTypes: JobType[] = ['wait', 'delayed', 'waiting', 'active', 'completed', 'failed'],
+    jobTypes: JobType[] = ['delayed', 'waiting', 'active', 'completed', 'failed'],
   ) {
     return this.getQueue(this.queueName[queue]).getJobCounts(...jobTypes);
   }
@@ -212,10 +217,11 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 1,
+          // 1 hour
+          age: 60 * 60 * 1,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60 * 1,
         },
       },
     });
@@ -236,10 +242,12 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 1,
+          // 1 hour
+          age: 60 * 60,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 1,
+          // 1 hour
+          age: 60 * 60,
         },
       },
     });
@@ -256,10 +264,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60,
         },
       },
     });
@@ -276,10 +284,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60,
         },
       },
     });
@@ -296,10 +304,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60,
         },
       },
     });
@@ -333,84 +341,52 @@ export class DebankService {
       );
     });
     worker.on('drained', async () => {
-      const messageTable = table(
-        arrayObjectToTable([
-          {
-            name: 'debank',
-            ...(await this.getCountOfJob('debank')),
-          },
-          {
-            name: 'top holder',
-            ...(await this.getCountOfJob('debankTopHolder')),
-          },
-          {
-            name: 'ranking',
-            ...(await this.getCountOfJob('debankRanking')),
-          },
-          {
-            name: 'whale',
-            ...(await this.getCountOfJob('debankWhale')),
-          },
-        ]),
-        {
-          header: {
-            content: 'Crawler queue debank',
-          },
-          columns: [
-            {
-              width: 10,
-            },
-            {
-              width: 5,
-            },
-            {
-              width: 7,
-            },
-            {
-              width: 7,
-            },
-            {
-              width: 6,
-            },
-            {
-              width: 9,
-            },
-            {
-              width: 6,
-            },
-            {
-              width: 6,
-            },
-          ],
-        },
-      );
+      const insertJobs = await this.queueInsert.getJobCounts('waiting', 'active', 'delayed', 'completed', 'failed');
+      const whaleJobs = await this.queueWhale.getJobCounts();
+      const topHolderJobs = await this.queueTopHolder.getJobCounts();
+      const rankingJobs = await this.queueRanking.getJobCounts();
+      const debankJobs = await this.queue.getJobCounts();
       console.info('workerDrained');
-      console.info(messageTable);
-
-      // let totalNotFinishedJobs = Object.values(
-      //   lodash(notFinishedJobs).pick('delayed', 'waiting', 'active', 'wait'),
-      // ).reduce((a, b) => a + b, 0);
-      // if (id == 'debank') {
-      //   totalNotFinishedJobs -= this.totalRepeatableJobs;
-      // }
-      // if (totalNotFinishedJobs === 0) {
-      //   const discord = Container.get(DIDiscordClient);
-      //   const messageTable = table(
-      //     arrayObjectToTable([
-      //       {
-      //         ...lodash(notFinishedJobs).pick('completed', 'failed'),
-      //       },
-      //     ]),
-      //     {
-      //       header: {
-      //         content: id,
-      //       },
-      //     },
-      //   );
-      //   await discord.sendMsg({
-      //     message: markdownMarkup(messageTable),
-      //   });
-      // }
+      const notFinishedJobs = [insertJobs, whaleJobs, topHolderJobs, rankingJobs, debankJobs];
+      const totalNotFinishedJobs = notFinishedJobs.reduce((acc, cur) => {
+        return acc + cur.waiting + cur.active + cur.delayed;
+      }, 0);
+      console.info({
+        totalNotFinishedJobs,
+      });
+      if (totalNotFinishedJobs - this.totalRepeatableJobs === 0) {
+        const messageByRow =
+          `\`\`\`diff` +
+          `\n debank:` +
+          `\n+ ${debankJobs.waiting} waiting` +
+          `\n+ ${debankJobs.active} active` +
+          `\n+ ${debankJobs.delayed} delayed` +
+          `\n+ ${debankJobs.completed} completed` +
+          `\n- ${debankJobs.failed} failed` +
+          `\n debank whale:` +
+          `\n+ ${whaleJobs.waiting} waiting` +
+          `\n+ ${whaleJobs.active} active` +
+          `\n+ ${whaleJobs.delayed} delayed` +
+          `\n+ ${whaleJobs.completed} completed` +
+          `\n+ ${whaleJobs.failed} failed` +
+          `\n debank top holder:` +
+          `\n+ ${topHolderJobs.waiting} waiting` +
+          `\n+ ${topHolderJobs.active} active` +
+          `\n+ ${topHolderJobs.delayed} delayed` +
+          `\n+ ${topHolderJobs.completed} completed` +
+          `\n- ${topHolderJobs.failed} failed` +
+          `\n debank ranking:` +
+          `\n+ ${rankingJobs.waiting} waiting` +
+          `\n+ ${rankingJobs.active} active` +
+          `\n+ ${rankingJobs.delayed} delayed` +
+          `\n+ ${rankingJobs.completed} completed` +
+          `\n- ${rankingJobs.failed} failed` +
+          `\`\`\``;
+        const discord = Container.get(DIDiscordClient);
+        await discord.sendMsg({
+          message: messageByRow,
+        });
+      }
     });
   }
   private initQueueListeners(queueEvents: QueueEvents) {
@@ -536,7 +512,7 @@ export class DebankService {
         jobId: `debank:add:fetch:user-address:top-holders`,
         removeOnComplete: {
           //remove after 1 hour
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60,
         },
         repeat: {
           //repeat every 3 hours
@@ -570,7 +546,11 @@ export class DebankService {
         jobId: `debank:add:fetch:top-holders`,
         removeOnComplete: {
           //remove after 1 hour
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60 * 1,
+        },
+        removeOnFail: {
+          //remove after 1 hour
+          age: 60 * 60 * 1,
         },
         repeat: {
           //repeat every 60 minutes
@@ -588,7 +568,11 @@ export class DebankService {
         jobId: `debank:add:social:users:rankings`,
         removeOnComplete: {
           //remove job after 1 hours
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60 * 1,
+        },
+        removeOnFail: {
+          //remove job after 1 hours
+          age: 60 * 60 * 1,
         },
         repeat: {
           //repeat every 3 hours
@@ -606,7 +590,11 @@ export class DebankService {
         jobId: `debank:add:fetch:whales:paging`,
         removeOnComplete: {
           //remove job after 1 hours
-          age: 1000 * 60 * 60 * 1,
+          age: 60 * 60 * 1,
+        },
+        removeOnFail: {
+          //remove job after 1 hours
+          age: 60 * 60 * 1,
         },
         repeat: {
           //repeat every 3 hours
@@ -766,10 +754,10 @@ export class DebankService {
           options: {
             jobId: `debank:fetch:project:users:${id}:${Date.now()}`,
             removeOnComplete: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 60 * 60,
             },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 60 * 60,
             },
             priority: 10,
           },
@@ -1021,10 +1009,10 @@ export class DebankService {
           options: {
             jobId: `debank:fetch:social:rankings:page:${page_num}:${crawl_id}`,
             removeOnComplete: {
-              age: 1000 * 60 * 60 * 1,
+              age: 60 * 60 * 1,
             },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 1,
+              age: 60 * 60 * 1,
             },
             priority: 5,
             // delay: 1000 * 30,
@@ -1380,10 +1368,10 @@ export class DebankService {
             jobId: `debank:fetch:whales:page:${crawl_id}:${index}`,
             removeOnComplete: {
               // remove job after 1 hour
-              age: 1000 * 60 * 60 * 1,
+              age: 60 * 60 * 1,
             },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 1,
+              age: 60 * 60 * 1,
             },
             priority: 5,
             attempts: 10,
@@ -1852,7 +1840,7 @@ export class DebankService {
             jobId: `debank:fetch:top-holders:page:${crawl_id}:${id}:${index}`,
             removeOnComplete: true,
             removeOnFail: {
-              age: 1000 * 60 * 60 * 1,
+              age: 60 * 60 * 1,
             },
             priority: 7,
             attempts: 10,
@@ -1885,10 +1873,10 @@ export class DebankService {
           options: {
             jobId: `debank:fetch:top-holders:${crawl_id}:${symbol}`,
             removeOnComplete: {
-              age: 1000 * 60 * 60 * 1,
+              age: 60 * 60 * 1,
             },
             removeOnFail: {
-              age: 1000 * 60 * 60 * 1,
+              age: 60 * 60 * 1,
             },
             priority: 5,
             // delay: 1000 * 10,

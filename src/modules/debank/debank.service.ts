@@ -77,12 +77,20 @@ export class DebankService {
     'debank:fetch:top-holders:page': this.fetchTopHoldersPage,
     'debank:insert:top-holder': this.insertTopHolder,
 
+    //! DEPRECATED
     'debank:add:project:users': this.addFetchProjectUsersJobs,
+    //!PAUSED
     'debank:add:fetch:coins': this.addFetchCoinsJob,
+
+    //! RUNNING
     'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
+    //! RUNNING
     'debank:add:social:users:rankings': this.addFetchSocialRankingJob,
+    //! RUNNING
     'debank:add:fetch:whales:paging': this.addFetchWhalesPagingJob,
+    //! RUNNING
     'debank:add:fetch:top-holders': this.addFetchTopHoldersJob,
+    //! RUNNING
     'debank:add:fetch:user-address:top-holders': this.addFetchTopHoldersByUsersAddressJob,
     default: () => {
       throw new Error('Invalid job name');
@@ -504,7 +512,7 @@ export class DebankService {
     //   },
     // });
     this.addJob({
-      name: 'debank:add:fetch:user-address:top-holders',
+      name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
       options: {
         repeatJobKey: 'debank:add:fetch:user-address:top-holders',
         jobId: `debank:add:fetch:user-address:top-holders`,
@@ -538,7 +546,7 @@ export class DebankService {
     // });
 
     this.addJob({
-      name: 'debank:add:fetch:top-holders',
+      name: DebankJobNames['debank:add:fetch:top-holders'],
       options: {
         repeatJobKey: 'debank:add:fetch:top-holders',
         jobId: `debank:add:fetch:top-holders`,
@@ -560,7 +568,7 @@ export class DebankService {
       },
     });
     this.addJob({
-      name: 'debank:add:social:users:rankings',
+      name: DebankJobNames['debank:add:social:users:rankings'],
       options: {
         repeatJobKey: 'debank:add:social:users:rankings',
         jobId: `debank:add:social:users:rankings`,
@@ -582,7 +590,7 @@ export class DebankService {
       },
     });
     this.addJob({
-      name: 'debank:add:fetch:whales:paging',
+      name: DebankJobNames['debank:add:fetch:whales:paging'],
       options: {
         repeatJobKey: 'debank:add:fetch:whales:paging',
         jobId: `debank:add:fetch:whales:paging`,
@@ -641,11 +649,33 @@ export class DebankService {
       this.logger.discord('error', `[addJob:debank:error]`, JSON.stringify(error), JSON.stringify(payload));
     }
   }
-  addBulkJob({ name, payload = [], options }: { name: DebankJobNames; payload?: any[]; options?: JobsOptions }) {
-    this.queue
-      .addBulk(payload.map((p) => ({ name, data: p, options })))
-      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
-      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
+  addBulkJobs({
+    jobs,
+    queue = this.queueName.debank,
+  }: {
+    queue: keyof typeof this.queueName;
+    jobs: { name: DebankJobNames; payload?: any; options?: JobsOptions }[];
+  }) {
+    const _jobs = jobs.map(({ name, payload: data = {}, options: otps }) => {
+      return {
+        name,
+        data,
+        otps,
+      };
+    });
+    switch (queue) {
+      case this.queueName.debankWhale:
+        return this.queueWhale.addBulk(_jobs);
+      case this.queueName.debankInsert:
+        return this.queueInsert.addBulk(_jobs);
+      case this.queueName.debankRanking:
+        return this.queueRanking.addBulk(_jobs);
+      case this.queueName.debankTopHolder:
+        return this.queueTopHolder.addBulk(_jobs);
+      case this.queueName.debank:
+      default:
+        return this.queue.addBulk(_jobs);
+    }
   }
   addInsertJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
     this.queueInsert
@@ -745,7 +775,7 @@ export class DebankService {
       const { rows: projects } = await this.pgPool.query(`SELECT id FROM "debank-projects" GROUP BY id`);
       for (const { id } of projects) {
         this.addJob({
-          name: 'debank:fetch:project:users',
+          name: DebankJobNames['debank:fetch:project:users'],
           payload: {
             projectId: id,
           },
@@ -996,10 +1026,10 @@ export class DebankService {
   async addFetchSocialRankingJob() {
     try {
       const crawl_id = await this.getSocialRankingCrawlId();
+      const jobs = [];
       for (let page_num = 1; page_num <= 1000; page_num++) {
-        this.addJob({
-          queue: this.queueName.debankRanking,
-          name: 'debank:fetch:social:rankings:page',
+        jobs.push({
+          name: DebankJobNames['debank:fetch:social:rankings:page'],
           payload: {
             page_num,
             crawl_id,
@@ -1017,6 +1047,10 @@ export class DebankService {
           },
         });
       }
+      await this.addBulkJobs({
+        jobs,
+        queue: this.queueName.debankRanking,
+      });
     } catch (error) {
       this.logger.discord('error', '[addFetchSocialRankingJob:error]', JSON.stringify(error));
       throw error;
@@ -1355,28 +1389,28 @@ export class DebankService {
         [],
       );
       //create job for each list index
-      listIndex.map((index: number) => {
-        if (index === 0) return;
-        this.addJob({
-          queue: this.queueName.debankWhale,
-          name: 'debank:fetch:whales:page',
-          payload: {
-            start: index,
-            crawl_id,
+      const jobs = listIndex.map((index: number) => ({
+        name: DebankJobNames['debank:fetch:whales:page'],
+        payload: {
+          start: index,
+          crawl_id,
+        },
+        options: {
+          jobId: `debank:fetch:whales:page:${crawl_id}:${index}`,
+          removeOnComplete: {
+            // remove job after 1 hour
+            age: 60 * 60 * 1,
           },
-          options: {
-            jobId: `debank:fetch:whales:page:${crawl_id}:${index}`,
-            removeOnComplete: {
-              // remove job after 1 hour
-              age: 60 * 60 * 1,
-            },
-            removeOnFail: {
-              age: 60 * 60 * 1,
-            },
-            priority: 5,
-            attempts: 10,
+          removeOnFail: {
+            age: 60 * 60 * 1,
           },
-        });
+          priority: 5,
+          attempts: 10,
+        },
+      }));
+      await this.addBulkJobs({
+        jobs,
+        queue: this.queueName.debankWhale,
       });
       await this.insertWhaleList({ whales, crawl_id });
     } catch (error) {
@@ -1500,9 +1534,10 @@ export class DebankService {
     });
 
     const crawl_id = await this.getCrawlId();
+    const jobs = [];
     for (const { user_address } of rows) {
-      this.addJob({
-        name: 'debank:fetch:social:user',
+      jobs.push({
+        name: DebankJobNames['debank:fetch:social:user'],
         payload: {
           user_address,
           crawl_id,
@@ -1520,6 +1555,10 @@ export class DebankService {
         },
       });
     }
+    this.addBulkJobs({
+      jobs,
+      queue: this.queueName.debank,
+    });
   }
   async addFetchTopHoldersByUsersAddressJob({ jobId }: { jobId: string }) {
     const debankWhaleJobs = await this.queueWhale.getJobCounts('active', 'delayed', 'waiting', 'wait');
@@ -1551,26 +1590,28 @@ export class DebankService {
     });
 
     const crawl_id = await this.getCrawlId();
-    for (const { user_address } of rows) {
-      this.addJob({
-        name: 'debank:fetch:social:user',
-        payload: {
-          user_address,
-          crawl_id,
+    const jobs = rows.map(({ user_address }: any) => ({
+      name: DebankJobNames['debank:fetch:social:user'],
+      payload: {
+        user_address,
+        crawl_id,
+      },
+      options: {
+        jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
+        removeOnComplete: {
+          age: 60 * 30,
         },
-        options: {
-          jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
-          removeOnComplete: {
-            age: 60 * 30,
-          },
-          removeOnFail: {
-            age: 60 * 30,
-          },
-          priority: 10,
-          attempts: 10,
+        removeOnFail: {
+          age: 60 * 30,
         },
-      });
-    }
+        priority: 10,
+        attempts: 10,
+      },
+    }));
+    await this.addBulkJobs({
+      jobs,
+      queue: this.queueName.debank,
+    });
   }
 
   async getCrawlId() {
@@ -1825,7 +1866,7 @@ export class DebankService {
         if (index === 0) return;
         this.addJob({
           queue: this.queueName.debankTopHolder,
-          name: 'debank:fetch:top-holders:page',
+          name: DebankJobNames['debank:fetch:top-holders:page'],
           payload: {
             id,
             start: index,
@@ -1858,28 +1899,29 @@ export class DebankService {
       const crawl_id = await this.getTopHoldersCrawlId();
       const allCoins = await this.queryAllCoins();
       //164
-      for (const { symbol } of allCoins) {
-        this.addJob({
-          queue: this.queueName.debankTopHolder,
-          name: 'debank:fetch:top-holders',
-          payload: {
-            id: symbol,
-            crawl_id,
+      const jobs = allCoins.map(({ symbol }) => ({
+        name: DebankJobNames['debank:fetch:top-holders'],
+        payload: {
+          id: symbol,
+          crawl_id,
+        },
+        options: {
+          jobId: `debank:fetch:top-holders:${crawl_id}:${symbol}`,
+          removeOnComplete: {
+            age: 60 * 60 * 1,
           },
-          options: {
-            jobId: `debank:fetch:top-holders:${crawl_id}:${symbol}`,
-            removeOnComplete: {
-              age: 60 * 60 * 1,
-            },
-            removeOnFail: {
-              age: 60 * 60 * 1,
-            },
-            priority: 5,
-            // delay: 1000 * 10,
-            attempts: 10,
+          removeOnFail: {
+            age: 60 * 60 * 1,
           },
-        });
-      }
+          priority: 5,
+          // delay: 1000 * 10,
+          attempts: 10,
+        },
+      }));
+      await this.addBulkJobs({
+        queue: this.queueName.debankTopHolder,
+        jobs,
+      });
     } catch (error) {
       this.logger.error('error', '[addFetchTopHoldersJob:error]', JSON.stringify(error));
       throw error;

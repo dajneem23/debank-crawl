@@ -478,7 +478,7 @@ export class DebankService {
   private initRepeatJobs() {
     // this.addJob({
     //   name: 'debank:fetch:project:list',
-    //   options: {
+    //   otps: {
     //     repeatJobKey: 'debank:fetch:project:list',
     //     repeat: {
     //       // every: 1000 * 60 * 60,
@@ -489,7 +489,7 @@ export class DebankService {
     // });
     // this.addJob({
     //   name: 'debank:add:project:users',
-    //   options: {
+    //   otps: {
     //     repeatJobKey: 'debank:add:project:users',
     //     repeat: {
     //       // every: 1000 * 60 * 30,
@@ -500,7 +500,7 @@ export class DebankService {
     // });
     // this.addJob({
     //   name: 'debank:add:social:users',
-    //   options: {
+    //   otps: {
     //     repeatJobKey: 'debank:add:social:users',
     //     repeat: {
     //       //repeat every 2 hours
@@ -513,7 +513,7 @@ export class DebankService {
     // });
     this.addJob({
       name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
-      options: {
+      otps: {
         repeatJobKey: 'debank:add:fetch:user-address:top-holders',
         jobId: `debank:add:fetch:user-address:top-holders`,
         removeOnComplete: {
@@ -533,7 +533,7 @@ export class DebankService {
     });
     // this.addJob({
     //   name: 'debank:add:fetch:coins',
-    //   options: {
+    //   otps: {
     //     repeatJobKey: 'debank:add:fetch:coins',
     //     repeat: {
     //       //repeat every 24 hours
@@ -547,7 +547,7 @@ export class DebankService {
 
     this.addJob({
       name: DebankJobNames['debank:add:fetch:top-holders'],
-      options: {
+      otps: {
         repeatJobKey: 'debank:add:fetch:top-holders',
         jobId: `debank:add:fetch:top-holders`,
         removeOnComplete: {
@@ -569,7 +569,7 @@ export class DebankService {
     });
     this.addJob({
       name: DebankJobNames['debank:add:social:users:rankings'],
-      options: {
+      otps: {
         repeatJobKey: 'debank:add:social:users:rankings',
         jobId: `debank:add:social:users:rankings`,
         removeOnComplete: {
@@ -591,7 +591,7 @@ export class DebankService {
     });
     this.addJob({
       name: DebankJobNames['debank:add:fetch:whales:paging'],
-      options: {
+      otps: {
         repeatJobKey: 'debank:add:fetch:whales:paging',
         jobId: `debank:add:fetch:whales:paging`,
         removeOnComplete: {
@@ -617,36 +617,36 @@ export class DebankService {
   addJob({
     queue = this.queueName.debank,
     name,
-    payload = {},
-    options,
+    data = {},
+    otps,
   }: {
     queue?: keyof typeof this.queueName;
     name: DebankJobNames;
-    payload?: any;
-    options?: JobsOptions;
+    data?: any;
+    otps: JobsOptions;
   }) {
     try {
       switch (queue) {
         case this.queueName.debankWhale:
-          this.queueWhale.add(name, payload, options);
+          this.queueWhale.add(name, data, otps);
           break;
         case this.queueName.debankInsert:
-          this.queueInsert.add(name, payload, options);
+          this.queueInsert.add(name, data, otps);
           break;
         case this.queueName.debankRanking:
-          this.queueRanking.add(name, payload, options);
+          this.queueRanking.add(name, data, otps);
           break;
         case this.queueName.debankTopHolder:
-          this.queueTopHolder.add(name, payload, options);
+          this.queueTopHolder.add(name, data, otps);
           break;
 
         case this.queueName.debank:
         default:
-          this.queue.add(name, payload, options);
+          this.queue.add(name, data, otps);
           break;
       }
     } catch (error) {
-      this.logger.discord('error', `[addJob:debank:error]`, JSON.stringify(error), JSON.stringify(payload));
+      this.logger.discord('error', `[addJob:debank:error]`, JSON.stringify(error), JSON.stringify(data));
     }
   }
   addBulkJobs({
@@ -654,27 +654,20 @@ export class DebankService {
     queue = this.queueName.debank,
   }: {
     queue: keyof typeof this.queueName;
-    jobs: { name: DebankJobNames; payload?: any; options?: JobsOptions }[];
+    jobs: { name: DebankJobNames; data: any; otps: JobsOptions }[];
   }) {
-    const _jobs = jobs.map(({ name, payload: data = {}, options: otps }) => {
-      return {
-        name,
-        data,
-        otps,
-      };
-    });
     switch (queue) {
       case this.queueName.debankWhale:
-        return this.queueWhale.addBulk(_jobs);
+        return this.queueWhale.addBulk(jobs);
       case this.queueName.debankInsert:
-        return this.queueInsert.addBulk(_jobs);
+        return this.queueInsert.addBulk(jobs);
       case this.queueName.debankRanking:
-        return this.queueRanking.addBulk(_jobs);
+        return this.queueRanking.addBulk(jobs);
       case this.queueName.debankTopHolder:
-        return this.queueTopHolder.addBulk(_jobs);
+        return this.queueTopHolder.addBulk(jobs);
       case this.queueName.debank:
       default:
-        return this.queue.addBulk(_jobs);
+        return this.queue.addBulk(jobs);
     }
   }
   addInsertJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
@@ -776,10 +769,10 @@ export class DebankService {
       for (const { id } of projects) {
         this.addJob({
           name: DebankJobNames['debank:fetch:project:users'],
-          payload: {
+          data: {
             projectId: id,
           },
-          options: {
+          otps: {
             jobId: `debank:fetch:project:users:${id}:${Date.now()}`,
             removeOnComplete: {
               age: 60 * 60,
@@ -1026,15 +1019,19 @@ export class DebankService {
   async addFetchSocialRankingJob() {
     try {
       const crawl_id = await this.getSocialRankingCrawlId();
-      const jobs = [];
+      const jobs: {
+        name: DebankJobNames;
+        data: any;
+        otps: JobsOptions;
+      }[] = [];
       for (let page_num = 1; page_num <= 1000; page_num++) {
         jobs.push({
           name: DebankJobNames['debank:fetch:social:rankings:page'],
-          payload: {
+          data: {
             page_num,
             crawl_id,
           },
-          options: {
+          otps: {
             jobId: `debank:fetch:social:rankings:page:${page_num}:${crawl_id}`,
             removeOnComplete: {
               age: 60 * 60 * 1,
@@ -1389,13 +1386,17 @@ export class DebankService {
         [],
       );
       //create job for each list index
-      const jobs = listIndex.map((index: number) => ({
+      const jobs: {
+        name: DebankJobNames;
+        data: any;
+        otps: JobsOptions;
+      }[] = listIndex.map((index: number) => ({
         name: DebankJobNames['debank:fetch:whales:page'],
-        payload: {
+        data: {
           start: index,
           crawl_id,
         },
-        options: {
+        otps: {
           jobId: `debank:fetch:whales:page:${crawl_id}:${index}`,
           removeOnComplete: {
             // remove job after 1 hour
@@ -1538,11 +1539,11 @@ export class DebankService {
     for (const { user_address } of rows) {
       jobs.push({
         name: DebankJobNames['debank:fetch:social:user'],
-        payload: {
+        data: {
           user_address,
           crawl_id,
         },
-        options: {
+        otps: {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
           removeOnComplete: {
             age: 60 * 60,
@@ -1592,11 +1593,11 @@ export class DebankService {
     const crawl_id = await this.getCrawlId();
     const jobs = rows.map(({ user_address }: any) => ({
       name: DebankJobNames['debank:fetch:social:user'],
-      payload: {
+      data: {
         user_address,
         crawl_id,
       },
-      options: {
+      otps: {
         jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
         removeOnComplete: {
           age: 60 * 30,
@@ -1867,13 +1868,13 @@ export class DebankService {
         this.addJob({
           queue: this.queueName.debankTopHolder,
           name: DebankJobNames['debank:fetch:top-holders:page'],
-          payload: {
+          data: {
             id,
             start: index,
             limit: DebankAPI.Coin.top_holders.params.limit,
             crawl_id,
           },
-          options: {
+          otps: {
             jobId: `debank:fetch:top-holders:page:${crawl_id}:${id}:${index}`,
             removeOnComplete: true,
             removeOnFail: {
@@ -1901,11 +1902,11 @@ export class DebankService {
       //164
       const jobs = allCoins.map(({ symbol }) => ({
         name: DebankJobNames['debank:fetch:top-holders'],
-        payload: {
+        data: {
           id: symbol,
           crawl_id,
         },
-        options: {
+        otps: {
           jobId: `debank:fetch:top-holders:${crawl_id}:${symbol}`,
           removeOnComplete: {
             age: 60 * 60 * 1,

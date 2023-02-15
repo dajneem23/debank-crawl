@@ -118,7 +118,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
-      drainDelay: 1000 * 60 * 2,
+      // drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.worker);
 
@@ -136,7 +136,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
-      drainDelay: 1000 * 60 * 2,
+      // drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerInsert);
 
@@ -154,7 +154,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
-      drainDelay: 1000 * 60 * 2,
+      // drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerWhale);
 
@@ -172,7 +172,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
-      drainDelay: 1000 * 60 * 2,
+      // drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerTopHolder);
 
@@ -190,7 +190,7 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
-      drainDelay: 1000 * 60 * 2,
+      // drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerRanking);
 

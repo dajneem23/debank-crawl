@@ -1088,18 +1088,20 @@ export class DebankService {
   }
   async queryAddressList({
     select = '*',
-    limit = 10000,
-    orderBy = 'rank',
-    order = 'ASC',
+    limit,
+    orderBy = 'updated_at',
+    order = 'DESC',
+    where,
   }: {
-    select: string;
-    limit: number;
-    orderBy: string;
-    order: 'DESC' | 'ASC';
+    select?: string;
+    limit?: number;
+    orderBy?: string;
+    where?: string;
+    order?: 'DESC' | 'ASC';
   }) {
     const { rows } = await this.pgPool.query(
       `SELECT ${select} FROM "debank-user-address-list"
-      WHERE debank_top_holders_time is not null
+      ${where ? 'WHERE ' + where : ''}
       ORDER BY ${orderBy} ${order}  ${limit ? 'LIMIT ' + limit : ''}`,
     );
     return {
@@ -1510,10 +1512,10 @@ export class DebankService {
         options: {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
           removeOnComplete: {
-            age: 1000 * 60 * 60,
+            age: 60 * 60,
           },
           removeOnFail: {
-            age: 1000 * 60 * 60 * 1,
+            age: 60 * 60 * 1,
           },
           priority: 15,
           attempts: 10,
@@ -1548,10 +1550,6 @@ export class DebankService {
 
     const { rows } = await this.queryAddressList({
       select: 'user_address',
-      //10000
-      limit: 50000,
-      orderBy: 'debank_top_holders_time',
-      order: 'DESC',
     });
 
     const crawl_id = await this.getCrawlId();
@@ -1565,10 +1563,10 @@ export class DebankService {
         options: {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
           removeOnComplete: {
-            age: 1000 * 60 * 30,
+            age: 60 * 30,
           },
           removeOnFail: {
-            age: 1000 * 60 * 30,
+            age: 60 * 30,
           },
           priority: 10,
           attempts: 10,

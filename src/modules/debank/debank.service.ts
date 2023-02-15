@@ -10,12 +10,10 @@ import { pgClientToken, pgPoolToken, pgpToken } from '@/loaders/pg.loader';
 
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
-import lodash from 'lodash';
 import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import { arrayObjectToTable } from '@/utils/table';
 import { table } from 'table';
-import { markdownMarkup } from '@/utils/markdown';
 
 export const debankServiceToken = new Token<DebankService>('_debankService');
 const account =
@@ -109,7 +107,7 @@ export class DebankService {
     this.worker = new Worker('debank', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 2,
+      lockDuration: 1000 * 60 * 5,
       concurrency: 500,
       limiter: {
         max: 50,
@@ -127,7 +125,7 @@ export class DebankService {
     this.workerInsert = new Worker('debank-insert', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 2,
+      lockDuration: 1000 * 60 * 5,
       concurrency: 5000,
       limiter: {
         max: 100,
@@ -145,7 +143,7 @@ export class DebankService {
     this.workerWhale = new Worker('debank-whale', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 2,
+      lockDuration: 1000 * 60 * 5,
       concurrency: 5000,
       limiter: {
         max: 100,
@@ -163,7 +161,7 @@ export class DebankService {
     this.workerTopHolder = new Worker('debank-top-holder', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 2,
+      lockDuration: 1000 * 60 * 5,
       concurrency: 5000,
       limiter: {
         max: 100,
@@ -181,7 +179,7 @@ export class DebankService {
     this.workerRanking = new Worker('debank-ranking', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 2,
+      lockDuration: 1000 * 60 * 5,
       concurrency: 5000,
       limiter: {
         max: 100,

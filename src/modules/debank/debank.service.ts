@@ -10,7 +10,13 @@ import { pgClientToken, pgPoolToken, pgpToken } from '@/loaders/pg.loader';
 
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
-import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
+import {
+  bulkInsert,
+  bulkInsertOnConflict,
+  createPartitionByList,
+  createPartitionByRange,
+  createPartitionDefault,
+} from '@/utils/pg';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import { arrayObjectToTable } from '@/utils/table';
 import { table } from 'table';
@@ -24,13 +30,6 @@ export class DebankService {
 
   private readonly redisConnection = Container.get(DIRedisConnection);
 
-  readonly queueName = {
-    debank: 'debank',
-    debankInsert: 'debank-insert',
-    debankWhale: 'debank-whale',
-    debankTopHolder: 'debank-top-holder',
-    debankRanking: 'debank-ranking',
-  };
   private pgPool = Container.get(pgPoolToken);
 
   private pgClient = Container.get(pgClientToken);
@@ -97,7 +96,42 @@ export class DebankService {
     },
   };
 
+  readonly queueName = {
+    debank: 'debank',
+    debankInsert: 'debank-insert',
+    debankWhale: 'debank-whale',
+    debankTopHolder: 'debank-top-holder',
+    debankRanking: 'debank-ranking',
+  };
+
   constructor() {
+    // const date = '20230220';
+
+    // (async () => {
+    //   const table = 'debank-portfolio-projects';
+    //   for (let date = 20230215; date <= 20230220; date++) {
+    //     await createPartitionByRange({
+    //       table,
+    //       start: date + '00',
+    //       end: date + '99',
+    //       partition_name: `${table}-${date}`,
+    //       partition_by: 'LIST(crawl_id)',
+    //     });
+    //     for (let i = 1; i <= 8; i++) {
+    //       await createPartitionDefault({
+    //         table: `${table}-${date}`,
+    //       });
+    //       await createPartitionByList({
+    //         table: `${table}-${date}`,
+    //         partition_name: `${table}-${date}0${i}`,
+    //         values: [`${date}0${i}`],
+    //       });
+    //       console.log('done', `${table}-${date}0${i}`);
+    //     }
+    //   }
+    //   console.log('done');
+    // })();
+
     Container.set(debankServiceToken, this);
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
@@ -400,63 +434,63 @@ export class DebankService {
       this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
     });
 
-    queueEvents.on('drained', async (id) => {
-      console.info({
-        queueDrained: id,
-      });
-      const messageTable = table(
-        arrayObjectToTable([
-          {
-            name: 'debank',
-            ...(await this.getCountOfJob('debank')),
-          },
-          {
-            name: 'top holder',
-            ...(await this.getCountOfJob('debankTopHolder')),
-          },
-          {
-            name: 'ranking',
-            ...(await this.getCountOfJob('debankRanking')),
-          },
-          {
-            name: 'whale',
-            ...(await this.getCountOfJob('debankWhale')),
-          },
-        ]),
-        {
-          header: {
-            content: 'Crawler queue debank',
-          },
-          columns: [
-            {
-              width: 10,
-            },
-            {
-              width: 5,
-            },
-            {
-              width: 7,
-            },
-            {
-              width: 7,
-            },
-            {
-              width: 6,
-            },
-            {
-              width: 9,
-            },
-            {
-              width: 6,
-            },
-            {
-              width: 6,
-            },
-          ],
-        },
-      );
-      console.info(messageTable);
-    });
+    // queueEvents.on('drained', async (id) => {
+    //   console.info({
+    //     queueDrained: id,
+    //   });
+    //   const messageTable = table(
+    //     arrayObjectToTable([
+    //       {
+    //         name: 'debank',
+    //         ...(await this.getCountOfJob('debank')),
+    //       },
+    //       {
+    //         name: 'top holder',
+    //         ...(await this.getCountOfJob('debankTopHolder')),
+    //       },
+    //       {
+    //         name: 'ranking',
+    //         ...(await this.getCountOfJob('debankRanking')),
+    //       },
+    //       {
+    //         name: 'whale',
+    //         ...(await this.getCountOfJob('debankWhale')),
+    //       },
+    //     ]),
+    //     {
+    //       header: {
+    //         content: 'Crawler queue debank',
+    //       },
+    //       columns: [
+    //         {
+    //           width: 10,
+    //         },
+    //         {
+    //           width: 5,
+    //         },
+    //         {
+    //           width: 7,
+    //         },
+    //         {
+    //           width: 7,
+    //         },
+    //         {
+    //           width: 6,
+    //         },
+    //         {
+    //           width: 9,
+    //         },
+    //         {
+    //           width: 6,
+    //         },
+    //         {
+    //           width: 6,
+    //         },
+    //       ],
+    //     },
+    //   );
+    //   console.info(messageTable);
+    // });
     // queue.on('completed', ({ jobId }) => {
     //   this.logger.debug('success', 'Job completed', { jobId });
     // });
@@ -1489,25 +1523,25 @@ export class DebankService {
       tokens_rows.length &&
         (await bulkInsert({
           data: tokens_rows,
-          table: 'debank-user-asset-portfolio-tokens',
+          table: 'debank-portfolio-tokens',
         }));
 
       coins_rows.length &&
         (await bulkInsert({
           data: coins_rows,
-          table: 'debank-user-asset-portfolio-coins',
+          table: 'debank-portfolio-coins',
         }));
 
       balances_rows.length &&
         (await bulkInsert({
           data: balances_rows,
-          table: 'debank-user-asset-portfolio-balances',
+          table: 'debank-portfolio-balances',
         }));
 
       projects_rows.length &&
         (await bulkInsert({
           data: projects_rows,
-          table: 'debank-user-asset-portfolio-projects',
+          table: 'debank-portfolio-projects',
         }));
     } catch (error) {
       this.logger.error(

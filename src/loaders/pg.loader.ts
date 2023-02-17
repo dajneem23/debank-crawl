@@ -54,7 +54,7 @@ const pgLoader = async () => {
     await pgClient.connect();
     await pgPromiseClient.connect();
 
-    logger.success('connected', 'Pool Postgres');
+    logger.info('connected', 'Pool Postgres');
   } catch (err) {
     logger.error('error', 'pool:connect:pg', err);
   }

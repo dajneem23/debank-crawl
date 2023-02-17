@@ -56,7 +56,7 @@ export class DebankService {
   private queueRanking: Queue;
 
   // TODO: adjust this value
-  readonly totalRepeatableJobs = 4;
+  readonly totalRepeatableJobs = 5;
 
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => any;
@@ -1481,6 +1481,7 @@ export class DebankService {
         crawl_id,
         crawl_time: now,
         chain: balance.chain,
+        usd_value: +balance.price * +balance.amount,
       }));
 
       const projects_rows = project_list.map((project: any) => ({

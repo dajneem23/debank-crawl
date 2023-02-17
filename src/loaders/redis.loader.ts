@@ -17,7 +17,7 @@ export const redisClientLoader = async () => {
   const connection = new IORedis(env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
 
   // Listeners
-  client.on('connect', () => logger.success('connected', 'Redis'));
+  client.on('connect', () => logger.info('connected', 'Redis'));
   client.on('error', (err) => logger.error('error', err));
   client.on('reconnecting', () => logger.warn('reconnecting', 'Redis'));
 

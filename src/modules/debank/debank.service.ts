@@ -16,6 +16,7 @@ import {
   createPartitionByList,
   createPartitionByRange,
   createPartitionDefault,
+  createPartitionsInDateRange,
 } from '@/utils/pg';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import { arrayObjectToTable } from '@/utils/table';
@@ -91,6 +92,9 @@ export class DebankService {
     'debank:add:fetch:top-holders': this.addFetchTopHoldersJob,
     //! RUNNING
     'debank:add:fetch:user-address:top-holders': this.addFetchTopHoldersByUsersAddressJob,
+
+    //* PARTITION JOBS
+    'debank:create:partitions': this.createPartitions,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -105,33 +109,6 @@ export class DebankService {
   };
 
   constructor() {
-    // const date = '20230220';
-
-    // (async () => {
-    //   const table = 'debank-portfolio-projects';
-    //   for (let date = 20230215; date <= 20230220; date++) {
-    //     await createPartitionByRange({
-    //       table,
-    //       start: date + '00',
-    //       end: date + '99',
-    //       partition_name: `${table}-${date}`,
-    //       partition_by: 'LIST(crawl_id)',
-    //     });
-    //     for (let i = 1; i <= 8; i++) {
-    //       await createPartitionDefault({
-    //         table: `${table}-${date}`,
-    //       });
-    //       await createPartitionByList({
-    //         table: `${table}-${date}`,
-    //         partition_name: `${table}-${date}0${i}`,
-    //         values: [`${date}0${i}`],
-    //       });
-    //       console.log('done', `${table}-${date}0${i}`);
-    //     }
-    //   }
-    //   console.log('done');
-    // })();
-
     Container.set(debankServiceToken, this);
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
@@ -510,41 +487,30 @@ export class DebankService {
     }
   }
   private initRepeatJobs() {
-    // this.addJob({
-    //   name: 'debank:fetch:project:list',
-    //   otps: {
-    //     repeatJobKey: 'debank:fetch:project:list',
-    //     repeat: {
-    //       // every: 1000 * 60 * 60,
-    //       pattern: '* 0 0 * * *',
-    //     },
-    //     priority: 1,
-    //   },
-    // });
-    // this.addJob({
-    //   name: 'debank:add:project:users',
-    //   otps: {
-    //     repeatJobKey: 'debank:add:project:users',
-    //     repeat: {
-    //       // every: 1000 * 60 * 30,
-    //       pattern: '* 0 0 * * *',
-    //     },
-    //     priority: 1,
-    //   },
-    // });
-    // this.addJob({
-    //   name: 'debank:add:social:users',
-    //   otps: {
-    //     repeatJobKey: 'debank:add:social:users',
-    //     repeat: {
-    //       //repeat every 2 hours
-    //       every: 1000 * 60 * 60 * 3,
-    //       // pattern: '* 0 0 * * *',
-    //     },
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // });
+    this.addJob({
+      name: DebankJobNames['debank:create:partitions'],
+      otps: {
+        repeatJobKey: 'debank:create:partitions',
+        jobId: `debank:create:partitions:${formatDate(new Date(), 'YYYY-MM-DD')}`,
+        removeOnComplete: {
+          //remove after 1 hour
+          age: 60 * 60,
+        },
+        removeOnFail: {
+          //remove after 1 day
+          age: 60 * 60 * 24,
+        },
+        repeat: {
+          //repeat every day
+          every: 1000 * 60 * 60 * 24,
+          // pattern: '* 0 0 * * *',
+        },
+        //delay for 5 minutes when the job is added for done other jobs
+        delay: 1000 * 60 * 5,
+        priority: 1,
+        attempts: 5,
+      },
+    });
     this.addJob({
       name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
       otps: {
@@ -554,6 +520,10 @@ export class DebankService {
           //remove after 1 hour
           age: 60 * 60,
         },
+        removeOnFail: {
+          //remove after 1 hour
+          age: 60 * 60 * 1,
+        },
         repeat: {
           //repeat every 3 hours
           every: 1000 * 60 * 60 * 3,
@@ -561,7 +531,7 @@ export class DebankService {
         },
         //delay for 5 minutes when the job is added for done other jobs
         delay: 1000 * 60 * 5,
-        priority: 1,
+        priority: 3,
         attempts: 5,
       },
     });
@@ -597,7 +567,7 @@ export class DebankService {
           every: 1000 * 60 * 60 * 3,
           // pattern: '* 0 0 * * *',
         },
-        priority: 1,
+        priority: 2,
         attempts: 5,
       },
     });
@@ -619,7 +589,7 @@ export class DebankService {
           every: 1000 * 60 * 60 * 3,
           // pattern: '* 0 0 * * *',
         },
-        priority: 1,
+        priority: 2,
         attempts: 5,
       },
     });
@@ -640,7 +610,7 @@ export class DebankService {
           //repeat every 3 hours
           every: 1000 * 60 * 60 * 3,
         },
-        priority: 1,
+        priority: 2,
         attempts: 5,
       },
     });
@@ -2112,5 +2082,9 @@ export class DebankService {
       this.logger.error('error', '[queryTopHolders:error]', JSON.stringify(error));
       throw error;
     }
+  }
+  private async createPartitions() {
+    const tables = ['debank-portfolio-balances', 'debank-portfolio-projects'];
+    await Promise.all(tables.map((table) => createPartitionsInDateRange({ table })));
   }
 }

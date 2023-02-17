@@ -363,14 +363,14 @@ export class DebankService {
       const topHolderJobs = await this.queueTopHolder.getJobCounts();
       const rankingJobs = await this.queueRanking.getJobCounts();
       const debankJobs = await this.queue.getJobCounts();
-      console.info('workerDrained');
+      // console.info('workerDrained');
       const notFinishedJobs = [insertJobs, whaleJobs, topHolderJobs, rankingJobs, debankJobs];
       const totalNotFinishedJobs = notFinishedJobs.reduce((acc, cur) => {
         return acc + cur.waiting + cur.active + cur.delayed;
       }, 0);
-      console.info({
-        totalNotFinishedJobs,
-      });
+      // console.info({
+      //   totalNotFinishedJobs,
+      // });
       if (totalNotFinishedJobs - this.totalRepeatableJobs === 0) {
         const messageByRow =
           `\`\`\`diff` +
@@ -1489,6 +1489,11 @@ export class DebankService {
         details: JSON.stringify(project).replace(/\\u0000/g, ''),
         crawl_id,
         crawl_time: now,
+
+        usd_value:
+          project.portfolio_item_list?.reduce((acc: number, { stats }: any) => {
+            return acc + stats.asset_usd_value;
+          }, 0) || 0,
       }));
 
       tokens_rows.length &&
@@ -1567,9 +1572,9 @@ export class DebankService {
     });
   }
   async addFetchTopHoldersByUsersAddressJob({ jobId }: { jobId: string }) {
-    const debankWhaleJobs = await this.queueWhale.getJobCounts('active', 'delayed', 'waiting', 'wait');
-    const debankTopHolderJobs = await this.queueTopHolder.getJobCounts('active', 'delayed', 'waiting', 'wait');
-    const debankRankingJobs = await this.queueRanking.getJobCounts('active', 'delayed', 'waiting', 'wait');
+    const debankWhaleJobs = await this.queueWhale.getJobCounts();
+    const debankTopHolderJobs = await this.queueTopHolder.getJobCounts();
+    const debankRankingJobs = await this.queueRanking.getJobCounts();
 
     const totalJobs =
       debankWhaleJobs.active +
@@ -1584,7 +1589,7 @@ export class DebankService {
       debankRankingJobs.delayed +
       debankRankingJobs.waiting +
       debankRankingJobs.wait;
-
+    this.logger.info('info', 'totalJobs::', totalJobs);
     if (totalJobs > 0) {
       //delay 1 minutes until all jobs are done
       (await this.queue.getJob(jobId)).moveToDelayed(1000 * 60);

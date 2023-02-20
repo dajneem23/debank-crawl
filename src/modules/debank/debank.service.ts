@@ -17,6 +17,8 @@ import {
   createPartitionByRange,
   createPartitionDefault,
   createPartitionsInDateRange,
+  truncateTable,
+  truncateTableInDateRange,
 } from '@/utils/pg';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import { arrayObjectToTable } from '@/utils/table';
@@ -57,6 +59,10 @@ export class DebankService {
 
   // TODO: adjust this value
   readonly totalRepeatableJobs = 5;
+
+  readonly maxCrawlIdInOneDay = 8;
+
+  readonly keepCrawlIds = [1, 5];
 
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => any;
@@ -491,7 +497,7 @@ export class DebankService {
       name: DebankJobNames['debank:create:partitions'],
       otps: {
         repeatJobKey: 'debank:create:partitions',
-        jobId: `debank:create:partitions:${formatDate(new Date(), 'YYYY-MM-DD')}`,
+        jobId: `debank:create:partitions`,
         removeOnComplete: {
           //remove after 1 hour
           age: 60 * 60,
@@ -535,19 +541,19 @@ export class DebankService {
         attempts: 5,
       },
     });
-    // this.addJob({
-    //   name: 'debank:add:fetch:coins',
-    //   otps: {
-    //     repeatJobKey: 'debank:add:fetch:coins',
-    //     repeat: {
-    //       //repeat every 24 hours
-    //       every: 1000 * 60 * 60 * 24,
-    //       // pattern: '* 0 0 * * *',
-    //     },
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // });
+    this.addJob({
+      name: DebankJobNames['debank:add:fetch:coins'],
+      otps: {
+        repeatJobKey: 'debank:add:fetch:coins',
+        repeat: {
+          //repeat every 24 hours
+          every: 1000 * 60 * 60 * 24,
+          // pattern: '* 0 0 * * *',
+        },
+        priority: 1,
+        attempts: 5,
+      },
+    });
 
     this.addJob({
       name: DebankJobNames['debank:add:fetch:top-holders'],
@@ -1290,12 +1296,12 @@ export class DebankService {
         },
       });
       if (status !== 200 || error_code) {
-        this.logger.discord(
-          'error',
-          '[fetchWhaleList:error]',
-          JSON.stringify(data),
-          JSON.stringify({ status, error_code }),
-        );
+        // this.logger.discord(
+        //   'error',
+        //   '[fetchWhaleList:error]',
+        //   JSON.stringify(data),
+        //   JSON.stringify({ status, error_code }),
+        // );
         throw new Error('fetchWhaleList: Error fetching social ranking');
       }
       const { whales, total_count } = data;
@@ -1520,18 +1526,18 @@ export class DebankService {
           table: 'debank-portfolio-projects',
         }));
     } catch (error) {
-      this.logger.error(
-        'error',
-        '[insertUserAssetPortfolio:error]',
-        JSON.stringify(error),
-        JSON.stringify({
-          user_address,
-          token_list,
-          coin_list,
-          balance_list,
-          project_list,
-        }),
-      );
+      // this.logger.error(
+      //   'error',
+      //   '[insertUserAssetPortfolio:error]',
+      //   JSON.stringify(error),
+      //   JSON.stringify({
+      //     user_address,
+      //     token_list,
+      //     coin_list,
+      //     balance_list,
+      //     project_list,
+      //   }),
+      // );
       throw error;
     }
   }
@@ -1770,12 +1776,12 @@ export class DebankService {
         endpoint: DebankAPI.Coin.list.endpoint,
       });
       if (status !== 200 || error_code) {
-        this.logger.discord(
-          'error',
-          '[fetchCoins:error]',
-          JSON.stringify(data),
-          JSON.stringify({ status, error_code }),
-        );
+        // this.logger.discord(
+        //   'error',
+        //   '[fetchCoins:error]',
+        //   JSON.stringify(data),
+        //   JSON.stringify({ status, error_code }),
+        // );
         throw new Error('fetchCoins:error');
       }
       const { coins } = data;
@@ -1816,12 +1822,12 @@ export class DebankService {
         },
       });
       if (status !== 200 || error_code) {
-        this.logger.discord(
-          'error',
-          '[fetchTopHolders:error]',
-          JSON.stringify(data),
-          JSON.stringify({ status, error_code }),
-        );
+        // this.logger.discord(
+        //   'error',
+        //   '[fetchTopHolders:error]',
+        //   JSON.stringify(data),
+        //   JSON.stringify({ status, error_code }),
+        // );
         throw new Error('fetchTopHolders:error');
       }
       const { holders } = data;
@@ -1855,12 +1861,12 @@ export class DebankService {
         },
       });
       if (status !== 200 || error_code) {
-        this.logger.discord(
-          'error',
-          '[fetchTopHolders:error]',
-          JSON.stringify(data),
-          JSON.stringify({ status, error_code }),
-        );
+        // this.logger.discord(
+        //   'error',
+        //   '[fetchTopHolders:error]',
+        //   JSON.stringify(data),
+        //   JSON.stringify({ status, error_code }),
+        // );
         throw new Error('fetchTopHolders:error');
       }
       const { total_count, holders } = data;
@@ -1950,12 +1956,12 @@ export class DebankService {
         endpoint: DebankAPI.Coin.list.endpoint,
       });
       if (status !== 200 || error_code) {
-        this.logger.discord(
-          'error',
-          '[addFetchCoinsJob:error]',
-          JSON.stringify(data),
-          JSON.stringify({ status, error_code }),
-        );
+        // this.logger.discord(
+        //   'error',
+        //   '[addFetchCoinsJob:error]',
+        //   JSON.stringify(data),
+        //   JSON.stringify({ status, error_code }),
+        // );
         throw new Error('addFetchCoinsJob:error');
       }
       const { coins } = data;
@@ -1975,6 +1981,7 @@ export class DebankService {
         details: JSON.stringify(coin),
         crawl_id,
         crawl_time: new Date(),
+        cg_id: coin.id,
       }));
       data.length &&
         (await bulkInsert({
@@ -2071,7 +2078,7 @@ export class DebankService {
         [user_address, crawl_id, JSON.stringify(holder), symbol, crawl_time ?? new Date()],
       );
     } catch (error) {
-      this.logger.error('error', '[insertTopHolder:error]', JSON.stringify(error));
+      // this.logger.error('error', '[insertTopHolder:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -2091,6 +2098,46 @@ export class DebankService {
   }
   private async createPartitions() {
     const tables = ['debank-portfolio-balances', 'debank-portfolio-projects'];
-    await Promise.all(tables.map((table) => createPartitionsInDateRange({ table })));
+    await Promise.all(
+      tables.map((table) =>
+        createPartitionsInDateRange({
+          table,
+          max_list_partition: this.maxCrawlIdInOneDay,
+        }),
+      ),
+    );
+  }
+  async cleanOutdatedData() {
+    //truncate table not today
+    const tables = ['debank-portfolio-balances', 'debank-portfolio-projects'];
+    await Promise.all(tables.map((table) => this.truncatePartitions({ table })));
+  }
+
+  async truncatePartitions({ table, days = 7 }: { table: string; days?: number }) {
+    try {
+      const now = formatDate(new Date(), 'YYYYMMDD');
+      for (let i = 0; i < days; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const dateStr = formatDate(date, 'YYYYMMDD');
+        if (dateStr === now) {
+          continue;
+        }
+        ///diff days
+        // const diff = Math.abs(date.getTime() - new Date().getTime());
+        //truncate by crawl_id
+        for (let j = 1; j <= this.maxCrawlIdInOneDay; j++) {
+          if (this.keepCrawlIds.includes(j)) {
+            continue;
+          }
+          await truncateTable({
+            table: `${table}-${dateStr}${j >= 10 ? j : `0${j}`}`,
+          });
+        }
+      }
+    } catch (error) {
+      this.logger.error('error', '[truncatePartitions:error]', JSON.stringify(error));
+      throw error;
+    }
   }
 }

@@ -29,6 +29,8 @@ export enum DebankJobNames {
   'debank:add:fetch:user-address:top-holders' = 'debank:add:fetch:user-address:top-holders',
 
   'debank:create:partitions' = 'debank:create:partitions',
+
+  'debank:clean:outdated-data' = 'debank:clean:outdated-data',
 }
 
 export type DebankJobData = fetchDebankDataJob;

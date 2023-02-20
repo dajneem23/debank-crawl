@@ -87,14 +87,14 @@ export const createPartitionDefault = async ({ table }: { table: string }) => {
 };
 export const createPartitionsInDateRange = async ({
   table,
-  range = 7,
+  days = 7,
   max_list_partition = 8,
 }: {
   table: string;
-  range?: number;
+  days?: number;
   max_list_partition?: number;
 }) => {
-  const next7Days = Array.from({ length: range }, (_, i) => {
+  const next7Days = Array.from({ length: days }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() + i);
     return formatDate(date, 'YYYYMMDD');
@@ -117,5 +117,37 @@ export const createPartitionsInDateRange = async ({
         values: [`${date}${i >= 10 ? i : `0${i}`}`],
       });
     }
+  }
+};
+
+export const truncateTable = async ({ table }: { table: string }) => {
+  const pgClient = Container.get(pgPromiseClientToken);
+  const query = `TRUNCATE TABLE "${table}"`;
+  return await pgClient.none(query);
+};
+
+export const dropTable = async ({ table }: { table: string }) => {
+  const pgClient = Container.get(pgPromiseClientToken);
+  const query = `DROP TABLE "${table}"`;
+  return await pgClient.none(query);
+};
+/* Here is the explanation for the code above:
+1. First we need to get the current date in YYYYMMDD format, and save it in a variable called now.
+2. Then we create a for loop to loop through the date range.
+3. In the loop, we create a new Date object, and subtract i days from the current date.
+4. We format the date object to YYYYMMDD format, and save it in a variable called dateStr.
+5. We check if the dateStr is equal to the now variable. If yes, we continue to the next iteration.
+6. If not, we call the truncateTable function to truncate the table.
+*/
+export const truncateTableInDateRange = async ({ table, days = 7 }: { table: string; days?: number }) => {
+  const now = formatDate(new Date(), 'YYYYMMDD');
+  for (let i = 0; i < days; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    const dateStr = formatDate(date, 'YYYYMMDD');
+    if (dateStr === now) {
+      continue;
+    }
+    await truncateTable({ table: `${table}-${dateStr}` });
   }
 };

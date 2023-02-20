@@ -148,6 +148,12 @@ export const CoinGeckoAPI = {
         sparkline: true,
       },
     },
+    history: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins/:id/history',
+      params: {
+        date: '30-12-2017',
+      },
+    },
   },
   Categories: {
     list: {

@@ -14,6 +14,7 @@ import {
   coinGeckoExchangeModelToken,
 } from './coingecko.model';
 import axios from 'axios';
+import { queryDebankCoins } from '../debank/debank.fnc';
 
 /**
  * @class CoingeckoAsset
@@ -57,12 +58,6 @@ export class CoinGeckoService {
   };
 
   constructor() {
-    // this.fetchCoinGeckoAssetDetails();
-    //this.fetchCoinGeckoCryptoCurrencyGlobal();
-    // this.fetchCoinGeckoAssetDetails({
-    //   id: 'bitcoin',
-    // });
-    // this.addFetchCoinGeckoAssetDetails();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -129,97 +124,97 @@ export class CoinGeckoService {
     // this.addFetchCoinGeckoAssetDetails();
   }
   private initRepeatJobs() {
-    this.addJob({
-      name: 'coingecko:fetch:assets:list',
-      payload: {},
-      options: {
-        repeatJobKey: 'coingecko:fetch:assets:list',
-        repeat: {
-          pattern: '0 0 * * SUN',
-        },
-        // jobId: 'coingecko:fetch:assets:list',
-        removeOnFail: true,
-        removeOnComplete: true,
-      },
-    });
-    this.addJob({
-      name: 'coingecko:add:fetch:assets:details',
-      payload: {},
-      options: {
-        repeatJobKey: 'coingecko:add:fetch:assets:details',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        // jobId: 'coingecko:fetch:assets:details',
-        removeOnFail: true,
-        removeOnComplete: true,
-      },
-    });
-    this.addJob({
-      name: 'coingecko:fetch:categories:list',
-      payload: {},
-      options: {
-        repeatJobKey: 'coingecko:fetch:categories:list',
-        repeat: {
-          pattern: '0 0 * * SUN',
-        },
-        // jobId: 'coingecko:fetch:categories:list',
-        removeOnFail: true,
-        removeOnComplete: true,
-      },
-    });
-    this.addJob({
-      name: 'coingecko:fetch:blockchains:list',
-      payload: {},
-      options: {
-        repeatJobKey: 'coingecko:fetch:blockchains:list',
-        repeat: {
-          pattern: '0 0 * * SUN',
-        },
-        // jobId: 'coingecko:fetch:blockchains:list',
-        removeOnFail: true,
-        removeOnComplete: true,
-      },
-    });
-    this.addJob({
-      name: 'coingecko:fetch:exchanges:list',
-      payload: {},
-      options: {
-        repeatJobKey: 'coingecko:fetch:exchanges:list',
-        repeat: {
-          pattern: '0 0 * * SUN',
-        },
-        // jobId: 'coingecko:fetch:exchanges:list',
-        removeOnFail: true,
-        removeOnComplete: true,
-      },
-    });
-    this.addJob({
-      name: 'coingecko:add:fetch:exchanges:details',
-      payload: {},
-      options: {
-        repeatJobKey: 'coingecko:add:fetch:exchanges:details',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        // jobId: 'coingecko:fetch:exchanges:details',
-        removeOnFail: true,
-        removeOnComplete: true,
-      },
-    });
-    this.addJob({
-      name: 'coingecko:fetch:cryptocurrency:global',
-      payload: {},
-      options: {
-        repeatJobKey: 'coingecko:fetch:cryptocurrency:global',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        // jobId: 'coingecko:fetch:cryptocurrency:global',
-        removeOnFail: true,
-        removeOnComplete: true,
-      },
-    });
+    // this.addJob({
+    //   name: 'coingecko:fetch:assets:list',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'coingecko:fetch:assets:list',
+    //     repeat: {
+    //       pattern: '0 0 * * SUN',
+    //     },
+    //     // jobId: 'coingecko:fetch:assets:list',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'coingecko:add:fetch:assets:details',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'coingecko:add:fetch:assets:details',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     // jobId: 'coingecko:fetch:assets:details',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'coingecko:fetch:categories:list',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'coingecko:fetch:categories:list',
+    //     repeat: {
+    //       pattern: '0 0 * * SUN',
+    //     },
+    //     // jobId: 'coingecko:fetch:categories:list',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'coingecko:fetch:blockchains:list',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'coingecko:fetch:blockchains:list',
+    //     repeat: {
+    //       pattern: '0 0 * * SUN',
+    //     },
+    //     // jobId: 'coingecko:fetch:blockchains:list',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'coingecko:fetch:exchanges:list',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'coingecko:fetch:exchanges:list',
+    //     repeat: {
+    //       pattern: '0 0 * * SUN',
+    //     },
+    //     // jobId: 'coingecko:fetch:exchanges:list',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'coingecko:add:fetch:exchanges:details',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'coingecko:add:fetch:exchanges:details',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     // jobId: 'coingecko:fetch:exchanges:details',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'coingecko:fetch:cryptocurrency:global',
+    //   payload: {},
+    //   options: {
+    //     repeatJobKey: 'coingecko:fetch:cryptocurrency:global',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     // jobId: 'coingecko:fetch:cryptocurrency:global',
+    //     removeOnFail: true,
+    //     removeOnComplete: true,
+    //   },
+    // });
   }
   async fetchCoinGeckoAssetList() {
     try {
@@ -523,10 +518,11 @@ export class CoinGeckoService {
     payload?: any;
     options?: JobsOptions;
   }) {
-    this.queue
-      .add(name, payload, options)
-      // .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
-      .catch((err) => this.logger.discord('error', `[addJob:error]`, err, name, JSON.stringify(payload)));
+    return this.queue.add(name, payload, options);
+  }
+  addBulkJobs({ jobs }: { jobs: { name: CoinGeckoJobNames; data: any; otps: JobsOptions }[] }) {
+    return this.queue.addBulk(jobs);
+    // .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
   }
   /**
    * Initialize Worker listeners
@@ -534,9 +530,9 @@ export class CoinGeckoService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', ({ id, name, data }: Job<fetchCoinGeckoDataJob>) => {
-      this.logger.discord('success', '[job:coingecko:completed]', id, name, JSON.stringify(data));
-    });
+    // worker.on('completed', ({ id, name, data }: Job<fetchCoinGeckoDataJob>) => {
+    //   this.logger.discord('success', '[job:coingecko:completed]', id, name, JSON.stringify(data));
+    // });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<fetchCoinGeckoDataJob>, error: Error) => {
       this.logger.discord(
@@ -550,37 +546,39 @@ export class CoinGeckoService {
       );
     });
   }
-  workerProcessor({ name, data }: Job<fetchCoinGeckoDataJob>): Promise<void> {
-    // this.logger.discord('info', `[coingecko:workerProcessor:run]`, name);
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
+  workerProcessor({ name, data = {}, id }: Job<any>): Promise<void> {
+    // this.logger.discord('info', `[debank:workerProcessor:run]`, name);
+    return (
+      this.jobs[name as keyof typeof this.jobs]?.call(this, {
+        jobId: id,
+        ...((data && data) || {}),
+      }) || this.jobs.default()
+    );
   }
-  async global(): Promise<any> {
+
+  async addFetchCoinPriceFromDebankCoins() {
     try {
-      const xml = await axios.get('https://www.coingecko.com/en/overall_stats').then((r) => r.data.toString());
-      const pricePattern = /(\$.+)/g;
-      const matches = xml.matchAll(pricePattern);
+      const { rows } = await queryDebankCoins();
+    } catch (error) {
+      this.logger.discord('error', 'debank:addFetchCoinPriceFromDebankCoins', JSON.stringify(error));
+      throw error;
+    }
+  }
 
-      const data = [];
-      for (const match of matches) {
-        data.push(match[0]);
+  async fetchCoinHistoryPrice({ id, date }: { id: string; date: string }) {
+    try {
+      const { data, status } = await CoinGeckoAPI.fetch({
+        endpoint: CoinGeckoAPI.Coins.history.endpoint.replace(':id', id),
+        params: {
+          date,
+        },
+      });
+      if (status !== 200) {
+        throw new Error('fetchCoinHistoryPrice:fetchCoinHistoryPrice:fail');
       }
-      const marketCap = data[0] || 0;
-      const volume = data[1] || 0;
-
-      const pattern = /<span class="tw-text-blue-500">(.+)<\/span>/g;
-      const otherMatches = xml.matchAll(pattern);
-
-      for (const match of otherMatches) {
-        data.push(match[1]);
-      }
-      const totalCoin = data[2] || 0;
-      const exchanges = data[3] || 0;
-      const dominace = [data[4] || 0, data[5] || 0];
-      const gas = data[6] || 0;
-      return { market_cap: marketCap, volume, total_coin: totalCoin, exchanges, gas, dominace };
-    } catch (err) {
-      this.logger.error('error', err.message);
-      throw err;
+    } catch (error) {
+      this.logger.discord('error', 'debank:fetchCoinHistoryPrice', JSON.stringify(error));
+      throw error;
     }
   }
 }

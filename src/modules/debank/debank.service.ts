@@ -58,7 +58,7 @@ export class DebankService {
   private queueRanking: Queue;
 
   // TODO: adjust this value
-  readonly totalRepeatableJobs = 5;
+  readonly totalRepeatableJobs = 6;
 
   readonly maxCrawlIdInOneDay = 8;
 
@@ -1596,8 +1596,14 @@ export class DebankService {
       debankRankingJobs.waiting +
       debankRankingJobs.wait;
     this.logger.info('info', 'totalJobs::', totalJobs);
+    const discord = Container.get(DIDiscordClient);
+    await discord.sendMsg({
+      message: `totalJobs::${totalJobs}\njobId::${jobId}`,
+      channelId: '1072390465246212096',
+    });
     if (totalJobs > 0) {
       //delay 1 minutes until all jobs are done
+
       (await this.queue.getJob(jobId)).moveToDelayed(1000 * 60);
       return;
     }
@@ -1965,7 +1971,7 @@ export class DebankService {
         throw new Error('addFetchCoinsJob:error');
       }
       const { coins } = data;
-      this.insertCoins({
+      await this.insertCoins({
         coins,
         crawl_id,
       });

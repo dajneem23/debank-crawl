@@ -10,11 +10,12 @@ import {
   coinGeckoAssetModelToken,
   coinGeckoBlockchainModelToken,
   coinGeckoCategoriesModelToken,
+  coinGeckoCoinPricesModelToken,
   coinGeckoCryptoCurrencyGlobalModelToken,
   coinGeckoExchangeModelToken,
 } from './coingecko.model';
-import axios from 'axios';
 import { queryDebankCoins } from '../debank/debank.fnc';
+import { formatDate } from '@/utils/date';
 
 /**
  * @class CoingeckoAsset
@@ -34,6 +35,8 @@ export class CoinGeckoService {
 
   private coinGeckoCryptoCurrencyGlobalModel = Container.get(coinGeckoCryptoCurrencyGlobalModelToken);
 
+  private coinGeckoCoinPricesModel = Container.get(coinGeckoCoinPricesModelToken);
+
   private readonly redisConnection = Container.get(DIRedisConnection);
 
   private worker: Worker;
@@ -52,6 +55,8 @@ export class CoinGeckoService {
     'coingecko:fetch:exchanges:details': this.fetchCoinGeckoExchangeDetails,
     'coingecko:add:fetch:exchanges:details': this.addFetchCoinGeckoExchangeDetails,
     'coingecko:fetch:cryptocurrency:global': this.fetchCoinGeckoCryptoCurrencyGlobal,
+    'coingecko:fetch:coin:details': this.fetchDebankCoinDetails,
+    'coingecko:add:fetch:debank:coins': this.addFetchCoinPriceFromDebankCoins,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -73,11 +78,11 @@ export class CoinGeckoService {
     this.worker = new Worker('coingecko', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
-      concurrency: 50,
+      lockDuration: 1000 * 60 * 5,
+      concurrency: 500,
       limiter: {
-        max: 10,
-        duration: 60 * 1000,
+        max: 100,
+        duration: 1,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -97,12 +102,12 @@ export class CoinGeckoService {
         // The total number of attempts to try the job until it completes
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 1000 * 60 * 5 },
+        backoff: { type: 'exponential', delay: 1000 * 60 * 0.5 },
         removeOnComplete: {
-          age: 1000 * 60 * 60 * 24 * 7,
+          age: 60 * 60,
         },
         removeOnFail: {
-          age: 1000 * 60 * 60 * 24 * 7,
+          age: 60 * 60,
         },
       },
     });
@@ -126,8 +131,8 @@ export class CoinGeckoService {
   private initRepeatJobs() {
     // this.addJob({
     //   name: 'coingecko:fetch:assets:list',
-    //   payload: {},
-    //   options: {
+    //   data: {},
+    //   otps: {
     //     repeatJobKey: 'coingecko:fetch:assets:list',
     //     repeat: {
     //       pattern: '0 0 * * SUN',
@@ -139,8 +144,8 @@ export class CoinGeckoService {
     // });
     // this.addJob({
     //   name: 'coingecko:add:fetch:assets:details',
-    //   payload: {},
-    //   options: {
+    //   data: {},
+    //   otps: {
     //     repeatJobKey: 'coingecko:add:fetch:assets:details',
     //     repeat: {
     //       pattern: '* 0 0 * * *',
@@ -152,8 +157,8 @@ export class CoinGeckoService {
     // });
     // this.addJob({
     //   name: 'coingecko:fetch:categories:list',
-    //   payload: {},
-    //   options: {
+    //   data: {},
+    //   otps: {
     //     repeatJobKey: 'coingecko:fetch:categories:list',
     //     repeat: {
     //       pattern: '0 0 * * SUN',
@@ -165,8 +170,8 @@ export class CoinGeckoService {
     // });
     // this.addJob({
     //   name: 'coingecko:fetch:blockchains:list',
-    //   payload: {},
-    //   options: {
+    //   data: {},
+    //   otps: {
     //     repeatJobKey: 'coingecko:fetch:blockchains:list',
     //     repeat: {
     //       pattern: '0 0 * * SUN',
@@ -178,8 +183,8 @@ export class CoinGeckoService {
     // });
     // this.addJob({
     //   name: 'coingecko:fetch:exchanges:list',
-    //   payload: {},
-    //   options: {
+    //   data: {},
+    //   otps: {
     //     repeatJobKey: 'coingecko:fetch:exchanges:list',
     //     repeat: {
     //       pattern: '0 0 * * SUN',
@@ -191,8 +196,8 @@ export class CoinGeckoService {
     // });
     // this.addJob({
     //   name: 'coingecko:add:fetch:exchanges:details',
-    //   payload: {},
-    //   options: {
+    //   data: {},
+    //   otps: {
     //     repeatJobKey: 'coingecko:add:fetch:exchanges:details',
     //     repeat: {
     //       pattern: '* 0 0 * * *',
@@ -204,8 +209,8 @@ export class CoinGeckoService {
     // });
     // this.addJob({
     //   name: 'coingecko:fetch:cryptocurrency:global',
-    //   payload: {},
-    //   options: {
+    //   data: {},
+    //   otps: {
     //     repeatJobKey: 'coingecko:fetch:cryptocurrency:global',
     //     repeat: {
     //       pattern: '* 0 0 * * *',
@@ -215,6 +220,30 @@ export class CoinGeckoService {
     //     removeOnComplete: true,
     //   },
     // });
+    this.addJob({
+      name: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
+      otps: {
+        repeatJobKey: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
+        jobId: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
+        removeOnComplete: {
+          //remove after 1 hour
+          age: 60 * 60,
+        },
+        removeOnFail: {
+          //remove after 1 day
+          age: 60 * 60 * 24,
+        },
+        repeat: {
+          //repeat every day
+          every: 1000 * 60 * 60 * 24,
+          // pattern: '* 0 0 * * *',
+        },
+        //delay for 5 minutes when the job is added for done other jobs
+        delay: 1000 * 60 * 5,
+        priority: 1,
+        attempts: 5,
+      },
+    });
   }
   async fetchCoinGeckoAssetList() {
     try {
@@ -265,9 +294,9 @@ export class CoinGeckoService {
       this.logger.debug('info', 'coingecko:fetchCoinGeckoAssetDetails', { num: assets.length });
       for (const { id } of assets) {
         this.addJob({
-          name: 'coingecko:fetch:assets:details',
-          payload: { id },
-          options: {
+          name: CoinGeckoJobNames['coingecko:fetch:assets:details'],
+          data: { id },
+          otps: {
             jobId: `coingecko:fetch:assets:details:${id}:${Date.now()}`,
             removeOnFail: {
               age: 1000 * 60 * 60 * 24 * 7,
@@ -430,9 +459,9 @@ export class CoinGeckoService {
         .toArray();
       for (const { id } of exchanges) {
         this.addJob({
-          name: 'coingecko:fetch:exchanges:details',
-          payload: { id },
-          options: {
+          name: CoinGeckoJobNames['coingecko:fetch:exchanges:details'],
+          data: { id },
+          otps: {
             jobId: `coingecko:fetch:exchanges:details:${id}:${Date.now()}`,
             removeOnFail: {
               age: 1000 * 60 * 60 * 24 * 7,
@@ -507,22 +536,22 @@ export class CoinGeckoService {
    */
   addJob({
     name,
-    payload = {},
-    options = {
+    data = {},
+    otps = {
       repeat: {
         pattern: '* 0 0 * * *',
       },
     },
   }: {
     name: CoinGeckoJobNames;
-    payload?: any;
-    options?: JobsOptions;
+    data?: any;
+    otps?: JobsOptions;
   }) {
-    return this.queue.add(name, payload, options);
+    return this.queue.add(name, data, otps);
   }
   addBulkJobs({ jobs }: { jobs: { name: CoinGeckoJobNames; data: any; otps: JobsOptions }[] }) {
     return this.queue.addBulk(jobs);
-    // .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, payload }))
+    // .then((job) => this.logger.debug(`success`, `[addJob:success]`, { id: job.id, name, data }))
   }
   /**
    * Initialize Worker listeners
@@ -558,26 +587,104 @@ export class CoinGeckoService {
 
   async addFetchCoinPriceFromDebankCoins() {
     try {
-      const { rows } = await queryDebankCoins();
+      const { rows } = await queryDebankCoins({
+        select: 'symbol,details,cg_id',
+      });
+      const crawl_id = await this.getCoinPricesCrawlId();
+      const jobs = rows.map(({ symbol, details, cg_id }) => ({
+        name: CoinGeckoJobNames['coingecko:fetch:coin:details'],
+        data: {
+          id: cg_id || details.id,
+          crawl_id,
+        },
+        otps: {
+          jobId: `coingecko:fetch:coin:details:${symbol}:${Date.now()}`,
+          removeOnFail: {
+            age: 60 * 60,
+          },
+          removeOnComplete: {
+            age: 60 * 60,
+          },
+          priority: 10,
+          // delay: 1000 * 10,
+          attempts: 10,
+        },
+      }));
+      await this.addBulkJobs({ jobs });
     } catch (error) {
       this.logger.discord('error', 'debank:addFetchCoinPriceFromDebankCoins', JSON.stringify(error));
       throw error;
     }
   }
 
-  async fetchCoinHistoryPrice({ id, date }: { id: string; date: string }) {
+  async fetchDebankCoinDetails({ id, crawl_id }: { id: string; crawl_id: number }) {
     try {
       const { data, status } = await CoinGeckoAPI.fetch({
-        endpoint: CoinGeckoAPI.Coins.history.endpoint.replace(':id', id),
+        endpoint: `${CoinGeckoAPI.Coins.detail.endpoint}/${id}`,
         params: {
-          date,
+          market_data: true,
         },
       });
       if (status !== 200) {
-        throw new Error('fetchCoinHistoryPrice:fetchCoinHistoryPrice:fail');
+        throw new Error('fetchCoinDetails:fail');
       }
+      const {
+        market_data: {
+          current_price: { usd },
+          ath: { usd: ath_usd },
+          high_24h: { usd: high_24h_usd },
+          low_24h: { usd: low_24h_usd },
+          price_change_24h,
+          price_change_percentage_24h,
+          total_volume: { usd: total_volume_usd },
+        },
+        symbol,
+      } = data;
+      const crawl_date = formatDate(new Date(), 'YYYYMMDD');
+      await this.coinGeckoCoinPricesModel._collection.findOneAndUpdate(
+        {
+          crawl_date: +crawl_date,
+        },
+        {
+          $max: {
+            last_crawl_id: +crawl_id,
+          },
+          $set: {
+            updated_at: new Date(),
+            [`coins.${symbol}.histories.${crawl_id}`]: {
+              usd: +usd,
+              ath: +ath_usd,
+              high: +high_24h_usd,
+              low: +low_24h_usd,
+              price_change: +price_change_24h,
+              price_change_percentage: +price_change_percentage_24h,
+              volume: +total_volume_usd,
+              crawl_id: +crawl_id,
+              crawl_time: new Date(),
+            },
+          },
+          $setOnInsert: {
+            created_at: new Date(),
+          },
+        },
+        {
+          upsert: true,
+        },
+      );
     } catch (error) {
-      this.logger.discord('error', 'debank:fetchCoinHistoryPrice', JSON.stringify(error));
+      this.logger.discord('error', 'coingecko:fetchCoinDetails', JSON.stringify(error));
+      throw error;
+    }
+  }
+  async getCoinPricesCrawlId() {
+    try {
+      const today = formatDate(new Date(), 'YYYYMMDD');
+      const { last_crawl_id } = await this.coinGeckoCoinPricesModel._collection.findOne({
+        crawl_date: +today,
+      });
+      return last_crawl_id ? last_crawl_id + 1 : +`${today}01`;
+    } catch (error) {
+      this.logger.discord('error', 'coingecko:getCoinPricesCrawlId', JSON.stringify(error));
       throw error;
     }
   }

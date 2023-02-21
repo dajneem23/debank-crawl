@@ -16,7 +16,7 @@ const WorkerLoader = () => {
   new DebankService();
   new BinanceService();
   // new DefillamaService();
-  // new CoinGeckoService();
+  new CoinGeckoService();
   // new AssetService();
   // new AssetTrendingService();
   // new CategoryService();

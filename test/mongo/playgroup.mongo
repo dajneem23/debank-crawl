@@ -1,0 +1,14 @@
+ use('wikiblock')
+
+db['coingecko-coins-history'].findOneAndUpdate(
+  {
+    _id: ObjectId("63f353777e873d33c911a779")
+  },
+  {
+      $push:{
+        'coins.btc.histories.2023022001': 1000000
+      }
+  },{
+    upsert: true
+  }
+)

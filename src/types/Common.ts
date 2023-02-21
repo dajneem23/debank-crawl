@@ -346,6 +346,7 @@ export enum COLLECTION_NAMES {
   'coingecko-blockchains' = 'coingecko-blockchains',
   'coingecko-exchanges' = 'coingecko-exchanges',
   'coingecko-crypto-currency-global' = 'coingecko-crypto-currency-global',
+  'coingecko-coin-prices' = 'coingecko-coin-prices',
 
   'defillama-tvl-chains' = 'defillama-tvl-chains',
   'defillama-tvl-charts' = 'defillama-tvl-charts',

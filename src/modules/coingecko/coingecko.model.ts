@@ -93,3 +93,22 @@ export class CoinGeckoCryptoCurrencyGlobalModel extends BaseModel {
     });
   }
 }
+
+export const coinGeckoCoinPricesModelToken = new Token<coinGeckoCoinPricesModel>('_coinGeckoCoinPricesModel');
+
+/**
+ * @class CoinGeckoCoinHistoryPModel
+ * @extends BaseModel
+ * @description Asset model: Asset model for all asset related operations
+ *
+ */
+@Service(coinGeckoCoinPricesModelToken)
+export class coinGeckoCoinPricesModel extends BaseModel {
+  constructor() {
+    super({
+      collectionName: 'coingecko-coin-prices',
+      _keys: keys<CoinGeckoCryptoCurrencyGlobal>(),
+      indexes: [],
+    });
+  }
+}

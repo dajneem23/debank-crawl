@@ -1302,7 +1302,7 @@ export class DebankService {
         //   JSON.stringify(data),
         //   JSON.stringify({ status, error_code }),
         // );
-        throw new Error('fetchWhaleList: Error fetching social ranking');
+        throw new Error('fetchWhaleList:fetch:fail');
       }
       const { whales, total_count } = data;
       return {
@@ -1586,20 +1586,17 @@ export class DebankService {
       debankWhaleJobs.active +
       debankWhaleJobs.delayed +
       debankWhaleJobs.waiting +
-      debankWhaleJobs.wait +
       debankTopHolderJobs.active +
       debankTopHolderJobs.delayed +
       debankTopHolderJobs.waiting +
-      debankTopHolderJobs.wait +
       debankRankingJobs.active +
       debankRankingJobs.delayed +
-      debankRankingJobs.waiting +
-      debankRankingJobs.wait;
+      debankRankingJobs.waiting;
     this.logger.info('info', 'totalJobs::', totalJobs);
     const discord = Container.get(DIDiscordClient);
     await discord.sendMsg({
       message: `totalJobs::${totalJobs}\njobId::${jobId}`,
-      channelId: '1072390465246212096',
+      channelId: '1072390401392115804',
     });
     if (totalJobs > 0) {
       //delay 1 minutes until all jobs are done
@@ -1990,9 +1987,11 @@ export class DebankService {
         cg_id: coin.id,
       }));
       data.length &&
-        (await bulkInsert({
+        (await bulkInsertOnConflict({
           table: 'debank-coins',
           data,
+          conflict: 'symbol,db_id',
+          onConflict: 'details = EXCLUDED.details, crawl_time = EXCLUDED.crawl_time, crawl_id = EXCLUDED.crawl_id',
         }));
     } catch (error) {
       this.logger.error('error', '[insertCoins:error]', JSON.stringify(error));

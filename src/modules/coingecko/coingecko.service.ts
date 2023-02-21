@@ -234,8 +234,8 @@ export class CoinGeckoService {
           age: 60 * 60 * 24,
         },
         repeat: {
-          //repeat every day
-          every: 1000 * 60 * 60 * 24,
+          //repeat every 1 hour
+          every: 1000 * 60 * 60,
           // pattern: '* 0 0 * * *',
         },
         //delay for 5 minutes when the job is added for done other jobs
@@ -651,8 +651,8 @@ export class CoinGeckoService {
           },
           $set: {
             updated_at: new Date(),
-            [`coins.${symbol}.histories.${crawl_id}`]: {
-              usd: +usd,
+            [`coins.${symbol}.prices.${crawl_id}`]: {
+              price: +usd,
               ath: +ath_usd,
               high: +high_24h_usd,
               low: +low_24h_usd,
@@ -679,9 +679,11 @@ export class CoinGeckoService {
   async getCoinPricesCrawlId() {
     try {
       const today = formatDate(new Date(), 'YYYYMMDD');
-      const { last_crawl_id } = await this.coinGeckoCoinPricesModel._collection.findOne({
+      const { last_crawl_id } = (await this.coinGeckoCoinPricesModel._collection.findOne({
         crawl_date: +today,
-      });
+      })) || {
+        last_crawl_id: 0,
+      };
       return last_crawl_id ? last_crawl_id + 1 : +`${today}01`;
     } catch (error) {
       this.logger.discord('error', 'coingecko:getCoinPricesCrawlId', JSON.stringify(error));

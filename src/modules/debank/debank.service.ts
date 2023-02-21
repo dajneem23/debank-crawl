@@ -1986,13 +1986,20 @@ export class DebankService {
         crawl_time: new Date(),
         cg_id: coin.id,
       }));
-      data.length &&
-        (await bulkInsertOnConflict({
+
+      if (data.length) {
+        const pgp = Container.get(pgpToken);
+        const cs = new pgp.helpers.ColumnSet(['details', 'crawl_time', 'crawl_id'], {
+          table: 'debank-coins',
+        });
+        const onConflict = `UPDATE SET  ${cs.assignColumns({ from: 'EXCLUDED', skip: ['symbol', 'db_id', 'cg_id'] })}`;
+        await bulkInsertOnConflict({
           table: 'debank-coins',
           data,
           conflict: 'symbol,db_id',
-          onConflict: 'details = EXCLUDED.details, crawl_time = EXCLUDED.crawl_time, crawl_id = EXCLUDED.crawl_id',
-        }));
+          onConflict,
+        });
+      }
     } catch (error) {
       this.logger.error('error', '[insertCoins:error]', JSON.stringify(error));
       throw error;

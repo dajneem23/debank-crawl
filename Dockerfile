@@ -3,6 +3,7 @@ FROM node:16-slim
 
 # We don't need the standalone Chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+WORKDIR /app
 
 # Install Google Chrome Stable and fonts
 # Note: this installs the necessary libs to make the browser work with Puppeteer.
@@ -30,7 +31,7 @@ RUN yarn --pure-lockfile
 
 
 # Copy all file from current dir to /app in container
-COPY . .
+COPY . /app
 
 
 # Expose port

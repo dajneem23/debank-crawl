@@ -7,14 +7,24 @@ import { dockerContainerStats, systemInfo } from './utils/system';
 /**
  *  @description this import is required to initialize service class
  */
-
+import puppeteer from 'puppeteer';
+import { anonymizeProxy } from 'proxy-chain';
+import { WEBSHARE_PROXY_STR } from './common/proxy';
 (async () => {
   try {
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------
     // Logger
+    const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
 
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
+      ignoreHTTPSErrors: true,
+      // executablePath: '/usr/bin/google-chrome',
+    });
+    Container.set('browser', browser);
     (await import('./loaders/logger.loader')).default();
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();

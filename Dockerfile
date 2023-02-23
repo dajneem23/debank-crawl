@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install gnupg wget -y && \
   apt-get install google-chrome-stable -y --no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
 # Create app directory
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
 # Add package.json file
 COPY package.json yarn.lock ./

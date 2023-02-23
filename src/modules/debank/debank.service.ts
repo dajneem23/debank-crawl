@@ -1210,6 +1210,7 @@ export class DebankService {
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
         ignoreHTTPSErrors: true,
+        executablePath: '/usr/bin/google-chrome',
       });
       const page = await browser.newPage();
 
@@ -1284,6 +1285,7 @@ export class DebankService {
         headless: false,
         args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
         ignoreHTTPSErrors: true,
+        executablePath: '/usr/bin/google-chrome',
       });
       const page = await browser.newPage();
       // @ts-ignore

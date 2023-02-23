@@ -22,7 +22,7 @@ import { WEBSHARE_PROXY_STR } from './common/proxy';
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
       ignoreHTTPSErrors: true,
-      // executablePath: '/usr/bin/google-chrome',
+      executablePath: '/usr/bin/google-chrome',
     });
     Container.set('browser', browser);
     (await import('./loaders/logger.loader')).default();

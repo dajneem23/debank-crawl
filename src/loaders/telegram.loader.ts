@@ -12,6 +12,7 @@ const pgClient = Container.get(pgPoolToken);
 export const TelegramLoader = async () => {
   // Create a bot that uses 'polling' to fetch new updates
   const bot = new TelegramBot(token, { polling: true });
+  const scanRegex = /Etherscan|PolygonScan|BscScan|FtmScan|arbiscan/gi;
 
   bot.on('channel_post', async (msg) => {
     try {
@@ -25,7 +26,7 @@ export const TelegramLoader = async () => {
         rows.map((row) => {
           const [match, sender, quantity, token, usd, receiver] =
             /(.*) sent (.*) (.*) \(\$(.*)\).* to (.*)/g.exec(row) || [];
-          const _match = text.match(/Etherscan|PolygonScan|BscScan/gi);
+          const _match = text.match(scanRegex);
           const offset = _match?.[0] ? message.indexOf(_match[0]) : -1;
           const txn = entities.find((entity) => entity.offset === offset);
           let address = null;
@@ -60,7 +61,7 @@ export const TelegramLoader = async () => {
       );
       if (records.length == 1) {
         // const [, etherscan] = /A new token transfer (\(.*)\)/g.exec(text);
-        const _match = text.match(/Etherscan|PolygonScan|BscScan|FtmScan/gi);
+        const _match = text.match(scanRegex);
         if (!_match) {
           console.info({
             records,

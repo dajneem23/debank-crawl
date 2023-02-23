@@ -7,6 +7,8 @@ import { DIRedisConnection } from '@/loaders/redis.loader';
 import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
 import { pgClientToken, pgPoolToken, pgpToken } from '@/loaders/pg.loader';
+import puppeteer from 'puppeteer';
+import { anonymizeProxy } from 'proxy-chain';
 
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
@@ -23,10 +25,13 @@ import {
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import { arrayObjectToTable } from '@/utils/table';
 import { table } from 'table';
+import { sleep } from '@/utils/common';
+import { isJSON } from '@/utils/text';
+import { WEBSHARE_PROXY_STR } from '@/common/proxy';
 
 export const debankServiceToken = new Token<DebankService>('_debankService');
 const account =
-  '{"random_at":1675919820,"random_id":"7c7daa4df5744190a78835c2eb44930e","session_id":"8145eab5f7cc45399adb380e564c7b1d","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
+  '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 
 export class DebankService {
   private logger = new Logger('Debank');
@@ -115,6 +120,9 @@ export class DebankService {
   };
 
   constructor() {
+    // this.fetchUserTokenBalanceList({
+    //   user_address: '0x28f0fadea04381b1440a23ebb87565f32356ee77',
+    // }).then(console.log);
     Container.set(debankServiceToken, this);
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
@@ -132,14 +140,14 @@ export class DebankService {
     this.worker = new Worker('debank', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
-      concurrency: 500,
+      lockDuration: 1000 * 60 * 2,
+      concurrency: 2,
       limiter: {
-        max: 50,
+        max: 60,
         duration: 1000,
       },
       stalledInterval: 1000 * 60,
-      maxStalledCount: 5,
+      maxStalledCount: 20,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
@@ -151,10 +159,10 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 5000,
+      concurrency: 1,
       limiter: {
-        max: 100,
-        duration: 1,
+        max: 3,
+        duration: 1000,
       },
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
@@ -169,10 +177,10 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 5000,
+      concurrency: 250,
       limiter: {
-        max: 100,
-        duration: 1,
+        max: 50,
+        duration: 1000,
       },
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
@@ -187,10 +195,10 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 5000,
+      concurrency: 250,
       limiter: {
-        max: 100,
-        duration: 1,
+        max: 50,
+        duration: 1000,
       },
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
@@ -205,10 +213,10 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 5000,
+      concurrency: 250,
       limiter: {
-        max: 100,
-        duration: 1,
+        max: 50,
+        duration: 1000,
       },
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
@@ -236,7 +244,8 @@ export class DebankService {
       connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
-        attempts: 5,
+        attempts: 10,
+        delay: 1000 * 2,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
@@ -340,7 +349,7 @@ export class DebankService {
     this.initQueueListeners(queueRankingEvents);
 
     // TODO: ENABLE THIS
-    this.initRepeatJobs();
+    // this.initRepeatJobs();
   }
   /**
    * Initialize Worker listeners
@@ -1155,6 +1164,7 @@ export class DebankService {
       const { balance_list } = await this.fetchUserTokenBalanceList({
         user_address,
       });
+      await sleep(Math.random() * 1000 * 5);
       const { project_list } = await this.fetchUserProjectList({
         user_address,
       });
@@ -1180,22 +1190,44 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchUserProjectList: user_address is required');
       }
-      const { data: fetchProjectListData } = await DebankAPI.fetch({
-        endpoint: DebankAPI.Portfolio.projectList.endpoint,
-        params: {
-          user_addr: user_address,
-        },
+      // const { data: fetchProjectListData } = await DebankAPI.fetch({
+      //   endpoint: DebankAPI.Portfolio.projectList.endpoint,
+      //   params: {
+      //     user_addr: user_address,
+      //   },
+      // });
+
+      // const error_code = fetchProjectListData.error_code;
+      // if (error_code) {
+      //   this.logger.debug('error', '[fetchUserProjectList:error]', JSON.stringify(error_code), {
+      //     msg1: fetchProjectListData.error_msg,
+      //   });
+      //   throw new Error('fetchUserProjectList: Error fetching social ranking');
+      // }
+      const proxyUrl = 'http://aveofymr-rotate:3myhzwukr2fe@p.webshare.io:80';
+      const newProxyUrl = await anonymizeProxy(proxyUrl);
+      const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
+        ignoreHTTPSErrors: true,
       });
+      const page = await browser.newPage();
 
-      const error_code = fetchProjectListData.error_code;
-      if (error_code) {
-        this.logger.debug('error', '[fetchUserProjectList:error]', JSON.stringify(error_code), {
-          msg1: fetchProjectListData.error_msg,
-        });
-        throw new Error('fetchUserProjectList: Error fetching social ranking');
+      await page.goto(`${DebankAPI.Portfolio.projectList.endpoint}?user_addr=${user_address}`, {
+        waitUntil: 'networkidle2',
+      });
+      const data = await page.evaluate(() => {
+        // @ts-ignore
+        const data = document.body.innerText;
+        // return data;
+        return JSON.parse(data);
+      });
+      if (!data) {
+        throw new Error('fetchUserProjectList:fail');
       }
+      const { data: project_list } = data;
+      await browser.close();
 
-      const { data: project_list } = fetchProjectListData;
       // await this.insertUserAssetPortfolio({ user_address, project_list, crawl_id });
       return {
         project_list,
@@ -1245,24 +1277,47 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchUserTokenBalanceList: user_address is required');
       }
-      const { data: fetchTokenBalanceListData } = await DebankAPI.fetch({
-        endpoint: DebankAPI.Token.cacheBalanceList.endpoint,
-        params: {
-          user_addr: user_address,
-        },
+
+      const proxyUrl = 'http://aveofymr-rotate:3myhzwukr2fe@p.webshare.io:80';
+      const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
+      const browser = await puppeteer.launch({
+        headless: false,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
+        ignoreHTTPSErrors: true,
       });
+      const page = await browser.newPage();
+      // @ts-ignore
+      await page.goto(`${DebankAPI.Token.cacheBalanceList.endpoint}?user_addr=${user_address}`, {
+        waitUntil: 'networkidle2',
+      });
+      // const { data: fetchTokenBalanceListData } = await DebankAPI.fetch({
+      //   endpoint: DebankAPI.Token.cacheBalanceList.endpoint,
+      //   params: {
+      //     user_addr: user_address,
+      //   },
+      // });
 
-      const error_code = fetchTokenBalanceListData.error_code;
-      if (error_code) {
-        //TODO: handle error change this to discord
-        this.logger.debug('error', '[fetchUserTokenBalanceList:error]', JSON.stringify(error_code), {
-          msg3: fetchTokenBalanceListData.error_msg,
-        });
-        throw new Error('fetchUserTokenBalanceList: Error fetching social ranking');
+      const data = await page.evaluate(() => {
+        // @ts-ignore
+        const data = document.body.innerText;
+        // return data;
+        return JSON.parse(data);
+      });
+      if (!data) {
+        throw new Error('fetchUserTokenBalanceList:fail');
       }
+      // const error_code = fetchTokenBalanceListData.error_code;
+      // if (error_code) {
+      //   //TODO: handle error change this to discord
+      //   this.logger.debug('error', '[fetchUserTokenBalanceList:error]', JSON.stringify(error_code), {
+      //     msg3: fetchTokenBalanceListData.error_msg,
+      //   });
+      //   throw new Error('fetchUserTokenBalanceList: Error fetching social ranking');
+      // }
 
-      const { data: balance_list } = fetchTokenBalanceListData;
+      const { data: balance_list } = data;
       // await this.insertUserAssetPortfolio({ user_address, balance_list, crawl_id });
+      await browser.close();
       return {
         balance_list,
       };
@@ -1526,18 +1581,7 @@ export class DebankService {
           table: 'debank-portfolio-projects',
         }));
     } catch (error) {
-      // this.logger.error(
-      //   'error',
-      //   '[insertUserAssetPortfolio:error]',
-      //   JSON.stringify(error),
-      //   JSON.stringify({
-      //     user_address,
-      //     token_list,
-      //     coin_list,
-      //     balance_list,
-      //     project_list,
-      //   }),
-      // );
+      this.logger.error('error', '[insertUserAssetPortfolio:error]', JSON.stringify(error));
       throw error;
     }
   }
@@ -1607,6 +1651,7 @@ export class DebankService {
 
     const { rows } = await this.queryAddressList({
       select: 'user_address',
+      orderBy: 'debank_top_holders_time',
     });
 
     const crawl_id = await this.getCrawlId();
@@ -1626,6 +1671,7 @@ export class DebankService {
         },
         priority: 10,
         attempts: 10,
+        delay: 1000 * 5,
       },
     }));
     await this.addBulkJobs({
@@ -1779,12 +1825,6 @@ export class DebankService {
         endpoint: DebankAPI.Coin.list.endpoint,
       });
       if (status !== 200 || error_code) {
-        // this.logger.discord(
-        //   'error',
-        //   '[fetchCoins:error]',
-        //   JSON.stringify(data),
-        //   JSON.stringify({ status, error_code }),
-        // );
         throw new Error('fetchCoins:error');
       }
       const { coins } = data;
@@ -1825,12 +1865,6 @@ export class DebankService {
         },
       });
       if (status !== 200 || error_code) {
-        // this.logger.discord(
-        //   'error',
-        //   '[fetchTopHolders:error]',
-        //   JSON.stringify(data),
-        //   JSON.stringify({ status, error_code }),
-        // );
         throw new Error('fetchTopHolders:error');
       }
       const { holders } = data;
@@ -1864,12 +1898,6 @@ export class DebankService {
         },
       });
       if (status !== 200 || error_code) {
-        // this.logger.discord(
-        //   'error',
-        //   '[fetchTopHolders:error]',
-        //   JSON.stringify(data),
-        //   JSON.stringify({ status, error_code }),
-        // );
         throw new Error('fetchTopHolders:error');
       }
       const { total_count, holders } = data;
@@ -1959,12 +1987,6 @@ export class DebankService {
         endpoint: DebankAPI.Coin.list.endpoint,
       });
       if (status !== 200 || error_code) {
-        // this.logger.discord(
-        //   'error',
-        //   '[addFetchCoinsJob:error]',
-        //   JSON.stringify(data),
-        //   JSON.stringify({ status, error_code }),
-        // );
         throw new Error('addFetchCoinsJob:error');
       }
       const { coins } = data;
@@ -1992,7 +2014,7 @@ export class DebankService {
         const cs = new pgp.helpers.ColumnSet(['details', 'crawl_time', 'crawl_id'], {
           table: 'debank-coins',
         });
-        const onConflict = `UPDATE SET  ${cs.assignColumns({ from: 'EXCLUDED', skip: ['symbol', 'db_id', 'cg_id'] })}`;
+        const onConflict = `UPDATE SET  ${cs.assignColumns({ from: 'EXCLUDED', skip: ['symbol', 'db_id'] })}`;
         await bulkInsertOnConflict({
           table: 'debank-coins',
           data,
@@ -2125,30 +2147,64 @@ export class DebankService {
     await Promise.all(tables.map((table) => this.truncatePartitions({ table })));
   }
 
-  async truncatePartitions({ table, days = 7 }: { table: string; days?: number }) {
+  async truncatePartitions({ table, days = 7, keepDays = 3 }: { table: string; days?: number; keepDays?: number }) {
     try {
-      const now = formatDate(new Date(), 'YYYYMMDD');
+      const keepDate = Array.from({ length: keepDays }, (_, i) => {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        return formatDate(date, 'YYYYMMDD');
+      });
       for (let i = 0; i < days; i++) {
         const date = new Date();
         date.setDate(date.getDate() - i);
         const dateStr = formatDate(date, 'YYYYMMDD');
-        if (dateStr === now) {
+        //keep some days
+        if (keepDate.includes(dateStr)) {
           continue;
         }
-        ///diff days
-        // const diff = Math.abs(date.getTime() - new Date().getTime());
-        //truncate by crawl_id
-        for (let j = 1; j <= this.maxCrawlIdInOneDay; j++) {
-          if (this.keepCrawlIds.includes(j)) {
-            continue;
-          }
-          await truncateTable({
-            table: `${table}-${dateStr}${j >= 10 ? j : `0${j}`}`,
-          });
-        }
+        //truncate by date
+        //example: debank-portfolio-balances-20210701
+        await truncateTable({
+          table: `${table}-${dateStr}`,
+        });
       }
     } catch (error) {
       this.logger.error('error', '[truncatePartitions:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async fetchUserProfile({ address }: { address: string }) {
+    const {
+      data: { data, error_code },
+      status,
+    } = await DebankAPI.fetch({
+      endpoint: DebankAPI.User.addr.endpoint,
+      params: {
+        addr: address,
+      },
+    });
+    if (status !== 200 || error_code || !data) {
+      throw new Error('fetchUserProfile:error');
+    }
+    return { data };
+  }
+
+  updateUserProfile({ address, profile }: { address: string; profile: any }) {
+    return this.pgClient.query(
+      `
+        UPDATE "debank-user-address-list" SET debank-user-address-list = $1 WHERE address = $2
+      `,
+      [JSON.stringify(profile), address],
+    );
+  }
+
+  async updateUserProfileJob({ address }: { address: string }) {
+    try {
+      const { data } = await this.fetchUserProfile({ address });
+      await this.updateUserProfile({ address, profile: data });
+    } catch (error) {
+      this.logger.error('error', '[updateUserProfileJob:error]', JSON.stringify(error));
       throw error;
     }
   }

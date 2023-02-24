@@ -120,8 +120,8 @@ export class DebankService {
   };
 
   constructor() {
-    // this.fetchUserTokenBalanceList({
-    //   user_address: '0x28f0fadea04381b1440a23ebb87565f32356ee77',
+    // this.crawlPortfolio({
+    //   address: '0x9c5083dd4838e120dbeac44c052179692aa5dac5',
     // }).then(console.log);
     // this.testProxy();
     // this.testProxy();
@@ -150,6 +150,59 @@ export class DebankService {
     await page.goto(`https://api64.ipify.org\?format\=json`, {
       waitUntil: 'networkidle2',
     });
+  }
+
+  async testPuppeteer() {
+    try {
+      const browser = await createPuppeteerBrowser();
+
+      const page = await browser.newPage();
+      // await page.setUserAgent(getRandomUserAgent());
+      // await page.setExtraHTTPHeaders({
+      //   accept:
+      //     'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+      //   'accept-language': 'en-US,en;q=0.9',
+      //   'cache-control': 'no-cache',
+      //   pragma: 'no-cache',
+      //   'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
+      //   'sec-ch-ua-mobile': '?0',
+      //   'sec-ch-ua-platform': '"macOS"',
+      //   'sec-fetch-dest': 'empty',
+      //   'sec-fetch-mode': 'cors',
+      //   'sec-fetch-site': 'same-origin',
+      //   'upgrade-insecure-requests': '1',
+      // });
+
+      // eslint-disable-next-line no-var
+      var requests = [] as any;
+      // eslint-disable-next-line no-var
+      var responses = [] as any;
+
+      page.on('request', (request) => {
+        requests.push(request);
+        // console.log('>>', request.method(), request.url());
+      });
+
+      page.on('response', async (response) => {
+        responses.push(response);
+        // console.log('<<', response.status(), response.url());
+        if (response.url().includes('https://api.debank.com/')) {
+          // console.log('<<', response.status(), await response.json());
+        }
+      });
+      await page.goto(`https://debank.com/profile/0x28f0fadea04381b1440a23ebb87565f32356ee77`, {
+        waitUntil: 'domcontentloaded',
+      });
+      // await browser.close();
+
+      // console.log({
+      //   requests,
+      //   responses,
+      // });
+    } catch (error) {
+      this.logger.discord('error', '[fetchUserTokenBalanceList:error]', JSON.stringify(error));
+      throw error;
+    }
   }
   /**
    *  @description init BullMQ Worker
@@ -1204,6 +1257,7 @@ export class DebankService {
   }
 
   async fetchUserProjectList({ user_address }: { user_address: string }) {
+    const browser = await createPuppeteerBrowser();
     try {
       if (!user_address) {
         throw new Error('fetchUserProjectList: user_address is required');
@@ -1222,7 +1276,6 @@ export class DebankService {
       //   });
       //   throw new Error('fetchUserProjectList: Error fetching social ranking');
       // }
-      const browser = await createPuppeteerBrowser();
       const page = await browser.newPage();
       //try to avoid bot detection
       await page.setUserAgent(getRandomUserAgent());
@@ -1257,7 +1310,6 @@ export class DebankService {
         throw new Error('fetchUserProjectList:fail');
       }
       const { data: project_list } = data;
-      await browser.close();
       // await this.insertUserAssetPortfolio({ user_address, project_list, crawl_id });
       return {
         project_list,
@@ -1265,6 +1317,8 @@ export class DebankService {
     } catch (error) {
       this.logger.discord('error', '[fetchUserProjectList:error]', JSON.stringify(error));
       throw error;
+    } finally {
+      await browser.close();
     }
   }
 
@@ -1303,11 +1357,12 @@ export class DebankService {
   }
 
   async fetchUserTokenBalanceList({ user_address }: { user_address: string }) {
+    const browser = await createPuppeteerBrowser();
+
     try {
       if (!user_address) {
         throw new Error('fetchUserTokenBalanceList: user_address is required');
       }
-      const browser = await createPuppeteerBrowser();
 
       const page = await browser.newPage();
       await page.setUserAgent(getRandomUserAgent());
@@ -1358,7 +1413,6 @@ export class DebankService {
       // }
 
       const { data: balance_list } = data;
-      await browser.close();
       // await this.insertUserAssetPortfolio({ user_address, balance_list, crawl_id });
       return {
         balance_list,
@@ -1366,6 +1420,8 @@ export class DebankService {
     } catch (error) {
       this.logger.discord('error', '[fetchUserTokenBalanceList:error]', JSON.stringify(error));
       throw error;
+    } finally {
+      await browser.close();
     }
   }
 
@@ -2249,5 +2305,36 @@ export class DebankService {
       this.logger.error('error', '[updateUserProfileJob:error]', JSON.stringify(error));
       throw error;
     }
+  }
+
+  async crawlPortfolio({ address }: { address: string }) {
+    const browser = await createPuppeteerBrowser();
+
+    const page = await browser.newPage();
+
+    // eslint-disable-next-line no-var
+    var requests = [] as any;
+    // eslint-disable-next-line no-var
+    var responses = [] as any;
+
+    page.on('request', (request) => {
+      requests.push(request);
+      // console.log('>>', request.method(), request.url());
+    });
+
+    page.on('response', async (response) => {
+      responses.push(response);
+      // console.log('<<', response.status(), response.url());
+      if (
+        response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) ||
+        response.url().includes(DebankAPI.Portfolio.projectList.endpoint)
+      ) {
+        // console.log(response.url(),'<<', response.status(), await response.json());
+        // console.log(response.url(), '<<', response.status());
+      }
+    });
+    await page.goto(`https://debank.com/profile/${address}`, {
+      waitUntil: 'domcontentloaded',
+    });
   }
 }

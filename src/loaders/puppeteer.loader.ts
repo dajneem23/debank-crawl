@@ -34,7 +34,7 @@ export const puppeteerLoader = async () => {
 export const createPuppeteerBrowser = async () => {
   const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
   const browser = await puppeteer.use(pluginStealth()).launch({
-    headless: true,
+    headless: false,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -49,7 +49,7 @@ export const createPuppeteerBrowser = async () => {
     }),
     //TODO: DISABLE THIS FOR PRODUCTION
     //use this for local development
-    // executablePath: executablePath(),
+    executablePath: executablePath(),
   });
   return browser;
 };

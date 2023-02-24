@@ -25,10 +25,15 @@ import { arrayObjectToTable } from '@/utils/table';
 import { table } from 'table';
 import { sleep } from '@/utils/common';
 import { isJSON } from '@/utils/text';
-import { WEBSHARE_PROXY_STR } from '@/common/proxy';
-import puppeteer from 'puppeteer';
-import { puppeteerBrowserToken } from '@/loaders/puppeteer.loader';
+import { createPuppeteerBrowser, puppeteerBrowserToken } from '@/loaders/puppeteer.loader';
 import { getRandomUserAgent } from '@/config/userAgent';
+import puppeteer from 'puppeteer-extra';
+import { anonymizeProxy } from 'proxy-chain';
+import { WEBSHARE_PROXY_STR } from '@/common/proxy';
+import { Browser } from 'puppeteer';
+import { executablePath } from 'puppeteer';
+
+import pluginStealth from 'puppeteer-extra-plugin-stealth';
 
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
@@ -125,7 +130,13 @@ export class DebankService {
     // this.fetchUserTokenBalanceList({
     //   user_address: '0x28f0fadea04381b1440a23ebb87565f32356ee77',
     // }).then(console.log);
-
+    // this.testProxy();
+    // this.testProxy();
+    // this.testProxy();
+    // this.testProxy();
+    // this.testProxy();
+    // this.testProxy();
+    // this.testProxy();
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -136,7 +147,17 @@ export class DebankService {
       this.initQueue();
     }
   }
+  async testProxy() {
+    const browser = await createPuppeteerBrowser();
+    const page = await browser.newPage();
+    //try to avoid bot detection
 
+    // await page.setRequestInterception(true);
+
+    await page.goto(`https://api64.ipify.org\?format\=json`, {
+      waitUntil: 'networkidle2',
+    });
+  }
   /**
    *  @description init BullMQ Worker
    */
@@ -145,7 +166,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2,
-      concurrency: 2,
+      concurrency: 4,
       limiter: {
         max: 60,
         duration: 1000,
@@ -1208,10 +1229,28 @@ export class DebankService {
       //   });
       //   throw new Error('fetchUserProjectList: Error fetching social ranking');
       // }
-      const browser = Container.get(puppeteerBrowserToken);
-
+      const browser = await createPuppeteerBrowser();
       const page = await browser.newPage();
+      //try to avoid bot detection
       await page.setUserAgent(getRandomUserAgent());
+      await page.setExtraHTTPHeaders({
+        accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'accept-language': 'en-US,en;q=0.9',
+        'cache-control': 'no-cache',
+        pragma: 'no-cache',
+        'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'upgrade-insecure-requests': '1',
+      });
+      // await page.waitForTimeout((Math.floor(Math.random() * 12) + 5) * 1000);
+      // await page.goto(`https://debank.com/profile/${user_address}`, {
+      //   waitUntil: 'networkidle2',
+      // });
       await page.goto(`${DebankAPI.Portfolio.projectList.endpoint}?user_addr=${user_address}`, {
         waitUntil: 'networkidle2',
       });
@@ -1225,7 +1264,7 @@ export class DebankService {
         throw new Error('fetchUserProjectList:fail');
       }
       const { data: project_list } = data;
-      await page.close();
+      await browser.close();
       // await this.insertUserAssetPortfolio({ user_address, project_list, crawl_id });
       return {
         project_list,
@@ -1275,10 +1314,27 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchUserTokenBalanceList: user_address is required');
       }
-      const browser = Container.get(puppeteerBrowserToken);
+      const browser = await createPuppeteerBrowser();
 
       const page = await browser.newPage();
       await page.setUserAgent(getRandomUserAgent());
+      await page.setExtraHTTPHeaders({
+        accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'accept-language': 'en-US,en;q=0.9',
+        'cache-control': 'no-cache',
+        pragma: 'no-cache',
+        'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'upgrade-insecure-requests': '1',
+      });
+
+      // await page.waitForTimeout((Math.floor(Math.random() * 12) + 5) * 1000);
+
       // @ts-ignore
       await page.goto(`${DebankAPI.Token.cacheBalanceList.endpoint}?user_addr=${user_address}`, {
         waitUntil: 'networkidle2',
@@ -1309,7 +1365,7 @@ export class DebankService {
       // }
 
       const { data: balance_list } = data;
-      await page.close();
+      await browser.close();
       // await this.insertUserAssetPortfolio({ user_address, balance_list, crawl_id });
       return {
         balance_list,

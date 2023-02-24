@@ -51,6 +51,8 @@
     "pg-promise": "^11.2.0",
     "proxy-chain": "^2.2.1",
     "puppeteer": "^19.7.2",
+    "puppeteer-extra": "^3.3.4",
+    "puppeteer-extra-plugin-stealth": "^2.11.1",
     "redis": "^4.5.0",
     "reflect-metadata": "^0.1.13",
     "slugify": "^1.6.5",

@@ -38,7 +38,7 @@ COPY . /app
 
 # Expose port
 EXPOSE 9002
-# install puppeteer and start service
-CMD [  "yarn", "start" ]
-# CMD [ "node","node_modules/puppeteer/install.js", "&&", "yarn", "start" ]
+
+
 # Start service
+CMD [  "yarn", "start" ]

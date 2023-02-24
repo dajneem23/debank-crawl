@@ -49,6 +49,12 @@ $ cp env.example.json env.local.json
 $ yarn dev
 ```
 
+# install puppeteer
+
+```shell
+ node ./node_modules/puppeteer/install.js
+```
+
 Happy coding! 🥂
 
 # Testing

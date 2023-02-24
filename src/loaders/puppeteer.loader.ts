@@ -15,7 +15,7 @@ export const puppeteerLoader = async () => {
     const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
 
     const browser = await puppeteer.use(pluginStealth()).launch({
-      headless: false,
+      headless: true,
       userDataDir: './.cache',
       args: [
         '--no-sandbox',
@@ -49,8 +49,13 @@ export const puppeteerLoader = async () => {
 export const createPuppeteerBrowser = async () => {
   const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
   const browser = await puppeteer.use(pluginStealth()).launch({
-    headless: false,
+    headless: true,
     userDataDir: './.cache',
+    defaultViewport: {
+      width: 375,
+      height: 667,
+      isMobile: true,
+    },
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -64,6 +69,33 @@ export const createPuppeteerBrowser = async () => {
       '--no-zygote',
       '--single-process', // <- this one doesn't works in Windows
       '--disable-gpu',
+
+      '--autoplay-policy=user-gesture-required',
+      '--disable-background-timer-throttling',
+      '--disable-backgrounding-occluded-windows',
+      '--disable-breakpad',
+      '--disable-component-update',
+      '--disable-domain-reliability',
+      '--disable-extensions',
+      '--disable-features=AudioServiceOutOfProcess',
+      '--disable-hang-monitor',
+      '--disable-ipc-flooding-protection',
+      '--disable-notifications',
+      '--disable-offer-store-unmasked-wallet-cards',
+      '--disable-popup-blocking',
+      '--disable-print-preview',
+      '--disable-prompt-on-repost',
+      '--disable-renderer-backgrounding',
+      '--disable-setuid-sandbox',
+      '--hide-scrollbars',
+      '--ignore-gpu-blacklist',
+      '--metrics-recording-only',
+      '--mute-audio',
+      '--no-default-browser-check',
+      '--no-pings',
+      '--password-store=basic',
+      '--use-gl=swiftshader',
+      '--use-mock-keychain',
     ],
     ignoreHTTPSErrors: true,
     ...((process.env.MODE == 'production' && { executablePath: '/usr/bin/google-chrome' }) || {

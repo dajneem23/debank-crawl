@@ -27,6 +27,8 @@ import { sleep } from '@/utils/common';
 import { isJSON } from '@/utils/text';
 import { createPuppeteerBrowser, puppeteerBrowserToken } from '@/loaders/puppeteer.loader';
 import { getRandomUserAgent } from '@/config/userAgent';
+import useProxy from 'puppeteer-page-proxy';
+import { WEBSHARE_PROXY_STR } from '@/common/proxy';
 
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
@@ -68,6 +70,8 @@ export class DebankService {
   readonly maxCrawlIdInOneDay = 8;
 
   readonly keepCrawlIds = [1, 5];
+
+  private count = 0;
 
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => any;
@@ -125,6 +129,7 @@ export class DebankService {
     //   user_address: '0x9c5083dd4838e120dbeac44c052179692aa5dac5',
     //   crawl_id: '1',
     // }).then(console.log);
+    // this.testProxy();
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -137,14 +142,20 @@ export class DebankService {
   }
   async testProxy() {
     const browser = await createPuppeteerBrowser();
-    const page = await browser.newPage();
     //try to avoid bot detection
-
     // await page.setRequestInterception(true);
+    const createPage = async () => {
+      // await useProxy(page, WEBSHARE_PROXY_STR);
+      const page = await browser.newPage();
 
-    await page.goto(`https://api64.ipify.org\?format\=json`, {
-      waitUntil: 'networkidle2',
-    });
+      await page.goto(`https://debank.com/profile/0x26fcbd3afebbe28d0a8684f790c48368d21665b5`, {
+        waitUntil: 'networkidle0',
+        timeout: 60 * 1000,
+      });
+    };
+    for (let i = 0; i < 10; i++) {
+      createPage();
+    }
   }
 
   async testPuppeteer() {
@@ -225,9 +236,9 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 1,
+      concurrency: 100,
       limiter: {
-        max: 3,
+        max: 500,
         duration: 1000,
       },
       stalledInterval: 1000 * 60,
@@ -2303,17 +2314,41 @@ export class DebankService {
   }
 
   async crawlPortfolio({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
+    // console.time('crawlPortfolio');
     const browser = await createPuppeteerBrowser();
     try {
+      const needRequest = [DebankAPI.Token.cacheBalanceList.endpoint, DebankAPI.Portfolio.projectList.endpoint];
       const page = await browser.newPage();
-      page.on('response', async (response) => {
+      await page.setRequestInterception(true);
+      const ignoreUrls: any = [
+        'https://static.debank.com/image',
+        'https://static.debank.com/css',
+        'https://assets.debank.com/static/media',
+        'https://api.debank.com/chat',
+        'https://www.google-analytics.com',
+        'https://www.google.co.uk',
+        'https://www.googletagmanager.com',
+      ] as any;
+      let countNeedRequest = 0;
+      page.on('request', (request) => {
         if (
-          response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) ||
-          response.url().includes(DebankAPI.Portfolio.projectList.endpoint)
+          ['image', 'stylesheet', 'font'].indexOf(request.resourceType()) !== -1 ||
+          ignoreUrls.some((url: any) => request.url().includes(url)) ||
+          countNeedRequest >= needRequest.length ||
+          !needRequest.some((url) => request.url().includes(url))
         ) {
-          // console.log(response.url(), '<<', response.status(), await response.json());
-          if (response.status() === 200) {
-            const { data } = await response.json();
+          request.respond({ status: 200, body: 'aborted' });
+        } else {
+          request.continue();
+        }
+      });
+      //get 2 api and insert to db
+      page.on('response', async (response) => {
+        if (needRequest.some((url) => response.url().includes(url)) && response.status() === 200) {
+          countNeedRequest++;
+          // console.log(response.url(), '<<', response.status(), (await response.json()).data.length);
+          const { data } = await response.json();
+          if (data.length) {
             this.addJob({
               queue: 'debank-insert',
               name: DebankJobNames['debank:insert:user-assets-portfolio'],
@@ -2321,6 +2356,7 @@ export class DebankService {
                 [response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) ? 'balance_list' : 'project_list']:
                   data,
                 crawl_id,
+                user_address,
               },
               otps: {
                 jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
@@ -2341,13 +2377,18 @@ export class DebankService {
       //wait for network idle to make sure all data is loaded
       await Promise.all([
         page.goto(`https://debank.com/profile/${user_address}`),
-        page.waitForNavigation({ waitUntil: 'networkidle0' }),
+        page.waitForNavigation({
+          waitUntil: 'networkidle0',
+          // waitUntil: 'networkidle2',
+          timeout: 60 * 1000,
+        }),
       ]);
     } catch (error) {
       this.logger.error('error', '[crawlPortfolio:error]', JSON.stringify(error));
-      throw error;
+      // throw error;
     } finally {
       await browser.close();
+      // console.timeEnd('crawlPortfolio');
     }
   }
 }

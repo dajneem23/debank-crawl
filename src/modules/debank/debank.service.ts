@@ -27,7 +27,6 @@ import { sleep } from '@/utils/common';
 import { isJSON } from '@/utils/text';
 import { createPuppeteerBrowser, puppeteerBrowserToken } from '@/loaders/puppeteer.loader';
 import { getRandomUserAgent } from '@/config/userAgent';
-import useProxy from 'puppeteer-page-proxy';
 import { WEBSHARE_PROXY_STR } from '@/common/proxy';
 
 const account =

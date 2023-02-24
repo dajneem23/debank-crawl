@@ -27,13 +27,6 @@ import { sleep } from '@/utils/common';
 import { isJSON } from '@/utils/text';
 import { createPuppeteerBrowser, puppeteerBrowserToken } from '@/loaders/puppeteer.loader';
 import { getRandomUserAgent } from '@/config/userAgent';
-import puppeteer from 'puppeteer-extra';
-import { anonymizeProxy } from 'proxy-chain';
-import { WEBSHARE_PROXY_STR } from '@/common/proxy';
-import { Browser } from 'puppeteer';
-import { executablePath } from 'puppeteer';
-
-import pluginStealth from 'puppeteer-extra-plugin-stealth';
 
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';

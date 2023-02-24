@@ -15,12 +15,27 @@ export const puppeteerLoader = async () => {
     const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
 
     const browser = await puppeteer.use(pluginStealth()).launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
+      headless: false,
+      userDataDir: './.cache',
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        `--proxy-server=${newProxyUrl}`,
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins',
+        '--disable-site-isolation-trials',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--single-process', // <- this one doesn't works in Windows
+        '--disable-gpu',
+      ],
       ignoreHTTPSErrors: true,
       ...((process.env.MODE == 'production' && { executablePath: '/usr/bin/google-chrome' }) || {
         executablePath: executablePath(),
       }),
+      //TODO: DISABLE THIS FOR PRODUCTION
       //use this for local development
       // executablePath: executablePath(),
     });
@@ -34,7 +49,8 @@ export const puppeteerLoader = async () => {
 export const createPuppeteerBrowser = async () => {
   const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
   const browser = await puppeteer.use(pluginStealth()).launch({
-    headless: true,
+    headless: false,
+    userDataDir: './.cache',
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -42,6 +58,12 @@ export const createPuppeteerBrowser = async () => {
       '--disable-web-security',
       '--disable-features=IsolateOrigins',
       '--disable-site-isolation-trials',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process', // <- this one doesn't works in Windows
+      '--disable-gpu',
     ],
     ignoreHTTPSErrors: true,
     ...((process.env.MODE == 'production' && { executablePath: '/usr/bin/google-chrome' }) || {

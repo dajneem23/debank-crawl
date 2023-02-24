@@ -27,6 +27,7 @@ import { sleep } from '@/utils/common';
 import { isJSON } from '@/utils/text';
 import { WEBSHARE_PROXY_STR } from '@/common/proxy';
 import puppeteer from 'puppeteer';
+import { puppeteerBrowserToken } from '@/loaders/puppeteer.loader';
 
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
@@ -1206,7 +1207,7 @@ export class DebankService {
       //   });
       //   throw new Error('fetchUserProjectList: Error fetching social ranking');
       // }
-      const browser = Container.get('browser') as any;
+      const browser = Container.get(puppeteerBrowserToken);
 
       const page = await browser.newPage();
 
@@ -1223,7 +1224,7 @@ export class DebankService {
         throw new Error('fetchUserProjectList:fail');
       }
       const { data: project_list } = data;
-
+      await page.close();
       // await this.insertUserAssetPortfolio({ user_address, project_list, crawl_id });
       return {
         project_list,
@@ -1273,7 +1274,7 @@ export class DebankService {
       if (!user_address) {
         throw new Error('fetchUserTokenBalanceList: user_address is required');
       }
-      const browser = Container.get('browser') as any;
+      const browser = Container.get(puppeteerBrowserToken);
 
       const page = await browser.newPage();
       // @ts-ignore
@@ -1306,6 +1307,7 @@ export class DebankService {
       // }
 
       const { data: balance_list } = data;
+      await page.close();
       // await this.insertUserAssetPortfolio({ user_address, balance_list, crawl_id });
       return {
         balance_list,

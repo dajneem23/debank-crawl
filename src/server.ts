@@ -1,41 +1,33 @@
 import { env } from 'process';
 import 'reflect-metadata';
-import Container from 'typedi';
+import Container, { Token } from 'typedi';
 import { DIDiscordClient, Discord } from './loaders/discord.loader';
 import { exitHandler } from './core/handler';
 import { dockerContainerStats, systemInfo } from './utils/system';
+import { puppeteerLoader } from './loaders/puppeteer.loader';
 /**
  *  @description this import is required to initialize service class
  */
-import puppeteer from 'puppeteer';
-import { anonymizeProxy } from 'proxy-chain';
-import { WEBSHARE_PROXY_STR } from './common/proxy';
+
 (async () => {
   try {
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------
-    // Logger
-    const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
+    // Puppeteer (headless browser)
+    await puppeteerLoader();
 
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
-      ignoreHTTPSErrors: true,
-      executablePath: '/usr/bin/google-chrome',
-    });
-    Container.set('browser', browser);
+    // Logger()
     (await import('./loaders/logger.loader')).default();
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();
+    // Database (postgres)
     await (await import('./loaders/pg.loader')).default();
-
+    // Discord
     if (env.MODE == 'production') {
       const discord = new Discord();
       await discord.init();
-    }
-
-    if (env.MODE == 'production') {
+      // Telegram
       await (await import('./loaders/telegram.loader')).default();
     }
 

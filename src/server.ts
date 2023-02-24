@@ -14,11 +14,12 @@ import { puppeteerLoader } from './loaders/puppeteer.loader';
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------
-    // Puppeteer (headless browser)
-    await puppeteerLoader();
 
     // Logger()
     (await import('./loaders/logger.loader')).default();
+
+    // Puppeteer (headless browser)
+    await puppeteerLoader();
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();
     // Database (postgres)

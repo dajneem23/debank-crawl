@@ -87,6 +87,7 @@ export class DebankService {
     'debank:fetch:top-holders': this.fetchTopHolders,
     'debank:fetch:top-holders:page': this.fetchTopHoldersPage,
     'debank:insert:top-holder': this.insertTopHolder,
+    'debank:crawl:portfolio': this.crawlPortfolio,
 
     //! DEPRECATED
     'debank:add:project:users': this.addFetchProjectUsersJobs,
@@ -121,15 +122,9 @@ export class DebankService {
 
   constructor() {
     // this.crawlPortfolio({
-    //   address: '0x9c5083dd4838e120dbeac44c052179692aa5dac5',
+    //   user_address: '0x9c5083dd4838e120dbeac44c052179692aa5dac5',
+    //   crawl_id: '1',
     // }).then(console.log);
-    // this.testProxy();
-    // this.testProxy();
-    // this.testProxy();
-    // this.testProxy();
-    // this.testProxy();
-    // this.testProxy();
-    // this.testProxy();
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -1235,21 +1230,20 @@ export class DebankService {
       const { balance_list } = await this.fetchUserTokenBalanceList({
         user_address,
       });
-      await sleep(Math.random() * 1000 * 5);
       const { project_list } = await this.fetchUserProjectList({
         user_address,
       });
       // const { coin_list, token_list } = await this.fetchUserAssetClassify({
       //   user_address,
       // });
-      await this.insertUserAssetPortfolio({
-        user_address,
-        balance_list,
-        project_list,
-        coin_list: [],
-        token_list: [],
-        crawl_id,
-      });
+      // await this.insertUserAssetPortfolio({
+      //   user_address,
+      //   balance_list,
+      //   project_list,
+      //   coin_list: [],
+      //   token_list: [],
+      //   crawl_id,
+      // });
     } catch (error) {
       this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
       throw error;
@@ -1750,17 +1744,18 @@ export class DebankService {
     const { rows } = await this.queryAddressList({
       select: 'user_address',
       orderBy: 'debank_top_holders_time',
+      where: 'debank_top_holders_time IS not NULL OR debank_whales_time is not NULL ',
     });
 
     const crawl_id = await this.getCrawlId();
     const jobs = rows.map(({ user_address }: any) => ({
-      name: DebankJobNames['debank:fetch:social:user'],
+      name: DebankJobNames['debank:crawl:portfolio'],
       data: {
         user_address,
         crawl_id,
       },
       otps: {
-        jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
+        jobId: `debank:crawl:portfolio:${crawl_id}:${user_address}`,
         removeOnComplete: {
           age: 60 * 30,
         },
@@ -2307,34 +2302,52 @@ export class DebankService {
     }
   }
 
-  async crawlPortfolio({ address }: { address: string }) {
+  async crawlPortfolio({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
     const browser = await createPuppeteerBrowser();
-
-    const page = await browser.newPage();
-
-    // eslint-disable-next-line no-var
-    var requests = [] as any;
-    // eslint-disable-next-line no-var
-    var responses = [] as any;
-
-    page.on('request', (request) => {
-      requests.push(request);
-      // console.log('>>', request.method(), request.url());
-    });
-
-    page.on('response', async (response) => {
-      responses.push(response);
-      // console.log('<<', response.status(), response.url());
-      if (
-        response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) ||
-        response.url().includes(DebankAPI.Portfolio.projectList.endpoint)
-      ) {
-        // console.log(response.url(),'<<', response.status(), await response.json());
-        // console.log(response.url(), '<<', response.status());
-      }
-    });
-    await page.goto(`https://debank.com/profile/${address}`, {
-      waitUntil: 'domcontentloaded',
-    });
+    try {
+      const page = await browser.newPage();
+      page.on('response', async (response) => {
+        if (
+          response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) ||
+          response.url().includes(DebankAPI.Portfolio.projectList.endpoint)
+        ) {
+          // console.log(response.url(), '<<', response.status(), await response.json());
+          if (response.status() === 200) {
+            const { data } = await response.json();
+            this.addJob({
+              queue: 'debank-insert',
+              name: DebankJobNames['debank:insert:user-assets-portfolio'],
+              data: {
+                [response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) ? 'balance_list' : 'project_list']:
+                  data,
+                crawl_id,
+              },
+              otps: {
+                jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
+                removeOnComplete: {
+                  // remove job after 1 hour
+                  age: 60 * 60 * 1,
+                },
+                removeOnFail: {
+                  age: 60 * 60 * 1,
+                },
+                priority: 5,
+                attempts: 10,
+              },
+            });
+          }
+        }
+      });
+      //wait for network idle to make sure all data is loaded
+      await Promise.all([
+        page.goto(`https://debank.com/profile/${user_address}`),
+        page.waitForNavigation({ waitUntil: 'networkidle0' }),
+      ]);
+    } catch (error) {
+      this.logger.error('error', '[crawlPortfolio:error]', JSON.stringify(error));
+      throw error;
+    } finally {
+      await browser.close();
+    }
   }
 }

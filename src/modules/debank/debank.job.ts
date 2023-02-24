@@ -31,6 +31,7 @@ export enum DebankJobNames {
   'debank:create:partitions' = 'debank:create:partitions',
 
   'debank:clean:outdated-data' = 'debank:clean:outdated-data',
+  'debank:crawl:portfolio' = 'debank:crawl:portfolio',
 }
 
 export type DebankJobData = fetchDebankDataJob;

@@ -149,7 +149,6 @@ export class DebankService {
     // await page.setRequestInterception(true);
     const createPage = async () => {
       const context = await browser.createIncognitoBrowserContext();
-      // await useProxy(page, WEBSHARE_PROXY_STR);
       const page = await context.newPage();
 
       await page.goto(`https://api.myip.com`, {
@@ -2345,8 +2344,7 @@ export class DebankService {
         if (
           ['image', 'stylesheet', 'font'].indexOf(request.resourceType()) !== -1 ||
           ignoreUrls.some((url: any) => request.url().includes(url)) ||
-          countNeedRequest >= needRequest.length ||
-          !needRequest.some((url) => request.url().includes(url))
+          countNeedRequest >= needRequest.length
         ) {
           request.respond({ status: 200, body: 'aborted' });
         } else {
@@ -2356,8 +2354,8 @@ export class DebankService {
       //get 2 api and insert to db
       page.on('response', async (response) => {
         if (needRequest.some((url) => response.url().includes(url)) && response.status() === 200) {
-          countNeedRequest++;
           // console.log(response.url(), '<<', response.status(), (await response.json()).data.length);
+          countNeedRequest++;
           const { data } = await response.json();
           if (data.length) {
             this.addJob({
@@ -2396,7 +2394,7 @@ export class DebankService {
       ]);
     } catch (error) {
       this.logger.error('error', '[crawlPortfolio:error]', JSON.stringify(error));
-      // throw error;
+      throw error;
     } finally {
       await context.close();
       // console.timeEnd('crawlPortfolio');

@@ -25,7 +25,11 @@ import { arrayObjectToTable } from '@/utils/table';
 import { table } from 'table';
 import { sleep } from '@/utils/common';
 import { isJSON } from '@/utils/text';
-import { createPuppeteerBrowser, puppeteerBrowserToken } from '@/loaders/puppeteer.loader';
+import {
+  createPuppeteerBrowser,
+  createPuppeteerBrowserContext,
+  puppeteerBrowserToken,
+} from '@/loaders/puppeteer.loader';
 import { getRandomUserAgent } from '@/config/userAgent';
 import { WEBSHARE_PROXY_STR } from '@/common/proxy';
 
@@ -141,18 +145,26 @@ export class DebankService {
   }
   async testProxy() {
     const browser = await createPuppeteerBrowser();
-    //try to avoid bot detection
+
     // await page.setRequestInterception(true);
     const createPage = async () => {
+      const context = await browser.createIncognitoBrowserContext();
       // await useProxy(page, WEBSHARE_PROXY_STR);
-      const page = await browser.newPage();
+      const page = await context.newPage();
 
-      await page.goto(`https://debank.com/profile/0x26fcbd3afebbe28d0a8684f790c48368d21665b5`, {
+      await page.goto(`https://api.myip.com`, {
         waitUntil: 'networkidle0',
         timeout: 60 * 1000,
       });
+      const data = await page.evaluate(() => {
+        // @ts-ignore
+        const data = document.body.innerText;
+        // console.log(data);
+      });
+
+      // await context.close();
     };
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 3; i++) {
       createPage();
     }
   }
@@ -2314,10 +2326,10 @@ export class DebankService {
 
   async crawlPortfolio({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
     // console.time('crawlPortfolio');
-    const browser = await createPuppeteerBrowser();
+    const context = await createPuppeteerBrowserContext();
     try {
       const needRequest = [DebankAPI.Token.cacheBalanceList.endpoint, DebankAPI.Portfolio.projectList.endpoint];
-      const page = await browser.newPage();
+      const page = await context.newPage();
       await page.setRequestInterception(true);
       const ignoreUrls: any = [
         'https://static.debank.com/image',
@@ -2386,7 +2398,7 @@ export class DebankService {
       this.logger.error('error', '[crawlPortfolio:error]', JSON.stringify(error));
       // throw error;
     } finally {
-      await browser.close();
+      await context.close();
       // console.timeEnd('crawlPortfolio');
     }
   }

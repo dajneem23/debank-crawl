@@ -19,7 +19,7 @@ import { puppeteerLoader } from './loaders/puppeteer.loader';
     (await import('./loaders/logger.loader')).default();
 
     // Puppeteer (headless browser)
-    // await puppeteerLoader();
+    await puppeteerLoader();
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();
     // Database (postgres)

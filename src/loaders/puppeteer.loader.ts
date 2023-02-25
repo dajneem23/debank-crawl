@@ -28,7 +28,6 @@ export const puppeteerLoader = async () => {
         '--disable-accelerated-2d-canvas',
         '--no-first-run',
         '--no-zygote',
-        '--single-process', // <- this one doesn't works in Windows
         '--disable-gpu',
       ],
       ignoreHTTPSErrors: true,
@@ -67,35 +66,35 @@ export const createPuppeteerBrowser = async () => {
       '--disable-accelerated-2d-canvas',
       '--no-first-run',
       '--no-zygote',
-      '--single-process', // <- this one doesn't works in Windows
-      '--disable-gpu',
+      // '--disable-gpu',
+      '--incognito',
 
-      '--autoplay-policy=user-gesture-required',
-      '--disable-background-timer-throttling',
-      '--disable-backgrounding-occluded-windows',
-      '--disable-breakpad',
-      '--disable-component-update',
-      '--disable-domain-reliability',
-      '--disable-extensions',
-      '--disable-features=AudioServiceOutOfProcess',
-      '--disable-hang-monitor',
-      '--disable-ipc-flooding-protection',
-      '--disable-notifications',
-      '--disable-offer-store-unmasked-wallet-cards',
-      '--disable-popup-blocking',
-      '--disable-print-preview',
-      '--disable-prompt-on-repost',
-      '--disable-renderer-backgrounding',
-      '--disable-setuid-sandbox',
-      '--hide-scrollbars',
-      '--ignore-gpu-blacklist',
-      '--metrics-recording-only',
-      '--mute-audio',
-      '--no-default-browser-check',
-      '--no-pings',
-      '--password-store=basic',
-      '--use-gl=swiftshader',
-      '--use-mock-keychain',
+      // '--autoplay-policy=user-gesture-required',
+      // '--disable-background-timer-throttling',
+      // '--disable-backgrounding-occluded-windows',
+      // '--disable-breakpad',
+      // '--disable-component-update',
+      // '--disable-domain-reliability',
+      // '--disable-extensions',
+      // '--disable-features=AudioServiceOutOfProcess',
+      // '--disable-hang-monitor',
+      // '--disable-ipc-flooding-protection',
+      // '--disable-notifications',
+      // '--disable-offer-store-unmasked-wallet-cards',
+      // '--disable-popup-blocking',
+      // '--disable-print-preview',
+      // '--disable-prompt-on-repost',
+      // '--disable-renderer-backgrounding',
+      // '--disable-setuid-sandbox',
+      // '--hide-scrollbars',
+      // '--ignore-gpu-blacklist',
+      // '--metrics-recording-only',
+      // '--mute-audio',
+      // '--no-default-browser-check',
+      // '--no-pings',
+      // '--password-store=basic',
+      // '--use-gl=swiftshader',
+      // '--use-mock-keychain',
     ],
     ignoreHTTPSErrors: true,
     ...((process.env.MODE == 'production' && { executablePath: '/usr/bin/google-chrome' }) || {
@@ -106,4 +105,16 @@ export const createPuppeteerBrowser = async () => {
     // executablePath: executablePath(),
   });
   return browser;
+};
+
+export const createPuppeteerBrowserContext = async () => {
+  let browser;
+  try {
+    browser = Container.get(puppeteerBrowserToken);
+  } catch (error) {
+    browser = await createPuppeteerBrowser();
+    Container.set(puppeteerBrowserToken, browser);
+  }
+  const context = await browser.createIncognitoBrowserContext();
+  return context;
 };

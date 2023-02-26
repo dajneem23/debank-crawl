@@ -32,6 +32,7 @@ export enum DebankJobNames {
 
   'debank:clean:outdated-data' = 'debank:clean:outdated-data',
   'debank:crawl:portfolio' = 'debank:crawl:portfolio',
+  'debank:crawl:portfolio:list' = 'debank:crawl:portfolio:list',
 }
 
 export type DebankJobData = fetchDebankDataJob;

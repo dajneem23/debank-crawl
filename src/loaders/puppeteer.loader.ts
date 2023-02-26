@@ -15,7 +15,8 @@ export const puppeteerLoader = async () => {
     const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
 
     const browser = await puppeteer.use(pluginStealth()).launch({
-      headless: process.env.MODE == 'production',
+      headless: process.env.MODE == 'production' || true,
+      devtools: process.env.MODE != 'production',
       userDataDir: './.cache',
       args: [
         '--no-sandbox',
@@ -48,8 +49,9 @@ export const puppeteerLoader = async () => {
 export const createPuppeteerBrowser = async () => {
   const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
   const browser = await puppeteer.use(pluginStealth()).launch({
-    headless: true,
+    headless: process.env.MODE == 'production',
     userDataDir: './.cache',
+    devtools: process.env.MODE != 'production',
     defaultViewport: {
       width: 375,
       height: 667,

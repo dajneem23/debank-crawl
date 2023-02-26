@@ -146,9 +146,9 @@ export class DebankService {
     //   user_addresses,
     //   crawl_id: '1',
     // }).then(console.log);
-    this.addFetchTopHoldersByUsersAddressJob({
-      jobId: '',
-    });
+    // this.addFetchTopHoldersByUsersAddressJob({
+    //   jobId: '',
+    // });
     // this.testProxy();
     Container.set(debankServiceToken, this);
 

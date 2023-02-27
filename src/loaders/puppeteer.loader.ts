@@ -18,6 +18,11 @@ export const puppeteerLoader = async () => {
       headless: process.env.MODE == 'production' || true,
       devtools: process.env.MODE != 'production',
       userDataDir: './.cache',
+      defaultViewport: {
+        width: 375,
+        height: 667,
+        isMobile: true,
+      },
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',

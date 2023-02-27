@@ -33,7 +33,8 @@ import {
 } from '@/loaders/puppeteer.loader';
 import { getRandomUserAgent } from '@/config/userAgent';
 import { WEBSHARE_PROXY_STR } from '@/common/proxy';
-
+import cacache from 'cacache';
+import { CACHE_PATH, clearCache, getDecodedJSONCacheKey } from '@/common/cache';
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 
@@ -147,6 +148,10 @@ export class DebankService {
     //   user_addresses,
     //   crawl_id: '1',
     // }).then(console.log);
+    // getDecodedJSONCacheKey({
+    //   key: `https://api.debank.com/token/cache_balance_list?user_addr=0x066188948681d38f88441a80e3823dd41155211c`,
+    // }).then(console.log);
+    // // clearCache();
     // this.addFetchTopHoldersByUsersAddressJob({
     //   jobId: '',
     // });
@@ -2439,14 +2444,26 @@ export class DebankService {
     const context = await createPuppeteerBrowserContext();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
     const ignoreUrls: any = [
-      'https://static.debank.com/image',
-      'https://static.debank.com/css',
-      'https://static.debank.com/js',
-      'https://assets.debank.com/static/media',
-      'https://api.debank.com/chat',
-      'https://www.google-analytics.com',
-      'https://www.google.co.uk',
-      'https://www.googletagmanager.com',
+      'static.debank.com/image',
+      'static.debank.com/css',
+      'static.debank.com/js',
+      'assets.debank.com/static/media',
+      'api.debank.com/chat',
+      'www.google-analytics.com',
+      'www.google.co.uk',
+      'www.googletagmanager.com',
+      'bam.eu01.nr-data.net',
+      'api.debank.com/chain/list',
+      'sentry.io',
+      'fonts.googleapis.com/css2',
+      'api.debank.com/chain/list',
+      'api.debank.com/social_ranking',
+      '&chain=',
+      'static.debank.com/api/config.json:',
+      'api.debank.com/user/addr?addr=',
+      'js-agent.newrelic.com/',
+      // 'https://assets.debank.com/static/js/lodash',
+      // 'https://assets.debank.com/static/js/crypto',
       // 'https://assets.debank.com/static/js/constModule.',
     ] as any;
     const needRequest = [DebankAPI.Token.cacheBalanceList.endpoint, DebankAPI.Portfolio.projectList.endpoint];
@@ -2467,6 +2484,9 @@ export class DebankService {
         async (user_address) => {
           const page = await context.newPage();
           await page.setRequestInterception(true);
+          await page.setExtraHTTPHeaders({
+            'cache-control': 'max-age=60000, public',
+          });
           page.on('request', async (request) => {
             // console.table(countRequest);
             try {
@@ -2475,9 +2495,19 @@ export class DebankService {
                 ['image', 'stylesheet', 'font', 'media', 'websocket'].indexOf(request.resourceType()) !== -1 ||
                 ignoreUrls.some((url: any) => request.url().includes(url))
               ) {
-                await request.respond({ status: 200, body: 'aborted' });
+                request.respond({ status: 200, body: 'aborted' });
               } else {
-                await request.continue();
+                const cacheValue = await getDecodedJSONCacheKey({ key: request.url() });
+                if (cacheValue && cacheValue.data.expires > Date.now()) {
+                  // console.log('cacheValue', request.url(), '<<', cacheValue.data.status, cacheValue.data.body.length);
+                  request.respond({
+                    status: cacheValue.data.status,
+                    headers: cacheValue.data.headers,
+                    body: cacheValue.data.body,
+                  });
+                } else {
+                  request.continue();
+                }
               }
             } catch (error) {
               this.logger.error('error', '[crawlPortfolio:request:error]', JSON.stringify(error));
@@ -2486,12 +2516,15 @@ export class DebankService {
           //get 2 api and insert to db
           page.on('response', async (response) => {
             try {
+              if (response.status() !== 200 || (await response.text()) == 'aborted') {
+                return;
+              }
               if (
                 !countRequest[user_address].done &&
                 countRequest[user_address].count < needRequest.length &&
-                response.status() === 200 &&
                 needRequest.some((url) => response.url().includes(url))
               ) {
+                // console.log('response', response.url(), '<<', response.status(), (await response.text()).length);
                 if (!countRequest[user_address].balance_list || !countRequest[user_address].project_list) {
                   if (
                     response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) &&
@@ -2518,8 +2551,30 @@ export class DebankService {
                 countRequest[user_address].done = true;
                 await page.goto('about:blank');
               }
+              // console.log(response.url());
+
+              let bodyBuffer;
+              try {
+                bodyBuffer = await response.buffer();
+              } catch (error) {
+                return;
+              }
+              if (!response.url().includes('api.debank.com')) {
+                const dataBase64 = Buffer.from(
+                  JSON.stringify({
+                    status: response.status(),
+                    headers: response.headers(),
+                    body: bodyBuffer.toString('base64'),
+                    expires: Date.now() + 60 * 1000,
+                  }),
+                ).toString('base64');
+                cacache.put(CACHE_PATH, response.url(), dataBase64, {});
+              }
             } catch (error) {
               this.logger.error('error', '[crawlPortfolio:response:error]', JSON.stringify(error));
+              if (response.status() == 429) {
+                throw new Error('crawlPortfolio:response:429');
+              }
             }
           });
           //wait for network idle to make sure all data is loaded
@@ -2528,7 +2583,6 @@ export class DebankService {
             waitUntil: 'networkidle0',
             timeout: 60 * 1000,
           });
-
           await page.evaluate((addr) => {
             // @ts-ignore
             fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());

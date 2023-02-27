@@ -2,6 +2,7 @@ import Container, { Token } from 'typedi';
 import Logger from '@/core/logger';
 import { Job, JobType, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
+import bluebird from 'bluebird';
 import { DIRedisConnection } from '@/loaders/redis.loader';
 
 import { DebankJobData, DebankJobNames } from './debank.job';
@@ -2461,15 +2462,13 @@ export class DebankService {
       ]),
     );
     try {
-      await Promise.all(
-        user_addresses.map(async (user_address) => {
+      await bluebird.map(
+        user_addresses,
+        async (user_address) => {
           const page = await context.newPage();
           await page.setRequestInterception(true);
           page.on('request', async (request) => {
-            // console.log({
-            //   user_address,
-            //   countRequest,
-            // });
+            // console.table(countRequest);
             try {
               if (
                 countRequest[user_address].count >= needRequest.length ||
@@ -2498,18 +2497,18 @@ export class DebankService {
                     response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) &&
                     !countRequest[user_address].balance_list
                   ) {
+                    const { data } = await response.json();
                     countRequest[user_address].count++;
                     countRequest[user_address].balance_list = true;
-                    const { data } = await response.json();
                     jobData[user_address]['balance_list'] = data;
                   }
                   if (
                     response.url().includes(DebankAPI.Portfolio.projectList.endpoint) &&
                     !countRequest[user_address].project_list
                   ) {
+                    const { data } = await response.json();
                     countRequest[user_address].count++;
                     countRequest[user_address].project_list = true;
-                    const { data } = await response.json();
                     jobData[user_address]['project_list'] = data;
                   }
                   // console.log(response.url(), '<<', response.status(), (await response.json()).data.length);
@@ -2541,7 +2540,10 @@ export class DebankService {
             timeout: 2 * 60 * 1000,
           });
           page.close();
-        }),
+        },
+        {
+          concurrency: 5,
+        },
       );
       //validate data
       if (

@@ -245,7 +245,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2,
-      concurrency: 25,
+      concurrency: 15,
       // limiter: {
       //   max: 60,
       //   duration: 1000,
@@ -2434,8 +2434,8 @@ export class DebankService {
     }
   }
   async crawlPortfolioByList({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
+    // console.time('crawlPortfolioByList');
     const context = await createPuppeteerBrowserContext();
-    let index = 0;
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
     const ignoreUrls: any = [
       'https://static.debank.com/image',
@@ -2446,83 +2446,102 @@ export class DebankService {
       'https://www.google-analytics.com',
       'https://www.google.co.uk',
       'https://www.googletagmanager.com',
-      'https://assets.debank.com/static/js/constModule.',
+      // 'https://assets.debank.com/static/js/constModule.',
     ] as any;
     const needRequest = [DebankAPI.Token.cacheBalanceList.endpoint, DebankAPI.Portfolio.projectList.endpoint];
+    const countRequest = Object.fromEntries(
+      user_addresses.map((k) => [
+        k,
+        {
+          count: 0,
+          balance_list: false,
+          project_list: false,
+          done: false,
+        },
+      ]),
+    );
     try {
-      const page = await context.newPage();
-      await page.setRequestInterception(true);
-      let countNeedRequest = 0;
-      const addr = user_addresses[index];
+      await Promise.all(
+        user_addresses.map(async (user_address) => {
+          const page = await context.newPage();
+          await page.setRequestInterception(true);
+          page.on('request', async (request) => {
+            // console.log({
+            //   user_address,
+            //   countRequest,
+            // });
+            try {
+              if (
+                countRequest[user_address].count >= needRequest.length ||
+                ['image', 'stylesheet', 'font', 'media', 'websocket'].indexOf(request.resourceType()) !== -1 ||
+                ignoreUrls.some((url: any) => request.url().includes(url))
+              ) {
+                await request.respond({ status: 200, body: 'aborted' });
+              } else {
+                await request.continue();
+              }
+            } catch (error) {
+              this.logger.error('error', '[crawlPortfolio:request:error]', JSON.stringify(error));
+            }
+          });
+          //get 2 api and insert to db
+          page.on('response', async (response) => {
+            try {
+              if (
+                !countRequest[user_address].done &&
+                countRequest[user_address].count < needRequest.length &&
+                response.status() === 200 &&
+                needRequest.some((url) => response.url().includes(url))
+              ) {
+                if (!countRequest[user_address].balance_list || !countRequest[user_address].project_list) {
+                  if (
+                    response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) &&
+                    !countRequest[user_address].balance_list
+                  ) {
+                    countRequest[user_address].count++;
+                    countRequest[user_address].balance_list = true;
+                    const { data } = await response.json();
+                    jobData[user_address]['balance_list'] = data;
+                  }
+                  if (
+                    response.url().includes(DebankAPI.Portfolio.projectList.endpoint) &&
+                    !countRequest[user_address].project_list
+                  ) {
+                    countRequest[user_address].count++;
+                    countRequest[user_address].project_list = true;
+                    const { data } = await response.json();
+                    jobData[user_address]['project_list'] = data;
+                  }
+                  // console.log(response.url(), '<<', response.status(), (await response.json()).data.length);
+                }
+              }
+              if (!countRequest[user_address].done && countRequest[user_address].count == needRequest.length) {
+                countRequest[user_address].done = true;
+                await page.goto('about:blank');
+              }
+            } catch (error) {
+              this.logger.error('error', '[crawlPortfolio:response:error]', JSON.stringify(error));
+            }
+          });
+          //wait for network idle to make sure all data is loaded
 
-      page.on('request', async (request) => {
-        try {
-          if (
-            countNeedRequest >= needRequest.length ||
-            ['image', 'stylesheet', 'font', 'media', 'websocket'].indexOf(request.resourceType()) !== -1 ||
-            ignoreUrls.some((url: any) => request.url().includes(url))
-          ) {
-            await request.respond({ status: 200, body: 'aborted' });
-          } else {
-            await request.continue();
-          }
-        } catch (error) {
-          this.logger.error('error', '[crawlPortfolio:request:error]', JSON.stringify(error));
-        }
-      });
-      //get 2 api and insert to db
-      page.on('response', async (response) => {
-        try {
-          if (
-            countNeedRequest < needRequest.length &&
-            response.status() === 200 &&
-            needRequest.some((url) => response.url().includes(url))
-          ) {
-            // console.log(response.url(), '<<', response.status(), (await response.json()).data.length);
-            countNeedRequest++;
-            const { data } = await response.json();
-            if (data.length) {
-              const user_addr = response.url().split('user_addr=')[1];
-              jobData[user_addr][
-                response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) ? 'balance_list' : 'project_list'
-              ] = data;
-            }
-          }
-          if (countNeedRequest == needRequest.length) {
-            countNeedRequest = 0;
-            index++;
-            if (index != user_addresses.length) {
-              const nextPage = user_addresses[index];
-              await page.goto(`https://debank.com/profile/${nextPage}`, {
-                waitUntil: 'load',
-              });
-              page.evaluate((addr) => {
-                // @ts-ignore
-                fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());
-                // @ts-ignore
-                fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
-              }, nextPage);
-            } else {
-              await page.goto('about:blank');
-            }
-          }
-        } catch (error) {
-          this.logger.error('error', '[crawlPortfolio:response:error]', JSON.stringify(error));
-        }
-      });
-      //wait for network idle to make sure all data is loaded
-      await page.goto(`https://debank.com/profile/${addr}`, {
-        waitUntil: 'load',
-      });
-      page.evaluate((addr) => {
-        // @ts-ignore
-        fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());
-        // @ts-ignore
-        fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
-      }, addr);
-      await page.waitForFrame('about:blank', {
-        timeout: 2 * 60 * 1000,
-      });
+          await page.goto(`https://debank.com/profile/${user_address}`, {
+            waitUntil: 'networkidle0',
+          });
+
+          await page.evaluate((addr) => {
+            // @ts-ignore
+            fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());
+            // @ts-ignore
+            fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
+          }, user_address);
+
+          await page.waitForFrame('about:blank', {
+            timeout: 2 * 60 * 1000,
+          });
+          page.close();
+        }),
+      );
       //validate data
       if (
         Object.values(jobData).some((data) => {
@@ -2560,10 +2579,12 @@ export class DebankService {
         jobs,
       });
     } catch (error) {
-      this.logger.error('error', '[crawlPortfolio:error]', JSON.stringify(error));
+      this.logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
       throw error;
     } finally {
       await context.close();
+      // console.log('crawlPortfolioByList done', Object.values(jobData));
+      // console.timeEnd('crawlPortfolioByList');
     }
   }
   isValidPortfolioData(data: any) {

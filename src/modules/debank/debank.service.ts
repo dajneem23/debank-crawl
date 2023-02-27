@@ -2527,6 +2527,7 @@ export class DebankService {
 
           await page.goto(`https://debank.com/profile/${user_address}`, {
             waitUntil: 'networkidle0',
+            timeout: 60 * 1000,
           });
 
           await page.evaluate((addr) => {

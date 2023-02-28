@@ -136,15 +136,15 @@ export class DebankService {
   constructor() {
     // const user_addresses = [
     //   '0xa7888f85bd76deef3bd03d4dbcf57765a49883b3',
-    //   '0x66b870ddf78c975af5cd8edc6de25eca81791de1',
-    //   '0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50',
-    //   '0x26fcbd3afebbe28d0a8684f790c48368d21665b5',
-    //   '0xe6882e6093a69c47fc21426c2dfdb4a08eb2dec8',
-    //   '0x5aaaef91f93be4de932b8e7324abbf9f26daa706',
-    //   '0xf5dcb2a47f738d8ba39f9fa2ddc7592f268a262a',
-    //   '0x79c4213a328e3b4f1d87b4953c14759399db25e2',
-    //   '0x066188948681d38f88441a80e3823dd41155211c',
-    //   '0x87f16c31e32ae543278f5194cf94862f1cb1eee0',
+    // '0x66b870ddf78c975af5cd8edc6de25eca81791de1',
+    // '0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50',
+    // '0x26fcbd3afebbe28d0a8684f790c48368d21665b5',
+    // '0xe6882e6093a69c47fc21426c2dfdb4a08eb2dec8',
+    // '0x5aaaef91f93be4de932b8e7324abbf9f26daa706',
+    // '0xf5dcb2a47f738d8ba39f9fa2ddc7592f268a262a',
+    // '0x79c4213a328e3b4f1d87b4953c14759399db25e2',
+    // '0x066188948681d38f88441a80e3823dd41155211c',
+    // '0x87f16c31e32ae543278f5194cf94862f1cb1eee0',
     // ];
     // this.crawlPortfolioByListV2({
     //   user_addresses,
@@ -257,7 +257,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2,
-      concurrency: 15,
+      concurrency: 10,
       // limiter: {
       //   max: 60,
       //   duration: 1000,
@@ -2815,12 +2815,19 @@ export class DebankService {
         await page.goto(`https://debank.com/profile/${user_address}`, {
           waitUntil: 'load',
         });
-        await page.evaluate((addr) => {
-          // @ts-ignore
-          fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());
-          // @ts-ignore
-          fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
-        }, user_address);
+        await page.goto(`https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`, {
+          waitUntil: 'load',
+        });
+        await page.goto(`https://api.debank.com/portfolio/project_list?user_addr=${user_address}`, {
+          waitUntil: 'load',
+        });
+
+        // await page.evaluate((addr) => {
+        //   // @ts-ignore
+        //   fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());
+        //   // @ts-ignore
+        //   fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
+        // }, user_address);
 
         await page.waitForFrame('about:blank', {
           timeout: 2 * 60 * 1000,

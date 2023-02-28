@@ -136,15 +136,15 @@ export class DebankService {
   constructor() {
     // const user_addresses = [
     //   '0xa7888f85bd76deef3bd03d4dbcf57765a49883b3',
-    // '0x66b870ddf78c975af5cd8edc6de25eca81791de1',
-    // '0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50',
-    // '0x26fcbd3afebbe28d0a8684f790c48368d21665b5',
-    // '0xe6882e6093a69c47fc21426c2dfdb4a08eb2dec8',
-    // '0x5aaaef91f93be4de932b8e7324abbf9f26daa706',
-    // '0xf5dcb2a47f738d8ba39f9fa2ddc7592f268a262a',
-    // '0x79c4213a328e3b4f1d87b4953c14759399db25e2',
-    // '0x066188948681d38f88441a80e3823dd41155211c',
-    // '0x87f16c31e32ae543278f5194cf94862f1cb1eee0',
+    //   '0x66b870ddf78c975af5cd8edc6de25eca81791de1',
+    //   '0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50',
+    //   '0x26fcbd3afebbe28d0a8684f790c48368d21665b5',
+    //   '0xe6882e6093a69c47fc21426c2dfdb4a08eb2dec8',
+    //   '0x5aaaef91f93be4de932b8e7324abbf9f26daa706',
+    //   '0xf5dcb2a47f738d8ba39f9fa2ddc7592f268a262a',
+    //   '0x79c4213a328e3b4f1d87b4953c14759399db25e2',
+    //   '0x066188948681d38f88441a80e3823dd41155211c',
+    //   '0x87f16c31e32ae543278f5194cf94862f1cb1eee0',
     // ];
     // this.crawlPortfolioByListV2({
     //   user_addresses,
@@ -618,30 +618,30 @@ export class DebankService {
     }
   }
   private initRepeatJobs() {
-    this.addJob({
-      name: DebankJobNames['debank:create:partitions'],
-      otps: {
-        repeatJobKey: 'debank:create:partitions',
-        jobId: `debank:create:partitions`,
-        removeOnComplete: {
-          //remove after 1 hour
-          age: 60 * 60,
-        },
-        removeOnFail: {
-          //remove after 1 day
-          age: 60 * 60 * 24,
-        },
-        repeat: {
-          //repeat every day
-          every: 1000 * 60 * 60 * 24,
-          // pattern: '* 0 0 * * *',
-        },
-        //delay for 5 minutes when the job is added for done other jobs
-        delay: 1000 * 60 * 5,
-        priority: 1,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: DebankJobNames['debank:create:partitions'],
+    //   otps: {
+    //     repeatJobKey: 'debank:create:partitions',
+    //     jobId: `debank:create:partitions`,
+    //     removeOnComplete: {
+    //       //remove after 1 hour
+    //       age: 60 * 60,
+    //     },
+    //     removeOnFail: {
+    //       //remove after 1 day
+    //       age: 60 * 60 * 24,
+    //     },
+    //     repeat: {
+    //       //repeat every day
+    //       every: 1000 * 60 * 60 * 24,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     //delay for 5 minutes when the job is added for done other jobs
+    //     delay: 1000 * 60 * 5,
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
     this.addJob({
       name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
       otps: {
@@ -657,7 +657,7 @@ export class DebankService {
         },
         repeat: {
           //repeat every 3 hours
-          every: 1000 * 60 * 60 * 3,
+          every: 1000 * 60 * 60 * 6,
           // pattern: '* 0 0 * * *',
         },
         //delay for 5 minutes when the job is added for done other jobs
@@ -666,85 +666,85 @@ export class DebankService {
         attempts: 5,
       },
     });
-    this.addJob({
-      name: DebankJobNames['debank:add:fetch:coins'],
-      otps: {
-        repeatJobKey: 'debank:add:fetch:coins',
-        repeat: {
-          //repeat every 24 hours
-          every: 1000 * 60 * 60 * 24,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 1,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: DebankJobNames['debank:add:fetch:coins'],
+    //   otps: {
+    //     repeatJobKey: 'debank:add:fetch:coins',
+    //     repeat: {
+    //       //repeat every 24 hours
+    //       every: 1000 * 60 * 60 * 24,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
 
-    this.addJob({
-      name: DebankJobNames['debank:add:fetch:top-holders'],
-      otps: {
-        repeatJobKey: 'debank:add:fetch:top-holders',
-        jobId: `debank:add:fetch:top-holders`,
-        removeOnComplete: {
-          //remove after 1 hour
-          age: 60 * 60 * 1,
-        },
-        removeOnFail: {
-          //remove after 1 hour
-          age: 60 * 60 * 1,
-        },
-        repeat: {
-          //repeat every 60 minutes
-          every: 1000 * 60 * 60 * 3,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 2,
-        attempts: 5,
-      },
-    });
-    this.addJob({
-      name: DebankJobNames['debank:add:social:users:rankings'],
-      otps: {
-        repeatJobKey: 'debank:add:social:users:rankings',
-        jobId: `debank:add:social:users:rankings`,
-        removeOnComplete: {
-          //remove job after 1 hours
-          age: 60 * 60 * 1,
-        },
-        removeOnFail: {
-          //remove job after 1 hours
-          age: 60 * 60 * 1,
-        },
-        repeat: {
-          //repeat every 3 hours
-          every: 1000 * 60 * 60 * 3,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 2,
-        attempts: 5,
-      },
-    });
-    this.addJob({
-      name: DebankJobNames['debank:add:fetch:whales:paging'],
-      otps: {
-        repeatJobKey: 'debank:add:fetch:whales:paging',
-        jobId: `debank:add:fetch:whales:paging`,
-        removeOnComplete: {
-          //remove job after 1 hours
-          age: 60 * 60 * 1,
-        },
-        removeOnFail: {
-          //remove job after 1 hours
-          age: 60 * 60 * 1,
-        },
-        repeat: {
-          //repeat every 3 hours
-          every: 1000 * 60 * 60 * 3,
-        },
-        priority: 2,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: DebankJobNames['debank:add:fetch:top-holders'],
+    //   otps: {
+    //     repeatJobKey: 'debank:add:fetch:top-holders',
+    //     jobId: `debank:add:fetch:top-holders`,
+    //     removeOnComplete: {
+    //       //remove after 1 hour
+    //       age: 60 * 60 * 1,
+    //     },
+    //     removeOnFail: {
+    //       //remove after 1 hour
+    //       age: 60 * 60 * 1,
+    //     },
+    //     repeat: {
+    //       //repeat every 60 minutes
+    //       every: 1000 * 60 * 60 * 3,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 2,
+    //     attempts: 5,
+    //   },
+    // });
+    // this.addJob({
+    //   name: DebankJobNames['debank:add:social:users:rankings'],
+    //   otps: {
+    //     repeatJobKey: 'debank:add:social:users:rankings',
+    //     jobId: `debank:add:social:users:rankings`,
+    //     removeOnComplete: {
+    //       //remove job after 1 hours
+    //       age: 60 * 60 * 1,
+    //     },
+    //     removeOnFail: {
+    //       //remove job after 1 hours
+    //       age: 60 * 60 * 1,
+    //     },
+    //     repeat: {
+    //       //repeat every 3 hours
+    //       every: 1000 * 60 * 60 * 3,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 2,
+    //     attempts: 5,
+    //   },
+    // });
+    // this.addJob({
+    //   name: DebankJobNames['debank:add:fetch:whales:paging'],
+    //   otps: {
+    //     repeatJobKey: 'debank:add:fetch:whales:paging',
+    //     jobId: `debank:add:fetch:whales:paging`,
+    //     removeOnComplete: {
+    //       //remove job after 1 hours
+    //       age: 60 * 60 * 1,
+    //     },
+    //     removeOnFail: {
+    //       //remove job after 1 hours
+    //       age: 60 * 60 * 1,
+    //     },
+    //     repeat: {
+    //       //repeat every 3 hours
+    //       every: 1000 * 60 * 60 * 3,
+    //     },
+    //     priority: 2,
+    //     attempts: 5,
+    //   },
+    // });
   }
   /**
    * @description add job to queue
@@ -2673,19 +2673,18 @@ export class DebankService {
       'static.debank.com/css',
       'static.debank.com/js',
       'assets.debank.com/static/media',
-      'api.debank.com/chat',
+      // 'api.debank.com/chat',
       'www.google-analytics.com',
       'www.google.co.uk',
       'www.googletagmanager.com',
       'bam.eu01.nr-data.net',
-      'api.debank.com/chain/list',
+      // 'api.debank.com/chain/list',
       'sentry.io',
       'fonts.googleapis.com/css2',
-      'api.debank.com/chain/list',
       'api.debank.com/social_ranking',
       '&chain=',
-      'static.debank.com/api/config.json:',
-      'api.debank.com/user/addr?addr=',
+      // 'static.debank.com/api/config.json:',
+      // 'api.debank.com/user/addr?addr=',
       'js-agent.newrelic.com/',
       // 'https://assets.debank.com/static/js/lodash',
       // 'https://assets.debank.com/static/js/crypto',
@@ -2704,6 +2703,9 @@ export class DebankService {
       ]),
     );
     try {
+      cluster.on('taskerror', (err, data) => {
+        this.logger.discord('error', '[crawlPortfolio:taskerror]', JSON.stringify(err));
+      });
       await cluster.task(async ({ page, data: { user_address, url } }) => {
         await page.setRequestInterception(true);
         await page.setExtraHTTPHeaders({
@@ -2722,6 +2724,7 @@ export class DebankService {
             ) {
               request.respond({ status: 200, body: 'aborted' });
             } else {
+              // request.continue();
               const cacheValue = await getDecodedJSONCacheKey({ key: request.url() });
               if (cacheValue && cacheValue.data.expires > Date.now()) {
                 // console.log('cacheValue', request.url(), '<<', cacheValue.data.status, cacheValue.data.body.length);
@@ -2813,25 +2816,28 @@ export class DebankService {
           }
         });
         await page.goto(`https://debank.com/profile/${user_address}`, {
-          waitUntil: 'load',
+          waitUntil: 'networkidle0',
         });
-        await page.goto(`https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`, {
-          waitUntil: 'load',
-        });
-        await page.goto(`https://api.debank.com/portfolio/project_list?user_addr=${user_address}`, {
-          waitUntil: 'load',
-        });
+        // await page.goto(`https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`, {
+        //   waitUntil: 'networkidle0',
+        // });
+        // await page.goto(`https://api.debank.com/portfolio/project_list?user_addr=${user_address}`, {
+        //   waitUntil: 'networkidle0',
+        // });
+        // await page.goto('about:blank');
 
-        // await page.evaluate((addr) => {
-        //   // @ts-ignore
-        //   fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());
-        //   // @ts-ignore
-        //   fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
-        // }, user_address);
+        await page.evaluate((addr) => {
+          // @ts-ignore
+          fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());
+          // @ts-ignore
+          fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
+        }, user_address);
 
-        await page.waitForFrame('about:blank', {
-          timeout: 2 * 60 * 1000,
-        });
+        await page
+          .waitForFrame('about:blank', {
+            timeout: 2 * 60 * 1000,
+          })
+          .catch();
         await page.close();
       });
 

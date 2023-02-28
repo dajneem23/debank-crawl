@@ -133,13 +133,13 @@ export const createPupperteerClusterLoader = async () => {
   puppeteer.use(pluginStealth());
   const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
   const cluster = await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_BROWSER,
-    maxConcurrency: 2,
-    retryLimit: 10,
-    timeout: 1000 * 60 * 5,
+    concurrency: Cluster.CONCURRENCY_CONTEXT,
+    maxConcurrency: 1,
+    retryLimit: 5,
+    timeout: 1000 * 60 * 2,
     puppeteer,
     puppeteerOptions: {
-      headless: process.env.MODE == 'production' || true,
+      headless: process.env.MODE == 'production',
       devtools: process.env.MODE != 'production',
       userDataDir: './.cache',
       // defaultViewport: {

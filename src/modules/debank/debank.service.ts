@@ -35,6 +35,7 @@ import { getRandomUserAgent } from '@/config/userAgent';
 import { WEBSHARE_PROXY_STR } from '@/common/proxy';
 import cacache from 'cacache';
 import { CACHE_PATH, clearCache, getDecodedJSONCacheKey } from '@/common/cache';
+import { HTTPResponse } from 'puppeteer';
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 
@@ -355,7 +356,7 @@ export class DebankService {
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
         attempts: 10,
-        delay: 1000 * 2,
+        // delay: 1000 * 2,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
@@ -2488,8 +2489,8 @@ export class DebankService {
             'cache-control': 'max-age=60000, public',
           });
           page.on('request', async (request) => {
-            // console.table(countRequest);
             try {
+              if (request.isInterceptResolutionHandled()) return;
               if (
                 countRequest[user_address].count >= needRequest.length ||
                 ['image', 'stylesheet', 'font', 'media', 'websocket'].indexOf(request.resourceType()) !== -1 ||
@@ -2514,8 +2515,15 @@ export class DebankService {
             }
           });
           //get 2 api and insert to db
-          page.on('response', async (response) => {
+          const responseHandler = async (response: HTTPResponse) => {
             try {
+              if (response.status() == 429) {
+                // console.log('429 >> ', response.url());
+                // page.off('response', responseHandler);
+                // await context.close();
+                // Promise.reject(new Error('crawlPortfolioByList:429'));
+                // throw new Error('crawlPortfolioByList:429');
+              }
               if (response.status() !== 200 || (await response.text()) == 'aborted') {
                 return;
               }
@@ -2576,11 +2584,11 @@ export class DebankService {
                 throw new Error('crawlPortfolio:response:429');
               }
             }
-          });
+          };
+          page.on('response', responseHandler);
           //wait for network idle to make sure all data is loaded
-
           await page.goto(`https://debank.com/profile/${user_address}`, {
-            waitUntil: 'networkidle0',
+            // waitUntil: 'networkidle0',
             timeout: 60 * 1000,
           });
           await page.evaluate((addr) => {

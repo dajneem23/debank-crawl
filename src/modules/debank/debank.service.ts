@@ -2490,6 +2490,7 @@ export class DebankService {
           });
           page.on('request', async (request) => {
             try {
+              // console.table(countRequest);
               if (request.isInterceptResolutionHandled()) return;
               if (
                 countRequest[user_address].count >= needRequest.length ||
@@ -2568,15 +2569,18 @@ export class DebankService {
                 return;
               }
               if (!response.url().includes('api.debank.com')) {
-                const dataBase64 = Buffer.from(
-                  JSON.stringify({
-                    status: response.status(),
-                    headers: response.headers(),
-                    body: bodyBuffer.toString('base64'),
-                    expires: Date.now() + 60 * 1000,
-                  }),
-                ).toString('base64');
-                cacache.put(CACHE_PATH, response.url(), dataBase64, {});
+                const cacheValue = await getDecodedJSONCacheKey({ key: response.url() });
+                if (!cacheValue || cacheValue.data.expires < Date.now()) {
+                  const dataBase64 = Buffer.from(
+                    JSON.stringify({
+                      status: response.status(),
+                      headers: response.headers(),
+                      body: bodyBuffer.toString('base64'),
+                      expires: Date.now() + 60 * 1000,
+                    }),
+                  ).toString('base64');
+                  cacache.put(CACHE_PATH, response.url(), dataBase64, {});
+                }
               }
             } catch (error) {
               this.logger.error('error', '[crawlPortfolio:response:error]', JSON.stringify(error));

@@ -8,6 +8,8 @@ import { executablePath } from 'puppeteer';
 
 import pluginStealth from 'puppeteer-extra-plugin-stealth';
 
+import { Cluster } from 'puppeteer-cluster';
+
 export const puppeteerBrowserToken = new Token<Browser>('_puppeteerBrowser');
 export const puppeteerLoader = async () => {
   const logger = Container.get(DILogger);
@@ -15,18 +17,18 @@ export const puppeteerLoader = async () => {
     const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
 
     const browser = await puppeteer.use(pluginStealth()).launch({
-      headless: process.env.MODE == 'production' || true,
+      headless: process.env.MODE == 'production',
       devtools: process.env.MODE != 'production',
-      userDataDir: './.cache',
-      defaultViewport: {
-        width: 375,
-        height: 667,
-        isMobile: true,
-      },
+      // userDataDir: './.cache',
+      // defaultViewport: {
+      //   width: 375,
+      //   height: 667,
+      //   isMobile: true,
+      // },
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
-        `--proxy-server=${newProxyUrl}`,
+        // `--proxy-server=${newProxyUrl}`,
         '--disable-web-security',
         '--disable-features=IsolateOrigins',
         '--disable-site-isolation-trials',
@@ -34,7 +36,8 @@ export const puppeteerLoader = async () => {
         '--disable-accelerated-2d-canvas',
         '--no-first-run',
         '--no-zygote',
-        '--disable-gpu',
+        // '--disable-gpu',
+        '--use-gl=egl',
       ],
       ignoreHTTPSErrors: true,
       ...((process.env.MODE == 'production' && { executablePath: '/usr/bin/google-chrome' }) || {
@@ -57,15 +60,15 @@ export const createPuppeteerBrowser = async () => {
     headless: process.env.MODE == 'production',
     userDataDir: './.cache',
     devtools: process.env.MODE != 'production',
-    defaultViewport: {
-      width: 375,
-      height: 667,
-      isMobile: true,
-    },
+    // defaultViewport: {
+    //   width: 375,
+    //   height: 667,
+    //   isMobile: true,
+    // },
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      `--proxy-server=${newProxyUrl}`,
+      // `--proxy-server=${newProxyUrl}`,
       '--disable-web-security',
       '--disable-features=IsolateOrigins',
       '--disable-site-isolation-trials',
@@ -73,8 +76,8 @@ export const createPuppeteerBrowser = async () => {
       '--disable-accelerated-2d-canvas',
       '--no-first-run',
       '--no-zygote',
-      // '--disable-gpu',
-      '--incognito',
+      '--disable-gpu',
+      // '--incognito',
 
       // '--autoplay-policy=user-gesture-required',
       // '--disable-background-timer-throttling',
@@ -124,4 +127,45 @@ export const createPuppeteerBrowserContext = async () => {
   }
   const context = await browser.createIncognitoBrowserContext();
   return context;
+};
+const puppeterrClusterToken = new Token<Cluster>('_puppeteerCluster');
+export const createPupperteerClusterLoader = async () => {
+  puppeteer.use(pluginStealth());
+  const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
+  const cluster = await Cluster.launch({
+    concurrency: Cluster.CONCURRENCY_BROWSER,
+    maxConcurrency: 2,
+    retryLimit: 10,
+    timeout: 1000 * 60 * 5,
+    puppeteer,
+    puppeteerOptions: {
+      headless: process.env.MODE == 'production' || true,
+      devtools: process.env.MODE != 'production',
+      userDataDir: './.cache',
+      // defaultViewport: {
+      //   width: 375,
+      //   height: 667,
+      //   isMobile: true,
+      // },
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        `--proxy-server=${newProxyUrl}`,
+        '--disable-web-security',
+        '--disable-features=IsolateOrigins',
+        '--disable-site-isolation-trials',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        // '--disable-gpu',
+        '--use-gl=egl',
+      ],
+      ignoreHTTPSErrors: true,
+      ...((process.env.MODE == 'production' && { executablePath: '/usr/bin/google-chrome' }) || {
+        executablePath: executablePath(),
+      }),
+    },
+  });
+  return cluster;
 };

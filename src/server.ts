@@ -11,10 +11,10 @@ import { puppeteerLoader } from './loaders/puppeteer.loader';
 
 (async () => {
   try {
+    process.setMaxListeners(0);
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------
-
     // Logger()
     (await import('./loaders/logger.loader')).default();
 

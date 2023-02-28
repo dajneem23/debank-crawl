@@ -27,6 +27,7 @@ import { table } from 'table';
 import { sleep } from '@/utils/common';
 import { isJSON } from '@/utils/text';
 import {
+  createPupperteerClusterLoader,
   createPuppeteerBrowser,
   createPuppeteerBrowserContext,
   puppeteerBrowserToken,
@@ -99,7 +100,7 @@ export class DebankService {
     'debank:insert:top-holder': this.insertTopHolder,
     'debank:crawl:portfolio': this.crawlPortfolio,
 
-    'debank:crawl:portfolio:list': this.crawlPortfolioByList,
+    'debank:crawl:portfolio:list': this.crawlPortfolioByListV2,
 
     //! DEPRECATED
     'debank:add:project:users': this.addFetchProjectUsersJobs,
@@ -145,7 +146,7 @@ export class DebankService {
     //   '0x066188948681d38f88441a80e3823dd41155211c',
     //   '0x87f16c31e32ae543278f5194cf94862f1cb1eee0',
     // ];
-    // this.crawlPortfolioByList({
+    // this.crawlPortfolioByListV2({
     //   user_addresses,
     //   crawl_id: '1',
     // }).then(console.log);
@@ -157,6 +158,10 @@ export class DebankService {
     //   jobId: '',
     // });
     // this.testProxy();
+
+    // this.crawlTopHoldersToken({
+    //   token_id: 'curve',
+    // });
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -2442,7 +2447,7 @@ export class DebankService {
   }
   async crawlPortfolioByList({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
     // console.time('crawlPortfolioByList');
-    const context = await createPuppeteerBrowserContext();
+    const context = await createPuppeteerBrowser();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
     const ignoreUrls: any = [
       'static.debank.com/image',
@@ -2487,6 +2492,8 @@ export class DebankService {
           await page.setRequestInterception(true);
           await page.setExtraHTTPHeaders({
             'cache-control': 'max-age=60000, public',
+            'Access-Control-Allow-Origin': '*',
+            'sec-fetch-mode': 'no-cors',
           });
           page.on('request', async (request) => {
             try {
@@ -2592,7 +2599,7 @@ export class DebankService {
           page.on('response', responseHandler);
           //wait for network idle to make sure all data is loaded
           await page.goto(`https://debank.com/profile/${user_address}`, {
-            // waitUntil: 'networkidle0',
+            // waitUntil: 'load',
             timeout: 60 * 1000,
           });
           await page.evaluate((addr) => {
@@ -2601,16 +2608,238 @@ export class DebankService {
             // @ts-ignore
             fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
           }, user_address);
-
           await page.waitForFrame('about:blank', {
             timeout: 2 * 60 * 1000,
           });
           page.close();
         },
         {
-          concurrency: 5,
+          concurrency: 3,
         },
       );
+      //validate data
+      if (
+        Object.values(jobData).some((data) => {
+          return !this.isValidPortfolioData(data);
+        })
+      ) {
+        throw new Error('crawlPortfolio:mismatch-data');
+      }
+      const jobs = Object.entries(jobData).map(([user_address, data]) => {
+        return {
+          name: DebankJobNames['debank:insert:user-assets-portfolio'],
+          data: {
+            ...data,
+            crawl_id,
+            user_address,
+          },
+          otps: {
+            jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
+            removeOnComplete: {
+              // remove job after 1 hour
+              age: 60 * 60 * 1,
+            },
+            removeOnFail: {
+              age: 60 * 60 * 1,
+            },
+            priority: 10,
+            attempts: 10,
+          },
+        };
+      });
+      // this.logger.info('info', '[crawlPortfolio:jobs]', JSON.stringify(jobs));
+      //TODO: bulk insert to job queue
+      // this.addBulkJobs({
+      //   queue: 'debank-insert',
+      //   jobs,
+      // });
+    } catch (error) {
+      this.logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
+      throw error;
+    } finally {
+      await context.close();
+      // console.log('crawlPortfolioByList done', Object.values(jobData));
+      // console.timeEnd('crawlPortfolioByList');
+    }
+  }
+
+  async crawlPortfolioByListV2({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
+    // console.time('crawlPortfolioByList');
+    // const context = await createPuppeteerBrowser();
+    const cluster = await createPupperteerClusterLoader();
+    const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
+    const ignoreUrls: any = [
+      'static.debank.com/image',
+      'static.debank.com/css',
+      'static.debank.com/js',
+      'assets.debank.com/static/media',
+      'api.debank.com/chat',
+      'www.google-analytics.com',
+      'www.google.co.uk',
+      'www.googletagmanager.com',
+      'bam.eu01.nr-data.net',
+      'api.debank.com/chain/list',
+      'sentry.io',
+      'fonts.googleapis.com/css2',
+      'api.debank.com/chain/list',
+      'api.debank.com/social_ranking',
+      '&chain=',
+      'static.debank.com/api/config.json:',
+      'api.debank.com/user/addr?addr=',
+      'js-agent.newrelic.com/',
+      // 'https://assets.debank.com/static/js/lodash',
+      // 'https://assets.debank.com/static/js/crypto',
+      // 'https://assets.debank.com/static/js/constModule.',
+    ] as any;
+    const needRequest = [DebankAPI.Token.cacheBalanceList.endpoint, DebankAPI.Portfolio.projectList.endpoint];
+    const countRequest = Object.fromEntries(
+      user_addresses.map((k) => [
+        k,
+        {
+          count: 0,
+          balance_list: false,
+          project_list: false,
+          done: false,
+        },
+      ]),
+    );
+    try {
+      await cluster.task(async ({ page, data: { user_address, url } }) => {
+        await page.setRequestInterception(true);
+        await page.setExtraHTTPHeaders({
+          'cache-control': 'max-age=60000, public',
+          'Access-Control-Allow-Origin': '*',
+          'sec-fetch-mode': 'no-cors',
+        });
+        page.on('request', async (request) => {
+          try {
+            // console.table(countRequest);
+            if (request.isInterceptResolutionHandled()) return;
+            if (
+              countRequest[user_address].count >= needRequest.length ||
+              ['image', 'stylesheet', 'font', 'media', 'websocket'].indexOf(request.resourceType()) !== -1 ||
+              ignoreUrls.some((url: any) => request.url().includes(url))
+            ) {
+              request.respond({ status: 200, body: 'aborted' });
+            } else {
+              const cacheValue = await getDecodedJSONCacheKey({ key: request.url() });
+              if (cacheValue && cacheValue.data.expires > Date.now()) {
+                // console.log('cacheValue', request.url(), '<<', cacheValue.data.status, cacheValue.data.body.length);
+                request.respond({
+                  status: cacheValue.data.status,
+                  headers: cacheValue.data.headers,
+                  body: cacheValue.data.body,
+                });
+              } else {
+                request.continue();
+              }
+            }
+          } catch (error) {
+            this.logger.error('error', '[crawlPortfolio:request:error]', JSON.stringify(error));
+          }
+        });
+        //get 2 api and insert to db
+        page.on('response', async (response: HTTPResponse) => {
+          try {
+            if (response.status() == 429) {
+              // console.log('429 >> ', response.url());
+              // page.off('response', responseHandler);
+              // await context.close();
+              // Promise.reject(new Error('crawlPortfolioByList:429'));
+              // throw new Error('crawlPortfolioByList:429');
+            }
+            if (response.status() !== 200 || (await response.text()) == 'aborted') {
+              return;
+            }
+            if (
+              !countRequest[user_address].done &&
+              countRequest[user_address].count < needRequest.length &&
+              needRequest.some((url) => response.url().includes(url))
+            ) {
+              // console.log('response', response.url(), '<<', response.status(), (await response.text()).length);
+              if (!countRequest[user_address].balance_list || !countRequest[user_address].project_list) {
+                if (
+                  response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) &&
+                  !countRequest[user_address].balance_list
+                ) {
+                  const { data } = await response.json();
+                  countRequest[user_address].count++;
+                  countRequest[user_address].balance_list = true;
+                  jobData[user_address]['balance_list'] = data;
+                }
+                if (
+                  response.url().includes(DebankAPI.Portfolio.projectList.endpoint) &&
+                  !countRequest[user_address].project_list
+                ) {
+                  const { data } = await response.json();
+                  countRequest[user_address].count++;
+                  countRequest[user_address].project_list = true;
+                  jobData[user_address]['project_list'] = data;
+                }
+                // console.log(response.url(), '<<', response.status(), (await response.json()).data.length);
+              }
+            }
+            if (!countRequest[user_address].done && countRequest[user_address].count == needRequest.length) {
+              countRequest[user_address].done = true;
+              await page.goto('about:blank');
+            }
+            // console.log(response.url());
+
+            let bodyBuffer;
+            try {
+              bodyBuffer = await response.buffer();
+            } catch (error) {
+              return;
+            }
+            if (!response.url().includes('api.debank.com')) {
+              const cacheValue = await getDecodedJSONCacheKey({ key: response.url() });
+              if (!cacheValue || cacheValue.data.expires < Date.now()) {
+                const dataBase64 = Buffer.from(
+                  JSON.stringify({
+                    status: response.status(),
+                    headers: response.headers(),
+                    body: bodyBuffer.toString('base64'),
+                    expires: Date.now() + 60 * 1000,
+                  }),
+                ).toString('base64');
+                cacache.put(CACHE_PATH, response.url(), dataBase64, {});
+              }
+            }
+          } catch (error) {
+            this.logger.error('error', '[crawlPortfolio:response:error]', JSON.stringify(error));
+            if (response.status() == 429) {
+              throw new Error('crawlPortfolio:response:429');
+            }
+          }
+        });
+        await page.goto(`https://debank.com/profile/${user_address}`, {
+          waitUntil: 'load',
+        });
+        await page.evaluate((addr) => {
+          // @ts-ignore
+          fetch(`https://api.debank.com/token/cache_balance_list?user_addr=${addr}`).then((res) => res.json());
+          // @ts-ignore
+          fetch(`https://api.debank.com/portfolio/project_list?user_addr=${addr}`).then((res) => res.json());
+        }, user_address);
+
+        await page.waitForFrame('about:blank', {
+          timeout: 2 * 60 * 1000,
+        });
+        await page.close();
+      });
+
+      await bluebird.map(
+        user_addresses,
+        async (user_address) => {
+          //wait for network idle to make sure all data is loaded
+          cluster.queue({ url: `https://debank.com/profile/${user_address}`, user_address });
+        },
+        {
+          concurrency: 3,
+        },
+      );
+      await cluster.idle();
+
       //validate data
       if (
         Object.values(jobData).some((data) => {
@@ -2651,9 +2880,78 @@ export class DebankService {
       this.logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
       throw error;
     } finally {
-      await context.close();
+      await cluster.close();
       // console.log('crawlPortfolioByList done', Object.values(jobData));
       // console.timeEnd('crawlPortfolioByList');
+    }
+  }
+
+  //!NOT COMPLETE YET
+  async crawlTopHoldersToken({ token_id }: { token_id: string }) {
+    const context = await createPuppeteerBrowser();
+    const jobData = {} as any;
+    // const needRequest = [DebankAPI.Coin.top_holders];
+    const totalPage = 1;
+    try {
+      const page = await context.newPage();
+      // mainPage.setDefaultNavigationTimeout(2 * 60 * 1000);
+      page.setViewport({
+        width: 1366,
+        height: 768,
+        isMobile: false,
+      });
+      await page.setRequestInterception(true);
+      page.on('request', async (request) => {
+        try {
+          // console.table(countRequest);
+          if (request.isInterceptResolutionHandled()) return;
+          request.continue();
+        } catch (error) {
+          this.logger.error('error', '[crawlPortfolio:request:error]', JSON.stringify(error));
+        }
+      });
+      page.on('response', async (response) => {
+        try {
+          // console.table(countRequest);
+          if (response.status() == 429) {
+            throw new Error('crawlPortfolio:response:429');
+          }
+          if (response.url().includes(DebankAPI.Coin.top_holders.endpoint)) {
+            // console.log(response.url(), '<<', response.status(), (await response.json()).data.holders.length);
+          }
+        } catch (error) {
+          this.logger.error('error', '[crawlPortfolio:response:error]', JSON.stringify(error));
+          if (response.status() == 429) {
+            throw new Error('crawlPortfolio:response:429');
+          }
+        }
+      });
+      // mainPage.goto(`https://debank.com/tokens/${token_id}/holders`);
+      await page.goto(`https://debank.com/tokens/curve/holders`, {
+        waitUntil: 'load',
+      });
+      await page.evaluate(() => {
+        // @ts-ignore
+        window.localStorage.setItem('current_address', '0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d');
+        // @ts-ignore
+        // eslint-disable-next-line prettier/prettier
+        window.localStorage.setItem(
+          'connected_dict',
+          '{"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d":{"walletType":"metamask","sessionId":"34dea485be2848cfb0a72f966f05a5b0","detail":{"account_id":"Tian","avatar":null,"comment":null,"create_at":1674790367,"desc":{"born_at":1674790367,"cex":{},"contract":{},"id":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","is_danger":null,"is_spam":null,"name":null,"org":{},"protocol":{},"tags":[],"thirdparty_names":{},"usd_value":15.859135222052371,"user":{"logo_is_nft":false,"logo_thumbnail_url":"","logo_url":"","memo":null,"web3_id":"Tian"}},"email_verified":false,"follower_count":1,"following_count":0,"id":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","is_contract":false,"is_editor":false,"is_followed":false,"is_following":false,"is_mine":false,"is_mirror_author":false,"is_multisig_addr":false,"market_status":null,"org":{},"protocol_usd_value":0,"relation":null,"tvf":0,"usd_value":15.859135222052371,"used_chains":["eth"],"wallet_usd_value":15.859135222052371}}}',
+        );
+        // @ts-ignore
+        window.localStorage.setItem(
+          'browser_uid',
+          '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77"}',
+        );
+        // @ts-ignore
+        fetch('https://api.debank.com/coin/top_holders?id=curve&limit=100&start=0').then((res) => res.json());
+      });
+    } catch (error) {
+      this.logger.error('error', '[crawlTopHoldersByList:error]', JSON.stringify(error));
+      throw error;
+    } finally {
+      // await context.close();
     }
   }
   isValidPortfolioData(data: any) {

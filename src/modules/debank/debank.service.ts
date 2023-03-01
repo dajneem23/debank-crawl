@@ -2679,17 +2679,17 @@ export class DebankService {
       'assets.debank.com/static/media',
       // 'api.debank.com/chat',
       'www.google-analytics.com',
-      'www.google.co.uk',
-      'www.googletagmanager.com',
+      // 'www.google.co.uk',
+      // 'www.googletagmanager.com',
       'bam.eu01.nr-data.net',
       // 'api.debank.com/chain/list',
-      'sentry.io',
+      // 'sentry.io',
       'fonts.googleapis.com/css2',
-      'api.debank.com/social_ranking',
-      '&chain=',
+      // 'api.debank.com/social_ranking',
+      // '&chain=',
       // 'static.debank.com/api/config.json:',
       // 'api.debank.com/user/addr?addr=',
-      'js-agent.newrelic.com/',
+      // 'js-agent.newrelic.com/',
       // 'https://assets.debank.com/static/js/lodash',
       // 'https://assets.debank.com/static/js/crypto',
       // 'https://assets.debank.com/static/js/constModule.',
@@ -2712,113 +2712,108 @@ export class DebankService {
       });
       await cluster.task(async ({ page, data: { user_address, url } }) => {
         try {
-          // await page.setRequestInterception(true);
-          // await page.setExtraHTTPHeaders({
-          //   'cache-control': 'max-age=60000, public',
-          //   'Access-Control-Allow-Origin': '*',
-          //   'sec-fetch-mode': 'no-cors',
-          // });
-          // const requestHandler = async (request: HTTPRequest) => {
-          //   try {
-          //     // console.table(countRequest);
-          //     if (request.isInterceptResolutionHandled()) return;
-          //     if (
-          //       countRequest[user_address].count >= needRequest.length ||
-          //       ['image', 'stylesheet', 'font', 'media', 'websocket'].indexOf(request.resourceType()) !== -1 ||
-          //       ignoreUrls.some((url: any) => request.url().includes(url))
-          //     ) {
-          //       request.respond({ status: 200, body: 'aborted' });
-          //     } else {
-          //       request.continue();
-          //       //   const cacheValue = await getDecodedJSONCacheKey({ key: request.url() });
-          //       //   if (cacheValue && cacheValue.data.expires > Date.now()) {
-          //       //     // console.log('cacheValue', request.url(), '<<', cacheValue.data.status, cacheValue.data.body.length);
-          //       //     request.respond({
-          //       //       status: cacheValue.data.status,
-          //       //       headers: cacheValue.data.headers,
-          //       //       body: cacheValue.data.body,
-          //       //     });
-          //       //   } else {
-          //       //     request.continue();
-          //       //   }
-          //     }
-          //   } catch (error) {
-          //     this.logger.error('error', '[crawlPortfolio:request:error]', JSON.stringify(error));
-          //   }
-          // };
-          // page.on('request', requestHandler);
+          // console.time(`crawlPortfolioByList:${user_address}`);
+          await page.setRequestInterception(true);
+          const requestHandler = async (request: HTTPRequest) => {
+            try {
+              // console.table(countRequest);
+              if (request.isInterceptResolutionHandled()) return;
+              if (
+                ['image', 'stylesheet', 'font', 'media'].indexOf(request.resourceType()) !== -1 ||
+                ignoreUrls.some((url: any) => request.url().includes(url))
+              ) {
+                const cacheValue = await getDecodedJSONCacheKey({ key: request.url() });
+                if (cacheValue && cacheValue.data.expires > Date.now()) {
+                  // console.log('cacheValue', request.url(), '<<', cacheValue.data.status, cacheValue.data.body.length);
+                  request.respond({
+                    status: cacheValue.data.status,
+                    headers: request.headers(),
+                    body: cacheValue.data.body,
+                  });
+                } else {
+                  request.continue();
+                }
+                // request.continue();
+              } else {
+                request.continue();
+              }
+            } catch (error) {
+              this.logger.error('error', '[crawlPortfolio:request:error]', JSON.stringify(error));
+            }
+          };
+          page.on('request', requestHandler);
           //get 2 api and insert to db
-          // const responseHandler = async (response: HTTPResponse) => {
-          //   try {
-          //     if (response.status() == 429) {
-          //       // console.log('429 >> ', response.url());
-          //       page.removeAllListeners();
-          //       page.setRequestInterception(false);
-          //       await page.goto('about:blank');
-          //     }
-          //     if (response.status() !== 200) {
-          //       return;
-          //     }
-          //     if (
-          //       !countRequest[user_address].done &&
-          //       countRequest[user_address].count < needRequest.length &&
-          //       needRequest.some((url) => response.url().includes(url))
-          //     ) {
-          //       if (!countRequest[user_address].balance_list || !countRequest[user_address].project_list) {
-          //         if (
-          //           response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) &&
-          //           !countRequest[user_address].balance_list
-          //         ) {
-          //           const { data } = await response.json();
-          //           countRequest[user_address].count++;
-          //           countRequest[user_address].balance_list = true;
-          //           jobData[user_address]['balance_list'] = data;
-          //         }
-          //         if (
-          //           response.url().includes(DebankAPI.Portfolio.projectList.endpoint) &&
-          //           !countRequest[user_address].project_list
-          //         ) {
-          //           const { data } = await response.json();
-          //           countRequest[user_address].count++;
-          //           countRequest[user_address].project_list = true;
-          //           jobData[user_address]['project_list'] = data;
-          //         }
-          //       }
-          //     }
-          //     if (!countRequest[user_address].done && countRequest[user_address].count == needRequest.length) {
-          //       countRequest[user_address].done = true;
-          //       page.removeAllListeners();
-          //       page.setRequestInterception(false);
-          //       await page.goto('about:blank');
-          //     }
-          //     // let bodyBuffer;
-          //     // try {
-          //     //   bodyBuffer = await response.buffer();
-          //     // } catch (error) {
-          //     //   return;
-          //     // }
-          //     // if (!response.url().includes('api.debank.com')) {
-          //     //   const cacheValue = await getDecodedJSONCacheKey({ key: response.url() });
-          //     //   if (!cacheValue || cacheValue.data.expires < Date.now()) {
-          //     //     const dataBase64 = Buffer.from(
-          //     //       JSON.stringify({
-          //     //         status: response.status(),
-          //     //         headers: response.headers(),
-          //     //         body: bodyBuffer.toString('base64'),
-          //     //         expires: Date.now() + 60 * 1000,
-          //     //       }),
-          //     //     ).toString('base64');
-          //     //     cacache.put(CACHE_PATH, response.url(), dataBase64, {});
-          //     //   }
-          //     // }
-          //   } catch (error) {
-          //     this.logger.error('error', '[crawlPortfolio:response:error]', JSON.stringify(error));
-          //     if (response.status() == 429) {
-          //       throw new Error('crawlPortfolio:response:429');
-          //     }
-          //   }
-          // };
-          // page.on('response', responseHandler);
+          const responseHandler = async (response: HTTPResponse) => {
+            try {
+              // if (response.status() == 429) {
+              //   // console.log('429 >> ', response.url());
+              //   page.removeAllListeners();
+              //   page.setRequestInterception(false);
+              //   await page.goto('about:blank');
+              // }
+              // if (response.status() !== 200) {
+              //   return;
+              // }
+              // if (
+              //   !countRequest[user_address].done &&
+              //   countRequest[user_address].count < needRequest.length &&
+              //   needRequest.some((url) => response.url().includes(url))
+              // ) {
+              //   if (!countRequest[user_address].balance_list || !countRequest[user_address].project_list) {
+              //     if (
+              //       response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) &&
+              //       !countRequest[user_address].balance_list
+              //     ) {
+              //       const { data } = await response.json();
+              //       countRequest[user_address].count++;
+              //       countRequest[user_address].balance_list = true;
+              //       jobData[user_address]['balance_list'] = data;
+              //     }
+              //     if (
+              //       response.url().includes(DebankAPI.Portfolio.projectList.endpoint) &&
+              //       !countRequest[user_address].project_list
+              //     ) {
+              //       const { data } = await response.json();
+              //       countRequest[user_address].count++;
+              //       countRequest[user_address].project_list = true;
+              //       jobData[user_address]['project_list'] = data;
+              //     }
+              //   }
+              // }
+              // if (!countRequest[user_address].done && countRequest[user_address].count == needRequest.length) {
+              //   countRequest[user_address].done = true;
+              //   page.removeAllListeners();
+              //   page.setRequestInterception(false);
+              //   await page.goto('about:blank');
+              // }
+              let bodyBuffer;
+              try {
+                bodyBuffer = await response.buffer();
+              } catch (error) {
+                return;
+              }
+              if (!response.url().includes('api.debank.com')) {
+                const cacheValue = await getDecodedJSONCacheKey({ key: response.url() });
+                if (!cacheValue || cacheValue.data.expires < Date.now()) {
+                  const dataBase64 = Buffer.from(
+                    JSON.stringify({
+                      status: response.status(),
+                      headers: response.headers(),
+                      body: bodyBuffer.toString('base64'),
+                      expires: Date.now() + 30 * 60 * 1000,
+                    }),
+                  ).toString('base64');
+                  cacache.put(CACHE_PATH, response.url(), dataBase64, {});
+                }
+              }
+            } catch (error) {
+              this.logger.error('error', '[crawlPortfolio:response:error]', JSON.stringify(error));
+              if (response.status() == 429) {
+                throw new Error('crawlPortfolio:response:429');
+              }
+            }
+          };
+          page.on('response', responseHandler);
           const [_, cache_balance_list, project_list] = await Promise.all([
             page.goto(`https://debank.com/profile/${user_address}`, {
               waitUntil: 'load',
@@ -2886,6 +2881,7 @@ export class DebankService {
           page.removeAllListeners();
           await page.setRequestInterception(false);
           // await page.close();
+          // console.timeEnd(`crawlPortfolioByList:${user_address}`);
         }
       });
 

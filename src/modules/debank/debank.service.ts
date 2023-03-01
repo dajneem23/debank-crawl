@@ -2859,10 +2859,10 @@ export class DebankService {
       });
       // this.logger.info('info', '[crawlPortfolio:jobs]', JSON.stringify(jobs));
       //TODO: bulk insert to job queue
-      // this.addBulkJobs({
-      //   queue: 'debank-insert',
-      //   jobs,
-      // });
+      this.addBulkJobs({
+        queue: 'debank-insert',
+        jobs,
+      });
     } catch (error) {
       this.logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
       throw error;

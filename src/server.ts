@@ -4,7 +4,7 @@ import Container, { Token } from 'typedi';
 import { DIDiscordClient, Discord } from './loaders/discord.loader';
 import { exitHandler } from './core/handler';
 import { dockerContainerStats, systemInfo } from './utils/system';
-import { puppeteerLoader } from './loaders/puppeteer.loader';
+import { createPupperteerClusterLoader, puppeteerLoader } from './loaders/puppeteer.loader';
 /**
  *  @description this import is required to initialize service class
  */
@@ -20,6 +20,7 @@ import { puppeteerLoader } from './loaders/puppeteer.loader';
 
     // Puppeteer (headless browser)
     // await puppeteerLoader();
+    // await createPupperteerClusterLoader();
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();
     // Database (postgres)

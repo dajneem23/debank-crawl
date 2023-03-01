@@ -68,7 +68,7 @@ export const createPuppeteerBrowser = async () => {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      // `--proxy-server=${newProxyUrl}`,
+      `--proxy-server=${newProxyUrl}`,
       '--disable-web-security',
       '--disable-features=IsolateOrigins',
       '--disable-site-isolation-trials',
@@ -128,16 +128,17 @@ export const createPuppeteerBrowserContext = async () => {
   const context = await browser.createIncognitoBrowserContext();
   return context;
 };
-const puppeterrClusterToken = new Token<Cluster>('_puppeteerCluster');
+export const puppeterrClusterToken = new Token<Cluster>('_puppeteerCluster');
 export const createPupperteerClusterLoader = async () => {
   puppeteer.use(pluginStealth());
   const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
   const cluster = await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_PAGE,
+    concurrency: Cluster.CONCURRENCY_BROWSER,
     maxConcurrency: process.env.MODE == 'production' ? 3 : 3,
     retryLimit: 5,
     timeout: 1000 * 60 * 2,
     puppeteer,
+    monitor: true,
     puppeteerOptions: {
       headless: process.env.MODE == 'production',
       devtools: process.env.MODE != 'production',
@@ -167,5 +168,6 @@ export const createPupperteerClusterLoader = async () => {
       }),
     },
   });
+  Container.set(puppeterrClusterToken, cluster);
   return cluster;
 };

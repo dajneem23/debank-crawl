@@ -1201,6 +1201,6 @@ export const USER_AGENTS = [
   'Opera/9.80 (X11; Linux i686; U; de) Presto/2.2.15 Version/10.00',
 ];
 
-export const getRandomUserAgent = () => {
+export const randomUserAgent = () => {
   return USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
 };

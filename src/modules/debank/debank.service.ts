@@ -258,7 +258,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2,
-      concurrency: 5,
+      concurrency: 30,
       // limiter: {
       //   max: 60,
       //   duration: 1000,

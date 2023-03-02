@@ -1800,7 +1800,7 @@ export class DebankService {
 
     const crawl_id = await this.getCrawlId();
 
-    const NUM_ADDRESSES_PER_JOB = 10;
+    const NUM_ADDRESSES_PER_JOB = 5;
     const user_addresses_list = Array.from({ length: Math.ceil(rows.length / NUM_ADDRESSES_PER_JOB) }).map((_, i) => {
       return [
         ...rows
@@ -2943,18 +2943,11 @@ export class DebankService {
                 expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
               },
             );
-            const [_, cache_balance_list, project_list] = await Promise.all([
-              page
-                .goto(`https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`, {
-                  waitUntil: 'load',
-                  timeout: 2 * 60 * 1000,
-                })
-                .then(() => {
-                  page.goto(`https://api.debank.com/portfolio/project_list?user_addr=${user_address}`, {
-                    waitUntil: 'load',
-                    timeout: 2 * 60 * 1000,
-                  });
-                }),
+            const [_, cache_balance_list] = await Promise.all([
+              page.goto(`https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`, {
+                waitUntil: 'load',
+                timeout: 2 * 60 * 1000,
+              }),
               page.waitForResponse(
                 async (response) => {
                   try {
@@ -2968,6 +2961,13 @@ export class DebankService {
                   timeout: 2 * 60 * 1000,
                 },
               ),
+            ]);
+            await sleep(3 * 1000);
+            const [__, project_list] = await Promise.all([
+              page.goto(`https://api.debank.com/portfolio/project_list?user_addr=${user_address}`, {
+                waitUntil: 'load',
+                timeout: 2 * 60 * 1000,
+              }),
               page.waitForResponse(
                 async (response) => {
                   try {

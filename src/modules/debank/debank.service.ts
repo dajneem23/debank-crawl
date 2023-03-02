@@ -258,7 +258,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2,
-      concurrency: 30,
+      concurrency: 25,
       // limiter: {
       //   max: 60,
       //   duration: 1000,
@@ -2912,17 +2912,20 @@ export class DebankService {
 
   async crawlPortfolioByListV3({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
     // const cluster = await createPupperteerClusterLoader();
+    // console.time('crawlPortfolioByListV3');
     const browser = await createPuppeteerBrowser();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
-    const initPage = await browser.newPage();
-    await initPage.goto(`https://debank.com/profile/${user_addresses[0]}`, {
+    // console.time('initPage');
+    const page = await browser.newPage();
+    await page.goto(`https://debank.com/profile/${user_addresses[0]}`, {
       waitUntil: 'load',
     });
+    // console.timeEnd('initPage');
+    // const page = await browser.newPage();
     try {
       await bluebird.map(
         user_addresses,
         async (user_address) => {
-          const page = await browser.newPage();
           // const page = await browser.newPage();
           try {
             const pageGotoAPI = async ({
@@ -2935,34 +2938,37 @@ export class DebankService {
               timeout?: number;
             }): Promise<any> => {
               try {
-                await page.setCookie(
-                  {
-                    name: '_ga_XCH1EEPRPW',
-                    value: 'GS1.1.1677722032.2.1.1677722089.0.0.0',
-                    domain: '.debank.com',
-                    path: '/',
-                    expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
-                  },
-                  {
-                    name: '_ga',
-                    value: 'GA1.1.513821541.1677692520',
-                    domain: '.debank.com',
-                    path: '/',
-                    expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
-                  },
-                  {
-                    name: '_gid',
-                    value: 'GA1.2.1141128001.1677692520',
-                    domain: '.debank.com',
-                    path: '/',
-                    expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
-                  },
-                );
                 const [_, data] = await Promise.all([
-                  page.goto(url, {
-                    waitUntil: 'load',
-                    timeout,
-                  }),
+                  // page.goto(url, {
+                  //   waitUntil: 'load',
+                  //   timeout,
+                  // }),
+                  page.evaluate((url) => {
+                    // @ts-ignore-start
+                    fetch(url, {
+                      headers: {
+                        accept:
+                          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+                        'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
+                        'cache-control': 'no-cache',
+                        pragma: 'no-cache',
+                        'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
+                        'sec-ch-ua-mobile': '?0',
+                        'sec-ch-ua-platform': '"macOS"',
+                        'sec-fetch-dest': 'document',
+                        'sec-fetch-mode': 'navigate',
+                        'sec-fetch-site': 'none',
+                        'sec-fetch-user': '?1',
+                        'upgrade-insecure-requests': '1',
+                      },
+                      referrerPolicy: 'strict-origin-when-cross-origin',
+                      body: null,
+                      method: 'GET',
+                      mode: 'cors',
+                      credentials: 'include',
+                    }).then((res) => res.json());
+                    // @ts-ignore-end
+                  }, url),
                   page.waitForResponse(
                     async (response) => {
                       return response.url().includes(url);
@@ -2972,19 +2978,18 @@ export class DebankService {
                     },
                   ),
                 ]);
-
+                //check if response is valid
                 await data.json();
 
                 return data;
               } catch (error) {
                 if (retry > 0) {
                   await sleep(10 * 1000);
+                  await page.goto(`https://debank.com/profile/${user_address}`);
                   return pageGotoAPI({ url, retry: retry - 1 });
                 } else {
                   throw error;
                 }
-              } finally {
-                await page.close();
               }
             };
             const cache_balance_list = await pageGotoAPI({
@@ -3006,11 +3011,11 @@ export class DebankService {
             this.logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
             throw error;
           } finally {
-            await page.close();
+            // await page.close();
           }
         },
         {
-          concurrency: 1,
+          concurrency: 3,
         },
       );
 
@@ -3054,8 +3059,10 @@ export class DebankService {
       this.logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
       throw error;
     } finally {
+      await page.close();
       browser.close();
       // console.log('crawlPortfolioByList done', Object.values(jobData));
+      // console.timeEnd('crawlPortfolioByListV3');
     }
   }
 

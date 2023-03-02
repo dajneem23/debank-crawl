@@ -28,7 +28,7 @@ export const puppeteerLoader = async () => {
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
-        // `--proxy-server=${newProxyUrl}`,
+        `--proxy-server=${newProxyUrl}`,
         '--disable-web-security',
         '--disable-features=IsolateOrigins',
         '--disable-site-isolation-trials',

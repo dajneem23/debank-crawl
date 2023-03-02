@@ -37,7 +37,7 @@ import { randomUserAgent } from '@/config/userAgent';
 import { WEBSHARE_PROXY_STR } from '@/common/proxy';
 import cacache from 'cacache';
 import { CACHE_PATH, clearCache, getDecodedJSONCacheKey } from '@/common/cache';
-import { HTTPResponse, HTTPRequest } from 'puppeteer';
+import { HTTPResponse, HTTPRequest, Page, BrowserContext, Browser } from 'puppeteer';
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 
@@ -2894,10 +2894,10 @@ export class DebankService {
       });
       // this.logger.info('info', '[crawlPortfolio:jobs]', JSON.stringify(jobs));
       //TODO: bulk insert to job queue
-      // this.addBulkJobs({
-      //   queue: 'debank-insert',
-      //   jobs,
-      // });
+      this.addBulkJobs({
+        queue: 'debank-insert',
+        jobs,
+      });
     } catch (error) {
       this.logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
       throw error;
@@ -2912,76 +2912,88 @@ export class DebankService {
 
   async crawlPortfolioByListV3({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
     // const cluster = await createPupperteerClusterLoader();
-    const context = await createPuppeteerBrowser();
+    const browser = await createPuppeteerBrowser();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
+    const initPage = await browser.newPage();
+    await initPage.goto(`https://debank.com/profile/${user_addresses[0]}`, {
+      waitUntil: 'load',
+    });
     try {
       await bluebird.map(
         user_addresses,
         async (user_address) => {
-          const page = await context.newPage();
+          const page = await browser.newPage();
+          // const page = await browser.newPage();
           try {
-            await page.setCookie(
-              {
-                name: '_ga_XCH1EEPRPW',
-                value: 'GS1.1.1677692519.1.1.1677692538.0.0.0',
-                domain: '.debank.com',
-                path: '/',
-                expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
-              },
-              {
-                name: '_ga',
-                value: 'GA1.2.513821541.1677692520',
-                domain: '.debank.com',
-                path: '/',
-                expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
-              },
-              {
-                name: '_gid',
-                value: 'GA1.2.1141128001.1677692520',
-                domain: '.debank.com',
-                path: '/',
-                expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
-              },
-            );
-            const [_, cache_balance_list] = await Promise.all([
-              page.goto(`https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`, {
-                waitUntil: 'load',
-                timeout: 2 * 60 * 1000,
-              }),
-              page.waitForResponse(
-                async (response) => {
-                  try {
-                    await response.json();
-                  } catch (error) {
-                    return false;
-                  }
-                  return response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint);
-                },
-                {
-                  timeout: 2 * 60 * 1000,
-                },
-              ),
-            ]);
+            const pageGotoAPI = async ({
+              url,
+              retry = 5,
+              timeout = 30 * 1000,
+            }: {
+              url: string;
+              retry?: number;
+              timeout?: number;
+            }): Promise<any> => {
+              try {
+                await page.setCookie(
+                  {
+                    name: '_ga_XCH1EEPRPW',
+                    value: 'GS1.1.1677722032.2.1.1677722089.0.0.0',
+                    domain: '.debank.com',
+                    path: '/',
+                    expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
+                  },
+                  {
+                    name: '_ga',
+                    value: 'GA1.1.513821541.1677692520',
+                    domain: '.debank.com',
+                    path: '/',
+                    expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
+                  },
+                  {
+                    name: '_gid',
+                    value: 'GA1.2.1141128001.1677692520',
+                    domain: '.debank.com',
+                    path: '/',
+                    expires: new Date('2024-04-04T17:42:18.743Z').getTime() / 1000,
+                  },
+                );
+                const [_, data] = await Promise.all([
+                  page.goto(url, {
+                    waitUntil: 'load',
+                    timeout,
+                  }),
+                  page.waitForResponse(
+                    async (response) => {
+                      return response.url().includes(url);
+                    },
+                    {
+                      timeout,
+                    },
+                  ),
+                ]);
+
+                await data.json();
+
+                return data;
+              } catch (error) {
+                if (retry > 0) {
+                  await sleep(10 * 1000);
+                  return pageGotoAPI({ url, retry: retry - 1 });
+                } else {
+                  throw error;
+                }
+              } finally {
+                await page.close();
+              }
+            };
+            const cache_balance_list = await pageGotoAPI({
+              url: `https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`,
+            });
             await sleep(3 * 1000);
-            const [__, project_list] = await Promise.all([
-              page.goto(`https://api.debank.com/portfolio/project_list?user_addr=${user_address}`, {
-                waitUntil: 'load',
-                timeout: 2 * 60 * 1000,
-              }),
-              page.waitForResponse(
-                async (response) => {
-                  try {
-                    await response.json();
-                  } catch (error) {
-                    return false;
-                  }
-                  return response.url().includes(DebankAPI.Portfolio.projectList.endpoint);
-                },
-                {
-                  timeout: 2 * 60 * 1000,
-                },
-              ),
-            ]);
+            const project_list = await pageGotoAPI({
+              url: `https://api.debank.com/portfolio/project_list?user_addr=${user_address}`,
+            });
             if (project_list.status() != 200 || cache_balance_list.status() != 200) {
               throw new Error('crawlPortfolio:response:not 200');
             }
@@ -2994,8 +3006,6 @@ export class DebankService {
             this.logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
             throw error;
           } finally {
-            // page.removeAllListeners();
-            // await page.setRequestInterception(false);
             await page.close();
           }
         },
@@ -3034,15 +3044,17 @@ export class DebankService {
         };
       });
       //TODO: bulk insert to job queue
-      this.addBulkJobs({
-        queue: 'debank-insert',
-        jobs,
-      });
+      if (process.env.NODE_ENV == 'production') {
+        this.addBulkJobs({
+          queue: 'debank-insert',
+          jobs,
+        });
+      }
     } catch (error) {
       this.logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
       throw error;
     } finally {
-      context.close();
+      browser.close();
       // console.log('crawlPortfolioByList done', Object.values(jobData));
     }
   }

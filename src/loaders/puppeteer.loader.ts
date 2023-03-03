@@ -19,7 +19,7 @@ export const puppeteerLoader = async () => {
     const browser = await puppeteer.use(pluginStealth()).launch({
       headless: process.env.MODE == 'production' || true,
       devtools: process.env.MODE != 'production',
-      // userDataDir: './.cache',
+      userDataDir: './.cache',
       // defaultViewport: {
       //   width: 375,
       //   height: 667,

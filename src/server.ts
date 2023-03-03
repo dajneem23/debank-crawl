@@ -19,7 +19,7 @@ import { createPupperteerClusterLoader, puppeteerLoader } from './loaders/puppet
     (await import('./loaders/logger.loader')).default();
 
     // Puppeteer (headless browser)
-    // await puppeteerLoader();
+    await puppeteerLoader();
     // await createPupperteerClusterLoader();
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();

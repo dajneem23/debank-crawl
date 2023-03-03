@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer-extra';
 import { anonymizeProxy } from 'proxy-chain';
-import { WEBSHARE_PROXY_STR } from '@/common/proxy';
+import { WEBSHARE_PROXY_HOST, WEBSHARE_PROXY_STR } from '@/common/proxy';
 import Container, { Token } from 'typedi';
 import { Browser } from 'puppeteer';
 import { DILogger } from './logger.loader';
@@ -179,7 +179,12 @@ export const createPupperteerClusterLoader = async () => {
 export const connectChrome = async () => {
   const host = process.env.MODE == 'production' ? '10.104.0.3' : '167.172.79.230';
   const browser = await puppeteer.connect({
-    browserWSEndpoint: `ws://${host}:9999`,
+    browserWSEndpoint: `ws://${host}:9999?stealth`,
+    defaultViewport: {
+      width: 2880,
+      height: 1800,
+      isMobile: false,
+    },
   });
   Container.set(puppeteerBrowserToken, browser);
   return browser;

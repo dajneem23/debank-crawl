@@ -19,7 +19,7 @@ import { connectChrome, createPupperteerClusterLoader, puppeteerLoader } from '.
     (await import('./loaders/logger.loader')).default();
 
     // Puppeteer (headless browser)
-    await connectChrome();
+    // await connectChrome();
     // await createPupperteerClusterLoader();
     // Database (mongodb)
     await (await import('./loaders/mongoDB.loader')).default();

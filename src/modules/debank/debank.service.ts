@@ -2451,7 +2451,7 @@ export class DebankService {
   async crawlPortfolioByListV3({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
     // const cluster = await createPupperteerClusterLoader();
     // console.time('crawlPortfolioByListV3');
-    const browser = Container.get(puppeteerBrowserToken);
+    const browser = await connectChrome();
     const context = await browser.createIncognitoBrowserContext();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
     // console.time('initPage');
@@ -2599,6 +2599,7 @@ export class DebankService {
     } finally {
       await page.close();
       await context.close();
+      await browser.disconnect();
       // console.log('crawlPortfolioByList done', Object.values(jobData));
       // console.timeEnd('crawlPortfolioByListV3');
     }

@@ -27,6 +27,7 @@ import { table } from 'table';
 import { sleep } from '@/utils/common';
 import { isJSON } from '@/utils/text';
 import {
+  connectChrome,
   createPupperteerClusterLoader,
   createPuppeteerBrowser,
   createPuppeteerBrowserContext,
@@ -34,7 +35,7 @@ import {
   puppeterrClusterToken,
 } from '@/loaders/puppeteer.loader';
 import { randomUserAgent } from '@/config/userAgent';
-import { WEBSHARE_PROXY_STR } from '@/common/proxy';
+import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_STR } from '@/common/proxy';
 import cacache from 'cacache';
 import { CACHE_PATH, clearCache, getDecodedJSONCacheKey } from '@/common/cache';
 import { HTTPResponse, HTTPRequest, Page, BrowserContext, Browser } from 'puppeteer';
@@ -174,7 +175,7 @@ export class DebankService {
     }
   }
   async testProxy() {
-    const browser = await createPuppeteerBrowser();
+    const browser = await connectChrome();
 
     // await page.setRequestInterception(true);
     const createPage = async () => {
@@ -187,10 +188,10 @@ export class DebankService {
       });
       const data = await page.evaluate(() => {
         // @ts-ignore
-        const data = document.body.innerText;
+        return document.body.innerText;
         // console.log(data);
       });
-
+      // console.log(data);
       // await context.close();
     };
     for (let i = 0; i < 3; i++) {
@@ -2450,10 +2451,15 @@ export class DebankService {
   async crawlPortfolioByListV3({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
     // const cluster = await createPupperteerClusterLoader();
     // console.time('crawlPortfolioByListV3');
-    const browser = await createPuppeteerBrowserContext();
+    const browser = Container.get(puppeteerBrowserToken);
+    const context = await browser.createIncognitoBrowserContext();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
     // console.time('initPage');
     const page = await browser.newPage();
+    await page.authenticate({
+      username: WEBSHARE_PROXY_HTTP.auth.username,
+      password: WEBSHARE_PROXY_HTTP.auth.password,
+    });
     await page.goto(`https://debank.com/profile/${user_addresses[0]}`, {
       waitUntil: 'load',
     });
@@ -2592,7 +2598,7 @@ export class DebankService {
       throw error;
     } finally {
       await page.close();
-      browser.close();
+      await context.close();
       // console.log('crawlPortfolioByList done', Object.values(jobData));
       // console.timeEnd('crawlPortfolioByListV3');
     }
@@ -2628,7 +2634,7 @@ export class DebankService {
       this.logger.error('error', '[crawlTopHoldersByList:error]', JSON.stringify(error));
       throw error;
     } finally {
-      // await context.close();
+      await context.close();
     }
   }
   isValidPortfolioData(data: any) {

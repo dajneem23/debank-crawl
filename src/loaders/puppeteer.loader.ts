@@ -175,3 +175,12 @@ export const createPupperteerClusterLoader = async () => {
   Container.set(puppeterrClusterToken, cluster);
   return cluster;
 };
+
+export const connectChrome = async () => {
+  const host = process.env.MODE == 'production' ? '10.104.0.3' : '167.172.79.230';
+  const browser = await puppeteer.connect({
+    browserWSEndpoint: `ws://${host}:9999`,
+  });
+  Container.set(puppeteerBrowserToken, browser);
+  return browser;
+};

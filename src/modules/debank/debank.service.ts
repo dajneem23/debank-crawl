@@ -2455,7 +2455,7 @@ export class DebankService {
     const context = await browser.createIncognitoBrowserContext();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
     // console.time('initPage');
-    const page = await browser.newPage();
+    const page = await context.newPage();
     await page.authenticate({
       username: WEBSHARE_PROXY_HTTP.auth.username,
       password: WEBSHARE_PROXY_HTTP.auth.password,

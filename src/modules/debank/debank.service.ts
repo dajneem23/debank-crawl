@@ -164,9 +164,9 @@ export class DebankService {
     // });
     // this.testProxy();
 
-    this.crawlTopHoldersToken({
-      token_id: 'curve',
-    });
+    // this.crawlTopHoldersToken({
+    //   token_id: 'curve',
+    // });
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -280,7 +280,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 100,
+      concurrency: 200,
       limiter: {
         max: 500,
         duration: 1000,
@@ -298,7 +298,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 250,
+      concurrency: 25,
       limiter: {
         max: 50,
         duration: 1000,
@@ -316,7 +316,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 250,
+      concurrency: 25,
       limiter: {
         max: 50,
         duration: 1000,
@@ -334,7 +334,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 250,
+      concurrency: 25,
       limiter: {
         max: 50,
         duration: 1000,
@@ -413,7 +413,7 @@ export class DebankService {
       connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
-        attempts: 5,
+        attempts: 10,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
@@ -433,7 +433,7 @@ export class DebankService {
       connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
-        attempts: 5,
+        attempts: 10,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
@@ -453,7 +453,7 @@ export class DebankService {
       connection: this.redisConnection,
       defaultJobOptions: {
         // The total number of attempts to try the job until it completes
-        attempts: 5,
+        attempts: 10,
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
@@ -2285,7 +2285,7 @@ export class DebankService {
       // });
       const values = holders.map((holder) => ({
         symbol,
-        details: JSON.stringify(holder),
+        details: JSON.stringify(holder).replace(/\\u0000/g, ''),
         user_address: holder.id,
         crawl_id,
         crawl_time,

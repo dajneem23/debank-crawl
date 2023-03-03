@@ -37,7 +37,7 @@ export const puppeteerLoader = async () => {
         '--no-first-run',
         '--no-zygote',
         // '--disable-gpu',
-        '--use-gl=egl',
+        // '--use-gl=egl',
       ],
       ignoreHTTPSErrors: true,
       ...((process.env.MODE == 'production' && { executablePath: '/usr/bin/google-chrome' }) || {
@@ -54,8 +54,12 @@ export const puppeteerLoader = async () => {
     throw error;
   }
 };
-export const createPuppeteerBrowser = async () => {
-  const newProxyUrl = await anonymizeProxy(WEBSHARE_PROXY_STR);
+export const createPuppeteerBrowser = async (
+  { proxy = WEBSHARE_PROXY_STR }: { proxy?: string } = {
+    proxy: WEBSHARE_PROXY_STR,
+  },
+) => {
+  const newProxyUrl = await anonymizeProxy(proxy);
   const browser = await puppeteer.use(pluginStealth()).launch({
     headless: process.env.MODE == 'production',
     userDataDir: './.cache',

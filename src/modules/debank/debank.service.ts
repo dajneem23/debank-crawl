@@ -172,7 +172,12 @@ export class DebankService {
     // this.crawlTopHolders({
     //   id: 'curve',
     //   crawl_id: 1,
-    // });
+    // }).then(() => console.log('1'));
+
+    // this.crawlWhales({
+    //   crawl_id: 1,
+    // }).then(() => console.log('1'));
+
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -268,7 +273,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 30,
+      concurrency: 20,
       // limiter: {
       //   max: 60,
       //   duration: 1000,
@@ -304,7 +309,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 25,
+      concurrency: 5,
       limiter: {
         max: 50,
         duration: 1000,
@@ -322,11 +327,11 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 25,
-      limiter: {
-        max: 50,
-        duration: 1000,
-      },
+      concurrency: 5,
+      // limiter: {
+      //   max: 50,
+      //   duration: 1000,
+      // },
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
       metrics: {
@@ -340,7 +345,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 25,
+      concurrency: 5,
       limiter: {
         max: 50,
         duration: 1000,
@@ -631,7 +636,7 @@ export class DebankService {
     //DB Job
     this.addJob({
       name: DebankJobNames['debank:create:partitions'],
-      otps: {
+      opts: {
         repeatJobKey: 'debank:create:partitions',
         jobId: `debank:create:partitions`,
         removeOnComplete: {
@@ -656,7 +661,7 @@ export class DebankService {
 
     this.addJob({
       name: DebankJobNames['debank:clean:outdated-data'],
-      otps: {
+      opts: {
         repeatJobKey: 'debank:clean:outdated-data',
         jobId: 'debank:clean:outdated-data',
         removeOnComplete: {
@@ -681,7 +686,7 @@ export class DebankService {
 
     this.addJob({
       name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
-      otps: {
+      opts: {
         repeatJobKey: 'debank:add:fetch:user-address:top-holders',
         jobId: `debank:add:fetch:user-address:top-holders`,
         removeOnComplete: {
@@ -705,7 +710,7 @@ export class DebankService {
     });
     this.addJob({
       name: DebankJobNames['debank:add:fetch:coins'],
-      otps: {
+      opts: {
         repeatJobKey: 'debank:add:fetch:coins',
         repeat: {
           //repeat every 24 hours
@@ -719,7 +724,7 @@ export class DebankService {
 
     this.addJob({
       name: DebankJobNames['debank:add:fetch:top-holders'],
-      otps: {
+      opts: {
         repeatJobKey: 'debank:add:fetch:top-holders',
         jobId: `debank:add:fetch:top-holders`,
         removeOnComplete: {
@@ -741,7 +746,7 @@ export class DebankService {
     });
     this.addJob({
       name: DebankJobNames['debank:add:social:users:rankings'],
-      otps: {
+      opts: {
         repeatJobKey: 'debank:add:social:users:rankings',
         jobId: `debank:add:social:users:rankings`,
         removeOnComplete: {
@@ -763,7 +768,7 @@ export class DebankService {
     });
     this.addJob({
       name: DebankJobNames['debank:add:fetch:whales:paging'],
-      otps: {
+      opts: {
         repeatJobKey: 'debank:add:fetch:whales:paging',
         jobId: `debank:add:fetch:whales:paging`,
         removeOnComplete: {
@@ -790,31 +795,31 @@ export class DebankService {
     queue = this.queueName.debank,
     name,
     data = {},
-    otps,
+    opts,
   }: {
     queue?: keyof typeof this.queueName;
     name: DebankJobNames;
     data?: any;
-    otps: JobsOptions;
+    opts: JobsOptions;
   }) {
     try {
       switch (queue) {
         case this.queueName.debankWhale:
-          this.queueWhale.add(name, data, otps);
+          this.queueWhale.add(name, data, opts);
           break;
         case this.queueName.debankInsert:
-          this.queueInsert.add(name, data, otps);
+          this.queueInsert.add(name, data, opts);
           break;
         case this.queueName.debankRanking:
-          this.queueRanking.add(name, data, otps);
+          this.queueRanking.add(name, data, opts);
           break;
         case this.queueName.debankTopHolder:
-          this.queueTopHolder.add(name, data, otps);
+          this.queueTopHolder.add(name, data, opts);
           break;
 
         case this.queueName.debank:
         default:
-          this.queue.add(name, data, otps);
+          this.queue.add(name, data, opts);
           break;
       }
     } catch (error) {
@@ -826,7 +831,7 @@ export class DebankService {
     queue = this.queueName.debank,
   }: {
     queue: keyof typeof this.queueName;
-    jobs: { name: DebankJobNames; data: any; otps: JobsOptions }[];
+    jobs: { name: DebankJobNames; data: any; opts: JobsOptions }[];
   }) {
     switch (queue) {
       case this.queueName.debankWhale:
@@ -944,7 +949,7 @@ export class DebankService {
           data: {
             projectId: id,
           },
-          otps: {
+          opts: {
             jobId: `debank:fetch:project:users:${id}:${Date.now()}`,
             removeOnComplete: {
               age: 60 * 60,
@@ -1205,7 +1210,7 @@ export class DebankService {
       const jobs: {
         name: DebankJobNames;
         data: any;
-        otps: JobsOptions;
+        opts: JobsOptions;
       }[] = [];
       for (let page_num = 1; page_num <= 1000; page_num++) {
         jobs.push({
@@ -1214,7 +1219,7 @@ export class DebankService {
             page_num,
             crawl_id,
           },
-          otps: {
+          opts: {
             jobId: `debank:fetch:social:rankings:page:${page_num}:${crawl_id}`,
             removeOnComplete: {
               age: 60 * 60 * 3,
@@ -1656,14 +1661,14 @@ export class DebankService {
       const jobs: {
         name: DebankJobNames;
         data: any;
-        otps: JobsOptions;
+        opts: JobsOptions;
       }[] = listIndex.map((index: number) => ({
         name: DebankJobNames['debank:fetch:whales:page'],
         data: {
           start: index,
           crawl_id,
         },
-        otps: {
+        opts: {
           jobId: `debank:fetch:whales:page:${crawl_id}:${index}`,
           removeOnComplete: {
             // remove job after 1 hour
@@ -1806,7 +1811,7 @@ export class DebankService {
           user_address,
           crawl_id,
         },
-        otps: {
+        opts: {
           jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
           removeOnComplete: {
             age: 60 * 60,
@@ -1824,7 +1829,7 @@ export class DebankService {
       queue: this.queueName.debank,
     });
   }
-  async addFetchTopHoldersByUsersAddressJob({ jobId }: { jobId: string }) {
+  async addFetchTopHoldersByUsersAddressJob() {
     const debankWhaleJobs = await this.queueWhale.getJobCounts();
     const debankTopHolderJobs = await this.queueTopHolder.getJobCounts();
     const debankRankingJobs = await this.queueRanking.getJobCounts();
@@ -1839,18 +1844,33 @@ export class DebankService {
       debankRankingJobs.active +
       debankRankingJobs.delayed +
       debankRankingJobs.waiting;
-    this.logger.info('info', 'totalJobs::', totalJobs);
     const discord = Container.get(DIDiscordClient);
     await discord.sendMsg({
-      message: `totalJobs::${totalJobs}\njobId::${jobId}`,
-      channelId: '1072390401392115804',
+      message: `totalJobs::${totalJobs}\njobId\ndelay to: ${new Date(Date.now() + 1000 * 60 * 1).toLocaleDateString()}`,
+      channelId: '1041620555188682793',
     });
-    if (totalJobs > 0) {
-      //delay 1 minutes until all jobs are done
-
-      (await this.queue.getJob(jobId)).moveToDelayed(1000 * 60);
-      return;
-    }
+    // if (totalJobs > 0) {
+    //   //delay 1 minutes until all jobs are done
+    //   this.addJob({
+    //     name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
+    //     opts: {
+    //       jobId: `debank:add:fetch:user-address:top-holders:${Date.now() + 1000 * 60 * 1}`,
+    //       removeOnComplete: {
+    //         //remove after 1 hour
+    //         age: 60 * 60,
+    //       },
+    //       removeOnFail: {
+    //         //remove after 1 hour
+    //         age: 60 * 60 * 1,
+    //       },
+    //       //delay for 5 minutes when the job is added for done other jobs
+    //       delay: 1000 * 60 * 1,
+    //       priority: 3,
+    //       attempts: 5,
+    //     },
+    //   });
+    //   return;
+    // }
 
     const { rows } = await this.queryAddressList({
       select: 'user_address',
@@ -1879,7 +1899,7 @@ export class DebankService {
         user_addresses,
         crawl_id,
       },
-      otps: {
+      opts: {
         jobId: `debank:crawl:portfolio:list:${crawl_id}:${index}`,
         removeOnComplete: {
           age: 60 * 60 * 6,
@@ -2158,7 +2178,7 @@ export class DebankService {
             limit: DebankAPI.Coin.top_holders.params.limit,
             crawl_id,
           },
-          otps: {
+          opts: {
             jobId: `debank:fetch:top-holders:page:${crawl_id}:${id}:${index}`,
             removeOnComplete: true,
             removeOnFail: {
@@ -2190,7 +2210,7 @@ export class DebankService {
           id: symbol,
           crawl_id,
         },
-        otps: {
+        opts: {
           jobId: `debank:crawl:top-holders:${crawl_id}:${symbol}`,
           removeOnComplete: {
             age: 60 * 60 * 3,
@@ -2502,7 +2522,7 @@ export class DebankService {
                 crawl_id,
                 user_address,
               },
-              otps: {
+              opts: {
                 jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
                 removeOnComplete: {
                   // remove job after 1 hour
@@ -2660,7 +2680,7 @@ export class DebankService {
             crawl_id,
             user_address,
           },
-          otps: {
+          opts: {
             jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
             removeOnComplete: {
               // remove job after 1 hour
@@ -2693,20 +2713,19 @@ export class DebankService {
     }
   }
 
-  //!NOT COMPLETE YET
   async crawlTopHolders({ id, crawl_id }: { id: string; crawl_id: number }) {
     const browser = await connectChrome();
     // const browser = await createPuppeteerBrowser();
     const context = await browser.createIncognitoBrowserContext();
     let jobData = [];
-    // const needRequest = [DebankAPI.Coin.top_holders];
     const page = await context.newPage();
     try {
+      //login proxy
       await page.authenticate({
         username: WEBSHARE_PROXY_HTTP.auth.username,
         password: WEBSHARE_PROXY_HTTP.auth.password,
       });
-      // mainPage.goto(`https://debank.com/tokens/${token_id}/holders`);
+      //go to page and get total count
       const [_, data] = await Promise.all([
         page.goto(`https://debank.com/tokens/${id}/holders`, {
           waitUntil: 'load',
@@ -2721,6 +2740,7 @@ export class DebankService {
       } = dataJson;
       // console.log('crawlTopHolders', holders.length, total_count);
 
+      //set localstorage
       await page.evaluate(
         ({ current_address, connected_dict, browser_uid }) => {
           // @ts-ignore
@@ -2737,7 +2757,7 @@ export class DebankService {
         },
       );
       await page.reload();
-      await sleep(30 * 1000);
+      await sleep(15 * 1000);
       const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Coin.top_holders.params.limit))).reduce(
         (acc, _, index) => {
           acc.push(index * DebankAPI.Coin.top_holders.params.limit);
@@ -2789,7 +2809,7 @@ export class DebankService {
           ]);
           //check if response is valid
           await data.json();
-
+          await sleep(1000);
           return data;
         } catch (error) {
           if (retry > 0) {
@@ -2833,9 +2853,144 @@ export class DebankService {
       //cleanup
       await page.close();
       await context.close();
+      // await browser.close();
       browser.disconnect();
     }
   }
+
+  //! NOT STABLE YET -> NEED TO REFACTOR
+  async crawlWhales({ crawl_id }: { crawl_id: number }) {
+    // const browser = await connectChrome();
+    const browser = await createPuppeteerBrowser();
+    const context = await browser.createIncognitoBrowserContext();
+    let jobData = [];
+    const page = await context.newPage();
+    try {
+      //login proxy
+      await page.authenticate({
+        username: WEBSHARE_PROXY_HTTP.auth.username,
+        password: WEBSHARE_PROXY_HTTP.auth.password,
+      });
+      //go to page and get total count
+      const [_, data] = await Promise.all([
+        page.goto(`https://debank.com/whales`, {
+          waitUntil: 'load',
+        }),
+        page.waitForResponse((response) => {
+          return response.url().includes(DebankAPI.Whale.list.endpoint);
+        }),
+      ]);
+      const dataJson = await data.json();
+      const {
+        data: { total_count },
+      } = dataJson;
+      // console.log('crawlTopHolders', holders.length, total_count);
+
+      const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Whale.list.params.limit))).reduce(
+        (acc, _, index) => {
+          acc.push(index * DebankAPI.Whale.list.params.limit);
+          return acc;
+        },
+        [],
+      );
+      // console.log({
+      //   listIndex,
+      //   len: listIndex.length,
+      //   total_count,
+      // });
+      const fetchWhalesPage = async ({
+        offset,
+        retry = 3,
+        timeout = 30 * 1000,
+      }: {
+        offset: number;
+        retry?: number;
+        timeout?: number;
+      }) => {
+        try {
+          const url = new URL(DebankAPI.Whale.list.endpoint);
+          url.searchParams.append('start', offset.toString());
+          url.searchParams.append('limit', DebankAPI.Whale.list.params.limit.toString());
+          url.searchParams.append('order_by', '-usd_value');
+          const [_, data] = await Promise.all([
+            page.evaluate(
+              (url, account) => {
+                // @ts-ignore-start
+                fetch(url, {
+                  headers: {
+                    account,
+                  },
+                  referrerPolicy: 'strict-origin-when-cross-origin',
+                  body: null,
+                  method: 'GET',
+                  mode: 'cors',
+                  credentials: 'include',
+                }).then((res) => res.json());
+                // @ts-ignore-end
+              },
+              url.toString(),
+              account,
+            ),
+            page.waitForResponse(
+              async (response) => {
+                return response.url().includes(url.toString());
+              },
+              {
+                timeout,
+              },
+            ),
+          ]);
+          //check if response is valid
+          await data.json();
+          await sleep(1000);
+          return data;
+        } catch (error) {
+          if (retry > 0) {
+            await fetchWhalesPage({ offset, retry: retry - 1 });
+          } else {
+            throw error;
+          }
+        }
+      };
+
+      await bluebird.map(
+        listIndex,
+        async (offset: number) => {
+          const response = await fetchWhalesPage({
+            offset,
+          });
+          const { data: dataJson } = await response.json();
+          const { whales } = dataJson;
+          jobData = uniqBy([...jobData, ...whales], 'id');
+          // console.log('jobData', jobData.length);
+        },
+        {
+          concurrency: 3,
+        },
+      );
+      // console.log('jobData', uniq(jobData.map((item) => item.id)).length);
+      // if (!this.isValidTopHoldersData({ data: jobData, total_count })) {
+      //   throw new Error('crawlTopHolders:invalid-data');
+      // }
+      if (process.env.MODE == 'production') {
+        // await this.insertTopHolders({
+        //   holders: jobData,
+        //   crawl_id,
+        //   symbol: id,
+        // });
+      }
+    } catch (error) {
+      this.logger.error('error', '[crawlTopHoldersByList:error]', JSON.stringify(error));
+      throw error;
+    } finally {
+      //cleanup
+      await page.close();
+      await context.close();
+      // await browser.close();
+      browser.disconnect();
+    }
+  }
+
   isValidPortfolioData(data: any) {
     return data && data.balance_list && data.project_list;
   }

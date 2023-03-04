@@ -169,10 +169,10 @@ export class DebankService {
     // });
     // this.testProxy();
 
-    this.crawlTopHolders({
-      id: 'curve',
-      crawl_id: 1,
-    });
+    // this.crawlTopHolders({
+    //   id: 'curve',
+    //   crawl_id: 1,
+    // });
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION

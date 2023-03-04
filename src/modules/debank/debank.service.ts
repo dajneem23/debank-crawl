@@ -708,42 +708,42 @@ export class DebankService {
         attempts: 5,
       },
     });
-    this.addJob({
-      name: DebankJobNames['debank:add:fetch:coins'],
-      opts: {
-        repeatJobKey: 'debank:add:fetch:coins',
-        repeat: {
-          //repeat every 24 hours
-          every: 1000 * 60 * 60 * 24,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 1,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: DebankJobNames['debank:add:fetch:coins'],
+    //   opts: {
+    //     repeatJobKey: 'debank:add:fetch:coins',
+    //     repeat: {
+    //       //repeat every 24 hours
+    //       every: 1000 * 60 * 60 * 24,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
 
-    this.addJob({
-      name: DebankJobNames['debank:add:fetch:top-holders'],
-      opts: {
-        repeatJobKey: 'debank:add:fetch:top-holders',
-        jobId: `debank:add:fetch:top-holders`,
-        removeOnComplete: {
-          //remove after 1 hour
-          age: 60 * 60 * 3,
-        },
-        removeOnFail: {
-          //remove after 1 hour
-          age: 60 * 60 * 1,
-        },
-        repeat: {
-          //repeat every 60 minutes
-          every: 1000 * 60 * 60 * 3,
-          // pattern: '* 0 0 * * *',
-        },
-        priority: 2,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: DebankJobNames['debank:add:fetch:top-holders'],
+    //   opts: {
+    //     repeatJobKey: 'debank:add:fetch:top-holders',
+    //     jobId: `debank:add:fetch:top-holders`,
+    //     removeOnComplete: {
+    //       //remove after 1 hour
+    //       age: 60 * 60 * 3,
+    //     },
+    //     removeOnFail: {
+    //       //remove after 1 hour
+    //       age: 60 * 60 * 1,
+    //     },
+    //     repeat: {
+    //       //repeat every 60 minutes
+    //       every: 1000 * 60 * 60 * 3,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     priority: 2,
+    //     attempts: 5,
+    //   },
+    // });
     this.addJob({
       name: DebankJobNames['debank:add:social:users:rankings'],
       opts: {

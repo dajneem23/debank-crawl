@@ -39,6 +39,7 @@ import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP, WEBS
 import cacache from 'cacache';
 import { CACHE_PATH, clearCache, getDecodedJSONCacheKey } from '@/common/cache';
 import { HTTPResponse, HTTPRequest, Page, BrowserContext, Browser } from 'puppeteer';
+import { uniq, uniqBy } from 'lodash';
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 const current_address = '0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d';
@@ -123,8 +124,12 @@ export class DebankService {
     //! RUNNING
     'debank:add:fetch:user-address:top-holders': this.addFetchTopHoldersByUsersAddressJob,
 
+    'debank:crawl:top-holders': this.crawlTopHolders,
+
     //* PARTITION JOBS
     'debank:create:partitions': this.createPartitions,
+
+    'debank:clean:outdated-data': this.cleanOutdatedData,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -164,9 +169,10 @@ export class DebankService {
     // });
     // this.testProxy();
 
-    // this.crawlTopHoldersToken({
-    //   token_id: 'curve',
-    // });
+    this.crawlTopHolders({
+      id: 'curve',
+      crawl_id: 1,
+    });
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -262,7 +268,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 25,
+      concurrency: 30,
       // limiter: {
       //   max: 60,
       //   duration: 1000,
@@ -371,10 +377,10 @@ export class DebankService {
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
           // 1 hour
-          age: 60 * 60 * 1,
+          age: 60 * 60 * 6,
         },
         removeOnFail: {
-          age: 60 * 60 * 1,
+          age: 60 * 60 * 6,
         },
       },
     });
@@ -395,12 +401,12 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          // 1 hour
-          age: 60 * 60,
+          // 3 hour
+          age: 60 * 60 * 3,
         },
         removeOnFail: {
-          // 1 hour
-          age: 60 * 60,
+          // 3 hour
+          age: 60 * 60 * 3,
         },
       },
     });
@@ -417,10 +423,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 60 * 60,
+          age: 60 * 60 * 3,
         },
         removeOnFail: {
-          age: 60 * 60,
+          age: 60 * 60 * 3,
         },
       },
     });
@@ -437,10 +443,10 @@ export class DebankService {
         // Backoff setting for automatic retries if the job fails
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
-          age: 60 * 60,
+          age: 60 * 60 * 3,
         },
         removeOnFail: {
-          age: 60 * 60,
+          age: 60 * 60 * 3,
         },
       },
     });
@@ -622,30 +628,57 @@ export class DebankService {
     }
   }
   private initRepeatJobs() {
-    // this.addJob({
-    //   name: DebankJobNames['debank:create:partitions'],
-    //   otps: {
-    //     repeatJobKey: 'debank:create:partitions',
-    //     jobId: `debank:create:partitions`,
-    //     removeOnComplete: {
-    //       //remove after 1 hour
-    //       age: 60 * 60,
-    //     },
-    //     removeOnFail: {
-    //       //remove after 1 day
-    //       age: 60 * 60 * 24,
-    //     },
-    //     repeat: {
-    //       //repeat every day
-    //       every: 1000 * 60 * 60 * 24,
-    //       // pattern: '* 0 0 * * *',
-    //     },
-    //     //delay for 5 minutes when the job is added for done other jobs
-    //     delay: 1000 * 60 * 5,
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // });
+    //DB Job
+    this.addJob({
+      name: DebankJobNames['debank:create:partitions'],
+      otps: {
+        repeatJobKey: 'debank:create:partitions',
+        jobId: `debank:create:partitions`,
+        removeOnComplete: {
+          //remove after 1 hour
+          age: 60 * 60,
+        },
+        removeOnFail: {
+          //remove after 1 day
+          age: 60 * 60 * 24,
+        },
+        repeat: {
+          //repeat every day
+          every: 1000 * 60 * 60 * 24,
+          // pattern: '* 0 0 * * *',
+        },
+        //delay for 5 minutes when the job is added for done other jobs
+        delay: 1000 * 60 * 5,
+        priority: 1,
+        attempts: 5,
+      },
+    });
+
+    this.addJob({
+      name: DebankJobNames['debank:clean:outdated-data'],
+      otps: {
+        repeatJobKey: 'debank:clean:outdated-data',
+        jobId: 'debank:clean:outdated-data',
+        removeOnComplete: {
+          //remove after 1 hour
+          age: 60 * 60,
+        },
+        removeOnFail: {
+          //remove after 1 day
+          age: 60 * 60 * 24,
+        },
+        repeat: {
+          //repeat every day
+          every: 1000 * 60 * 60 * 24,
+          // pattern: '* 0 0 * * *',
+        },
+        //delay for 5 minutes when the job is added for done other jobs
+        delay: 1000 * 60 * 5,
+        priority: 1,
+        attempts: 5,
+      },
+    });
+
     this.addJob({
       name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
       otps: {
@@ -2152,13 +2185,13 @@ export class DebankService {
       const allCoins = await this.queryAllCoins();
       //164
       const jobs = allCoins.map(({ symbol }) => ({
-        name: DebankJobNames['debank:fetch:top-holders'],
+        name: DebankJobNames['debank:crawl:top-holders'],
         data: {
           id: symbol,
           crawl_id,
         },
         otps: {
-          jobId: `debank:fetch:top-holders:${crawl_id}:${symbol}`,
+          jobId: `debank:crawl:top-holders:${crawl_id}:${symbol}`,
           removeOnComplete: {
             age: 60 * 60 * 3,
           },
@@ -2362,7 +2395,7 @@ export class DebankService {
     await Promise.all(tables.map((table) => this.truncatePartitions({ table })));
   }
 
-  async truncatePartitions({ table, days = 7, keepDays = 3 }: { table: string; days?: number; keepDays?: number }) {
+  async truncatePartitions({ table, days = 14, keepDays = 7 }: { table: string; days?: number; keepDays?: number }) {
     try {
       const keepDate = Array.from({ length: keepDays }, (_, i) => {
         const date = new Date();
@@ -2608,7 +2641,7 @@ export class DebankService {
           }
         },
         {
-          concurrency: 3,
+          concurrency: 5,
         },
       );
 
@@ -2642,7 +2675,7 @@ export class DebankService {
         };
       });
       //TODO: bulk insert to job queue
-      if (process.env.NODE_ENV == 'production') {
+      if (process.env.MODE == 'production') {
         this.addBulkJobs({
           queue: 'debank-insert',
           jobs,
@@ -2654,34 +2687,40 @@ export class DebankService {
     } finally {
       await page.close();
       await context.close();
-      await browser.disconnect();
+      browser.disconnect();
       // console.log('crawlPortfolioByList done', Object.values(jobData));
       // console.timeEnd('crawlPortfolioByListV3');
     }
   }
 
   //!NOT COMPLETE YET
-  async crawlTopHoldersToken({ token_id }: { token_id: string }) {
-    const browser = await createPuppeteerBrowser();
+  async crawlTopHolders({ id, crawl_id }: { id: string; crawl_id: number }) {
+    const browser = await connectChrome();
+    // const browser = await createPuppeteerBrowser();
     const context = await browser.createIncognitoBrowserContext();
-    const jobData = [];
+    let jobData = [];
     // const needRequest = [DebankAPI.Coin.top_holders];
-    let totalPage = 1;
+    const page = await context.newPage();
     try {
-      const page = await context.newPage();
       await page.authenticate({
         username: WEBSHARE_PROXY_HTTP.auth.username,
         password: WEBSHARE_PROXY_HTTP.auth.password,
       });
       // mainPage.goto(`https://debank.com/tokens/${token_id}/holders`);
       const [_, data] = await Promise.all([
-        page.goto(`https://debank.com/tokens/${token_id}/holders`, {
+        page.goto(`https://debank.com/tokens/${id}/holders`, {
           waitUntil: 'load',
         }),
         page.waitForResponse((response) => {
           return response.url().includes(DebankAPI.Coin.top_holders.endpoint);
         }),
       ]);
+      const dataJson = await data.json();
+      const {
+        data: { total_count },
+      } = dataJson;
+      // console.log('crawlTopHolders', holders.length, total_count);
+
       await page.evaluate(
         ({ current_address, connected_dict, browser_uid }) => {
           // @ts-ignore
@@ -2697,16 +2736,11 @@ export class DebankService {
           browser_uid,
         },
       );
-      const dataJson = await data.json();
-      const {
-        data: { holders, total_count },
-      } = dataJson;
-      // console.log('crawlTopHoldersToken', holders.length, total_count);
-      jobData.push(...holders);
-      totalPage = Math.ceil(total_count / DebankAPI.Coin.top_holders.params.limit);
+      await page.reload();
+      await sleep(30 * 1000);
       const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Coin.top_holders.params.limit))).reduce(
         (acc, _, index) => {
-          acc.push(index * DebankAPI.Coin.top_holders.params.limit + 20);
+          acc.push(index * DebankAPI.Coin.top_holders.params.limit);
           return acc;
         },
         [],
@@ -2722,21 +2756,28 @@ export class DebankService {
       }) => {
         try {
           const url = new URL(DebankAPI.Coin.top_holders.endpoint);
-          url.searchParams.append('id', token_id);
+          url.searchParams.append('id', id);
           url.searchParams.append('start', offset.toString());
           url.searchParams.append('limit', DebankAPI.Coin.top_holders.params.limit.toString());
           const [_, data] = await Promise.all([
-            page.evaluate((url) => {
-              // @ts-ignore-start
-              fetch(url, {
-                referrerPolicy: 'strict-origin-when-cross-origin',
-                body: null,
-                method: 'GET',
-                mode: 'cors',
-                credentials: 'include',
-              }).then((res) => res.json());
-              // @ts-ignore-end
-            }, url.toString()),
+            page.evaluate(
+              (url, account) => {
+                // @ts-ignore-start
+                fetch(url, {
+                  headers: {
+                    account,
+                  },
+                  referrerPolicy: 'strict-origin-when-cross-origin',
+                  body: null,
+                  method: 'GET',
+                  mode: 'cors',
+                  credentials: 'include',
+                }).then((res) => res.json());
+                // @ts-ignore-end
+              },
+              url.toString(),
+              account,
+            ),
             page.waitForResponse(
               async (response) => {
                 return response.url().includes(url.toString());
@@ -2767,45 +2808,32 @@ export class DebankService {
           });
           const { data: dataJson } = await response.json();
           const { holders } = dataJson;
-          jobData.push(...holders);
+          jobData = uniqBy([...jobData, ...holders], 'id');
           // console.log('jobData', jobData.length);
         },
         {
           concurrency: 3,
         },
       );
-      // console.log(
-      //   'jobData',
-      //   jobData.map((item) => item.id).map((item) => jobData.filter((i) => i.id == item).length),
-      // );
-      // console.log('jobData', jobData.length);
-      // const jobs = Object.entries(jobData).map(([user_address, data]) => {
-      //   return {
-      //     name: DebankJobNames['debank:insert:user-assets-portfolio'],
-      //     data: {
-      //       ...data,
-      //       crawl_id,
-      //       user_address,
-      //     },
-      //     otps: {
-      //       jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
-      //       removeOnComplete: {
-      //         // remove job after 1 hour
-      //         age: 60 * 60 * 1,
-      //       },
-      //       removeOnFail: {
-      //         age: 60 * 60 * 1,
-      //       },
-      //       priority: 10,
-      //       attempts: 10,
-      //     },
-      //   };
-      // });
+      // console.log('jobData', uniq(jobData.map((item) => item.id)).length);
+      if (!this.isValidTopHoldersData({ data: jobData, total_count })) {
+        throw new Error('crawlTopHolders:invalid-data');
+      }
+      if (process.env.MODE == 'production') {
+        await this.insertTopHolders({
+          holders: jobData,
+          crawl_id,
+          symbol: id,
+        });
+      }
     } catch (error) {
       this.logger.error('error', '[crawlTopHoldersByList:error]', JSON.stringify(error));
       throw error;
     } finally {
-      // await context.close();
+      //cleanup
+      await page.close();
+      await context.close();
+      browser.disconnect();
     }
   }
   isValidPortfolioData(data: any) {
@@ -2813,12 +2841,6 @@ export class DebankService {
   }
 
   isValidTopHoldersData({ data, total_count }: { data: any[]; total_count: number }) {
-    return data && data.length > 0 && data.length == total_count;
-  }
-
-  compareTopHoldersData(data) {
-    return !data.some((item) => {
-      return data.filter((item2) => item2.id == item.id).length > 1;
-    });
+    return data && data.length > 0 && uniqBy(data, 'id').length == total_count;
   }
 }

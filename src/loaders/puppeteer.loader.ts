@@ -181,8 +181,8 @@ export const connectChrome = async () => {
   const browser = await puppeteer.connect({
     browserWSEndpoint: `ws://${host}:9999?stealth`,
     defaultViewport: {
-      width: 2880,
-      height: 1800,
+      width: 1920,
+      height: 1080,
       isMobile: false,
     },
   });

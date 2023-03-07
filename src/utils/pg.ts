@@ -122,13 +122,18 @@ export const createPartitionsInDateRange = async ({
 
 export const truncateTable = async ({ table }: { table: string }) => {
   const pgClient = Container.get(pgPromiseClientToken);
-  const query = `TRUNCATE TABLE "${table}"`;
+  const query = `TRUNCATE TABLE "${table} IF EXISTS"`;
   return await pgClient.none(query);
+};
+
+export const truncateAndDropTable = async ({ table }: { table: string }) => {
+  await truncateTable({ table });
+  await dropTable({ table });
 };
 
 export const dropTable = async ({ table }: { table: string }) => {
   const pgClient = Container.get(pgPromiseClientToken);
-  const query = `DROP TABLE "${table}"`;
+  const query = `DROP TABLE "${table} IF EXISTS"`;
   return await pgClient.none(query);
 };
 /* Here is the explanation for the code above:

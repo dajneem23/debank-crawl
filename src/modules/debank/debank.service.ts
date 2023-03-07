@@ -18,6 +18,7 @@ import {
   createPartitionByRange,
   createPartitionDefault,
   createPartitionsInDateRange,
+  truncateAndDropTable,
   truncateTable,
   truncateTableInDateRange,
 } from '@/utils/pg';
@@ -46,6 +47,7 @@ const current_address = '0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d';
 const connected_dict =
   '{"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d":{"walletType":"metamask","sessionId":"34dea485be2848cfb0a72f966f05a5b0","detail":{"account_id":"Tian","avatar":null,"comment":null,"create_at":1674790367,"desc":{"born_at":1674790367,"cex":{},"contract":{},"id":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","is_danger":null,"is_spam":null,"name":null,"org":{},"protocol":{},"tags":[],"thirdparty_names":{},"usd_value":15.859135222052371,"user":{"logo_is_nft":false,"logo_thumbnail_url":"","logo_url":"","memo":null,"web3_id":"Tian"}},"email_verified":false,"follower_count":1,"following_count":0,"id":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","is_contract":false,"is_editor":false,"is_followed":false,"is_following":false,"is_mine":false,"is_mirror_author":false,"is_multisig_addr":false,"market_status":null,"org":{},"protocol_usd_value":0,"relation":null,"tvf":0,"usd_value":15.859135222052371,"used_chains":["eth"],"wallet_usd_value":15.859135222052371}}}';
 const browser_uid = '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77"}';
+
 export const debankServiceToken = new Token<DebankService>('_debankService');
 
 export class DebankService {
@@ -177,7 +179,7 @@ export class DebankService {
     // this.crawlWhales({
     //   crawl_id: 1,
     // }).then(() => console.log('1'));
-
+    // this.queryTopHoldersImportantToken().then(console.log);
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -189,16 +191,19 @@ export class DebankService {
     }
   }
   async testProxy() {
+    // console.log('testProxy');
     const browser = await connectChrome();
 
     // await page.setRequestInterception(true);
     const createPage = async () => {
-      const context = await browser.createIncognitoBrowserContext();
+      const context = await browser.defaultBrowserContext();
       const page = await context.newPage();
-
-      await page.goto(`https://api.myip.com`, {
-        waitUntil: 'networkidle0',
-        timeout: 60 * 1000,
+      await page.authenticate({
+        username: WEBSHARE_PROXY_HTTP.auth.username,
+        password: WEBSHARE_PROXY_HTTP.auth.password,
+      });
+      await page.goto(`https://api.ipify.org/?format=json`, {
+        waitUntil: 'load',
       });
       const data = await page.evaluate(() => {
         // @ts-ignore
@@ -407,11 +412,11 @@ export class DebankService {
         backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
         removeOnComplete: {
           // 3 hour
-          age: 60 * 60 * 3,
+          age: 60 * 60 * 1,
         },
         removeOnFail: {
           // 3 hour
-          age: 60 * 60 * 3,
+          age: 60 * 60 * 1,
         },
       },
     });
@@ -1318,7 +1323,7 @@ export class DebankService {
     order?: 'DESC' | 'ASC';
   }) {
     const { rows } = await this.pgPool.query(
-      `SELECT ${select} FROM "debank-user-address-list"
+      `  ${select} FROM "debank-user-address-list"
       ${where ? 'WHERE ' + where : ''}
       ORDER BY ${orderBy} ${order}  ${limit ? 'LIMIT ' + limit : ''}`,
     );
@@ -1872,11 +1877,7 @@ export class DebankService {
     //   return;
     // }
 
-    const { rows } = await this.queryAddressList({
-      select: 'user_address',
-      orderBy: 'debank_top_holders_time',
-      where: 'debank_top_holders_time IS not NULL OR debank_whales_time is not NULL ',
-    });
+    const { rows } = await this.queryTopHoldersImportantToken();
 
     const crawl_id = await this.getCrawlId();
 
@@ -2204,10 +2205,10 @@ export class DebankService {
       const crawl_id = await this.getTopHoldersCrawlId();
       const allCoins = await this.queryAllCoins();
       //164
-      const jobs = allCoins.map(({ symbol }) => ({
+      const jobs = allCoins.map(({ symbol, db_id }) => ({
         name: DebankJobNames['debank:crawl:top-holders'],
         data: {
-          id: symbol,
+          id: db_id,
           crawl_id,
         },
         opts: {
@@ -2319,7 +2320,7 @@ export class DebankService {
   async queryAllCoins() {
     try {
       const { rows } = await this.pgClient.query(`
-        SELECT symbol, details FROM "debank-coins"
+        SELECT symbol, details, db_id FROM "debank-coins"
       `);
       return rows;
     } catch (error) {
@@ -2432,7 +2433,7 @@ export class DebankService {
         }
         //truncate by date
         //example: debank-portfolio-balances-20210701
-        await truncateTable({
+        await truncateAndDropTable({
           table: `${table}-${dateStr}`,
         });
       }
@@ -2560,7 +2561,7 @@ export class DebankService {
     // const cluster = await createPupperteerClusterLoader();
     // console.time('crawlPortfolioByListV3');
     const browser = await connectChrome();
-    const context = await browser.createIncognitoBrowserContext();
+    const context = await browser.defaultBrowserContext();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
     // console.time('initPage');
     const page = await context.newPage();
@@ -2706,7 +2707,7 @@ export class DebankService {
       throw error;
     } finally {
       await page.close();
-      await context.close();
+      // await context.close();
       browser.disconnect();
       // console.log('crawlPortfolioByList done', Object.values(jobData));
       // console.timeEnd('crawlPortfolioByListV3');
@@ -2997,5 +2998,23 @@ export class DebankService {
 
   isValidTopHoldersData({ data, total_count }: { data: any[]; total_count: number }) {
     return data && data.length > 0 && uniqBy(data, 'id').length == total_count;
+  }
+
+  async queryTopHoldersImportantToken() {
+    const { rows } = await this.pgClient.query(
+      `select "debank-user-address-list".user_address
+         FROM
+        "debank-user-address-list"
+        inner join "debank-top-holders_link_debank-coins"
+        on "debank-user-address-list".user_address = "debank-top-holders_link_debank-coins".user_address
+        where "debank-top-holders_link_debank-coins".coin_id = ANY
+        (
+          select db_id from "debank-important-tokens" where db_id is not null
+        ) group by "debank-user-address-list".user_address
+    `,
+    );
+    return {
+      rows,
+    };
   }
 }

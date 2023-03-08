@@ -11,6 +11,7 @@ import {
 import Container from 'typedi';
 import { DIDiscordClient, Discord } from './discord.loader';
 import { BinanceService } from '@/modules/binance/binance.service';
+import { NansenService } from '@/modules/nansen/nansen.service';
 const WorkerLoader = () => {
   // new DexScreenerService();
   new DebankService();
@@ -18,6 +19,8 @@ const WorkerLoader = () => {
   // new DefillamaService();
   new CoinGeckoService();
   // new AssetService();
+
+  new NansenService();
   // new AssetTrendingService();
   // new CategoryService();
   // new ExchangeService();

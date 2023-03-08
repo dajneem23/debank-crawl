@@ -82,7 +82,7 @@ export class DebankService {
   // TODO: adjust this value
   readonly totalRepeatableJobs = 6;
 
-  readonly maxCrawlIdInOneDay = 8;
+  readonly maxCrawlIdInOneDay = 12;
 
   readonly keepCrawlIds = [1, 5];
 
@@ -180,6 +180,27 @@ export class DebankService {
     //   crawl_id: 1,
     // }).then(() => console.log('1'));
     // this.queryTopHoldersImportantToken().then(console.log);
+
+    // bulkInsertOnConflict({
+    //   table: 'debank-user-address-list',
+    //   onConflict: 'nothing',
+    //   conflict: 'user_address',
+    //   data: data.map((item) => ({
+    //     user_address: item.address,
+    //   })),
+    // }).then((_) => {
+    //   console.log('done address');
+    //   bulkInsertOnConflict({
+    //     table: 'debank-user-address-list_link_debank-important-tokens',
+    //     onConflict: 'nothing',
+    //     conflict: 'user_address,eth_contract',
+    //     data: data.map((item) => ({
+    //       user_address: item.address,
+    //       eth_contract: '0xbe1a001fe942f96eea22ba08783140b9dcc09d28',
+    //     })),
+    //   }).then((_) => console.log('done link'));
+    // });
+
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -704,7 +725,7 @@ export class DebankService {
         },
         repeat: {
           //repeat every 3 hours
-          every: 1000 * 60 * 60 * 6,
+          every: 1000 * 60 * 60 * 2,
           // pattern: '* 0 0 * * *',
         },
         //delay for 5 minutes when the job is added for done other jobs
@@ -3002,15 +3023,24 @@ export class DebankService {
 
   async queryTopHoldersImportantToken() {
     const { rows } = await this.pgClient.query(
-      `select "debank-user-address-list".user_address
-         FROM
-        "debank-user-address-list"
-        inner join "debank-top-holders_link_debank-coins"
-        on "debank-user-address-list".user_address = "debank-top-holders_link_debank-coins".user_address
-        where "debank-top-holders_link_debank-coins".coin_id = ANY
-        (
-          select db_id from "debank-important-tokens" where db_id is not null
-        ) group by "debank-user-address-list".user_address
+      `
+        SELECT
+          "debank-user-address-list".user_address as user_address
+        FROM
+          "debank-user-address-list"
+        LEFT JOIN
+          "debank-top-holders_link_debank-coins"
+            ON "debank-user-address-list".user_address = "debank-top-holders_link_debank-coins".user_address
+        LEFT JOIN
+          "debank-user-address-list_link_debank-important-tokens"
+            ON "debank-user-address-list_link_debank-important-tokens".user_address = "debank-user-address-list".user_address
+        INNER JOIN
+          "debank-important-tokens"
+            ON  "debank-top-holders_link_debank-coins".coin_id ="debank-important-tokens".db_id
+              OR
+                "debank-user-address-list_link_debank-important-tokens".eth_contract = "debank-important-tokens".eth_contract
+        GROUP BY
+          "debank-user-address-list".user_address
     `,
     );
     return {

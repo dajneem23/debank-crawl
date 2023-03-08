@@ -69,6 +69,8 @@ export class DebankService {
 
   private workerRanking: Worker;
 
+  private workerCommon: Worker;
+
   private queue: Queue;
 
   private queueInsert: Queue;
@@ -78,6 +80,8 @@ export class DebankService {
   private queueTopHolder: Queue;
 
   private queueRanking: Queue;
+
+  private queueCommon: Queue;
 
   // TODO: adjust this value
   readonly totalRepeatableJobs = 6;
@@ -128,6 +132,12 @@ export class DebankService {
 
     'debank:crawl:top-holders': this.crawlTopHolders,
 
+    'debank:add:fetch:protocols:pools': this.addFetchProtocolPoolsJob,
+
+    'debank:fetch:protocols:pools:page': this.fetchProtocolPoolsPage,
+
+    'debank:add:fetch:protocols:pools:id': this.addFetchProtocolPoolsById,
+
     //* PARTITION JOBS
     'debank:create:partitions': this.createPartitions,
 
@@ -143,6 +153,7 @@ export class DebankService {
     debankWhale: 'debank-whale',
     debankTopHolder: 'debank-top-holder',
     debankRanking: 'debank-ranking',
+    debankCommon: 'debank-common',
   };
 
   constructor() {
@@ -179,7 +190,7 @@ export class DebankService {
     // this.crawlWhales({
     //   crawl_id: 1,
     // }).then(() => console.log('1'));
-    // this.queryTopHoldersImportantToken().then(console.log);
+    // this.queryTopHoldersImportantToken().then(({ rows }) => console.log(rows.length));
 
     // bulkInsertOnConflict({
     //   table: 'debank-user-address-list',
@@ -200,7 +211,9 @@ export class DebankService {
     //     })),
     //   }).then((_) => console.log('done link'));
     // });
-
+    // this.fetchProtocolPoolsPage({
+    //   protocol_id: 'bsc_pancakeswap',
+    // }).then((_) => console.log('done'));
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -385,6 +398,23 @@ export class DebankService {
     });
     this.initWorkerListeners(this.workerRanking);
 
+    this.workerCommon = new Worker('debank-common', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60 * 5,
+      concurrency: 5,
+      limiter: {
+        max: 60,
+        duration: 60 * 1000,
+      },
+      stalledInterval: 1000 * 60,
+      maxStalledCount: 5,
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK,
+      },
+    });
+    this.initWorkerListeners(this.workerCommon);
+
     this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
   }
 
@@ -405,7 +435,7 @@ export class DebankService {
         attempts: 10,
         // delay: 1000 * 2,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        backoff: { type: 'exponential', delay: 10 * 1000 },
         removeOnComplete: {
           // 1 hour
           age: 60 * 60 * 6,
@@ -430,7 +460,7 @@ export class DebankService {
         // The total number of attempts to try the job until it completes
         attempts: 5,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        backoff: { type: 'exponential', delay: 10 * 1000 },
         removeOnComplete: {
           // 3 hour
           age: 60 * 60 * 1,
@@ -441,6 +471,7 @@ export class DebankService {
         },
       },
     });
+
     const queueInsertEvents = new QueueEvents('debank-insert', {
       connection: this.redisConnection,
     });
@@ -452,7 +483,7 @@ export class DebankService {
         // The total number of attempts to try the job until it completes
         attempts: 10,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        backoff: { type: 'exponential', delay: 10 * 1000 },
         removeOnComplete: {
           age: 60 * 60 * 3,
         },
@@ -472,7 +503,7 @@ export class DebankService {
         // The total number of attempts to try the job until it completes
         attempts: 10,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        backoff: { type: 'exponential', delay: 10 * 1000 },
         removeOnComplete: {
           age: 60 * 60 * 3,
         },
@@ -492,7 +523,7 @@ export class DebankService {
         // The total number of attempts to try the job until it completes
         attempts: 10,
         // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 0.5 * 60 * 1000 },
+        backoff: { type: 'exponential', delay: 10 * 1000 },
         removeOnComplete: {
           age: 60 * 60,
         },
@@ -505,6 +536,26 @@ export class DebankService {
       connection: this.redisConnection,
     });
     this.initQueueListeners(queueRankingEvents);
+
+    this.queueCommon = new Queue('debank-common', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 10,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 10 * 1000 },
+        removeOnComplete: {
+          age: 60 * 60 * 3,
+        },
+        removeOnFail: {
+          age: 60 * 60 * 3,
+        },
+      },
+    });
+    const queueCommonEvents = new QueueEvents('debank-common', {
+      connection: this.redisConnection,
+    });
+    this.initQueueListeners(queueCommonEvents);
 
     // TODO: ENABLE THIS
     this.initRepeatJobs();
@@ -656,6 +707,10 @@ export class DebankService {
         return this.queueTopHolder;
       case 'debank-ranking':
         return this.queueRanking;
+      case 'debank-common':
+        return this.queueCommon;
+      default:
+        return this.queue;
     }
   }
   private initRepeatJobs() {
@@ -690,6 +745,31 @@ export class DebankService {
       opts: {
         repeatJobKey: 'debank:clean:outdated-data',
         jobId: 'debank:clean:outdated-data',
+        removeOnComplete: {
+          //remove after 1 hour
+          age: 60 * 60,
+        },
+        removeOnFail: {
+          //remove after 1 day
+          age: 60 * 60 * 24,
+        },
+        repeat: {
+          //repeat every day
+          every: 1000 * 60 * 60 * 24,
+          // pattern: '* 0 0 * * *',
+        },
+        //delay for 5 minutes when the job is added for done other jobs
+        delay: 1000 * 60 * 5,
+        priority: 1,
+        attempts: 5,
+      },
+    });
+
+    this.addJob({
+      name: DebankJobNames['debank:add:fetch:protocols:pools'],
+      opts: {
+        repeatJobKey: 'debank:add:fetch:protocols:pools',
+        jobId: `debank:add:fetch:protocols:pools`,
         removeOnComplete: {
           //remove after 1 hour
           age: 60 * 60,
@@ -856,7 +936,7 @@ export class DebankService {
     jobs,
     queue = this.queueName.debank,
   }: {
-    queue: keyof typeof this.queueName;
+    queue?: keyof typeof this.queueName;
     jobs: { name: DebankJobNames; data: any; opts: JobsOptions }[];
   }) {
     switch (queue) {
@@ -868,6 +948,8 @@ export class DebankService {
         return this.queueRanking.addBulk(jobs);
       case this.queueName.debankTopHolder:
         return this.queueTopHolder.addBulk(jobs);
+      case this.queueName.debankCommon:
+        return this.queueCommon.addBulk(jobs);
       case this.queueName.debank:
       default:
         return this.queue.addBulk(jobs);
@@ -1703,7 +1785,9 @@ export class DebankService {
           removeOnFail: {
             age: 60 * 60 * 3,
           },
+
           delay: 1000 * 30,
+
           priority: 5,
           attempts: 10,
         },
@@ -2375,6 +2459,31 @@ export class DebankService {
       throw error;
     }
   }
+  async insertPools({ pools }: { pools: any[] }) {
+    try {
+      const updated_at = new Date();
+      const values = pools.map((pool) => ({
+        details: JSON.stringify(pool).replace(/\\u0000/g, ''),
+        adapter_id: pool.adapter_id,
+        chain: pool.chain,
+        project_id: pool.project_id,
+        pool_id: pool.stats?.pool_id,
+        protocol_id: pool.stats?.protocol_id,
+        updated_at,
+      }));
+
+      values.length &&
+        (await bulkInsertOnConflict({
+          data: values,
+          table: 'debank-pools',
+          onConflict: 'UPDATE SET details = EXCLUDED.details, updated_at = EXCLUDED.updated_at',
+          conflict: 'pool_id',
+        }));
+    } catch (error) {
+      this.logger.error('error', '[insertPools:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
   async insertTopHolder({
     symbol,
     user_address,
@@ -3042,6 +3151,161 @@ export class DebankService {
         GROUP BY
           "debank-user-address-list".user_address
     `,
+    );
+    return {
+      rows,
+    };
+  }
+
+  async addFetchProtocolPoolsById({ id: protocol_id }) {
+    try {
+      const {
+        data: { data, error_code },
+        status,
+      } = await DebankAPI.fetch({
+        endpoint: DebankAPI.Protocols.pool.endpoint,
+        params: {
+          id: protocol_id,
+          start: 0,
+          limit: 20,
+        },
+        config: {
+          proxy: {
+            host: WEBSHARE_PROXY_HTTP.host,
+            port: WEBSHARE_PROXY_HTTP.port,
+            auth: {
+              username: WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP.auth.username,
+              password: WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP.auth.password,
+            },
+            protocol: WEBSHARE_PROXY_HTTP.protocol,
+          },
+        },
+      });
+      if (status !== 200 || error_code) {
+        throw new Error('fetchProtocolPoolsPage:error');
+      }
+      const { total_count } = data;
+      const jobs = Array.from(
+        { length: Math.ceil(total_count / DebankAPI.Protocols.pool.params.limit) },
+        (_, index) => ({
+          name: DebankJobNames['debank:fetch:protocols:pools:page'],
+          data: {
+            protocol_id,
+            start: index * DebankAPI.Protocols.pool.params.limit,
+            limit: DebankAPI.Protocols.pool.params.limit,
+          },
+          opts: {
+            jobId: `debank:fetch:protocols:pools:page:${index}`,
+            removeOnComplete: {
+              age: 60 * 60 * 3,
+            },
+            removeOnFail: {
+              age: 60 * 60 * 3,
+            },
+            priority: 5,
+
+            delay: 1000 * 30,
+          },
+        }),
+      );
+      jobs.length &&
+        (await this.addBulkJobs({
+          jobs,
+          queue: this.queueName.debankCommon,
+        }));
+    } catch (error) {
+      this.logger.error('error', '[addFetchProtocolPools:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async fetchProtocolPoolsPage({
+    protocol_id,
+    start = DebankAPI.Protocols.pool.params.start,
+    limit = DebankAPI.Protocols.pool.params.limit,
+  }: {
+    protocol_id: string;
+    start?: number;
+    limit?: number;
+  }) {
+    try {
+      const {
+        data: { data, error_code },
+        status,
+      } = await DebankAPI.fetch({
+        endpoint: DebankAPI.Protocols.pool.endpoint,
+        params: {
+          id: protocol_id,
+          start,
+          limit,
+        },
+        config: {
+          proxy: {
+            host: WEBSHARE_PROXY_HTTP.host,
+            port: WEBSHARE_PROXY_HTTP.port,
+            auth: {
+              username: WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP.auth.username,
+              password: WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP.auth.password,
+            },
+            protocol: WEBSHARE_PROXY_HTTP.protocol,
+          },
+        },
+      });
+      if (status !== 200 || error_code) {
+        throw new Error('fetchProtocolPoolsPage:error');
+      }
+      const { pools } = data;
+      pools.length &&
+        (await this.insertPools({
+          pools,
+        }));
+      return {
+        pools,
+      };
+    } catch (error) {
+      this.logger.error('error', '[fetchProtocolPoolsPage:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async addFetchProtocolPoolsJob() {
+    try {
+      const { rows } = await this.queryProtocols();
+      const jobs = rows.map(({ db_id: id }) => ({
+        name: DebankJobNames['debank:add:fetch:protocols:pools:id'],
+        data: {
+          id,
+        },
+        opts: {
+          jobId: `debank:add:fetch:protocols:pools:id:${id}`,
+          removeOnComplete: {
+            age: 60 * 60 * 3,
+          },
+          removeOnFail: {
+            age: 60 * 60 * 3,
+          },
+          priority: 5,
+          delay: 1000 * 30,
+        },
+      }));
+      jobs.length &&
+        (await this.addBulkJobs({
+          jobs,
+        }));
+    } catch (error) {
+      this.logger.error('error', '[addFetchProtocolPools:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async queryProtocols() {
+    const { rows } = await this.pgClient.query(
+      `
+        SELECT
+          db_id
+        FROM
+          "debank-protocols"
+      `,
     );
     return {
       rows,

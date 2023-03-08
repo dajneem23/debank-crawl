@@ -35,6 +35,12 @@ export enum DebankJobNames {
 
   'debank:crawl:portfolio:list' = 'debank:crawl:portfolio:list',
   'debank:crawl:top-holders' = 'debank:crawl:top-holders',
+
+  'debank:fetch:protocols:pools:page' = 'debank:fetch:protocols:pools:page',
+
+  'debank:add:fetch:protocols:pools:id' = 'debank:add:fetch:protocols:pools:id',
+
+  'debank:add:fetch:protocols:pools' = 'debank:add:fetch:protocols:pools',
 }
 
 export type DebankJobData = fetchDebankDataJob;

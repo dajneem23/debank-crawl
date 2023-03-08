@@ -320,6 +320,27 @@ export const DebankAPI = {
       endpoint: 'https://api.debank.com/project/portfolios/user_list',
     },
   },
+  Protocols: {
+    list: {
+      endpoint: 'https://api.debank.com/protocol/list',
+      params: {
+        start: 0,
+        limit: 10000,
+        chain_id: '',
+        pool_name: '',
+        order_by: '-deposit_usd_value',
+      },
+    },
+    pool: {
+      endpoint: 'https://api.debank.com/protocol/pools',
+      params: {
+        start: 0,
+        limit: 100,
+        //! protocol_id
+        id: '',
+      },
+    },
+  },
   Token: {
     /**
      * @description fetch token list from debank

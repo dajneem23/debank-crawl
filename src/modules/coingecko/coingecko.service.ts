@@ -750,7 +750,7 @@ export class CoinGeckoService {
   async fetchImportantTokenPrice({ id }) {
     const { market_data, symbol } = await this.fetchCoinGeckoAssetDetails({ id });
     const firstLetter = symbol.charAt(0).toLowerCase();
-    const collection = this.db.collection(`marketData_${Group3Alphabet[firstLetter as keyof typeof Group3Alphabet]}`);
+    const collection = this.db.collection(`market-data_${Group3Alphabet[firstLetter as keyof typeof Group3Alphabet]}`);
     await collection.findOneAndUpdate(
       {
         symbol,
@@ -766,7 +766,7 @@ export class CoinGeckoService {
         },
         $push: {
           market_data: {
-            market_data,
+            ...market_data,
           },
         } as any,
         $set: {

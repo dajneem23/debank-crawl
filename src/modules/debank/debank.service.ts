@@ -214,6 +214,12 @@ export class DebankService {
     // this.fetchProtocolPoolsPage({
     //   protocol_id: 'bsc_pancakeswap',
     // }).then((_) => console.log('done'));
+
+    // this.addFetchProtocolPoolsJob();
+
+    // this.addFetchProtocolPoolsById({
+    //   id: 'arb_dmm_exchange',
+    // });
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -3195,7 +3201,7 @@ export class DebankService {
             limit: DebankAPI.Protocols.pool.params.limit,
           },
           opts: {
-            jobId: `debank:fetch:protocols:pools:page:${index}`,
+            jobId: `debank:fetch:protocols:pools:page:${protocol_id}:${index}`,
             removeOnComplete: {
               age: 60 * 60 * 3,
             },

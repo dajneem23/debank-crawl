@@ -12,3 +12,15 @@ export const queryDebankCoins = async (
   `);
   return { rows };
 };
+
+export const queryDebankImportantTokens = async (
+  { select = 'symbol,eth_contract,bsc_contract,db_id,cg_id' } = {
+    select: 'symbol,eth_contract,bsc_contract,db_id,cg_id',
+  },
+) => {
+  const pgClient = Container.get(pgClientToken);
+  const { rows } = await pgClient.query(`
+    SELECT ${select}  FROM "debank-important-tokens"
+  `);
+  return { rows };
+};

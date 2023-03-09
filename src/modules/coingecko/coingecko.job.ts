@@ -16,5 +16,9 @@ export enum CoinGeckoJobNames {
   'coingecko:fetch:coin:details' = 'coingecko:fetch:coin:details',
 
   'coingecko:add:fetch:debank:coins' = 'coingecko:add:fetch:debank:coins',
+
+  'coingecko:fetch:important:token:price' = 'coingecko:fetch:important:token:price',
+
+  'coingecko:add:fetch:important:token:price' = 'coingecko:add:fetch:important:token:price',
 }
 export type CoinGeckoJobData = fetchCoinGeckoDataJob;

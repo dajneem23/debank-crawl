@@ -122,7 +122,9 @@ export const createPartitionsInDateRange = async ({
 
 export const truncateTable = async ({ table }: { table: string }) => {
   const pgClient = Container.get(pgPromiseClientToken);
-  const query = `TRUNCATE TABLE  IF EXISTS "${table}"`;
+  // const query = `TRUNCATE TABLE  IF EXISTS "${table}"`;
+  //replace with function to avoid error
+  const query = `SELECT truncate_if_exists('${table}')`;
   return await pgClient.none(query);
 };
 

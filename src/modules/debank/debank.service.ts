@@ -448,7 +448,7 @@ export class DebankService {
         `\n+ ${debankJobs.completed} completed` +
         `\n- ${debankJobs.failed} failed` +
         `\n is running: ${this.worker.isRunning()}` +
-        `\nnext_Job: ${(await this.worker.getNextJob('debank'))?.id}` +
+        `\n next_Job: ${(await this.worker.getNextJob('debank'))?.id}` +
         `\n debank whale:` +
         `\n+ ${whaleJobs.waiting} waiting` +
         `\n+ ${whaleJobs.active} active` +
@@ -456,7 +456,7 @@ export class DebankService {
         `\n+ ${whaleJobs.completed} completed` +
         `\n+ ${whaleJobs.failed} failed` +
         `\n is running: ${this.workerWhale.isRunning}` +
-        `\nnext_Job: ${(await this.workerWhale.getNextJob('debank-whale'))?.id}` +
+        `\n next_Job: ${(await this.workerWhale.getNextJob('debank-whale'))?.id}` +
         `\n debank top holder:` +
         `\n+ ${topHolderJobs.waiting} waiting` +
         `\n+ ${topHolderJobs.active} active` +
@@ -464,7 +464,7 @@ export class DebankService {
         `\n+ ${topHolderJobs.completed} completed` +
         `\n- ${topHolderJobs.failed} failed` +
         `\n is running: ${this.workerTopHolder.isRunning}` +
-        `\n:next_Job: ${(await this.workerTopHolder.getNextJob('debank-top-holder'))?.id}` +
+        `\n next_Job: ${(await this.workerTopHolder.getNextJob('debank-top-holder'))?.id}` +
         `\n debank ranking:` +
         `\n+ ${rankingJobs.waiting} waiting` +
         `\n+ ${rankingJobs.active} active` +
@@ -480,7 +480,7 @@ export class DebankService {
         `\n+ ${insertJobs.completed} completed` +
         `\n- ${insertJobs.failed} failed` +
         `\n is running: ${this.workerInsert.isRunning}` +
-        `\n:next_Job: ${(await this.workerInsert.getNextJob('debank-insert'))?.id}` +
+        `\nnext_Job: ${(await this.workerInsert.getNextJob('debank-insert'))?.id}` +
         `\n debank common:` +
         `\n+ ${debankCommonJobs.waiting} waiting` +
         `\n+ ${debankCommonJobs.active} active` +
@@ -488,7 +488,7 @@ export class DebankService {
         `\n+ ${debankCommonJobs.completed} completed` +
         `\n- ${debankCommonJobs.failed} failed` +
         `\n is running: ${this.workerCommon.isRunning}` +
-        `\n:next_Job: ${(await this.workerCommon.getNextJob('debank-common'))?.id}` +
+        `\nnext_Job: ${(await this.workerCommon.getNextJob('debank-common'))?.id}` +
         `\n total not finished jobs: ${totalNotFinishedJobs}` +
         `\ntime: ${new Date().toISOString()}` +
         `\`\`\``;
@@ -605,11 +605,11 @@ export class DebankService {
         jobId: `debank:add:fetch:user-address:top-holders`,
         removeOnComplete: {
           //remove after 1 hour
-          age: 60 * 60,
+          age: 60 * 60 * 2,
         },
         removeOnFail: {
           //remove after 1 hour
-          age: 60 * 60 * 1,
+          age: 60 * 60 * 2,
         },
         repeat: {
           //repeat every 3 hours
@@ -670,7 +670,7 @@ export class DebankService {
         },
         removeOnFail: {
           //remove job after 1 hours
-          age: 60 * 60 * 1,
+          age: 60 * 60 * 3,
         },
         repeat: {
           //repeat every 3 hours
@@ -689,11 +689,11 @@ export class DebankService {
         jobId: `debank:add:fetch:whales:paging`,
         removeOnComplete: {
           //remove job after 1 hours
-          age: 60 * 60 * 1,
+          age: 60 * 60 * 3,
         },
         removeOnFail: {
           //remove job after 1 hours
-          age: 60 * 60 * 1,
+          age: 60 * 60 * 3,
         },
         repeat: {
           //repeat every 3 hours

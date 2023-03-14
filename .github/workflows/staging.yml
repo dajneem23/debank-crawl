@@ -74,7 +74,7 @@ jobs:
             --restart always \
             -v /var/run/docker.sock:/var/run/docker.sock \
             --memory-swappiness=100 \
-            --cpus=8 \
+            --cpus=4 \
             --cpu-shares=4096 \
             --name $(echo $IMAGE_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)

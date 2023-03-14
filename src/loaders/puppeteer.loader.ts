@@ -61,7 +61,7 @@ export const createPuppeteerBrowser = async (
 ) => {
   const newProxyUrl = await anonymizeProxy(proxy);
   const browser = await puppeteer.use(pluginStealth()).launch({
-    headless: process.env.MODE == 'production' || true,
+    headless: process.env.MODE == 'production',
     userDataDir: './.cache',
     devtools: process.env.MODE != 'production',
     // defaultViewport: {

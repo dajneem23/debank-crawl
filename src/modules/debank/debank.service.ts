@@ -1,6 +1,6 @@
 import Container, { Token } from 'typedi';
 import Logger from '@/core/logger';
-import { Job, JobType, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
+import { Job, JobType, JobsOptions, MetricsTime, Queue, Worker } from 'bullmq';
 import { env } from 'process';
 import bluebird from 'bluebird';
 import { DIRedisConnection } from '@/loaders/redis.loader';
@@ -9,38 +9,34 @@ import { DebankJobData, DebankJobNames } from './debank.job';
 import { DebankAPI } from '@/common/api';
 import { pgClientToken, pgPoolToken, pgpToken } from '@/loaders/pg.loader';
 
-import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
-import {
-  bulkInsert,
-  bulkInsertOnConflict,
-  createPartitionByList,
-  createPartitionByRange,
-  createPartitionDefault,
-  createPartitionsInDateRange,
-  truncateAndDropTable,
-  truncateTable,
-  truncateTableInDateRange,
-} from '@/utils/pg';
+import { bulkInsertOnConflict, createPartitionsInDateRange, truncateAndDropTable } from '@/utils/pg';
 import { DIDiscordClient } from '@/loaders/discord.loader';
-import { arrayObjectToTable } from '@/utils/table';
-import { table } from 'table';
 import { sleep } from '@/utils/common';
-import { isJSON } from '@/utils/text';
+import { connectChrome, createPuppeteerBrowser } from '@/loaders/puppeteer.loader';
+import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '@/common/proxy';
+import { uniqBy } from 'lodash';
 import {
-  connectChrome,
-  createPupperteerClusterLoader,
-  createPuppeteerBrowser,
-  createPuppeteerBrowserContext,
-  puppeteerBrowserToken,
-  puppeterrClusterToken,
-} from '@/loaders/puppeteer.loader';
-import { randomUserAgent } from '@/config/userAgent';
-import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP, WEBSHARE_PROXY_STR } from '@/common/proxy';
-import cacache from 'cacache';
-import { CACHE_PATH, clearCache, getDecodedJSONCacheKey } from '@/common/cache';
-import { HTTPResponse, HTTPRequest, Page, BrowserContext, Browser } from 'puppeteer';
-import { uniq, uniqBy } from 'lodash';
+  getDebankCoinsCrawlId,
+  getDebankCrawlId,
+  getDebankSocialRankingCrawlId,
+  getDebankTopHoldersCrawlId,
+  getDebankWhalesCrawlId,
+  insertDebankCoin,
+  insertDebankCoins,
+  insertDebankPools,
+  insertDebankTopHolder,
+  insertDebankTopHolders,
+  insertDebankUserAddress,
+  insertDebankUserAssetPortfolio,
+  insertDebankWhale,
+  insertDebankWhaleList,
+  queryDebankAllCoins,
+  queryDebankProtocols,
+  queryDebankTopHoldersImportantToken,
+  updateDebankUserProfile,
+} from './debank.fnc';
+import { initQueue, initQueueListeners } from '@/utils/bullmq';
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 const current_address = '0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d';
@@ -49,6 +45,7 @@ const connected_dict =
 const browser_uid = '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77"}';
 
 export const debankServiceToken = new Token<DebankService>('_debankService');
+const discord = Container.get(DIDiscordClient);
 
 export class DebankService {
   private logger = new Logger('Debank');
@@ -95,32 +92,31 @@ export class DebankService {
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => any;
   } = {
-    'debank:fetch:project:list': this.queryProjectList,
-    'debank:fetch:project:users': this.fetchProjectUsers,
-    'debank:fetch:social:user': this.fetchSocialRankingByUserAddress,
+    // 'debank:fetch:social:user': this.fetchSocialRankingByUserAddress,
+    // 'debank:fetch:user:project-list': this.fetchUserProjectList,
+    // 'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
+    // 'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
+
     'debank:fetch:social:rankings:page': this.fetchSocialRankingsPage,
-    'debank:fetch:user:project-list': this.fetchUserProjectList,
-    'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
-    'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
     'debank:fetch:whales:page': this.fetchWhalesPage,
-    'debank:insert:whale': this.insertWhale,
-    'debank:insert:user-address': this.insertUserAddress,
-    'debank:insert:user-assets-portfolio': this.insertUserAssetPortfolio,
-    'debank:insert:coin': this.insertCoin,
+    'debank:insert:whale': insertDebankWhale,
+    'debank:insert:user-address': insertDebankUserAddress,
+    'debank:insert:user-assets-portfolio': insertDebankUserAssetPortfolio,
+    'debank:insert:coin': insertDebankCoin,
     'debank:fetch:top-holders': this.fetchTopHolders,
     'debank:fetch:top-holders:page': this.fetchTopHoldersPage,
-    'debank:insert:top-holder': this.insertTopHolder,
-    'debank:crawl:portfolio': this.crawlPortfolio,
+    'debank:insert:top-holder': insertDebankTopHolder,
+    // 'debank:crawl:portfolio': this.crawlPortfolio,
 
-    'debank:crawl:portfolio:list': this.crawlPortfolioByListV3,
+    'debank:crawl:portfolio:list': this.crawlPortfolioByList,
 
     //! DEPRECATED
-    'debank:add:project:users': this.addFetchProjectUsersJobs,
+    // 'debank:add:project:users': this.addFetchProjectUsersJobs,
+
     //!PAUSED
     'debank:add:fetch:coins': this.addFetchCoinsJob,
 
-    //! RUNNING
-    'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
+    // 'debank:add:social:users': this.addFetchSocialRankingByUsersAddressJob,
     //! RUNNING
     'debank:add:social:users:rankings': this.addFetchSocialRankingJob,
     //! RUNNING
@@ -157,69 +153,6 @@ export class DebankService {
   };
 
   constructor() {
-    // const user_addresses = [
-    //   '0xa7888f85bd76deef3bd03d4dbcf57765a49883b3',
-    //   '0x66b870ddf78c975af5cd8edc6de25eca81791de1',
-    //   '0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50',
-    //   '0x26fcbd3afebbe28d0a8684f790c48368d21665b5',
-    //   '0xe6882e6093a69c47fc21426c2dfdb4a08eb2dec8',
-    //   '0x5aaaef91f93be4de932b8e7324abbf9f26daa706',
-    //   '0xf5dcb2a47f738d8ba39f9fa2ddc7592f268a262a',
-    //   '0x79c4213a328e3b4f1d87b4953c14759399db25e2',
-    //   '0x066188948681d38f88441a80e3823dd41155211c',
-    //   '0x87f16c31e32ae543278f5194cf94862f1cb1eee0',
-    // ];
-    // this.crawlPortfolioByListV3({
-    //   user_addresses,
-    //   crawl_id: '1',
-    // }).then(console.log);
-    // getDecodedJSONCacheKey({
-    //   key: `https://api.debank.com/token/cache_balance_list?user_addr=0x066188948681d38f88441a80e3823dd41155211c`,
-    // }).then(console.log);
-    // // clearCache();
-    // this.addFetchTopHoldersByUsersAddressJob({
-    //   jobId: '',
-    // });
-    // this.testProxy();
-
-    // this.crawlTopHolders({
-    //   id: 'curve',
-    //   crawl_id: 1,
-    // }).then(() => console.log('1'));
-
-    // this.crawlWhales({
-    //   crawl_id: 1,
-    // }).then(() => console.log('1'));
-    // this.queryTopHoldersImportantToken().then(({ rows }) => console.log(rows.length));
-
-    // bulkInsertOnConflict({
-    //   table: 'debank-user-address-list',
-    //   onConflict: 'nothing',
-    //   conflict: 'user_address',
-    //   data: data.map((item) => ({
-    //     user_address: item.address,
-    //   })),
-    // }).then((_) => {
-    //   console.log('done address');
-    //   bulkInsertOnConflict({
-    //     table: 'debank-user-address-list_link_debank-important-tokens',
-    //     onConflict: 'nothing',
-    //     conflict: 'user_address,eth_contract',
-    //     data: data.map((item) => ({
-    //       user_address: item.address,
-    //       eth_contract: '0xbe1a001fe942f96eea22ba08783140b9dcc09d28',
-    //     })),
-    //   }).then((_) => console.log('done link'));
-    // });
-    // this.fetchProtocolPoolsPage({
-    //   protocol_id: 'bsc_pancakeswap',
-    // }).then((_) => console.log('done'));
-
-    // this.addFetchProtocolPoolsJob();
-
-    // this.addFetchProtocolPoolsById({
-    //   id: 'arb_dmm_exchange',
-    // });
     Container.set(debankServiceToken, this);
 
     // TODO: CHANGE THIS TO PRODUCTION
@@ -230,86 +163,7 @@ export class DebankService {
       this.initQueue();
     }
   }
-  async testProxy() {
-    // console.log('testProxy');
-    const browser = await connectChrome();
 
-    // await page.setRequestInterception(true);
-    const createPage = async () => {
-      const context = await browser.defaultBrowserContext();
-      const page = await context.newPage();
-      await page.authenticate({
-        username: WEBSHARE_PROXY_HTTP.auth.username,
-        password: WEBSHARE_PROXY_HTTP.auth.password,
-      });
-      await page.goto(`https://api.ipify.org/?format=json`, {
-        waitUntil: 'load',
-      });
-      const data = await page.evaluate(() => {
-        // @ts-ignore
-        return document.body.innerText;
-        // console.log(data);
-      });
-      // console.log(data);
-      // await context.close();
-    };
-    for (let i = 0; i < 3; i++) {
-      createPage();
-    }
-  }
-
-  async testPuppeteer() {
-    try {
-      const browser = await createPuppeteerBrowser();
-
-      const page = await browser.newPage();
-      // await page.setUserAgent(getRandomUserAgent());
-      // await page.setExtraHTTPHeaders({
-      //   accept:
-      //     'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-      //   'accept-language': 'en-US,en;q=0.9',
-      //   'cache-control': 'no-cache',
-      //   pragma: 'no-cache',
-      //   'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
-      //   'sec-ch-ua-mobile': '?0',
-      //   'sec-ch-ua-platform': '"macOS"',
-      //   'sec-fetch-dest': 'empty',
-      //   'sec-fetch-mode': 'cors',
-      //   'sec-fetch-site': 'same-origin',
-      //   'upgrade-insecure-requests': '1',
-      // });
-
-      // eslint-disable-next-line no-var
-      var requests = [] as any;
-      // eslint-disable-next-line no-var
-      var responses = [] as any;
-
-      page.on('request', (request) => {
-        requests.push(request);
-        // console.log('>>', request.method(), request.url());
-      });
-
-      page.on('response', async (response) => {
-        responses.push(response);
-        // console.log('<<', response.status(), response.url());
-        if (response.url().includes('https://api.debank.com/')) {
-          // console.log('<<', response.status(), await response.json());
-        }
-      });
-      await page.goto(`https://debank.com/profile/0x28f0fadea04381b1440a23ebb87565f32356ee77`, {
-        waitUntil: 'domcontentloaded',
-      });
-      // await browser.close();
-
-      // console.log({
-      //   requests,
-      //   responses,
-      // });
-    } catch (error) {
-      this.logger.discord('error', '[fetchUserTokenBalanceList:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
   /**
    *  @description init BullMQ Worker
    */
@@ -318,17 +172,12 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 20,
-      // limiter: {
-      //   max: 60,
-      //   duration: 1000,
-      // },
+      concurrency: 10,
       stalledInterval: 1000 * 60,
       maxStalledCount: 20,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
-      // drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.worker);
 
@@ -373,16 +222,11 @@ export class DebankService {
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
       concurrency: 5,
-      // limiter: {
-      //   max: 50,
-      //   duration: 1000,
-      // },
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
-      // drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerTopHolder);
 
@@ -400,7 +244,6 @@ export class DebankService {
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
-      // drainDelay: 1000 * 60 * 2,
     });
     this.initWorkerListeners(this.workerRanking);
 
@@ -434,134 +277,120 @@ export class DebankService {
    *  @description init BullMQ Queue
    */
   private initQueue() {
-    this.queue = new Queue('debank', {
-      connection: this.redisConnection,
-      defaultJobOptions: {
-        // The total number of attempts to try the job until it completes
-        attempts: 10,
-        // delay: 1000 * 2,
-        // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 10 * 1000 },
-        removeOnComplete: {
-          // 1 hour
-          age: 60 * 60 * 6,
-        },
-        removeOnFail: {
-          age: 60 * 60 * 6,
-        },
-      },
-    });
-
-    const queueEvents = new QueueEvents('debank', {
-      connection: this.redisConnection,
-    });
-    this.initQueueListeners(queueEvents);
-
-    // TODO: REMOVE THIS LATER
-    // this.addFetchProjectUsersJobs();
-
-    this.queueInsert = new Queue('debank-insert', {
-      connection: this.redisConnection,
-      defaultJobOptions: {
-        // The total number of attempts to try the job until it completes
-        attempts: 5,
-        // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 10 * 1000 },
-        removeOnComplete: {
-          // 3 hour
-          age: 60 * 60 * 1,
-        },
-        removeOnFail: {
-          // 3 hour
-          age: 60 * 60 * 1,
+    this.queue = initQueue({
+      queueName: 'debank',
+      opts: {
+        connection: this.redisConnection,
+        defaultJobOptions: {
+          // The total number of attempts to try the job until it completes
+          attempts: 10,
+          // delay: 1000 * 2,
+          // Backoff setting for automatic retries if the job fails
+          backoff: { type: 'exponential', delay: 10 * 1000 },
+          removeOnComplete: {
+            // 1 hour
+            age: 60 * 60 * 6,
+          },
+          removeOnFail: {
+            age: 60 * 60 * 6,
+          },
         },
       },
     });
 
-    const queueInsertEvents = new QueueEvents('debank-insert', {
-      connection: this.redisConnection,
-    });
-    this.initQueueListeners(queueInsertEvents);
-
-    this.queueWhale = new Queue('debank-whale', {
-      connection: this.redisConnection,
-      defaultJobOptions: {
-        // The total number of attempts to try the job until it completes
-        attempts: 10,
-        // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 10 * 1000 },
-        removeOnComplete: {
-          age: 60 * 60 * 3,
-        },
-        removeOnFail: {
-          age: 60 * 60 * 3,
-        },
-      },
-    });
-    const queueWhaleEvents = new QueueEvents('debank-whale', {
-      connection: this.redisConnection,
-    });
-    this.initQueueListeners(queueWhaleEvents);
-
-    this.queueTopHolder = new Queue('debank-top-holder', {
-      connection: this.redisConnection,
-      defaultJobOptions: {
-        // The total number of attempts to try the job until it completes
-        attempts: 10,
-        // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 10 * 1000 },
-        removeOnComplete: {
-          age: 60 * 60 * 3,
-        },
-        removeOnFail: {
-          age: 60 * 60 * 3,
+    initQueueListeners({ queueName: 'debank', opts: { connection: this.redisConnection } });
+    this.queueInsert = initQueue({
+      queueName: 'debank-insert',
+      opts: {
+        connection: this.redisConnection,
+        defaultJobOptions: {
+          // The total number of attempts to try the job until it completes
+          attempts: 5,
+          // Backoff setting for automatic retries if the job fails
+          backoff: { type: 'exponential', delay: 10 * 1000 },
+          removeOnComplete: {
+            // 3 hour
+            age: 60 * 60 * 1,
+          },
+          removeOnFail: {
+            // 3 hour
+            age: 60 * 60 * 1,
+          },
         },
       },
     });
-    const queueTopHolderEvents = new QueueEvents('debank-top-holder', {
-      connection: this.redisConnection,
-    });
-    this.initQueueListeners(queueTopHolderEvents);
 
-    this.queueRanking = new Queue('debank-ranking', {
-      connection: this.redisConnection,
-      defaultJobOptions: {
-        // The total number of attempts to try the job until it completes
-        attempts: 10,
-        // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 10 * 1000 },
-        removeOnComplete: {
-          age: 60 * 60,
-        },
-        removeOnFail: {
-          age: 60 * 60,
+    initQueueListeners({ queueName: 'debank-insert', opts: { connection: this.redisConnection } });
+
+    this.queueWhale = initQueue({
+      queueName: 'debank-whale',
+      opts: {
+        connection: this.redisConnection,
+        defaultJobOptions: {
+          // The total number of attempts to try the job until it completes
+          attempts: 10,
+          // Backoff setting for automatic retries if the job fails
+          backoff: { type: 'exponential', delay: 10 * 1000 },
+          removeOnComplete: {
+            age: 60 * 60 * 3,
+          },
+          removeOnFail: {
+            age: 60 * 60 * 3,
+          },
         },
       },
     });
-    const queueRankingEvents = new QueueEvents('debank-insert', {
-      connection: this.redisConnection,
-    });
-    this.initQueueListeners(queueRankingEvents);
 
-    this.queueCommon = new Queue('debank-common', {
-      connection: this.redisConnection,
-      defaultJobOptions: {
-        // The total number of attempts to try the job until it completes
-        attempts: 10,
-        // Backoff setting for automatic retries if the job fails
-        backoff: { type: 'exponential', delay: 10 * 1000 },
-        removeOnComplete: {
-          age: 60 * 60 * 3,
-        },
-        removeOnFail: {
-          age: 60 * 60 * 3,
+    initQueueListeners({ queueName: 'debank-whale', opts: { connection: this.redisConnection } });
+    this.queueTopHolder = initQueue({
+      queueName: 'debank-top-holder',
+      opts: {
+        connection: this.redisConnection,
+        defaultJobOptions: {
+          // The total number of attempts to try the job until it completes
+          attempts: 10,
+          // Backoff setting for automatic retries if the job fails
+          backoff: { type: 'exponential', delay: 10 * 1000 },
+          removeOnComplete: {
+            age: 60 * 60 * 3,
+          },
+          removeOnFail: {
+            age: 60 * 60 * 3,
+          },
         },
       },
     });
-    const queueCommonEvents = new QueueEvents('debank-common', {
-      connection: this.redisConnection,
+
+    initQueueListeners({ queueName: 'debank-top-holder', opts: { connection: this.redisConnection } });
+
+    this.queueRanking = initQueue({
+      queueName: 'debank-ranking',
+      opts: {
+        connection: this.redisConnection,
+        defaultJobOptions: {
+          // The total number of attempts to try the job until it completes
+          attempts: 10,
+          // Backoff setting for automatic retries if the job fails
+          backoff: { type: 'exponential', delay: 10 * 1000 },
+          removeOnComplete: {
+            age: 60 * 60 * 3,
+          },
+          removeOnFail: {
+            age: 60 * 60 * 3,
+          },
+        },
+      },
     });
-    this.initQueueListeners(queueCommonEvents);
+
+    initQueueListeners({ queueName: 'debank-insert', opts: { connection: this.redisConnection } });
+
+    this.queueCommon = initQueue({
+      queueName: 'debank-common',
+      opts: {
+        connection: this.redisConnection,
+      },
+    });
+    initQueueListeners({ queueName: 'debank-common', opts: { connection: this.redisConnection } });
 
     // TODO: ENABLE THIS
     this.initRepeatJobs();
@@ -588,13 +417,22 @@ export class DebankService {
       );
     });
     worker.on('drained', async () => {
-      const insertJobs = await this.queueInsert.getJobCounts('waiting', 'active', 'delayed', 'completed', 'failed');
+      const insertJobs = await this.queueInsert.getJobCounts();
       const whaleJobs = await this.queueWhale.getJobCounts();
       const topHolderJobs = await this.queueTopHolder.getJobCounts();
       const rankingJobs = await this.queueRanking.getJobCounts();
       const debankJobs = await this.queue.getJobCounts();
+      const debankCommonJobs = await this.queueCommon.getJobCounts();
       // console.info('workerDrained');
-      const notFinishedJobs = [insertJobs, whaleJobs, topHolderJobs, rankingJobs, debankJobs];
+      const notFinishedJobs = [
+        insertJobs,
+        whaleJobs,
+        topHolderJobs,
+        rankingJobs,
+        debankJobs,
+        insertJobs,
+        debankCommonJobs,
+      ];
       const totalNotFinishedJobs = notFinishedJobs.reduce((acc, cur) => {
         return acc + cur.waiting + cur.active + cur.delayed;
       }, 0);
@@ -609,98 +447,58 @@ export class DebankService {
         `\n+ ${debankJobs.delayed} delayed` +
         `\n+ ${debankJobs.completed} completed` +
         `\n- ${debankJobs.failed} failed` +
+        `\n is running: ${this.worker.isRunning()}` +
+        `\nnext_Job: ${(await this.worker.getNextJob('debank'))?.id}` +
         `\n debank whale:` +
         `\n+ ${whaleJobs.waiting} waiting` +
         `\n+ ${whaleJobs.active} active` +
         `\n+ ${whaleJobs.delayed} delayed` +
         `\n+ ${whaleJobs.completed} completed` +
         `\n+ ${whaleJobs.failed} failed` +
+        `\n is running: ${this.workerWhale.isRunning}` +
+        `\nnext_Job: ${(await this.workerWhale.getNextJob('debank-whale'))?.id}` +
         `\n debank top holder:` +
         `\n+ ${topHolderJobs.waiting} waiting` +
         `\n+ ${topHolderJobs.active} active` +
         `\n+ ${topHolderJobs.delayed} delayed` +
         `\n+ ${topHolderJobs.completed} completed` +
         `\n- ${topHolderJobs.failed} failed` +
+        `\n is running: ${this.workerTopHolder.isRunning}` +
+        `\n:next_Job: ${(await this.workerTopHolder.getNextJob('debank-top-holder'))?.id}` +
         `\n debank ranking:` +
         `\n+ ${rankingJobs.waiting} waiting` +
         `\n+ ${rankingJobs.active} active` +
         `\n+ ${rankingJobs.delayed} delayed` +
         `\n+ ${rankingJobs.completed} completed` +
         `\n- ${rankingJobs.failed} failed` +
+        `\n is running: ${this.workerRanking.isRunning}` +
+        `\n next_Job: ${(await this.workerRanking.getNextJob('debank-ranking'))?.id}` +
+        `\n debank insert:` +
+        `\n+ ${insertJobs.waiting} waiting` +
+        `\n+ ${insertJobs.active} active` +
+        `\n+ ${insertJobs.delayed} delayed` +
+        `\n+ ${insertJobs.completed} completed` +
+        `\n- ${insertJobs.failed} failed` +
+        `\n is running: ${this.workerInsert.isRunning}` +
+        `\n:next_Job: ${(await this.workerInsert.getNextJob('debank-insert'))?.id}` +
+        `\n debank common:` +
+        `\n+ ${debankCommonJobs.waiting} waiting` +
+        `\n+ ${debankCommonJobs.active} active` +
+        `\n+ ${debankCommonJobs.delayed} delayed` +
+        `\n+ ${debankCommonJobs.completed} completed` +
+        `\n- ${debankCommonJobs.failed} failed` +
+        `\n is running: ${this.workerCommon.isRunning}` +
+        `\n:next_Job: ${(await this.workerCommon.getNextJob('debank-common'))?.id}` +
+        `\n total not finished jobs: ${totalNotFinishedJobs}` +
+        `\ntime: ${new Date().toISOString()}` +
         `\`\`\``;
-      const discord = Container.get(DIDiscordClient);
       await discord.sendMsg({
         message: messageByRow,
         channelId: '1072390401392115804',
       });
     });
   }
-  private initQueueListeners(queueEvents: QueueEvents) {
-    queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      this.logger.discord('error', 'debank:Job failed', jobId, failedReason);
-    });
 
-    // queueEvents.on('drained', async (id) => {
-    //   console.info({
-    //     queueDrained: id,
-    //   });
-    //   const messageTable = table(
-    //     arrayObjectToTable([
-    //       {
-    //         name: 'debank',
-    //         ...(await this.getCountOfJob('debank')),
-    //       },
-    //       {
-    //         name: 'top holder',
-    //         ...(await this.getCountOfJob('debankTopHolder')),
-    //       },
-    //       {
-    //         name: 'ranking',
-    //         ...(await this.getCountOfJob('debankRanking')),
-    //       },
-    //       {
-    //         name: 'whale',
-    //         ...(await this.getCountOfJob('debankWhale')),
-    //       },
-    //     ]),
-    //     {
-    //       header: {
-    //         content: 'Crawler queue debank',
-    //       },
-    //       columns: [
-    //         {
-    //           width: 10,
-    //         },
-    //         {
-    //           width: 5,
-    //         },
-    //         {
-    //           width: 7,
-    //         },
-    //         {
-    //           width: 7,
-    //         },
-    //         {
-    //           width: 6,
-    //         },
-    //         {
-    //           width: 9,
-    //         },
-    //         {
-    //           width: 6,
-    //         },
-    //         {
-    //           width: 6,
-    //         },
-    //       ],
-    //     },
-    //   );
-    //   console.info(messageTable);
-    // });
-    // queue.on('completed', ({ jobId }) => {
-    //   this.logger.debug('success', 'Job completed', { jobId });
-    // });
-  }
   getQueue(id: string) {
     switch (id) {
       case 'debank':
@@ -721,9 +519,10 @@ export class DebankService {
   }
   private initRepeatJobs() {
     //DB Job
-    this.addJob({
-      name: DebankJobNames['debank:create:partitions'],
-      opts: {
+    this.queue.add(
+      DebankJobNames['debank:create:partitions'],
+      {},
+      {
         repeatJobKey: 'debank:create:partitions',
         jobId: `debank:create:partitions`,
         removeOnComplete: {
@@ -744,11 +543,12 @@ export class DebankService {
         priority: 1,
         attempts: 5,
       },
-    });
+    );
 
-    this.addJob({
-      name: DebankJobNames['debank:clean:outdated-data'],
-      opts: {
+    this.queue.add(
+      DebankJobNames['debank:clean:outdated-data'],
+      {},
+      {
         repeatJobKey: 'debank:clean:outdated-data',
         jobId: 'debank:clean:outdated-data',
         removeOnComplete: {
@@ -769,11 +569,12 @@ export class DebankService {
         priority: 1,
         attempts: 5,
       },
-    });
+    );
 
-    this.addJob({
-      name: DebankJobNames['debank:add:fetch:protocols:pools'],
-      opts: {
+    this.queue.add(
+      DebankJobNames['debank:add:fetch:protocols:pools'],
+      {},
+      {
         repeatJobKey: 'debank:add:fetch:protocols:pools',
         jobId: `debank:add:fetch:protocols:pools`,
         removeOnComplete: {
@@ -794,11 +595,12 @@ export class DebankService {
         priority: 1,
         attempts: 5,
       },
-    });
+    );
 
-    this.addJob({
-      name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
-      opts: {
+    this.queue.add(
+      DebankJobNames['debank:add:fetch:user-address:top-holders'],
+      {},
+      {
         repeatJobKey: 'debank:add:fetch:user-address:top-holders',
         jobId: `debank:add:fetch:user-address:top-holders`,
         removeOnComplete: {
@@ -819,7 +621,7 @@ export class DebankService {
         priority: 3,
         attempts: 5,
       },
-    });
+    );
     // this.addJob({
     //   name: DebankJobNames['debank:add:fetch:coins'],
     //   opts: {
@@ -856,9 +658,10 @@ export class DebankService {
     //     attempts: 5,
     //   },
     // });
-    this.addJob({
-      name: DebankJobNames['debank:add:social:users:rankings'],
-      opts: {
+    this.queue.add(
+      DebankJobNames['debank:add:social:users:rankings'],
+      {},
+      {
         repeatJobKey: 'debank:add:social:users:rankings',
         jobId: `debank:add:social:users:rankings`,
         removeOnComplete: {
@@ -877,10 +680,11 @@ export class DebankService {
         priority: 2,
         attempts: 5,
       },
-    });
-    this.addJob({
-      name: DebankJobNames['debank:add:fetch:whales:paging'],
-      opts: {
+    );
+    this.queue.add(
+      DebankJobNames['debank:add:fetch:whales:paging'],
+      {},
+      {
         repeatJobKey: 'debank:add:fetch:whales:paging',
         jobId: `debank:add:fetch:whales:paging`,
         removeOnComplete: {
@@ -898,78 +702,10 @@ export class DebankService {
         priority: 2,
         attempts: 5,
       },
-    });
-  }
-  /**
-   * @description add job to queue
-   */
-  addJob({
-    queue = this.queueName.debank,
-    name,
-    data = {},
-    opts,
-  }: {
-    queue?: keyof typeof this.queueName;
-    name: DebankJobNames;
-    data?: any;
-    opts: JobsOptions;
-  }) {
-    try {
-      switch (queue) {
-        case this.queueName.debankWhale:
-          this.queueWhale.add(name, data, opts);
-          break;
-        case this.queueName.debankInsert:
-          this.queueInsert.add(name, data, opts);
-          break;
-        case this.queueName.debankRanking:
-          this.queueRanking.add(name, data, opts);
-          break;
-        case this.queueName.debankTopHolder:
-          this.queueTopHolder.add(name, data, opts);
-          break;
-
-        case this.queueName.debank:
-        default:
-          this.queue.add(name, data, opts);
-          break;
-      }
-    } catch (error) {
-      this.logger.discord('error', `[addJob:debank:error]`, JSON.stringify(error), JSON.stringify(data));
-    }
-  }
-  addBulkJobs({
-    jobs,
-    queue = this.queueName.debank,
-  }: {
-    queue?: keyof typeof this.queueName;
-    jobs: { name: DebankJobNames; data: any; opts: JobsOptions }[];
-  }) {
-    switch (queue) {
-      case this.queueName.debankWhale:
-        return this.queueWhale.addBulk(jobs);
-      case this.queueName.debankInsert:
-        return this.queueInsert.addBulk(jobs);
-      case this.queueName.debankRanking:
-        return this.queueRanking.addBulk(jobs);
-      case this.queueName.debankTopHolder:
-        return this.queueTopHolder.addBulk(jobs);
-      case this.queueName.debankCommon:
-        return this.queueCommon.addBulk(jobs);
-      case this.queueName.debank:
-      default:
-        return this.queue.addBulk(jobs);
-    }
-  }
-  addInsertJob({ name, payload = {}, options }: { name: DebankJobNames; payload?: any; options?: JobsOptions }) {
-    this.queueInsert
-      .add(name, payload, options)
-      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
-      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
+    );
   }
 
   workerProcessor({ name, data = {}, id }: Job<any>): Promise<void> {
-    // this.logger.discord('info', `[debank:workerProcessor:run]`, name);
     return (
       this.jobs[name as keyof typeof this.jobs]?.call(this, {
         jobId: id,
@@ -977,280 +713,7 @@ export class DebankService {
       }) || this.jobs.default()
     );
   }
-  async queryProjectList() {
-    try {
-      const { data, status } = await DebankAPI.fetch({
-        endpoint: DebankAPI.Project.list.endpoint,
-      });
-      if (status !== 200) {
-        throw new Error('queryProjectList: Error fetching project list');
-      }
-      const { data: projects = [] } = data;
-      for (const {
-        id,
-        name,
-        chain,
-        platform_token_chain,
-        platform_token_id,
-        site_url,
-        tvl,
-        active_user_count_24h,
-        contract_call_count_24h,
-        portfolio_user_count,
-        total_contract_count,
-        total_user_count,
-        total_user_usd,
-        is_stable,
-        is_support_portfolio,
-        is_tvl,
-        priority,
-      } of projects) {
-        await this.pgPool.query(
-          `INSERT INTO "debank-projects" (
-            id,
-            name,
-            chain,
-            platform_token_chain,
-            platform_token_id,
-            site_url,
-            tvl,
-            active_user_count_24h,
-            contract_call_count_24h,
-            portfolio_user_count,
-            total_contract_count,
-            total_user_count,
-            total_user_usd,
-            is_stable,
-            is_support_portfolio,
-            is_tvl,
-            priority,
-            updated_at
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`,
-          [
-            id,
-            name,
-            chain,
-            platform_token_chain,
-            platform_token_id,
-            site_url,
-            tvl,
-            active_user_count_24h,
-            contract_call_count_24h,
-            portfolio_user_count,
-            total_contract_count,
-            total_user_count,
-            total_user_usd,
-            is_stable,
-            is_support_portfolio,
-            is_tvl,
-            priority,
-            new Date(),
-          ],
-        );
-        // .catch((err) => this.logger.discord('error', '[queryProjectList:insert]', JSON.stringify(err)));
-      }
-    } catch (error) {
-      this.logger.discord('error', '[queryProjectList:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async addFetchProjectUsersJobs() {
-    try {
-      const { rows: projects } = await this.pgPool.query(`SELECT id FROM "debank-projects" GROUP BY id`);
-      for (const { id } of projects) {
-        this.addJob({
-          name: DebankJobNames['debank:fetch:project:users'],
-          data: {
-            projectId: id,
-          },
-          opts: {
-            jobId: `debank:fetch:project:users:${id}:${Date.now()}`,
-            removeOnComplete: {
-              age: 60 * 60,
-            },
-            removeOnFail: {
-              age: 60 * 60,
-            },
-            priority: 10,
-          },
-        });
-      }
-    } catch (error) {
-      this.logger.discord('error', '[addFetchProjectUsersJobs:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async fetchProjectUsers(
-    { projectId }: { projectId: string } = {
-      projectId: null,
-    },
-  ) {
-    try {
-      if (!projectId) {
-        throw new Error('fetchProjectUsers: projectId is required');
-      }
-      const { data, status } = await DebankAPI.fetch({
-        endpoint: DebankAPI.Project.users.endpoint,
-        params: {
-          id: projectId,
-        },
-      });
-      if (status !== 200) {
-        throw new Error('fetchProjectUsers: Error fetching project users');
-      }
-      const {
-        data: { user_list = [] },
-      } = data;
-      for (const { share, usd_value, user_addr: user_address } of user_list) {
-        await this.insertProjectUser({ projectId, share, usd_value, user_address });
-      }
-    } catch (error) {
-      this.logger.discord('error', '[fetchProjectUsers:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
 
-  async fetchUserBalanceList({ user_address }: { user_address: string }) {
-    try {
-      if (!user_address) {
-        throw new Error('fetchUserBalanceList: userAddress is required');
-      }
-      const { data, status } = await DebankAPI.fetch({
-        endpoint: DebankAPI.Token.cacheBalanceList.endpoint,
-        params: {
-          user_addr: user_address,
-        },
-      });
-      if (status !== 200) {
-        throw new Error('fetchUserBalanceList: Error fetching user balance list');
-      }
-      const { data: balance_list } = data;
-      // console.log(balance_list);
-      for (const {
-        symbol,
-        optimized_symbol,
-        name: token_name,
-        id: token_id,
-        amount,
-        price,
-        protocol_id,
-        updated_at,
-        chain,
-      } of balance_list) {
-        await this.insertUserBalance({
-          user_address,
-          symbol,
-          optimized_symbol,
-          token_name,
-          token_id,
-          amount,
-          price,
-          protocol_id,
-          updated_at,
-          chain,
-          is_stable_coin: STABLE_COINS.some((stableCoin) => stableCoin.symbol === symbol),
-        });
-      }
-    } catch (error) {
-      this.logger.discord('error', '[fetchUserBalanceList:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async insertProjectUser({
-    projectId,
-    share,
-    usd_value,
-    user_address,
-  }: {
-    projectId: string;
-    share: any;
-    usd_value: any;
-    user_address: any;
-  }) {
-    await this.pgPool
-      .query(
-        `INSERT INTO "debank-project-users" (
-            project_id,
-            share,
-            usd_value,
-            user_address,
-            updated_at
-          ) VALUES ($1, $2, $3, $4, $5)`,
-        [projectId, share, usd_value, user_address, new Date()],
-      )
-      .catch((err) => this.logger.discord('error', '[debank:insertProjectUser]', JSON.stringify(err)));
-  }
-  async insertUserBalance({
-    user_address,
-    symbol,
-    optimized_symbol,
-    token_name,
-    token_id,
-    amount,
-    price,
-    protocol_id,
-    chain,
-    updated_at = new Date(),
-    is_stable_coin = false,
-  }: {
-    user_address: string;
-    symbol: string;
-    optimized_symbol: string;
-    token_name: string;
-    token_id: string;
-    amount: string;
-    price: string;
-    protocol_id: string;
-    chain: string;
-    updated_at: Date;
-    is_stable_coin: boolean;
-  }) {
-    await this.pgPool
-      .query(
-        `INSERT INTO "debank-user-balance" (
-            user_address,
-            symbol,
-            optimized_symbol,
-            token_name,
-            token_id,
-            amount,
-            price,
-            protocol_id,
-            chain,
-            is_stable_coin,
-            updated_at
-          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
-        [
-          user_address,
-          symbol,
-          optimized_symbol,
-          token_name,
-          token_id,
-          amount,
-          price,
-          protocol_id,
-          chain,
-          is_stable_coin,
-          updated_at,
-        ],
-      )
-      .catch((err) => this.logger.discord('error', '[debank:insertUserBalance]', JSON.stringify(err)));
-  }
-  async queryUserAddressByProjectId({ projectId }: { projectId: string }) {
-    try {
-      if (!projectId) {
-        throw new Error('queryUserAddressByProjectId: projectId is required');
-      }
-      const { rows } = await this.pgPool.query(
-        `SELECT user_address FROM "debank-project-users" WHERE project_id = $1 GROUP BY user_address`,
-        [projectId],
-      );
-      return { rows };
-    } catch (error) {
-      this.logger.discord('error', '[queryUserAddressByProjectId:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
   async fetchSocialRankingsPage({
     page_num = 1,
     page_count = 50,
@@ -1320,7 +783,7 @@ export class DebankService {
   }
   async addFetchSocialRankingJob() {
     try {
-      const crawl_id = await this.getSocialRankingCrawlId();
+      const crawl_id = await getDebankSocialRankingCrawlId();
       const jobs: {
         name: DebankJobNames;
         data: any;
@@ -1347,293 +810,21 @@ export class DebankService {
           },
         });
       }
-      await this.addBulkJobs({
-        jobs,
-        queue: this.queueName.debankRanking,
+      await this.queueRanking.addBulk(jobs);
+      await discord.sendMsg({
+        message: `
+        \`\`\`diff
+        [addFetchSocialRankingJob]\n
+        + totalJobs::${jobs.length}\n
+        start on::${new Date().toISOString()}\n
+        crawl_id::${crawl_id}\n
+        \`\`\`
+        `,
+        channelId: '1041620555188682793',
       });
     } catch (error) {
       this.logger.discord('error', '[addFetchSocialRankingJob:error]', JSON.stringify(error));
       throw error;
-    }
-  }
-  async insertSocialRanking({
-    user_address,
-    rank,
-    base_score,
-    score_dict,
-    value_dict,
-    total_score,
-  }: {
-    user_address: string;
-    rank: number;
-    base_score: number;
-    score_dict: any;
-    value_dict: any;
-    total_score: number;
-  }) {
-    await this.pgPool.query(
-      `
-        INSERT INTO "debank-social-ranking" (
-          user_address,
-          rank,
-          base_score,
-          score_dict,
-          value_dict,
-          total_score,
-          updated_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7)
-        ON CONFLICT (user_address) DO UPDATE SET
-          rank = $2,
-          base_score = $3,
-          score_dict = $4,
-          value_dict = $5,
-          total_score = $6,
-          updated_at = $7
-      `,
-      [user_address, rank, base_score, score_dict, value_dict, total_score, new Date()],
-    );
-
-    // .catch((err) => this.logger.discord('error', '[debank:insertSocialRanking]', JSON.stringify(err)));
-  }
-  async querySocialRanking(
-    {
-      select = '*',
-      limit = 10000,
-      orderBy = 'rank',
-      order = 'ASC',
-    }: {
-      select: string;
-      limit: number;
-      orderBy: string;
-      order: 'DESC' | 'ASC';
-    } = {
-      select: '*',
-      limit: 10000,
-      orderBy: 'rank',
-      order: 'ASC',
-    },
-  ) {
-    const { rows } = await this.pgPool.query(
-      `SELECT ${select} FROM "debank-social-ranking" ORDER BY ${orderBy} ${order} LIMIT ${limit}`,
-    );
-    return { rows };
-  }
-  async queryAddressList({
-    select = '*',
-    limit,
-    orderBy = 'updated_at',
-    order = 'DESC',
-    where,
-  }: {
-    select?: string;
-    limit?: number;
-    orderBy?: string;
-    where?: string;
-    order?: 'DESC' | 'ASC';
-  }) {
-    const { rows } = await this.pgPool.query(
-      `  ${select} FROM "debank-user-address-list"
-      ${where ? 'WHERE ' + where : ''}
-      ORDER BY ${orderBy} ${order}  ${limit ? 'LIMIT ' + limit : ''}`,
-    );
-    return {
-      rows,
-    };
-  }
-  async fetchSocialRankingByUserAddress({ user_address, crawl_id }: { user_address: string; crawl_id: number }) {
-    try {
-      if (!user_address) {
-        throw new Error('fetchSocialRankingByUserAddress: user_address is required');
-      }
-      const { balance_list } = await this.fetchUserTokenBalanceList({
-        user_address,
-      });
-      const { project_list } = await this.fetchUserProjectList({
-        user_address,
-      });
-      // const { coin_list, token_list } = await this.fetchUserAssetClassify({
-      //   user_address,
-      // });
-      // await this.insertUserAssetPortfolio({
-      //   user_address,
-      //   balance_list,
-      //   project_list,
-      //   coin_list: [],
-      //   token_list: [],
-      //   crawl_id,
-      // });
-    } catch (error) {
-      this.logger.discord('error', '[fetchSocialRankingByUserAddress:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-
-  async fetchUserProjectList({ user_address }: { user_address: string }) {
-    const browser = await createPuppeteerBrowser();
-    try {
-      if (!user_address) {
-        throw new Error('fetchUserProjectList: user_address is required');
-      }
-      // const { data: fetchProjectListData } = await DebankAPI.fetch({
-      //   endpoint: DebankAPI.Portfolio.projectList.endpoint,
-      //   params: {
-      //     user_addr: user_address,
-      //   },
-      // });
-
-      // const error_code = fetchProjectListData.error_code;
-      // if (error_code) {
-      //   this.logger.debug('error', '[fetchUserProjectList:error]', JSON.stringify(error_code), {
-      //     msg1: fetchProjectListData.error_msg,
-      //   });
-      //   throw new Error('fetchUserProjectList: Error fetching social ranking');
-      // }
-      const page = await browser.newPage();
-      //try to avoid bot detection
-      await page.setUserAgent(randomUserAgent());
-      await page.setExtraHTTPHeaders({
-        accept:
-          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'accept-language': 'en-US,en;q=0.9',
-        'cache-control': 'no-cache',
-        pragma: 'no-cache',
-        'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"macOS"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'upgrade-insecure-requests': '1',
-      });
-      // await page.waitForTimeout((Math.floor(Math.random() * 12) + 5) * 1000);
-      // await page.goto(`https://debank.com/profile/${user_address}`, {
-      //   waitUntil: 'networkidle2',
-      // });
-      await page.goto(`${DebankAPI.Portfolio.projectList.endpoint}?user_addr=${user_address}`, {
-        waitUntil: 'networkidle2',
-      });
-      const data = await page.evaluate(() => {
-        // @ts-ignore
-        const data = document.body.innerText;
-        // return data;
-        return JSON.parse(data);
-      });
-      if (!data) {
-        throw new Error('fetchUserProjectList:fail');
-      }
-      const { data: project_list } = data;
-      // await this.insertUserAssetPortfolio({ user_address, project_list, crawl_id });
-      return {
-        project_list,
-      };
-    } catch (error) {
-      this.logger.discord('error', '[fetchUserProjectList:error]', JSON.stringify(error));
-      throw error;
-    } finally {
-      await browser.close();
-    }
-  }
-
-  async fetchUserAssetClassify({ user_address }: { user_address: string }) {
-    try {
-      if (!user_address) {
-        throw new Error('fetchUserAssetClassify: user_address is required');
-      }
-
-      const { data: fetchAssetClassifyData } = await DebankAPI.fetch({
-        endpoint: DebankAPI.Asset.classify.endpoint,
-        params: {
-          user_addr: user_address,
-        },
-      });
-
-      const error_code = fetchAssetClassifyData.error_code;
-      if (error_code) {
-        this.logger.debug('error', '[fetchUserAssetClassify:error]', JSON.stringify(error_code), {
-          msg2: fetchAssetClassifyData.error_msg,
-        });
-        throw new Error('fetchUserAssetClassify: Error fetching social ranking');
-      }
-      const {
-        data: { coin_list, token_list },
-      } = fetchAssetClassifyData;
-      // await this.insertUserAssetPortfolio({ user_address, coin_list, token_list, crawl_id });
-      return {
-        coin_list,
-        token_list,
-      };
-    } catch (error) {
-      this.logger.discord('error', '[fetchUserAssetClassify:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-
-  async fetchUserTokenBalanceList({ user_address }: { user_address: string }) {
-    const browser = await createPuppeteerBrowser();
-
-    try {
-      if (!user_address) {
-        throw new Error('fetchUserTokenBalanceList: user_address is required');
-      }
-
-      const page = await browser.newPage();
-      await page.setUserAgent(randomUserAgent());
-      await page.setExtraHTTPHeaders({
-        accept:
-          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'accept-language': 'en-US,en;q=0.9',
-        'cache-control': 'no-cache',
-        pragma: 'no-cache',
-        'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"macOS"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'upgrade-insecure-requests': '1',
-      });
-
-      // await page.waitForTimeout((Math.floor(Math.random() * 12) + 5) * 1000);
-
-      // @ts-ignore
-      await page.goto(`${DebankAPI.Token.cacheBalanceList.endpoint}?user_addr=${user_address}`, {
-        waitUntil: 'networkidle2',
-      });
-      // const { data: fetchTokenBalanceListData } = await DebankAPI.fetch({
-      //   endpoint: DebankAPI.Token.cacheBalanceList.endpoint,
-      //   params: {
-      //     user_addr: user_address,
-      //   },
-      // });
-
-      const data = await page.evaluate(() => {
-        // @ts-ignore
-        const data = document.body.innerText;
-        // return data;
-        return JSON.parse(data);
-      });
-      if (!data) {
-        throw new Error('fetchUserTokenBalanceList:fail');
-      }
-      // const error_code = fetchTokenBalanceListData.error_code;
-      // if (error_code) {
-      //   //TODO: handle error change this to discord
-      //   this.logger.debug('error', '[fetchUserTokenBalanceList:error]', JSON.stringify(error_code), {
-      //     msg3: fetchTokenBalanceListData.error_msg,
-      //   });
-      //   throw new Error('fetchUserTokenBalanceList: Error fetching social ranking');
-      // }
-
-      const { data: balance_list } = data;
-      // await this.insertUserAssetPortfolio({ user_address, balance_list, crawl_id });
-      return {
-        balance_list,
-      };
-    } catch (error) {
-      this.logger.discord('error', '[fetchUserTokenBalanceList:error]', JSON.stringify(error));
-      throw error;
-    } finally {
-      await browser.close();
     }
   }
 
@@ -1672,12 +863,6 @@ export class DebankService {
         },
       });
       if (status !== 200 || error_code) {
-        // this.logger.discord(
-        //   'error',
-        //   '[fetchWhaleList:error]',
-        //   JSON.stringify(data),
-        //   JSON.stringify({ status, error_code }),
-        // );
         throw new Error('fetchWhaleList:fetch:fail');
       }
       const { whales, total_count } = data;
@@ -1693,42 +878,6 @@ export class DebankService {
     }
   }
 
-  async insertWhaleList({ whales, crawl_id }: { whales: any[]; crawl_id: number }) {
-    try {
-      //insert all whale list
-      const data = whales.map((whale) => ({
-        user_address: whale.id,
-        details: JSON.stringify(whale).replace(/\\u0000/g, ''),
-        crawl_id,
-        crawl_time: new Date(),
-      }));
-      data.length &&
-        (await bulkInsert({
-          data,
-          //TODO: change this to prod table
-          table: 'debank-whales',
-        }));
-    } catch (error) {
-      this.logger.discord('error', '[insertWhaleList:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-
-  async insertWhale({ whale, crawl_id, updated_at }: { whale: any; crawl_id: number; updated_at?: Date }) {
-    await this.pgClient.query(
-      `
-          INSERT INTO "debank-whales" (
-            user_address,
-            details,
-            crawl_id,
-            updated_at
-          )
-          VALUES ($1, $2, $3, $4)
-          `,
-      [whale.id, JSON.stringify(whale), crawl_id, updated_at || new Date()],
-    );
-  }
-
   async fetchWhalesPage({ start, crawl_id }: { start: number; crawl_id: number }) {
     try {
       const { whales, total_count } = await this.fetchWhaleList({
@@ -1740,13 +889,7 @@ export class DebankService {
         return;
       }
       //insert all whale list
-      await this.insertWhaleList({ whales, crawl_id });
-      //insert all address
-      // this.insertUserAddressList({
-      //   whales,
-      //   debank_whales_time: new Date(),
-      //   last_crawl_id: crawl_id,
-      // });
+      await insertDebankWhaleList({ whales, crawl_id });
     } catch (error) {
       this.logger.discord('error', '[fetchWhalesPage:error]', JSON.stringify(error));
       throw error;
@@ -1755,7 +898,7 @@ export class DebankService {
 
   async addFetchWhalesPagingJob() {
     try {
-      const crawl_id = await this.getWhalesCrawlId();
+      const crawl_id = await getDebankWhalesCrawlId();
 
       const { whales, total_count } = await this.fetchWhaleList({
         start: 0,
@@ -1798,199 +941,29 @@ export class DebankService {
           attempts: 10,
         },
       }));
-      await this.addBulkJobs({
-        jobs,
-        queue: this.queueName.debankWhale,
+      await this.queueWhale.addBulk(jobs);
+      await insertDebankWhaleList({ whales, crawl_id });
+      await discord.sendMsg({
+        message: `
+        \`\`\`diff
+        [addFetchWhalesPagingJob]\n
+        + total_jobs:: ${jobs.length}\n
+        start on::${new Date().toISOString()}\n
+        crawl_id::${crawl_id}\n
+        \`\`\
+        `,
+        channelId: '1041620555188682793',
       });
-      await this.insertWhaleList({ whales, crawl_id });
     } catch (error) {
       this.logger.discord('error', '[addFetchWhalesPagingJob:error]', JSON.stringify(error));
       throw error;
     }
   }
-  async insertUserAssetPortfolio({
-    user_address,
-    token_list = [],
-    coin_list = [],
-    balance_list = [],
-    project_list = [],
-    crawl_id,
-  }: {
-    user_address: string;
-    token_list?: any;
-    coin_list?: any;
-    balance_list?: any;
-    project_list?: any;
-    crawl_id: number;
-  }) {
-    try {
-      const now = new Date();
 
-      //   await pgClient.query(
-      //     `
-      //   INSERT INTO "debank-user-address-list" (
-      //     user_address,
-      //     last_crawl_id,
-      //     debank_ranking_time,
-      //     updated_at
-      //   ) VALUES ($1, $2, $3, $4) ON CONFLICT (user_address) DO UPDATE SET updated_at = $4 , last_crawl_id = $2, debank_ranking_time = $3;
-      // `,
-      //     [user_address, crawl_id, now, now],
-      //   );
-
-      const tokens_rows = token_list.map((token: any) => ({
-        user_address,
-        details: JSON.stringify(token).replace(/\\u0000/g, ''),
-        crawl_id,
-        crawl_time: now,
-      }));
-
-      const coins_rows = coin_list.map((coin: any) => ({
-        user_address,
-        details: JSON.stringify(coin).replace(/\\u0000/g, ''),
-        crawl_id,
-        crawl_time: now,
-      }));
-
-      const balances_rows = balance_list.map((balance: any) => ({
-        user_address,
-        details: JSON.stringify({
-          ...balance,
-          is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-        }).replace(/\\u0000/g, ''),
-        is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-        price: balance.price,
-        symbol: balance.symbol,
-        optimized_symbol: balance.optimized_symbol,
-        amount: balance.amount,
-        crawl_id,
-        crawl_time: now,
-        chain: balance.chain,
-        usd_value: +balance.price * +balance.amount,
-      }));
-
-      const projects_rows = project_list.map((project: any) => ({
-        user_address,
-        details: JSON.stringify(project).replace(/\\u0000/g, ''),
-        crawl_id,
-        crawl_time: now,
-
-        usd_value:
-          project.portfolio_item_list?.reduce((acc: number, { stats }: any) => {
-            return acc + stats.asset_usd_value;
-          }, 0) || 0,
-      }));
-
-      tokens_rows.length &&
-        (await bulkInsert({
-          data: tokens_rows,
-          table: 'debank-portfolio-tokens',
-        }));
-
-      coins_rows.length &&
-        (await bulkInsert({
-          data: coins_rows,
-          table: 'debank-portfolio-coins',
-        }));
-
-      balances_rows.length &&
-        (await bulkInsert({
-          data: balances_rows,
-          table: 'debank-portfolio-balances',
-        }));
-
-      projects_rows.length &&
-        (await bulkInsert({
-          data: projects_rows,
-          table: 'debank-portfolio-projects',
-        }));
-    } catch (error) {
-      this.logger.error('error', '[insertUserAssetPortfolio:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async addFetchSocialRankingByUsersAddressJob() {
-    const { rows } = await this.querySocialRanking({
-      select: 'user_address',
-      //10000
-      orderBy: 'rank',
-      limit: 50000,
-      order: 'DESC',
-    });
-
-    const crawl_id = await this.getCrawlId();
-    const jobs = [];
-    for (const { user_address } of rows) {
-      jobs.push({
-        name: DebankJobNames['debank:fetch:social:user'],
-        data: {
-          user_address,
-          crawl_id,
-        },
-        opts: {
-          jobId: `debank:fetch:social:user:${crawl_id}:${user_address}`,
-          removeOnComplete: {
-            age: 60 * 60,
-          },
-          removeOnFail: {
-            age: 60 * 60 * 1,
-          },
-          priority: 15,
-          attempts: 10,
-        },
-      });
-    }
-    this.addBulkJobs({
-      jobs,
-      queue: this.queueName.debank,
-    });
-  }
   async addFetchTopHoldersByUsersAddressJob() {
-    const debankWhaleJobs = await this.queueWhale.getJobCounts();
-    const debankTopHolderJobs = await this.queueTopHolder.getJobCounts();
-    const debankRankingJobs = await this.queueRanking.getJobCounts();
+    const { rows } = await queryDebankTopHoldersImportantToken();
 
-    const totalJobs =
-      debankWhaleJobs.active +
-      debankWhaleJobs.delayed +
-      debankWhaleJobs.waiting +
-      debankTopHolderJobs.active +
-      debankTopHolderJobs.delayed +
-      debankTopHolderJobs.waiting +
-      debankRankingJobs.active +
-      debankRankingJobs.delayed +
-      debankRankingJobs.waiting;
-    const discord = Container.get(DIDiscordClient);
-    await discord.sendMsg({
-      message: `totalJobs::${totalJobs}\njobId\ndelay to: ${new Date(Date.now() + 1000 * 60 * 1).toLocaleDateString()}`,
-      channelId: '1041620555188682793',
-    });
-    // if (totalJobs > 0) {
-    //   //delay 1 minutes until all jobs are done
-    //   this.addJob({
-    //     name: DebankJobNames['debank:add:fetch:user-address:top-holders'],
-    //     opts: {
-    //       jobId: `debank:add:fetch:user-address:top-holders:${Date.now() + 1000 * 60 * 1}`,
-    //       removeOnComplete: {
-    //         //remove after 1 hour
-    //         age: 60 * 60,
-    //       },
-    //       removeOnFail: {
-    //         //remove after 1 hour
-    //         age: 60 * 60 * 1,
-    //       },
-    //       //delay for 5 minutes when the job is added for done other jobs
-    //       delay: 1000 * 60 * 1,
-    //       priority: 3,
-    //       attempts: 5,
-    //     },
-    //   });
-    //   return;
-    // }
-
-    const { rows } = await this.queryTopHoldersImportantToken();
-
-    const crawl_id = await this.getCrawlId();
+    const crawl_id = await getDebankCrawlId();
 
     const NUM_ADDRESSES_PER_JOB = 5;
     const user_addresses_list = Array.from({ length: Math.ceil(rows.length / NUM_ADDRESSES_PER_JOB) }).map((_, i) => {
@@ -2000,11 +973,6 @@ export class DebankService {
           .map(({ user_address }: any) => user_address),
       ];
     });
-
-    // console.log('jobs.length', {
-    //   user_addresses_list,
-    // });
-
     const jobs = user_addresses_list.map((user_addresses: any, index) => ({
       name: DebankJobNames['debank:crawl:portfolio:list'],
       data: {
@@ -2024,147 +992,19 @@ export class DebankService {
         // delay: 1000 * 5,
       },
     }));
-    // console.log(jobs.map((job) => job.data));
-    await this.addBulkJobs({
-      jobs,
-      queue: this.queueName.debank,
+    await this.queue.addBulk(jobs);
+
+    await discord.sendMsg({
+      message: `
+      \`\`\`diff
+      [addFetchTopHoldersByUsersAddressJob]\n
+      + total_job: ${jobs.length}\n
+      crawl_id::${crawl_id}\n
+      start on::${new Date().toISOString()}\n
+      \`\`\`
+      `,
+      channelId: '1041620555188682793',
     });
-  }
-
-  async getCrawlId() {
-    const { rows } = await this.pgClient.query(`
-      SELECT
-        max(last_crawl_id) as last_crawl_id
-      FROM
-        "debank-user-address-list"
-    `);
-    if (rows[0]?.last_crawl_id && rows[0].last_crawl_id) {
-      const last_crawl_id = rows[0].last_crawl_id;
-      const last_crawl_id_date = last_crawl_id.slice(0, 8);
-      const last_crawl_id_number = parseInt(last_crawl_id.slice(8));
-      if (last_crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return `${last_crawl_id_date}${
-          last_crawl_id_number + 1 >= 10 ? last_crawl_id_number + 1 : '0' + (last_crawl_id_number + 1)
-        }`;
-      } else {
-        return `${formatDate(new Date(), 'YYYYMMDD')}01`;
-      }
-    } else {
-      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
-    }
-  }
-  async getWhalesCrawlId() {
-    const { rows } = await this.pgClient.query(`
-  	  SELECT
-        max(crawl_id) as crawl_id
-      FROM
-        "debank-whales"
-    `);
-    if (rows[0]?.crawl_id && rows[0].crawl_id) {
-      const crawl_id = rows[0].crawl_id;
-      const crawl_id_date = crawl_id.slice(0, 8);
-      const crawl_id_number = parseInt(crawl_id.slice(8));
-      if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return +`${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
-      } else {
-        return +`${formatDate(new Date(), 'YYYYMMDD')}01`;
-      }
-    } else {
-      return +`${formatDate(new Date(), 'YYYYMMDD')}01`;
-    }
-  }
-  async getTopHoldersCrawlId() {
-    const { rows } = await this.pgClient.query(`
-      SELECT
-        max(crawl_id) as crawl_id
-      FROM
-        "debank-top-holders"
-    `);
-    if (rows[0]?.crawl_id && rows[0].crawl_id) {
-      const crawl_id = rows[0].crawl_id;
-      const crawl_id_date = crawl_id.slice(0, 8);
-      const crawl_id_number = parseInt(crawl_id.slice(8));
-      if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
-      } else {
-        return `${formatDate(new Date(), 'YYYYMMDD')}01`;
-      }
-    } else {
-      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
-    }
-  }
-
-  async getCoinsCrawlId() {
-    const { rows } = await this.pgClient.query(`
-    SELECT
-        max(crawl_id) as crawl_id
-    FROM
-      "debank-coins"
-    `);
-    if (rows[0]?.crawl_id && rows[0].crawl_id) {
-      const crawl_id = rows[0].crawl_id;
-      const crawl_id_date = crawl_id.slice(0, 8);
-      const crawl_id_number = parseInt(crawl_id.slice(8));
-      if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
-      } else {
-        return `${formatDate(new Date(), 'YYYYMMDD')}1`;
-      }
-    } else {
-      return `${formatDate(new Date(), 'YYYYMMDD')}1`;
-    }
-  }
-
-  async getSocialRankingCrawlId() {
-    const { rows } = await this.pgClient.query(`
-    SELECT
-        max(crawl_id) as crawl_id
-    FROM
-      "debank-social-ranking"
-    `);
-    if (rows[0]?.crawl_id && rows[0].crawl_id) {
-      const crawl_id = rows[0].crawl_id;
-      const crawl_id_date = crawl_id.slice(0, 8);
-      const crawl_id_number = parseInt(crawl_id.slice(8));
-      if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
-        return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
-      } else {
-        return `${formatDate(new Date(), 'YYYYMMDD')}01`;
-      }
-    } else {
-      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
-    }
-  }
-  async insertUserAddress({
-    user_address,
-    updated_at,
-    debank_whales_time,
-    debank_top_holders_time,
-    debank_ranking_time,
-  }: {
-    user_address: string;
-    updated_at: Date;
-    debank_whales_time: Date;
-    debank_top_holders_time: Date;
-    debank_ranking_time: Date;
-  }) {
-    const now = new Date();
-    // update if exists else insert
-    await this.pgClient.query(
-      `
-      INSERT INTO "debank-user-address-list"(
-        user_address,
-        debank_whales_time,
-        debank_top_holders_time,
-        debank_ranking_time
-      )
-      VALUES ($1, $2, $3, $4, $5) ON CONFLICT (user_address) DO UPDATE SET
-        debank_whales_time = COALESCE(NULLIF($2,''), "debank-user-address-list".debank_whales_time),
-        debank_top_holders_time = COALESCE(NULLIF($3,''), "debank-user-address-list".debank_top_holders_time),
-        debank_ranking_time = COALESCE(NULLIF($4,''), "debank-user-address-list".debank_ranking_time)
-    `,
-      [user_address, debank_whales_time, debank_top_holders_time, debank_ranking_time, now],
-    );
   }
 
   async fetchCoins() {
@@ -2228,7 +1068,7 @@ export class DebankService {
         throw new Error('fetchTopHolders:error');
       }
       const { holders } = data;
-      await this.insertTopHolders({
+      await insertDebankTopHolders({
         holders,
         crawl_id,
         symbol: id,
@@ -2281,16 +1121,15 @@ export class DebankService {
 
       listIndex.map((index: number) => {
         if (index === 0) return;
-        this.addJob({
-          queue: this.queueName.debankTopHolder,
-          name: DebankJobNames['debank:fetch:top-holders:page'],
-          data: {
+        this.queueTopHolder.add(
+          DebankJobNames['debank:fetch:top-holders:page'],
+          {
             id,
             start: index,
             limit: DebankAPI.Coin.top_holders.params.limit,
             crawl_id,
           },
-          opts: {
+          {
             jobId: `debank:fetch:top-holders:page:${crawl_id}:${id}:${index}`,
             removeOnComplete: true,
             removeOnFail: {
@@ -2299,9 +1138,9 @@ export class DebankService {
             priority: 7,
             attempts: 10,
           },
-        });
+        );
       });
-      await this.insertTopHolders({
+      await insertDebankTopHolders({
         holders,
         crawl_id,
         symbol: id,
@@ -2313,8 +1152,8 @@ export class DebankService {
   }
   async addFetchTopHoldersJob() {
     try {
-      const crawl_id = await this.getTopHoldersCrawlId();
-      const allCoins = await this.queryAllCoins();
+      const crawl_id = await getDebankTopHoldersCrawlId();
+      const allCoins = await queryDebankAllCoins();
       //164
       const jobs = allCoins.map(({ symbol, db_id }) => ({
         name: DebankJobNames['debank:crawl:top-holders'],
@@ -2335,9 +1174,17 @@ export class DebankService {
           attempts: 10,
         },
       }));
-      await this.addBulkJobs({
-        queue: this.queueName.debankTopHolder,
-        jobs,
+      await this.queue.addBulk(jobs);
+      await discord.sendMsg({
+        message: `
+        \`\`\`diff
+        [addFetchTopHoldersJob]\n
+        + total: ${jobs.length}\n
+        start on::${new Date().toISOString()}\n
+        crawl_id: ${crawl_id}
+        \`\`\
+        `,
+        channelId: '1041620555188682793',
       });
     } catch (error) {
       this.logger.error('error', '[addFetchTopHoldersJob:error]', JSON.stringify(error));
@@ -2347,8 +1194,7 @@ export class DebankService {
 
   async addFetchCoinsJob() {
     try {
-      const crawl_id = await this.getCoinsCrawlId();
-
+      const crawl_id = await getDebankCoinsCrawlId();
       const {
         data: { data, error_code },
         status,
@@ -2370,7 +1216,7 @@ export class DebankService {
         throw new Error('addFetchCoinsJob:error');
       }
       const { coins } = data;
-      await this.insertCoins({
+      await insertDebankCoins({
         coins,
         crawl_id,
       });
@@ -2380,161 +1226,6 @@ export class DebankService {
     }
   }
 
-  async insertCoins({ coins, crawl_id }: { coins: any[]; crawl_id: string }) {
-    try {
-      const data = coins.map((coin) => ({
-        details: JSON.stringify(coin),
-        crawl_id,
-        crawl_time: new Date(),
-        cg_id: coin.id,
-      }));
-
-      if (data.length) {
-        const pgp = Container.get(pgpToken);
-        const cs = new pgp.helpers.ColumnSet(['details', 'crawl_time', 'crawl_id'], {
-          table: 'debank-coins',
-        });
-        const onConflict = `UPDATE SET  ${cs.assignColumns({ from: 'EXCLUDED', skip: ['symbol', 'db_id'] })}`;
-        await bulkInsertOnConflict({
-          table: 'debank-coins',
-          data,
-          conflict: 'symbol,db_id',
-          onConflict,
-        });
-      }
-    } catch (error) {
-      this.logger.error('error', '[insertCoins:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-
-  async insertCoin({ coin, crawl_id, crawl_time }: { coin: any; crawl_id: number; crawl_time: Date }) {
-    try {
-      await this.pgClient.query(
-        `
-        INSERT INTO "debank-coins"(
-          symbol,
-          crawl_id,
-          details,
-          crawl_time
-        )
-        VALUES ($1, $2, $3, $4) ON CONFLICT (symbol) DO UPDATE
-          SET details = $3, crawl_time = $4, crawl_id = $2
-      `,
-        [coin.symbol, crawl_id, JSON.stringify(coin), crawl_time ?? new Date()],
-      );
-    } catch (error) {
-      this.logger.error('error', '[insertCoin:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async queryAllCoins() {
-    try {
-      const { rows } = await this.pgClient.query(`
-        SELECT symbol, details, db_id FROM "debank-coins"
-      `);
-      return rows;
-    } catch (error) {
-      this.logger.error('error', '[queryAllCoins:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async insertTopHolders({ holders, crawl_id, symbol }: { holders: any[]; crawl_id: number; symbol: string }) {
-    try {
-      const crawl_time = new Date();
-      //TODO: filter out holders that already exist
-      //!: remove this and replace by trigger
-      // const { rows } = await this.queryTopHoldersByCrawlId({
-      //   symbol,
-      //   crawl_id,
-      // });
-      const values = holders.map((holder) => ({
-        symbol,
-        details: JSON.stringify(holder).replace(/\\u0000/g, ''),
-        user_address: holder.id,
-        crawl_id,
-        crawl_time,
-      }));
-      values.length &&
-        (await bulkInsert({
-          data: values,
-          table: 'debank-top-holders',
-        }));
-    } catch (error) {
-      this.logger.error('error', '[insertTopHolders:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async insertPools({ pools }: { pools: any[] }) {
-    try {
-      const updated_at = new Date();
-      const values = pools.map((pool) => ({
-        details: JSON.stringify(pool).replace(/\\u0000/g, ''),
-        adapter_id: pool.adapter_id,
-        chain: pool.chain,
-        project_id: pool.project_id,
-        pool_id: pool.stats?.pool_id,
-        protocol_id: pool.stats?.protocol_id,
-        updated_at,
-      }));
-
-      values.length &&
-        (await bulkInsertOnConflict({
-          data: values,
-          table: 'debank-pools',
-          onConflict: 'UPDATE SET details = EXCLUDED.details, updated_at = EXCLUDED.updated_at',
-          conflict: 'pool_id',
-        }));
-    } catch (error) {
-      this.logger.error('error', '[insertPools:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async insertTopHolder({
-    symbol,
-    user_address,
-    holder,
-    crawl_id,
-    crawl_time,
-  }: {
-    user_address: string;
-    holder: any;
-    crawl_id: number;
-    crawl_time: Date;
-    symbol: string;
-  }) {
-    try {
-      await this.pgClient.query(
-        `
-        INSERT INTO "debank-top-holders"(
-          user_address,
-          crawl_id,
-          details,
-          symbol,
-          crawl_time)
-        VALUES ($1, $2, $3, $4, $5)
-      `,
-        [user_address, crawl_id, JSON.stringify(holder), symbol, crawl_time ?? new Date()],
-      );
-    } catch (error) {
-      // this.logger.error('error', '[insertTopHolder:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async queryTopHoldersByCrawlId({ symbol, crawl_id }: { symbol: string; crawl_id: number }) {
-    try {
-      const { rows } = await this.pgClient.query(
-        `
-        SELECT * FROM "debank-top-holders" WHERE symbol = $1 AND crawl_id = $2
-      `,
-        [symbol, crawl_id],
-      );
-      return { rows };
-    } catch (error) {
-      this.logger.error('error', '[queryTopHolders:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
   private async createPartitions() {
     const tables = ['debank-portfolio-balances', 'debank-portfolio-projects'];
     await Promise.all(
@@ -2595,111 +1286,20 @@ export class DebankService {
     return { data };
   }
 
-  updateUserProfile({ address, profile }: { address: string; profile: any }) {
-    return this.pgClient.query(
-      `
-        UPDATE "debank-user-address-list" SET debank-user-address-list = $1 WHERE address = $2
-      `,
-      [JSON.stringify(profile), address],
-    );
-  }
-
   async updateUserProfileJob({ address }: { address: string }) {
     try {
       const { data } = await this.fetchUserProfile({ address });
-      await this.updateUserProfile({ address, profile: data });
+      await updateDebankUserProfile({ address, profile: data });
     } catch (error) {
       this.logger.error('error', '[updateUserProfileJob:error]', JSON.stringify(error));
       throw error;
     }
   }
 
-  async crawlPortfolio({ user_address, crawl_id }: { user_address: string; crawl_id: string }) {
-    // console.time('crawlPortfolio');
-    const context = await createPuppeteerBrowserContext();
-    try {
-      const needRequest = [DebankAPI.Token.cacheBalanceList.endpoint, DebankAPI.Portfolio.projectList.endpoint];
-      const page = await context.newPage();
-      await page.setRequestInterception(true);
-      const ignoreUrls: any = [
-        'https://static.debank.com/image',
-        'https://static.debank.com/css',
-        'https://static.debank.com/js',
-        'https://assets.debank.com/static/media',
-        'https://api.debank.com/chat',
-        'https://www.google-analytics.com',
-        'https://www.google.co.uk',
-        'https://www.googletagmanager.com',
-      ] as any;
-      let countNeedRequest = 0;
-      page.on('request', (request) => {
-        if (
-          ['image', 'stylesheet', 'font'].indexOf(request.resourceType()) !== -1 ||
-          ignoreUrls.some((url: any) => request.url().includes(url)) ||
-          countNeedRequest >= needRequest.length
-        ) {
-          request.respond({ status: 200, body: 'aborted' });
-        } else {
-          request.continue();
-        }
-      });
-      //get 2 api and insert to db
-      page.on('response', async (response) => {
-        if (needRequest.some((url) => response.url().includes(url)) && response.status() === 200) {
-          // console.log(response.url(), '<<', response.status(), (await response.json()).data.length);
-          countNeedRequest++;
-          const { data } = await response.json();
-          if (data.length) {
-            this.addJob({
-              queue: 'debank-insert',
-              name: DebankJobNames['debank:insert:user-assets-portfolio'],
-              data: {
-                [response.url().includes(DebankAPI.Token.cacheBalanceList.endpoint) ? 'balance_list' : 'project_list']:
-                  data,
-                crawl_id,
-                user_address,
-              },
-              opts: {
-                jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
-                removeOnComplete: {
-                  // remove job after 1 hour
-                  age: 60 * 60 * 1,
-                },
-                removeOnFail: {
-                  age: 60 * 60 * 1,
-                },
-                priority: 5,
-                attempts: 10,
-              },
-            });
-          }
-        }
-      });
-      //wait for network idle to make sure all data is loaded
-      await Promise.all([
-        page.goto(`https://debank.com/profile/${user_address}`),
-        page.waitForNavigation({
-          waitUntil: 'networkidle0',
-          // waitUntil: 'networkidle2',
-          timeout: 60 * 1000,
-        }),
-      ]);
-    } catch (error) {
-      this.logger.error('error', '[crawlPortfolio:error]', JSON.stringify(error));
-      throw error;
-    } finally {
-      await context.close();
-      // console.timeEnd('crawlPortfolio');
-    }
-  }
-
-  async crawlPortfolioByListV3({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
-    // const cluster = await createPupperteerClusterLoader();
-    // console.time('crawlPortfolioByListV3');
+  async crawlPortfolioByList({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
     const browser = await connectChrome();
     const context = await browser.defaultBrowserContext();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
-    // console.time('initPage');
     const page = await context.newPage();
     await page.authenticate({
       username: WEBSHARE_PROXY_HTTP.auth.username,
@@ -2708,7 +1308,6 @@ export class DebankService {
     await page.goto(`https://debank.com/profile/${user_addresses[0]}`, {
       waitUntil: 'load',
     });
-    // console.timeEnd('initPage');
     try {
       await bluebird.map(
         user_addresses,
@@ -2728,21 +1327,6 @@ export class DebankService {
                   page.evaluate((url) => {
                     // @ts-ignore-start
                     fetch(url, {
-                      // headers: {
-                      //   accept:
-                      //     'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-                      //   'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
-                      //   'cache-control': 'no-cache',
-                      //   pragma: 'no-cache',
-                      //   'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
-                      //   'sec-ch-ua-mobile': '?0',
-                      //   'sec-ch-ua-platform': '"macOS"',
-                      //   'sec-fetch-dest': 'document',
-                      //   'sec-fetch-mode': 'navigate',
-                      //   'sec-fetch-site': 'none',
-                      //   'sec-fetch-user': '?1',
-                      //   'upgrade-insecure-requests': '1',
-                      // },
                       referrerPolicy: 'strict-origin-when-cross-origin',
                       body: null,
                       method: 'GET',
@@ -2794,7 +1378,6 @@ export class DebankService {
             this.logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
             throw error;
           } finally {
-            // await page.close();
           }
         },
         {
@@ -2833,10 +1416,7 @@ export class DebankService {
       });
       //TODO: bulk insert to job queue
       if (process.env.MODE == 'production') {
-        this.addBulkJobs({
-          queue: 'debank-insert',
-          jobs,
-        });
+        this.queueInsert.addBulk(jobs);
       }
     } catch (error) {
       this.logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
@@ -2845,8 +1425,6 @@ export class DebankService {
       await page.close();
       // await context.close();
       browser.disconnect();
-      // console.log('crawlPortfolioByList done', Object.values(jobData));
-      // console.timeEnd('crawlPortfolioByListV3');
     }
   }
 
@@ -2966,18 +1544,16 @@ export class DebankService {
           const { data: dataJson } = await response.json();
           const { holders } = dataJson;
           jobData = uniqBy([...jobData, ...holders], 'id');
-          // console.log('jobData', jobData.length);
         },
         {
           concurrency: 3,
         },
       );
-      // console.log('jobData', uniq(jobData.map((item) => item.id)).length);
       if (!this.isValidTopHoldersData({ data: jobData, total_count })) {
         throw new Error('crawlTopHolders:invalid-data');
       }
       if (process.env.MODE == 'production') {
-        await this.insertTopHolders({
+        await insertDebankTopHolders({
           holders: jobData,
           crawl_id,
           symbol: id,
@@ -3021,8 +1597,6 @@ export class DebankService {
       const {
         data: { total_count },
       } = dataJson;
-      // console.log('crawlTopHolders', holders.length, total_count);
-
       const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Whale.list.params.limit))).reduce(
         (acc, _, index) => {
           acc.push(index * DebankAPI.Whale.list.params.limit);
@@ -3030,11 +1604,7 @@ export class DebankService {
         },
         [],
       );
-      // console.log({
-      //   listIndex,
-      //   len: listIndex.length,
-      //   total_count,
-      // });
+
       const fetchWhalesPage = async ({
         offset,
         retry = 3,
@@ -3136,33 +1706,6 @@ export class DebankService {
     return data && data.length > 0 && uniqBy(data, 'id').length == total_count;
   }
 
-  async queryTopHoldersImportantToken() {
-    const { rows } = await this.pgClient.query(
-      `
-        SELECT
-          "debank-user-address-list".user_address as user_address
-        FROM
-          "debank-user-address-list"
-        LEFT JOIN
-          "debank-top-holders_link_debank-coins"
-            ON "debank-user-address-list".user_address = "debank-top-holders_link_debank-coins".user_address
-        LEFT JOIN
-          "debank-user-address-list_link_debank-important-tokens"
-            ON "debank-user-address-list_link_debank-important-tokens".user_address = "debank-user-address-list".user_address
-        INNER JOIN
-          "debank-important-tokens"
-            ON  "debank-top-holders_link_debank-coins".coin_id ="debank-important-tokens".db_id
-              OR
-                "debank-user-address-list_link_debank-important-tokens".eth_contract = "debank-important-tokens".eth_contract
-        GROUP BY
-          "debank-user-address-list".user_address
-    `,
-    );
-    return {
-      rows,
-    };
-  }
-
   async addFetchProtocolPoolsById({ id: protocol_id }) {
     try {
       const {
@@ -3214,11 +1757,7 @@ export class DebankService {
           },
         }),
       );
-      jobs.length &&
-        (await this.addBulkJobs({
-          jobs,
-          queue: this.queueName.debankCommon,
-        }));
+      jobs.length && (await this.queueCommon.addBulk(jobs));
     } catch (error) {
       this.logger.error('error', '[addFetchProtocolPools:error]', JSON.stringify(error));
       throw error;
@@ -3262,7 +1801,7 @@ export class DebankService {
       }
       const { pools } = data;
       pools.length &&
-        (await this.insertPools({
+        (await insertDebankPools({
           pools,
         }));
       return {
@@ -3276,7 +1815,7 @@ export class DebankService {
 
   async addFetchProtocolPoolsJob() {
     try {
-      const { rows } = await this.queryProtocols();
+      const { rows } = await queryDebankProtocols();
       const jobs = rows.map(({ db_id: id }) => ({
         name: DebankJobNames['debank:add:fetch:protocols:pools:id'],
         data: {
@@ -3294,27 +1833,21 @@ export class DebankService {
           delay: 1000 * 30,
         },
       }));
-      jobs.length &&
-        (await this.addBulkJobs({
-          jobs,
-        }));
+      jobs.length && (await this.queue.addBulk(jobs));
+
+      await discord.sendMsg({
+        message: `
+        \`\`\`diff
+        [addFetchProtocolPoolsJob]\n
+        + totalJobs::${jobs.length}\n
+        start on::${new Date().toISOString()}
+        \`\`\
+        `,
+        channelId: '1041620555188682793',
+      });
     } catch (error) {
       this.logger.error('error', '[addFetchProtocolPools:error]', JSON.stringify(error));
       throw error;
     }
-  }
-
-  async queryProtocols() {
-    const { rows } = await this.pgClient.query(
-      `
-        SELECT
-          db_id
-        FROM
-          "debank-protocols"
-      `,
-    );
-    return {
-      rows,
-    };
   }
 }

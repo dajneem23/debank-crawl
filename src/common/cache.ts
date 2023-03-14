@@ -3,9 +3,9 @@ import { join } from 'path';
 export const CACHE_PATH = join(__dirname, '..', '..', '.cache');
 import cacache from 'cacache';
 
-export const getCacheKey = async ({ key }: { key: string }) => {
+export const getCacheKey = async ({ key, path = CACHE_PATH }: { key: string; path?: string }) => {
   try {
-    const data = await cacache.get(CACHE_PATH, key);
+    const data = await cacache.get(path, key);
     return data;
   } catch (error) {
     return null;

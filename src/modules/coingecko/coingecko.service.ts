@@ -103,10 +103,10 @@ export class CoinGeckoService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 500,
+      concurrency: 10,
       limiter: {
-        max: 100,
-        duration: 1,
+        max: 60,
+        duration: 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -244,30 +244,30 @@ export class CoinGeckoService {
     //     removeOnComplete: true,
     //   },
     // });
-    this.addJob({
-      name: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
-      opts: {
-        repeatJobKey: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
-        jobId: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
-        removeOnComplete: {
-          //remove after 1 hour
-          age: 60 * 60,
-        },
-        removeOnFail: {
-          //remove after 1 day
-          age: 60 * 60 * 24,
-        },
-        repeat: {
-          //repeat every 1 hour
-          every: 1000 * 60 * 60,
-          // pattern: '* 0 0 * * *',
-        },
-        //delay for 5 minutes when the job is added for done other jobs
-        delay: 1000 * 60 * 5,
-        priority: 1,
-        attempts: 5,
-      },
-    });
+    // this.addJob({
+    //   name: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
+    //   opts: {
+    //     repeatJobKey: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
+    //     jobId: CoinGeckoJobNames['coingecko:add:fetch:debank:coins'],
+    //     removeOnComplete: {
+    //       //remove after 1 hour
+    //       age: 60 * 60,
+    //     },
+    //     removeOnFail: {
+    //       //remove after 1 day
+    //       age: 60 * 60 * 24,
+    //     },
+    //     repeat: {
+    //       //repeat every 1 hour
+    //       every: 1000 * 60 * 60,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     //delay for 5 minutes when the job is added for done other jobs
+    //     delay: 1000 * 60 * 5,
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // });
 
     this.addJob({
       name: CoinGeckoJobNames['coingecko:add:fetch:important:token:price'],

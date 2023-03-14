@@ -125,7 +125,7 @@ export const truncateTable = async ({ table }: { table: string }) => {
   // const query = `TRUNCATE TABLE  IF EXISTS "${table}"`;
   //replace with function to avoid error
   const query = `SELECT truncate_if_exists('${table}')`;
-  return await pgClient.none(query);
+  return await pgClient.query(query);
 };
 
 export const truncateAndDropTable = async ({ table }: { table: string }) => {

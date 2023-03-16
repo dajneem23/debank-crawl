@@ -18,6 +18,7 @@ import { Db, MongoClient } from 'mongodb';
 import { DIMongoClient } from '@/loaders/mongoDB.loader';
 import { createArrayDateByHours } from '@/utils/date';
 import { WHITELIST_TOKENS } from '@/common/token';
+import { getMgOnChainDbName } from '@/common/db';
 
 const pgPool = Container.get(pgPoolToken);
 
@@ -34,7 +35,11 @@ export class DefillamaService {
 
   private worker: Worker;
 
+  private workerOnchain: Worker;
+
   private queue: Queue;
+
+  private queueOnchain: Queue;
 
   private mgClient: MongoClient = Container.get(DIMongoClient);
 
@@ -51,6 +56,7 @@ export class DefillamaService {
     'defillama:add:tvl:protocol:tvl': this.addFetchTVLProtocolTVLJob,
     'defillama:fetch:tvl:protocol:tvl': this.fetchTVLProtocolTVL,
     'defillama:fetch:coin:historical:data:id:timestamp': this.fetchCoinsHistoricalData,
+    'defillama:update:usd:value:of:transaction': this.updateUsdValueOfTransaction,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -69,6 +75,11 @@ export class DefillamaService {
     // this.addFetchCoinHistoricalDataJob({
     //   id: '',
     // });
+    // this.updateUsdValueOfTransaction({
+    //   hash: '0x4382f84051d2db96736f80e3a34b1db894853cab896aa1126f73476700d01e19',
+    // }).then((res) => {
+    //   console.log('done');
+    // });
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -86,17 +97,32 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 50,
+      concurrency: 10,
       limiter: {
-        max: 20,
+        max: 200,
         duration: 60 * 1000,
       },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
-    this.logger.debug('info', '[initWorker:defillama]', 'Worker initialized');
     this.initWorkerListeners(this.worker);
+
+    this.workerOnchain = new Worker('defillama-onchain', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60,
+      concurrency: 10,
+      limiter: {
+        max: 200,
+        duration: 60 * 1000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
+      },
+    });
+    this.initWorkerListeners(this.workerOnchain);
+    this.logger.debug('info', '[initWorker:defillama]', 'Worker initialized');
   }
   /**
    *  @description init BullMQ Queue
@@ -117,19 +143,40 @@ export class DefillamaService {
     const queueEvents = new QueueEvents('defillama', {
       connection: this.redisConnection,
     });
-    // TODO: ENABLE THIS
-    this.initRepeatJobs();
-
-    // queueEvents.on('completed', ({ jobId }) => {
-    //   this.logger.debug('success', 'Job completed', { jobId });
-    // });
 
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
     });
+
+    this.queueOnchain = new Queue('defillama-onchain', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    const queueOnchainEvents = new QueueEvents('defillama-onchain', {
+      connection: this.redisConnection,
+    });
+    // TODO: ENABLE THIS
+
+    queueOnchainEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
+    });
+    // TODO: ENABLE THIS
+
+    this.initRepeatJobs();
+
+    // this.addUpdateUsdValueOfTransactionsJob();
     // TODO: REMOVE THIS LATER
     // this.addFetchTVLProtocolTVLJob();
-    // this.addFetchCoinsHistoricalDataJob();
+    // this.addFetchCoinsHistoricalDataJob().then(() => {
+    //   console.log('done');
+    // });
     // this.queue.getJobCounts().then((res) => console.log(res));
   }
   private initRepeatJobs() {
@@ -228,9 +275,9 @@ export class DefillamaService {
    */
   private initWorkerListeners(worker: Worker) {
     // Completed
-    worker.on('completed', ({ id, data, name }: Job<DefillamaJobData>) => {
-      this.logger.discord('success', '[job:defillama:completed]', id, name, JSON.stringify(data));
-    });
+    // worker.on('completed', ({ id, data, name }: Job<DefillamaJobData>) => {
+    //   this.logger.discord('success', '[job:defillama:completed]', id, name, JSON.stringify(data));
+    // });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DefillamaJobData>, error: Error) => {
       this.logger.discord(
@@ -525,27 +572,14 @@ export class DefillamaService {
 
   async fetchCoinsHistoricalData({ id, timestamp, symbol }: { id: string; timestamp: number; symbol: string }) {
     try {
-      const { coins } = await getCoinsHistorical({
-        coins: `${id}`,
+      const {
+        decimals,
+        price,
+        timestamp: _timestamp,
+      } = await this.getCoinsHistoricalData({
+        id,
         timestamp,
       });
-      if (!coins[id]) {
-        this.logger.discord(
-          'error',
-          '[fetchCoinsHistoricalData:error]',
-          JSON.stringify({
-            req: {
-              id,
-              timestamp,
-              symbol,
-            },
-            res: coins,
-          }),
-        );
-        throw new Error('fetchCoinsHistoricalData: Invalid response');
-      }
-      const { decimals, price, timestamp: _timestamp } = coins[id];
-
       await this.mgClient
         .db('onchain')
         .collection('token-price')
@@ -557,12 +591,9 @@ export class DefillamaService {
           {
             $set: {
               price,
-              decimals,
-
               updated_at: new Date(),
             },
             $setOnInsert: {
-              created_at: new Date(),
               timestamp: _timestamp,
               symbol,
               id,
@@ -576,6 +607,33 @@ export class DefillamaService {
       this.logger.discord('error', '[fetchCoinsHistoricalData:error]', JSON.stringify(error));
       throw error;
     }
+  }
+
+  async getCoinsHistoricalData({ id, timestamp }: { id: string; timestamp: number }) {
+    const { coins } = await getCoinsHistorical({
+      coins: `${id}`,
+      timestamp,
+    });
+    if (!coins[id]) {
+      this.logger.discord(
+        'error',
+        '[fetchCoinsHistoricalData:error]',
+        JSON.stringify({
+          req: {
+            id,
+            timestamp,
+          },
+          res: coins,
+        }),
+      );
+      throw new Error('fetchCoinsHistoricalData: Invalid response');
+    }
+    const { decimals, price, timestamp: _timestamp } = coins[id];
+    return {
+      decimals,
+      price,
+      timestamp: _timestamp,
+    };
   }
 
   async addFetchCoinsHistoricalDataJob() {
@@ -593,7 +651,7 @@ export class DefillamaService {
         const dates = createArrayDateByHours({
           start: new Date('2023-01-01'),
           end: new Date(),
-          range: 6,
+          range: 1,
           timestamp: true,
         });
         return dates.map((timestamp) => {
@@ -616,5 +674,89 @@ export class DefillamaService {
     // if (process.env.NODE_ENV === 'production') {
     await this.queue.addBulk(jobs);
     // }
+  }
+
+  async addUpdateUsdValueOfTransactionsJob() {
+    const transactions = await this.mgClient
+      .db('onchain-dev')
+      .collection('transaction')
+      .find({
+        usd_value: 0,
+      })
+      .toArray();
+    const jobs = transactions.map((transaction) => {
+      const { hash } = transaction;
+      return {
+        name: 'defillama:update:usd:value:of:transaction',
+        data: {
+          hash,
+        },
+        opts: {
+          jobId: `defillama:update:usd:value:of:transaction:${hash}`,
+          removeOnComplete: true,
+          removeOnFail: false,
+        },
+      };
+    });
+    // if (process.env.NODE_ENV === 'production') {
+
+    await this.queueOnchain.addBulk(jobs);
+    // }
+  }
+
+  async updateUsdValueOfTransaction({ hash }: { hash: string }) {
+    const transaction = await this.mgClient.db('onchain-dev').collection('transaction').findOne({
+      hash,
+    });
+    if (!transaction) {
+      this.logger.discord(
+        'error',
+        '[updateUsdValueOfTransaction:transaction:error]',
+        JSON.stringify({
+          req: {
+            hash,
+          },
+          res: transaction,
+        }),
+      );
+      throw new Error('updateUsdValueOfTransaction: Invalid transaction');
+    }
+    const { token: token_address, timestamp, amount } = transaction;
+    const token = await this.mgClient.db('onchain').collection('token').findOne({
+      address: token_address,
+    });
+    if (!token) {
+      this.logger.discord(
+        'error',
+        '[updateUsdValueOfTransaction:token:error]',
+        JSON.stringify({
+          req: {
+            hash,
+          },
+          res: token,
+        }),
+      );
+      throw new Error('updateUsdValueOfTransaction: Invalid token');
+    }
+    const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
+      id: `coingecko:${token.coingeckoId}`,
+      timestamp,
+    });
+    await this.mgClient
+      .db('onchain-dev')
+      .collection('transaction')
+      .findOneAndUpdate(
+        {
+          hash,
+        },
+        {
+          $set: {
+            price,
+            usd_value: amount * price,
+            price_at: _timestamp,
+            updated_at: new Date(),
+          },
+        },
+      );
   }
 }

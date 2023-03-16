@@ -65,9 +65,8 @@ Updating.....
 
 Updating...............
 
-# User Test
+# Portainer
 
-`email`: admin@gmail.com
+`username`: admin
 
-`password`: admin@1foxglobal!123
-w
+`password`: -k7qz-TE9uZee.x

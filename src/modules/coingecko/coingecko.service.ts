@@ -15,7 +15,7 @@ import {
   coinGeckoExchangeModelToken,
 } from './coingecko.model';
 import { queryDebankCoins, queryDebankImportantTokens } from '../debank/debank.fnc';
-import { formatDate } from '@/utils/date';
+import { createArrayDateByHours, createArrayDates, formatDate } from '@/utils/date';
 import { Db, MongoClient } from 'mongodb';
 import { Group3Alphabet } from '@/utils/text';
 import { pgClientToken } from '@/loaders/pg.loader';

@@ -13,6 +13,11 @@ import {
   defillamaTvlChartModelToken,
   defillamaTvlProtocolModelToken,
 } from './defillama.model';
+import { getCoinsHistorical } from './defillama.func';
+import { Db, MongoClient } from 'mongodb';
+import { DIMongoClient } from '@/loaders/mongoDB.loader';
+import { createArrayDateByHours } from '@/utils/date';
+import { WHITELIST_TOKENS } from '@/common/token';
 
 const pgPool = Container.get(pgPoolToken);
 
@@ -31,8 +36,10 @@ export class DefillamaService {
 
   private queue: Queue;
 
+  private mgClient: MongoClient = Container.get(DIMongoClient);
+
   private readonly jobs: {
-    [key in DefillamaJobNames | 'default']?: () => Promise<void>;
+    [key in DefillamaJobNames | 'default']?: (params?: any) => Promise<void>;
   } = {
     'defillama:fetch:tvl:protocols': this.fetchTVLProtocols,
     'defillama:add:tvl:protocol:details': this.addFetchTVLProtocolDetails,
@@ -43,6 +50,7 @@ export class DefillamaService {
     'defillama:fetch:tvl:charts:chain': this.fetchTVLChartChain,
     'defillama:add:tvl:protocol:tvl': this.addFetchTVLProtocolTVLJob,
     'defillama:fetch:tvl:protocol:tvl': this.fetchTVLProtocolTVL,
+    'defillama:fetch:coin:historical:data:id:timestamp': this.fetchCoinsHistoricalData,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -53,6 +61,14 @@ export class DefillamaService {
     // this.fetchTVLChains();
     // this.fetchTVLCharts();
     // this.fetchStableCoinsList();
+    // this.fetchCoinsHistoricalData({
+    //   id: 'ethereum:0xfA5047c9c78B8877af97BDcb85Db743fD7313d4a',
+    //   symbol: 'ROOK',
+    //   timestamp: 1648680149,
+    // });
+    // this.addFetchCoinHistoricalDataJob({
+    //   id: '',
+    // });
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -113,74 +129,76 @@ export class DefillamaService {
     });
     // TODO: REMOVE THIS LATER
     // this.addFetchTVLProtocolTVLJob();
+    // this.addFetchCoinsHistoricalDataJob();
+    // this.queue.getJobCounts().then((res) => console.log(res));
   }
   private initRepeatJobs() {
-    this.addJob({
-      name: 'defillama:fetch:tvl:protocols',
-      options: {
-        repeatJobKey: 'defillama:fetch:tvl:protocols',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    });
-    this.addJob({
-      name: 'defillama:fetch:tvl:charts',
-      options: {
-        repeatJobKey: 'defillama:fetch:tvl:charts',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    });
-    this.addJob({
-      name: 'defillama:fetch:tvl:chains',
-      options: {
-        repeatJobKey: 'defillama:fetch:tvl:chains',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    });
-    this.addJob({
-      name: 'defillama:add:tvl:protocol:details',
-      options: {
-        repeatJobKey: 'defillama:add:tvl:protocol:details',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    });
-    this.addJob({
-      name: 'defillama:add:tvl:charts:chains',
-      options: {
-        repeatJobKey: 'defillama:add:tvl:charts:chains',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    });
-    this.addJob({
-      name: 'defillama:add:tvl:protocol:tvl',
-      options: {
-        repeatJobKey: 'defillama:add:tvl:protocol:tvl',
-        repeat: {
-          pattern: '* 0 0 * * *',
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    });
+    // this.addJob({
+    //   name: 'defillama:fetch:tvl:protocols',
+    //   options: {
+    //     repeatJobKey: 'defillama:fetch:tvl:protocols',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'defillama:fetch:tvl:charts',
+    //   options: {
+    //     repeatJobKey: 'defillama:fetch:tvl:charts',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'defillama:fetch:tvl:chains',
+    //   options: {
+    //     repeatJobKey: 'defillama:fetch:tvl:chains',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'defillama:add:tvl:protocol:details',
+    //   options: {
+    //     repeatJobKey: 'defillama:add:tvl:protocol:details',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'defillama:add:tvl:charts:chains',
+    //   options: {
+    //     repeatJobKey: 'defillama:add:tvl:charts:chains',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // });
+    // this.addJob({
+    //   name: 'defillama:add:tvl:protocol:tvl',
+    //   options: {
+    //     repeatJobKey: 'defillama:add:tvl:protocol:tvl',
+    //     repeat: {
+    //       pattern: '* 0 0 * * *',
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // });
   }
   /**
    * @description add job to queue
@@ -503,5 +521,100 @@ export class DefillamaService {
       this.logger.discord('error', '[fetchStableCoinsList:error]', JSON.stringify(error));
       throw error;
     }
+  }
+
+  async fetchCoinsHistoricalData({ id, timestamp, symbol }: { id: string; timestamp: number; symbol: string }) {
+    try {
+      const { coins } = await getCoinsHistorical({
+        coins: `${id}`,
+        timestamp,
+      });
+      if (!coins[id]) {
+        this.logger.discord(
+          'error',
+          '[fetchCoinsHistoricalData:error]',
+          JSON.stringify({
+            req: {
+              id,
+              timestamp,
+              symbol,
+            },
+            res: coins,
+          }),
+        );
+        throw new Error('fetchCoinsHistoricalData: Invalid response');
+      }
+      const { decimals, price, timestamp: _timestamp } = coins[id];
+
+      await this.mgClient
+        .db('onchain')
+        .collection('token-price')
+        .findOneAndUpdate(
+          {
+            timestamp,
+            symbol,
+          },
+          {
+            $set: {
+              price,
+              decimals,
+
+              updated_at: new Date(),
+            },
+            $setOnInsert: {
+              created_at: new Date(),
+              timestamp: _timestamp,
+              symbol,
+              id,
+            },
+          },
+          {
+            upsert: true,
+          },
+        );
+    } catch (error) {
+      this.logger.discord('error', '[fetchCoinsHistoricalData:error]', JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async addFetchCoinsHistoricalDataJob() {
+    const tokens = await this.mgClient
+      .db('onchain')
+      .collection('token')
+      .find({
+        enabled: true,
+      })
+      .toArray();
+
+    const jobs = tokens
+      .map((token) => {
+        const { coingeckoId, symbol } = token;
+        const dates = createArrayDateByHours({
+          start: new Date('2023-01-01'),
+          end: new Date(),
+          range: 6,
+          timestamp: true,
+        });
+        return dates.map((timestamp) => {
+          return {
+            name: 'defillama:fetch:coin:historical:data:id:timestamp',
+            data: {
+              id: `coingecko:${coingeckoId}`,
+              symbol,
+              timestamp,
+            },
+            opts: {
+              jobId: `defillama:fetch:coin:historical:data:id:timestamp:${coingeckoId}:${timestamp}`,
+              removeOnComplete: true,
+              removeOnFail: false,
+            },
+          };
+        });
+      })
+      .flat();
+    // if (process.env.NODE_ENV === 'production') {
+    await this.queue.addBulk(jobs);
+    // }
   }
 }

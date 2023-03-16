@@ -154,6 +154,9 @@ export const CoinGeckoAPI = {
         date: '30-12-2017',
       },
     },
+    market_chart_range: {
+      endpoint: 'https://api.coingecko.com/api/v3/coins/:id/market_chart/range',
+    },
   },
   Categories: {
     list: {
@@ -301,6 +304,25 @@ export const DefillamaAPI = {
       endpoint: 'https://stablecoins.llama.fi/stablecoins',
       params: {
         includePrices: true,
+      },
+    },
+  },
+  /**
+   *  @docs https://defillama.com/docs/api
+   */
+  BatchHistorical: {
+    endpoint: 'https://coins.llama.fi/batchHistorical',
+    params: {
+      //example:{"avax:0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e": [1666876743, 1666862343],"coingecko:ethereum": [1666869543, 1666862343]}
+      coins: '',
+    },
+  },
+  Coins: {
+    //example:  https://coins.llama.fi/prices/historical/1672531247/ethereum:0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE?searchWidth=4h
+    historical: {
+      endpoint: 'https://coins.llama.fi/prices/historical/:timestamp/:coins',
+      params: {
+        searchWidth: '4h',
       },
     },
   },

@@ -610,15 +610,15 @@ export class DebankService {
         jobId: `debank:add:fetch:user-address:top-holders`,
         removeOnComplete: {
           //remove after 1 hour
-          age: 60 * 60 * 2,
+          age: 60 * 60 * 24,
         },
         removeOnFail: {
           //remove after 1 hour
-          age: 60 * 60 * 2,
+          age: 60 * 60 * 24,
         },
         repeat: {
           //repeat every 3 hours
-          every: 1000 * 60 * 60 * 2,
+          every: 1000 * 60 * 60 * 24,
           // pattern: '* 0 0 * * *',
         },
         //delay for 5 minutes when the job is added for done other jobs
@@ -650,15 +650,15 @@ export class DebankService {
         jobId: `debank:add:fetch:top-holders`,
         removeOnComplete: {
           //remove after 1 hour
-          age: 60 * 60 * 3,
+          age: 60 * 60 * 24,
         },
         removeOnFail: {
           //remove after 1 hour
-          age: 60 * 60 * 1,
+          age: 60 * 60 * 24,
         },
         repeat: {
           //repeat every 60 minutes
-          every: 1000 * 60 * 60 * 3,
+          every: 1000 * 60 * 60 * 24,
           // pattern: '* 0 0 * * *',
         },
         priority: 2,
@@ -673,15 +673,15 @@ export class DebankService {
         jobId: `debank:add:social:users:rankings`,
         removeOnComplete: {
           //remove job after 1 hours
-          age: 60 * 60 * 3,
+          age: 60 * 60 * 24,
         },
         removeOnFail: {
           //remove job after 1 hours
-          age: 60 * 60 * 3,
+          age: 60 * 60 * 24,
         },
         repeat: {
           //repeat every 3 hours
-          every: 1000 * 60 * 60 * 3,
+          every: 1000 * 60 * 60 * 24,
           // pattern: '* 0 0 * * *',
         },
         priority: 2,
@@ -696,15 +696,15 @@ export class DebankService {
         jobId: `debank:add:fetch:whales:paging`,
         removeOnComplete: {
           //remove job after 1 hours
-          age: 60 * 60 * 3,
+          age: 60 * 60 * 24,
         },
         removeOnFail: {
           //remove job after 1 hours
-          age: 60 * 60 * 3,
+          age: 60 * 60 * 24,
         },
         repeat: {
-          //repeat every 3 hours
-          every: 1000 * 60 * 60 * 3,
+          //repeat every 24 hours
+          every: 1000 * 60 * 60 * 24,
         },
         priority: 2,
         attempts: 5,
@@ -1415,7 +1415,7 @@ export class DebankService {
             jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
             removeOnComplete: {
               // remove job after 1 hour
-              age: 60 * 60 * 1,
+              age: 60 * 30,
             },
             removeOnFail: {
               age: 60 * 60 * 1,

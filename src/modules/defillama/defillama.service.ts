@@ -59,6 +59,7 @@ export class DefillamaService {
     'defillama:fetch:coin:historical:data:id:timestamp': this.fetchCoinsHistoricalData,
     'defillama:add:fetch:coin:historical': this.addFetchCoinsHistoricalDataJob,
     'defillama:update:usd:value:of:transaction': this.updateUsdValueOfTransaction,
+    'defillama:add:update:usd:value:of:transaction': this.addUpdateUsdValueOfTransactionsJob,
     'defillama:update:coin:historical:key:cache': updateCoinsHistoricalKeyCache,
     default: () => {
       throw new Error('Invalid job name');
@@ -100,7 +101,7 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 10,
+      concurrency: 15,
       limiter: {
         max: 200,
         duration: 60 * 1000,
@@ -115,7 +116,7 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 10,
+      concurrency: 25,
       limiter: {
         max: 200,
         duration: 60 * 1000,
@@ -258,6 +259,22 @@ export class DefillamaService {
         removeOnComplete: true,
         removeOnFail: true,
         priority: 1,
+        attempts: 5,
+      },
+    );
+    this.queue.add(
+      'defillama:add:update:usd:value:of:transaction',
+      {},
+      {
+        repeatJobKey: 'defillama:add:update:usd:value:of:transaction',
+        jobId: 'defillama:add:update:usd:value:of:transaction',
+        repeat: {
+          every: 1000 * 60 * 60,
+        },
+        removeOnComplete: true,
+        removeOnFail: false,
+        priority: 1,
+        attempts: 5,
       },
     );
 
@@ -271,8 +288,9 @@ export class DefillamaService {
           every: 1000 * 60 * 30,
         },
         removeOnComplete: true,
-        removeOnFail: true,
+        removeOnFail: false,
         priority: 1,
+        attempts: 5,
       },
     );
   }
@@ -737,9 +755,14 @@ export class DefillamaService {
     const transactions = await this.mgClient
       .db(getMgOnChainDbName())
       .collection('transaction')
-      .find({
-        usd_value: 0,
-      })
+      .find(
+        {
+          usd_value: 0,
+        },
+        {
+          limit: 10000,
+        },
+      )
       .toArray();
     const jobs = transactions.map((transaction) => {
       const { hash } = transaction;

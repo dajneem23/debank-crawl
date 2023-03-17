@@ -39,9 +39,13 @@ export class DefillamaService {
 
   private workerOnchain: Worker;
 
+  private workerToken: Worker;
+
   private queue: Queue;
 
   private queueOnchain: Queue;
+
+  private queueToken: Queue;
 
   private mgClient: MongoClient = Container.get(DIMongoClient);
 
@@ -85,7 +89,7 @@ export class DefillamaService {
     // }).then((res) => {
     //   console.log('done');
     // });
-    this.initQueue();
+    // this.initQueue();
 
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
@@ -129,6 +133,21 @@ export class DefillamaService {
       },
     });
     this.initWorkerListeners(this.workerOnchain);
+
+    this.workerToken = new Worker('defillama-token', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60,
+      concurrency: 25,
+      limiter: {
+        max: 200,
+        duration: 60 * 1000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
+      },
+    });
+    this.initWorkerListeners(this.workerToken);
     this.logger.debug('info', '[initWorker:defillama]', 'Worker initialized');
   }
   /**
@@ -169,13 +188,29 @@ export class DefillamaService {
     const queueOnchainEvents = new QueueEvents('defillama-onchain', {
       connection: this.redisConnection,
     });
-    // TODO: ENABLE THIS
 
     queueOnchainEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
     });
-    // TODO: ENABLE THIS
 
+    this.queueToken = new Queue('defillama-token', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    const queueTokenEvents = new QueueEvents('defillama-token', {
+      connection: this.redisConnection,
+    });
+
+    queueTokenEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
+    });
     this.initRepeatJobs();
 
     // this.addUpdateUsdValueOfTransactionsJob();
@@ -746,7 +781,7 @@ export class DefillamaService {
         }),
     );
     // if (process.env.NODE_ENV === 'production') {
-    await this.queue.addBulk(jobs);
+    await this.queueToken.addBulk(jobs);
     // }
 
     const discord = Container.get(DIDiscordClient);
@@ -764,7 +799,7 @@ export class DefillamaService {
 
   async addUpdateUsdValueOfTransactionsJob() {
     const transactions = await this.mgClient
-      .db(getMgOnChainDbName())
+      .db('onchain')
       .collection('transaction')
       .find(
         {

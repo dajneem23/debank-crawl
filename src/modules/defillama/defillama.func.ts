@@ -46,7 +46,7 @@ export const updateCoinsHistoricalKeyCache = async ({ id }) => {
     async ({ key, id }) => {
       const isExist = await cacache.get.hasContent(`${CACHE_PATH}/${id}`, key);
       if (!isExist) {
-        await cacache.put(`${CACHE_PATH}/defillama/${id}`, key, { id, key });
+        await cacache.put(`${CACHE_PATH}/defillama/${id}`, key, JSON.stringify({ id, key }));
       }
     },
     {

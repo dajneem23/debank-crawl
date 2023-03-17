@@ -21,6 +21,7 @@ import { WHITELIST_TOKENS } from '@/common/token';
 import { getMgOnChainDbName } from '@/common/db';
 import cacache from 'cacache';
 import { CACHE_PATH } from '@/common/cache';
+import { DIDiscordClient } from '@/loaders/discord.loader';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -84,6 +85,8 @@ export class DefillamaService {
     // }).then((res) => {
     //   console.log('done');
     // });
+    this.initQueue();
+
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -175,7 +178,7 @@ export class DefillamaService {
 
     this.initRepeatJobs();
 
-    // this.addFetchCoinsHistoricalDataJob();
+    // this.addUpdateUsdValueOfTransactionsJob();
     // TODO: REMOVE THIS LATER
     // this.addFetchTVLProtocolTVLJob();
     // this.queue.getJobCounts().then((res) => console.log(res));
@@ -619,11 +622,7 @@ export class DefillamaService {
 
   async fetchCoinsHistoricalData({ id, timestamp, symbol }: { id: string; timestamp: number; symbol: string }) {
     try {
-      const {
-        decimals,
-        price,
-        timestamp: _timestamp,
-      } = await this.getCoinsHistoricalData({
+      const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
         id,
         timestamp,
       });
@@ -749,6 +748,18 @@ export class DefillamaService {
     // if (process.env.NODE_ENV === 'production') {
     await this.queue.addBulk(jobs);
     // }
+
+    const discord = Container.get(DIDiscordClient);
+
+    await discord.sendMsg({
+      message:
+        `\`\`\`diff` +
+        `\n[DEFILLAMA-addFetchCoinsHistoricalDataJob]` +
+        `\n+ total_job: ${jobs.length}` +
+        `\nstart on::${new Date().toISOString()}` +
+        `\`\`\``,
+      channelId: '1041620555188682793',
+    });
   }
 
   async addUpdateUsdValueOfTransactionsJob() {
@@ -765,11 +776,14 @@ export class DefillamaService {
       )
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { hash } = transaction;
+      const { hash, token: token_address, timestamp, amount } = transaction;
       return {
         name: 'defillama:update:usd:value:of:transaction',
         data: {
           hash,
+          token_address,
+          timestamp,
+          amount,
         },
         opts: {
           jobId: `defillama:update:usd:value:of:transaction:${hash}`,
@@ -778,40 +792,61 @@ export class DefillamaService {
         },
       };
     });
-    // if (process.env.NODE_ENV === 'production') {
-
     await this.queueOnchain.addBulk(jobs);
-    // }
+    const discord = Container.get(DIDiscordClient);
+
+    await discord.sendMsg({
+      message:
+        `\`\`\`diff` +
+        `\n[DEFILLAMA-addUpdateUsdValueOfTransactionsJob]` +
+        `\n+ total_job: ${jobs.length}` +
+        `\nstart on::${new Date().toISOString()}` +
+        `\`\`\``,
+      channelId: '1041620555188682793',
+    });
   }
 
-  async updateUsdValueOfTransaction({ hash }: { hash: string }) {
-    const transaction = await this.mgClient.db(getMgOnChainDbName()).collection('transaction').findOne({
-      hash,
-    });
-    if (!transaction) {
-      this.logger.discord(
-        'error',
-        '[updateUsdValueOfTransaction:transaction:error]',
-        JSON.stringify({
-          req: {
-            hash,
-          },
-          res: transaction,
-        }),
-      );
-      throw new Error('updateUsdValueOfTransaction: Invalid transaction');
-    }
-    const { token: token_address, timestamp, amount } = transaction;
+  async updateUsdValueOfTransaction({
+    hash,
+    token_address,
+    timestamp,
+    amount,
+  }: {
+    hash: string;
+    token_address: string;
+    timestamp: number;
+    amount: number;
+  }) {
+    // const transaction = await this.mgClient.db(getMgOnChainDbName()).collection('transaction').findOne({
+    //   hash,
+    // });
+    // if (!transaction) {
+    //   this.logger.discord(
+    //     'error',
+    //     '[updateUsdValueOfTransaction:transaction:error]',
+    //     JSON.stringify({
+    //       req: {
+    //         hash,
+    //       },
+    //       res: transaction,
+    //     }),
+    //   );
+    //   throw new Error('updateUsdValueOfTransaction: Invalid transaction');
+    // }
+    // const { token: token_address, timestamp, amount } = transaction;
     const token = await this.mgClient.db('onchain').collection('token').findOne({
       address: token_address,
     });
-    if (!token) {
+    if (!token || !token.coingeckoId) {
       this.logger.discord(
         'error',
         '[updateUsdValueOfTransaction:token:error]',
         JSON.stringify({
           req: {
             hash,
+            token_address,
+            timestamp,
+            amount,
           },
           res: token,
         }),

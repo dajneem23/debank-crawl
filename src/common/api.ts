@@ -329,6 +329,12 @@ export const DefillamaAPI = {
   fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
     return axios.get(`${endpoint}`, {
       params,
+      proxy: {
+        host: WEBSHARE_PROXY_HTTP.host,
+        port: WEBSHARE_PROXY_HTTP.port,
+        auth: { username: WEBSHARE_PROXY_HTTP.auth.username, password: WEBSHARE_PROXY_HTTP.auth.password },
+        protocol: WEBSHARE_PROXY_HTTP.protocol,
+      },
       headers: {},
     });
   },

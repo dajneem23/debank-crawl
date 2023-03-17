@@ -13,13 +13,14 @@ import {
   defillamaTvlChartModelToken,
   defillamaTvlProtocolModelToken,
 } from './defillama.model';
-import { getCoinsHistorical } from './defillama.func';
+import { getCoinsHistorical, updateCoinsHistoricalKeyCache } from './defillama.func';
 import { Db, MongoClient } from 'mongodb';
 import { DIMongoClient } from '@/loaders/mongoDB.loader';
 import { createArrayDateByHours } from '@/utils/date';
 import { WHITELIST_TOKENS } from '@/common/token';
 import { getMgOnChainDbName } from '@/common/db';
-
+import cacache from 'cacache';
+import { CACHE_PATH } from '@/common/cache';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -56,7 +57,9 @@ export class DefillamaService {
     'defillama:add:tvl:protocol:tvl': this.addFetchTVLProtocolTVLJob,
     'defillama:fetch:tvl:protocol:tvl': this.fetchTVLProtocolTVL,
     'defillama:fetch:coin:historical:data:id:timestamp': this.fetchCoinsHistoricalData,
+    'defillama:add:fetch:coin:historical': this.addFetchCoinsHistoricalDataJob,
     'defillama:update:usd:value:of:transaction': this.updateUsdValueOfTransaction,
+    'defillama:update:coin:historical:key:cache': updateCoinsHistoricalKeyCache,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -171,12 +174,9 @@ export class DefillamaService {
 
     this.initRepeatJobs();
 
-    // this.addUpdateUsdValueOfTransactionsJob();
+    // this.addFetchCoinsHistoricalDataJob();
     // TODO: REMOVE THIS LATER
     // this.addFetchTVLProtocolTVLJob();
-    // this.addFetchCoinsHistoricalDataJob().then(() => {
-    //   console.log('done');
-    // });
     // this.queue.getJobCounts().then((res) => console.log(res));
   }
   private initRepeatJobs() {
@@ -246,6 +246,35 @@ export class DefillamaService {
     //     removeOnFail: true,
     //   },
     // });
+    this.queue.add(
+      'defillama:add:fetch:coin:historical',
+      {},
+      {
+        repeatJobKey: 'defillama:add:fetch:coin:historical',
+        jobId: 'defillama:add:fetch:coin:historical',
+        repeat: {
+          every: 1000 * 60 * 60,
+        },
+        removeOnComplete: true,
+        removeOnFail: true,
+        priority: 1,
+      },
+    );
+
+    this.queue.add(
+      'defillama:update:coin:historical:key:cache',
+      {},
+      {
+        repeatJobKey: 'defillama:update:coin:historical:key:cache',
+        jobId: 'defillama:update:coin:historical:key:cache',
+        repeat: {
+          every: 1000 * 60 * 30,
+        },
+        removeOnComplete: true,
+        removeOnFail: true,
+        priority: 1,
+      },
+    );
   }
   /**
    * @description add job to queue
@@ -581,7 +610,7 @@ export class DefillamaService {
         timestamp,
       });
       await this.mgClient
-        .db('onchain')
+        .db(getMgOnChainDbName())
         .collection('token-price')
         .findOneAndUpdate(
           {
@@ -598,6 +627,27 @@ export class DefillamaService {
               symbol,
               id,
             },
+          },
+          {
+            upsert: true,
+          },
+        );
+      await this.mgClient
+        .db(getMgOnChainDbName())
+        .collection('token-price-timestamp')
+        .findOneAndUpdate(
+          {
+            id,
+          },
+          {
+            $setOnInsert: {
+              id,
+            },
+            $push: {
+              timestamps: {
+                $each: [_timestamp],
+              },
+            } as any,
           },
           {
             upsert: true,
@@ -645,32 +695,39 @@ export class DefillamaService {
       })
       .toArray();
 
-    const jobs = tokens
-      .map((token) => {
-        const { coingeckoId, symbol } = token;
-        const dates = createArrayDateByHours({
-          start: new Date('2023-01-01'),
-          end: new Date(),
-          range: 1,
-          timestamp: true,
-        });
-        return dates.map((timestamp) => {
-          return {
-            name: 'defillama:fetch:coin:historical:data:id:timestamp',
-            data: {
-              id: `coingecko:${coingeckoId}`,
-              symbol,
-              timestamp,
-            },
-            opts: {
-              jobId: `defillama:fetch:coin:historical:data:id:timestamp:${coingeckoId}:${timestamp}`,
-              removeOnComplete: true,
-              removeOnFail: false,
-            },
-          };
-        });
-      })
-      .flat();
+    const jobs = await Promise.all(
+      tokens
+        .map((token) => {
+          const { coingeckoId, symbol } = token;
+          const dates = createArrayDateByHours({
+            start: new Date('2023-01-01'),
+            end: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours()),
+            range: 1,
+            timestamp: true,
+          });
+          return dates.map((timestamp) => {
+            return {
+              name: 'defillama:fetch:coin:historical:data:id:timestamp',
+              data: {
+                id: `coingecko:${coingeckoId}`,
+                symbol,
+                timestamp,
+              },
+              opts: {
+                jobId: `defillama:fetch:coin:historical:data:id:timestamp:${coingeckoId}:${timestamp}`,
+                removeOnComplete: true,
+                removeOnFail: false,
+              },
+            };
+          });
+        })
+        .flat()
+        .filter(async ({ data }) => {
+          const { timestamp, id } = data;
+          const isExist = cacache.get.hasContent(`${CACHE_PATH}/defillama/${id}`, `${id}-${timestamp}`);
+          return !isExist;
+        }),
+    );
     // if (process.env.NODE_ENV === 'production') {
     await this.queue.addBulk(jobs);
     // }
@@ -678,7 +735,7 @@ export class DefillamaService {
 
   async addUpdateUsdValueOfTransactionsJob() {
     const transactions = await this.mgClient
-      .db('onchain-dev')
+      .db(getMgOnChainDbName())
       .collection('transaction')
       .find({
         usd_value: 0,
@@ -705,7 +762,7 @@ export class DefillamaService {
   }
 
   async updateUsdValueOfTransaction({ hash }: { hash: string }) {
-    const transaction = await this.mgClient.db('onchain-dev').collection('transaction').findOne({
+    const transaction = await this.mgClient.db(getMgOnChainDbName()).collection('transaction').findOne({
       hash,
     });
     if (!transaction) {
@@ -743,7 +800,7 @@ export class DefillamaService {
       timestamp,
     });
     await this.mgClient
-      .db('onchain-dev')
+      .db(getMgOnChainDbName())
       .collection('transaction')
       .findOneAndUpdate(
         {

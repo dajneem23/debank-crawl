@@ -18,5 +18,7 @@ export type DefillamaJobNames =
   // | 'defillama:fetch:coin:historical:data:id'
   | 'defillama:fetch:coin:historical:data:id:timestamp'
   | 'defillama:update:usd:value:of:transaction'
-  | 'defillama:fetch:coins:historical:data';
+  | 'defillama:fetch:coins:historical:data'
+  | 'defillama:add:fetch:coin:historical'
+  | 'defillama:update:coin:historical:key:cache';
 export type DefillamaJobData = fetchDefillamaDataJob;

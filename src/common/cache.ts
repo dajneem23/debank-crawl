@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-export const CACHE_PATH = join(__dirname, '..', '..', '.cache');
+export const CACHE_PATH = join(__dirname, '..', '..', '.cache', 'cacache');
 import cacache from 'cacache';
 
 export const getCacheKey = async ({ key, path = CACHE_PATH }: { key: string; path?: string }) => {

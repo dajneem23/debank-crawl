@@ -650,11 +650,11 @@ export class DebankService {
         jobId: `debank:add:fetch:top-holders`,
         removeOnComplete: {
           //remove after 1 hour
-          age: 60 * 60 * 24,
+          age: 60 * 60 * 1,
         },
         removeOnFail: {
           //remove after 1 hour
-          age: 60 * 60 * 24,
+          age: 60 * 60 * 1,
         },
         repeat: {
           //repeat every 60 minutes

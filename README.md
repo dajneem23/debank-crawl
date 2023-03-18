@@ -66,7 +66,3 @@ Updating.....
 Updating...............
 
 # Portainer
-
-`username`: admin
-
-`password`: -k7qz-TE9uZee.x

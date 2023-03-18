@@ -11,7 +11,7 @@ const token = env.TELEGRAM_BOT_TOKEN;
 const pgClient = Container.get(pgPoolToken);
 export const TelegramLoader = async () => {
   // Create a bot that uses 'polling' to fetch new updates
-  const bot = new TelegramBot(token, { polling: false });
+  const bot = new TelegramBot(token, { polling: true });
   const scanRegex = /Etherscan|PolygonScan|BscScan|FtmScan|arbiscan/gi;
 
   bot.on('channel_post', async (msg) => {

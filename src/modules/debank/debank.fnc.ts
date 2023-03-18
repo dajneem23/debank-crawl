@@ -7,6 +7,8 @@ import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
 import { DebankAPI } from '@/common/api';
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '@/utils/date';
+import { DIMongoClient } from '@/loaders/mongoDB.loader';
+import { getMgOnChainDbName } from '@/common/db';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {
@@ -74,6 +76,12 @@ export const cachePools = async () => {
       concurrency: 2000,
     },
   );
+};
+
+export const insertDebankPoolsToMongo = async () => {
+  const { rows } = await queryDebankPools();
+  const mgClient = Container.get(DIMongoClient);
+  await mgClient.db('onchain').collection('debank-pools').insertMany(rows);
 };
 
 export const queryDebankProtocols = async () => {

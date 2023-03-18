@@ -25,6 +25,7 @@ import {
   insertDebankCoin,
   insertDebankCoins,
   insertDebankPools,
+  insertDebankPoolsToMongo,
   insertDebankTopHolder,
   insertDebankTopHolders,
   insertDebankUserAddress,

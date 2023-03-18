@@ -8,7 +8,7 @@ import { WEBSHARE_PROXY_HTTP } from '@/common/proxy';
 
 export class WatchersProService {
   constructor() {
-    this.run();
+    // this.run();
   }
   //TODO: CRON JOB
   async run() {

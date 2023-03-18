@@ -22,6 +22,8 @@ import { getMgOnChainDbName } from '@/common/db';
 import cacache from 'cacache';
 import { CACHE_PATH } from '@/common/cache';
 import { DIDiscordClient } from '@/loaders/discord.loader';
+import Bluebird from 'bluebird';
+import { uniq } from 'lodash';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -66,6 +68,7 @@ export class DefillamaService {
     'defillama:update:usd:value:of:transaction': this.updateUsdValueOfTransaction,
     'defillama:add:update:usd:value:of:transaction': this.addUpdateUsdValueOfTransactionsJob,
     'defillama:update:coin:historical:key:cache': updateCoinsHistoricalKeyCache,
+    'defillama:update:pool:of:transaction': this.updatePoolOfTransaction,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -90,7 +93,38 @@ export class DefillamaService {
     //   console.log('done');
     // });
     // this.initQueue();
+    // (async () => {
+    //   // const collection = this.mgClient.db('onchain-dev').collection('transaction');
+    //   // const prodCollection = this.mgClient.db('onchain').collection('transaction');
+    //   // const res = await collection.find({}).toArray();
+    //   // const data = await prodCollection
+    //   //   .find(
+    //   //     {},
+    //   //     {
+    //   //       limit: 20000,
+    //   //       skip: 20000 * 2,
+    //   //     },
+    //   //   )
+    //   //   .toArray();
+    //   // const insertedData = await data.filter((item) => {
+    //   //   const found = res.find((i) => i.hash === item.hash);
+    //   //   return !found;
+    //   // });
+    //   // await collection.insertMany(insertedData);
 
+    //   // console.log('done insert', insertedData.length);
+    //   const collection = this.mgClient.db('onchain-dev').collection('transaction');
+    //   const res = await collection.find({}).toArray();
+    //   console.log(res.length);
+    //   //group 200 items to 1 array
+
+    //   await this.updatePoolOfTransaction({
+    //     addresses: group,
+    //   });
+
+    //   console.log('done find');
+    // })();
+    // this.addFetchCoinsHistoricalDataJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -107,12 +141,14 @@ export class DefillamaService {
     this.worker = new Worker('defillama', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
-      concurrency: 15,
-      limiter: {
-        max: 200,
-        duration: 60 * 1000,
-      },
+      lockDuration: 1000 * 60 * 5,
+      concurrency: 25,
+      stalledInterval: 1000 * 60,
+      maxStalledCount: 10,
+      // limiter: {
+      //   max: 200,
+      //   duration: 60 * 1000,
+      // },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -140,7 +176,7 @@ export class DefillamaService {
       lockDuration: 1000 * 60,
       concurrency: 25,
       limiter: {
-        max: 200,
+        max: 600,
         duration: 60 * 1000,
       },
       metrics: {
@@ -349,10 +385,7 @@ export class DefillamaService {
     payload?: any;
     options?: JobsOptions;
   }) {
-    this.queue
-      .add(name, payload, options)
-      // .then(({ id, name }) => this.logger.debug(`success`, `[addJob:success]`, { id, name, payload }))
-      .catch((err) => this.logger.discord('error', `[addJob:error]`, JSON.stringify(err), JSON.stringify(payload)));
+    this.queue.add(name, payload, options);
   }
   /**
    * Initialize Worker listeners
@@ -684,27 +717,6 @@ export class DefillamaService {
             upsert: true,
           },
         );
-      await this.mgClient
-        .db(getMgOnChainDbName())
-        .collection('token-price-timestamp')
-        .findOneAndUpdate(
-          {
-            id,
-          },
-          {
-            $setOnInsert: {
-              id,
-            },
-            $push: {
-              timestamps: {
-                $each: [_timestamp],
-              },
-            } as any,
-          },
-          {
-            upsert: true,
-          },
-        );
     } catch (error) {
       this.logger.discord('error', '[fetchCoinsHistoricalData:error]', JSON.stringify(error));
       throw error;
@@ -712,6 +724,13 @@ export class DefillamaService {
   }
 
   async getCoinsHistoricalData({ id, timestamp }: { id: string; timestamp: number }) {
+    const exists = await this.mgClient.db(getMgOnChainDbName()).collection('token-price').findOne({
+      id,
+      timestamp,
+    });
+    if (exists) {
+      return exists;
+    }
     const { coins } = await getCoinsHistorical({
       coins: `${id}`,
       timestamp,
@@ -773,13 +792,14 @@ export class DefillamaService {
             };
           });
         })
-        .flat()
-        .filter(async ({ data }) => {
-          const { timestamp, id } = data;
-          const isExist = cacache.get.hasContent(`${CACHE_PATH}/defillama/${id}`, `${id}-${timestamp}`);
-          return !isExist;
-        }),
+        .flat(),
+      // .filter(async ({ data }) => {
+      //   const { timestamp, id } = data;
+      //   const isExist = cacache.get.hasContent(`${CACHE_PATH}/defillama/${id}`, `${id}-${timestamp}`);
+      //   return !isExist;
+      // }),
     );
+    // console.log('jobs', jobs.length);
     // if (process.env.NODE_ENV === 'production') {
     await this.queueToken.addBulk(jobs);
     // }
@@ -806,7 +826,7 @@ export class DefillamaService {
           usd_value: 0,
         },
         {
-          limit: 10000,
+          limit: 25000,
         },
       )
       .toArray();
@@ -852,23 +872,6 @@ export class DefillamaService {
     timestamp: number;
     amount: number;
   }) {
-    // const transaction = await this.mgClient.db(getMgOnChainDbName()).collection('transaction').findOne({
-    //   hash,
-    // });
-    // if (!transaction) {
-    //   this.logger.discord(
-    //     'error',
-    //     '[updateUsdValueOfTransaction:transaction:error]',
-    //     JSON.stringify({
-    //       req: {
-    //         hash,
-    //       },
-    //       res: transaction,
-    //     }),
-    //   );
-    //   throw new Error('updateUsdValueOfTransaction: Invalid transaction');
-    // }
-    // const { token: token_address, timestamp, amount } = transaction;
     const token = await this.mgClient.db('onchain').collection('token').findOne({
       address: token_address,
     });
@@ -908,5 +911,102 @@ export class DefillamaService {
           },
         },
       );
+  }
+
+  async addUpdatePoolOfTransactionsJob() {
+    const transactions = await this.mgClient
+      .db('onchain')
+      .collection('transaction')
+      .find(
+        {
+          updated_pool: false,
+        },
+        {
+          limit: 25000,
+        },
+      )
+      .toArray();
+    const jobs = transactions.map((transaction) => {
+      const { hash, from, to } = transaction;
+      return {
+        name: 'defillama:update:pool:of:transaction',
+        data: {
+          hash,
+          from,
+          to,
+        },
+        opts: {
+          jobId: `defillama:update:pool:of:transaction:${hash}`,
+          removeOnComplete: true,
+          removeOnFail: false,
+        },
+      };
+    });
+    await this.queueOnchain.addBulk(jobs);
+    const discord = Container.get(DIDiscordClient);
+
+    await discord.sendMsg({
+      message:
+        `\`\`\`diff` +
+        `\n[DEFILLAMA-addUpdatePoolOfTransactionsJob]` +
+        `\n+ total_job: ${jobs.length}` +
+        `\nstart on::${new Date().toISOString()}` +
+        `\`\`\``,
+      channelId: '1041620555188682793',
+    });
+  }
+
+  async updatePoolOfTransaction({ from, to, hash }: { hash: string; from: string; to: string }) {
+    // console.log({ hash, from, to });
+    const pools = await this.mgClient
+      .db('onchain')
+      .collection('contract-pools')
+      .find({
+        pool_id: {
+          $in: [from, to],
+        },
+      })
+      .toArray();
+    if (pools && pools.length > 0) {
+      await this.mgClient
+        .db(getMgOnChainDbName())
+        .collection('transaction')
+        .findOneAndUpdate(
+          {
+            hash,
+          },
+          {
+            $set: {
+              updated_at: new Date(),
+              updated_pool: true,
+            },
+            $push: {
+              pools: {
+                $each: pools.map(({ pool_id, details: { name }, protocol_id, chain }) => ({
+                  pool_id,
+                  name,
+                  protocol_id,
+                  chain,
+                })),
+              },
+            } as any,
+          },
+        );
+    } else {
+      await this.mgClient
+        .db(getMgOnChainDbName())
+        .collection('transaction')
+        .findOneAndUpdate(
+          {
+            hash,
+          },
+          {
+            $set: {
+              updated_at: new Date(),
+              updated_pool: true,
+            },
+          },
+        );
+    }
   }
 }

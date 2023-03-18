@@ -22,7 +22,7 @@ export const getCoinsHistorical = async ({ coins: _coins, timestamp }) => {
   const { data, status } = await DefillamaAPI.fetch({
     endpoint: DefillamaAPI.Coins.historical.endpoint.replace(':coins', _coins).replace(':timestamp', timestamp),
     params: {
-      searchWidth: '2h',
+      searchWidth: '6h',
     },
   });
 
@@ -54,3 +54,27 @@ export const updateCoinsHistoricalKeyCache = async ({ id }) => {
     },
   );
 };
+
+// export const coppyTransToDevDb = async () => {
+//   const collection = this.mgClient.db('onchain-dev').collection('transaction');
+//   const prodCollection = this.mgClient.db('onchain').collection('transaction');
+//   const res = await collection.find({}).toArray();
+//   const data = await prodCollection
+//     .find(
+//       {},
+//       {
+//         limit: 20000,
+//       },
+//     )
+//     .toArray();
+//   await Promise.all(
+//     data.map(async (item) => {
+//       const exist = res.find((i) => i.hash === item.hash);
+//       if (!exist) {
+//         await collection.insertOne(item);
+//         console.log('inserted', item.hash);
+//       }
+//     }),
+//   );
+//   console.log('done');
+// };

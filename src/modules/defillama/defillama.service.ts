@@ -43,11 +43,15 @@ export class DefillamaService {
 
   private workerToken: Worker;
 
+  private workerPool: Worker;
+
   private queue: Queue;
 
   private queueOnchain: Queue;
 
   private queueToken: Queue;
+
+  private queuePool: Queue;
 
   private mgClient: MongoClient = Container.get(DIMongoClient);
 
@@ -69,6 +73,7 @@ export class DefillamaService {
     'defillama:add:update:usd:value:of:transaction': this.addUpdateUsdValueOfTransactionsJob,
     'defillama:update:coin:historical:key:cache': updateCoinsHistoricalKeyCache,
     'defillama:update:pool:of:transaction': this.updatePoolOfTransaction,
+    'defillama:add:pool:of:transaction': this.addUpdatePoolOfTransactionsJob,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -184,6 +189,21 @@ export class DefillamaService {
       },
     });
     this.initWorkerListeners(this.workerToken);
+
+    this.workerPool = new Worker('defillama-pool', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60,
+      concurrency: 25,
+      limiter: {
+        max: 600,
+        duration: 60 * 1000,
+      },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
+      },
+    });
+    this.initWorkerListeners(this.workerPool);
     this.logger.debug('info', '[initWorker:defillama]', 'Worker initialized');
   }
   /**
@@ -245,6 +265,25 @@ export class DefillamaService {
     });
 
     queueTokenEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
+    });
+
+    this.queuePool = new Queue('defillama-pool', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    const queuePoolEvents = new QueueEvents('defillama-pool', {
+      connection: this.redisConnection,
+    });
+
+    queuePoolEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
     });
     this.initRepeatJobs();
@@ -342,6 +381,22 @@ export class DefillamaService {
       {
         repeatJobKey: 'defillama:add:update:usd:value:of:transaction',
         jobId: 'defillama:add:update:usd:value:of:transaction',
+        repeat: {
+          every: 1000 * 60 * 60,
+        },
+        removeOnComplete: true,
+        removeOnFail: false,
+        priority: 1,
+        attempts: 5,
+      },
+    );
+
+    this.queue.add(
+      'defillama:add:pool:of:transaction',
+      {},
+      {
+        repeatJobKey: 'defillama:add:pool:of:transaction',
+        jobId: 'defillama:add:pool:of:transaction',
         repeat: {
           every: 1000 * 60 * 60,
         },
@@ -942,7 +997,8 @@ export class DefillamaService {
         },
       };
     });
-    await this.queueOnchain.addBulk(jobs);
+    await this.queuePool.addBulk(jobs);
+
     const discord = Container.get(DIDiscordClient);
 
     await discord.sendMsg({
@@ -982,8 +1038,8 @@ export class DefillamaService {
             },
             $push: {
               pools: {
-                $each: pools.map(({ pool_id, details: { name }, protocol_id, chain }) => ({
-                  pool_id,
+                $each: pools.map(({ pool_id: id, details: { name }, protocol_id, chain }) => ({
+                  id,
                   name,
                   protocol_id,
                   chain,

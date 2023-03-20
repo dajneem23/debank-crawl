@@ -325,6 +325,9 @@ export const DefillamaAPI = {
         searchWidth: '4h',
       },
     },
+    current: {
+      endpoint: 'https://coins.llama.fi/prices/current/:coins',
+    },
   },
   fetch({ params = {}, endpoint }: { endpoint: string; params?: any }): Promise<any> {
     return axios.get(`${endpoint}`, {

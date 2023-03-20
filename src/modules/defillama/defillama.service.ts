@@ -13,7 +13,7 @@ import {
   defillamaTvlChartModelToken,
   defillamaTvlProtocolModelToken,
 } from './defillama.model';
-import { getCoinsHistorical, updateCoinsHistoricalKeyCache } from './defillama.func';
+import { getCoinsCurrentPrice, getCoinsHistorical, updateCoinsHistoricalKeyCache } from './defillama.func';
 import { Db, MongoClient } from 'mongodb';
 import { DIMongoClient } from '@/loaders/mongoDB.loader';
 import { createArrayDateByHours } from '@/utils/date';
@@ -23,7 +23,7 @@ import cacache from 'cacache';
 import { CACHE_PATH } from '@/common/cache';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import Bluebird from 'bluebird';
-import { uniq } from 'lodash';
+import { chunk, uniq } from 'lodash';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -45,6 +45,8 @@ export class DefillamaService {
 
   private workerPool: Worker;
 
+  private workerPrice: Worker;
+
   private queue: Queue;
 
   private queueOnchain: Queue;
@@ -52,6 +54,8 @@ export class DefillamaService {
   private queueToken: Queue;
 
   private queuePool: Queue;
+
+  private queuePrice: Queue;
 
   private mgClient: MongoClient = Container.get(DIMongoClient);
 
@@ -74,6 +78,8 @@ export class DefillamaService {
     'defillama:update:coin:historical:key:cache': updateCoinsHistoricalKeyCache,
     'defillama:update:pool:of:transaction': this.updatePoolOfTransaction,
     'defillama:add:pool:of:transaction': this.addUpdatePoolOfTransactionsJob,
+    'defillama:update:coins:current:price': this.updateCoinsCurrentPrice,
+    'defillama:add:update:coins:current:price': this.addUpdateCoinsCurrentPriceJob,
     default: () => {
       throw new Error('Invalid job name');
     },
@@ -130,6 +136,18 @@ export class DefillamaService {
     //   console.log('done find');
     // })();
     // this.addFetchCoinsHistoricalDataJob();
+    // this.updateUsdValueOfTransaction({
+    //   hash: '0xf087bdf90bd1688f2d27ed3d61ac0f909ec647588a159ad0f05de73cd91d0656',
+    //   token_address: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
+    //   timestamp: 1672591319,
+    //   amount: 283.75906,
+    // });
+
+    // this.getCoinsHistoricalData({
+    //   id: 'coingecko:amp-token',
+    //   timestamp: 1672531132,
+    // }).then(console.log);
+    this.addUpdateCoinsCurrentPriceJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -147,7 +165,7 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
-      concurrency: 25,
+      concurrency: 100,
       stalledInterval: 1000 * 60,
       maxStalledCount: 10,
       // limiter: {
@@ -164,11 +182,11 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 25,
-      limiter: {
-        max: 200,
-        duration: 60 * 1000,
-      },
+      concurrency: 100,
+      // limiter: {
+      //   max: 200,
+      //   duration: 60 * 1000,
+      // },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -204,6 +222,21 @@ export class DefillamaService {
       },
     });
     this.initWorkerListeners(this.workerPool);
+
+    this.workerPrice = new Worker('defillama-price', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60,
+      concurrency: 25,
+      // limiter: {
+      //   max: 600,
+      //   duration: 60 * 1000,
+      // },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
+      },
+    });
+    this.initWorkerListeners(this.workerPrice);
     this.logger.debug('info', '[initWorker:defillama]', 'Worker initialized');
   }
   /**
@@ -284,6 +317,25 @@ export class DefillamaService {
     });
 
     queuePoolEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
+    });
+
+    this.queuePrice = new Queue('defillama-price', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    });
+    const queuePriceEvents = new QueueEvents('defillama-price', {
+      connection: this.redisConnection,
+    });
+
+    queuePriceEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
     });
     this.initRepeatJobs();
@@ -399,6 +451,22 @@ export class DefillamaService {
         jobId: 'defillama:add:pool:of:transaction',
         repeat: {
           every: 1000 * 60 * 60,
+        },
+        removeOnComplete: true,
+        removeOnFail: false,
+        priority: 1,
+        attempts: 5,
+      },
+    );
+
+    this.queue.add(
+      'defillama:add:update:coins:current:price',
+      {},
+      {
+        repeatJobKey: 'defillama:add:update:coins:current:price',
+        jobId: 'defillama:add:update:coins:current:price',
+        repeat: {
+          every: 1000 * 60 * 5,
         },
         removeOnComplete: true,
         removeOnFail: false,
@@ -779,18 +847,24 @@ export class DefillamaService {
   }
 
   async getCoinsHistoricalData({ id, timestamp }: { id: string; timestamp: number }) {
-    const exists = await this.mgClient.db(getMgOnChainDbName()).collection('token-price').findOne({
-      id,
-      timestamp,
-    });
-    if (exists) {
+    const exists = await this.mgClient
+      .db(getMgOnChainDbName())
+      .collection('token-price')
+      .findOne({
+        id,
+        timestamp: {
+          $lte: timestamp + 1000 * 60,
+          $gte: timestamp - 1000 * 60,
+        },
+      });
+    if (exists && exists.price) {
       return exists;
     }
     const { coins } = await getCoinsHistorical({
       coins: `${id}`,
       timestamp,
     });
-    if (!coins[id]) {
+    if (!coins[id] || !coins[id].price) {
       this.logger.discord(
         'error',
         '[fetchCoinsHistoricalData:error]',
@@ -804,9 +878,8 @@ export class DefillamaService {
       );
       throw new Error('fetchCoinsHistoricalData: Invalid response');
     }
-    const { decimals, price, timestamp: _timestamp } = coins[id];
+    const { price, timestamp: _timestamp } = coins[id];
     return {
-      decimals,
       price,
       timestamp: _timestamp,
     };
@@ -898,7 +971,10 @@ export class DefillamaService {
           usd_value: 0,
         },
         {
-          limit: 25000,
+          limit: 50000,
+          sort: {
+            timestamp: -1,
+          },
         },
       )
       .toArray();
@@ -916,6 +992,7 @@ export class DefillamaService {
           jobId: `defillama:update:usd:value:of:transaction:${hash}`,
           removeOnComplete: true,
           removeOnFail: false,
+          priority: Date.now() - timestamp,
         },
       };
     });
@@ -968,9 +1045,9 @@ export class DefillamaService {
       timestamp,
     });
     await this.mgClient
-      .db(getMgOnChainDbName())
+      .db('onchain')
       .collection('transaction')
-      .findOneAndUpdate(
+      .updateOne(
         {
           hash,
         },
@@ -1083,5 +1160,88 @@ export class DefillamaService {
           },
         );
     }
+  }
+
+  async addUpdateCoinsCurrentPriceJob() {
+    const coins = await this.mgClient
+      .db('onchain')
+      .collection('token')
+      .find({
+        coingeckoId: {
+          $exists: true,
+          $ne: null,
+        },
+      })
+      .toArray();
+    const list_coins = chunk(coins, 100);
+    const jobs = list_coins.map((coin) => {
+      return {
+        name: 'defillama:update:coins:current:price',
+        data: {
+          coins: coin.map(({ coingeckoId }) => `coingecko:${coingeckoId}`).join(','),
+        },
+        opts: {
+          removeOnComplete: true,
+          removeOnFail: false,
+          priority: 1,
+        },
+      };
+    });
+    await this.queuePrice.addBulk(jobs);
+    const discord = Container.get(DIDiscordClient);
+
+    await discord.sendMsg({
+      message:
+        `\`\`\`diff` +
+        `\n[DEFILLAMA-addUpdateCoinsCurrentPriceJob]` +
+        `\n+ total_job: ${jobs.length}` +
+        `\nstart on::${new Date().toISOString()}` +
+        `\`\`\``,
+      channelId: '1041620555188682793',
+    });
+  }
+  async updateCoinsCurrentPrice({ coins }) {
+    const prices = await getCoinsCurrentPrice({
+      coins,
+    });
+    const data = Object.entries(prices.coins).map(([id, { price, symbol, confidence, timestamp }]: [string, any]) => {
+      return {
+        id,
+        price,
+        symbol,
+        confidence,
+        timestamp,
+        updated_at: new Date(),
+      };
+    });
+    await Bluebird.map(
+      data,
+      async (item) => {
+        const { id, timestamp, price, symbol, updated_at, confidence } = item;
+        await this.mgClient.db('onchain').collection('token-price').updateOne(
+          {
+            id,
+            timestamp,
+          },
+          {
+            $set: {
+              price,
+              updated_at,
+            },
+            $setOnInsert: {
+              id,
+              symbol,
+              timestamp,
+            },
+          },
+          {
+            upsert: true,
+          },
+        );
+      },
+      {
+        concurrency: 20,
+      },
+    );
   }
 }

@@ -29,7 +29,13 @@ export const getCoinsHistorical = async ({ coins: _coins, timestamp }) => {
   const { coins } = data;
   return { coins };
 };
-
+export const getCoinsCurrentPrice = async ({ coins: _coins }) => {
+  const { data, status } = await DefillamaAPI.fetch({
+    endpoint: DefillamaAPI.Coins.current.endpoint.replace(':coins', _coins),
+  });
+  const { coins } = data;
+  return { coins };
+};
 export const updateCoinsHistoricalKeyCache = async ({ id }) => {
   const mgClient = Container.get(DIMongoClient);
   const tokensTimestamps = await mgClient

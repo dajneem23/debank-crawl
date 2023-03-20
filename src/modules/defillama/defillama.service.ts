@@ -129,7 +129,7 @@ export class DefillamaService {
 
     //   console.log('done find');
     // })();
-    this.addFetchCoinsHistoricalDataJob();
+    // this.addFetchCoinsHistoricalDataJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -871,7 +871,6 @@ export class DefillamaService {
       //   return !isExist;
       // }),
     );
-    return;
     // console.log('jobs', jobs.length);
     // if (process.env.NODE_ENV === 'production') {
     await this.queueToken.addBulk(jobs);

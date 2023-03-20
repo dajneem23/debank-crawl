@@ -129,7 +129,7 @@ export class DefillamaService {
 
     //   console.log('done find');
     // })();
-    // this.addFetchCoinsHistoricalDataJob();
+    this.addFetchCoinsHistoricalDataJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -194,11 +194,11 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 25,
-      limiter: {
-        max: 600,
-        duration: 60 * 1000,
-      },
+      concurrency: 100,
+      // limiter: {
+      //   max: 600,
+      //   duration: 60 * 1000,
+      // },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -407,21 +407,21 @@ export class DefillamaService {
       },
     );
 
-    this.queue.add(
-      'defillama:update:coin:historical:key:cache',
-      {},
-      {
-        repeatJobKey: 'defillama:update:coin:historical:key:cache',
-        jobId: 'defillama:update:coin:historical:key:cache',
-        repeat: {
-          every: 1000 * 60 * 30,
-        },
-        removeOnComplete: true,
-        removeOnFail: false,
-        priority: 1,
-        attempts: 5,
-      },
-    );
+    // this.queue.add(
+    //   'defillama:update:coin:historical:key:cache',
+    //   {},
+    //   {
+    //     repeatJobKey: 'defillama:update:coin:historical:key:cache',
+    //     jobId: 'defillama:update:coin:historical:key:cache',
+    //     repeat: {
+    //       every: 1000 * 60 * 30,
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: false,
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // );
   }
   /**
    * @description add job to queue
@@ -821,12 +821,29 @@ export class DefillamaService {
       })
       .toArray();
 
+    const maxTimestamp = await this.mgClient
+      .db('onchain')
+      .collection('token-price')
+      .find({})
+      .sort({
+        timestamp: -1,
+      })
+      .limit(1)
+      .toArray();
+    const start = maxTimestamp[0]?.timestamp
+      ? new Date(
+          new Date(maxTimestamp[0].timestamp * 1000).getFullYear(),
+          new Date(maxTimestamp[0].timestamp * 1000).getMonth(),
+          new Date(maxTimestamp[0].timestamp * 1000).getDate(),
+        )
+      : new Date('2023-01-01');
+
     const jobs = await Promise.all(
       tokens
         .map((token) => {
           const { coingeckoId, symbol } = token;
           const dates = createArrayDateByHours({
-            start: new Date('2023-01-01'),
+            start,
             end: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours()),
             range: 1,
             timestamp: true,
@@ -854,6 +871,7 @@ export class DefillamaService {
       //   return !isExist;
       // }),
     );
+    return;
     // console.log('jobs', jobs.length);
     // if (process.env.NODE_ENV === 'production') {
     await this.queueToken.addBulk(jobs);
@@ -974,7 +992,9 @@ export class DefillamaService {
       .collection('transaction')
       .find(
         {
-          updated_pool: false,
+          updated_pool: {
+            $ne: true,
+          },
         },
         {
           limit: 25000,

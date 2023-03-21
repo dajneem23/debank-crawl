@@ -21,6 +21,7 @@ import { DIDiscordClient } from '@/loaders/discord.loader';
 import Bluebird from 'bluebird';
 import { chunk } from 'lodash';
 import { queryRedisKeys } from '@/utils/redis';
+import { CHAINS } from '@/types/chain';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -83,6 +84,13 @@ export class DefillamaService {
   };
 
   constructor() {
+    this.updateUsdValueOfTransaction({
+      chain_id: 1,
+      timestamp: 1672531391,
+      token_address: '0x1F573D6Fb3F13d689FF844B4cE37794d79a7FF1C',
+      hash: '0xc935f253ca1f98b050be10f501561bbd4d967a649c074eca030af9fefa2c2235',
+      amount: 19971.16,
+    });
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -954,7 +962,7 @@ export class DefillamaService {
       )
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { hash, token: token_address, timestamp, amount } = transaction;
+      const { hash, token: token_address, timestamp, amount, chain_id } = transaction;
       return {
         name: 'defillama:update:usd:value:of:transaction',
         data: {
@@ -962,6 +970,7 @@ export class DefillamaService {
           token_address,
           timestamp,
           amount,
+          chain_id,
         },
         opts: {
           jobId: `defillama:update:usd:value:of:transaction:${hash}`,
@@ -991,19 +1000,19 @@ export class DefillamaService {
     token_address,
     timestamp,
     amount,
+    chain_id,
   }: {
     hash: string;
     token_address: string;
     timestamp: number;
     amount: number;
+    chain_id: number;
   }) {
-    const token = await this.mgClient.db('onchain').collection('token').findOne({
-      address: token_address,
-    });
-    if (!token || !token.coingeckoId) {
+    const chain = Object.values(CHAINS).find((chain) => chain.id === chain_id);
+    if (!chain) {
       this.logger.discord(
         'error',
-        '[updateUsdValueOfTransaction:token:error]',
+        '[updateUsdValueOfTransaction:chain:error]',
         JSON.stringify({
           req: {
             hash,
@@ -1011,13 +1020,13 @@ export class DefillamaService {
             timestamp,
             amount,
           },
-          res: token,
+          res: chain,
         }),
       );
-      throw new Error('updateUsdValueOfTransaction: Invalid token');
+      throw new Error('updateUsdValueOfTransaction: Invalid chain');
     }
     const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
-      id: `coingecko:${token.coingeckoId}`,
+      id: `${chain.defillamaId}:${token_address}`,
       timestamp,
     });
     await this.mgClient

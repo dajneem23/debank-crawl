@@ -3,7 +3,7 @@ import Logger from '@/core/logger';
 import { pgPoolToken } from '@/loaders/pg.loader';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
-import { DIRedisClient, DIRedisConnection } from '@/loaders/redis.loader';
+import { DIRedisConnection } from '@/loaders/redis.loader';
 
 import { DefillamaJobData, DefillamaJobNames } from './defillama.job';
 import { DefillamaAPI } from '@/common/api';
@@ -13,16 +13,13 @@ import {
   defillamaTvlProtocolModelToken,
 } from './defillama.model';
 import { getCoinsCurrentPrice, getCoinsHistorical, updateCoinsHistoricalKeyCache } from './defillama.func';
-import { Db, MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import { DIMongoClient } from '@/loaders/mongoDB.loader';
-import { createArrayDateByHours } from '@/utils/date';
-import { WHITELIST_TOKENS } from '@/common/token';
+import { createArrayDateByHours, daysDiff } from '@/utils/date';
 import { getMgOnChainDbName } from '@/common/db';
-import cacache from 'cacache';
-import { CACHE_PATH } from '@/common/cache';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import Bluebird from 'bluebird';
-import { chunk, uniq } from 'lodash';
+import { chunk } from 'lodash';
 import { queryRedisKeys } from '@/utils/redis';
 const pgPool = Container.get(pgPoolToken);
 
@@ -86,68 +83,6 @@ export class DefillamaService {
   };
 
   constructor() {
-    // this.fetchTVLProtocolDetails();
-    // this.fetchTVLChains();
-    // this.fetchTVLCharts();
-    // this.fetchStableCoinsList();
-    // this.fetchCoinsHistoricalData({
-    //   id: 'ethereum:0xfA5047c9c78B8877af97BDcb85Db743fD7313d4a',
-    //   symbol: 'ROOK',
-    //   timestamp: 1648680149,
-    // });
-    // this.addFetchCoinHistoricalDataJob({
-    //   id: '',
-    // });
-    // this.updateUsdValueOfTransaction({
-    //   hash: '0x4382f84051d2db96736f80e3a34b1db894853cab896aa1126f73476700d01e19',
-    // }).then((res) => {
-    //   console.log('done');
-    // });
-    // this.initQueue();
-    // (async () => {
-    //   // const collection = this.mgClient.db('onchain-dev').collection('transaction');
-    //   // const prodCollection = this.mgClient.db('onchain').collection('transaction');
-    //   // const res = await collection.find({}).toArray();
-    //   // const data = await prodCollection
-    //   //   .find(
-    //   //     {},
-    //   //     {
-    //   //       limit: 20000,
-    //   //       skip: 20000 * 2,
-    //   //     },
-    //   //   )
-    //   //   .toArray();
-    //   // const insertedData = await data.filter((item) => {
-    //   //   const found = res.find((i) => i.hash === item.hash);
-    //   //   return !found;
-    //   // });
-    //   // await collection.insertMany(insertedData);
-
-    //   // console.log('done insert', insertedData.length);
-    //   const collection = this.mgClient.db('onchain-dev').collection('transaction');
-    //   const res = await collection.find({}).toArray();
-    //   console.log(res.length);
-    //   //group 200 items to 1 array
-
-    //   await this.updatePoolOfTransaction({
-    //     addresses: group,
-    //   });
-
-    //   console.log('done find');
-    // })();
-    // this.addFetchCoinsHistoricalDataJob();
-    // this.updateUsdValueOfTransaction({
-    //   hash: '0xf087bdf90bd1688f2d27ed3d61ac0f909ec647588a159ad0f05de73cd91d0656',
-    //   token_address: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
-    //   timestamp: 1672591319,
-    //   amount: 283.75906,
-    // });
-
-    // this.getCoinsHistoricalData({
-    //   id: 'coingecko:amp-token',
-    //   timestamp: 1672531132,
-    // }).then(console.log);
-    // this.addUpdateCoinsCurrentPriceJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -813,7 +748,11 @@ export class DefillamaService {
 
   async fetchCoinsHistoricalData({ id, timestamp, symbol }: { id: string; timestamp: number; symbol: string }) {
     try {
-      const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
+      const {
+        price,
+        timestamp: _timestamp,
+        decimals,
+      } = await this.getCoinsHistoricalData({
         id,
         timestamp,
       });
@@ -834,6 +773,7 @@ export class DefillamaService {
               timestamp: _timestamp,
               symbol,
               id,
+              decimals,
             },
           },
           {
@@ -878,10 +818,37 @@ export class DefillamaService {
       );
       throw new Error('fetchCoinsHistoricalData: Invalid response');
     }
-    const { price, timestamp: _timestamp } = coins[id];
+    const { price, timestamp: _timestamp, decimals, symbol } = coins[id];
+    await this.mgClient
+      .db(getMgOnChainDbName())
+      .collection('token-price')
+      .findOneAndUpdate(
+        {
+          timestamp: _timestamp,
+          id,
+        },
+        {
+          $set: {
+            price,
+            updated_at: new Date(),
+          },
+          $setOnInsert: {
+            timestamp: _timestamp,
+            id,
+            symbol,
+            decimals,
+          },
+        },
+        {
+          upsert: true,
+        },
+      );
     return {
       price,
       timestamp: _timestamp,
+      decimals,
+      symbol,
+      id,
     };
   }
 
@@ -1000,7 +967,7 @@ export class DefillamaService {
           jobId: `defillama:update:usd:value:of:transaction:${hash}`,
           removeOnComplete: true,
           removeOnFail: false,
-          priority: Date.now() / 1000 - timestamp,
+          priority: daysDiff(new Date(), new Date(timestamp * 1000)),
           attempts: 10,
         },
       };

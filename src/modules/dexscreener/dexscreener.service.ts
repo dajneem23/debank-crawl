@@ -7,7 +7,7 @@ import IORedis from 'ioredis';
 import { env } from 'process';
 import Container from 'typedi';
 import { DexscreenerJob, DexscreenerJobNames } from './dexscreener.job';
-import { Pair, TradingHistory } from './dexscreener.type';
+import { DexScreenerPair, TradingHistory } from './dexscreener.type';
 const pgPool = Container.get(pgPoolToken);
 export class DexScreenerService {
   private logger = new Logger('DexScreenerService');
@@ -29,19 +29,6 @@ export class DexScreenerService {
   };
 
   constructor() {
-    // this.fetchTVLProtocolDetails();
-    // this.fetchTVLChains();
-    // this.fetchTVLCharts();
-    //TODO: REMOVE THIS LATER
-    // this.fetchTradingHistories({
-    //   baseToken: 'CHZ',
-    //   quoteToken: 'USDT',
-    //   chain: 'ethereum',
-    //   dex: 'uniswap',
-    // });
-    // setInterval(() => {
-    //   this.logger.discord('success', 'DexScreenerService is running');
-    // }, 1000);
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -60,10 +47,6 @@ export class DexScreenerService {
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 50,
-      limiter: {
-        max: 10,
-        duration: 60 * 1000,
-      },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -241,7 +224,7 @@ export class DexScreenerService {
             fdv,
             updatedAt = new Date(),
             url,
-          }: Pair) => {
+          }: DexScreenerPair) => {
             this.insertPair({
               pairAddress,
               chainId,
@@ -415,7 +398,7 @@ export class DexScreenerService {
     fdv,
     updatedAt = new Date(),
     url,
-  }: Pair) {
+  }: DexScreenerPair) {
     await pgPool
       .query(
         `INSERT INTO public."dexscreener-token-pairs" (

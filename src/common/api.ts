@@ -269,6 +269,12 @@ export const DexScreenerAPI = {
     return axios.get(`${endpoint}`, {
       params,
       headers: {},
+      proxy: {
+        host: WEBSHARE_PROXY_HTTP.host,
+        port: WEBSHARE_PROXY_HTTP.port,
+        auth: { username: WEBSHARE_PROXY_HTTP.auth.username, password: WEBSHARE_PROXY_HTTP.auth.password },
+        protocol: WEBSHARE_PROXY_HTTP.protocol,
+      },
     });
   },
 };

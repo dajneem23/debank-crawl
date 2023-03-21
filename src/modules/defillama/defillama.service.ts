@@ -84,13 +84,6 @@ export class DefillamaService {
   };
 
   constructor() {
-    this.updateUsdValueOfTransaction({
-      chain_id: 1,
-      timestamp: 1672531391,
-      token_address: '0x1F573D6Fb3F13d689FF844B4cE37794d79a7FF1C',
-      hash: '0xc935f253ca1f98b050be10f501561bbd4d967a649c074eca030af9fefa2c2235',
-      amount: 19971.16,
-    });
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -1019,6 +1012,7 @@ export class DefillamaService {
             token_address,
             timestamp,
             amount,
+            chain_id,
           },
           res: chain,
         }),
@@ -1052,11 +1046,7 @@ export class DefillamaService {
       .db('onchain')
       .collection('transaction')
       .find(
-        {
-          updated_pool: {
-            $ne: true,
-          },
-        },
+        {},
         {
           limit: 25000,
         },
@@ -1116,7 +1106,6 @@ export class DefillamaService {
           {
             $set: {
               updated_at: new Date(),
-              updated_pool: true,
             },
             $push: {
               pools: {
@@ -1130,22 +1119,32 @@ export class DefillamaService {
             } as any,
           },
         );
-    } else {
-      await this.mgClient
-        .db(getMgOnChainDbName())
-        .collection('transaction')
-        .findOneAndUpdate(
-          {
+    }
+    await this.mgClient
+      .db(getMgOnChainDbName())
+      .collection('update-pool-log')
+      .findOneAndUpdate(
+        {
+          hash,
+        },
+        {
+          $set: {
+            updated_at: new Date(),
+            pools: pools.map(({ pool_id: id, details: { name }, protocol_id, chain }) => ({
+              id,
+              name,
+              protocol_id,
+              chain,
+            })),
+          },
+          $setOnInsert: {
             hash,
           },
-          {
-            $set: {
-              updated_at: new Date(),
-              updated_pool: true,
-            },
-          },
-        );
-    }
+        },
+        {
+          upsert: true,
+        },
+      );
   }
 
   async addUpdateCoinsCurrentPriceJob() {

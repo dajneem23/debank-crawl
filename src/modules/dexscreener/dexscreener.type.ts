@@ -25,7 +25,7 @@ export interface TradingHistory {
   updatedAt: Date;
 }
 
-export interface Pair {
+export interface DexScreenerPair {
   chainId: string;
   dexId: string;
   url: string;

@@ -30,7 +30,6 @@ import { connectChrome, createPupperteerClusterLoader, puppeteerLoader } from '.
       const discord = new Discord();
       await discord.init();
       // Telegram
-      await (await import('./loaders/telegram.loader')).default();
     }
 
     // Caching (Redis)

@@ -3,8 +3,7 @@ import Logger from '@/core/logger';
 import { pgPoolToken } from '@/loaders/pg.loader';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
-import { DIRedisConnection } from '@/loaders/redis.loader';
-import IORedis from 'ioredis';
+import { DIRedisClient, DIRedisConnection } from '@/loaders/redis.loader';
 
 import { DefillamaJobData, DefillamaJobNames } from './defillama.job';
 import { DefillamaAPI } from '@/common/api';
@@ -24,6 +23,7 @@ import { CACHE_PATH } from '@/common/cache';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import Bluebird from 'bluebird';
 import { chunk, uniq } from 'lodash';
+import { queryRedisKeys } from '@/utils/redis';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -147,7 +147,7 @@ export class DefillamaService {
     //   id: 'coingecko:amp-token',
     //   timestamp: 1672531132,
     // }).then(console.log);
-    this.addUpdateCoinsCurrentPriceJob();
+    // this.addUpdateCoinsCurrentPriceJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -933,6 +933,7 @@ export class DefillamaService {
                 jobId: `defillama:fetch:coin:historical:data:id:timestamp:${coingeckoId}:${timestamp}`,
                 removeOnComplete: true,
                 removeOnFail: false,
+                attempts: 10,
               },
             };
           });
@@ -963,12 +964,19 @@ export class DefillamaService {
   }
 
   async addUpdateUsdValueOfTransactionsJob() {
+    const redisPater = 'bull:defillama-onchain:defillama:update:usd:value:of:transaction';
+    const keys = await queryRedisKeys(`${redisPater}:*`);
     const transactions = await this.mgClient
       .db('onchain')
       .collection('transaction')
       .find(
         {
           usd_value: 0,
+          hash: {
+            $not: {
+              $in: keys.map((key) => key.replace(`${redisPater}:`, '')),
+            },
+          },
         },
         {
           limit: 50000,
@@ -992,7 +1000,8 @@ export class DefillamaService {
           jobId: `defillama:update:usd:value:of:transaction:${hash}`,
           removeOnComplete: true,
           removeOnFail: false,
-          priority: Date.now() - timestamp,
+          priority: Date.now() / 1000 - timestamp,
+          attempts: 10,
         },
       };
     });
@@ -1090,6 +1099,7 @@ export class DefillamaService {
           jobId: `defillama:update:pool:of:transaction:${hash}`,
           removeOnComplete: true,
           removeOnFail: false,
+          attempts: 10,
         },
       };
     });
@@ -1171,6 +1181,7 @@ export class DefillamaService {
           $exists: true,
           $ne: null,
         },
+        enabled: true,
       })
       .toArray();
     const list_coins = chunk(coins, 100);

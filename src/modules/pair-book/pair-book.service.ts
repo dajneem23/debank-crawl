@@ -101,7 +101,7 @@ export class PairBookService {
           every: 1000 * 60 * 60 * 12,
         },
         removeOnComplete: true,
-        removeOnFail: true,
+        removeOnFail: false,
         priority: 1,
         attempts: 5,
       },

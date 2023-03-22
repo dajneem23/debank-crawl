@@ -15,9 +15,10 @@ export const getPairPriceAtBlock = async ({
   decimals: number;
 }): Promise<{
   price: number;
-  blockTimestampLast: number;
+  timestamp: number;
   reserve0: number;
   reserve1: number;
+  retryTime: number;
 }> => {
   const handleChain = {
     ETH: getETHPairPriceAtBlock,
@@ -61,7 +62,7 @@ export const getETHPairPriceAtBlock = async ({
     const price = (reserve1 / reserve0) * 10 ** decimals;
     return {
       price,
-      blockTimestampLast,
+      timestamp: blockTimestampLast,
       reserve0,
       reserve1,
       retryTime,
@@ -106,7 +107,7 @@ export const getBSCPairPriceAtBlock = async ({
     const price = (reserve1 / reserve0) * 10 ** decimals;
     return {
       price,
-      blockTimestampLast,
+      timestamp: blockTimestampLast,
       reserve0,
       reserve1,
       retryTime,

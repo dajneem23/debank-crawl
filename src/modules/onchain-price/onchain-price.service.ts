@@ -42,14 +42,6 @@ export class OnChainPriceService {
   };
 
   constructor() {
-    // this.updateTransactionUsdValue({
-    //   hash: '0xf6d2241a6c6ae935f4df7fb3f2b7a47bea27b23961c6e8116603bf0bdc4710db',
-    //   amount: 6659.578806074372,
-    //   chain_id: 56,
-    //   timestamp: 1679292909,
-    //   block: 26620867,
-    //   token_address: '0x2c44b726ADF1963cA47Af88B284C06f30380fC78',
-    // });
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -129,10 +121,6 @@ export class OnChainPriceService {
    * @private
    */
   private initWorkerListeners(worker: Worker) {
-    // Completed
-    worker.on('completed', ({ id, data, name }: Job<any>) => {
-      this.logger.discord('success', '[job:onchainPrice:completed]', id, name, JSON.stringify(data));
-    });
     // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<any>, error: Error) => {
       this.logger.discord(
@@ -208,6 +196,100 @@ export class OnChainPriceService {
       channelId: '1041620555188682793',
     });
   }
+
+  async getTokenPrice({
+    pairAddress,
+    blockNumber,
+    decimals,
+    timestamp,
+    token_address,
+    chain,
+    quoteToken,
+    symbol,
+  }: {
+    pairAddress: string;
+    blockNumber: number;
+    token_address: string;
+    chain: {
+      chainId: number;
+      chainName: string;
+      defillamaId: string;
+      pairBookId: string;
+      alias: string[];
+    };
+    decimals: number;
+    timestamp: number;
+    quoteToken: string;
+    symbol: string;
+  }) {
+    const id = `${chain.defillamaId}:${token_address}`;
+    const tokenPrice = await this.mgClient
+      .db('onchain')
+      .collection('token-price')
+      .findOne({
+        id,
+        timestamp: {
+          $lte: timestamp + 1000 * 60,
+          $gte: timestamp - 1000 * 60,
+        },
+      });
+    if (tokenPrice) {
+      return {
+        price: tokenPrice.price,
+        timestamp: tokenPrice.timestamp,
+      };
+    }
+
+    const {
+      price,
+      timestamp: _timestamp,
+      reserve0,
+      reserve1,
+      retryTime,
+    } = await getPairPriceAtBlock({
+      pairAddress: pairAddress,
+      blockNumber: blockNumber,
+      chain: chain.chainId as any,
+      decimals: decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain.chainId],
+    });
+    await this.mgClient
+      .db(getMgOnChainDbName())
+      .collection('token-price')
+      .findOneAndUpdate(
+        {
+          timestamp: _timestamp,
+          id,
+        },
+        {
+          $set: {
+            price,
+            updated_at: new Date(),
+          },
+          $setOnInsert: {
+            timestamp: _timestamp,
+            id,
+            symbol,
+            decimals,
+            contract: {
+              reserve0,
+              reserve1,
+              blockNumber,
+              decimals,
+            },
+          },
+        },
+        {
+          upsert: true,
+        },
+      );
+    return {
+      price,
+      timestamp: _timestamp,
+      reserve0,
+      reserve1,
+      retryTime,
+    };
+  }
   async updateTransactionUsdValue({
     hash,
     chain_id,
@@ -247,17 +329,27 @@ export class OnChainPriceService {
       this.logger.discord('error', '[updateTransactionUsdValue:pair]', 'Pair not found', token.symbol, quoteToken);
       throw new Error('Pair not found');
     }
-    const { price, blockTimestampLast, reserve0, reserve1 } = await getPairPriceAtBlock({
+    const {
+      price,
+      timestamp: _timestamp,
+      reserve0,
+      reserve1,
+      retryTime,
+    } = await this.getTokenPrice({
       pairAddress: pair.address,
       blockNumber: block,
-      chain: chain_id as any,
-      decimals: token.decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain_id],
+      token_address,
+      chain,
+      decimals: token.decimals,
+      timestamp,
+      quoteToken,
+      symbol: token.symbol,
     });
     //update transaction price
     await this.mgClient
       .db('onchain')
       .collection('transaction')
-      .updateOne(
+      .updateMany(
         {
           hash,
         },
@@ -265,7 +357,7 @@ export class OnChainPriceService {
           $set: {
             price,
             usd_value: amount * price,
-            price_at: blockTimestampLast,
+            price_at: _timestamp,
             updated_at: new Date(),
           },
         },
@@ -288,7 +380,7 @@ export class OnChainPriceService {
           chain,
           price,
           usd_value: amount * price,
-          price_at: blockTimestampLast,
+          price_at: _timestamp,
         },
         var: {
           token,
@@ -296,7 +388,8 @@ export class OnChainPriceService {
           pair,
           reserve0,
           reserve1,
-          blockTimestampLast,
+          retryTime,
+          _timestamp,
           quoteToken,
           decimals: token.decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain_id],
         },

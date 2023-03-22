@@ -1,7 +1,7 @@
 export const QUOTE_TOKENS = {
-  ETH: ['USDC'],
-  BSC: ['USDT', 'BUSD'],
-  BNB: ['USDT', 'BUSD'],
+  ETH: ['USDC', 'USDT'],
+  BSC: ['USDC', 'USDT', 'BUSD'],
+  BNB: ['USDC', 'USDT', 'BUSD'],
 };
 
 export const QUOTE_TOKEN_DECIMALS = {

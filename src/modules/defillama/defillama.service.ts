@@ -882,7 +882,7 @@ export class DefillamaService {
     const jobs = await Promise.all(
       tokens
         .map((token) => {
-          const { coingeckoId, symbol } = token;
+          const { coingeckoId, symbol, chain_id, address } = token;
           const dates = createArrayDateByHours({
             start,
             end: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours()),
@@ -893,12 +893,14 @@ export class DefillamaService {
             return {
               name: 'defillama:fetch:coin:historical:data:id:timestamp',
               data: {
-                id: `coingecko:${coingeckoId}`,
+                id: `${Object.values(CHAINS).find((chain) => chain.id === chain_id).defillamaId}:${address}`,
                 symbol,
                 timestamp,
               },
               opts: {
-                jobId: `defillama:fetch:coin:historical:data:id:timestamp:${coingeckoId}:${timestamp}`,
+                jobId: `defillama:fetch:coin:historical:data:id:timestamp:${
+                  Object.values(CHAINS).find((chain) => chain.id === chain_id).defillamaId
+                }:${timestamp}`,
                 removeOnComplete: true,
                 removeOnFail: false,
                 attempts: 10,
@@ -1050,31 +1052,33 @@ export class DefillamaService {
           },
         },
       );
-    await this.mgClient
-      .db('onchain-log')
-      .collection('transaction-price-log')
-      .insertOne({
-        hash,
-        input: {
+    await Promise.all([
+      this.mgClient
+        .db('onchain-log')
+        .collection('transaction-price-log')
+        .insertOne({
           hash,
-          token_address,
-          timestamp,
-          amount,
-          chain_id,
-          block,
-          symbol,
-        },
-        output: {
-          price,
-          usd_value: amount * price,
-          price_at: _timestamp,
-        },
-        var: {
-          chain,
-        },
-        updated_by: 'defillama-onchain',
-        updated_at: new Date(),
-      });
+          input: {
+            hash,
+            token_address,
+            timestamp,
+            amount,
+            chain_id,
+            block,
+            symbol,
+          },
+          output: {
+            price,
+            usd_value: amount * price,
+            price_at: _timestamp,
+          },
+          var: {
+            chain,
+          },
+          updated_by: 'defillama-onchain',
+          updated_at: new Date(),
+        }),
+    ]);
   }
 
   async addUpdatePoolOfTransactionsJob() {
@@ -1188,10 +1192,6 @@ export class DefillamaService {
       .db('onchain')
       .collection('token')
       .find({
-        coingeckoId: {
-          $exists: true,
-          $ne: null,
-        },
         enabled: true,
       })
       .toArray();
@@ -1200,7 +1200,12 @@ export class DefillamaService {
       return {
         name: 'defillama:update:coins:current:price',
         data: {
-          coins: coin.map(({ coingeckoId }) => `coingecko:${coingeckoId}`).join(','),
+          coins: coin
+            .map(
+              ({ address, chain_id }) =>
+                `${Object.values(CHAINS).find((chain) => chain.id === chain_id).defillamaId}:${address}`,
+            )
+            .join(','),
         },
         opts: {
           removeOnComplete: true,
@@ -1240,26 +1245,30 @@ export class DefillamaService {
       data,
       async (item) => {
         const { id, timestamp, price, symbol, updated_at, confidence } = item;
-        await this.mgClient.db('onchain').collection('token-price').updateOne(
-          {
-            id,
-            timestamp,
-          },
-          {
-            $set: {
-              price,
-              updated_at,
-            },
-            $setOnInsert: {
+        await this.mgClient
+          .db('onchain')
+          .collection('token-price')
+          .updateOne(
+            {
               id,
-              symbol,
               timestamp,
             },
-          },
-          {
-            upsert: true,
-          },
-        );
+            {
+              $set: {
+                price,
+                updated_at,
+              },
+              $setOnInsert: {
+                id,
+                symbol,
+                timestamp,
+                updated_by: 'defillama',
+              },
+            },
+            {
+              upsert: true,
+            },
+          );
       },
       {
         concurrency: 20,

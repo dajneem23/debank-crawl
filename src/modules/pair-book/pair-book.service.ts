@@ -170,7 +170,7 @@ export class PairBookService {
       }) => {
         const mgOnChainDb = this.mgClient.db(getMgOnChainDbName());
         const mgPairBookCollection = mgOnChainDb.collection('pair-book');
-        mgPairBookCollection.updateOne(
+        await mgPairBookCollection.updateOne(
           {
             address,
           },
@@ -188,7 +188,7 @@ export class PairBookService {
             },
             $push: {
               labels: {
-                $each: labels,
+                $addToSet: labels ?? [],
               },
             },
           },

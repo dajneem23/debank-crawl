@@ -1,10 +1,7 @@
 import { env } from 'process';
 import 'reflect-metadata';
-import Container, { Token } from 'typedi';
-import { DIDiscordClient, Discord } from './loaders/discord.loader';
+import { Discord } from './loaders/discord.loader';
 import { exitHandler } from './core/handler';
-import { dockerContainerStats, systemInfo } from './utils/system';
-import { connectChrome, createPupperteerClusterLoader, puppeteerLoader } from './loaders/puppeteer.loader';
 /**
  *  @description this import is required to initialize service class
  */

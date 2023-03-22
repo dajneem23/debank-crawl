@@ -19,7 +19,7 @@ import { createArrayDateByHours, daysDiff } from '@/utils/date';
 import { getMgOnChainDbName } from '@/common/db';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import Bluebird from 'bluebird';
-import { chunk } from 'lodash';
+import { chunk, uniq } from 'lodash';
 import { queryRedisKeys } from '@/utils/redis';
 import { CHAINS } from '@/types/chain';
 const pgPool = Container.get(pgPoolToken);
@@ -934,15 +934,20 @@ export class DefillamaService {
   async addUpdateUsdValueOfTransactionsJob() {
     const redisPater = 'bull:defillama-onchain:defillama:update:usd:value:of:transaction';
     const keys = await queryRedisKeys(`${redisPater}:*`);
+    const onchainPricePatter = 'bull:onchain-price:update:transaction:usd-value';
+    const onchainPriceKeys = await queryRedisKeys(`${onchainPricePatter}:*`);
     const transactions = await this.mgClient
       .db('onchain')
       .collection('transaction')
       .find(
         {
-          usd_value: 0,
+          price: 0,
           hash: {
             $not: {
-              $in: keys.map((key) => key.replace(`${redisPater}:`, '')),
+              $in: uniq([
+                ...keys.map((key) => key.replace(`${redisPater}:`, '')),
+                ...onchainPriceKeys.map((key) => key.replace(`${onchainPriceKeys}:`, '')),
+              ]),
             },
           },
         },
@@ -955,7 +960,7 @@ export class DefillamaService {
       )
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { hash, token: token_address, timestamp, amount, chain_id } = transaction;
+      const { hash, token: token_address, symbol, timestamp, amount, chain_id, block } = transaction;
       return {
         name: 'defillama:update:usd:value:of:transaction',
         data: {
@@ -964,6 +969,8 @@ export class DefillamaService {
           timestamp,
           amount,
           chain_id,
+          block,
+          symbol,
         },
         opts: {
           jobId: `defillama:update:usd:value:of:transaction:${hash}`,
@@ -994,12 +1001,16 @@ export class DefillamaService {
     timestamp,
     amount,
     chain_id,
+    block,
+    symbol,
   }: {
     hash: string;
     token_address: string;
     timestamp: number;
     amount: number;
     chain_id: number;
+    block: number;
+    symbol: string;
   }) {
     const chain = Object.values(CHAINS).find((chain) => chain.id === chain_id);
     if (!chain) {
@@ -1039,6 +1050,31 @@ export class DefillamaService {
           },
         },
       );
+    await this.mgClient
+      .db('onchain-log')
+      .collection('transaction-price-log')
+      .insertOne({
+        hash,
+        input: {
+          hash,
+          token_address,
+          timestamp,
+          amount,
+          chain_id,
+          block,
+          symbol,
+        },
+        output: {
+          price,
+          usd_value: amount * price,
+          price_at: _timestamp,
+        },
+        var: {
+          chain,
+        },
+        updated_by: 'defillama-onchain',
+        updated_at: new Date(),
+      });
   }
 
   async addUpdatePoolOfTransactionsJob() {
@@ -1088,7 +1124,7 @@ export class DefillamaService {
     // console.log({ hash, from, to });
     const pools = await this.mgClient
       .db('onchain')
-      .collection('contract-pools')
+      .collection('pool-book')
       .find({
         pool_id: {
           $in: [from, to],

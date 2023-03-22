@@ -42,7 +42,7 @@
     "cacache": "^17.0.4",
     "dayjs": "^1.10.7",
     "discord.js": "^14.6.0",
-    "ethers": "^6.2.0",
+    "ethers": "^5.7.2",
     "https-proxy-agent": "^5.0.1",
     "ioredis": "^5.2.4",
     "lodash": "^4.17.21",

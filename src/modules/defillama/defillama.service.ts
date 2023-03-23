@@ -20,8 +20,8 @@ import { getMgOnChainDbName } from '@/common/db';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import Bluebird from 'bluebird';
 import { chunk, uniq } from 'lodash';
-import { queryRedisKeys } from '@/utils/redis';
 import { CHAINS } from '@/types/chain';
+import { queryRedisKeys } from '@/service/redis/func';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -1091,7 +1091,7 @@ export class DefillamaService {
         {
           tx_hash,
           log_index,
-          tx_type,
+          type: tx_type,
         },
         {
           $set: {

@@ -17,9 +17,9 @@ import { PairBookChainIds } from '../pair-book/pair-book.type';
 import { find, uniq } from 'lodash';
 import { getPairPriceAtBlock } from '@/service/ethers/price';
 import { DIDiscordClient } from '@/loaders/discord.loader';
-import { queryRedisKeys } from '@/utils/redis';
 import { daysDiff } from '@/utils/date';
 import { OnchainPriceJob } from './onchain-price.job';
+import { queryRedisKeys } from '@/service/redis/func';
 export class OnChainPriceService {
   private logger = new Logger('PairBookService');
 
@@ -401,7 +401,7 @@ export class OnChainPriceService {
         {
           tx_hash,
           log_index,
-          tx_type,
+          type: tx_type,
         },
         {
           $set: {

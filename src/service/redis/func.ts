@@ -6,3 +6,8 @@ export const queryRedisKeys = async (pattern: string): Promise<string[]> => {
   const keys = await redis.keys(pattern);
   return keys;
 };
+
+export const insertRedisKey = async (key: string, value: string): Promise<void> => {
+  const redis = Container.get(DIRedisClient);
+  await redis.set(key, value);
+};

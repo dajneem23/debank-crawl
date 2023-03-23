@@ -46,7 +46,7 @@ $ cp env.example.json env.local.json
 - **Start server**
 
 ```shell
-$ yarn dev
+$ yarn dev 
 ```
 
 # install puppeteer

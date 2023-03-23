@@ -32,7 +32,7 @@ import { exitHandler } from './core/handler';
     // Caching (Redis)
     await (await import('./loaders/redis.loader')).default();
     (await import('./loaders/worker.loader')).default();
-
+    await (await import('./loaders/telegram.loader')).default();
     //do something when app is closing
     if (env.MODE == 'production') {
       process.on('exit', exitHandler.bind(null, { cleanup: true }));

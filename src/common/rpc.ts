@@ -1,23 +1,29 @@
 export const ETH_RPC_MAINNET = [
   // ['https://mainnet.infura.io/v3/c99a5e7d69004c0f9974f106b6b919fb', 'infura'],
+  ['https://eth-mainnet.gateway.pokt.network/v1/lb/4cad2554fb45bda1154907a8', 'pokt'],
   // ['https://eth-mainnet.g.alchemy.com/v2/AWLrYSVH0FAsnC1n2lBjOX16ln3TpEia', 'alchemy'],
   ['https://rpc.coinsdo.com/eth', 'coinsdo'],
   ['https://ethereum.blockpi.network/v1/rpc/public', 'blockpi'],
-  // ['https://eth.llamarpc.com', 'llamarpc'],
+  ['https://eth.llamarpc.com', 'llamarpc'],
+  ['https://eth.llamarpc.com/rpc/01GW6CYRT5Z4N321G8MX1MWQW0', 'llamarpc'],
+
+  ['https://node.stackup.sh/v1/rpc/2092f3ec304b8b40b7b974aca584001354f3c2e4653609a5188766fbaf4547b1', 'stackup'],
+
+  ['https://ethereum-mainnet-rpc.allthatnode.com'],
   ['https://cloudflare-eth.com/', 'cloudflare'],
   // ['https://mainnet.eth.cloud.ava.do/', 'ava'],
   // ['https://api.securerpc.com/v1', 'securerpc'],
-  // ['https://1rpc.io/eth', '1rpc'],
+  ['https://1rpc.io/eth', '1rpc'],
   ['https://ethereum.publicnode.com/', 'publicnode'],
   ['https://rpc.payload.de/', 'payload'],
 
   ['https://rpc.flashbots.net/', 'flashbots'],
 
-  ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
-  ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
-  ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
-  ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
-  ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
+  // ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
+  // ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
+  // ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
+  // ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
+  // ['https://eth-mainnet.public.blastapi.io/', 'blastapi'],
 
   ['https://rpc.ankr.com/eth', 'ankr'],
   ['https://rpc.ankr.com/eth', 'ankr'],
@@ -34,22 +40,22 @@ export const ETH_RPC_MAINNET = [
   ['https://rpc.ankr.com/eth', 'ankr'],
   ['https://rpc.ankr.com/eth', 'ankr'],
   ['https://rpc.ankr.com/eth', 'ankr'],
-
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
-  ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  ['https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/5h6vmVvNNQmyjqI5KBSMCnDv', 'kriptonio'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
+  // ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
 ];
 
 export const ETH_RPC_SOCKET = [
@@ -81,6 +87,9 @@ export const BSC_RPC_MAINNET = [
   // ['https://rpc.ankr.com/bsc', 'ankr'],
 
   // ['https://bsc.blockpi.network/v1/rpc/public', 'blockpi'],
+  // ['https://bsc.publicnode.com'],
+  ['https://bsc-dataseed.binance.org'],
+  // ['https://bsc.rpcgator.com/'],
 ];
 
 export const RPC_LIST = {

@@ -12,6 +12,7 @@ import { DIMongoClient } from '@/loaders/mongoDB.loader';
 import { getMgOnChainDbName } from '@/common/db';
 import Bluebird from 'bluebird';
 import { PairBookJob } from './pair-book.job';
+import { uniq } from 'lodash';
 export class PairBookService {
   private logger = new Logger('PairBookService');
 
@@ -135,21 +136,19 @@ export class PairBookService {
     return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async addUpdatePairsOfSymbolJob() {
-    const tokens = await this.mgClient.db(getMgOnChainDbName()).collection('token').find({}).toArray();
-    const jobs = tokens
-      .map(({ symbol }) => symbol)
-      .map((symbol) => ({
-        name: 'update:pair-book:symbol',
-        data: {
-          symbol,
-        },
-        opts: {
-          jobId: `update:pair-book:symbol:${symbol}`,
-          removeOnComplete: true,
-          removeOnFail: false,
-          priority: 5,
-        },
-      }));
+    const tokens = await this.mgClient.db('onchain').collection('token').find({}).toArray();
+    const jobs = uniq(tokens.map(({ symbol }) => symbol)).map((symbol) => ({
+      name: 'update:pair-book:symbol',
+      data: {
+        symbol,
+      },
+      opts: {
+        jobId: `update:pair-book:symbol:${symbol}`,
+        removeOnComplete: true,
+        removeOnFail: false,
+        priority: 5,
+      },
+    }));
     this.queue.addBulk(jobs);
   }
 
@@ -186,9 +185,9 @@ export class PairBookService {
               addresses: [base_token.address, quote_token.address],
               updated_at: new Date(),
             },
-            $push: {
+            $addToSet: {
               labels: {
-                $addToSet: labels ?? [],
+                $each: labels ?? [],
               },
             },
           },

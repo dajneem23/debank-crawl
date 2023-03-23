@@ -75,10 +75,10 @@ export const updateCoinsHistoricalKeyCache = async ({ id }) => {
 //     .toArray();
 //   await Promise.all(
 //     data.map(async (item) => {
-//       const exist = res.find((i) => i.hash === item.hash);
+//       const exist = res.find((i) => i.tx_hash === item.tx_hash);
 //       if (!exist) {
 //         await collection.insertOne(item);
-//         console.log('inserted', item.hash);
+//         console.log('inserted', item.tx_hash);
 //       }
 //     }),
 //   );

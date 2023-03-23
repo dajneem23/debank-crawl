@@ -143,11 +143,11 @@ export class OnChainPriceService {
     const onchainPriceKeys = await queryRedisKeys(`${onchainPricePattern}:*`);
     const transactions = await this.mgClient
       .db('onchain')
-      .collection('transaction')
+      .collection('tx-event')
       .find(
         {
           price: 0,
-          hash: {
+          tx_hash: {
             $not: {
               $in: uniq([...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, ''))]),
             },
@@ -162,20 +162,20 @@ export class OnChainPriceService {
       )
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { hash, token: token_address, symbol, timestamp, amount, chain_id, block } = transaction;
+      const { tx_hash, token: token_address, symbol, timestamp, amount, chain_id, block_number } = transaction;
       return {
         name: 'update:transaction:usd-value',
         data: {
-          hash,
+          tx_hash,
           token_address,
           timestamp,
           amount,
           chain_id,
-          block,
+          block_number,
           symbol,
         },
         opts: {
-          jobId: `update:transaction:usd-value:${hash}`,
+          jobId: `update:transaction:usd-value:${tx_hash}`,
           removeOnComplete: true,
           removeOnFail: false,
           priority: daysDiff(new Date(), new Date(timestamp * 1000)),
@@ -291,19 +291,19 @@ export class OnChainPriceService {
     };
   }
   async updateTransactionUsdValue({
-    hash,
+    tx_hash,
     chain_id,
     amount,
-    block,
+    block_number,
     timestamp,
     token_address,
   }: {
-    hash: string;
+    tx_hash: string;
     chain_id: number | 1 | 56;
     timestamp: number;
     amount: number;
     token_address: string;
-    block: number;
+    block_number: number;
   }) {
     const quoteTokens = (chain_id === 1 && QUOTE_TOKENS.ETH) || (chain_id === 56 && QUOTE_TOKENS.BNB);
     const chain = Object.values(PairBookChainIds).find((c) => c.chainId === chain_id);
@@ -323,7 +323,9 @@ export class OnChainPriceService {
       },
       chain_id: chain.pairBookId,
     });
+    //find first quote token that has pair
     const quoteToken = quoteTokens.find((q) => pairs.find((p) => p.quote_token.symbol === q));
+    //use quote token to get pair
     const pair = pairs.find((p) => p.quote_token.symbol === quoteToken);
     if (!pair) {
       this.logger.discord('error', '[updateTransactionUsdValue:pair]', 'Pair not found', token.symbol, quoteToken);
@@ -337,7 +339,7 @@ export class OnChainPriceService {
       retryTime,
     } = await this.getTokenPrice({
       pairAddress: pair.address,
-      blockNumber: block,
+      blockNumber: block_number,
       token_address,
       chain,
       decimals: token.decimals,
@@ -348,10 +350,10 @@ export class OnChainPriceService {
     //update transaction price
     await this.mgClient
       .db('onchain')
-      .collection('transaction')
+      .collection('tx-event')
       .updateMany(
         {
-          hash,
+          tx_hash,
         },
         {
           $set: {
@@ -367,12 +369,12 @@ export class OnChainPriceService {
       .db('onchain-log')
       .collection('transaction-price-log')
       .insertOne({
-        hash,
+        tx_hash,
         input: {
-          hash,
+          tx_hash,
           chain_id,
           amount,
-          block,
+          block_number,
           timestamp,
           token_address,
         },

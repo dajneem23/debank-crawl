@@ -935,39 +935,80 @@ export class DefillamaService {
   }
 
   async addUpdateUsdValueOfTransactionsJob() {
-    const redisPater = 'bull:defillama-onchain:defillama:update:usd:value:of:transaction';
-    const keys = await queryRedisKeys(`${redisPater}:*`);
-    const onchainPricePatter = 'bull:onchain-price:update:transaction:usd-value';
-    const onchainPriceKeys = await queryRedisKeys(`${onchainPricePatter}:*`);
+    const redisPattern = 'bull:defillama-onchain:defillama:update:usd:value:of:transaction';
+    const defillamaOnchainKeys = await queryRedisKeys(`${redisPattern}:*`);
+    const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';
+    const onchainPriceKeys = await queryRedisKeys(`${onchainPricePattern}:*`);
+    const _keys = uniq([
+      ...defillamaOnchainKeys.map((key) => key.replace(`${redisPattern}:`, '')),
+      ...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, '')),
+    ]);
     const transactions = await this.mgClient
       .db('onchain')
       .collection('tx-event')
-      .find(
+      .aggregate([
         {
-          price: 0,
-          tx_hash: {
-            $not: {
-              $in: uniq([
-                ...keys.map((key) => key.replace(`${redisPater}:`, '')),
-                ...onchainPriceKeys.map((key) => key.replace(`${onchainPriceKeys}:`, '')),
-              ]),
+          $match: {
+            price: 0,
+          },
+        },
+        {
+          $set: {
+            _key: {
+              $concat: [
+                {
+                  $toString: '$tx_hash',
+                },
+                ':',
+                {
+                  $toString: '$log_index',
+                },
+                ':',
+                {
+                  $toString: '$type',
+                },
+              ],
             },
           },
         },
         {
-          limit: 50000,
-          sort: {
+          $match: {
+            _key: {
+              $not: {
+                $in: _keys,
+              },
+            },
+          },
+        },
+        {
+          $limit: 20000,
+        },
+        {
+          $sort: {
             timestamp: -1,
           },
         },
-      )
+      ])
       .toArray();
+
     const jobs = transactions.map((transaction) => {
-      const { tx_hash, token: token_address, symbol, timestamp, amount, chain_id, block_number } = transaction;
+      const {
+        tx_hash,
+        token: token_address,
+        symbol,
+        timestamp,
+        amount,
+        chain_id,
+        block_number,
+        log_index,
+        type: tx_type,
+      } = transaction;
       return {
         name: 'defillama:update:usd:value:of:transaction',
         data: {
+          log_index,
           tx_hash,
+          tx_type,
           token_address,
           timestamp,
           amount,
@@ -976,7 +1017,7 @@ export class DefillamaService {
           symbol,
         },
         opts: {
-          jobId: `defillama:update:usd:value:of:transaction:${tx_hash}`,
+          jobId: `defillama:update:usd:value:of:transaction:${tx_hash}:${log_index}:${tx_type}`,
           removeOnComplete: true,
           removeOnFail: false,
           priority: daysDiff(new Date(), new Date(timestamp * 1000)),
@@ -1000,6 +1041,8 @@ export class DefillamaService {
 
   async updateUsdValueOfTransaction({
     tx_hash,
+    log_index,
+    tx_type,
     token_address,
     timestamp,
     amount,
@@ -1014,6 +1057,8 @@ export class DefillamaService {
     chain_id: number;
     block_number: number;
     symbol: string;
+    log_index: number;
+    tx_type: string;
   }) {
     const chain = Object.values(CHAINS).find((chain) => chain.id === chain_id);
     if (!chain) {
@@ -1043,6 +1088,8 @@ export class DefillamaService {
       .updateOne(
         {
           tx_hash,
+          log_index,
+          tx_type,
         },
         {
           $set: {
@@ -1061,6 +1108,8 @@ export class DefillamaService {
           tx_hash,
           input: {
             tx_hash,
+            log_index,
+            tx_type,
             token_address,
             timestamp,
             amount,
@@ -1094,11 +1143,13 @@ export class DefillamaService {
       )
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { tx_hash, from, to } = transaction;
+      const { tx_hash, log_index, from, to, type: tx_type } = transaction;
       return {
         name: 'defillama:update:pool:of:transaction',
         data: {
           tx_hash,
+          log_index,
+          tx_type,
           from,
           to,
         },
@@ -1125,7 +1176,19 @@ export class DefillamaService {
     });
   }
 
-  async updatePoolOfTransaction({ from, to, tx_hash }: { tx_hash: string; from: string; to: string }) {
+  async updatePoolOfTransaction({
+    from,
+    to,
+    tx_hash,
+    log_index,
+    tx_type,
+  }: {
+    tx_hash: string;
+    from: string;
+    to: string;
+    log_index: number;
+    tx_type: string;
+  }) {
     // console.log({ tx_hash, from, to });
     const pools = await this.mgClient
       .db('onchain')
@@ -1143,6 +1206,8 @@ export class DefillamaService {
         .findOneAndUpdate(
           {
             tx_hash,
+            log_index,
+            tx_type,
           },
           {
             $set: {
@@ -1167,6 +1232,8 @@ export class DefillamaService {
       .findOneAndUpdate(
         {
           tx_hash,
+          log_index,
+          tx_type,
         },
         {
           $set: {

@@ -141,32 +141,72 @@ export class OnChainPriceService {
   async addUpdateUsdValueOfTransactionsJob() {
     const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';
     const onchainPriceKeys = await queryRedisKeys(`${onchainPricePattern}:*`);
+    const _keys = uniq([...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, ''))]);
     const transactions = await this.mgClient
       .db('onchain')
       .collection('tx-event')
-      .find(
+      .aggregate([
         {
-          price: 0,
-          tx_hash: {
-            $not: {
-              $in: uniq([...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, ''))]),
+          $match: {
+            price: 0,
+          },
+        },
+        {
+          $set: {
+            _key: {
+              $concat: [
+                {
+                  $toString: '$tx_hash',
+                },
+                ':',
+                {
+                  $toString: '$log_index',
+                },
+                ':',
+                {
+                  $toString: '$type',
+                },
+              ],
             },
           },
         },
         {
-          limit: 10000,
-          sort: {
+          $match: {
+            _key: {
+              $not: {
+                $in: _keys,
+              },
+            },
+          },
+        },
+        {
+          $limit: 20000,
+        },
+        {
+          $sort: {
             timestamp: -1,
           },
         },
-      )
+      ])
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { tx_hash, token: token_address, symbol, timestamp, amount, chain_id, block_number } = transaction;
+      const {
+        tx_hash,
+        log_index,
+        token: token_address,
+        symbol,
+        timestamp,
+        amount,
+        chain_id,
+        block_number,
+        type: tx_type,
+      } = transaction;
       return {
         name: 'update:transaction:usd-value',
         data: {
           tx_hash,
+          log_index,
+          tx_type,
           token_address,
           timestamp,
           amount,
@@ -175,7 +215,7 @@ export class OnChainPriceService {
           symbol,
         },
         opts: {
-          jobId: `update:transaction:usd-value:${tx_hash}`,
+          jobId: `update:transaction:usd-value:${tx_hash}:${log_index}:${tx_type}`,
           removeOnComplete: true,
           removeOnFail: false,
           priority: daysDiff(new Date(), new Date(timestamp * 1000)),
@@ -292,6 +332,8 @@ export class OnChainPriceService {
   }
   async updateTransactionUsdValue({
     tx_hash,
+    log_index,
+    tx_type,
     chain_id,
     amount,
     block_number,
@@ -299,6 +341,8 @@ export class OnChainPriceService {
     token_address,
   }: {
     tx_hash: string;
+    log_index: number;
+    tx_type: string;
     chain_id: number | 1 | 56;
     timestamp: number;
     amount: number;
@@ -354,6 +398,8 @@ export class OnChainPriceService {
       .updateMany(
         {
           tx_hash,
+          log_index,
+          tx_type,
         },
         {
           $set: {
@@ -372,6 +418,8 @@ export class OnChainPriceService {
         tx_hash,
         input: {
           tx_hash,
+          log_index,
+          tx_type,
           chain_id,
           amount,
           block_number,

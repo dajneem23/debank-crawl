@@ -378,22 +378,23 @@ export class DefillamaService {
         attempts: 5,
       },
     );
-
-    this.queue.add(
-      'defillama:add:pool:of:transaction',
-      {},
-      {
-        repeatJobKey: 'defillama:add:pool:of:transaction',
-        jobId: 'defillama:add:pool:of:transaction',
-        repeat: {
-          every: 1000 * 60 * 60,
-        },
-        removeOnComplete: true,
-        removeOnFail: false,
-        priority: 1,
-        attempts: 5,
-      },
-    );
+    //!fixing
+    //TODO: fix this
+    // this.queue.add(
+    //   'defillama:add:pool:of:transaction',
+    //   {},
+    //   {
+    //     repeatJobKey: 'defillama:add:pool:of:transaction',
+    //     jobId: 'defillama:add:pool:of:transaction',
+    //     repeat: {
+    //       every: 1000 * 60 * 60,
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: false,
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // );
 
     this.queue.add(
       'defillama:add:update:coins:current:price',

@@ -148,7 +148,9 @@ export class OnChainPriceService {
       .aggregate([
         {
           $match: {
-            price: 0,
+            price: {
+              $exists: false,
+            },
           },
         },
         {

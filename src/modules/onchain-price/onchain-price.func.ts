@@ -1,5 +1,7 @@
+import { onChainBotAlertConfigToken } from '@/loaders/config.loader';
 import { sendTelegramMessage } from '@/service/alert/telegram';
 import { CHAINS } from '@/types/chain';
+import Container from 'typedi';
 
 export const alertHighPriceTransaction = async ({
   type = 'telegram',
@@ -42,7 +44,7 @@ const alertHighPriceTransactionWithTelegram = async ({
   const message = `*High Price Transaction Alert* \n\nTransaction: [${tx_hash}](${scanUrl}) \nAmount: ${amount} *${symbol}* \nUSD Value: ${usd_value}$💵`;
   await sendTelegramMessage({
     message,
-    chatId: '-871473931',
+    chatId: Container.get(onChainBotAlertConfigToken).chat_id,
     options: {
       parse_mode: 'MarkdownV2',
     },

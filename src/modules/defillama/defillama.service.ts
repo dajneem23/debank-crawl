@@ -949,7 +949,9 @@ export class DefillamaService {
       .aggregate([
         {
           $match: {
-            price: 0,
+            price: {
+              $exists: false,
+            },
           },
         },
         {

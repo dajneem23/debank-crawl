@@ -264,12 +264,11 @@ export class OnChainPriceService {
     quoteToken: string;
     symbol: string;
   }) {
-    const id = `${chain.defillamaId}:${token_address}`;
     const tokenPrice = await this.mgClient
       .db('onchain')
       .collection('token-price')
       .findOne({
-        id,
+        token_address,
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
@@ -300,7 +299,7 @@ export class OnChainPriceService {
       .findOneAndUpdate(
         {
           timestamp: _timestamp,
-          id,
+          token_address,
         },
         {
           $set: {
@@ -309,7 +308,7 @@ export class OnChainPriceService {
           },
           $setOnInsert: {
             timestamp: _timestamp,
-            id,
+            token_address,
             symbol,
             decimals,
             contract: {

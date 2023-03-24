@@ -52,8 +52,11 @@ const _messages = {
 export default class Logger {
   private logger: JSLogger;
 
+  readonly category: string;
+
   constructor(category?: string, logLevel?: LogLevel) {
     this.logger = getLogger(category);
+    this.category = category || 'default';
     if (logLevel) {
       this.logger.level = logLevel;
     }
@@ -102,7 +105,10 @@ export default class Logger {
     }
     const discordBot = Container.get(DIDiscordClient);
     return discordBot.sendMsg({
-      message: [`\`\`\`diff\n${_messages[message] || message}\`\`\``, ...args]
+      message: [
+        `\`\`\`diff\n${this.category ? this.category + ':' : ''}${_messages[message] || message}\`\`\``,
+        ...args,
+      ]
         .map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg))
         .map((arg) => discordBot.decorateMsg(arg))
         .join('\n'),

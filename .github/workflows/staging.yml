@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Set vars
         id: vars
-        run: echo "SHORT_SHA=$("${{ github.sha }}")" >> $env:GITHUB_ENV
+        run: echo "SHORT_SHA="${{ github.sha }}" >> $env:GITHUB_ENV
 
       - name: Checkout the repo
         uses: actions/checkout@v2

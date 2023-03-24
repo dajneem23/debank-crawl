@@ -34,7 +34,7 @@ $ yarn
 $ yarn install
 ```
 
-- **Set the environment variables**
+- **Set the environment variables** 
 
 ```shell
 # Create local env

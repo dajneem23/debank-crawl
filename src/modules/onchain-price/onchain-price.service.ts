@@ -258,7 +258,7 @@ export class OnChainPriceService {
       .db('onchain')
       .collection('token-price')
       .findOne({
-        token,
+        token_address: token,
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
@@ -289,7 +289,7 @@ export class OnChainPriceService {
       .findOneAndUpdate(
         {
           timestamp: _timestamp,
-          token,
+          token_address: token,
         },
         {
           $set: {
@@ -298,7 +298,7 @@ export class OnChainPriceService {
           },
           $setOnInsert: {
             timestamp: _timestamp,
-            token,
+            token_address: token,
             symbol,
             decimals,
             contract: {

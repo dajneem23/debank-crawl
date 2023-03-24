@@ -777,7 +777,7 @@ export class DefillamaService {
       .db(getMgOnChainDbName())
       .collection('token-price')
       .findOne({
-        $or: [{ id }, { token }],
+        $or: [{ id }, { token_address: token }],
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
@@ -823,7 +823,7 @@ export class DefillamaService {
             id,
             symbol,
             decimals,
-            token,
+            token_address: token,
           },
         },
         {
@@ -1254,6 +1254,10 @@ export class DefillamaService {
       .collection('token')
       .find({
         enabled: true,
+        coingeckoId: {
+          $exists: true,
+          $ne: null,
+        },
       })
       .toArray();
     const list_coins = chunk(coins, 100);
@@ -1261,12 +1265,7 @@ export class DefillamaService {
       return {
         name: 'defillama:update:coins:current:price',
         data: {
-          coins: coin
-            .map(
-              ({ address, chainId }) =>
-                `${Object.values(CHAINS).find((chain) => chain.id === chainId).defillamaId}:${address}`,
-            )
-            .join(','),
+          coins: coin.map(({ address, coingeckoId }) => `coingecko:${coingeckoId}`).join(','),
         },
         opts: {
           removeOnComplete: true,

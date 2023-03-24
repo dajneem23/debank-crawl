@@ -811,7 +811,7 @@ export class DefillamaService {
       .findOneAndUpdate(
         {
           timestamp: _timestamp,
-          id,
+          $or: [{ id }, { token_address: token }],
         },
         {
           $set: {

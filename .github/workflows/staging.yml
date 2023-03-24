@@ -19,7 +19,7 @@ env:
   IMAGE_NAME: 'wikiblock-cronjob-staging'
   APP_ENV: 'staging'
   MODE: 'development'
-  GITHUB_SHA: ${{ github.sha }}
+  GITHUB_SHA: ${{ $GITHUB_SHA}}
 
 #3
 jobs:

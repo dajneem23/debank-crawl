@@ -15,9 +15,6 @@ ARG MODE
 ENV MODE=$MODE
 RUN echo $MODE
 
-# Install packages without generate a yarn.lock lockfile
-RUN yarn --pure-lockfile
-
 
 # Copy all file from current dir to /app in container
 COPY . /app

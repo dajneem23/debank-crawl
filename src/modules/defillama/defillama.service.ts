@@ -973,23 +973,13 @@ export class DefillamaService {
       .toArray();
 
     const jobs = transactions.map((transaction) => {
-      const {
-        tx_hash,
-        token: token,
-        symbol,
-        timestamp,
-        amount,
-        chain_id,
-        block_number,
-        log_index,
-        type: tx_type,
-      } = transaction;
+      const { tx_hash, token: token, symbol, timestamp, amount, chain_id, block_number, log_index, type } = transaction;
       return {
         name: 'defillama:update:usd:value:of:transaction',
         data: {
           log_index,
           tx_hash,
-          tx_type,
+          type,
           token,
           timestamp,
           amount,
@@ -998,7 +988,7 @@ export class DefillamaService {
           symbol,
         },
         opts: {
-          jobId: `defillama:update:usd:value:of:transaction:${tx_hash}:${log_index}:${tx_type}`,
+          jobId: `defillama:update:usd:value:of:transaction:${tx_hash}:${log_index}:${type}`,
           removeOnComplete: true,
           removeOnFail: false,
           priority: daysDiff(new Date(), new Date(timestamp * 1000)),
@@ -1023,7 +1013,7 @@ export class DefillamaService {
   async updateUsdValueOfTransaction({
     tx_hash,
     log_index,
-    tx_type,
+    type: tx_type,
     token,
     timestamp,
     amount,
@@ -1039,7 +1029,7 @@ export class DefillamaService {
     block_number: number;
     symbol: string;
     log_index: number;
-    tx_type: string;
+    type: string;
   }) {
     const chain = Object.values(CHAINS).find((chain) => chain.id === chain_id);
     if (!chain) {
@@ -1080,7 +1070,7 @@ export class DefillamaService {
       throw new Error('updateUsdValueOfTransaction: Invalid token');
     }
     const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
-      id: `coingecko:${_token.defillamaId}`,
+      id: `coingecko:${_token.coingeckoId}`,
       token,
       timestamp,
     });

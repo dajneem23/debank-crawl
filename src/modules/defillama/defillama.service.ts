@@ -1032,96 +1032,114 @@ export class DefillamaService {
     log_index: number;
     type: string;
   }) {
-    const chain = Object.values(CHAINS).find((chain) => chain.id === chain_id);
-    if (!chain) {
-      this.logger.discord(
-        'error',
-        '[updateUsdValueOfTransaction:chain:error]',
-        JSON.stringify({
-          req: {
-            tx_hash,
-            token,
-            timestamp,
-            amount,
-            chain_id,
-          },
-          res: chain,
-        }),
-      );
-      throw new Error('updateUsdValueOfTransaction: Invalid chain');
-    }
-    const _token = await this.mgClient.db('onchain').collection('token').findOne({
-      address: token,
-    });
-    if (!_token || !_token.coingeckoId) {
-      this.logger.discord(
-        'error',
-        '[updateUsdValueOfTransaction:token:error]',
-        JSON.stringify({
-          req: {
-            tx_hash,
-            token,
-            timestamp,
-            amount,
-            chain_id,
-          },
-          res: token,
-        }),
-      );
-      throw new Error('updateUsdValueOfTransaction: Invalid token');
-    }
-    const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
-      id: `coingecko:${_token.coingeckoId}`,
-      token,
-      timestamp,
-    });
-    await this.mgClient
-      .db('onchain')
-      .collection('tx-event')
-      .updateOne(
-        {
-          tx_hash,
-          log_index,
-          type: tx_type,
-        },
-        {
-          $set: {
-            price,
-            usd_value: amount * price,
-            price_at: _timestamp,
-            updated_at: new Date(),
-          },
-        },
-      );
-    await Promise.all([
-      this.mgClient
-        .db('onchain-log')
-        .collection('transaction-price-log')
-        .insertOne({
-          tx_hash,
-          input: {
+    try {
+      const chain = Object.values(CHAINS).find((chain) => chain.id === chain_id);
+      if (!chain) {
+        this.logger.discord(
+          'error',
+          '[updateUsdValueOfTransaction:chain:error]',
+          JSON.stringify({
+            req: {
+              tx_hash,
+              token,
+              timestamp,
+              amount,
+              chain_id,
+            },
+            res: chain,
+          }),
+        );
+        throw new Error('updateUsdValueOfTransaction: Invalid chain');
+      }
+      const _token = await this.mgClient.db('onchain').collection('token').findOne({
+        address: token,
+      });
+      if (!_token || !_token.coingeckoId) {
+        this.logger.discord(
+          'error',
+          '[updateUsdValueOfTransaction:token:error]',
+          JSON.stringify({
+            req: {
+              tx_hash,
+              token,
+              timestamp,
+              amount,
+              chain_id,
+            },
+            res: token,
+          }),
+        );
+        throw new Error('updateUsdValueOfTransaction: Invalid token');
+      }
+      const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
+        id: `coingecko:${_token.coingeckoId}`,
+        token,
+        timestamp,
+      });
+      await this.mgClient
+        .db('onchain')
+        .collection('tx-event')
+        .updateOne(
+          {
             tx_hash,
             log_index,
-            tx_type,
+            type: tx_type,
+          },
+          {
+            $set: {
+              price,
+              usd_value: amount * price,
+              price_at: _timestamp,
+              updated_at: new Date(),
+            },
+          },
+        );
+      await Promise.all([
+        this.mgClient
+          .db('onchain-log')
+          .collection('transaction-price-log')
+          .insertOne({
+            tx_hash,
+            input: {
+              tx_hash,
+              log_index,
+              tx_type,
+              token,
+              timestamp,
+              amount,
+              chain_id,
+              block_number,
+              symbol,
+            },
+            output: {
+              price,
+              usd_value: amount * price,
+              price_at: _timestamp,
+            },
+            var: {
+              chain,
+            },
+            updated_by: 'defillama-onchain',
+            updated_at: new Date(),
+          }),
+      ]);
+    } catch (error) {
+      this.logger.discord(
+        'error',
+        '[updateUsdValueOfTransaction:error]',
+        JSON.stringify({
+          req: {
+            tx_hash,
             token,
             timestamp,
             amount,
             chain_id,
-            block_number,
-            symbol,
           },
-          output: {
-            price,
-            usd_value: amount * price,
-            price_at: _timestamp,
-          },
-          var: {
-            chain,
-          },
-          updated_by: 'defillama-onchain',
-          updated_at: new Date(),
+          res: error,
         }),
-    ]);
+      );
+      throw error;
+    }
   }
 
   async addUpdatePoolOfTransactionsJob() {

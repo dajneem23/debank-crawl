@@ -11,6 +11,7 @@ const BSC = {
 export const CHAINS = {
   ETH: ETH,
   1: ETH,
+
   BSC: BSC,
   BNB: BSC,
   56: BSC,

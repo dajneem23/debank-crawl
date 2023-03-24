@@ -106,7 +106,7 @@ export class OnChainPriceService {
         repeatJobKey: 'add:update:transaction:usd-value',
         jobId: 'add:update:transaction:usd-value',
         repeat: {
-          every: 1000 * 60 * 60,
+          every: 1000 * 60 * 15,
         },
         removeOnComplete: true,
         removeOnFail: true,
@@ -195,7 +195,7 @@ export class OnChainPriceService {
       const {
         tx_hash,
         log_index,
-        token: token_address,
+        token,
         symbol,
         timestamp,
         amount,
@@ -209,7 +209,7 @@ export class OnChainPriceService {
           tx_hash,
           log_index,
           tx_type,
-          token_address,
+          token,
           timestamp,
           amount,
           chain_id,
@@ -244,14 +244,14 @@ export class OnChainPriceService {
     blockNumber,
     decimals,
     timestamp,
-    token_address,
+    token,
     chain,
     quoteToken,
     symbol,
   }: {
     pairAddress: string;
     blockNumber: number;
-    token_address: string;
+    token: string;
     chain: {
       chainId: number;
       chainName: string;
@@ -268,7 +268,7 @@ export class OnChainPriceService {
       .db('onchain')
       .collection('token-price')
       .findOne({
-        token_address,
+        token,
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
@@ -299,7 +299,7 @@ export class OnChainPriceService {
       .findOneAndUpdate(
         {
           timestamp: _timestamp,
-          token_address,
+          token,
         },
         {
           $set: {
@@ -308,7 +308,7 @@ export class OnChainPriceService {
           },
           $setOnInsert: {
             timestamp: _timestamp,
-            token_address,
+            token,
             symbol,
             decimals,
             contract: {
@@ -339,7 +339,7 @@ export class OnChainPriceService {
     amount,
     block_number,
     timestamp,
-    token_address,
+    token,
   }: {
     tx_hash: string;
     log_index: number;
@@ -347,22 +347,26 @@ export class OnChainPriceService {
     chain_id: number | 1 | 56;
     timestamp: number;
     amount: number;
-    token_address: string;
+    token: string;
     block_number: number;
   }) {
     const quoteTokens = (chain_id === 1 && QUOTE_TOKENS.ETH) || (chain_id === 56 && QUOTE_TOKENS.BNB);
     const chain = Object.values(PairBookChainIds).find((c) => c.chainId === chain_id);
-    const token = await this.mgClient.db('onchain').collection('token').findOne({ address: token_address });
-    if (!token) {
-      this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token not found', token_address);
+    const _token = await this.mgClient.db('onchain').collection('token').findOne({ address: token });
+    if (!_token) {
+      this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token not found', token);
       throw new Error('Token not found');
+    }
+    if (!_token.decimals) {
+      this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token decimals not found', token);
+      throw new Error('Token decimals not found');
     }
     if (!chain) {
       this.logger.discord('error', '[updateTransactionUsdValue:chain]', 'Chain not found', chain_id);
       throw new Error('Chain not found');
     }
     const pairs = await findPairsOfSymbol({
-      'base_token.symbol': token.symbol,
+      'base_token.symbol': _token.symbol,
       'quote_token.symbol': {
         $in: quoteTokens,
       },
@@ -373,7 +377,7 @@ export class OnChainPriceService {
     //use quote token to get pair
     const pair = pairs.find((p) => p.quote_token.symbol === quoteToken);
     if (!pair) {
-      this.logger.discord('error', '[updateTransactionUsdValue:pair]', 'Pair not found', token.symbol, quoteToken);
+      this.logger.discord('error', '[updateTransactionUsdValue:pair]', 'Pair not found', _token.symbol, quoteToken);
       throw new Error('Pair not found');
     }
     const {
@@ -385,12 +389,12 @@ export class OnChainPriceService {
     } = await this.getTokenPrice({
       pairAddress: pair.address,
       blockNumber: block_number,
-      token_address,
+      token,
       chain,
-      decimals: token.decimals,
+      decimals: _token.decimals,
       timestamp,
       quoteToken,
-      symbol: token.symbol,
+      symbol: _token.symbol,
     });
     //update transaction price
     await this.mgClient
@@ -425,7 +429,7 @@ export class OnChainPriceService {
           amount,
           block_number,
           timestamp,
-          token_address,
+          token,
         },
         output: {
           chain,
@@ -442,7 +446,7 @@ export class OnChainPriceService {
           retryTime,
           _timestamp,
           quoteToken,
-          decimals: token.decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain_id],
+          decimals: _token.decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain_id],
         },
         updated_by: 'onchain-price',
         updated_at: new Date(),

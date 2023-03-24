@@ -370,7 +370,7 @@ export class DefillamaService {
         repeatJobKey: 'defillama:add:update:usd:value:of:transaction',
         jobId: 'defillama:add:update:usd:value:of:transaction',
         repeat: {
-          every: 1000 * 60 * 60,
+          every: 1000 * 60 * 15,
         },
         removeOnComplete: true,
         removeOnFail: false,
@@ -752,18 +752,18 @@ export class DefillamaService {
     id,
     timestamp,
     symbol,
-    token_address,
+    token,
   }: {
     id: string;
     timestamp: number;
     symbol: string;
-    token_address: string;
+    token: string;
   }) {
     try {
       await this.getCoinsHistoricalData({
         id,
         timestamp,
-        token_address,
+        token,
       });
     } catch (error) {
       this.logger.discord('error', '[fetchCoinsHistoricalData:error]', JSON.stringify(error));
@@ -771,20 +771,12 @@ export class DefillamaService {
     }
   }
 
-  async getCoinsHistoricalData({
-    id,
-    timestamp,
-    token_address,
-  }: {
-    id: string;
-    timestamp: number;
-    token_address: string;
-  }) {
+  async getCoinsHistoricalData({ id, timestamp, token }: { id: string; timestamp: number; token: string }) {
     const exists = await this.mgClient
       .db(getMgOnChainDbName())
       .collection('token-price')
       .findOne({
-        $or: [{ id }, { token_address }],
+        $or: [{ id }, { token }],
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
@@ -830,7 +822,7 @@ export class DefillamaService {
             id,
             symbol,
             decimals,
-            token_address,
+            token,
           },
         },
         {
@@ -893,7 +885,7 @@ export class DefillamaService {
                 id: `coingecko:${coingeckoId}`,
                 symbol,
                 timestamp,
-                token_address: address,
+                token: address,
               },
               opts: {
                 jobId: `defillama:fetch:coin:historical:data:id:timestamp:${coingeckoId}:${timestamp}`,
@@ -983,7 +975,7 @@ export class DefillamaService {
     const jobs = transactions.map((transaction) => {
       const {
         tx_hash,
-        token: token_address,
+        token: token,
         symbol,
         timestamp,
         amount,
@@ -998,7 +990,7 @@ export class DefillamaService {
           log_index,
           tx_hash,
           tx_type,
-          token_address,
+          token,
           timestamp,
           amount,
           chain_id,
@@ -1032,7 +1024,7 @@ export class DefillamaService {
     tx_hash,
     log_index,
     tx_type,
-    token_address,
+    token,
     timestamp,
     amount,
     chain_id,
@@ -1040,7 +1032,7 @@ export class DefillamaService {
     symbol,
   }: {
     tx_hash: string;
-    token_address: string;
+    token: string;
     timestamp: number;
     amount: number;
     chain_id: number;
@@ -1057,7 +1049,7 @@ export class DefillamaService {
         JSON.stringify({
           req: {
             tx_hash,
-            token_address,
+            token,
             timestamp,
             amount,
             chain_id,
@@ -1067,18 +1059,17 @@ export class DefillamaService {
       );
       throw new Error('updateUsdValueOfTransaction: Invalid chain');
     }
-    const token = await this.mgClient.db('onchain').collection('token').findOne({
-      address: token_address,
-      chain_id,
+    const _token = await this.mgClient.db('onchain').collection('token').findOne({
+      address: token,
     });
-    if (!token || !token.coingeckoId) {
+    if (!_token || !_token.coingeckoId) {
       this.logger.discord(
         'error',
         '[updateUsdValueOfTransaction:token:error]',
         JSON.stringify({
           req: {
             tx_hash,
-            token_address,
+            token,
             timestamp,
             amount,
             chain_id,
@@ -1089,8 +1080,8 @@ export class DefillamaService {
       throw new Error('updateUsdValueOfTransaction: Invalid token');
     }
     const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
-      id: `coingecko:${token.defillamaId}`,
-      token_address,
+      id: `coingecko:${_token.defillamaId}`,
+      token,
       timestamp,
     });
     await this.mgClient
@@ -1121,7 +1112,7 @@ export class DefillamaService {
             tx_hash,
             log_index,
             tx_type,
-            token_address,
+            token,
             timestamp,
             amount,
             chain_id,

@@ -192,23 +192,13 @@ export class OnChainPriceService {
       ])
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const {
-        tx_hash,
-        log_index,
-        token,
-        symbol,
-        timestamp,
-        amount,
-        chain_id,
-        block_number,
-        type: tx_type,
-      } = transaction;
+      const { tx_hash, log_index, token, symbol, timestamp, amount, chain_id, block_number, type } = transaction;
       return {
         name: 'update:transaction:usd-value',
         data: {
           tx_hash,
           log_index,
-          tx_type,
+          type,
           token,
           timestamp,
           amount,
@@ -217,7 +207,7 @@ export class OnChainPriceService {
           symbol,
         },
         opts: {
-          jobId: `update:transaction:usd-value:${tx_hash}:${log_index}:${tx_type}`,
+          jobId: `update:transaction:usd-value:${tx_hash}:${log_index}:${type}`,
           removeOnComplete: true,
           removeOnFail: false,
           priority: daysDiff(new Date(), new Date(timestamp * 1000)),
@@ -268,7 +258,7 @@ export class OnChainPriceService {
       .db('onchain')
       .collection('token-price')
       .findOne({
-        token,
+        token_address: token,
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
@@ -299,7 +289,7 @@ export class OnChainPriceService {
       .findOneAndUpdate(
         {
           timestamp: _timestamp,
-          token,
+          token_address: token,
         },
         {
           $set: {
@@ -308,7 +298,7 @@ export class OnChainPriceService {
           },
           $setOnInsert: {
             timestamp: _timestamp,
-            token,
+            token_address: token,
             symbol,
             decimals,
             contract: {
@@ -334,7 +324,7 @@ export class OnChainPriceService {
   async updateTransactionUsdValue({
     tx_hash,
     log_index,
-    tx_type,
+    type: tx_type,
     chain_id,
     amount,
     block_number,
@@ -343,7 +333,7 @@ export class OnChainPriceService {
   }: {
     tx_hash: string;
     log_index: number;
-    tx_type: string;
+    type: string;
     chain_id: number | 1 | 56;
     timestamp: number;
     amount: number;

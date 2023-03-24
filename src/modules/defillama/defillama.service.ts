@@ -118,11 +118,12 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 100,
+      concurrency: 75,
       // limiter: {
       //   max: 200,
       //   duration: 60 * 1000,
       // },
+      maxStalledCount: 50,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -776,7 +777,7 @@ export class DefillamaService {
       .db(getMgOnChainDbName())
       .collection('token-price')
       .findOne({
-        $or: [{ id }, { token }],
+        $or: [{ id }, { token_address: token }],
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
@@ -822,7 +823,7 @@ export class DefillamaService {
             id,
             symbol,
             decimals,
-            token,
+            token_address: token,
           },
         },
         {
@@ -973,23 +974,13 @@ export class DefillamaService {
       .toArray();
 
     const jobs = transactions.map((transaction) => {
-      const {
-        tx_hash,
-        token: token,
-        symbol,
-        timestamp,
-        amount,
-        chain_id,
-        block_number,
-        log_index,
-        type: tx_type,
-      } = transaction;
+      const { tx_hash, token: token, symbol, timestamp, amount, chain_id, block_number, log_index, type } = transaction;
       return {
         name: 'defillama:update:usd:value:of:transaction',
         data: {
           log_index,
           tx_hash,
-          tx_type,
+          type,
           token,
           timestamp,
           amount,
@@ -998,7 +989,7 @@ export class DefillamaService {
           symbol,
         },
         opts: {
-          jobId: `defillama:update:usd:value:of:transaction:${tx_hash}:${log_index}:${tx_type}`,
+          jobId: `defillama:update:usd:value:of:transaction:${tx_hash}:${log_index}:${type}`,
           removeOnComplete: true,
           removeOnFail: false,
           priority: daysDiff(new Date(), new Date(timestamp * 1000)),
@@ -1023,7 +1014,7 @@ export class DefillamaService {
   async updateUsdValueOfTransaction({
     tx_hash,
     log_index,
-    tx_type,
+    type: tx_type,
     token,
     timestamp,
     amount,
@@ -1039,98 +1030,116 @@ export class DefillamaService {
     block_number: number;
     symbol: string;
     log_index: number;
-    tx_type: string;
+    type: string;
   }) {
-    const chain = Object.values(CHAINS).find((chain) => chain.id === chain_id);
-    if (!chain) {
-      this.logger.discord(
-        'error',
-        '[updateUsdValueOfTransaction:chain:error]',
-        JSON.stringify({
-          req: {
-            tx_hash,
-            token,
-            timestamp,
-            amount,
-            chain_id,
-          },
-          res: chain,
-        }),
-      );
-      throw new Error('updateUsdValueOfTransaction: Invalid chain');
-    }
-    const _token = await this.mgClient.db('onchain').collection('token').findOne({
-      address: token,
-    });
-    if (!_token || !_token.coingeckoId) {
-      this.logger.discord(
-        'error',
-        '[updateUsdValueOfTransaction:token:error]',
-        JSON.stringify({
-          req: {
-            tx_hash,
-            token,
-            timestamp,
-            amount,
-            chain_id,
-          },
-          res: token,
-        }),
-      );
-      throw new Error('updateUsdValueOfTransaction: Invalid token');
-    }
-    const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
-      id: `coingecko:${_token.defillamaId}`,
-      token,
-      timestamp,
-    });
-    await this.mgClient
-      .db('onchain')
-      .collection('tx-event')
-      .updateOne(
-        {
-          tx_hash,
-          log_index,
-          type: tx_type,
-        },
-        {
-          $set: {
-            price,
-            usd_value: amount * price,
-            price_at: _timestamp,
-            updated_at: new Date(),
-          },
-        },
-      );
-    await Promise.all([
-      this.mgClient
-        .db('onchain-log')
-        .collection('transaction-price-log')
-        .insertOne({
-          tx_hash,
-          input: {
+    try {
+      const chain = Object.values(CHAINS).find((chain) => chain.id === chain_id);
+      if (!chain) {
+        this.logger.discord(
+          'error',
+          '[updateUsdValueOfTransaction:chain:error]',
+          JSON.stringify({
+            req: {
+              tx_hash,
+              token,
+              timestamp,
+              amount,
+              chain_id,
+            },
+            res: chain,
+          }),
+        );
+        throw new Error('updateUsdValueOfTransaction: Invalid chain');
+      }
+      const _token = await this.mgClient.db('onchain').collection('token').findOne({
+        address: token,
+      });
+      if (!_token || !_token.coingeckoId) {
+        this.logger.discord(
+          'error',
+          '[updateUsdValueOfTransaction:token:error]',
+          JSON.stringify({
+            req: {
+              tx_hash,
+              token,
+              timestamp,
+              amount,
+              chain_id,
+            },
+            res: token,
+          }),
+        );
+        throw new Error('updateUsdValueOfTransaction: Invalid token');
+      }
+      const { price, timestamp: _timestamp } = await this.getCoinsHistoricalData({
+        id: `coingecko:${_token.coingeckoId}`,
+        token,
+        timestamp,
+      });
+      await this.mgClient
+        .db('onchain')
+        .collection('tx-event')
+        .updateOne(
+          {
             tx_hash,
             log_index,
-            tx_type,
+            type: tx_type,
+          },
+          {
+            $set: {
+              price,
+              usd_value: amount * price,
+              price_at: _timestamp,
+              updated_at: new Date(),
+            },
+          },
+        );
+      await Promise.all([
+        this.mgClient
+          .db('onchain-log')
+          .collection('transaction-price-log')
+          .insertOne({
+            tx_hash,
+            input: {
+              tx_hash,
+              log_index,
+              tx_type,
+              token,
+              timestamp,
+              amount,
+              chain_id,
+              block_number,
+              symbol,
+            },
+            output: {
+              price,
+              usd_value: amount * price,
+              price_at: _timestamp,
+            },
+            var: {
+              chain,
+            },
+            updated_by: 'defillama-onchain',
+            updated_at: new Date(),
+          }),
+      ]);
+    } catch (error) {
+      this.logger.discord(
+        'error',
+        '[updateUsdValueOfTransaction:error]',
+        JSON.stringify({
+          req: {
+            tx_hash,
             token,
             timestamp,
             amount,
             chain_id,
-            block_number,
-            symbol,
           },
-          output: {
-            price,
-            usd_value: amount * price,
-            price_at: _timestamp,
-          },
-          var: {
-            chain,
-          },
-          updated_by: 'defillama-onchain',
-          updated_at: new Date(),
+          res: error,
         }),
-    ]);
+      );
+      throw error;
+    }
   }
 
   async addUpdatePoolOfTransactionsJob() {
@@ -1263,6 +1272,10 @@ export class DefillamaService {
       .collection('token')
       .find({
         enabled: true,
+        coingeckoId: {
+          $exists: true,
+          $ne: null,
+        },
       })
       .toArray();
     const list_coins = chunk(coins, 100);
@@ -1270,12 +1283,7 @@ export class DefillamaService {
       return {
         name: 'defillama:update:coins:current:price',
         data: {
-          coins: coin
-            .map(
-              ({ address, chainId }) =>
-                `${Object.values(CHAINS).find((chain) => chain.id === chainId).defillamaId}:${address}`,
-            )
-            .join(','),
+          coins: coin.map(({ address, coingeckoId }) => `coingecko:${coingeckoId}`).join(','),
         },
         opts: {
           removeOnComplete: true,

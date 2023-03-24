@@ -118,11 +118,12 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 100,
+      concurrency: 75,
       // limiter: {
       //   max: 200,
       //   duration: 60 * 1000,
       // },
+      maxStalledCount: 50,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },

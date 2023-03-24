@@ -18,7 +18,7 @@ env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
   IMAGE_NAME: 'wikiblock-cronjob-staging'
   APP_ENV: 'staging'
-  MODE: 'production'
+  MODE: 'development'
 
 #3
 jobs:
@@ -37,6 +37,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn install  --pure-lockfile
+        if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2

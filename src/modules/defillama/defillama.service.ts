@@ -1320,7 +1320,7 @@ export class DefillamaService {
         const { id, timestamp, price, symbol, updated_at, confidence } = item;
         await Promise.all([
           setExpireRedisKey({
-            key: `price:${symbol}`,
+            key: `price:${symbol}:${timestamp}:${price}`,
             expire: 60 * 5,
             value: price,
           }),

@@ -21,7 +21,7 @@ import { DIDiscordClient } from '@/loaders/discord.loader';
 import Bluebird from 'bluebird';
 import { chunk, uniq } from 'lodash';
 import { CHAINS } from '@/types/chain';
-import { queryRedisKeys } from '@/service/redis/func';
+import { getRedisKeys, setExpireRedisKey } from '@/service/redis/func';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -135,10 +135,10 @@ export class DefillamaService {
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
       concurrency: 25,
-      limiter: {
-        max: 600,
-        duration: 60 * 1000,
-      },
+      // limiter: {
+      //   max: 600,
+      //   duration: 60 * 1000,
+      // },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -916,9 +916,9 @@ export class DefillamaService {
 
   async addUpdateUsdValueOfTransactionsJob() {
     const redisPattern = 'bull:defillama-onchain:defillama:update:usd:value:of:transaction';
-    const defillamaOnchainKeys = await queryRedisKeys(`${redisPattern}:*`);
+    const defillamaOnchainKeys = await getRedisKeys(`${redisPattern}:*`);
     const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';
-    const onchainPriceKeys = await queryRedisKeys(`${onchainPricePattern}:*`);
+    const onchainPriceKeys = await getRedisKeys(`${onchainPricePattern}:*`);
     const _keys = uniq([
       ...defillamaOnchainKeys.map((key) => key.replace(`${redisPattern}:`, '')),
       ...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, '')),
@@ -1318,30 +1318,37 @@ export class DefillamaService {
       data,
       async (item) => {
         const { id, timestamp, price, symbol, updated_at, confidence } = item;
-        await this.mgClient
-          .db('onchain')
-          .collection('token-price')
-          .updateOne(
-            {
-              id,
-              timestamp,
-            },
-            {
-              $set: {
-                price,
-                updated_at,
-              },
-              $setOnInsert: {
+        await Promise.all([
+          setExpireRedisKey({
+            key: `price:${symbol}`,
+            expire: 60 * 5,
+            value: price,
+          }),
+          this.mgClient
+            .db('onchain')
+            .collection('token-price')
+            .updateOne(
+              {
                 id,
-                symbol,
                 timestamp,
-                updated_by: 'defillama',
               },
-            },
-            {
-              upsert: true,
-            },
-          );
+              {
+                $set: {
+                  price,
+                  updated_at,
+                },
+                $setOnInsert: {
+                  id,
+                  symbol,
+                  timestamp,
+                  updated_by: 'defillama',
+                },
+              },
+              {
+                upsert: true,
+              },
+            ),
+        ]);
       },
       {
         concurrency: 20,

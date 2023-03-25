@@ -3,6 +3,7 @@ import { Container, Token } from 'typedi';
 import { DILogger } from '@/loaders/logger.loader';
 import env from '@/config/env';
 import IORedis from 'ioredis';
+import { setExpireRedisKey } from '@/service/redis/func';
 
 export const DIRedisClient = new Token<RedisClientType>('redisClient');
 
@@ -25,7 +26,6 @@ export const redisClientLoader = async () => {
   await client.connect();
   Container.set(DIRedisClient, client);
   Container.set(DIRedisConnection, connection);
-
   return client;
 };
 

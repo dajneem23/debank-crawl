@@ -19,7 +19,7 @@ import { getPairPriceAtBlock } from '@/service/ethers/price';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import { daysDiff } from '@/utils/date';
 import { OnchainPriceJob } from './onchain-price.job';
-import { getRedisKeys } from '@/service/redis/func';
+import { getRedisKeys, setExpireRedisKey } from '@/service/redis/func';
 export class OnChainPriceService {
   private logger = new Logger('PairBookService');
 
@@ -282,36 +282,44 @@ export class OnChainPriceService {
       chain: chain.chainId as any,
       decimals: decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain.chainId],
     });
-    await this.mgClient
-      .db(getMgOnChainDbName())
-      .collection('token-price')
-      .findOneAndUpdate(
-        {
-          timestamp: _timestamp,
-          token_address: token,
-        },
-        {
-          $set: {
-            price,
-            updated_at: new Date(),
-          },
-          $setOnInsert: {
+    await Promise.all([
+      this.mgClient
+        .db(getMgOnChainDbName())
+        .collection('token-price')
+        .findOneAndUpdate(
+          {
             timestamp: _timestamp,
             token_address: token,
-            symbol,
-            decimals,
-            contract: {
-              reserve0,
-              reserve1,
-              blockNumber,
+          },
+          {
+            $set: {
+              price,
+              updated_at: new Date(),
+            },
+            $setOnInsert: {
+              timestamp: _timestamp,
+              token_address: token,
+              symbol,
               decimals,
+              contract: {
+                reserve0,
+                reserve1,
+                blockNumber,
+                decimals,
+              },
             },
           },
-        },
-        {
-          upsert: true,
-        },
-      );
+          {
+            upsert: true,
+          },
+        ),
+      setExpireRedisKey({
+        key: `price:${symbol}:${timestamp}:${price}`,
+        expire: 60 * 5,
+        value: price as any,
+      }),
+    ]);
+
     return {
       price,
       timestamp: _timestamp,

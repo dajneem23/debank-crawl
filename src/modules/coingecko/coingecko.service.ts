@@ -44,7 +44,11 @@ export class CoinGeckoService {
 
   private worker: Worker;
 
+  private workerMarket: Worker;
+
   private queue: Queue;
+
+  private queueMarket: Queue;
 
   dbClient: MongoClient;
 
@@ -112,9 +116,22 @@ export class CoinGeckoService {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
-    this.logger.debug('info', '[initWorker:coingecko]', 'Worker initialized');
+    this.workerMarket = new Worker('coingecko-market', this.workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60 * 5,
+      concurrency: 10,
+      // limiter: {
+      //   max: 60,
+      //   duration: 60 * 1000,
+      // },
+      metrics: {
+        maxDataPoints: MetricsTime.TWO_WEEKS,
+      },
+    });
 
     this.initWorkerListeners(this.worker);
+    this.logger.debug('info', '[initWorker:coingecko]', 'Worker initialized');
   }
   /**
    *  @description init BullMQ Queue
@@ -140,15 +157,36 @@ export class CoinGeckoService {
       connection: this.redisConnection,
     });
 
-    this.initRepeatJobs();
-
-    // queueEvents.on('completed', ({ jobId }) => {
-    //   this.logger.debug('success', 'Job completed', { jobId });
-    // });
-
     queueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.discord('error', 'coingecko:Job failed', jobId, failedReason);
     });
+
+    this.queueMarket = new Queue('coingecko-market', {
+      connection: this.redisConnection,
+      defaultJobOptions: {
+        // The total number of attempts to try the job until it completes
+        attempts: 5,
+        // Backoff setting for automatic retries if the job fails
+        backoff: { type: 'exponential', delay: 1000 * 60 * 0.5 },
+        removeOnComplete: {
+          age: 60 * 60,
+        },
+        removeOnFail: {
+          age: 60 * 60,
+        },
+      },
+    });
+
+    const queueMarketEvents = new QueueEvents('coingecko-market', {
+      connection: this.redisConnection,
+    });
+
+    queueMarketEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      this.logger.discord('error', 'coingecko:Job failed', jobId, failedReason);
+    });
+
+    this.initRepeatJobs();
+
     //TODO: remove this
     // this.addFetchCoinGeckoAssetDetails();
   }

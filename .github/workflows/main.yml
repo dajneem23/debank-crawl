@@ -66,6 +66,9 @@ jobs:
             "ENV_VARS=${{ secrets.SECRETS }}"
             "APP_ENV=${{ env.APP_ENV }}"
             "MODE=${{ env.MODE }}"
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
 
 
   deploy:

@@ -19,7 +19,7 @@ import { getPairPriceAtBlock } from '@/service/ethers/price';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import { daysDiff } from '@/utils/date';
 import { OnchainPriceJob } from './onchain-price.job';
-import { queryRedisKeys } from '@/service/redis/func';
+import { getRedisKeys } from '@/service/redis/func';
 export class OnChainPriceService {
   private logger = new Logger('PairBookService');
 
@@ -140,7 +140,7 @@ export class OnChainPriceService {
   }
   async addUpdateUsdValueOfTransactionsJob() {
     const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';
-    const onchainPriceKeys = await queryRedisKeys(`${onchainPricePattern}:*`);
+    const onchainPriceKeys = await getRedisKeys(`${onchainPricePattern}:*`);
     const _keys = uniq([...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, ''))]);
     const transactions = await this.mgClient
       .db('onchain')

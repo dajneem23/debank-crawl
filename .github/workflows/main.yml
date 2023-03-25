@@ -48,8 +48,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push
-    environment: staging
-
+    environment: main
     steps:
       - name: Deploy to Digital Ocean droplet via SSH action
         uses: appleboy/ssh-action@master

@@ -13,7 +13,7 @@ $ nvm use lts/gallium
 
 # Check version
 $ node -v
-v16.13.0
+v16.13.0 
 ```
 
 2. **Install [Yarn](https://yarnpkg.com/)**

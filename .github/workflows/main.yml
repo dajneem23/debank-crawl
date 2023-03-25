@@ -39,9 +39,9 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: 'yarn.lock'
 
-      - name: Install dependencies
-        run: yarn install  --pure-lockfile
-        if: steps.cache.outputs.cache-hit != 'true'
+      # - name: Install dependencies
+      #   run: yarn install  --pure-lockfile
+      #   if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2

@@ -39,10 +39,6 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: 'yarn.lock'
 
-      # - name: Install dependencies
-      #   run: yarn install  --pure-lockfile
-      #   if: steps.cache.outputs.cache-hit != 'true'
-
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
@@ -63,7 +59,7 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SHORT_SHA }}
           build-args: |
-            ENV_VARS='${{ secrets.SECRETS }}'
+            ENV_VARS=${{ secrets.SECRETS }}
             APP_ENV=$(echo $APP_ENV)
             MODE=$(echo $MODE)
 

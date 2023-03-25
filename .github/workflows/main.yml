@@ -51,7 +51,6 @@ jobs:
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
         continue-on-error: true
 
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -72,6 +71,9 @@ jobs:
             ENV_VARS=${{ secrets.SECRETS }}
             APP_ENV=${{ env.APP_ENV }}
             MODE=${{ env.MODE }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
 
   deploy:
     runs-on: ubuntu-latest

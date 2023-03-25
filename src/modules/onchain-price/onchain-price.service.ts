@@ -310,9 +310,9 @@ export class OnChainPriceService {
           },
         ),
       setExpireRedisKey({
-        key: `price:${symbol}:${timestamp}:${price}`,
+        key: `price:${symbol}`,
         expire: 60 * 5,
-        value: price as any,
+        value: `${timestamp}:${price}`,
       }),
     ]);
 

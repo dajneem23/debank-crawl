@@ -1311,9 +1311,9 @@ export class DefillamaService {
         const { id, timestamp, price, symbol, updated_at, confidence } = item;
         await Promise.all([
           setExpireRedisKey({
-            key: `price:${symbol}:${timestamp}:${price}`,
+            key: `price:${symbol}`,
             expire: 60 * 5,
-            value: price,
+            value: `${timestamp}:${price}`,
           }),
           this.mgClient
             .db('onchain')

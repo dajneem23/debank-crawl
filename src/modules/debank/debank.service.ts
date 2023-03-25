@@ -170,10 +170,11 @@ export class DebankService {
     this.worker = new Worker('debank', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
-      concurrency: 10,
+      lockDuration: 1000 * 60 * 2.5,
+      concurrency: 5,
       stalledInterval: 1000 * 60,
-      maxStalledCount: 20,
+      skipLockRenewal: true,
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
@@ -183,7 +184,7 @@ export class DebankService {
     this.workerInsert = new Worker('debank-insert', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60,
       concurrency: 200,
       limiter: {
         max: 500,
@@ -200,7 +201,7 @@ export class DebankService {
     this.workerWhale = new Worker('debank-whale', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60,
       concurrency: 5,
       limiter: {
         max: 50,
@@ -218,7 +219,8 @@ export class DebankService {
     this.workerTopHolder = new Worker('debank-top-holder', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60 * 2.5,
+      skipLockRenewal: true,
       concurrency: 5,
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
@@ -231,7 +233,7 @@ export class DebankService {
     this.workerRanking = new Worker('debank-ranking', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60,
       concurrency: 5,
       limiter: {
         max: 50,

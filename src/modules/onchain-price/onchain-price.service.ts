@@ -58,7 +58,8 @@ export class OnChainPriceService {
     this.worker = new Worker('onchain-price', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
+      lockDuration: 1000 * 30,
+      skipLockRenewal: true,
       concurrency: 25,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,

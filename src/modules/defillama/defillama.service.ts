@@ -117,8 +117,10 @@ export class DefillamaService {
     this.workerOnchain = new Worker('defillama-onchain', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
-      concurrency: 75,
+      lockDuration: 1000 * 30,
+      skipLockRenewal: true,
+      stalledInterval: 1000 * 15,
+      concurrency: 100,
       // limiter: {
       //   max: 200,
       //   duration: 60 * 1000,
@@ -133,8 +135,10 @@ export class DefillamaService {
     this.workerToken = new Worker('defillama-token', this.workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
-      concurrency: 25,
+      lockDuration: 1000 * 30,
+      stalledInterval: 1000 * 15,
+      skipLockRenewal: true,
+      concurrency: 50,
       // limiter: {
       //   max: 600,
       //   duration: 60 * 1000,

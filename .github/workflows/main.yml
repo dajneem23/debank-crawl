@@ -62,7 +62,14 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SHORT_SHA }}
-
+          build-args: |
+            ENV_VARS=${{ secrets.SECRETS }}
+            APP_ENV=${{ env.APP_ENV }}
+            MODE=${{ env.MODE }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: print image info
+        run: doctl compute image get $(doctl compute image list | grep $(echo $IMAGE_NAME) | awk '{print $1}') --format "ID,Name,Slug,Public,Regions,MinDiskSize,SizeGigaBytes,Description,Type,Status,Tags,CreatedAt,UpdatedAt"
 
   deploy:
     runs-on: ubuntu-latest

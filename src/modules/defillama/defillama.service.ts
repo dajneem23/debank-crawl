@@ -123,7 +123,7 @@ export class DefillamaService {
       //   max: 200,
       //   duration: 60 * 1000,
       // },
-      maxStalledCount: 50,
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -139,6 +139,7 @@ export class DefillamaService {
       //   max: 600,
       //   duration: 60 * 1000,
       // },
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -154,6 +155,7 @@ export class DefillamaService {
       //   max: 600,
       //   duration: 60 * 1000,
       // },
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -169,6 +171,7 @@ export class DefillamaService {
       //   max: 600,
       //   duration: 60 * 1000,
       // },
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -404,7 +407,7 @@ export class DefillamaService {
         repeatJobKey: 'defillama:add:update:coins:current:price',
         jobId: 'defillama:add:update:coins:current:price',
         repeat: {
-          every: 1000 * 60 * 5,
+          every: 1000 * 60 * 2.5,
         },
         removeOnComplete: true,
         removeOnFail: false,

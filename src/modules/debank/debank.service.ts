@@ -173,7 +173,7 @@ export class DebankService {
       lockDuration: 1000 * 60 * 5,
       concurrency: 10,
       stalledInterval: 1000 * 60,
-      maxStalledCount: 20,
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },

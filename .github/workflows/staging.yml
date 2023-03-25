@@ -1,4 +1,4 @@
-name: Main
+name: Staging
 
 # 1
 # Controls when the workflow will run
@@ -12,7 +12,7 @@ on:
     inputs:
       version:
         description: 'Image version'
-        required: true
+        required: false
 #2
 env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
@@ -74,7 +74,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Print image info
-        run: doctl compute image get $(echo $IMAGE_NAME)):$(echo $GITHUB_SHA | head -c7) --format "ID,Name,Slug,Public,Regions,MinDiskSize,SizeGigaBytes,Description,Type,Status,Tags,CreatedAt,UpdatedAt"
+        run: doctl compute image get $(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) --format "ID,Name,Slug,Public,Regions,MinDiskSize,SizeGigaBytes,Description,Type,Status,Tags,CreatedAt,UpdatedAt"
+        continue-on-error: true
 
 
 

@@ -18,7 +18,7 @@ env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
   IMAGE_NAME: 'wikiblock-cronjob-staging'
   APP_ENV: 'staging'
-  MODE: 'development'
+  MODE: 'production'
 
 #3
 jobs:

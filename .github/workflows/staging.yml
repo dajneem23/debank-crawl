@@ -73,9 +73,6 @@ jobs:
             MODE=${{ env.MODE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: Print image info
-        run: doctl compute image get ${{ env.IMAGE_NAME }} --format Name,Slug,Public,Regions,Type,MinDiskSize,SizeGigaBytes,Description,Tags,Status,CreatedAt,UpdatedAt
-        continue-on-error: true
 
 
 

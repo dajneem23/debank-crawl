@@ -945,10 +945,6 @@ export class DefillamaService {
                 {
                   $toString: '$log_index',
                 },
-                ':',
-                {
-                  $toString: '$type',
-                },
               ],
             },
           },
@@ -1149,13 +1145,12 @@ export class DefillamaService {
       )
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { tx_hash, log_index, from, to, type: tx_type } = transaction;
+      const { tx_hash, log_index, from, to } = transaction;
       return {
         name: 'defillama:update:pool:of:transaction',
         data: {
           tx_hash,
           log_index,
-          tx_type,
           from,
           to,
         },
@@ -1187,13 +1182,11 @@ export class DefillamaService {
     to,
     tx_hash,
     log_index,
-    tx_type,
   }: {
     tx_hash: string;
     from: string;
     to: string;
     log_index: number;
-    tx_type: string;
   }) {
     // console.log({ tx_hash, from, to });
     const pools = await this.mgClient
@@ -1213,7 +1206,6 @@ export class DefillamaService {
           {
             tx_hash,
             log_index,
-            tx_type,
           },
           {
             $set: {
@@ -1239,7 +1231,6 @@ export class DefillamaService {
         {
           tx_hash,
           log_index,
-          tx_type,
         },
         {
           $set: {

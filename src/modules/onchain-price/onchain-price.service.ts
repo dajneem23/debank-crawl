@@ -164,10 +164,6 @@ export class OnChainPriceService {
                 {
                   $toString: '$log_index',
                 },
-                ':',
-                {
-                  $toString: '$type',
-                },
               ],
             },
           },

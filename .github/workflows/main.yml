@@ -63,9 +63,9 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.SHORT_SHA }}
           build-args: |
-            ENV_VARS=${{ secrets.SECRETS }}
-            APP_ENV=$(echo $APP_ENV)
-            MODE=$(echo $MODE)
+            "ENV_VARS=${{ secrets.SECRETS }}"
+            "APP_ENV=$(echo $APP_ENV)"
+            "MODE=$(echo $MODE)"
 
 
   deploy:

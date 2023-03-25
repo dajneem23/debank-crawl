@@ -73,8 +73,8 @@ jobs:
             MODE=${{ env.MODE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: print image info
-        run: doctl compute image get $(doctl compute image list | grep $(echo $IMAGE_NAME) | awk '{print $1}') --format "ID,Name,Slug,Public,Regions,MinDiskSize,SizeGigaBytes,Description,Type,Status,Tags,CreatedAt,UpdatedAt"
+      - name: Print image info
+        run: doctl compute image get $(echo $IMAGE_NAME)):$(echo $GITHUB_SHA | head -c7) --format "ID,Name,Slug,Public,Regions,MinDiskSize,SizeGigaBytes,Description,Type,Status,Tags,CreatedAt,UpdatedAt"
 
 
 

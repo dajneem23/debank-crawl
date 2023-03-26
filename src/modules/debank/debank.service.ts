@@ -38,6 +38,7 @@ import {
   updateDebankUserProfile,
 } from './debank.fnc';
 import { initQueue, initQueueListeners } from '@/utils/bullmq';
+import { workerProcessor } from './debank.process';
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 const current_address = '0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d';
@@ -167,12 +168,13 @@ export class DebankService {
    *  @description init BullMQ Worker
    */
   private initWorker() {
-    this.worker = new Worker('debank', this.workerProcessor.bind(this), {
+    this.worker = new Worker('debank', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
-      concurrency: 10,
-      stalledInterval: 1000 * 60,
+      lockDuration: 1000 * 60 * 2.5,
+      concurrency: 5,
+      stalledInterval: 1000 * 30,
+      skipLockRenewal: true,
       maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.ONE_WEEK,
@@ -180,10 +182,10 @@ export class DebankService {
     });
     this.initWorkerListeners(this.worker);
 
-    this.workerInsert = new Worker('debank-insert', this.workerProcessor.bind(this), {
+    this.workerInsert = new Worker('debank-insert', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60,
       concurrency: 200,
       limiter: {
         max: 500,
@@ -197,10 +199,10 @@ export class DebankService {
     });
     this.initWorkerListeners(this.workerInsert);
 
-    this.workerWhale = new Worker('debank-whale', this.workerProcessor.bind(this), {
+    this.workerWhale = new Worker('debank-whale', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60,
       concurrency: 5,
       limiter: {
         max: 50,
@@ -215,10 +217,11 @@ export class DebankService {
     });
     this.initWorkerListeners(this.workerWhale);
 
-    this.workerTopHolder = new Worker('debank-top-holder', this.workerProcessor.bind(this), {
+    this.workerTopHolder = new Worker('debank-top-holder', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60 * 2.5,
+      skipLockRenewal: true,
       concurrency: 5,
       stalledInterval: 1000 * 60,
       maxStalledCount: 5,
@@ -228,10 +231,10 @@ export class DebankService {
     });
     this.initWorkerListeners(this.workerTopHolder);
 
-    this.workerRanking = new Worker('debank-ranking', this.workerProcessor.bind(this), {
+    this.workerRanking = new Worker('debank-ranking', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
+      lockDuration: 1000 * 60,
       concurrency: 5,
       limiter: {
         max: 50,
@@ -245,7 +248,7 @@ export class DebankService {
     });
     this.initWorkerListeners(this.workerRanking);
 
-    this.workerCommon = new Worker('debank-common', this.workerProcessor.bind(this), {
+    this.workerCommon = new Worker('debank-common', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
@@ -710,15 +713,6 @@ export class DebankService {
         priority: 2,
         attempts: 5,
       },
-    );
-  }
-
-  workerProcessor({ name, data = {}, id }: Job<any>): Promise<void> {
-    return (
-      this.jobs[name as keyof typeof this.jobs]?.call(this, {
-        jobId: id,
-        ...((data && data) || {}),
-      }) || this.jobs.default()
     );
   }
 

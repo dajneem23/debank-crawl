@@ -8,6 +8,7 @@ import { env } from 'process';
 import Container from 'typedi';
 import { DexscreenerJob, DexscreenerJobNames } from './dexscreener.job';
 import { DexScreenerPair, TradingHistory } from './dexscreener.type';
+import { workerProcessor } from './dexsceener.process';
 const pgPool = Container.get(pgPoolToken);
 export class DexScreenerService {
   private logger = new Logger('DexScreenerService');
@@ -42,7 +43,7 @@ export class DexScreenerService {
    *  @description init BullMQ Worker
    */
   private initWorker() {
-    this.worker = new Worker('dexscreener', this.workerProcessor.bind(this), {
+    this.worker = new Worker('dexscreener', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
@@ -130,10 +131,7 @@ export class DexScreenerService {
       );
     });
   }
-  workerProcessor({ name, data }: Job<DexscreenerJob>): Promise<void> {
-    // this.logger.debug('info', `[dexscreener:workerProcessor:run]`, { name, data });
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
-  }
+
   async fetchTradingHistories({
     baseToken,
     quoteToken,

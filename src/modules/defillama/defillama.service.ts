@@ -152,6 +152,7 @@ export class DefillamaService {
       //   max: 600,
       //   duration: 60 * 1000,
       // },
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -167,6 +168,7 @@ export class DefillamaService {
       //   max: 600,
       //   duration: 60 * 1000,
       // },
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -182,6 +184,7 @@ export class DefillamaService {
       //   max: 600,
       //   duration: 60 * 1000,
       // },
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -418,7 +421,7 @@ export class DefillamaService {
         repeatJobKey: 'defillama:add:update:coins:current:price',
         jobId: 'defillama:add:update:coins:current:price',
         repeat: {
-          every: 1000 * 60 * 5,
+          every: 1000 * 60 * 2.5,
         },
         removeOnComplete: true,
         removeOnFail: false,
@@ -955,10 +958,6 @@ export class DefillamaService {
                 {
                   $toString: '$log_index',
                 },
-                ':',
-                {
-                  $toString: '$type',
-                },
               ],
             },
           },
@@ -1159,13 +1158,12 @@ export class DefillamaService {
       )
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { tx_hash, log_index, from, to, type: tx_type } = transaction;
+      const { tx_hash, log_index, from, to } = transaction;
       return {
         name: 'defillama:update:pool:of:transaction',
         data: {
           tx_hash,
           log_index,
-          tx_type,
           from,
           to,
         },
@@ -1197,13 +1195,11 @@ export class DefillamaService {
     to,
     tx_hash,
     log_index,
-    tx_type,
   }: {
     tx_hash: string;
     from: string;
     to: string;
     log_index: number;
-    tx_type: string;
   }) {
     // console.log({ tx_hash, from, to });
     const pools = await this.mgClient
@@ -1223,7 +1219,6 @@ export class DefillamaService {
           {
             tx_hash,
             log_index,
-            tx_type,
           },
           {
             $set: {
@@ -1249,7 +1244,6 @@ export class DefillamaService {
         {
           tx_hash,
           log_index,
-          tx_type,
         },
         {
           $set: {
@@ -1332,7 +1326,7 @@ export class DefillamaService {
           setExpireRedisKey({
             key: `price:${symbol}`,
             expire: 60 * 5,
-            value: price,
+            value: `${timestamp}:${price}`,
           }),
           this.mgClient
             .db('onchain')

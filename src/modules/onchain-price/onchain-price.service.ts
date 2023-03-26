@@ -162,10 +162,6 @@ export class OnChainPriceService {
                 {
                   $toString: '$log_index',
                 },
-                ':',
-                {
-                  $toString: '$type',
-                },
               ],
             },
           },
@@ -280,36 +276,44 @@ export class OnChainPriceService {
       chain: chain.chainId as any,
       decimals: decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain.chainId],
     });
-    await this.mgClient
-      .db(getMgOnChainDbName())
-      .collection('token-price')
-      .findOneAndUpdate(
-        {
-          timestamp: _timestamp,
-          token_address: token,
-        },
-        {
-          $set: {
-            price,
-            updated_at: new Date(),
-          },
-          $setOnInsert: {
+    await Promise.all([
+      this.mgClient
+        .db(getMgOnChainDbName())
+        .collection('token-price')
+        .findOneAndUpdate(
+          {
             timestamp: _timestamp,
             token_address: token,
-            symbol,
-            decimals,
-            contract: {
-              reserve0,
-              reserve1,
-              blockNumber,
+          },
+          {
+            $set: {
+              price,
+              updated_at: new Date(),
+            },
+            $setOnInsert: {
+              timestamp: _timestamp,
+              token_address: token,
+              symbol,
               decimals,
+              contract: {
+                reserve0,
+                reserve1,
+                blockNumber,
+                decimals,
+              },
             },
           },
-        },
-        {
-          upsert: true,
-        },
-      );
+          {
+            upsert: true,
+          },
+        ),
+      setExpireRedisKey({
+        key: `price:${symbol}`,
+        expire: 60 * 5,
+        value: `${timestamp}:${price}`,
+      }),
+    ]);
+
     return {
       price,
       timestamp: _timestamp,

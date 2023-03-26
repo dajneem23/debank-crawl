@@ -22,7 +22,7 @@ export const getCoinsHistorical = async ({ coins: _coins, timestamp }) => {
   const { data, status } = await DefillamaAPI.fetch({
     endpoint: DefillamaAPI.Coins.historical.endpoint.replace(':coins', _coins).replace(':timestamp', timestamp),
     params: {
-      searchWidth: '6h',
+      searchWidth: '1d',
     },
   });
 

@@ -18,7 +18,7 @@ env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
   IMAGE_NAME: 'wikiblock-cronjob-staging'
   APP_ENV: 'staging'
-  MODE: 'development'
+  MODE: 'production'
 
 #3
 jobs:
@@ -39,10 +39,6 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: 'yarn.lock'
 
-      - name: Install dependencies
-        run: yarn install  --pure-lockfile
-        if: steps.cache.outputs.cache-hit != 'true'
-
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
@@ -53,10 +49,19 @@ jobs:
 
       - name: Remove all old images
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
+        continue-on-error: true
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: image=moby/buildkit:master
+          buildkitd-flags: --debug
 
       - name: Build docker image and push to registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
@@ -68,8 +73,6 @@ jobs:
             MODE=${{ env.MODE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: print image info
-        run: doctl compute image get $(doctl compute image list | grep $(echo $IMAGE_NAME) | awk '{print $1}') --format "ID,Name,Slug,Public,Regions,MinDiskSize,SizeGigaBytes,Description,Type,Status,Tags,CreatedAt,UpdatedAt"
 
   deploy:
     runs-on: ubuntu-latest
@@ -99,8 +102,7 @@ jobs:
             -p 127.0.0.1:9002:9002 \
             --restart always \
             -v /var/run/docker.sock:/var/run/docker.sock \
-            --memory-swappiness=100 \
-            --cpus=4 \
-            --cpu-shares=4096 \
+            --cpus 4 \
+            --memory 8g \
             --name $(echo $IMAGE_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)

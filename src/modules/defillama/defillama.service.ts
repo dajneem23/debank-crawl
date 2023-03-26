@@ -22,6 +22,7 @@ import Bluebird from 'bluebird';
 import { chunk, uniq } from 'lodash';
 import { CHAINS } from '@/types/chain';
 import { getRedisKeys, setExpireRedisKey } from '@/service/redis/func';
+import { workerProcessor } from './defiilama.process';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -97,7 +98,7 @@ export class DefillamaService {
    *  @description init BullMQ Worker
    */
   private initWorker() {
-    this.worker = new Worker('defillama', this.workerProcessor.bind(this), {
+    this.worker = new Worker('defillama', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
@@ -114,7 +115,7 @@ export class DefillamaService {
     });
     this.initWorkerListeners(this.worker);
 
-    this.workerOnchain = new Worker('defillama-onchain', this.workerProcessor.bind(this), {
+    this.workerOnchain = new Worker('defillama-onchain', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 30,
@@ -125,20 +126,28 @@ export class DefillamaService {
       //   max: 200,
       //   duration: 60 * 1000,
       // },
-      maxStalledCount: 50,
+      maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.initWorkerListeners(this.workerOnchain);
+    this.workerOnchain.on('completed', async (job) => {
+      const discord = Container.get(DIDiscordClient);
 
-    this.workerToken = new Worker('defillama-token', this.workerProcessor.bind(this), {
+      await discord.sendMsg({
+        message: `Onchain job completed: ${job.id}`,
+        channelId: '1041620555188682793',
+      });
+    });
+
+    this.workerToken = new Worker('defillama-token', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 30,
       stalledInterval: 1000 * 15,
       skipLockRenewal: true,
-      concurrency: 50,
+      concurrency: 25,
       // limiter: {
       //   max: 600,
       //   duration: 60 * 1000,
@@ -149,7 +158,7 @@ export class DefillamaService {
     });
     this.initWorkerListeners(this.workerToken);
 
-    this.workerPool = new Worker('defillama-pool', this.workerProcessor.bind(this), {
+    this.workerPool = new Worker('defillama-pool', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
@@ -164,10 +173,10 @@ export class DefillamaService {
     });
     this.initWorkerListeners(this.workerPool);
 
-    this.workerPrice = new Worker('defillama-price', this.workerProcessor.bind(this), {
+    this.workerPrice = new Worker('defillama-price', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
+      lockDuration: 1000 * 30,
       concurrency: 25,
       // limiter: {
       //   max: 600,
@@ -353,21 +362,22 @@ export class DefillamaService {
     //     removeOnFail: true,
     //   },
     // });
-    this.queue.add(
-      'defillama:add:fetch:coin:historical',
-      {},
-      {
-        repeatJobKey: 'defillama:add:fetch:coin:historical',
-        jobId: 'defillama:add:fetch:coin:historical',
-        repeat: {
-          every: 1000 * 60 * 60,
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-        priority: 1,
-        attempts: 5,
-      },
-    );
+    //TODO: FIX THIS
+    // this.queue.add(
+    //   'defillama:add:fetch:coin:historical',
+    //   {},
+    //   {
+    //     repeatJobKey: 'defillama:add:fetch:coin:historical',
+    //     jobId: 'defillama:add:fetch:coin:historical',
+    //     repeat: {
+    //       every: 1000 * 60 * 60,
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // );
     this.queue.add(
       'defillama:add:update:usd:value:of:transaction',
       {},
@@ -473,10 +483,6 @@ export class DefillamaService {
         JSON.stringify(error),
       );
     });
-  }
-  workerProcessor({ name, data }: Job<DefillamaJobData>): Promise<void> {
-    // this.logger.debug('info', `[defillama:workerProcessor:run]`, { name, data });
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async fetchTVLProtocols() {
     try {

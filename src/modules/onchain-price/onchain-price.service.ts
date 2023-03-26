@@ -20,6 +20,7 @@ import { DIDiscordClient } from '@/loaders/discord.loader';
 import { daysDiff } from '@/utils/date';
 import { OnchainPriceJob } from './onchain-price.job';
 import { getRedisKeys } from '@/service/redis/func';
+import { workerProcessor } from './onchain-price.process';
 export class OnChainPriceService {
   private logger = new Logger('PairBookService');
 
@@ -55,7 +56,7 @@ export class OnChainPriceService {
    *  @description init BullMQ Worker
    */
   private initWorker() {
-    this.worker = new Worker('onchain-price', this.workerProcessor.bind(this), {
+    this.worker = new Worker('onchain-price', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 30,
@@ -134,10 +135,6 @@ export class OnChainPriceService {
         JSON.stringify(error),
       );
     });
-  }
-  workerProcessor({ name, data }: Job<any>): Promise<void> {
-    // this.logger.debug('info', `[onchainPrice:workerProcessor:run]`, { name, data });
-    return this.jobs[name as keyof typeof this.jobs]?.call(this, data) || this.jobs.default();
   }
   async addUpdateUsdValueOfTransactionsJob() {
     const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';

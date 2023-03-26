@@ -19,6 +19,7 @@ import { createArrayDateByHours, createArrayDates, formatDate } from '@/utils/da
 import { Db, MongoClient } from 'mongodb';
 import { Group3Alphabet } from '@/utils/text';
 import { pgClientToken } from '@/loaders/pg.loader';
+import { workerProcessor } from './coingecko.process';
 
 /**
  * @class CoingeckoAsset
@@ -103,7 +104,7 @@ export class CoinGeckoService {
    *  @description init BullMQ Worker
    */
   private initWorker() {
-    this.worker = new Worker('coingecko', this.workerProcessor.bind(this), {
+    this.worker = new Worker('coingecko', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
@@ -116,7 +117,7 @@ export class CoinGeckoService {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
-    this.workerMarket = new Worker('coingecko-market', this.workerProcessor.bind(this), {
+    this.workerMarket = new Worker('coingecko-market', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
@@ -668,15 +669,6 @@ export class CoinGeckoService {
         JSON.stringify(error),
       );
     });
-  }
-  workerProcessor({ name, data = {}, id }: Job<any>): Promise<void> {
-    // this.logger.discord('info', `[debank:workerProcessor:run]`, name);
-    return (
-      this.jobs[name as keyof typeof this.jobs]?.call(this, {
-        jobId: id,
-        ...((data && data) || {}),
-      }) || this.jobs.default()
-    );
   }
 
   async addFetchCoinPriceFromDebankCoins() {

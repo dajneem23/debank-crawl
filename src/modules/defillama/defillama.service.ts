@@ -86,7 +86,6 @@ export class DefillamaService {
   };
 
   constructor() {
-    this.addUpdateUsdValueOfTransactionsJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -915,14 +914,14 @@ export class DefillamaService {
   }
 
   async addUpdateUsdValueOfTransactionsJob() {
-    const redisPattern = 'bull:defillama-onchain:defillama:update:usd:value:of:transaction';
-    const defillamaOnchainKeys = await getRedisKeys(`${redisPattern}:*`);
-    const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';
-    const onchainPriceKeys = await getRedisKeys(`${onchainPricePattern}:*`);
-    const _keys = uniq([
-      ...defillamaOnchainKeys.map((key) => key.replace(`${redisPattern}:`, '')),
-      ...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, '')),
-    ]);
+    // const redisPattern = 'bull:defillama-onchain:defillama:update:usd:value:of:transaction';
+    // const defillamaOnchainKeys = await getRedisKeys(`${redisPattern}:*`);
+    // const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';
+    // const onchainPriceKeys = await getRedisKeys(`${onchainPricePattern}:*`);
+    // const _keys = uniq([
+    //   ...defillamaOnchainKeys.map((key) => key.replace(`${redisPattern}:`, '')),
+    //   ...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, '')),
+    // ]);
     const transactions = await this.mgClient
       .db('onchain')
       .collection('tx-event')
@@ -934,30 +933,30 @@ export class DefillamaService {
             },
           },
         },
-        {
-          $set: {
-            _key: {
-              $concat: [
-                {
-                  $toString: '$tx_hash',
-                },
-                ':',
-                {
-                  $toString: '$log_index',
-                },
-              ],
-            },
-          },
-        },
-        {
-          $match: {
-            _key: {
-              $not: {
-                $in: _keys,
-              },
-            },
-          },
-        },
+        // {
+        //   $set: {
+        //     _key: {
+        //       $concat: [
+        //         {
+        //           $toString: '$tx_hash',
+        //         },
+        //         ':',
+        //         {
+        //           $toString: '$log_index',
+        //         },
+        //       ],
+        //     },
+        //   },
+        // },
+        // {
+        //   $match: {
+        //     _key: {
+        //       $not: {
+        //         $in: _keys,
+        //       },
+        //     },
+        //   },
+        // },
         {
           $limit: 20000,
         },
@@ -985,7 +984,9 @@ export class DefillamaService {
         opts: {
           jobId: `defillama:update:usd:value:of:transaction:${tx_hash}:${log_index}`,
           removeOnComplete: true,
-          removeOnFail: false,
+          removeOnFail: {
+            age: 60 * 5,
+          },
           priority: daysDiff(new Date(), new Date(timestamp * 1000)),
           attempts: 10,
         },

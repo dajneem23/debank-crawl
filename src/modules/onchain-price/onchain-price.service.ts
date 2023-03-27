@@ -19,7 +19,7 @@ import { getPairPriceAtBlock } from '@/service/ethers/price';
 import { DIDiscordClient } from '@/loaders/discord.loader';
 import { daysDiff } from '@/utils/date';
 import { OnchainPriceJob } from './onchain-price.job';
-import { getRedisKeys } from '@/service/redis/func';
+import { getRedisKeys, setExpireRedisKey } from '@/service/redis/func';
 import { workerProcessor } from './onchain-price.process';
 export class OnChainPriceService {
   private logger = new Logger('PairBookService');

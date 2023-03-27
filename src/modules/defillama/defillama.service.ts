@@ -103,8 +103,9 @@ export class DefillamaService {
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 5,
       concurrency: 100,
-      stalledInterval: 1000 * 60,
-      maxStalledCount: 10,
+      stalledInterval: 1000 * 15,
+      skipLockRenewal: true,
+      maxStalledCount: 5,
       // limiter: {
       //   max: 200,
       //   duration: 60 * 1000,
@@ -121,7 +122,7 @@ export class DefillamaService {
       lockDuration: 1000 * 30,
       skipLockRenewal: true,
       stalledInterval: 1000 * 15,
-      concurrency: 100,
+      concurrency: 200,
       // limiter: {
       //   max: 200,
       //   duration: 60 * 1000,
@@ -896,7 +897,7 @@ export class DefillamaService {
             return {
               name: 'defillama:fetch:coin:historical:data:id:timestamp',
               data: {
-                id: `coingecko:${coingeckoId}`,
+                id: coingeckoId ? `coingecko:${coingeckoId}` : `ethereum:${chain_id}:${address}`,
                 symbol,
                 timestamp,
                 token: address,
@@ -1355,7 +1356,7 @@ export class DefillamaService {
         ]);
       },
       {
-        concurrency: 20,
+        concurrency: 50,
       },
     );
   }

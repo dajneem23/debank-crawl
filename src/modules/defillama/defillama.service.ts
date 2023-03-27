@@ -165,7 +165,8 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 100,
+      skipLockRenewal: true,
+      concurrency: 20,
       // limiter: {
       //   max: 600,
       //   duration: 60 * 1000,
@@ -181,7 +182,8 @@ export class DefillamaService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 30,
-      concurrency: 25,
+      skipLockRenewal: true,
+      concurrency: 20,
       // limiter: {
       //   max: 600,
       //   duration: 60 * 1000,
@@ -925,57 +927,25 @@ export class DefillamaService {
     const transactions = await this.mgClient
       .db('onchain')
       .collection('tx-event')
-      .aggregate([
-        {
-          $match: {
-            usd_value: {
-              $exists: false,
-            },
-          },
+      .find({
+        usd_value: {
+          $exists: false,
         },
-        // {
-        //   $set: {
-        //     _key: {
-        //       $concat: [
-        //         {
-        //           $toString: '$tx_hash',
-        //         },
-        //         ':',
-        //         {
-        //           $toString: '$log_index',
-        //         },
-        //       ],
-        //     },
-        //   },
-        // },
-        // {
-        //   $match: {
-        //     _key: {
-        //       $not: {
-        //         $in: _keys,
-        //       },
-        //     },
-        //   },
-        // },
-        {
-          $limit: 20000,
-        },
-        {
-          $sort: {
-            block_at: -1,
-          },
-        },
-      ])
+      })
+      .sort({
+        block_at: -1,
+      })
+      .limit(20000)
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { tx_hash, token: token, symbol, timestamp, amount, chain_id, block_number, log_index } = transaction;
+      const { tx_hash, token: token, symbol, block_at, amount, chain_id, block_number, log_index } = transaction;
       return {
         name: 'defillama:update:usd:value:of:transaction',
         data: {
           log_index,
           tx_hash,
           token,
-          timestamp,
+          timestamp: block_at,
           amount,
           chain_id,
           block_number,
@@ -987,7 +957,7 @@ export class DefillamaService {
           removeOnFail: {
             age: 60 * 5,
           },
-          priority: daysDiff(new Date(), new Date(timestamp * 1000)),
+          priority: daysDiff(new Date(), new Date(block_at * 1000)),
           attempts: 10,
         },
       };
@@ -1257,7 +1227,7 @@ export class DefillamaService {
         },
       })
       .toArray();
-    const list_coins = chunk(coins, 100);
+    const list_coins = chunk(coins, 50);
     const jobs = list_coins.map((coin) => {
       return {
         name: 'defillama:update:coins:current:price',

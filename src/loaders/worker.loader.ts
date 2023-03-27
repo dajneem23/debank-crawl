@@ -15,6 +15,7 @@ import { WatchersProService } from '@/modules/watchers-pro/watchers-pro.service'
 import { EtherScanService } from '@/modules/etherscan/ethersan.service';
 import { PairBookService } from '@/modules/pair-book/pair-book.service';
 import { OnChainPriceService } from '@/modules/onchain-price/onchain-price.service';
+import { InitTokenQueue } from '@/service/token/queue';
 const WorkerLoader = () => {
   // new DexScreenerService();
   new DebankService();
@@ -27,6 +28,8 @@ const WorkerLoader = () => {
   // new AssetService();
 
   new NansenService();
+
+  InitTokenQueue();
   // new AssetTrendingService();
   // new CategoryService();
   // new ExchangeService();

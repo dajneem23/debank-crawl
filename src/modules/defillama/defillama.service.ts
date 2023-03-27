@@ -23,6 +23,7 @@ import { chunk, uniq } from 'lodash';
 import { CHAINS } from '@/types/chain';
 import { getRedisKeys, setExpireRedisKey } from '@/service/redis/func';
 import { workerProcessor } from './defiilama.process';
+import { getTokenOnRedis } from '@/service/token/func';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -382,21 +383,21 @@ export class DefillamaService {
     //     attempts: 5,
     //   },
     // );
-    this.queue.add(
-      'defillama:add:update:usd:value:of:transaction',
-      {},
-      {
-        repeatJobKey: 'defillama:add:update:usd:value:of:transaction',
-        jobId: 'defillama:add:update:usd:value:of:transaction',
-        repeat: {
-          every: 1000 * 60 * 15,
-        },
-        removeOnComplete: true,
-        removeOnFail: false,
-        priority: 1,
-        attempts: 5,
-      },
-    );
+    // this.queue.add(
+    //   'defillama:add:update:usd:value:of:transaction',
+    //   {},
+    //   {
+    //     repeatJobKey: 'defillama:add:update:usd:value:of:transaction',
+    //     jobId: 'defillama:add:update:usd:value:of:transaction',
+    //     repeat: {
+    //       every: 1000 * 60 * 15,
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: false,
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // );
     //!fixing
     //TODO: fix this
     // this.queue.add(
@@ -791,11 +792,11 @@ export class DefillamaService {
       .db(getMgOnChainDbName())
       .collection('token-price')
       .findOne({
-        $or: [{ id }, { token_address: token }],
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
         },
+        $or: [{ id }, { token_address: token }],
       });
     if (exists && exists.price) {
       return exists;
@@ -819,31 +820,15 @@ export class DefillamaService {
       throw new Error('fetchCoinsHistoricalData: Invalid response');
     }
     const { price, timestamp: _timestamp, decimals, symbol } = coins[id];
-    await this.mgClient
-      .db(getMgOnChainDbName())
-      .collection('token-price')
-      .findOneAndUpdate(
-        {
-          timestamp: _timestamp,
-          $or: [{ id }, { token_address: token }],
-        },
-        {
-          $set: {
-            price,
-            updated_at: new Date(),
-          },
-          $setOnInsert: {
-            timestamp: _timestamp,
-            id,
-            symbol,
-            decimals,
-            token_address: token,
-          },
-        },
-        {
-          upsert: true,
-        },
-      );
+    await this.mgClient.db(getMgOnChainDbName()).collection('token-price').insertOne({
+      price,
+      updated_at: new Date(),
+      timestamp: _timestamp,
+      id,
+      symbol,
+      decimals,
+      token_address: token,
+    });
     return {
       price,
       timestamp: _timestamp,
@@ -943,7 +928,7 @@ export class DefillamaService {
       .aggregate([
         {
           $match: {
-            price: {
+            usd_value: {
               $exists: false,
             },
           },
@@ -977,7 +962,7 @@ export class DefillamaService {
         },
         {
           $sort: {
-            timestamp: -1,
+            block_at: -1,
           },
         },
       ])
@@ -1058,9 +1043,14 @@ export class DefillamaService {
         );
         throw new Error('updateUsdValueOfTransaction: Invalid chain');
       }
-      const _token = await this.mgClient.db('onchain').collection('token').findOne({
-        address: token,
-      });
+      const _token =
+        (await getTokenOnRedis({
+          chainId: chain_id,
+          address: token,
+        })) ??
+        (await this.mgClient.db('onchain').collection('token').findOne({
+          address: token,
+        }));
       if (!_token || !_token.coingeckoId) {
         this.logger.discord(
           'error',
@@ -1241,29 +1231,17 @@ export class DefillamaService {
     await this.mgClient
       .db(getMgOnChainDbName())
       .collection('transaction-pool-log')
-      .findOneAndUpdate(
-        {
-          tx_hash,
-          log_index,
-        },
-        {
-          $set: {
-            updated_at: new Date(),
-            pools: pools.map(({ pool_id: id, details: { name }, protocol_id, chain }) => ({
-              id,
-              name,
-              protocol_id,
-              chain,
-            })),
-          },
-          $setOnInsert: {
-            tx_hash,
-          },
-        },
-        {
-          upsert: true,
-        },
-      );
+      .insertOne({
+        tx_hash,
+        log_index,
+        updated_at: new Date(),
+        pools: pools.map(({ pool_id: id, details: { name }, protocol_id, chain }) => ({
+          id,
+          name,
+          protocol_id,
+          chain,
+        })),
+      });
   }
 
   async addUpdateCoinsCurrentPriceJob() {
@@ -1329,30 +1307,14 @@ export class DefillamaService {
             expire: 60 * 5,
             value: `${timestamp}:${price}`,
           }),
-          this.mgClient
-            .db('onchain')
-            .collection('token-price')
-            .updateOne(
-              {
-                id,
-                timestamp,
-              },
-              {
-                $set: {
-                  price,
-                  updated_at,
-                },
-                $setOnInsert: {
-                  id,
-                  symbol,
-                  timestamp,
-                  updated_by: 'defillama',
-                },
-              },
-              {
-                upsert: true,
-              },
-            ),
+          this.mgClient.db('onchain').collection('token-price').insertOne({
+            price,
+            updated_at,
+            id,
+            symbol,
+            timestamp,
+            updated_by: 'defillama',
+          }),
         ]);
       },
       {

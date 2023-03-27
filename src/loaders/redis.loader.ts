@@ -4,6 +4,7 @@ import { DILogger } from '@/loaders/logger.loader';
 import env from '@/config/env';
 import IORedis from 'ioredis';
 import { setExpireRedisKey } from '@/service/redis/func';
+import { getTokenOnRedis, saveAllTokensToRedis } from '@/service/token/func';
 
 export const DIRedisClient = new Token<RedisClientType>('redisClient');
 

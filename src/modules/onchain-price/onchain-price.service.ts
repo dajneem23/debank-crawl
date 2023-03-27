@@ -146,7 +146,7 @@ export class OnChainPriceService {
       .aggregate([
         {
           $match: {
-            price: {
+            usd_value: {
               $exists: false,
             },
           },
@@ -180,7 +180,7 @@ export class OnChainPriceService {
         },
         {
           $sort: {
-            timestamp: -1,
+            block_at: -1,
           },
         },
       ])
@@ -251,11 +251,11 @@ export class OnChainPriceService {
       .db('onchain')
       .collection('token-price')
       .findOne({
-        token_address: token,
         timestamp: {
           $lte: timestamp + 1000 * 60,
           $gte: timestamp - 1000 * 60,
         },
+        token_address: token,
       });
     if (tokenPrice) {
       return {
@@ -277,36 +277,20 @@ export class OnChainPriceService {
       decimals: decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain.chainId],
     });
     await Promise.all([
-      this.mgClient
-        .db(getMgOnChainDbName())
-        .collection('token-price')
-        .findOneAndUpdate(
-          {
-            timestamp: _timestamp,
-            token_address: token,
-          },
-          {
-            $set: {
-              price,
-              updated_at: new Date(),
-            },
-            $setOnInsert: {
-              timestamp: _timestamp,
-              token_address: token,
-              symbol,
-              decimals,
-              contract: {
-                reserve0,
-                reserve1,
-                blockNumber,
-                decimals,
-              },
-            },
-          },
-          {
-            upsert: true,
-          },
-        ),
+      this.mgClient.db(getMgOnChainDbName()).collection('token-price').insertOne({
+        price,
+        updated_at: new Date(),
+        timestamp: _timestamp,
+        token_address: token,
+        symbol,
+        decimals,
+        contract: {
+          reserve0,
+          reserve1,
+          blockNumber,
+          decimals,
+        },
+      }),
       setExpireRedisKey({
         key: `price:${symbol}`,
         expire: 60 * 5,

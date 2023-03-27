@@ -2,7 +2,7 @@ import Container from 'typedi';
 import Logger from '@/core/logger';
 import { pgPoolToken } from '@/loaders/pg.loader';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
-import { env } from 'process';
+import { env, exit } from 'process';
 import { DIRedisConnection } from '@/loaders/redis.loader';
 
 import { DefillamaJobData, DefillamaJobNames } from './defillama.job';
@@ -86,6 +86,7 @@ export class DefillamaService {
   };
 
   constructor() {
+    this.addUpdateUsdValueOfTransactionsJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -123,7 +124,7 @@ export class DefillamaService {
       lockDuration: 1000 * 30,
       skipLockRenewal: true,
       stalledInterval: 1000 * 15,
-      concurrency: 200,
+      concurrency: 500,
       // limiter: {
       //   max: 200,
       //   duration: 60 * 1000,
@@ -383,21 +384,21 @@ export class DefillamaService {
     //     attempts: 5,
     //   },
     // );
-    // this.queue.add(
-    //   'defillama:add:update:usd:value:of:transaction',
-    //   {},
-    //   {
-    //     repeatJobKey: 'defillama:add:update:usd:value:of:transaction',
-    //     jobId: 'defillama:add:update:usd:value:of:transaction',
-    //     repeat: {
-    //       every: 1000 * 60 * 15,
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: false,
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // );
+    this.queue.add(
+      'defillama:add:update:usd:value:of:transaction',
+      {},
+      {
+        repeatJobKey: 'defillama:add:update:usd:value:of:transaction',
+        jobId: 'defillama:add:update:usd:value:of:transaction',
+        repeat: {
+          every: 1000 * 60 * 15,
+        },
+        removeOnComplete: true,
+        removeOnFail: false,
+        priority: 1,
+        attempts: 5,
+      },
+    );
     //!fixing
     //TODO: fix this
     // this.queue.add(
@@ -967,7 +968,6 @@ export class DefillamaService {
         },
       ])
       .toArray();
-
     const jobs = transactions.map((transaction) => {
       const { tx_hash, token: token, symbol, timestamp, amount, chain_id, block_number, log_index } = transaction;
       return {
@@ -1090,34 +1090,34 @@ export class DefillamaService {
             },
           },
         );
-      await Promise.all([
-        this.mgClient
-          .db('onchain-log')
-          .collection('transaction-price-log')
-          .insertOne({
-            tx_hash,
-            input: {
-              tx_hash,
-              log_index,
-              token,
-              timestamp,
-              amount,
-              chain_id,
-              block_number,
-              symbol,
-            },
-            output: {
-              price,
-              usd_value: amount * price,
-              price_at: _timestamp,
-            },
-            var: {
-              chain,
-            },
-            updated_by: 'defillama-onchain',
-            updated_at: new Date(),
-          }),
-      ]);
+      // await Promise.all([
+      //   this.mgClient
+      //     .db('onchain-log')
+      //     .collection('transaction-price-log')
+      //     .insertOne({
+      //       tx_hash,
+      //       input: {
+      //         tx_hash,
+      //         log_index,
+      //         token,
+      //         timestamp,
+      //         amount,
+      //         chain_id,
+      //         block_number,
+      //         symbol,
+      //       },
+      //       output: {
+      //         price,
+      //         usd_value: amount * price,
+      //         price_at: _timestamp,
+      //       },
+      //       var: {
+      //         chain,
+      //       },
+      //       updated_by: 'defillama-onchain',
+      //       updated_at: new Date(),
+      //     }),
+      // ]);
     } catch (error) {
       this.logger.discord(
         'error',

@@ -59,8 +59,9 @@ export class OnChainPriceService {
     this.worker = new Worker('onchain-price', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 30,
+      lockDuration: 1000 * 60 * 3,
       skipLockRenewal: true,
+      stalledInterval: 1000 * 15,
       concurrency: 25,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -275,6 +276,7 @@ export class OnChainPriceService {
       blockNumber: blockNumber,
       chain: chain.chainId as any,
       decimals: decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain.chainId],
+      retry: 3,
     });
     await Promise.all([
       this.mgClient.db(getMgOnChainDbName()).collection('token-price').insertOne({
@@ -398,39 +400,39 @@ export class OnChainPriceService {
         },
       );
     //log
-    await this.mgClient
-      .db('onchain-log')
-      .collection('transaction-price-log')
-      .insertOne({
-        tx_hash,
-        input: {
-          tx_hash,
-          log_index,
-          chain_id,
-          amount,
-          block_number,
-          timestamp,
-          token,
-        },
-        output: {
-          chain,
-          price,
-          usd_value: amount * price,
-          price_at: _timestamp,
-        },
-        var: {
-          token,
-          pairs,
-          pair,
-          reserve0,
-          reserve1,
-          retryTime,
-          _timestamp,
-          quoteToken,
-          decimals: _token.decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain_id],
-        },
-        updated_by: 'onchain-price',
-        updated_at: new Date(),
-      });
+    // await this.mgClient
+    //   .db('onchain-log')
+    //   .collection('transaction-price-log')
+    //   .insertOne({
+    //     tx_hash,
+    //     input: {
+    //       tx_hash,
+    //       log_index,
+    //       chain_id,
+    //       amount,
+    //       block_number,
+    //       timestamp,
+    //       token,
+    //     },
+    //     output: {
+    //       chain,
+    //       price,
+    //       usd_value: amount * price,
+    //       price_at: _timestamp,
+    //     },
+    //     var: {
+    //       token,
+    //       pairs,
+    //       pair,
+    //       reserve0,
+    //       reserve1,
+    //       retryTime,
+    //       _timestamp,
+    //       quoteToken,
+    //       decimals: _token.decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain_id],
+    //     },
+    //     updated_by: 'onchain-price',
+    //     updated_at: new Date(),
+    //   });
   }
 }

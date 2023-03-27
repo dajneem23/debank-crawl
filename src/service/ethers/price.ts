@@ -10,11 +10,13 @@ export const getPairPriceAtBlock = async ({
   blockNumber,
   decimals,
   chain,
+  retry = 5,
 }: {
   pairAddress: string;
   blockNumber: number;
   chain: 'ETH' | 1 | 'BSC' | 'BNB' | 56;
   decimals: number;
+  retry?: number;
 }): Promise<{
   price: number;
   timestamp: number;
@@ -34,6 +36,7 @@ export const getPairPriceAtBlock = async ({
       pairAddress,
       blockNumber,
       decimals,
+      retry,
     }) ||
     (() => {
       throw new Error('Chain not supported');
@@ -45,7 +48,7 @@ export const getETHPairPriceAtBlock = async ({
   pairAddress,
   blockNumber,
   decimals,
-  retry = 5,
+  retry,
   retryTime = 0,
 }: {
   pairAddress: string;

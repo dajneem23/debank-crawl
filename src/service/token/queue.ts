@@ -9,7 +9,21 @@ const job = {
 };
 
 const initRepeatJobs = async function (queue: Queue) {
-  queue.add('update:tokens-to-redis', {}, {});
+  queue.add(
+    'update:tokens-to-redis',
+    {},
+    {
+      repeatJobKey: 'update:tokens-to-redis',
+      jobId: 'update:tokens-to-redis',
+      repeat: {
+        every: 1000 * 60 * 5,
+      },
+      removeOnComplete: true,
+      removeOnFail: false,
+      priority: 1,
+      attempts: 5,
+    },
+  );
 };
 export const InitTokenQueue = async function () {
   const logger = Container.get(DILogger);

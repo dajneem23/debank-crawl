@@ -1,8 +1,9 @@
 import { DIRedisConnection } from '@/loaders/redis.loader';
-import { MetricsTime, Queue, Worker } from 'bullmq';
+import { Job, MetricsTime, Queue, Worker } from 'bullmq';
 import Container from 'typedi';
 import { workerProcessor } from './processor';
 import { updateTokensToRedis } from './handlers';
+import { DILogger } from '@/loaders/logger.loader';
 const job = {
   'update:tokens-to-redis': updateTokensToRedis,
 };
@@ -11,6 +12,7 @@ const initRepeatJobs = async function (queue: Queue) {
   queue.add('update:tokens-to-redis', {}, {});
 };
 export const InitTokenQueue = async function () {
+  const logger = Container.get(DILogger);
   const queueName = 'token';
   const redisConnection = Container.get(DIRedisConnection);
   const queue = new Queue(queueName, {
@@ -37,6 +39,16 @@ export const InitTokenQueue = async function () {
       maxDataPoints: MetricsTime.TWO_WEEKS,
     },
   });
-
+  worker.on('failed', ({ id, name, data, failedReason }: Job<any>, error: Error) => {
+    this.logger.discord(
+      'error',
+      '[job:Token:error]',
+      id,
+      name,
+      failedReason,
+      JSON.stringify(data),
+      JSON.stringify(error),
+    );
+  });
   initRepeatJobs(queue);
 };

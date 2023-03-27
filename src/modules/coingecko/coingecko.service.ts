@@ -323,7 +323,7 @@ export class CoinGeckoService {
         },
         repeat: {
           //repeat every 1 hour
-          every: 1000 * 60 * 5,
+          every: 1000 * 60 * 60,
           // pattern: '* 0 0 * * *',
         },
         //delay for 5 minutes when the job is added for done other jobs

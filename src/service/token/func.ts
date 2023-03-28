@@ -23,6 +23,12 @@ export const getTokenOnRedis = async function ({ chainId, address }: { chainId: 
   const token = await redisClient.get(`token:${chainId}:${address}`);
   return token ? JSON.parse(token) : null;
 };
+export const getAllTokenOnRedis = async function () {
+  const redisClient = Container.get(DIRedisClient);
+  const keys = await redisClient.keys(`token:*`);
+  const tokens = await redisClient.mGet(keys);
+  return { tokens: tokens.map((token) => JSON.parse(token)) };
+};
 export const saveAllTokensToRedis = async function () {
   const { chains } = await getChains({});
   const { tokens } = await getTokens({

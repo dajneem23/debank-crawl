@@ -23,7 +23,7 @@ import { chunk, uniq } from 'lodash';
 import { CHAINS } from '@/types/chain';
 import { getRedisKeys, setExpireRedisKey } from '@/service/redis/func';
 import { workerProcessor } from './defiilama.process';
-import { getTokenOnRedis } from '@/service/token/func';
+import { getAllTokenOnRedis, getTokenOnRedis } from '@/service/token/func';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -102,8 +102,8 @@ export class DefillamaService {
     this.worker = new Worker('defillama', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60 * 5,
-      concurrency: 100,
+      lockDuration: 1000 * 60,
+      concurrency: 10,
       stalledInterval: 1000 * 15,
       skipLockRenewal: true,
       maxStalledCount: 5,
@@ -1234,18 +1234,11 @@ export class DefillamaService {
   }
 
   async addUpdateCoinsCurrentPriceJob() {
-    const coins = await this.mgClient
-      .db('onchain')
-      .collection('token')
-      .find({
-        enabled: true,
-        coingeckoId: {
-          $exists: true,
-          $ne: null,
-        },
-      })
-      .toArray();
-    const list_coins = chunk(coins, 50);
+    const { tokens } = await getAllTokenOnRedis();
+    const list_coins = chunk(
+      tokens.filter(({ coingeckoId }) => coingeckoId),
+      50,
+    );
     const jobs = list_coins.map((coin) => {
       return {
         name: 'defillama:update:coins:current:price',
@@ -1253,8 +1246,12 @@ export class DefillamaService {
           coins: coin.map(({ address, coingeckoId }) => `coingecko:${coingeckoId}`).join(','),
         },
         opts: {
-          removeOnComplete: true,
-          removeOnFail: false,
+          removeOnComplete: {
+            age: 60 * 2.5,
+          },
+          removeOnFail: {
+            age: 60 * 2.5,
+          },
           priority: 1,
         },
       };

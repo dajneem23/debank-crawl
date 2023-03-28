@@ -69,7 +69,14 @@ export class OnChainPriceService {
     });
     this.logger.debug('info', '[initWorker:onchainPrice]', 'Worker initialized');
     // this.initWorkerListeners(this.worker);
+    this.worker.on('completed', async (job) => {
+      const discord = Container.get(DIDiscordClient);
 
+      await discord.sendMsg({
+        message: `:dollar:  onchain-price: ${job.id}`,
+        channelId: '1041620555188682793',
+      });
+    });
     this.worker.on('failed', async (job, err) => {
       try {
         await this.mgClient

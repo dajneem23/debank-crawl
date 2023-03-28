@@ -40,7 +40,7 @@ $ yarn install
 # Create local env
 $ cp env.example.json env.local.json
 
-# Open "env.local.json" and modify the env variables
+# Open "env.local.json" and modify the env variables 
 ```
 
 - **Start server**

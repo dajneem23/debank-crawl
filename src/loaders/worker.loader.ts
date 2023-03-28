@@ -18,18 +18,18 @@ import { OnChainPriceService } from '@/modules/onchain-price/onchain-price.servi
 import { InitTokenQueue } from '@/service/token/queue';
 const WorkerLoader = () => {
   // new DexScreenerService();
-  new DebankService();
+  // new DebankService();
   new DefillamaService();
-  new CoinGeckoService();
-  new PairBookService();
-  new OnChainPriceService();
+  // new CoinGeckoService();
+  // new PairBookService();
   // new EtherScanService();
   // new WatchersProService();
   // new AssetService();
+  new OnChainPriceService();
 
-  new NansenService();
+  // new NansenService();
 
-  InitTokenQueue();
+  // InitTokenQueue();
   // new AssetTrendingService();
   // new CategoryService();
   // new ExchangeService();

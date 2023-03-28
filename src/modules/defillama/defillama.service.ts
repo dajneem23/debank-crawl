@@ -663,17 +663,19 @@ export class DefillamaService {
     // ]);
     const lastUpdate = +(await getRedisKey('defillama-onchain:last-update-transactions')) ?? 0;
     const limit = 50000;
-    const transactions = await this.mgClient
-      .db('onchain')
-      .collection('tx-event')
-      .find({})
-      .hint({ block_at: -1 })
-      .sort({
-        block_at: -1,
-      })
-      .limit(limit)
-      .skip(lastUpdate * limit)
-      .toArray();
+    const transactions = (
+      await this.mgClient
+        .db('onchain')
+        .collection('tx-event')
+        .find({})
+        .hint({ block_at: -1 })
+        .sort({
+          block_at: -1,
+        })
+        .limit(limit)
+        .skip(lastUpdate * limit)
+        .toArray()
+    ).filter(({ usd_value }) => !usd_value);
     if (!transactions.length) {
       await setRedisKey('defillama-onchain:last-update-transactions', '0');
     } else {

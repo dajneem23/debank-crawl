@@ -69,6 +69,21 @@ export class OnChainPriceService {
     });
     this.logger.debug('info', '[initWorker:onchainPrice]', 'Worker initialized');
     this.initWorkerListeners(this.worker);
+
+    this.worker.on('failed', async (job, err) => {
+      try {
+        await this.mgClient
+          .db('onchain-log')
+          .collection('transaction-price-log')
+          .insertOne({
+            from: 'onchain-price',
+            job: JSON.parse(JSON.stringify(job)),
+            err: err.message,
+          });
+      } catch (error) {
+        console.info({ error });
+      }
+    });
   }
   /**
    *  @description init BullMQ Queue
@@ -197,14 +212,14 @@ export class OnChainPriceService {
       ])
       .toArray();
     const jobs = transactions.map((transaction) => {
-      const { tx_hash, log_index, token, symbol, timestamp, amount, chain_id, block_number } = transaction;
+      const { tx_hash, log_index, token, symbol, block_at, amount, chain_id, block_number } = transaction;
       return {
         name: 'update:transaction:usd-value',
         data: {
           tx_hash,
           log_index,
           token,
-          timestamp,
+          timestamp: block_at,
           amount,
           chain_id,
           block_number,
@@ -214,7 +229,7 @@ export class OnChainPriceService {
           jobId: `update:transaction:usd-value:${tx_hash}:${log_index}`,
           removeOnComplete: true,
           removeOnFail: false,
-          priority: daysDiff(new Date(), new Date(timestamp * 1000)),
+          priority: daysDiff(new Date(), new Date(block_at * 1000)),
           attempts: 10,
         },
       };

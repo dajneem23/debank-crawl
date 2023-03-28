@@ -676,6 +676,8 @@ export class DefillamaService {
       .toArray();
     if (!transactions.length) {
       await setRedisKey('defillama-onchain:last-update-transactions', '0');
+    } else {
+      await setRedisKey('defillama-onchain:last-update-transactions', `${lastUpdate + 1}`);
     }
     const jobs = transactions.map((transaction) => {
       const { tx_hash, token: token, symbol, block_at, amount, chain_id, block_number, log_index } = transaction;

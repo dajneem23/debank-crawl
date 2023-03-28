@@ -9,6 +9,9 @@ import { exitHandler } from './core/handler';
 (async () => {
   try {
     process.setMaxListeners(0);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('events').EventEmitter.prototype._maxListeners = 0;
+    // process.env.MODE = 'production';
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------

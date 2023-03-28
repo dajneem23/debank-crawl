@@ -144,11 +144,14 @@ export class DefillamaService {
 
     this.workerOnchain.on('failed', async (job, err) => {
       try {
-        this.mgClient.db('onchain-log').collection('transaction-price-log').insertOne({
-          job,
-          from: 'defillama-onchain',
-          err,
-        });
+        await this.mgClient
+          .db('onchain-log')
+          .collection('transaction-price-log')
+          .insertOne({
+            from: 'defillama-onchain',
+            job: JSON.parse(JSON.stringify(job)),
+            err: err.message,
+          });
       } catch (error) {
         console.info({ error });
       }

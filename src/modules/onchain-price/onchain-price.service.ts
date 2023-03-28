@@ -22,7 +22,7 @@ import { OnchainPriceJob } from './onchain-price.job';
 import { getRedisKeys, setExpireRedisKey } from '@/service/redis/func';
 import { workerProcessor } from './onchain-price.process';
 export class OnChainPriceService {
-  private logger = new Logger('PairBookService');
+  private logger = new Logger('OnChainPriceService');
 
   private readonly redisConnection = Container.get(DIRedisConnection);
 
@@ -61,14 +61,14 @@ export class OnChainPriceService {
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 3,
       skipLockRenewal: true,
-      stalledInterval: 1000 * 15,
-      concurrency: 25,
+      stalledInterval: 1000 * 30,
+      concurrency: 10,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
     this.logger.debug('info', '[initWorker:onchainPrice]', 'Worker initialized');
-    this.initWorkerListeners(this.worker);
+    // this.initWorkerListeners(this.worker);
 
     this.worker.on('failed', async (job, err) => {
       try {

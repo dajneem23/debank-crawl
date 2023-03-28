@@ -195,7 +195,7 @@ export class DefillamaService {
     this.workerPrice = new Worker('defillama-price', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 30,
+      lockDuration: 1000 * 60,
       skipLockRenewal: true,
       concurrency: 20,
       // limiter: {
@@ -836,15 +836,19 @@ export class DefillamaService {
       throw new Error('fetchCoinsHistoricalData: Invalid response');
     }
     const { price, timestamp: _timestamp, decimals, symbol } = coins[id];
-    await this.mgClient.db(getMgOnChainDbName()).collection('token-price').insertOne({
-      price,
-      updated_at: new Date(),
-      timestamp: _timestamp,
-      id,
-      symbol,
-      decimals,
-      token_address: token,
-    });
+    await this.mgClient
+      .db(getMgOnChainDbName())
+      .collection('token-price')
+      .insertOne({
+        price,
+        updated_at: new Date(),
+        timestamp: _timestamp,
+        id,
+        token_id: id.replace('coingecko:', ''),
+        symbol,
+        decimals,
+        token_address: token,
+      });
     return {
       price,
       timestamp: _timestamp,
@@ -1275,36 +1279,32 @@ export class DefillamaService {
     const data = Object.entries(prices.coins).map(([id, { price, symbol, confidence, timestamp }]: [string, any]) => {
       return {
         id,
+        token_id: id.replace('coingecko:', ''),
         price,
         symbol,
         confidence,
         timestamp,
         updated_at: new Date(),
+        updated_by: 'defillama',
       };
     });
-    await Bluebird.map(
-      data,
-      async (item) => {
-        const { id, timestamp, price, symbol, updated_at, confidence } = item;
-        await Promise.all([
-          setExpireRedisKey({
+
+    await Promise.all([
+      Bluebird.map(
+        data,
+        async (item) => {
+          const { id, timestamp, price, symbol, updated_at, confidence } = item;
+          await setExpireRedisKey({
             key: `price:${symbol}`,
             expire: 60 * 5,
             value: `${timestamp}:${price}`,
-          }),
-          this.mgClient.db('onchain').collection('token-price').insertOne({
-            price,
-            updated_at,
-            id,
-            symbol,
-            timestamp,
-            updated_by: 'defillama',
-          }),
-        ]);
-      },
-      {
-        concurrency: 50,
-      },
-    );
+          });
+        },
+        {
+          concurrency: 50,
+        },
+      ),
+      this.mgClient.db('onchain').collection('token-price').insertMany(data),
+    ]);
   }
 }

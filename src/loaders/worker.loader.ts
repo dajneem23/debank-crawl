@@ -17,24 +17,28 @@ import { PairBookService } from '@/modules/pair-book/pair-book.service';
 import { OnChainPriceService } from '@/modules/onchain-price/onchain-price.service';
 import { InitTokenQueue } from '@/service/token/queue';
 const WorkerLoader = () => {
-  // new DexScreenerService();
-  // new DebankService();
-  new DefillamaService();
-  // new CoinGeckoService();
-  // new PairBookService();
-  // new EtherScanService();
-  // new WatchersProService();
-  // new AssetService();
-  new OnChainPriceService();
+  try {
+    // new DexScreenerService();
+    // new DebankService();
+    new DefillamaService();
+    new CoinGeckoService();
+    // new PairBookService();
+    // new EtherScanService();
+    // new WatchersProService();
+    // new AssetService();
+    new OnChainPriceService();
 
-  // new NansenService();
+    // new NansenService();
 
-  // InitTokenQueue();
-  // new AssetTrendingService();
-  // new CategoryService();
-  // new ExchangeService();
-  // TODO: TURN ON WHEN READY
-  // new DexScreenerService();
+    // InitTokenQueue();
+    // new AssetTrendingService();
+    // new CategoryService();
+    // new ExchangeService();
+    // TODO: TURN ON WHEN READY
+    // new DexScreenerService();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default WorkerLoader;

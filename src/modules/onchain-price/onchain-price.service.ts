@@ -421,6 +421,7 @@ export class OnChainPriceService {
       .collection('tx-event')
       .updateMany(
         {
+          block_at: timestamp,
           tx_hash,
           log_index,
         },

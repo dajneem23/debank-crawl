@@ -103,6 +103,6 @@ jobs:
             --restart always \
             -v /var/run/docker.sock:/var/run/docker.sock \
             --cpus 2 \
-            --memory 4g \
+            --memory 8g \
             --name $(echo $IMAGE_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)

@@ -228,7 +228,9 @@ export class OnChainPriceService {
         opts: {
           jobId: `update:transaction:usd-value:${tx_hash}:${log_index}`,
           removeOnComplete: true,
-          removeOnFail: false,
+          removeOnFail: {
+            age: 60 * 30,
+          },
           priority: daysDiff(new Date(), new Date(block_at * 1000)),
           attempts: 10,
         },

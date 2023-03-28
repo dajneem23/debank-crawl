@@ -16,7 +16,7 @@ on:
 #2
 env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
-  IMAGE_NAME: 'wikiblock-cronjob-staging'
+  IMAGE_NAME: 'onchain-price'
   APP_ENV: 'staging'
   MODE: 'dev'
 

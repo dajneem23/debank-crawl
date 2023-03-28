@@ -143,6 +143,14 @@ export class DefillamaService {
       });
     });
 
+    this.workerOnchain.on('failed', async (job, err) => {
+      this.mgClient.db('onchain-log').collection('transaction-price-log').insertOne({
+        job,
+        from: 'defillama-onchain',
+        err,
+      });
+    });
+
     this.workerToken = new Worker('defillama-token', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,

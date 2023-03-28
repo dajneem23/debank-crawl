@@ -21,7 +21,7 @@ import { DIDiscordClient } from '@/loaders/discord.loader';
 import Bluebird from 'bluebird';
 import { chunk, uniq } from 'lodash';
 import { CHAINS } from '@/types/chain';
-import { getRedisKeys, setExpireRedisKey } from '@/service/redis/func';
+import { getRedisKey, getRedisKeys, setExpireRedisKey, setRedisKey } from '@/service/redis/func';
 import { workerProcessor } from './defiilama.process';
 import { getAllTokenOnRedis, getTokenOnRedis } from '@/service/token/func';
 const pgPool = Container.get(pgPoolToken);
@@ -945,20 +945,22 @@ export class DefillamaService {
     //   ...defillamaOnchainKeys.map((key) => key.replace(`${redisPattern}:`, '')),
     //   ...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, '')),
     // ]);
+    const lastUpdate = +(await getRedisKey('defillama-onchain:last-update-transactions')) ?? 0;
+    const limit = 50000;
     const transactions = await this.mgClient
       .db('onchain')
       .collection('tx-event')
-      .find({
-        usd_value: {
-          $exists: false,
-        },
-      })
+      .find({})
       .hint({ block_at: -1 })
       .sort({
         block_at: -1,
       })
-      .limit(10000)
+      .limit(limit)
+      .skip(lastUpdate * limit)
       .toArray();
+    if (!transactions.length) {
+      await setRedisKey('defillama-onchain:last-update-transactions', '0');
+    }
     const jobs = transactions.map((transaction) => {
       const { tx_hash, token: token, symbol, block_at, amount, chain_id, block_number, log_index } = transaction;
       return {

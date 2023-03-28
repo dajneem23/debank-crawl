@@ -6,6 +6,11 @@ export const getRedisKeys = async (pattern: string): Promise<string[]> => {
   const keys = await redis.keys(pattern);
   return keys;
 };
+export const getRedisKey = async (key: string): Promise<string | null> => {
+  const redis = Container.get(DIRedisClient);
+  const value = await redis.get(key);
+  return value;
+};
 
 export const setRedisKey = async (key: string, value: string): Promise<void> => {
   const redis = Container.get(DIRedisClient);

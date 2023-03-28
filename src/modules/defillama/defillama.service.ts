@@ -863,7 +863,6 @@ export class DefillamaService {
       .db('onchain')
       .collection('token')
       .find({
-        enabled: true,
         coingeckoId: {
           $exists: true,
           $ne: null,
@@ -885,6 +884,7 @@ export class DefillamaService {
           new Date(maxTimestamp[0].timestamp * 1000).getFullYear(),
           new Date(maxTimestamp[0].timestamp * 1000).getMonth(),
           new Date(maxTimestamp[0].timestamp * 1000).getDate(),
+          new Date(maxTimestamp[0].timestamp * 1000).getHours(),
         )
       : new Date('2023-01-01');
 
@@ -895,7 +895,7 @@ export class DefillamaService {
           const dates = createArrayDateByHours({
             start,
             end: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours()),
-            range: 1,
+            range: 0.02,
             timestamp: true,
           });
           return dates.map((timestamp) => {
@@ -950,6 +950,7 @@ export class DefillamaService {
           $exists: false,
         },
       })
+      .hint({ block_at: -1 })
       .sort({
         block_at: -1,
       })

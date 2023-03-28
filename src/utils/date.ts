@@ -38,8 +38,8 @@ export const createArrayDateByHours = ({
   const dates = [];
   const currentDate = new Date(start);
   while (currentDate <= end) {
+    currentDate.setTime(currentDate.getTime() + range * 60 * 60 * 1000);
     dates.push(timestamp ? currentDate.getTime() / 1000 : currentDate);
-    currentDate.setHours(currentDate.getHours() + range);
   }
   return dates;
 };

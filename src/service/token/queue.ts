@@ -54,15 +54,7 @@ export const InitTokenQueue = async function () {
     },
   });
   worker.on('failed', ({ id, name, data, failedReason }: Job<any>, error: Error) => {
-    this.logger.discord(
-      'error',
-      '[job:Token:error]',
-      id,
-      name,
-      failedReason,
-      JSON.stringify(data),
-      JSON.stringify(error),
-    );
+    logger.discord('error', '[job:Token:error]', id, name, failedReason, JSON.stringify(data), JSON.stringify(error));
   });
   initRepeatJobs(queue);
 };

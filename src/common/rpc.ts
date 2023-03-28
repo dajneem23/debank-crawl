@@ -5,9 +5,9 @@ export const ETH_RPC_MAINNET = [
   ['https://rpc.coinsdo.com/eth', 'coinsdo'],
   ['https://ethereum.blockpi.network/v1/rpc/public', 'blockpi'],
   ['https://eth.llamarpc.com', 'llamarpc'],
-  ['https://eth.llamarpc.com/rpc/01GW6CYRT5Z4N321G8MX1MWQW0', 'llamarpc'],
+  // ['https://eth.llamarpc.com/rpc/01GW6CYRT5Z4N321G8MX1MWQW0', 'llamarpc'],
 
-  ['https://node.stackup.sh/v1/rpc/2092f3ec304b8b40b7b974aca584001354f3c2e4653609a5188766fbaf4547b1', 'stackup'],
+  // ['https://node.stackup.sh/v1/rpc/2092f3ec304b8b40b7b974aca584001354f3c2e4653609a5188766fbaf4547b1', 'stackup'],
 
   ['https://ethereum-mainnet-rpc.allthatnode.com'],
   ['https://cloudflare-eth.com/', 'cloudflare'],
@@ -40,7 +40,7 @@ export const ETH_RPC_MAINNET = [
   ['https://rpc.ankr.com/eth', 'ankr'],
   ['https://rpc.ankr.com/eth', 'ankr'],
   ['https://rpc.ankr.com/eth', 'ankr'],
-  ['https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/5h6vmVvNNQmyjqI5KBSMCnDv', 'kriptonio'],
+  // ['https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/5h6vmVvNNQmyjqI5KBSMCnDv', 'kriptonio'],
   ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
   ['https://eth-rpc.gateway.pokt.network/', 'pokt'],
   ['https://eth-rpc.gateway.pokt.network/', 'pokt'],

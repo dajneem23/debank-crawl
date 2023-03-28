@@ -1,4 +1,4 @@
-import { DIDiscordClient } from '@/loaders/discord.loader';
+import { DIDiscordClient } from '../../loaders/discord.loader';
 import { TextChannel } from 'discord.js';
 import Container from 'typedi';
 

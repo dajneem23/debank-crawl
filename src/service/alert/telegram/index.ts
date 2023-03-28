@@ -1,5 +1,4 @@
-import { telegramBotToken } from '@/loaders/telegram.loader';
-import { CHAINS } from '@/types/chain';
+import { telegramBotToken } from '../../../loaders/telegram.loader';
 import TelegramBot from 'node-telegram-bot-api';
 import { env } from 'process';
 import Container from 'typedi';

@@ -1,4 +1,4 @@
-import { DexScreenerAPI } from '@/common/api';
+import { DexScreenerAPI } from '../../common/api';
 import { DexScreenerPair } from './dexscreener.type';
 
 export const searchPairsFromDexScreener = async ({ q }: { q: string }) => {

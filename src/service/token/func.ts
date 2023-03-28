@@ -1,5 +1,5 @@
-import { DIMongoClient } from '@/loaders/mongoDB.loader';
-import { DIRedisClient } from '@/loaders/redis.loader';
+import { DIMongoClient } from '../../loaders/mongoDB.loader';
+import { DIRedisClient } from '../../loaders/redis.loader';
 import { Filter, FindOptions } from 'mongodb';
 import Container from 'typedi';
 

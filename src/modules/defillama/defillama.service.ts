@@ -1,12 +1,10 @@
 import Container from 'typedi';
-import Logger from '@/core/logger';
-import { pgPoolToken } from '@/loaders/pg.loader';
+import { pgPoolToken } from '../../loaders/pg.loader';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env, exit } from 'process';
-import { DIRedisConnection } from '@/loaders/redis.loader';
+import { DIRedisConnection } from '../../loaders/redis.loader';
 
 import { DefillamaJobData, DefillamaJobNames } from './defillama.job';
-import { DefillamaAPI } from '@/common/api';
 import {
   defillamaTvlChainModelToken,
   defillamaTvlChartModelToken,
@@ -14,16 +12,17 @@ import {
 } from './defillama.model';
 import { getCoinsCurrentPrice, getCoinsHistorical, updateCoinsHistoricalKeyCache } from './defillama.func';
 import { MongoClient } from 'mongodb';
-import { DIMongoClient } from '@/loaders/mongoDB.loader';
-import { createArrayDateByHours, daysDiff } from '@/utils/date';
-import { getMgOnChainDbName } from '@/common/db';
-import { DIDiscordClient } from '@/loaders/discord.loader';
+import { DIMongoClient } from '../../loaders/mongoDB.loader';
+import { createArrayDateByHours, daysDiff } from '../../utils/date';
+import { getMgOnChainDbName } from '../../common/db';
+import { DIDiscordClient } from '../../loaders/discord.loader';
 import Bluebird from 'bluebird';
 import { chunk, uniq } from 'lodash';
-import { CHAINS } from '@/types/chain';
-import { getRedisKey, getRedisKeys, setExpireRedisKey, setRedisKey } from '@/service/redis/func';
+import { CHAINS } from '../../types/chain';
+import { getRedisKey, getRedisKeys, setExpireRedisKey, setRedisKey } from '../../service/redis/func';
 import { workerProcessor } from './defiilama.process';
-import { getAllTokenOnRedis, getTokenOnRedis } from '@/service/token/func';
+import { getAllTokenOnRedis, getTokenOnRedis } from '../../service/token/func';
+import { Logger } from '../../core/logger';
 const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
@@ -62,15 +61,6 @@ export class DefillamaService {
   private readonly jobs: {
     [key in DefillamaJobNames | 'default']?: (params?: any) => Promise<void>;
   } = {
-    'defillama:fetch:tvl:protocols': this.fetchTVLProtocols,
-    'defillama:add:tvl:protocol:details': this.addFetchTVLProtocolDetails,
-    'defillama:fetch:tvl:protocol:detail': this.fetchTVLProtocolDetail,
-    'defillama:fetch:tvl:charts': this.fetchTVLCharts,
-    'defillama:fetch:tvl:chains': this.fetchTVLChains,
-    'defillama:add:tvl:charts:chains': this.addFetchTvlChartsChainsJob,
-    'defillama:fetch:tvl:charts:chain': this.fetchTVLChartChain,
-    'defillama:add:tvl:protocol:tvl': this.addFetchTVLProtocolTVLJob,
-    'defillama:fetch:tvl:protocol:tvl': this.fetchTVLProtocolTVL,
     'defillama:fetch:coin:historical:data:id:timestamp': this.fetchCoinsHistoricalData,
     'defillama:add:fetch:coin:historical': this.addFetchCoinsHistoricalDataJob,
     'defillama:update:usd:value:of:transaction': this.updateUsdValueOfTransaction,
@@ -507,280 +497,6 @@ export class DefillamaService {
         JSON.stringify(error),
       );
     });
-  }
-  async fetchTVLProtocols() {
-    try {
-      const { data } = await DefillamaAPI.fetch({
-        endpoint: DefillamaAPI.Tvl.protocols.list.endpoint,
-        params: {},
-      });
-      this.logger.debug('info', `[fetchTVLProtocols]`, { num: data.length });
-      for (const protocol of data) {
-        await this.insertProtocolToMongoDb(protocol);
-      }
-      this.logger.debug('success', `[fetchTVLProtocols:DONE]`, { num: data.length });
-    } catch (error) {
-      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async insertProtocolToMongoDb(protocol: any) {
-    await this.defillamaTvlProtocolModel._collection.findOneAndUpdate(
-      {
-        slug: protocol.slug,
-      },
-      {
-        $set: {
-          ...protocol,
-          updated_at: new Date(),
-          updated_by: 'system',
-        },
-        $setOnInsert: {
-          created_at: new Date(),
-          created_by: 'system',
-        },
-      },
-      {
-        upsert: true,
-      },
-    );
-  }
-
-  async insertProtocolToPG(protocol: any) {
-    await pgPool.query(
-      `
-      INSERT INTO defillama_tvl_protocols (
-        slug,
-        name,
-        category,
-      `,
-    );
-  }
-
-  async addFetchTVLProtocolDetails() {
-    try {
-      const protocols = await this.defillamaTvlProtocolModel._collection.find({}).toArray();
-      for (const { slug } of protocols) {
-        this.addJob({
-          name: 'defillama:fetch:tvl:protocol:detail',
-          payload: {
-            slug,
-          },
-          options: {
-            jobId: `defillama:fetch:tvl:protocol:detail:${slug}`,
-            // delay: 1000 * 60 * 5,
-            removeOnComplete: true,
-            removeOnFail: true,
-          },
-        });
-      }
-    } catch (error) {
-      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async fetchTVLProtocolDetail(
-    { slug }: { slug: string } = {
-      slug: null,
-    },
-  ) {
-    try {
-      if (!slug) {
-        throw new Error('fetchTVLProtocolDetail: Invalid slug');
-      }
-      const {
-        data: { id, name, slug: _slug, ...details },
-      } = await DefillamaAPI.fetch({
-        endpoint: `${DefillamaAPI.Tvl.protocols.detail.endpoint}/${slug}`,
-      });
-      await this.defillamaTvlProtocolModel._collection.updateOne(
-        {
-          slug,
-        },
-        {
-          $set: {
-            ...details,
-            updated_at: new Date(),
-            updated_by: 'system',
-          },
-        },
-      );
-    } catch (error) {
-      this.logger.discord('error', '[fetchTVLProtocols:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async fetchTVLCharts() {
-    try {
-      const { data } = await DefillamaAPI.fetch({
-        endpoint: DefillamaAPI.Tvl.charts.list.endpoint,
-      });
-      this.logger.debug('info', `[fetchTVLCharts]`, { num: data.length });
-      await this.defillamaTvlChartModel._collection.insertOne({
-        created_at: new Date(),
-        created_by: 'system',
-        charts: data,
-      });
-    } catch (error) {
-      this.logger.discord('error', '[fetchTVLCharts:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async fetchTVLChains() {
-    try {
-      const { data } = await DefillamaAPI.fetch({
-        endpoint: DefillamaAPI.Tvl.chains.list.endpoint,
-      });
-      this.logger.debug('info', `[fetchTVLChains]`, { num: data.length });
-      for (const chain of data) {
-        await this.defillamaTvlChainModel._collection.findOneAndUpdate(
-          {
-            $or: [{ id: chain.chainId }, { gecko_id: chain.gecko_id }],
-          },
-          {
-            $set: {
-              ...chain,
-              updated_at: new Date(),
-              updated_by: 'system',
-            },
-            $setOnInsert: {
-              created_at: new Date(),
-              created_by: 'system',
-            },
-          },
-          {
-            upsert: true,
-          },
-        );
-      }
-    } catch (error) {
-      this.logger.discord('error', '[fetchTVLChains:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async addFetchTvlChartsChainsJob() {
-    try {
-      const charts = await this.defillamaTvlChainModel._collection.find({}).toArray();
-      for (const { name } of charts) {
-        this.addJob({
-          name: 'defillama:fetch:tvl:charts:chain',
-          payload: {
-            name,
-          },
-          options: {
-            // delay: 1000 * 60 * 5,
-            removeOnComplete: true,
-            removeOnFail: true,
-          },
-        });
-      }
-    } catch (error) {
-      this.logger.discord('error', '[addFetchTvlChartsChainsJob:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async fetchTVLChartChain(
-    { name }: { name: string } = {
-      name: null,
-    },
-  ) {
-    try {
-      if (!name) {
-        throw new Error('fetchTVLChartDetail: Invalid slug');
-      }
-      const { data, status } = await DefillamaAPI.fetch({
-        endpoint: `${DefillamaAPI.Tvl.charts.chain.endpoint}/${name}`,
-      });
-      if (status != 200) {
-        this.logger.error('error', '[fetchTVLChartChain:error]', name, status, JSON.stringify(data));
-        throw new Error('fetchTVLChartChain: Invalid response');
-      }
-      await this.defillamaTvlChainModel._collection.updateOne(
-        {
-          name,
-        },
-        {
-          $set: {
-            charts: data,
-            updated_at: new Date(),
-            updated_by: 'system',
-          },
-        },
-      );
-    } catch (error) {
-      this.logger.discord('error', '[fetchTVLChartChain:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async addFetchTVLProtocolTVLJob() {
-    try {
-      const protocols = await this.defillamaTvlProtocolModel._collection.find({}).toArray();
-      for (const { slug } of protocols) {
-        this.addJob({
-          name: 'defillama:fetch:tvl:protocol:tvl',
-          payload: {
-            slug,
-          },
-          options: {
-            // delay: 1000 * 60 * 5,
-            removeOnComplete: true,
-            removeOnFail: true,
-          },
-        });
-      }
-    } catch (error) {
-      this.logger.discord('error', '[addFetchTVLProtocolTVLJob:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  async fetchTVLProtocolTVL(
-    { slug }: { slug: string } = {
-      slug: null,
-    },
-  ) {
-    try {
-      if (!slug) {
-        throw new Error('fetchTVLProtocolTVL: Invalid slug');
-      }
-      const { data, status } = await DefillamaAPI.fetch({
-        endpoint: `${DefillamaAPI.Tvl.protocols.tvl.endpoint}/${slug}`,
-      });
-      if (status != 200) {
-        this.logger.discord('error', '[fetchTVLProtocolTVL:error]', slug, status, JSON.stringify(data));
-        throw new Error('fetchTVLProtocolTVL: invalid response');
-      }
-      await this.defillamaTvlProtocolModel._collection.updateOne(
-        {
-          slug,
-        },
-        {
-          $set: {
-            currentTvl: data,
-            updated_at: new Date(),
-            updated_by: 'system',
-          },
-        },
-      );
-    } catch (error) {
-      this.logger.discord('error', '[fetchTVLProtocolTVL:error]', JSON.stringify(error));
-      throw error;
-    }
-  }
-  //TODO : Finish this
-  async fetchStableCoinsList() {
-    try {
-      const { data, status } = await DefillamaAPI.fetch({
-        endpoint: DefillamaAPI.StableCoins.list.endpoint,
-        params: DefillamaAPI.StableCoins.list.params,
-      });
-      if (status != 200) {
-        this.logger.discord('error', '[fetchStableCoinsList:error]', status, JSON.stringify(data));
-        throw new Error('fetchStableCoinsList: invalid response');
-      }
-    } catch (error) {
-      this.logger.discord('error', '[fetchStableCoinsList:error]', JSON.stringify(error));
-      throw error;
-    }
   }
 
   async fetchCoinsHistoricalData({

@@ -1,4 +1,4 @@
-import { DIRedisClient } from '@/loaders/redis.loader';
+import { DIRedisClient } from '../../loaders/redis.loader';
 import Container from 'typedi';
 
 export const getRedisKeys = async (pattern: string): Promise<string[]> => {

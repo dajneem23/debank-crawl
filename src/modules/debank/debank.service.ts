@@ -1,20 +1,20 @@
 import Container, { Token } from 'typedi';
-import Logger from '@/core/logger';
+import { Logger } from '../../core/logger';
 import { Job, JobType, JobsOptions, MetricsTime, Queue, Worker } from 'bullmq';
 import { env } from 'process';
 import bluebird from 'bluebird';
-import { DIRedisConnection } from '@/loaders/redis.loader';
+import { DIRedisConnection } from '../../loaders/redis.loader';
 
 import { DebankJobData, DebankJobNames } from './debank.job';
-import { DebankAPI } from '@/common/api';
-import { pgClientToken, pgPoolToken, pgpToken } from '@/loaders/pg.loader';
+import { DebankAPI } from '../../common/api';
+import { pgClientToken, pgPoolToken, pgpToken } from '../../loaders/pg.loader';
 
-import { formatDate } from '@/utils/date';
-import { bulkInsertOnConflict, createPartitionsInDateRange, truncateAndDropTable } from '@/utils/pg';
-import { DIDiscordClient } from '@/loaders/discord.loader';
-import { sleep } from '@/utils/common';
-import { connectChrome, createPuppeteerBrowser } from '@/loaders/puppeteer.loader';
-import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '@/common/proxy';
+import { formatDate } from '../../utils/date';
+import { bulkInsertOnConflict, createPartitionsInDateRange, truncateAndDropTable } from '../../utils/pg';
+import { DIDiscordClient } from '../../loaders/discord.loader';
+import { sleep } from '../../utils/common';
+import { connectChrome, createPuppeteerBrowser } from '../../loaders/puppeteer.loader';
+import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../common/proxy';
 import { uniqBy } from 'lodash';
 import {
   getDebankCoinsCrawlId,
@@ -37,7 +37,7 @@ import {
   queryDebankTopHoldersImportantToken,
   updateDebankUserProfile,
 } from './debank.fnc';
-import { initQueue, initQueueListeners } from '@/utils/bullmq';
+import { initQueue, initQueueListeners } from '../../utils/bullmq';
 import { workerProcessor } from './debank.process';
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';

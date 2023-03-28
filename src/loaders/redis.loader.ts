@@ -1,10 +1,9 @@
 import { createClient, RedisClientType } from 'redis';
 import { Container, Token } from 'typedi';
-import { DILogger } from '@/loaders/logger.loader';
-import env from '@/config/env';
+import { DILogger } from './logger.loader';
 import IORedis from 'ioredis';
-import { setExpireRedisKey } from '@/service/redis/func';
-import { getTokenOnRedis, saveAllTokensToRedis } from '@/service/token/func';
+import { setExpireRedisKey } from '../service/redis/func';
+import { getTokenOnRedis, saveAllTokensToRedis } from '../service/token/func';
 
 export const DIRedisClient = new Token<RedisClientType>('redisClient');
 
@@ -14,9 +13,9 @@ export const redisClientLoader = async () => {
   const logger = Container.get(DILogger);
 
   // Create client
-  const client = createClient({ url: env.REDIS_URI });
+  const client = createClient({ url: process.env.REDIS_URI });
 
-  const connection = new IORedis(env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
+  const connection = new IORedis(process.env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
 
   // Listeners
   client.on('connect', () => logger.info('connected', 'Redis'));

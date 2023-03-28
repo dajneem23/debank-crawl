@@ -1,4 +1,3 @@
-import { ObjectIdPattern } from '@/utils/common';
 import { ObjectId } from 'mongodb';
 
 export interface BaseQuery {

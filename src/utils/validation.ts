@@ -1,6 +1,6 @@
 import { throwErr } from './common';
 import { $queryByList } from './mongoDB';
-import { ValidateError } from '@/core/errors/ValidateError';
+import { ValidateError } from '../core/errors/ValidateError';
 
 export const $refValidation = async ({
   collection,

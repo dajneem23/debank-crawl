@@ -9,8 +9,9 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc",
-    "start": "ts-node --compiler ttypescript -r tsconfig-paths/register src/server.ts --max-old-space-size=8000",
+    "build": "tsc --build",
+    "start": "ts-node -r tsconfig-paths/register src/server.ts --max-old-space-size=8000",
+    "production": "node  build/server.js --max-old-space-size=8192",
     "type-check": "tsc --pretty --noEmit --skipLibCheck",
     "lint": "eslint .",
     "fix": "eslint --fix .",
@@ -88,7 +89,6 @@
     "ts-interface-keys-transformer": "^2.3.2",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^4.1.0",
-    "ttypescript": "^1.5.13",
     "typescript": "^4.9.3"
   }
 }

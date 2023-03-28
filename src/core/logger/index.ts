@@ -1,4 +1,4 @@
-import { DIDiscordClient, Discord } from '@/loaders/discord.loader';
+import { DIDiscordClient, Discord } from '../../loaders/discord.loader';
 import { configure, getLogger, Logger as JSLogger } from 'log4js';
 import Container, { Inject } from 'typedi';
 
@@ -49,7 +49,7 @@ const _messages = {
 /**
  * Logger
  */
-export default class Logger {
+export class Logger {
   private logger: JSLogger;
 
   readonly category: string;

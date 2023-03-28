@@ -1,10 +1,10 @@
-import { DefillamaAPI } from '@/common/api';
-import { getMgOnChainDbName } from '@/common/db';
-import { DIMongoClient } from '@/loaders/mongoDB.loader';
+import { DefillamaAPI } from '../../common/api';
+import { getMgOnChainDbName } from '../../common/db';
+import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import Bluebird from 'bluebird';
 import Container from 'typedi';
 import cacache from 'cacache';
-import { CACHE_PATH } from '@/common/cache';
+import { CACHE_PATH } from '../../common/cache';
 
 export const getBatchHistorical = async ({ coins: _coins }) => {
   const { data, status } = await DefillamaAPI.fetch({

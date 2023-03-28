@@ -6,7 +6,7 @@ WORKDIR /app
 
 
 # Add package.json file
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock tsconfig.json ./
 ARG ENV_VARS
 ENV ENV_VARS=$ENV_VARS
 RUN echo $ENV_VARS
@@ -16,11 +16,19 @@ ENV MODE=$MODE
 RUN echo $MODE
 
 # Install packages without generate a yarn.lock lockfile
-RUN yarn --pure-lockfile
+RUN yarn --pure-lockfile --production=true --non-interactive --frozen-lockfile --ignore-scripts --ignore-engines --ignore-platform --no-progress --optimize-autoloader --no-bin-links --no-cache
+# install ts-node
+RUN yarn global add ts-node
 
+#install tsc
+RUN yarn global add typescript
 
 # Copy all file from current dir to /app in container
 COPY . /app
+
+
+#build
+RUN tsc --build
 
 
 # Expose port
@@ -28,4 +36,4 @@ EXPOSE 9002
 
 
 # Start service
-CMD [  "yarn", "start" ]
+CMD [  "yarn", "production" ]

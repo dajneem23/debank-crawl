@@ -1,17 +1,16 @@
-import { env } from 'process';
 import 'reflect-metadata';
-import { Discord } from './loaders/discord.loader';
 import { exitHandler } from './core/handler';
 /**
  *  @description this import is required to initialize service class
  */
-
 (async () => {
   try {
+    const { env } = await import('./config/env');
     process.setMaxListeners(0);
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('events').EventEmitter.prototype._maxListeners = 0;
-    // process.env.MODE = 'production';
+    require('events').EventEmitter.prototype._maxListeners = 100;
+
+    process.env.MODE = 'production';
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------
@@ -26,7 +25,9 @@ import { exitHandler } from './core/handler';
     // Database (postgres)
     await (await import('./loaders/pg.loader')).default();
     // Discord
-    if (env.MODE == 'production') {
+    if (process.env.MODE == 'production') {
+      const { Discord } = await import('./loaders/discord.loader');
+
       const discord = new Discord();
       await discord.init();
       // Telegram
@@ -38,7 +39,7 @@ import { exitHandler } from './core/handler';
     await (await import('./loaders/telegram.loader')).default();
     await (await import('./loaders/config.loader')).default();
     //do something when app is closing
-    if (env.MODE == 'production') {
+    if (process.env.MODE == 'production') {
       process.on('exit', exitHandler.bind(null, { cleanup: true }));
       //catches ctrl+c event
       process.on('SIGINT', exitHandler.bind(null, { exit: true }));
@@ -51,7 +52,7 @@ import { exitHandler } from './core/handler';
     }
   } catch (err) {
     console.error(err);
-    if (env.MODE == 'production') {
+    if (process.env.MODE == 'production') {
       exitHandler.call(null, { exit: true });
     } else {
       process.exit(1);

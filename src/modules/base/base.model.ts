@@ -9,13 +9,13 @@ import {
   WithId,
 } from 'mongodb';
 import Container from 'typedi';
-import { DIMongoDB } from '@/loaders/mongoDB.loader';
-import { DILogger } from '@/loaders/logger.loader';
-import Logger from '@/core/logger';
-import { throwErr } from '@/utils/common';
-import { $lookup, $toMongoFilter } from '@/utils/mongoDB';
-import { $refValidation } from '@/utils/validation';
-import { COLLECTION_NAMES, PRIVATE_KEYS, RemoveSlugPattern, T } from '@/types';
+import { DIMongoDB } from '../../loaders/mongoDB.loader';
+import { DILogger } from '../../loaders/logger.loader';
+import { Logger } from '../../core/logger';
+import { throwErr } from '../../utils/common';
+import { $lookup, $toMongoFilter } from '../../utils/mongoDB';
+import { $refValidation } from '../../utils/validation';
+import { COLLECTION_NAMES, PRIVATE_KEYS, RemoveSlugPattern, T } from '../../types';
 import slugify from 'slugify';
 import { omit, uniq } from 'lodash';
 

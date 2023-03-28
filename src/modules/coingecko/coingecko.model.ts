@@ -20,7 +20,7 @@ export class CoinGeckoAssetModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'coingecko-assets',
-      _keys: keys<CoinGeckoAsset>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -37,7 +37,7 @@ export class CoinGeckoCategoriesModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'coingecko-categories',
-      _keys: keys<CoinGeckoCategories>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -53,7 +53,7 @@ export class CoinGeckoBlockchainModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'coingecko-blockchains',
-      _keys: keys<CoinGeckoBlockchain>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -70,7 +70,7 @@ export class CoinGeckoExchangeModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'coingecko-exchanges',
-      _keys: keys<CoinGeckoExchange>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -88,7 +88,7 @@ export class CoinGeckoCryptoCurrencyGlobalModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'coingecko-crypto-currency-global',
-      _keys: keys<CoinGeckoCryptoCurrencyGlobal>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -107,7 +107,7 @@ export class coinGeckoCoinPricesModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'coingecko-coin-prices',
-      _keys: keys<CoinGeckoCryptoCurrencyGlobal>(),
+      _keys: [],
       indexes: [],
     });
   }

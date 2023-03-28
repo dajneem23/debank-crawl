@@ -1,9 +1,9 @@
 import { ethers } from 'ethers';
-import ERC_20_ABI from '@/common/abi/ERC_20.json';
-import BEP_20_ABI from '@/common/abi/BEP_20.json';
-import { BSC_RPC_MAINNET, ETH_RPC_MAINNET } from '@/common/rpc';
-import { sleep } from '@/utils/common';
-import Logger from '@/core/logger';
+import ERC_20_ABI from '../../common/abi/ERC_20.json';
+import BEP_20_ABI from '../../common/abi/BEP_20.json';
+import { BSC_RPC_MAINNET, ETH_RPC_MAINNET } from '../../common/rpc';
+import { sleep } from '../../utils/common';
+import { Logger } from '../../core/logger';
 const logger = new Logger('getPairPriceAtBlock');
 export const getPairPriceAtBlock = async ({
   pairAddress,

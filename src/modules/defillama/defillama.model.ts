@@ -21,7 +21,7 @@ export class DefillamaTvlProtocolModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'defillama-tvl-protocols',
-      _keys: keys<DefillamaTvlProtocol>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -37,7 +37,7 @@ export class DefillamaTvlChartModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'defillama-tvl-charts',
-      _keys: keys<DefillamaTvlChart>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -54,7 +54,7 @@ export class DefillamaTvlChainsModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'defillama-tvl-chains',
-      _keys: keys<DefillamaTvlChain>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -71,7 +71,7 @@ export class DefillamaStableCoinsModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'defillama-stablecoins',
-      _keys: keys<DefillamaStableCoin>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -89,7 +89,7 @@ export class DefillamaStableCoinPriceModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'defillama-stablecoin-price',
-      _keys: keys<DefillamaStableCoinPrice>(),
+      _keys: [],
       indexes: [],
     });
   }
@@ -108,7 +108,7 @@ export class DefillamaStableCoinChartsModel extends BaseModel {
   constructor() {
     super({
       collectionName: 'defillama-stablecoin-charts',
-      _keys: keys<DefillamaStableCoinChart>(),
+      _keys: [],
       indexes: [],
     });
   }

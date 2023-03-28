@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer-extra';
 import { anonymizeProxy } from 'proxy-chain';
-import { WEBSHARE_PROXY_HOST, WEBSHARE_PROXY_STR } from '@/common/proxy';
+import { WEBSHARE_PROXY_HOST, WEBSHARE_PROXY_STR } from '../common/proxy';
 import Container, { Token } from 'typedi';
 import { Browser } from 'puppeteer';
 import { DILogger } from './logger.loader';

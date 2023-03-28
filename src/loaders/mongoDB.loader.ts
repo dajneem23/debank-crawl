@@ -1,8 +1,7 @@
 import { Db, MongoClient } from 'mongodb';
 import { Container, Token } from 'typedi';
 
-import { DILogger } from '@/loaders/logger.loader';
-import env from '@/config/env';
+import { DILogger } from './logger.loader';
 
 export const DIMongoDB = new Token<Db>('mongoDB');
 export const DIMongoClient = new Token<MongoClient>('mongoClient');
@@ -10,7 +9,7 @@ export const DIMongoClient = new Token<MongoClient>('mongoClient');
 const mongoDBLoader = async (): Promise<Db> => {
   const logger = Container.get(DILogger);
 
-  const client = await MongoClient.connect(env.MONGO_URI);
+  const client = await MongoClient.connect(process.env.MONGO_URI);
   client.on('disconnected', () => logger.warn('disconnected', 'MongoDB'));
   client.on('reconnected', () => logger.success('reconnected', 'MongoDB'));
   const db = client.db();

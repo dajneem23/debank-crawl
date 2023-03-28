@@ -1,5 +1,5 @@
 import { getRuntimeEnv, parseJSONFromFile } from '../utils/common';
-import { LogLevel } from '@/core/logger';
+import { LogLevel } from '../core/logger';
 
 type AppEnv = 'local' | 'development' | 'production';
 
@@ -26,7 +26,7 @@ const LOCAL_ENV_FILEPATH = './env.local.json';
 /**
  * ENV config
  */
-const env = {
+export const env = {
   MONGO_URI: getRuntimeEnv('MONGO_URI'),
   MONGO_URI_BINANCE: getRuntimeEnv('MONGO_URI_BINANCE'),
 

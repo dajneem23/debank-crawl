@@ -1,10 +1,10 @@
 import Container from 'typedi';
-import Logger from '@/core/logger';
+import { Logger } from '../../core/logger';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
-import { DIRedisConnection } from '@/loaders/redis.loader';
+import { DIRedisConnection } from '../../loaders/redis.loader';
 import IORedis from 'ioredis';
-import { CoinGeckoAPI } from '@/common/api';
+import { CoinGeckoAPI } from '../../common/api';
 import { CoinGeckoJobNames, fetchCoinGeckoDataJob } from './coingecko.job';
 import {
   coinGeckoAssetModelToken,
@@ -15,10 +15,10 @@ import {
   coinGeckoExchangeModelToken,
 } from './coingecko.model';
 import { queryDebankCoins, queryDebankImportantTokens } from '../debank/debank.fnc';
-import { createArrayDateByHours, createArrayDates, formatDate } from '@/utils/date';
+import { createArrayDateByHours, createArrayDates, formatDate } from '../../utils/date';
 import { Db, MongoClient } from 'mongodb';
-import { Group3Alphabet } from '@/utils/text';
-import { pgClientToken } from '@/loaders/pg.loader';
+import { Group3Alphabet } from '../../utils/text';
+import { pgClientToken } from '../../loaders/pg.loader';
 import { workerProcessor } from './coingecko.process';
 
 /**

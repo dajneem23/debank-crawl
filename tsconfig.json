@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-    "strict": false,
     "module": "commonjs",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "allowJs": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noFallthroughCasesInSwitch": true,
     "target": "es6",
-    "noImplicitAny": false,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "./build",
@@ -18,13 +21,11 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "plugins": [
-      {
-        "transform": "ts-transformer-keys/transformer"
-      }
-    ],
+    "rootDir": "./src",
+    "rootDirs": ["./src"],
+    "plugins": [],
     "lib": ["ES2021.String"]
   },
-  "include": ["./src/**/*", "./ormconfig.ts"],
+  "include": ["src/**/*", "src"],
   "exclude": ["node_modules", "test"]
 }

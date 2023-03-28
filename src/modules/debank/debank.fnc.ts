@@ -1,14 +1,13 @@
-import { CACHE_PATH } from '@/common/cache';
-import { pgClientToken, pgpToken } from '@/loaders/pg.loader';
+import { CACHE_PATH } from '../../common/cache';
+import { pgClientToken, pgpToken } from '../../loaders/pg.loader';
 import Bluebird from 'bluebird';
 import Container from 'typedi';
 import cacache from 'cacache';
-import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
-import { DebankAPI } from '@/common/api';
+import { bulkInsert, bulkInsertOnConflict } from '../../utils/pg';
+import { DebankAPI } from '../../common/api';
 import STABLE_COINS from '../../data/defillama/stablecoins.json';
-import { formatDate } from '@/utils/date';
-import { DIMongoClient } from '@/loaders/mongoDB.loader';
-import { getMgOnChainDbName } from '@/common/db';
+import { formatDate } from '../../utils/date';
+import { DIMongoClient } from '../../loaders/mongoDB.loader';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {

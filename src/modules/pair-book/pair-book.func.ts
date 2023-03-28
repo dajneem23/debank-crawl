@@ -1,4 +1,4 @@
-import { DIMongoClient } from '@/loaders/mongoDB.loader';
+import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import { Filter, Document } from 'mongodb';
 import Container from 'typedi';
 

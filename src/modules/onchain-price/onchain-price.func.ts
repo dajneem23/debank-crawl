@@ -1,6 +1,6 @@
-import { onChainBotAlertConfigToken } from '@/loaders/config.loader';
-import { sendTelegramMessage } from '@/service/alert/telegram';
-import { CHAINS } from '@/types/chain';
+import { onChainBotAlertConfigToken } from '../../loaders/config.loader';
+import { sendTelegramMessage } from '../../service/alert/telegram';
+import { CHAINS } from '../../types/chain';
 import Container from 'typedi';
 
 export const alertHighPriceTransaction = async ({

@@ -1,4 +1,4 @@
-import Logger from '@/core/logger';
+import { Logger } from '../core/logger';
 import { Queue, QueueEventsOptions, QueueOptions } from 'bullmq';
 
 export const initQueue = ({ queueName, opts }: { queueName: string; opts: QueueOptions }) => {

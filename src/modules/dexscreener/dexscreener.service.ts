@@ -1,7 +1,7 @@
-import { DexScreenerAPI } from '@/common/api';
-import Logger from '@/core/logger';
-import { pgPoolToken } from '@/loaders/pg.loader';
-import { DIRedisConnection } from '@/loaders/redis.loader';
+import { DexScreenerAPI } from '../../common/api';
+import { Logger } from '../../core/logger';
+import { pgPoolToken } from '../../loaders/pg.loader';
+import { DIRedisConnection } from '../../loaders/redis.loader';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import IORedis from 'ioredis';
 import { env } from 'process';

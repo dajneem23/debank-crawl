@@ -1,5 +1,5 @@
-import AppError, { AppErrorJSON } from '@/core/errors/AppError';
-import { CommonError } from '@/types/Error';
+import AppError, { AppErrorJSON } from '../../core/errors/AppError';
+import { CommonError } from '../../types/Error';
 const errors = Object.freeze({
   not_found: {
     message: 'Refs Not found',

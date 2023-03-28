@@ -1,9 +1,9 @@
-import { DIRedisConnection } from '@/loaders/redis.loader';
+import { DIRedisConnection } from '../../loaders/redis.loader';
 import { Job, MetricsTime, Queue, Worker } from 'bullmq';
 import Container from 'typedi';
 import { workerProcessor } from './processor';
 import { updateTokensToRedis } from './handlers';
-import { DILogger } from '@/loaders/logger.loader';
+import { DILogger } from '../../loaders/logger.loader';
 const job = {
   'update:tokens-to-redis': updateTokensToRedis,
 };

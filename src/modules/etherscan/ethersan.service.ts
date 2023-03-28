@@ -1,13 +1,13 @@
-import Logger from '@/core/logger';
+import { Logger } from '../../core/logger';
 import { EtherscanJobNames, callEtherScanAPI, checkEtherscanResponse } from './etherscan.fnc';
 import { Db, MongoClient } from 'mongodb';
 import { env } from 'process';
 import Bluebird from 'bluebird';
 import { Job, MetricsTime, Queue, Worker } from 'bullmq';
 import Container from 'typedi';
-import { DIRedisConnection } from '@/loaders/redis.loader';
-import { DIDiscordClient } from '@/loaders/discord.loader';
-import { initQueue, initQueueListeners } from '@/utils/bullmq';
+import { DIRedisConnection } from '../../loaders/redis.loader';
+import { DIDiscordClient } from '../../loaders/discord.loader';
+import { initQueue, initQueueListeners } from '../../utils/bullmq';
 
 const API_KEYS = process.env.ETHERSCAN_API_KEYS.split(',');
 

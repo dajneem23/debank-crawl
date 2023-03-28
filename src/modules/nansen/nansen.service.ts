@@ -1,15 +1,15 @@
-import Logger from '@/core/logger';
-import { pgClientToken, pgpToken } from '@/loaders/pg.loader';
-import { createPuppeteerBrowser } from '@/loaders/puppeteer.loader';
-import { sleep } from '@/utils/common';
-import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
+import { Logger } from '../../core/logger';
+import { pgClientToken, pgpToken } from '../../loaders/pg.loader';
+import { createPuppeteerBrowser } from '../../loaders/puppeteer.loader';
+import { sleep } from '../../utils/common';
+import { bulkInsert, bulkInsertOnConflict } from '../../utils/pg';
 import Container, { Token } from 'typedi';
 import fs from 'fs';
 import { dirname } from 'path';
 import { uniq, uniqBy } from 'lodash';
 import bluebird from 'bluebird';
 import { Page } from 'puppeteer';
-import { isJSON } from '@/utils/text';
+import { isJSON } from '../../utils/text';
 
 export const NansenServiceToken = new Token<NansenService>('NansenService');
 import inserted from './output/inserted.json';

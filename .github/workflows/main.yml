@@ -102,7 +102,7 @@ jobs:
             -p 127.0.0.1:9005:9002 \
             --restart always \
             -v /var/run/docker.sock:/var/run/docker.sock \
-            --cpus 4 \
-            --memory 8g \
+            --cpus 2 \
+            --memory 4g \
             --name $(echo $IMAGE_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)

@@ -133,7 +133,6 @@ export class DefillamaService {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
-    this.initWorkerListeners(this.workerOnchain);
     this.workerOnchain.on('completed', async (job) => {
       const discord = Container.get(DIDiscordClient);
 
@@ -144,11 +143,15 @@ export class DefillamaService {
     });
 
     this.workerOnchain.on('failed', async (job, err) => {
-      this.mgClient.db('onchain-log').collection('transaction-price-log').insertOne({
-        job,
-        from: 'defillama-onchain',
-        err,
-      });
+      try {
+        this.mgClient.db('onchain-log').collection('transaction-price-log').insertOne({
+          job,
+          from: 'defillama-onchain',
+          err,
+        });
+      } catch (error) {
+        console.info({ error });
+      }
     });
 
     this.workerToken = new Worker('defillama-token', workerProcessor.bind(this), {

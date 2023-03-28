@@ -125,16 +125,26 @@ export class OnChainPriceService {
    */
   private initWorkerListeners(worker: Worker) {
     // Failed
-    worker.on('failed', ({ id, name, data, failedReason }: Job<any>, error: Error) => {
-      this.logger.discord(
-        'error',
-        '[job:onchainPrice:error]',
-        id,
-        name,
-        failedReason,
-        JSON.stringify(data),
-        JSON.stringify(error),
-      );
+
+    worker.on('failed', async (job, err) => {
+      try {
+        this.logger.discord(
+          'error',
+          '[job:onchainPrice:error]',
+          job?.id,
+          job?.name,
+          job?.failedReason,
+          JSON.stringify(job?.data),
+          JSON.stringify(err),
+        );
+        this.mgClient.db('onchain-log').collection('transaction-price-log').insertOne({
+          job,
+          from: 'defillama-onchain',
+          err,
+        });
+      } catch (error) {
+        console.info({ error });
+      }
     });
   }
   async addUpdateUsdValueOfTransactionsJob() {

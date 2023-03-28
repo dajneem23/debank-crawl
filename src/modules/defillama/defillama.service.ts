@@ -87,6 +87,9 @@ export class DefillamaService {
 
   constructor() {
     // TODO: CHANGE THIS TO PRODUCTION
+
+    // this.initQueue();
+    // this.addUpdateUsdValueOfTransactionsJob();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -102,7 +105,7 @@ export class DefillamaService {
     this.worker = new Worker('defillama', workerProcessor.bind(this), {
       autorun: true,
       connection: this.redisConnection,
-      lockDuration: 1000 * 60,
+      lockDuration: 1000 * 60 * 2,
       concurrency: 10,
       stalledInterval: 1000 * 15,
       skipLockRenewal: true,
@@ -954,7 +957,7 @@ export class DefillamaService {
       .sort({
         block_at: -1,
       })
-      .limit(20000)
+      .limit(10000)
       .toArray();
     const jobs = transactions.map((transaction) => {
       const { tx_hash, token: token, symbol, block_at, amount, chain_id, block_number, log_index } = transaction;
@@ -1068,8 +1071,9 @@ export class DefillamaService {
         .collection('tx-event')
         .updateOne(
           {
-            tx_hash,
+            block_at: timestamp,
             log_index,
+            tx_hash,
           },
           {
             $set: {
@@ -1293,7 +1297,7 @@ export class DefillamaService {
         async (item) => {
           const { id, timestamp, price, symbol, updated_at, confidence } = item;
           await setExpireRedisKey({
-            key: `price:${symbol}`,
+            key: `price:${id.replace('coingecko:', '')}`,
             expire: 60 * 5,
             value: `${timestamp}:${price}`,
           });

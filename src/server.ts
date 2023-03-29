@@ -10,7 +10,7 @@ import { exitHandler } from './core/handler';
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('events').EventEmitter.prototype._maxListeners = 100;
 
-    process.env.MODE = 'production';
+    // process.env.MODE = 'production';
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------

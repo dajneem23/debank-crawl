@@ -662,7 +662,7 @@ export class DefillamaService {
     //   ...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, '')),
     // ]);
     const lastUpdate = +(await getRedisKey('defillama-onchain:last-update-transactions')) ?? 0;
-    const limit = 50000;
+    const limit = 20000;
     const transactions = (
       await this.mgClient
         .db('onchain')

@@ -18,7 +18,7 @@ RUN echo $MODE
 # Install packages without generate a yarn.lock lockfile
 RUN yarn --pure-lockfile --production=true --non-interactive --frozen-lockfile --ignore-scripts --ignore-engines --ignore-platform --no-progress --optimize-autoloader --no-bin-links --no-cache
 # install ts-node
-RUN yarn global add ts-node
+# RUN yarn global add ts-node
 
 #install tsc
 RUN yarn global add typescript

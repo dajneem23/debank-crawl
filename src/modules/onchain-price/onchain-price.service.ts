@@ -19,7 +19,7 @@ import { getPairPriceAtBlock } from '../../service/ethers/price';
 import { DIDiscordClient } from '../../loaders/discord.loader';
 import { daysDiff } from '../../utils/date';
 import { OnchainPriceJob } from './onchain-price.job';
-import { getRedisKeys, setExpireRedisKey } from '../../service/redis/func';
+import { getRedisKey, getRedisKeys, setExpireRedisKey, setRedisKey } from '../../service/redis/func';
 import { workerProcessor } from './onchain-price.process';
 export class OnChainPriceService {
   private logger = new Logger('OnChainPriceService');
@@ -170,54 +170,26 @@ export class OnChainPriceService {
     });
   }
   async addUpdateUsdValueOfTransactionsJob() {
-    const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';
-    const onchainPriceKeys = await getRedisKeys(`${onchainPricePattern}:*`);
-    const _keys = uniq([...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, ''))]);
-    const transactions = await this.mgClient
-      .db('onchain')
-      .collection('tx-event')
-      .aggregate([
-        {
-          $match: {
-            usd_value: {
-              $exists: false,
-            },
-          },
-        },
-        {
-          $set: {
-            _key: {
-              $concat: [
-                {
-                  $toString: '$tx_hash',
-                },
-                ':',
-                {
-                  $toString: '$log_index',
-                },
-              ],
-            },
-          },
-        },
-        {
-          $match: {
-            _key: {
-              $not: {
-                $in: _keys,
-              },
-            },
-          },
-        },
-        {
-          $limit: 20000,
-        },
-        {
-          $sort: {
-            block_at: -1,
-          },
-        },
-      ])
-      .toArray();
+    const lastUpdate = +(await getRedisKey('onchain-price:last-update-transactions')) ?? 0;
+    const limit = 20000;
+    const transactions = (
+      await this.mgClient
+        .db('onchain')
+        .collection('tx-event')
+        .find({})
+        .hint({ block_at: -1 })
+        .sort({
+          block_at: -1,
+        })
+        .limit(limit)
+        .skip(lastUpdate * limit)
+        .toArray()
+    ).filter(({ usd_value }) => !usd_value);
+    if (!transactions.length) {
+      await setRedisKey('onchain-price:last-update-transactions', '0');
+    } else {
+      await setRedisKey('onchain-price:last-update-transactions', `${lastUpdate + 1}`);
+    }
     const jobs = transactions.map((transaction) => {
       const { tx_hash, log_index, token, symbol, block_at, amount, chain_id, block_number } = transaction;
       return {

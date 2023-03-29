@@ -4,6 +4,7 @@ import BEP_20_ABI from '../../common/abi/BEP_20.json';
 import { BSC_RPC_MAINNET, ETH_RPC_MAINNET } from '../../common/rpc';
 import { sleep } from '../../utils/common';
 import { Logger } from '../../core/logger';
+import { getBestRPCFromRedis } from './rpc';
 const logger = new Logger('getPairPriceAtBlock');
 export const getPairPriceAtBlock = async ({
   pairAddress,
@@ -57,7 +58,7 @@ export const getETHPairPriceAtBlock = async ({
   retry?: number;
   retryTime?: number;
 }) => {
-  const jsonRpc = ETH_RPC_MAINNET.at(Math.floor(Math.random() * ETH_RPC_MAINNET.length))[0];
+  const jsonRpc = await getBestRPCFromRedis({ chain_id: 1 });
   try {
     // const jsonRpc = 'https://eth-mainnet.gateway.pokt.network/v1/lb/4cad2554fb45bda1154907a8';
     const provider = new ethers.providers.JsonRpcProvider(jsonRpc);

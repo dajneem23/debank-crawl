@@ -565,7 +565,6 @@ export class DefillamaService {
         id,
         token_id: id.replace('coingecko:', ''),
         symbol,
-        decimals,
         token_address: token,
       });
     return {

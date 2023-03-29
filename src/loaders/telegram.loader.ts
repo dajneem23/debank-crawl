@@ -1,5 +1,3 @@
-import { generateId } from '../utils/common';
-import { filter } from 'lodash';
 import TelegramBot from 'node-telegram-bot-api';
 import { env } from 'process';
 import Container, { Token } from 'typedi';

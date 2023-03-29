@@ -77,9 +77,6 @@ export class DefillamaService {
 
   constructor() {
     // TODO: CHANGE THIS TO PRODUCTION
-
-    // this.initQueue();
-    // this.addUpdateUsdValueOfTransactionsJob();
     if (env.MODE === 'production') {
       // Init Worker
       this.initWorker();
@@ -99,7 +96,7 @@ export class DefillamaService {
       concurrency: 10,
       stalledInterval: 1000 * 15,
       skipLockRenewal: true,
-      maxStalledCount: 5,
+      maxStalledCount: 1,
       // limiter: {
       //   max: 200,
       //   duration: 60 * 1000,
@@ -523,13 +520,23 @@ export class DefillamaService {
   }
 
   async getCoinsHistoricalData({ id, timestamp, token }: { id: string; timestamp: number; token: string }) {
+    const tokenPriceFromRedis = await getRedisKey(`price:${id.replace('coingecko:', '')}`);
+    if (tokenPriceFromRedis) {
+      const [_timestamp, price] = tokenPriceFromRedis.split(':');
+      if (timestamp && price && +_timestamp > timestamp - 1000 * 2 * 60 && +_timestamp < timestamp + 1000 * 2 * 60) {
+        return {
+          price,
+          timestamp: +_timestamp,
+        };
+      }
+    }
     const exists = await this.mgClient
       .db(getMgOnChainDbName())
       .collection('token-price')
       .findOne({
         timestamp: {
-          $lte: timestamp + 1000 * 60,
-          $gte: timestamp - 1000 * 60,
+          $lte: timestamp + 1000 * 2 * 60,
+          $gte: timestamp - 1000 * 2 * 60,
         },
         $or: [{ id }, { token_address: token }],
       });
@@ -793,7 +800,7 @@ export class DefillamaService {
       await this.mgClient
         .db('onchain')
         .collection('tx-event')
-        .updateOne(
+        .updateMany(
           {
             block_at: timestamp,
             log_index,

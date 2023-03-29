@@ -257,7 +257,7 @@ export class OnChainPriceService {
     timestamp: number;
     quoteToken: string;
     symbol: string;
-  }) {
+  }): Promise<{ price: any; timestamp: any; reserve0?: number; reserve1?: number }> {
     const tokenPrice = await this.mgClient
       .db('onchain')
       .collection('token-price')
@@ -315,7 +315,6 @@ export class OnChainPriceService {
       timestamp: _timestamp,
       reserve0,
       reserve1,
-      retryTime,
     };
   }
   async updateTransactionUsdValue({
@@ -380,7 +379,6 @@ export class OnChainPriceService {
       timestamp: _timestamp,
       reserve0,
       reserve1,
-      retryTime,
     } = await this.getTokenPrice({
       pairAddress: pair.address,
       blockNumber: block_number,

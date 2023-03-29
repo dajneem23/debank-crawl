@@ -1,6 +1,5 @@
 import Container from 'typedi';
 import { DIDiscordClient, Discord } from './discord.loader';
-import { EtherScanService } from '../modules/etherscan/ethersan.service';
 import { OnChainPriceService } from '../modules/onchain-price/onchain-price.service';
 import { InitTokenQueue } from '../service/token/queue';
 import { DefillamaService } from '../modules/defillama';

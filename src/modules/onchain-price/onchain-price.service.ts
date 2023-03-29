@@ -185,11 +185,7 @@ export class OnChainPriceService {
         .skip(lastUpdate * limit)
         .toArray()
     ).filter(({ price }) => !price);
-    if (!transactions.length) {
-      await setRedisKey('onchain-price:last-update-transactions', '0');
-    } else {
-      await setRedisKey('onchain-price:last-update-transactions', `${lastUpdate + 1}`);
-    }
+
     const jobs = transactions.map((transaction) => {
       const { tx_hash, log_index, token, symbol, block_at, amount, chain_id, block_number } = transaction;
       return {
@@ -218,6 +214,12 @@ export class OnChainPriceService {
       };
     });
     await this.queue.addBulk(jobs);
+
+    if (!transactions.length) {
+      await setRedisKey('onchain-price:last-update-transactions', '0');
+    } else {
+      await setRedisKey('onchain-price:last-update-transactions', `${lastUpdate + 1}`);
+    }
     const discord = Container.get(DIDiscordClient);
 
     await discord.sendMsg({

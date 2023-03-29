@@ -107,9 +107,6 @@ export const getBSCPairPriceAtBlock = async ({
   const jsonRpc = await getBestRPCFromRedis({ chain_id: 56 });
   try {
     const provider = new ethers.providers.JsonRpcProvider(jsonRpc.url);
-    // const provider = new ethers.providers.JsonRpcProvider(
-    //   'https://bsc-mainnet.gateway.pokt.network/v1/lb/4cad2554fb45bda1154907a8',
-    // );
     const contract = new ethers.Contract(pairAddress, BEP_20_ABI, provider);
     const [reserve0, reserve1, blockTimestampLast] = await contract.getReserves({
       blockTag: blockNumber,

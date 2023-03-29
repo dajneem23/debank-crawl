@@ -126,14 +126,14 @@ export class DefillamaService {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
-    this.workerOnchain.on('completed', async (job) => {
-      const discord = Container.get(DIDiscordClient);
+    // this.workerOnchain.on('completed', async (job) => {
+    //   const discord = Container.get(DIDiscordClient);
 
-      await discord.sendMsg({
-        message: `Onchain job completed: ${job.id}`,
-        channelId: '1041620555188682793',
-      });
-    });
+    //   await discord.sendMsg({
+    //     message: `Onchain job completed: ${job.id}`,
+    //     channelId: '1041620555188682793',
+    //   });
+    // });
 
     this.workerOnchain.on('failed', async (job, err) => {
       try {
@@ -660,6 +660,7 @@ export class DefillamaService {
     //   ...defillamaOnchainKeys.map((key) => key.replace(`${redisPattern}:`, '')),
     //   ...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, '')),
     // ]);
+
     const lastUpdate = +(await getRedisKey('defillama-onchain:last-update-transactions')) ?? 0;
     const limit = 20000;
     const transactions = (
@@ -675,11 +676,7 @@ export class DefillamaService {
         .skip(lastUpdate * limit)
         .toArray()
     ).filter(({ price }) => !price);
-    if (!transactions.length) {
-      await setRedisKey('defillama-onchain:last-update-transactions', '0');
-    } else {
-      await setRedisKey('defillama-onchain:last-update-transactions', `${lastUpdate + 1}`);
-    }
+
     const jobs = transactions.map((transaction) => {
       const { tx_hash, token: token, symbol, block_at, amount, chain_id, block_number, log_index } = transaction;
       return {
@@ -706,6 +703,12 @@ export class DefillamaService {
       };
     });
     await this.queueOnchain.addBulk(jobs);
+
+    if (!transactions.length) {
+      await setRedisKey('defillama-onchain:last-update-transactions', '0');
+    } else {
+      await setRedisKey('defillama-onchain:last-update-transactions', `${lastUpdate + 1}`);
+    }
     const discord = Container.get(DIDiscordClient);
 
     await discord.sendMsg({
@@ -805,34 +808,6 @@ export class DefillamaService {
             },
           },
         );
-      // await Promise.all([
-      //   this.mgClient
-      //     .db('onchain-log')
-      //     .collection('transaction-price-log')
-      //     .insertOne({
-      //       tx_hash,
-      //       input: {
-      //         tx_hash,
-      //         log_index,
-      //         token,
-      //         timestamp,
-      //         amount,
-      //         chain_id,
-      //         block_number,
-      //         symbol,
-      //       },
-      //       output: {
-      //         price,
-      //         usd_value: amount * price,
-      //         price_at: _timestamp,
-      //       },
-      //       var: {
-      //         chain,
-      //       },
-      //       updated_by: 'defillama-onchain',
-      //       updated_at: new Date(),
-      //     }),
-      // ]);
     } catch (error) {
       this.logger.discord(
         'error',
@@ -963,7 +938,7 @@ export class DefillamaService {
     const { tokens } = await getAllTokenOnRedis();
     const list_coins = chunk(
       tokens.filter(({ coingeckoId }) => coingeckoId),
-      50,
+      20,
     );
     const jobs = list_coins.map((coin) => {
       return {

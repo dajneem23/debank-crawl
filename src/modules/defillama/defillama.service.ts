@@ -674,7 +674,7 @@ export class DefillamaService {
         .limit(limit)
         .skip(lastUpdate * limit)
         .toArray()
-    ).filter(({ usd_value }) => !usd_value);
+    ).filter(({ price }) => !price);
     if (!transactions.length) {
       await setRedisKey('defillama-onchain:last-update-transactions', '0');
     } else {

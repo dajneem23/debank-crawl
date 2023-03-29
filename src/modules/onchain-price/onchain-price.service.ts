@@ -62,7 +62,7 @@ export class OnChainPriceService {
       lockDuration: 1000 * 60 * 3,
       skipLockRenewal: true,
       stalledInterval: 1000 * 30,
-      concurrency: 10,
+      concurrency: 25,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -161,7 +161,7 @@ export class OnChainPriceService {
         );
         this.mgClient.db('onchain-log').collection('transaction-price-log').insertOne({
           job,
-          from: 'defillama-onchain',
+          from: 'onchain-price',
           err,
         });
       } catch (error) {
@@ -184,7 +184,7 @@ export class OnChainPriceService {
         .limit(limit)
         .skip(lastUpdate * limit)
         .toArray()
-    ).filter(({ usd_value }) => !usd_value);
+    ).filter(({ price }) => !price);
     if (!transactions.length) {
       await setRedisKey('onchain-price:last-update-transactions', '0');
     } else {
@@ -408,40 +408,5 @@ export class OnChainPriceService {
           },
         },
       );
-    //log
-    // await this.mgClient
-    //   .db('onchain-log')
-    //   .collection('transaction-price-log')
-    //   .insertOne({
-    //     tx_hash,
-    //     input: {
-    //       tx_hash,
-    //       log_index,
-    //       chain_id,
-    //       amount,
-    //       block_number,
-    //       timestamp,
-    //       token,
-    //     },
-    //     output: {
-    //       chain,
-    //       price,
-    //       usd_value: amount * price,
-    //       price_at: _timestamp,
-    //     },
-    //     var: {
-    //       token,
-    //       pairs,
-    //       pair,
-    //       reserve0,
-    //       reserve1,
-    //       retryTime,
-    //       _timestamp,
-    //       quoteToken,
-    //       decimals: _token.decimals - QUOTE_TOKEN_DECIMALS[quoteToken][chain_id],
-    //     },
-    //     updated_by: 'onchain-price',
-    //     updated_at: new Date(),
-    //   });
   }
 }

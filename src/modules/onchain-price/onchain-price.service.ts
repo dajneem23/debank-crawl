@@ -206,7 +206,9 @@ export class OnChainPriceService {
         },
         opts: {
           jobId: `update:transaction:usd-value:${tx_hash}:${log_index}`,
-          removeOnComplete: true,
+          removeOnComplete: {
+            age: 60 * 5,
+          },
           removeOnFail: {
             age: 60 * 30,
           },

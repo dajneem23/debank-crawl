@@ -25,7 +25,6 @@ export const getRPCsFromRedis = async function ({ chain_id }: { chain_id: number
 export const getBestRPCFromRedis = async function ({ chain_id }: { chain_id: number }): Promise<RPC> {
   const rpcs = (await getRPCsFromRedis({ chain_id }))
     .filter(({ score }) => score)
-    .map((rpc) => ({ ...rpc, latency: rpc.latency.replace('s', '') }))
     .sort((a, b) => +a.latency - +b.latency);
   const bestRPC = rpcs[0];
   return bestRPC;

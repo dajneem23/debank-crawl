@@ -104,9 +104,9 @@ export const getBSCPairPriceAtBlock = async ({
   retry?: number;
   retryTime?: number;
 }) => {
-  const jsonRpc = BSC_RPC_MAINNET.at(Math.floor(Math.random() * BSC_RPC_MAINNET.length))[0];
+  const jsonRpc = await getBestRPCFromRedis({ chain_id: 56 });
   try {
-    const provider = new ethers.providers.JsonRpcProvider(jsonRpc);
+    const provider = new ethers.providers.JsonRpcProvider(jsonRpc.url);
     // const provider = new ethers.providers.JsonRpcProvider(
     //   'https://bsc-mainnet.gateway.pokt.network/v1/lb/4cad2554fb45bda1154907a8',
     // );

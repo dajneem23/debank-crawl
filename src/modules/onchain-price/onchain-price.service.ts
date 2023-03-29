@@ -17,7 +17,7 @@ import { PairBookChainIds } from '../pair-book/pair-book.type';
 import { find, uniq } from 'lodash';
 import { getPairPriceAtBlock } from '../../service/ethers/price';
 import { DIDiscordClient } from '../../loaders/discord.loader';
-import { daysDiff } from '../../utils/date';
+import { daysDiff, hoursDiff } from '../../utils/date';
 import { OnchainPriceJob } from './onchain-price.job';
 import { getRedisKey, getRedisKeys, setExpireRedisKey, setRedisKey } from '../../service/redis/func';
 import { workerProcessor } from './onchain-price.process';
@@ -212,7 +212,7 @@ export class OnChainPriceService {
           removeOnFail: {
             age: 60 * 30,
           },
-          priority: daysDiff(new Date(), new Date(block_at * 1000)),
+          priority: hoursDiff(new Date(), new Date(block_at * 1000)),
           attempts: 10,
         },
       };

@@ -1,6 +1,5 @@
 import { Service, Token } from 'typedi';
 import { BaseModel } from '../base/base.model';
-import { keys } from 'ts-transformer-keys';
 import {
   CoinGeckoAsset,
   CoinGeckoBlockchain,

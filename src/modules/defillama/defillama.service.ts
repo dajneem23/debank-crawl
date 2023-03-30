@@ -18,7 +18,7 @@ import { getRedisKey, setExpireRedisKey, setRedisKey } from '../../service/redis
 import { workerProcessor } from './defiilama.process';
 import { getAllTokenOnRedis, getTokenOnRedis } from '../../service/token/func';
 import { Logger } from '../../core/logger';
-import { sendTelegramMessage } from '@/service/alert/telegram';
+import { sendTelegramMessage } from '../../service/alert/telegram';
 
 export class DefillamaService {
   private logger = new Logger('Defillama');

@@ -6,7 +6,6 @@ import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullm
 import IORedis from 'ioredis';
 import { env } from 'process';
 import Container from 'typedi';
-import { searchPairsFromDexScreener } from '../dexscreener/dexscreener.func';
 import { MongoClient } from 'mongodb';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import { getMgOnChainDbName } from '../../common/db';

@@ -2,8 +2,6 @@ import { createClient, RedisClientType } from 'redis';
 import { Container, Token } from 'typedi';
 import { DILogger } from './logger.loader';
 import IORedis from 'ioredis';
-import { setExpireRedisKey } from '../service/redis/func';
-import { getTokenOnRedis, saveAllTokensToRedis } from '../service/token/func';
 
 export const DIRedisClient = new Token<RedisClientType>('redisClient');
 

@@ -14,7 +14,6 @@ import { DILogger } from '../../loaders/logger.loader';
 import { Logger } from '../../core/logger';
 import { throwErr } from '../../utils/common';
 import { $lookup, $toMongoFilter } from '../../utils/mongoDB';
-import { $refValidation } from '../../utils/validation';
 import { COLLECTION_NAMES, PRIVATE_KEYS, RemoveSlugPattern, T } from '../../types';
 import slugify from 'slugify';
 import { omit, uniq } from 'lodash';
@@ -540,7 +539,6 @@ export class BaseModel {
     { upsert = true, returnDocument = 'after', ...options }: FindOneAndUpdateOptions = {},
   ): Promise<WithId<T> | null> {
     try {
-      _content = await this._validate(_content);
       const {
         value,
         ok,
@@ -595,7 +593,6 @@ export class BaseModel {
     { upsert = false, returnDocument = 'after', ...options }: FindOneAndUpdateOptions = {},
   ): Promise<WithId<T> | null> {
     try {
-      _content = await this._validate(_content);
       const {
         value,
         ok,
@@ -692,88 +689,6 @@ export class BaseModel {
       return this._collection.aggregate(pipeline, options);
     } catch (err) {
       this.logger.error('error', `[get:${this._collectionName}:error]`, err.message);
-      throw err;
-    }
-  }
-  async _validate({ ..._content }: any): Promise<any> {
-    try {
-      const {
-        categories = [],
-        sub_categories = [],
-        event_tags = [],
-        product_tags = [],
-        company_tags = [],
-        person_tags = [],
-        coin_tags = [],
-        fund_tags = [],
-        speakers = [],
-        cryptocurrencies = [],
-        blockchains = [],
-        country,
-        title,
-        name,
-        slug,
-      } = _content;
-      categories.length &&
-        (await $refValidation({ collection: 'categories', refKey: 'name', list: categories })) &&
-        (_content.categories = categories);
-      blockchains.length &&
-        (await $refValidation({ collection: 'blockchains', list: blockchains })) &&
-        (_content.blockchains = blockchains);
-      sub_categories.length &&
-        (await $refValidation({
-          collection: 'categories',
-          list: sub_categories,
-          Refname: 'sub_categories',
-          refKey: 'name',
-        })) &&
-        (_content.sub_categories = sub_categories);
-      event_tags.length &&
-        (await $refValidation({ collection: 'events', list: event_tags })) &&
-        (_content.event_tags = event_tags);
-      product_tags.length &&
-        (await $refValidation({ collection: 'products', list: product_tags })) &&
-        (_content.product_tags = product_tags);
-      company_tags.length &&
-        (await $refValidation({ collection: 'companies', list: company_tags })) &&
-        (_content.company_tags = company_tags);
-      person_tags.length &&
-        (await $refValidation({ collection: 'persons', list: person_tags })) &&
-        (_content.person_tags = person_tags);
-      coin_tags.length &&
-        (await $refValidation({ collection: 'assets', list: coin_tags })) &&
-        (_content.coin_tags = coin_tags);
-      fund_tags.length &&
-        (await $refValidation({ collection: 'companies', list: fund_tags })) &&
-        (_content.fund_tags = fund_tags);
-      cryptocurrencies.length &&
-        (await $refValidation({
-          collection: 'assets',
-          list: cryptocurrencies,
-          Refname: 'cryptocurrencies',
-        })) &&
-        (_content.cryptocurrencies = cryptocurrencies);
-      speakers.length &&
-        (await $refValidation({ collection: 'persons', list: speakers, Refname: 'speakers' })) &&
-        (_content.speakers = speakers);
-      country && (await $refValidation({ collection: 'countries', list: [country], refKey: 'code' }));
-      title &&
-        !slug &&
-        (_content.slug = slugify(title, {
-          trim: true,
-          lower: true,
-          remove: RemoveSlugPattern,
-        }));
-      name &&
-        !slug &&
-        (_content.slug = slugify(name, {
-          trim: true,
-          lower: true,
-          remove: RemoveSlugPattern,
-        }));
-      return _content;
-    } catch (err) {
-      this.logger.error('error', `[validate:${this._collectionName}:error]`, err.message);
       throw err;
     }
   }

@@ -5,7 +5,6 @@ import Container from 'typedi';
 import cacache from 'cacache';
 import { bulkInsert, bulkInsertOnConflict } from '../../utils/pg';
 import { DebankAPI } from '../../common/api';
-import STABLE_COINS from '../../data/defillama/stablecoins.json';
 import { formatDate } from '../../utils/date';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
 
@@ -53,7 +52,6 @@ export const queryDebankPools = async (
 };
 
 export const cachePools = async () => {
-  // console.log('caching pools');
   const { rows } = await queryDebankPools();
   const cache = {};
   rows.forEach(({ pool_id, details: { name, chain, controller } }) => {
@@ -63,7 +61,6 @@ export const cachePools = async () => {
       pool_id,
     };
   });
-  // console.log('caching pools', Object.keys(cache).length);
   await Bluebird.map(
     Object.keys(cache),
     async (controller) => {
@@ -164,8 +161,6 @@ export const insertDebankSocialRanking = async ({
     `,
     [user_address, rank, base_score, score_dict, value_dict, total_score, new Date()],
   );
-
-  // .catch((err) => this.logger.discord('error', '[debank:insertSocialRanking]', JSON.stringify(err)));
 };
 export const queryDebankSocialRanking = async (
   {
@@ -302,7 +297,6 @@ export const insertDebankProjectList = async () => {
         new Date(),
       ],
     );
-    // .catch((err) => this.logger.discord('error', '[queryProjectList:insert]', JSON.stringify(err)));
   }
 };
 
@@ -382,12 +376,6 @@ export const insertDebankTopHolders = async ({
   symbol: string;
 }) => {
   const crawl_time = new Date();
-  //TODO: filter out holders that already exist
-  //!: remove this and replace by trigger
-  // const { rows } = await this.queryTopHoldersByCrawlId({
-  //   symbol,
-  //   crawl_id,
-  // });
   const values = holders.map((holder) => ({
     symbol,
     details: JSON.stringify(holder).replace(/\\u0000/g, ''),
@@ -491,102 +479,7 @@ export const insertDebankUserAddress = async ({
     [user_address, debank_whales_time, debank_top_holders_time, debank_ranking_time, now],
   );
 };
-export const insertDebankUserAssetPortfolio = async ({
-  user_address,
-  token_list = [],
-  coin_list = [],
-  balance_list = [],
-  project_list = [],
-  crawl_id,
-}: {
-  user_address: string;
-  token_list?: any;
-  coin_list?: any;
-  balance_list?: any;
-  project_list?: any;
-  crawl_id: number;
-}) => {
-  const now = new Date();
 
-  //   await pgClient.query(
-  //     `
-  //   INSERT INTO "debank-user-address-list" (
-  //     user_address,
-  //     last_crawl_id,
-  //     debank_ranking_time,
-  //     updated_at
-  //   ) VALUES ($1, $2, $3, $4) ON CONFLICT (user_address) DO UPDATE SET updated_at = $4 , last_crawl_id = $2, debank_ranking_time = $3;
-  // `,
-  //     [user_address, crawl_id, now, now],
-  //   );
-
-  const tokens_rows = token_list.map((token: any) => ({
-    user_address,
-    details: JSON.stringify(token).replace(/\\u0000/g, ''),
-    crawl_id,
-    crawl_time: now,
-  }));
-
-  const coins_rows = coin_list.map((coin: any) => ({
-    user_address,
-    details: JSON.stringify(coin).replace(/\\u0000/g, ''),
-    crawl_id,
-    crawl_time: now,
-  }));
-
-  const balances_rows = balance_list.map((balance: any) => ({
-    user_address,
-    details: JSON.stringify({
-      ...balance,
-      is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-    }).replace(/\\u0000/g, ''),
-    is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-    price: balance.price,
-    symbol: balance.symbol,
-    optimized_symbol: balance.optimized_symbol,
-    amount: balance.amount,
-    crawl_id,
-    crawl_time: now,
-    chain: balance.chain,
-    usd_value: +balance.price * +balance.amount,
-  }));
-
-  const projects_rows = project_list.map((project: any) => ({
-    user_address,
-    details: JSON.stringify(project).replace(/\\u0000/g, ''),
-    crawl_id,
-    crawl_time: now,
-
-    usd_value:
-      project.portfolio_item_list?.reduce((acc: number, { stats }: any) => {
-        return acc + stats.asset_usd_value;
-      }, 0) || 0,
-  }));
-
-  tokens_rows.length &&
-    (await bulkInsert({
-      data: tokens_rows,
-      table: 'debank-portfolio-tokens',
-    }));
-
-  coins_rows.length &&
-    (await bulkInsert({
-      data: coins_rows,
-      table: 'debank-portfolio-coins',
-    }));
-
-  balances_rows.length &&
-    (await bulkInsert({
-      data: balances_rows,
-      table: 'debank-portfolio-balances',
-    }));
-
-  projects_rows.length &&
-    (await bulkInsert({
-      data: projects_rows,
-      table: 'debank-portfolio-projects',
-    }));
-};
 export const insertDebankWhale = async ({
   whale,
   crawl_id,

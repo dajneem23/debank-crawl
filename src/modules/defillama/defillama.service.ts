@@ -5,11 +5,7 @@ import { env, exit } from 'process';
 import { DIRedisConnection } from '../../loaders/redis.loader';
 
 import { DefillamaJobData, DefillamaJobNames } from './defillama.job';
-import {
-  defillamaTvlChainModelToken,
-  defillamaTvlChartModelToken,
-  defillamaTvlProtocolModelToken,
-} from './defillama.model';
+
 import { getCoinsCurrentPrice, getCoinsHistorical, updateCoinsHistoricalKeyCache } from './defillama.func';
 import { MongoClient } from 'mongodb';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
@@ -19,22 +15,15 @@ import { DIDiscordClient } from '../../loaders/discord.loader';
 import Bluebird from 'bluebird';
 import { chunk, uniq } from 'lodash';
 import { CHAINS } from '../../types/chain';
-import { getRedisKey, getRedisKeys, setExpireRedisKey, setRedisKey } from '../../service/redis/func';
+import { getRedisKey, setExpireRedisKey, setRedisKey } from '../../service/redis/func';
 import { workerProcessor } from './defiilama.process';
 import { getAllTokenOnRedis, getTokenOnRedis } from '../../service/token/func';
 import { Logger } from '../../core/logger';
-const pgPool = Container.get(pgPoolToken);
 
 export class DefillamaService {
   private logger = new Logger('Defillama');
 
   private readonly redisConnection = Container.get(DIRedisConnection);
-
-  private readonly defillamaTvlProtocolModel = Container.get(defillamaTvlProtocolModelToken);
-
-  private readonly defillamaTvlChartModel = Container.get(defillamaTvlChartModelToken);
-
-  private readonly defillamaTvlChainModel = Container.get(defillamaTvlChainModelToken);
 
   private worker: Worker;
 
@@ -97,10 +86,6 @@ export class DefillamaService {
       stalledInterval: 1000 * 15,
       skipLockRenewal: true,
       maxStalledCount: 1,
-      // limiter: {
-      //   max: 200,
-      //   duration: 60 * 1000,
-      // },
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
@@ -114,10 +99,6 @@ export class DefillamaService {
       skipLockRenewal: true,
       stalledInterval: 1000 * 15,
       concurrency: 500,
-      // limiter: {
-      //   max: 200,
-      //   duration: 60 * 1000,
-      // },
       maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -154,10 +135,6 @@ export class DefillamaService {
       stalledInterval: 1000 * 15,
       skipLockRenewal: true,
       concurrency: 25,
-      // limiter: {
-      //   max: 600,
-      //   duration: 60 * 1000,
-      // },
       maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -171,10 +148,6 @@ export class DefillamaService {
       lockDuration: 1000 * 60,
       skipLockRenewal: true,
       concurrency: 20,
-      // limiter: {
-      //   max: 600,
-      //   duration: 60 * 1000,
-      // },
       maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -188,10 +161,6 @@ export class DefillamaService {
       lockDuration: 1000 * 60,
       skipLockRenewal: true,
       concurrency: 20,
-      // limiter: {
-      //   max: 600,
-      //   duration: 60 * 1000,
-      // },
       maxStalledCount: 5,
       metrics: {
         maxDataPoints: MetricsTime.TWO_WEEKS,
@@ -307,88 +276,6 @@ export class DefillamaService {
     // this.queue.getJobCounts().then((res) => console.log(res));
   }
   private initRepeatJobs() {
-    // this.addJob({
-    //   name: 'defillama:fetch:tvl:protocols',
-    //   options: {
-    //     repeatJobKey: 'defillama:fetch:tvl:protocols',
-    //     repeat: {
-    //       pattern: '* 0 0 * * *',
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // });
-    // this.addJob({
-    //   name: 'defillama:fetch:tvl:charts',
-    //   options: {
-    //     repeatJobKey: 'defillama:fetch:tvl:charts',
-    //     repeat: {
-    //       pattern: '* 0 0 * * *',
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // });
-    // this.addJob({
-    //   name: 'defillama:fetch:tvl:chains',
-    //   options: {
-    //     repeatJobKey: 'defillama:fetch:tvl:chains',
-    //     repeat: {
-    //       pattern: '* 0 0 * * *',
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // });
-    // this.addJob({
-    //   name: 'defillama:add:tvl:protocol:details',
-    //   options: {
-    //     repeatJobKey: 'defillama:add:tvl:protocol:details',
-    //     repeat: {
-    //       pattern: '* 0 0 * * *',
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // });
-    // this.addJob({
-    //   name: 'defillama:add:tvl:charts:chains',
-    //   options: {
-    //     repeatJobKey: 'defillama:add:tvl:charts:chains',
-    //     repeat: {
-    //       pattern: '* 0 0 * * *',
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // });
-    // this.addJob({
-    //   name: 'defillama:add:tvl:protocol:tvl',
-    //   options: {
-    //     repeatJobKey: 'defillama:add:tvl:protocol:tvl',
-    //     repeat: {
-    //       pattern: '* 0 0 * * *',
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // });
-    //TODO: FIX THIS
-    // this.queue.add(
-    //   'defillama:add:fetch:coin:historical',
-    //   {},
-    //   {
-    //     repeatJobKey: 'defillama:add:fetch:coin:historical',
-    //     jobId: 'defillama:add:fetch:coin:historical',
-    //     repeat: {
-    //       every: 1000 * 60 * 60,
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // );
     this.queue.add(
       'defillama:add:update:usd:value:of:transaction',
       {},
@@ -404,24 +291,6 @@ export class DefillamaService {
         attempts: 5,
       },
     );
-    //!fixing
-    //TODO: fix this
-    // this.queue.add(
-    //   'defillama:add:pool:of:transaction',
-    //   {},
-    //   {
-    //     repeatJobKey: 'defillama:add:pool:of:transaction',
-    //     jobId: 'defillama:add:pool:of:transaction',
-    //     repeat: {
-    //       every: 1000 * 60 * 60,
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: false,
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // );
-
     this.queue.add(
       'defillama:add:update:coins:current:price',
       {},
@@ -437,22 +306,6 @@ export class DefillamaService {
         attempts: 5,
       },
     );
-
-    // this.queue.add(
-    //   'defillama:update:coin:historical:key:cache',
-    //   {},
-    //   {
-    //     repeatJobKey: 'defillama:update:coin:historical:key:cache',
-    //     jobId: 'defillama:update:coin:historical:key:cache',
-    //     repeat: {
-    //       every: 1000 * 60 * 30,
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: false,
-    //     priority: 1,
-    //     attempts: 5,
-    //   },
-    // );
   }
   /**
    * @description add job to queue
@@ -478,11 +331,6 @@ export class DefillamaService {
    * @private
    */
   private initWorkerListeners(worker: Worker) {
-    // Completed
-    // worker.on('completed', ({ id, data, name }: Job<DefillamaJobData>) => {
-    //   this.logger.discord('success', '[job:defillama:completed]', id, name, JSON.stringify(data));
-    // });
-    // Failed
     worker.on('failed', ({ id, name, data, failedReason }: Job<DefillamaJobData>, error: Error) => {
       this.logger.discord(
         'error',
@@ -659,15 +507,6 @@ export class DefillamaService {
   }
 
   async addUpdateUsdValueOfTransactionsJob() {
-    // const redisPattern = 'bull:defillama-onchain:defillama:update:usd:value:of:transaction';
-    // const defillamaOnchainKeys = await getRedisKeys(`${redisPattern}:*`);
-    // const onchainPricePattern = 'bull:onchain-price:update:transaction:usd-value';
-    // const onchainPriceKeys = await getRedisKeys(`${onchainPricePattern}:*`);
-    // const _keys = uniq([
-    //   ...defillamaOnchainKeys.map((key) => key.replace(`${redisPattern}:`, '')),
-    //   ...onchainPriceKeys.map((key) => key.replace(`${onchainPricePattern}:`, '')),
-    // ]);
-
     const lastUpdate = +(await getRedisKey('defillama-onchain:last-update-transactions')) ?? 0;
     const limit = 20000;
     const transactions = (
@@ -889,7 +728,6 @@ export class DefillamaService {
     to: string;
     log_index: number;
   }) {
-    // console.log({ tx_hash, from, to });
     const pools = await this.mgClient
       .db('onchain')
       .collection('pool-book')
@@ -994,22 +832,23 @@ export class DefillamaService {
       };
     });
 
-    await Promise.all([
-      Bluebird.map(
-        data,
-        async (item) => {
-          const { id, timestamp, price, symbol, updated_at, confidence } = item;
-          await setExpireRedisKey({
-            key: `price:${id.replace('coingecko:', '')}`,
-            expire: 60 * 5,
-            value: `${timestamp}:${price}`,
-          });
-        },
-        {
-          concurrency: 50,
-        },
-      ),
-      this.mgClient.db('onchain').collection('token-price').insertMany(data),
-    ]);
+    data.length &&
+      (await Promise.all([
+        Bluebird.map(
+          data,
+          async (item) => {
+            const { id, timestamp, price, symbol, updated_at, confidence } = item;
+            await setExpireRedisKey({
+              key: `price:${id.replace('coingecko:', '')}`,
+              expire: 60 * 5,
+              value: `${timestamp}:${price}`,
+            });
+          },
+          {
+            concurrency: 50,
+          },
+        ),
+        this.mgClient.db('onchain').collection('token-price').insertMany(data),
+      ]));
   }
 }

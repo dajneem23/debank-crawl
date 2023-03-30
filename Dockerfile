@@ -15,6 +15,10 @@ ARG MODE
 ENV MODE=$MODE
 RUN echo $MODE
 
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
+
+ENV NODE_ENV=production
+
 # Install packages without generate a yarn.lock lockfile
 RUN yarn --pure-lockfile --production=true --non-interactive --frozen-lockfile --ignore-scripts --ignore-engines --ignore-platform --no-progress --optimize-autoloader --no-bin-links
 

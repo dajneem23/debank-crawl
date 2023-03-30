@@ -1,7 +1,6 @@
 import Container from 'typedi';
-import { pgPoolToken } from '../../loaders/pg.loader';
 import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
-import { env, exit } from 'process';
+import { env } from 'process';
 import { DIRedisConnection } from '../../loaders/redis.loader';
 
 import { DefillamaJobData, DefillamaJobNames } from './defillama.job';
@@ -13,7 +12,7 @@ import { createArrayDateByHours, daysDiff } from '../../utils/date';
 import { getMgOnChainDbName } from '../../common/db';
 import { DIDiscordClient } from '../../loaders/discord.loader';
 import Bluebird from 'bluebird';
-import { chunk, uniq } from 'lodash';
+import { chunk } from 'lodash';
 import { CHAINS } from '../../types/chain';
 import { getRedisKey, setExpireRedisKey, setRedisKey } from '../../service/redis/func';
 import { workerProcessor } from './defiilama.process';
@@ -371,7 +370,7 @@ export class DefillamaService {
     const tokenPriceFromRedis = await getRedisKey(`price:${id.replace('coingecko:', '')}`);
     if (tokenPriceFromRedis) {
       const [_timestamp, price] = tokenPriceFromRedis.split(':');
-      if (timestamp && price && +_timestamp > timestamp - 1000 * 2 * 60 && +_timestamp < timestamp + 1000 * 2 * 60) {
+      if (_timestamp && price && +_timestamp > timestamp - 1000 * 2 * 60 && +_timestamp < timestamp + 1000 * 2 * 60) {
         return {
           price,
           timestamp: +_timestamp,

@@ -1,13 +1,6 @@
-import { Db, MongoClient } from 'mongodb';
 import { Container, Service, Token } from 'typedi';
 
 import { REST, GatewayIntentBits, Client, TextChannel, MessagePayload, MessageCreateOptions } from 'discord.js';
-import { execSync } from 'child_process';
-import { table } from 'table';
-import { arrayObjectToTable } from '../utils/table';
-import os from 'os';
-import { dockerContainerStats, systemInfo } from '../utils/system';
-import { markdownMarkup } from '../utils/markdown';
 import { DILogger } from './logger.loader';
 import { isJSON } from '../utils/text';
 export const DIDiscordClient = new Token<Discord>('_discordClient');
@@ -30,12 +23,7 @@ export class Discord {
 
   readonly errorChannelId = ERROR_CHANNEL_ID;
 
-  // constructor() {}
-
   async init() {
-    // ? enable this if you want to reload commands
-    // await this.initCommands();
-
     this.client.on('ready', async () => {
       const channel = this.client.channels.cache.get(NOTIFICATION_CHANNEL_ID) as TextChannel;
       channel.send('Hello world! i am ready! :robot:');
@@ -59,8 +47,5 @@ export class Discord {
       const logger = Container.get(DILogger);
       logger.error('error', 'discord', 'sendMsg', error, message);
     }
-  }
-  decorateMsg(msg: string) {
-    return isJSON(msg) ? `\`\`\`json\n${msg}\`\`\`` : msg;
   }
 }

@@ -6,7 +6,7 @@ const BSC_CHAIN = {
   alias: ['bsc', 'bnb'],
 };
 
-export const PairBookChainIds = {
+export const PairBookChainIds = Object.seal({
   ethereum: {
     chainId: 1,
     chainName: 'Ethereum',
@@ -23,4 +23,4 @@ export const PairBookChainIds = {
     pairBookId: 'polygon',
     alias: ['polygon'],
   },
-};
+});

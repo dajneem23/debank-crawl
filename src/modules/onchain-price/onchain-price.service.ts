@@ -1,25 +1,21 @@
-import { DexScreenerAPI } from '../../common/api';
 import { Logger } from '../../core/logger';
-import { pgPoolToken } from '../../loaders/pg.loader';
 import { DIRedisConnection } from '../../loaders/redis.loader';
-import { Job, JobsOptions, MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
-import IORedis from 'ioredis';
+import { MetricsTime, Queue, QueueEvents, Worker } from 'bullmq';
 import { env } from 'process';
 import Container from 'typedi';
 import { MongoClient } from 'mongodb';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import { getMgOnChainDbName } from '../../common/db';
-import Bluebird from 'bluebird';
 import { findPairsOfSymbol } from '../pair-book/pair-book.func';
 import { QUOTE_TOKENS, QUOTE_TOKEN_DECIMALS } from '../../service/ethers/quoteToken';
 import { PairBookChainIds } from '../pair-book/pair-book.type';
-import { find, uniq } from 'lodash';
 import { getPairPriceAtBlock } from '../../service/ethers/price';
 import { DIDiscordClient } from '../../loaders/discord.loader';
-import { daysDiff, hoursDiff } from '../../utils/date';
+import { hoursDiff } from '../../utils/date';
 import { OnchainPriceJob } from './onchain-price.job';
-import { getRedisKey, getRedisKeys, setExpireRedisKey, setRedisKey } from '../../service/redis/func';
+import { getRedisKey, setExpireRedisKey, setRedisKey } from '../../service/redis/func';
 import { workerProcessor } from './onchain-price.process';
+import { isNil } from 'lodash';
 export class OnChainPriceService {
   private logger = new Logger('OnChainPriceService');
 
@@ -232,6 +228,100 @@ export class OnChainPriceService {
     });
   }
 
+  async updateTransactionUsdValue({
+    tx_hash,
+    log_index,
+    chain_id,
+    amount,
+    block_number,
+    timestamp,
+    token,
+    symbol,
+  }: {
+    tx_hash: string;
+    log_index: number;
+    chain_id: number | 1 | 56;
+    timestamp: number;
+    amount: number;
+    token: string;
+    block_number: number;
+    symbol: string;
+  }) {
+    const quoteTokens = (chain_id === 1 && QUOTE_TOKENS.ETH) || (chain_id === 56 && QUOTE_TOKENS.BNB);
+    const chain = Object.values(PairBookChainIds).find((c) => c.chainId === chain_id);
+    const _token = await this.mgClient.db('onchain').collection('token').findOne({ address: token });
+    if (!_token) {
+      this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token not found', token);
+      throw new Error('Token not found');
+    }
+    if (isNil(_token.decimals)) {
+      this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token decimals not found', token);
+      throw new Error('Token decimals not found');
+    }
+    if (!chain) {
+      this.logger.discord('error', '[updateTransactionUsdValue:chain]', 'Chain not found', chain_id);
+      throw new Error('Chain not found');
+    }
+    const pairs = await findPairsOfSymbol({
+      $or: [
+        {
+          'base_token.symbol': _token.symbol,
+          'quote_token.symbol': {
+            $in: quoteTokens,
+          },
+        },
+        {
+          'base_token.symbol': {
+            $in: quoteTokens,
+          },
+          'quote_token.symbol': _token.symbol,
+        },
+      ],
+      chain_id: chain.pairBookId,
+    });
+    //find first quote token that has pair
+    const quoteToken = quoteTokens.find((q) => pairs.find((p) => p.quote_token.symbol === q));
+    //use quote token to get pair
+    const pair = pairs.find((p) => p.quote_token.symbol === quoteToken);
+    if (!pair) {
+      this.logger.discord('error', '[updateTransactionUsdValue:pair]', 'Pair not found', _token.symbol, quoteToken);
+      throw new Error('Pair not found');
+    }
+    const {
+      price,
+      timestamp: _timestamp,
+      reserve0,
+      reserve1,
+    } = await this.getTokenPrice({
+      pairAddress: pair.address,
+      blockNumber: block_number,
+      token,
+      chain,
+      decimals: _token.decimals,
+      timestamp,
+      quoteToken,
+      symbol: _token.symbol,
+    });
+    //update transaction price
+    await this.mgClient
+      .db('onchain')
+      .collection('tx-event')
+      .updateMany(
+        {
+          block_at: timestamp,
+          tx_hash,
+          log_index,
+        },
+        {
+          $set: {
+            price,
+            usd_value: amount * price,
+            price_at: _timestamp,
+            updated_at: new Date(),
+          },
+        },
+      );
+  }
   async getTokenPrice({
     pairAddress,
     blockNumber,
@@ -315,97 +405,5 @@ export class OnChainPriceService {
       reserve0,
       reserve1,
     };
-  }
-  async updateTransactionUsdValue({
-    tx_hash,
-    log_index,
-    chain_id,
-    amount,
-    block_number,
-    timestamp,
-    token,
-  }: {
-    tx_hash: string;
-    log_index: number;
-    chain_id: number | 1 | 56;
-    timestamp: number;
-    amount: number;
-    token: string;
-    block_number: number;
-  }) {
-    const quoteTokens = (chain_id === 1 && QUOTE_TOKENS.ETH) || (chain_id === 56 && QUOTE_TOKENS.BNB);
-    const chain = Object.values(PairBookChainIds).find((c) => c.chainId === chain_id);
-    const _token = await this.mgClient.db('onchain').collection('token').findOne({ address: token });
-    if (!_token) {
-      this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token not found', token);
-      throw new Error('Token not found');
-    }
-    if (!_token.decimals) {
-      this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token decimals not found', token);
-      throw new Error('Token decimals not found');
-    }
-    if (!chain) {
-      this.logger.discord('error', '[updateTransactionUsdValue:chain]', 'Chain not found', chain_id);
-      throw new Error('Chain not found');
-    }
-    const pairs = await findPairsOfSymbol({
-      $or: [
-        {
-          'base_token.symbol': _token.symbol,
-          'quote_token.symbol': {
-            $in: quoteTokens,
-          },
-        },
-        {
-          'base_token.symbol': {
-            $in: quoteTokens,
-          },
-          'quote_token.symbol': _token.symbol,
-        },
-      ],
-      chain_id: chain.pairBookId,
-    });
-    //find first quote token that has pair
-    const quoteToken = quoteTokens.find((q) => pairs.find((p) => p.quote_token.symbol === q));
-    //use quote token to get pair
-    const pair = pairs.find((p) => p.quote_token.symbol === quoteToken);
-    if (!pair) {
-      this.logger.discord('error', '[updateTransactionUsdValue:pair]', 'Pair not found', _token.symbol, quoteToken);
-      throw new Error('Pair not found');
-    }
-    const {
-      price,
-      timestamp: _timestamp,
-      reserve0,
-      reserve1,
-    } = await this.getTokenPrice({
-      pairAddress: pair.address,
-      blockNumber: block_number,
-      token,
-      chain,
-      decimals: _token.decimals,
-      timestamp,
-      quoteToken,
-      symbol: _token.symbol,
-    });
-    //update transaction price
-    await this.mgClient
-      .db('onchain')
-      .collection('tx-event')
-      .updateMany(
-        {
-          block_at: timestamp,
-          tx_hash,
-          log_index,
-        },
-        {
-          $set: {
-            price,
-            usd_value: amount * price,
-            price_at: _timestamp,
-            updated_at: new Date(),
-          },
-        },
-      );
   }
 }

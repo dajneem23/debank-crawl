@@ -2074,7 +2074,7 @@ buffer@^5.6.0:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
 
-bullmq@^3.2.2:
+bullmq@^3.10.2:
   version "3.10.2"
   resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-3.10.2.tgz#6069e75d6c223b129222377e023b196e65764bd8"
   integrity sha512-GyunDkMdGJRUIo3n+jjQH9Uxz0Z+DLLbuz/7uxcQ+tFss1zB/zmn33D3l+rHaO8I52vz8C7hhEa2lCJ0GIhGgA==

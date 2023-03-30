@@ -1,7 +1,0 @@
- use('onchain')
-db[].aggregate([
-    {"$group" : { "_id": "$name", "count": { "$sum": 1 } } },
-    {"$match": {"_id" :{ "$ne" : null } , "count" : {"$gt": 1} } },
-    {"$sort": {"count" : -1} },
-    {"$project": {"name" : "$_id", "_id" : 0} }
-]);

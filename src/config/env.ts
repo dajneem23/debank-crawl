@@ -1,7 +1,4 @@
 import { getRuntimeEnv, parseJSONFromFile } from '../utils/common';
-import { LogLevel } from '../core/logger';
-
-type AppEnv = 'local' | 'development' | 'production';
 
 // Local env file path
 const LOCAL_ENV_FILEPATH = './env.local.json';
@@ -53,3 +50,6 @@ export const env = {
 };
 
 export default env;
+
+export const BSC_SCAN_API_KEYS = process.env.BSCSCAN_API_KEYS?.split(',') || [];
+export const ETHER_SCAN_API_KEYS = process.env.ETHERSCAN_API_KEYS?.split(',') || [];

@@ -1,8 +1,5 @@
-import { CACHE_PATH } from '../../common/cache';
 import { pgClientToken, pgpToken } from '../../loaders/pg.loader';
-import Bluebird from 'bluebird';
 import Container from 'typedi';
-import cacache from 'cacache';
 import { bulkInsert, bulkInsertOnConflict } from '../../utils/pg';
 import { DebankAPI } from '../../common/api';
 import { formatDate } from '../../utils/date';
@@ -49,29 +46,6 @@ export const queryDebankPools = async (
   ${where ? `WHERE ${where}` : ''}
 `);
   return { rows };
-};
-
-export const cachePools = async () => {
-  const { rows } = await queryDebankPools();
-  const cache = {};
-  rows.forEach(({ pool_id, details: { name, chain, controller } }) => {
-    cache[controller] = {
-      name,
-      chain,
-      pool_id,
-    };
-  });
-  await Bluebird.map(
-    Object.keys(cache),
-    async (controller) => {
-      const { chain } = cache[controller];
-      await cacache.put(CACHE_PATH + `/tmp/${chain}`, controller, JSON.stringify(cache[controller]));
-      // console.log('cached', controller);
-    },
-    {
-      concurrency: 2000,
-    },
-  );
 };
 
 export const insertDebankPoolsToMongo = async () => {

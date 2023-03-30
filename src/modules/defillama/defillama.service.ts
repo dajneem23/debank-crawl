@@ -5,7 +5,7 @@ import { DIRedisConnection } from '../../loaders/redis.loader';
 
 import { DefillamaJobData, DefillamaJobNames } from './defillama.job';
 
-import { getCoinsCurrentPrice, getCoinsHistorical, updateCoinsHistoricalKeyCache } from './defillama.func';
+import { getCoinsCurrentPrice, getCoinsHistorical } from './defillama.func';
 import { MongoClient } from 'mongodb';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import { createArrayDateByHours, daysDiff } from '../../utils/date';
@@ -53,7 +53,6 @@ export class DefillamaService {
     'defillama:add:fetch:coin:historical': this.addFetchCoinsHistoricalDataJob,
     'defillama:update:usd:value:of:transaction': this.updateUsdValueOfTransaction,
     'defillama:add:update:usd:value:of:transaction': this.addUpdateUsdValueOfTransactionsJob,
-    'defillama:update:coin:historical:key:cache': updateCoinsHistoricalKeyCache,
     'defillama:update:pool:of:transaction': this.updatePoolOfTransaction,
     'defillama:add:pool:of:transaction': this.addUpdatePoolOfTransactionsJob,
     'defillama:update:coins:current:price': this.updateCoinsCurrentPrice,

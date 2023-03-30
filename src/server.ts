@@ -8,8 +8,10 @@ import { exitHandler } from './core/handler';
     await import('./config/env');
     if (process.env.MODE == 'production') {
       process.setMaxListeners(0);
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       require('events').EventEmitter.prototype._maxListeners = 100;
+      //do something when app is closing
       process.on('exit', exitHandler.bind(null, { cleanup: true }));
       //catches ctrl+c event
       process.on('SIGINT', exitHandler.bind(null, { exit: true }));

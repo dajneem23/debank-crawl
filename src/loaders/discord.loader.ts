@@ -48,4 +48,8 @@ export class Discord {
       logger.error('error', 'discord', 'sendMsg', error, message);
     }
   }
+
+  decorateMsg(msg: string) {
+    return isJSON(msg) ? `\`\`\`json\n${msg}\`\`\`` : msg;
+  }
 }

@@ -387,10 +387,10 @@ export class CoinGeckoService {
           opts: {
             jobId: `coingecko:fetch:assets:details:${id}:${Date.now()}`,
             removeOnFail: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 60 * 60 * 24 * 7,
             },
             removeOnComplete: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 60 * 60 * 24 * 7,
             },
             delay: 1000 * 30,
           },
@@ -559,10 +559,10 @@ export class CoinGeckoService {
           opts: {
             jobId: `coingecko:fetch:exchanges:details:${id}:${Date.now()}`,
             removeOnFail: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 60 * 60 * 24 * 7,
             },
             removeOnComplete: {
-              age: 1000 * 60 * 60 * 24 * 7,
+              age: 60 * 60 * 24 * 7,
             },
             delay: 1000 * 30,
           },

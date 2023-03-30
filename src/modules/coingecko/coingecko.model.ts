@@ -1,12 +1,5 @@
 import { Service, Token } from 'typedi';
 import { BaseModel } from '../base/base.model';
-import {
-  CoinGeckoAsset,
-  CoinGeckoBlockchain,
-  CoinGeckoCategories,
-  CoinGeckoCryptoCurrencyGlobal,
-  CoinGeckoExchange,
-} from './coingecko.type';
 
 export const coinGeckoAssetModelToken = new Token<CoinGeckoAssetModel>('_coinGeckoAssetModel');
 /**

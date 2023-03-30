@@ -14,8 +14,7 @@ import { DILogger } from '../../loaders/logger.loader';
 import { Logger } from '../../core/logger';
 import { throwErr } from '../../utils/common';
 import { $lookup, $toMongoFilter } from '../../utils/mongoDB';
-import { COLLECTION_NAMES, PRIVATE_KEYS, RemoveSlugPattern, T } from '../../types';
-import slugify from 'slugify';
+import { COLLECTION_NAMES, PRIVATE_KEYS, T } from '../../types';
 import { omit, uniq } from 'lodash';
 
 /**

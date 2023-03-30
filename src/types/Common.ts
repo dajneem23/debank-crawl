@@ -26,45 +26,6 @@ export enum ORDER {
   ASC = 'ASC',
 }
 
-export enum USER_STATUS {
-  ACTIVE = 'active',
-  INACTIVE = 'inactive',
-}
-
-export enum CRAWL_CONTENT_STATUS {
-  ACTIVE = 'active',
-  INACTIVE = 'inactive',
-}
-
-export enum CONTENT_TYPE {
-  WEB = 'web',
-  TELEGRAM = 'telegram',
-  TWITTER = 'twitter',
-  PROJECT = 'project',
-}
-export type HeaderParams = {
-  'x-uid': string;
-};
-
-export enum CATEGORY_TYPE {
-  LISTENING = 'listening',
-  WIKIBLOCK = 'wikiblock',
-  EVENT = 'event',
-  NEWS = 'news',
-  RELATED_NEWS = 'related_news',
-  BLOCKCHAIN = 'blockchain',
-  APPLICATION = 'application',
-  CONSENSUS = 'consensus',
-  CRYPTO_ASSET = 'crypto_asset',
-  COINMARKETCAP = 'coinmarketcap',
-  PERSON = 'person',
-  PRODUCT = 'product',
-  COMPANY = 'company',
-  CRYPTO_SECTOR = 'crypto_sector',
-  EXPLORATION = 'exploration',
-  SUB_EXPLORATION = 'sub_exploration',
-  INVESTOR = 'investor',
-}
 export type BaseModel = {
   _id?: string;
 

@@ -210,7 +210,7 @@ export class OnChainPriceService {
     });
     await this.queue.addBulk(jobs);
 
-    if (!transactions.length) {
+    if (!transactions.length || transactions.length < limit) {
       await setRedisKey('onchain-price:last-update-transactions', '0');
     } else {
       await setRedisKey('onchain-price:last-update-transactions', `${lastUpdate + 1}`);
@@ -252,15 +252,15 @@ export class OnChainPriceService {
     const _token = await this.mgClient.db('onchain').collection('token').findOne({ address: token });
     if (!_token) {
       this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token not found', token);
-      throw new Error('Token not found');
+      throw new Error('[updateTransactionUsdValue:token]:Token not found');
     }
     if (isNil(_token.decimals)) {
       this.logger.discord('error', '[updateTransactionUsdValue:token]', 'Token decimals not found', token);
-      throw new Error('Token decimals not found');
+      throw new Error('[updateTransactionUsdValue:token]:Token decimals not found');
     }
     if (!chain) {
       this.logger.discord('error', '[updateTransactionUsdValue:chain]', 'Chain not found', chain_id);
-      throw new Error('Chain not found');
+      throw new Error('[updateTransactionUsdValue:chain]:Chain not found');
     }
     const pairs = await findPairsOfSymbol({
       $or: [
@@ -352,8 +352,8 @@ export class OnChainPriceService {
       .collection('token-price')
       .findOne({
         timestamp: {
-          $lte: timestamp + 1000 * 60,
-          $gte: timestamp - 1000 * 60,
+          $lte: timestamp + 2 * 1000 * 60,
+          $gte: timestamp - 2 * 1000 * 60,
         },
         token_address: token,
       });
@@ -369,7 +369,6 @@ export class OnChainPriceService {
       timestamp: _timestamp,
       reserve0,
       reserve1,
-      retryTime,
     } = await getPairPriceAtBlock({
       pairAddress: pairAddress,
       blockNumber: blockNumber,
@@ -390,6 +389,7 @@ export class OnChainPriceService {
           reserve1,
           blockNumber,
           decimals,
+          pairAddress,
         },
       }),
       setExpireRedisKey({

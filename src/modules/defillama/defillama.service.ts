@@ -18,6 +18,7 @@ import { getRedisKey, setExpireRedisKey, setRedisKey } from '../../service/redis
 import { workerProcessor } from './defiilama.process';
 import { getAllTokenOnRedis, getTokenOnRedis } from '../../service/token/func';
 import { Logger } from '../../core/logger';
+import { sendTelegramMessage } from '@/service/alert/telegram';
 
 export class DefillamaService {
   private logger = new Logger('Defillama');
@@ -102,6 +103,7 @@ export class DefillamaService {
         maxDataPoints: MetricsTime.TWO_WEEKS,
       },
     });
+
     // this.workerOnchain.on('completed', async (job) => {
     //   const discord = Container.get(DIDiscordClient);
 
@@ -208,6 +210,14 @@ export class DefillamaService {
 
     queueOnchainEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
+    });
+    queueOnchainEvents.on('added', async ({ jobId }: { jobId: string }) => {
+      const countJobs = await this.queueOnchain.getJobCounts();
+      if (countJobs.waiting > 250000) {
+        await sendTelegramMessage({
+          message: `Defillama-Onchain queue is getting too big: ${countJobs.waiting}`,
+        });
+      }
     });
 
     this.queueToken = new Queue('defillama-token', {
@@ -548,7 +558,7 @@ export class DefillamaService {
     });
     await this.queueOnchain.addBulk(jobs);
 
-    if (!transactions.length) {
+    if (!transactions.length || transactions.length < limit) {
       await setRedisKey('defillama-onchain:last-update-transactions', '0');
     } else {
       await setRedisKey('defillama-onchain:last-update-transactions', `${lastUpdate + 1}`);

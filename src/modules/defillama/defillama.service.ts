@@ -381,7 +381,7 @@ export class DefillamaService {
       const [_timestamp, price] = tokenPriceFromRedis.split(':');
       if (_timestamp && price && +_timestamp > timestamp - 1000 * 2 * 60 && +_timestamp < timestamp + 1000 * 2 * 60) {
         return {
-          price,
+          price: +price,
           timestamp: +_timestamp,
         };
       }

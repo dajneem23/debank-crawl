@@ -16,6 +16,7 @@ import { sleep } from '../../utils/common';
 import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../common/proxy';
 import { uniqBy } from 'lodash';
 import {
+  bulkWriteUsersProject,
   getDebankCoinsCrawlId,
   getDebankCrawlId,
   getDebankSocialRankingCrawlId,
@@ -1852,31 +1853,39 @@ export class DebankService {
       ) {
         throw new Error('crawlUsersProject:mismatch-data');
       }
-      const jobs = Object.entries(jobData).map(([user_address, data]) => {
-        return {
-          name: DebankJobNames['debank:insert:user-assets-portfolio'],
-          data: {
-            ...data,
-            crawl_id,
-            user_address,
-          },
-          opts: {
-            jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
-            removeOnComplete: {
-              // remove job after 1 hour
-              age: 60 * 30,
-            },
-            removeOnFail: {
-              age: 60 * 60 * 1,
-            },
-            priority: 10,
-            attempts: 10,
-          },
-        };
-      });
+
       //TODO: bulk insert to job queue
       if (process.env.MODE == 'production') {
+        const jobs = Object.entries(jobData).map(([user_address, data]) => {
+          return {
+            name: DebankJobNames['debank:insert:user-assets-portfolio'],
+            data: {
+              ...data,
+              crawl_id,
+              user_address,
+            },
+            opts: {
+              jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
+              removeOnComplete: {
+                // remove job after 1 hour
+                age: 60 * 30,
+              },
+              removeOnFail: {
+                age: 60 * 60 * 1,
+              },
+              priority: 10,
+              attempts: 10,
+            },
+          };
+        });
         this.queueInsert.addBulk(jobs);
+        const mgData = Object.entries(jobData).map(([user_address, { project_list: projects }]) => ({
+          address: user_address,
+          projects,
+          crawl_id,
+          crawl_time: new Date(),
+        }));
+        await bulkWriteUsersProject(mgData);
       }
     } catch (error) {
       this.logger.error('error', '[crawlUsersProject:error]', JSON.stringify(error));

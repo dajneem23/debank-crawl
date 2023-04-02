@@ -855,3 +855,9 @@ export const pageDebankFetchProfileAPI = async ({
     }
   }
 };
+
+export const bulkWriteUsersProject = async (data: any[]) => {
+  const mgClient = Container.get(DIMongoClient);
+  const collection = mgClient.db('onchain-dev').collection('account-project-snapshot');
+  await collection.insertMany(data);
+};

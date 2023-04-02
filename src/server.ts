@@ -44,7 +44,8 @@ import { exitHandler } from './core/handler';
     await (await import('./loaders/telegram.loader')).default();
     await (await import('./loaders/config.loader')).default();
 
-    (await import('./loaders/worker.loader')).default();
+    //load modules here
+    await import('./modules/index');
   } catch (err) {
     console.error(err);
     if (process.env.MODE == 'production') {

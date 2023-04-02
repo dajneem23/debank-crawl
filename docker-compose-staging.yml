@@ -12,7 +12,7 @@ services:
     command: redis-server --save 20 1 --loglevel warning
 
   api-wikiblock:
-    image: registry.digitalocean.com/wikiblock/onchain-price:latest
+    image: registry.digitalocean.com/wikiblock/cron-job-debank:latest
     network_mode: host
     hostname: api.dev
     restart: always

@@ -16,7 +16,7 @@ on:
 #2
 env:
   REGISTRY: 'registry.digitalocean.com/wikiblock'
-  IMAGE_NAME: 'onchain-price'
+  IMAGE_NAME: 'cron-job-debank'
   APP_ENV: 'staging'
   MODE: 'dev'
 

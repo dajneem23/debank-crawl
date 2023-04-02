@@ -41,6 +41,8 @@ export enum DebankJobNames {
   'debank:add:fetch:protocols:pools:id' = 'debank:add:fetch:protocols:pools:id',
 
   'debank:add:fetch:protocols:pools' = 'debank:add:fetch:protocols:pools',
+
+  'debank:crawl:users:project' = 'debank:crawl:users:project',
 }
 
 export type DebankJobData = fetchDebankDataJob;

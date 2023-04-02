@@ -1,9 +1,13 @@
 import { pgClientToken, pgpToken } from '../../loaders/pg.loader';
+import Bluebird from 'bluebird';
 import Container from 'typedi';
 import { bulkInsert, bulkInsertOnConflict } from '../../utils/pg';
 import { DebankAPI } from '../../common/api';
+import STABLE_COINS from '../../common/stablecoins.json';
 import { formatDate } from '../../utils/date';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
+import { Page } from 'puppeteer';
+import { sleep } from '../../utils/common';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {
@@ -135,6 +139,8 @@ export const insertDebankSocialRanking = async ({
     `,
     [user_address, rank, base_score, score_dict, value_dict, total_score, new Date()],
   );
+
+  // .catch((err) => this.logger.discord('error', '[debank:insertSocialRanking]', JSON.stringify(err)));
 };
 export const queryDebankSocialRanking = async (
   {
@@ -271,6 +277,7 @@ export const insertDebankProjectList = async () => {
         new Date(),
       ],
     );
+    // .catch((err) => this.logger.discord('error', '[queryProjectList:insert]', JSON.stringify(err)));
   }
 };
 
@@ -343,25 +350,55 @@ export const queryDebankAllCoins = async () => {
 export const insertDebankTopHolders = async ({
   holders,
   crawl_id,
-  symbol,
+  id,
 }: {
   holders: any[];
   crawl_id: number;
-  symbol: string;
+  id: string;
 }) => {
   const crawl_time = new Date();
-  const values = holders.map((holder) => ({
-    symbol,
+  //TODO: filter out holders that already exist
+  //!: remove this and replace by trigger
+  // const { rows } = await this.queryTopHoldersByCrawlId({
+  //   symbol,
+  //   crawl_id,
+  // });
+
+  if (!holders.length) return;
+  const PGvalues = holders.map((holder) => ({
+    symbol: id,
     details: JSON.stringify(holder).replace(/\\u0000/g, ''),
     user_address: holder.id,
     crawl_id,
     crawl_time,
   }));
-  values.length &&
-    (await bulkInsert({
-      data: values,
-      table: 'debank-top-holders',
-    }));
+
+  const MGValues = holders.map((holder) => ({
+    details: holder,
+    user_address: holder.id,
+    crawl_id,
+    crawl_time,
+  }));
+  const mongoOperations = MGValues.map((value) => ({
+    updateOne: {
+      filter: { id },
+      update: {
+        $set: {
+          [`holders.${value.user_address}`]: value,
+        },
+        $addToSet: {
+          addresses: value.user_address,
+        },
+      } as any,
+      upsert: true,
+    },
+  }));
+  const mgClient = Container.get(DIMongoClient);
+  await mgClient.db('onchain').collection('debank-top-holders').bulkWrite(mongoOperations);
+  await bulkInsert({
+    data: PGvalues,
+    table: 'debank-top-holders',
+  });
 };
 export const insertDebankPools = async ({ pools }: { pools: any[] }) => {
   const updated_at = new Date();
@@ -428,7 +465,7 @@ export const insertDebankUserAddress = async ({
   debank_ranking_time,
 }: {
   user_address: string;
-  updated_at: Date;
+  updated_at?: Date;
   debank_whales_time: Date;
   debank_top_holders_time: Date;
   debank_ranking_time: Date;
@@ -453,7 +490,90 @@ export const insertDebankUserAddress = async ({
     [user_address, debank_whales_time, debank_top_holders_time, debank_ranking_time, now],
   );
 };
+export const insertDebankUserAssetPortfolio = async ({
+  user_address,
+  token_list = [],
+  coin_list = [],
+  balance_list = [],
+  project_list = [],
+  crawl_id,
+}: {
+  user_address: string;
+  token_list?: any;
+  coin_list?: any;
+  balance_list?: any;
+  project_list?: any;
+  crawl_id: number;
+}) => {
+  const now = new Date();
 
+  const tokens_rows = token_list.map((token: any) => ({
+    user_address,
+    details: JSON.stringify(token).replace(/\\u0000/g, ''),
+    crawl_id,
+    crawl_time: now,
+  }));
+
+  const coins_rows = coin_list.map((coin: any) => ({
+    user_address,
+    details: JSON.stringify(coin).replace(/\\u0000/g, ''),
+    crawl_id,
+    crawl_time: now,
+  }));
+
+  const balances_rows = balance_list.map((balance: any) => ({
+    user_address,
+    details: JSON.stringify({
+      ...balance,
+      is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+    }).replace(/\\u0000/g, ''),
+    is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+    price: balance.price,
+    symbol: balance.symbol,
+    optimized_symbol: balance.optimized_symbol,
+    amount: balance.amount,
+    crawl_id,
+    crawl_time: now,
+    chain: balance.chain,
+    usd_value: +balance.price * +balance.amount,
+  }));
+
+  const projects_rows = project_list.map((project: any) => ({
+    user_address,
+    details: JSON.stringify(project).replace(/\\u0000/g, ''),
+    crawl_id,
+    crawl_time: now,
+
+    usd_value:
+      project.portfolio_item_list?.reduce((acc: number, { stats }: any) => {
+        return acc + stats.asset_usd_value;
+      }, 0) || 0,
+  }));
+
+  tokens_rows.length &&
+    (await bulkInsert({
+      data: tokens_rows,
+      table: 'debank-portfolio-tokens',
+    }));
+
+  coins_rows.length &&
+    (await bulkInsert({
+      data: coins_rows,
+      table: 'debank-portfolio-coins',
+    }));
+
+  balances_rows.length &&
+    (await bulkInsert({
+      data: balances_rows,
+      table: 'debank-portfolio-balances',
+    }));
+
+  projects_rows.length &&
+    (await bulkInsert({
+      data: projects_rows,
+      table: 'debank-portfolio-projects',
+    }));
+};
 export const insertDebankWhale = async ({
   whale,
   crawl_id,
@@ -683,5 +803,55 @@ export const getDebankTopHoldersCrawlId = async () => {
     }
   } else {
     return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+  }
+};
+
+export const pageDebankFetchProfileAPI = async ({
+  page,
+  url,
+  retry = 5,
+  timeout = 30 * 1000,
+  user_address,
+}: {
+  page: Page;
+  url: string;
+  retry?: number;
+  timeout?: number;
+  user_address: string;
+}): Promise<any> => {
+  try {
+    const [_, data] = await Promise.all([
+      page.evaluate((url) => {
+        // @ts-ignore-start
+        fetch(url, {
+          referrerPolicy: 'strict-origin-when-cross-origin',
+          body: null,
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'include',
+        }).then((res) => res.json());
+        // @ts-ignore-end
+      }, url),
+      page.waitForResponse(
+        async (response) => {
+          return response.url().includes(url);
+        },
+        {
+          timeout,
+        },
+      ),
+    ]);
+    //check if response is valid
+    await data.json();
+
+    return data;
+  } catch (error) {
+    if (retry > 0) {
+      await sleep(10 * 1000);
+      await page.goto(`https://debank.com/profile/${user_address}`);
+      return pageDebankFetchProfileAPI({ url, retry: retry - 1, page, user_address, timeout });
+    } else {
+      throw error;
+    }
   }
 };

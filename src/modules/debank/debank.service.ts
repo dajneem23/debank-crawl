@@ -154,6 +154,12 @@ export class DebankService {
   };
 
   constructor() {
+    // this.crawlUsersProject({
+    //   user_addresses: ['0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50'],
+    //   crawl_id: '0',
+    // }).then((res) => {
+    //   console.log('res', res);
+    // });
     Container.set(debankServiceToken, this);
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
@@ -1879,12 +1885,31 @@ export class DebankService {
           };
         });
         this.queueInsert.addBulk(jobs);
-        const mgData = Object.entries(jobData).map(([user_address, { project_list: projects }]) => ({
-          address: user_address,
-          projects,
-          crawl_id,
-          crawl_time: new Date(),
-        }));
+        const mgData = Object.entries(jobData)
+          .map(([user_address, { project_list: projects }]) => ({
+            address: user_address,
+            projects,
+            portfolio_item_list: projects
+              .map(({ portfolio_item_list = [] }) => {
+                return portfolio_item_list.map(({ stats, ...rest }) => ({
+                  ...rest,
+                  stats,
+                  usd_value: stats.asset_usd_value,
+                  net_value: stats.net_usd_value,
+                  debt_value: stats.debt_usd_value,
+                }));
+              })
+              .flat(),
+            crawl_id,
+            crawl_time: new Date(),
+          }))
+          .map(({ portfolio_item_list, ...rest }) => ({
+            ...rest,
+            portfolio_item_list,
+            total_usd_value: portfolio_item_list.reduce((acc, { usd_value }) => acc + usd_value, 0),
+            total_net_usd_value: portfolio_item_list.reduce((acc, { net_value }) => acc + net_value, 0),
+            total_debt_usd_value: portfolio_item_list.reduce((acc, { debt_value }) => acc + debt_value, 0),
+          }));
         await bulkWriteUsersProject(mgData);
       }
     } catch (error) {

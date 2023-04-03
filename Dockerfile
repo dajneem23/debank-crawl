@@ -41,4 +41,4 @@ EXPOSE 9002
 
 
 # Start service
-CMD [  "pm2-runtime", "build/server.js" ,"--max-old-space-size=8192" ]
+CMD [  "pm2-runtime", "build/server.js" ,"-i", "max" ,"--max-old-space-size=8192" ]

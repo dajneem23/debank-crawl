@@ -4,7 +4,7 @@ import Container from 'typedi';
 
 export const sendTelegramMessage = async ({
   message,
-  chatId = '-617049881',
+  chatId = '-815217228',
   options,
 }: {
   message: string;

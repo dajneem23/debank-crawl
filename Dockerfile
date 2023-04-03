@@ -25,6 +25,9 @@ RUN yarn --pure-lockfile --production=true --non-interactive --frozen-lockfile -
 #install tsc
 RUN yarn global add typescript
 
+#install pm2
+RUN yarn global add pm2
+
 # Copy all file from current dir to /app in container
 COPY . /app
 
@@ -38,4 +41,4 @@ EXPOSE 9002
 
 
 # Start service
-CMD [  "yarn", "production" ]
+CMD [  "pm2-runtime", "build/server.js" ,"--max-old-space-size=8192" ]

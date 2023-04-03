@@ -9,7 +9,7 @@ import { exitHandler } from './core/handler';
     if (process.env.MODE == 'production') {
       process.setMaxListeners(0);
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      require('events').EventEmitter.prototype._maxListeners = 100;
+      require('events').EventEmitter.prototype._maxListeners = 500;
       //do something when app is closing
       process.on('exit', exitHandler.bind(null, { cleanup: true }));
       //catches ctrl+c event

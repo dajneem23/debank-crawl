@@ -174,7 +174,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2.5,
-      concurrency: 10,
+      concurrency: 1,
       stalledInterval: 1000 * 30,
       skipLockRenewal: true,
       maxStalledCount: 5,
@@ -202,7 +202,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60,
-      concurrency: 200,
+      concurrency: 100,
       limiter: {
         max: 500,
         duration: 1000,

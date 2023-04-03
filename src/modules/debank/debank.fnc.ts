@@ -8,6 +8,7 @@ import { formatDate } from '../../utils/date';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import { Page } from 'puppeteer';
 import { sleep } from '../../utils/common';
+import { uniq } from 'lodash';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {
@@ -861,3 +862,49 @@ export const bulkWriteUsersProject = async (data: any[]) => {
   const collection = mgClient.db('onchain-dev').collection('account-project-snapshot');
   await collection.insertMany(data);
 };
+
+export const getAccountsFromTxEvent = async () => {
+  const mgClient = Container.get(DIMongoClient);
+  const collection = mgClient.db('onchain').collection('tx-event');
+  //get address from tx-event collection and distinct it (from, to)
+  const accounts = await collection
+    .aggregate([
+      {
+        $match: {
+          block_at: {
+            $gte: +new Date(new Date().getTime() - 1 * 60 * 60 * 1000).getTime() / 1000,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            from: '$from_account',
+            to: '$to_account',
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          from: '$_id.from',
+          to: '$_id.to',
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          to_accounts: {
+            $push: '$to',
+          },
+          from_accounts: {
+            $push: '$from',
+          },
+        },
+      },
+    ])
+    .toArray();
+
+  return uniq([...accounts[0].to_accounts, ...accounts[0].from_accounts]);
+};
+getAccountsFromTxEvent();

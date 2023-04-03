@@ -41,6 +41,7 @@ import {
 import { initQueue, initQueueListeners } from '../../utils/bullmq';
 import { workerProcessor } from './debank.process';
 import { connectChrome, createPuppeteerBrowser } from '../../service/puppeteer/utils';
+import { sendTelegramMessage } from '../../service/alert/telegram';
 const account =
   '{"random_at":1668662325,"random_id":"9ecb8cc082084a3ca0b7701db9705e77","session_id":"34dea485be2848cfb0a72f966f05a5b0","user_addr":"0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d","wallet_type":"metamask","is_verified":true}';
 const current_address = '0x2f5076044d24dd686d0d9967864cd97c0ee1ea8d';
@@ -57,6 +58,8 @@ export class DebankService {
 
   private worker: Worker;
 
+  private workerPortfolio: Worker;
+
   private workerInsert: Worker;
 
   private workerWhale: Worker;
@@ -68,6 +71,8 @@ export class DebankService {
   private workerCommon: Worker;
 
   private queue: Queue;
+
+  private queuePortfolio: Queue;
 
   private queueInsert: Queue;
 
@@ -154,12 +159,6 @@ export class DebankService {
   };
 
   constructor() {
-    // this.crawlUsersProject({
-    //   user_addresses: ['0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50'],
-    //   crawl_id: '0',
-    // }).then((res) => {
-    //   console.log('res', res);
-    // });
     Container.set(debankServiceToken, this);
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
@@ -178,7 +177,7 @@ export class DebankService {
       autorun: true,
       connection: this.redisConnection,
       lockDuration: 1000 * 60 * 2.5,
-      concurrency: 5,
+      concurrency: 10,
       stalledInterval: 1000 * 30,
       skipLockRenewal: true,
       maxStalledCount: 5,
@@ -187,6 +186,20 @@ export class DebankService {
       },
     });
     this.initWorkerListeners(this.worker);
+
+    this.workerPortfolio = new Worker('debank-portfolio', workerProcessor.bind(this), {
+      autorun: true,
+      connection: this.redisConnection,
+      lockDuration: 1000 * 60 * 2.5,
+      concurrency: 5,
+      stalledInterval: 1000 * 30,
+      skipLockRenewal: true,
+      maxStalledCount: 5,
+      metrics: {
+        maxDataPoints: MetricsTime.ONE_WEEK,
+      },
+    });
+    this.initWorkerListeners(this.workerPortfolio);
 
     this.workerInsert = new Worker('debank-insert', workerProcessor.bind(this), {
       autorun: true,
@@ -305,7 +318,44 @@ export class DebankService {
       },
     });
 
-    initQueueListeners({ queueName: 'debank', opts: { connection: this.redisConnection } });
+    const queueEvents = initQueueListeners({
+      queueName: 'debank',
+      opts: { connection: this.redisConnection },
+    });
+
+    this.queuePortfolio = initQueue({
+      queueName: 'debank-portfolio',
+      opts: {
+        connection: this.redisConnection,
+        defaultJobOptions: {
+          // The total number of attempts to try the job until it completes
+          attempts: 10,
+          // delay: 1000 * 2,
+          // Backoff setting for automatic retries if the job fails
+          backoff: { type: 'exponential', delay: 10 * 1000 },
+          removeOnComplete: {
+            // 1 hour
+            age: 60 * 60 * 6,
+          },
+          removeOnFail: {
+            age: 60 * 60 * 6,
+          },
+        },
+      },
+    });
+    const queuePortfolioEvents = initQueueListeners({
+      queueName: 'debank-portfolio',
+      opts: { connection: this.redisConnection },
+    });
+    queuePortfolioEvents.on('added', async ({ jobId }: { jobId: string }) => {
+      const countJobs = await this.queue.getJobCounts();
+      if (countJobs.waiting > 100000) {
+        await sendTelegramMessage({
+          message: `[debank-portfolio] queue is getting too big: ${countJobs.waiting}`,
+        });
+      }
+    });
+
     this.queueInsert = initQueue({
       queueName: 'debank-insert',
       opts: {
@@ -368,7 +418,18 @@ export class DebankService {
       },
     });
 
-    initQueueListeners({ queueName: 'debank-top-holder', opts: { connection: this.redisConnection } });
+    const queueTopHoldersEvents = initQueueListeners({
+      queueName: 'debank-top-holder',
+      opts: { connection: this.redisConnection },
+    });
+    queueTopHoldersEvents.on('added', async ({ jobId }: { jobId: string }) => {
+      const countJobs = await this.queueTopHolder.getJobCounts();
+      if (countJobs.waiting > 500) {
+        await sendTelegramMessage({
+          message: `[Debank-top-holders-queue] is getting too big: ${countJobs.waiting}`,
+        });
+      }
+    });
 
     this.queueRanking = initQueue({
       queueName: 'debank-ranking',
@@ -415,99 +476,13 @@ export class DebankService {
     worker.on('failed', ({ id, name, data, failedReason }: Job<DebankJobData>, error: Error) => {
       this.logger.discord(
         'error',
-        '[job:debank:error]',
+        '[job:debank:failed]',
         id,
         name,
         failedReason,
         JSON.stringify(data),
         JSON.stringify(error),
       );
-    });
-    worker.on('drained', async () => {
-      const insertJobs = await this.queueInsert.getJobCounts();
-      const whaleJobs = await this.queueWhale.getJobCounts();
-      const topHolderJobs = await this.queueTopHolder.getJobCounts();
-      const rankingJobs = await this.queueRanking.getJobCounts();
-      const debankJobs = await this.queue.getJobCounts();
-      const debankCommonJobs = await this.queueCommon.getJobCounts();
-      // console.info('workerDrained');
-      const discord = Container.get(DIDiscordClient);
-
-      const notFinishedJobs = [
-        insertJobs,
-        whaleJobs,
-        topHolderJobs,
-        rankingJobs,
-        debankJobs,
-        insertJobs,
-        debankCommonJobs,
-      ];
-      const totalNotFinishedJobs = notFinishedJobs.reduce((acc, cur) => {
-        return acc + cur.waiting + cur.active + cur.delayed;
-      }, 0);
-      const messageByRow =
-        `\`\`\`diff` +
-        `\n 🔴 debank:` +
-        `\n+ ${debankJobs.waiting} waiting` +
-        `\n+ ${debankJobs.active} active` +
-        `\n+ ${debankJobs.delayed} delayed` +
-        `\n+ ${debankJobs.completed} completed` +
-        `\n- ${debankJobs.failed} failed` +
-        `\n⏩ is running: ${this.worker.isRunning()}` +
-        `\n⏸️ is pause: ${await this.queue.isPaused()}` +
-        `\n⏯️ next_Job: ${(await this.worker.getNextJob('debank'))?.id}` +
-        `\n 🔴 debank whale:` +
-        `\n+ ${whaleJobs.waiting} waiting` +
-        `\n+ ${whaleJobs.active} active` +
-        `\n+ ${whaleJobs.delayed} delayed` +
-        `\n+ ${whaleJobs.completed} completed` +
-        `\n+ ${whaleJobs.failed} failed` +
-        `\n⏩ is running: ${this.workerWhale.isRunning()}` +
-        `\n⏸️ is pause: ${await this.queueWhale.isPaused()}` +
-        `\n⏯️ next_Job: ${(await this.workerWhale.getNextJob('debank-whale'))?.id}` +
-        `\n 🔴 debank top holder:` +
-        `\n+ ${topHolderJobs.waiting} waiting` +
-        `\n+ ${topHolderJobs.active} active` +
-        `\n+ ${topHolderJobs.delayed} delayed` +
-        `\n+ ${topHolderJobs.completed} completed` +
-        `\n- ${topHolderJobs.failed} failed` +
-        `\n⏩ is running: ${this.workerTopHolder.isRunning()}` +
-        `\n⏸️ is pause: ${await this.queueTopHolder.isPaused()}` +
-        `\n⏯️ next_Job: ${(await this.workerTopHolder.getNextJob('debank-top-holder'))?.id}` +
-        `\n 🔴 debank ranking:` +
-        `\n+ ${rankingJobs.waiting} waiting` +
-        `\n+ ${rankingJobs.active} active` +
-        `\n+ ${rankingJobs.delayed} delayed` +
-        `\n+ ${rankingJobs.completed} completed` +
-        `\n- ${rankingJobs.failed} failed` +
-        `\n⏩ is running: ${this.workerRanking.isRunning()}` +
-        `\n⏸️ is pause: ${await this.queueRanking.isPaused()}` +
-        `\n⏯️ next_Job: ${(await this.workerRanking.getNextJob('debank-ranking'))?.id}` +
-        `\n 🔴 debank insert:` +
-        `\n+ ${insertJobs.waiting} waiting` +
-        `\n+ ${insertJobs.active} active` +
-        `\n+ ${insertJobs.delayed} delayed` +
-        `\n+ ${insertJobs.completed} completed` +
-        `\n- ${insertJobs.failed} failed` +
-        `\n⏩ is running: ${this.workerInsert.isRunning()}` +
-        `\n⏸️ is pause: ${await this.queueInsert.isPaused()}` +
-        `\n⏯️ next_Job: ${(await this.workerInsert.getNextJob('debank-insert'))?.id}` +
-        `\n 🔴 debank common:` +
-        `\n+ ${debankCommonJobs.waiting} waiting` +
-        `\n+ ${debankCommonJobs.active} active` +
-        `\n+ ${debankCommonJobs.delayed} delayed` +
-        `\n+ ${debankCommonJobs.completed} completed` +
-        `\n- ${debankCommonJobs.failed} failed` +
-        `\n⏩ is running: ${this.workerCommon.isRunning()}` +
-        `\n⏸️ is pause: ${await this.queueCommon.isPaused()}` +
-        `\n⏯️ next_Job: ${(await this.workerCommon.getNextJob('debank-common'))?.id}` +
-        `\ntotal not finished jobs: ${totalNotFinishedJobs}` +
-        `\ntime: ${new Date().toISOString()}` +
-        `\`\`\``;
-      await discord.sendMsg({
-        message: messageByRow,
-        channelId: '1072390401392115804',
-      });
     });
   }
 
@@ -816,18 +791,19 @@ export class DebankService {
         });
       }
       await this.queueRanking.addBulk(jobs);
-      const discord = Container.get(DIDiscordClient);
-
-      await discord.sendMsg({
-        message:
-          `\`\`\`diff` +
-          `\n[DEBANK-addFetchSocialRankingJob]` +
-          `\n+ totalJobs::${jobs.length}` +
-          `\nstart on::${new Date().toISOString()}` +
-          `\ncrawl_id::${crawl_id}` +
-          `\`\`\`
+      const countJobs = await this.queueRanking.getJobCounts();
+      await sendTelegramMessage({
+        message: `[debank-Ranking]\n
+        ----------------------------------\n
+        crawl_id::${crawl_id}\n
+        - added::${jobs.length}\n
+        - waiting::${countJobs.waiting}\n
+        - delayed::${countJobs.delayed}\n
+        - active::${countJobs.active}\n
+        - ✅completed::${countJobs.completed}\n
+        - ❌failed::${countJobs.failed}\n
+        ----------------------------------\n
         `,
-        channelId: '1041620555188682793',
       });
     } catch (error) {
       this.logger.discord('error', '[addFetchSocialRankingJob:error]', JSON.stringify(error));
@@ -950,17 +926,19 @@ export class DebankService {
       }));
       await this.queueWhale.addBulk(jobs);
       await insertDebankWhaleList({ whales, crawl_id });
-      const discord = Container.get(DIDiscordClient);
-
-      await discord.sendMsg({
-        message:
-          `\`\`\`diff` +
-          `\n[DEBANK-addFetchWhalesPagingJob]` +
-          `\n+ total_jobs:: ${jobs.length}` +
-          `\nstart on::${new Date().toISOString()}` +
-          `\ncrawl_id::${crawl_id}` +
-          `\`\`\``,
-        channelId: '1041620555188682793',
+      const countJobs = await this.queueWhale.getJobCounts();
+      await sendTelegramMessage({
+        message: `[debank-whale]\n
+        ----------------------------------\n
+        crawl_id::${crawl_id}\n
+        - added::${jobs.length}\n
+        - waiting::${countJobs.waiting}\n
+        - delayed::${countJobs.delayed}\n
+        - active::${countJobs.active}\n
+        - ✅completed::${countJobs.completed}\n
+        - ❌failed::${countJobs.failed}\n
+        ----------------------------------\n
+        `,
       });
     } catch (error) {
       this.logger.discord('error', '[addFetchWhalesPagingJob:error]', JSON.stringify(error));
@@ -1000,17 +978,20 @@ export class DebankService {
         // delay: 1000 * 5,
       },
     }));
-    await this.queue.addBulk(jobs);
-    const discord = Container.get(DIDiscordClient);
-    await discord.sendMsg({
-      message:
-        `\`\`\`diff` +
-        `\n[DEBANK-addFetchTopHoldersByUsersAddressJob]` +
-        `\n+ total_job: ${jobs.length}` +
-        `\ncrawl_id::${crawl_id}` +
-        `\nstart on::${new Date().toISOString()}` +
-        `\`\`\``,
-      channelId: '1041620555188682793',
+    await this.queuePortfolio.addBulk(jobs);
+    const countJobs = await this.queuePortfolio.getJobCounts();
+    await sendTelegramMessage({
+      message: `[debank-porfolio]\n
+      ----------------------------------\n
+      crawl_id::${crawl_id}\n
+      - added::${jobs.length}\n
+      - waiting::${countJobs.waiting}\n
+      - delayed::${countJobs.delayed}\n
+      - active::${countJobs.active}\n
+      - ✅completed::${countJobs.completed}\n
+      - ❌failed::${countJobs.failed}\n
+      ----------------------------------\n
+      `,
     });
   }
 
@@ -1152,6 +1133,20 @@ export class DebankService {
         crawl_id,
         id,
       });
+      const countJobs = await this.queueTopHolder.getJobCounts();
+      await sendTelegramMessage({
+        message: `[debank-top-holder]\n
+        ----------------------------------\n
+        crawl_id::${crawl_id}\n
+        - added::${listIndex.length}\n
+        - waiting::${countJobs.waiting}\n
+        - delayed::${countJobs.delayed}\n
+        - active::${countJobs.active}\n
+        - ✅completed::${countJobs.completed}\n
+        - ❌failed::${countJobs.failed}\n
+        ----------------------------------\n
+        `,
+      });
     } catch (error) {
       this.logger.error('error', '[fetchTopHolders:error]', JSON.stringify(error));
       throw error;
@@ -1182,17 +1177,19 @@ export class DebankService {
         },
       }));
       await this.queueTopHolder.addBulk(jobs);
-      const discord = Container.get(DIDiscordClient);
-
-      await discord.sendMsg({
-        message:
-          `\`\`\`diff` +
-          `\n[DEBANK-addFetchTopHoldersJob]` +
-          `\n+ total: ${jobs.length}` +
-          `\nstart on::${new Date().toISOString()}` +
-          `\ncrawl_id: ${crawl_id}` +
-          `\`\`\``,
-        channelId: '1041620555188682793',
+      const countJobs = await this.queueTopHolder.getJobCounts();
+      await sendTelegramMessage({
+        message: `[debank-top-holder]\n
+        ----------------------------------\n
+        crawl_id::${crawl_id}\n
+        - added::${jobs.length}\n
+        - waiting::${countJobs.waiting}\n
+        - delayed::${countJobs.delayed}\n
+        - active::${countJobs.active}\n
+        - ✅completed::${countJobs.completed}\n
+        - ❌failed::${countJobs.failed}\n
+        ----------------------------------\n
+        `,
       });
     } catch (error) {
       this.logger.error('error', '[addFetchTopHoldersJob:error]', JSON.stringify(error));
@@ -1343,7 +1340,6 @@ export class DebankService {
           } catch (error) {
             this.logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
             throw error;
-          } finally {
           }
         },
         {

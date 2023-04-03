@@ -211,6 +211,7 @@ export class DefillamaService {
     queueOnchainEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       this.logger.debug('error', ':defillamaJob failed', { jobId, failedReason });
     });
+
     queueOnchainEvents.on('added', async ({ jobId }: { jobId: string }) => {
       const countJobs = await this.queueOnchain.getJobCounts();
       if (countJobs.waiting > 250000) {

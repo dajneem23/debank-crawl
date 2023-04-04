@@ -380,26 +380,12 @@ export const insertDebankTopHolders = async ({
     crawl_id,
     crawl_time,
   }));
-  const mongoOperations = MGValues.map((value) => ({
-    updateOne: {
-      filter: {},
-      update: {
-        $push: {
-          holders: value,
-        },
-        $addToSet: {
-          addresses: value.user_address,
-        },
-        $setOnInsert: {
-          id,
-          updated_at: new Date(),
-        },
-      } as any,
-      upsert: true,
-    },
-  }));
   const mgClient = Container.get(DIMongoClient);
-  await mgClient.db('onchain').collection('debank-top-holders').bulkWrite(mongoOperations);
+  await mgClient.db('onchain').collection('debank-top-holders').insertOne({
+    id,
+    updated_at: new Date(),
+    holders: MGValues,
+  });
   await bulkInsert({
     data: PGvalues,
     table: 'debank-top-holders',

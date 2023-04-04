@@ -6,7 +6,6 @@ import 'reflect-metadata';
   try {
     await import('./config/env');
     await (await import('./loaders/telegram.loader')).default();
-    await (await import('./loaders/config.loader')).default();
     // Logger()
     (await import('./loaders/logger.loader')).default();
     // Database (mongodb)
@@ -15,6 +14,9 @@ import 'reflect-metadata';
     await (await import('./loaders/pg.loader')).default();
     // Caching (Redis)
     await (await import('./loaders/redis.loader')).default();
+
+    await (await import('./loaders/config.loader')).default();
+
     // Discord
     if (process.env.MODE == 'production') {
       const { Discord } = await import('./loaders/discord.loader');

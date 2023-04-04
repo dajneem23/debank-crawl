@@ -1,12 +1,29 @@
 import 'reflect-metadata';
-import { exitHandler } from './core/handler';
 /**
  *  @description this import is required to initialize service class
  */
 (async () => {
   try {
     await import('./config/env');
+    await (await import('./loaders/telegram.loader')).default();
+    await (await import('./loaders/config.loader')).default();
+    // Logger()
+    (await import('./loaders/logger.loader')).default();
+    // Database (mongodb)
+    await (await import('./loaders/mongoDB.loader')).default();
+    // Database (postgres)
+    await (await import('./loaders/pg.loader')).default();
+    // Caching (Redis)
+    await (await import('./loaders/redis.loader')).default();
+    // Discord
     if (process.env.MODE == 'production') {
+      const { Discord } = await import('./loaders/discord.loader');
+      const discord = new Discord();
+      await discord.init();
+    }
+    if (process.env.MODE == 'production') {
+      const { exitHandler } = await import('./core/handler');
+
       process.setMaxListeners(0);
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       require('events').EventEmitter.prototype._maxListeners = 500;
@@ -26,29 +43,13 @@ import { exitHandler } from './core/handler';
     // ----------------------------------------------------------------
     // Load modules
     // ----------------------------------------------------------------
-    // Logger()
-    (await import('./loaders/logger.loader')).default();
-    // Database (mongodb)
-    await (await import('./loaders/mongoDB.loader')).default();
-    // Database (postgres)
-    await (await import('./loaders/pg.loader')).default();
-    // Caching (Redis)
-    await (await import('./loaders/redis.loader')).default();
-    // Discord
-    if (process.env.MODE == 'production') {
-      const { Discord } = await import('./loaders/discord.loader');
-      const discord = new Discord();
-      await discord.init();
-    }
-
-    await (await import('./loaders/telegram.loader')).default();
-    await (await import('./loaders/config.loader')).default();
 
     //load modules here
     await import('./modules/index');
   } catch (err) {
     console.error(err);
     if (process.env.MODE == 'production') {
+      const { exitHandler } = await import('./core/handler');
       exitHandler.call(null, { exit: true });
     } else {
       process.exit(1);

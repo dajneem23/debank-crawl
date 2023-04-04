@@ -1339,6 +1339,7 @@ export class DebankService {
     });
     await page.goto(`https://debank.com/profile/${user_addresses[0]}`, {
       waitUntil: 'load',
+      timeout: 1000 * 60,
     });
     try {
       await bluebird.map(

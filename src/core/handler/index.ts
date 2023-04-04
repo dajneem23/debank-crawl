@@ -1,6 +1,7 @@
+import { sendTelegramMessage } from '@/service/alert/telegram';
 import { DIDiscordClient } from '../../loaders/discord.loader';
-import { TextChannel } from 'discord.js';
 import Container from 'typedi';
+import { BOT_HEALTH_CHECK_GROUP_ID } from '../../service/alert/telegram/const';
 
 export async function exitHandler(
   options: {
@@ -9,7 +10,6 @@ export async function exitHandler(
   },
   exitCode: number,
 ) {
-  const discordBot = Container.get(DIDiscordClient);
   //when app is closing
   if (options.cleanup) {
     process.exit();
@@ -17,9 +17,10 @@ export async function exitHandler(
   // when app is closing
   if (exitCode || exitCode === 0) {
     try {
-      const channel = discordBot.client.channels.cache.get('1072390401392115804') as TextChannel;
-      // console.log(channel.us)
-      await channel.send(`📛 Crawler is down!!! <@&${discordBot.roles.dev.id}>`);
+      await sendTelegramMessage({
+        message: `[cronjob-debank][🔴 Down] exitCode: ${exitCode} `,
+        chatId: BOT_HEALTH_CHECK_GROUP_ID,
+      });
     } catch (err) {
       console.error(err);
     }
@@ -28,8 +29,10 @@ export async function exitHandler(
   // uncaught exception
   if (options.exit) {
     try {
-      const channel = discordBot.client.channels.cache.get('1072390401392115804') as TextChannel;
-      await channel.send(`📛 Crawler is crash !!! <@&${discordBot.roles.dev.id}>`);
+      await sendTelegramMessage({
+        message: `[cronjob-debank][🔴 Down] exitCode: ${exitCode} `,
+        chatId: BOT_HEALTH_CHECK_GROUP_ID,
+      });
     } catch (err) {
       console.error(err);
     }

@@ -8,7 +8,7 @@ import { formatDate } from '../../utils/date';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import { Page } from 'puppeteer';
 import { sleep } from '../../utils/common';
-import { uniq } from 'lodash';
+import { filter, isNil, uniq } from 'lodash';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {
@@ -920,5 +920,5 @@ export const getAccountsFromTxEvent = async () => {
     ])
     .toArray();
 
-  return uniq([...accounts[0].to_accounts, ...accounts[0].from_accounts]);
+  return filter(uniq([...accounts[0].to_accounts, ...accounts[0].from_accounts]), (item) => !isNil(item));
 };

@@ -377,14 +377,14 @@ export const insertDebankTopHolders = async ({
   const MGValues = holders.map((holder) => ({
     details: holder,
     user_address: holder.id,
-    crawl_id,
-    crawl_time,
   }));
   const mgClient = Container.get(DIMongoClient);
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({
     id,
-    updated_at: new Date(),
+    // updated_at: new Date(),
     holders: MGValues,
+    crawl_id,
+    crawl_time,
   });
   await bulkInsert({
     data: PGvalues,

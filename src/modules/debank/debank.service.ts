@@ -155,7 +155,6 @@ export class DebankService {
   };
 
   constructor() {
-    this.addSnapshotUsersProjectJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker

@@ -1940,7 +1940,7 @@ export class DebankService {
         crawl_id,
       },
       opts: {
-        jobId: `'debank:crawl:portfolio:list:${index}`,
+        jobId: `'debank:crawl:portfolio:list:${crawl_id}:${index}`,
         removeOnComplete: {
           age: 60 * 30,
         },

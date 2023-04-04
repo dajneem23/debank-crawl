@@ -86,7 +86,7 @@ export class DebankService {
   // TODO: adjust this value
   readonly totalRepeatableJobs = 6;
 
-  readonly maxCrawlIdInOneDay = 12;
+  readonly maxCrawlIdInOneDay = 24;
 
   readonly keepCrawlIds = [1, 5];
 
@@ -1925,6 +1925,7 @@ export class DebankService {
 
   async addSnapshotUsersProjectJob() {
     const accounts = await getAccountsFromTxEvent();
+    const crawl_id = await getDebankCrawlId();
 
     const NUM_ADDRESSES_PER_JOB = 5;
     const user_addresses_list = Array.from({ length: Math.ceil(accounts.length / NUM_ADDRESSES_PER_JOB) }).map(
@@ -1933,12 +1934,13 @@ export class DebankService {
       },
     );
     const jobs = user_addresses_list.map((user_addresses: any, index) => ({
-      name: DebankJobNames['debank:crawl:users:project'],
+      name: DebankJobNames['debank:crawl:portfolio:list'],
       data: {
         user_addresses,
+        crawl_id,
       },
       opts: {
-        jobId: `debank:crawl:users:project:${index}`,
+        jobId: `'debank:crawl:portfolio:list:${index}`,
         removeOnComplete: {
           age: 60 * 30,
         },

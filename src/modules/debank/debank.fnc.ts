@@ -374,10 +374,22 @@ export const insertDebankTopHolders = async ({
     crawl_time,
   }));
 
-  const MGValues = holders.map((holder) => ({
-    details: holder,
-    user_address: holder.id,
-  }));
+  const MGValues = await Promise.all(
+    holders.map(async (holder) => {
+      const { tags, labels } = (await mgClient.db('onchain').collection('address-book').findOne({
+        address: holder.id,
+      })) || {
+        tags: [],
+        labels: [],
+      };
+      return {
+        details: holder,
+        user_address: holder.id,
+        tags,
+        labels,
+      };
+    }),
+  );
   const mgClient = Container.get(DIMongoClient);
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({
     id,
@@ -563,6 +575,17 @@ export const insertDebankUserAssetPortfolio = async ({
       data: projects_rows,
       table: 'debank-portfolio-projects',
     }));
+  const mgClient = Container.get(DIMongoClient);
+  const collection = mgClient.db('onchain-dev').collection('account-snapshot');
+  await collection.insertOne({
+    user_address,
+    crawl_id,
+    crawl_time: now,
+    token_list,
+    coin_list,
+    balance_list,
+    project_list,
+  });
 };
 export const insertDebankWhale = async ({
   whale,
@@ -856,6 +879,7 @@ export const getAccountsFromTxEvent = async () => {
   const mgClient = Container.get(DIMongoClient);
   const collection = mgClient.db('onchain').collection('tx-event');
   //get address from tx-event collection and distinct it (from, to)
+  const ACCOUNT_TYPES = ['eoa', 'smart_contract'];
   const accounts = await collection
     .aggregate([
       {
@@ -874,19 +898,19 @@ export const getAccountsFromTxEvent = async () => {
           from_account: {
             $cond: {
               if: {
-                $ne: ['$from_account_type', 'eoa'],
+                $in: ['$from_account_type', ACCOUNT_TYPES],
               },
-              then: null,
-              else: '$from_account',
+              then: '$from_account',
+              else: null,
             },
           },
           to_account: {
             $cond: {
               if: {
-                $ne: ['$to_account_type', 'eoa'],
+                $in: ['$to_account_type', ACCOUNT_TYPES],
               },
-              then: null,
-              else: '$to_account',
+              then: '$to_account',
+              else: null,
             },
           },
         },
@@ -919,6 +943,5 @@ export const getAccountsFromTxEvent = async () => {
       },
     ])
     .toArray();
-
   return filter(uniq([...accounts[0].to_accounts, ...accounts[0].from_accounts]), (item) => !isNil(item));
 };

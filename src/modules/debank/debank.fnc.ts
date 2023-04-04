@@ -881,6 +881,28 @@ export const getAccountsFromTxEvent = async () => {
         },
       },
       {
+        $set: {
+          from_account: {
+            $cond: {
+              if: {
+                $eq: ['$from_account_type', 'smart_contract'],
+              },
+              then: null,
+              else: '$from_account',
+            },
+          },
+          to_account: {
+            $cond: {
+              if: {
+                $eq: ['$to_account_type', 'smart_contract'],
+              },
+              then: null,
+              else: '$to_account',
+            },
+          },
+        },
+      },
+      {
         $group: {
           _id: {
             from: '$from_account',

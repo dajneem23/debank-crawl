@@ -382,13 +382,17 @@ export const insertDebankTopHolders = async ({
   }));
   const mongoOperations = MGValues.map((value) => ({
     updateOne: {
-      filter: { id },
+      filter: {},
       update: {
-        $set: {
-          [`holders.${value.user_address}`]: value,
+        $push: {
+          holders: value,
         },
         $addToSet: {
           addresses: value.user_address,
+        },
+        $setOnInsert: {
+          id,
+          updated_at: new Date(),
         },
       } as any,
       upsert: true,

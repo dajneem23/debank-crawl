@@ -182,7 +182,7 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
-    this.initWorkerListeners(this.worker);
+    // this.initWorkerListeners(this.worker);
 
     this.workerPortfolio = new Worker('debank-portfolio', workerProcessor.bind(this), {
       autorun: true,
@@ -196,7 +196,7 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
-    this.initWorkerListeners(this.workerPortfolio);
+    // this.initWorkerListeners(this.workerPortfolio);
 
     this.workerInsert = new Worker('debank-insert', workerProcessor.bind(this), {
       autorun: true,
@@ -213,7 +213,7 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
-    this.initWorkerListeners(this.workerInsert);
+    // this.initWorkerListeners(this.workerInsert);
 
     this.workerWhale = new Worker('debank-whale', workerProcessor.bind(this), {
       autorun: true,
@@ -233,7 +233,7 @@ export class DebankService {
       },
       // drainDelay: 1000 * 60 * 2,
     });
-    this.initWorkerListeners(this.workerWhale);
+    // this.initWorkerListeners(this.workerWhale);
 
     this.workerTopHolder = new Worker('debank-top-holder', workerProcessor.bind(this), {
       autorun: true,
@@ -247,7 +247,7 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
-    this.initWorkerListeners(this.workerTopHolder);
+    // this.initWorkerListeners(this.workerTopHolder);
 
     this.workerRanking = new Worker('debank-ranking', workerProcessor.bind(this), {
       autorun: true,
@@ -264,7 +264,7 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
-    this.initWorkerListeners(this.workerRanking);
+    // this.initWorkerListeners(this.workerRanking);
 
     this.workerCommon = new Worker('debank-common', workerProcessor.bind(this), {
       autorun: true,
@@ -281,7 +281,7 @@ export class DebankService {
         maxDataPoints: MetricsTime.ONE_WEEK,
       },
     });
-    this.initWorkerListeners(this.workerCommon);
+    // this.initWorkerListeners(this.workerCommon);
 
     this.logger.debug('info', '[initWorker:debank]', 'Worker initialized');
   }
@@ -295,7 +295,7 @@ export class DebankService {
   /**
    *  @description init BullMQ Queue
    */
-  private initQueue() {
+  private async initQueue() {
     this.queue = initQueue({
       queueName: 'debank',
       opts: {
@@ -315,11 +315,6 @@ export class DebankService {
           },
         },
       },
-    });
-
-    const queueEvents = initQueueListeners({
-      queueName: 'debank',
-      opts: { connection: this.redisConnection },
     });
 
     this.queuePortfolio = initQueue({
@@ -342,17 +337,9 @@ export class DebankService {
         },
       },
     });
-    const queuePortfolioEvents = initQueueListeners({
-      queueName: 'debank-portfolio',
+    const queueEvents = initQueueListeners({
+      queueName: 'debank',
       opts: { connection: this.redisConnection },
-    });
-    queuePortfolioEvents.on('added', async ({ jobId }: { jobId: string }) => {
-      const countJobs = await this.queue.getJobCounts();
-      if (countJobs.waiting > 100000) {
-        await sendTelegramMessage({
-          message: `[debank-portfolio] queue is getting too big: ${countJobs.waiting}`,
-        });
-      }
     });
 
     this.queueInsert = initQueue({
@@ -375,9 +362,6 @@ export class DebankService {
         },
       },
     });
-
-    initQueueListeners({ queueName: 'debank-insert', opts: { connection: this.redisConnection } });
-
     this.queueWhale = initQueue({
       queueName: 'debank-whale',
       opts: {
@@ -396,8 +380,6 @@ export class DebankService {
         },
       },
     });
-
-    initQueueListeners({ queueName: 'debank-whale', opts: { connection: this.redisConnection } });
     this.queueTopHolder = initQueue({
       queueName: 'debank-top-holder',
       opts: {
@@ -416,20 +398,6 @@ export class DebankService {
         },
       },
     });
-
-    const queueTopHoldersEvents = initQueueListeners({
-      queueName: 'debank-top-holder',
-      opts: { connection: this.redisConnection },
-    });
-    queueTopHoldersEvents.on('added', async ({ jobId }: { jobId: string }) => {
-      const countJobs = await this.queueTopHolder.getJobCounts();
-      if (countJobs.waiting > 500) {
-        await sendTelegramMessage({
-          message: `[Debank-top-holders-queue] is getting too big: ${countJobs.waiting}`,
-        });
-      }
-    });
-
     this.queueRanking = initQueue({
       queueName: 'debank-ranking',
       opts: {
@@ -448,15 +416,48 @@ export class DebankService {
         },
       },
     });
-
-    initQueueListeners({ queueName: 'debank-insert', opts: { connection: this.redisConnection } });
-
     this.queueCommon = initQueue({
       queueName: 'debank-common',
       opts: {
         connection: this.redisConnection,
       },
     });
+    // do not init queue event if queue is already init
+    if ((await this.queue.getQueueEvents()).length >= 1) {
+      return;
+    }
+    const queuePortfolioEvents = initQueueListeners({
+      queueName: 'debank-portfolio',
+      opts: { connection: this.redisConnection },
+    });
+    queuePortfolioEvents.on('added', async ({ jobId }: { jobId: string }) => {
+      const countJobs = await this.queue.getJobCounts();
+      if (countJobs.waiting > 100000) {
+        await sendTelegramMessage({
+          message: `[debank-portfolio] queue is getting too big: ${countJobs.waiting}`,
+        });
+      }
+    });
+
+    initQueueListeners({ queueName: 'debank-insert', opts: { connection: this.redisConnection } });
+
+    initQueueListeners({ queueName: 'debank-whale', opts: { connection: this.redisConnection } });
+
+    const queueTopHoldersEvents = initQueueListeners({
+      queueName: 'debank-top-holder',
+      opts: { connection: this.redisConnection },
+    });
+    queueTopHoldersEvents.on('added', async ({ jobId }: { jobId: string }) => {
+      const countJobs = await this.queueTopHolder.getJobCounts();
+      if (countJobs.waiting > 500) {
+        await sendTelegramMessage({
+          message: `[Debank-top-holders-queue] is getting too big: ${countJobs.waiting}`,
+        });
+      }
+    });
+
+    initQueueListeners({ queueName: 'debank-insert', opts: { connection: this.redisConnection } });
+
     initQueueListeners({ queueName: 'debank-common', opts: { connection: this.redisConnection } });
 
     // TODO: ENABLE THIS

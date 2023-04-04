@@ -41,4 +41,4 @@ EXPOSE 9002
 
 
 # Start service
-CMD [  "pm2-runtime",  "ecosystem.config.js" ]
+CMD [  "pm2-runtime",  "ecosystem.config.js" , "--env", "production"]

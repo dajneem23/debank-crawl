@@ -1926,7 +1926,7 @@ export class DebankService {
   async addSnapshotUsersProjectJob() {
     const accounts = await getAccountsFromTxEvent();
 
-    const NUM_ADDRESSES_PER_JOB = 10;
+    const NUM_ADDRESSES_PER_JOB = 5;
     const user_addresses_list = Array.from({ length: Math.ceil(accounts.length / NUM_ADDRESSES_PER_JOB) }).map(
       (_, i) => {
         return [...accounts.slice(i * NUM_ADDRESSES_PER_JOB, (i + 1) * NUM_ADDRESSES_PER_JOB)];

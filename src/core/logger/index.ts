@@ -7,32 +7,32 @@ export type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 /**
  * Configure logger
  */
-configure({
-  appenders: {
-    file: {
-      type: 'file',
-      filename: 'logs/app.log',
-      maxLogSize: 10 * 1024 * 1024, // Max log file size 10MB
-      backups: 30, // Keep 30 backup files
-      compress: false, // Compress the backups
-      encoding: 'utf-8',
-      mode: 0o0640,
-      flags: 'w+',
-    },
-    dateFile: {
-      type: 'dateFile',
-      filename: 'logs/file.log',
-      pattern: 'yyyy-MM-dd',
-      compress: false,
-    },
-    out: {
-      type: 'stdout',
-    },
-  },
-  categories: {
-    default: { appenders: ['file', 'dateFile', 'out'], level: 'trace' },
-  },
-});
+// configure({
+//   appenders: {
+//     file: {
+//       type: 'file',
+//       filename: 'logs/app.log',
+//       maxLogSize: 10 * 1024 * 1024, // Max log file size 10MB
+//       backups: 30, // Keep 30 backup files
+//       compress: false, // Compress the backups
+//       encoding: 'utf-8',
+//       mode: 0o0640,
+//       flags: 'w+',
+//     },
+//     dateFile: {
+//       type: 'dateFile',
+//       filename: 'logs/file.log',
+//       pattern: 'yyyy-MM-dd',
+//       compress: false,
+//     },
+//     out: {
+//       type: 'stdout',
+//     },
+//   },
+//   categories: {
+//     default: { appenders: ['file', 'dateFile', 'out'], level: 'trace' },
+//   },
+// });
 const _messages = {
   disconnected: '- ☠️ [Disconnected]',
   reconnected: '+ 🔌 [Reconnected]',
@@ -50,16 +50,16 @@ const _messages = {
  * Logger
  */
 export class Logger {
-  private logger: JSLogger;
+  private logger: Console;
 
   readonly category: string;
 
   constructor(category?: string, logLevel?: LogLevel) {
-    this.logger = getLogger(category);
+    this.logger = console;
     this.category = category || 'default';
-    if (logLevel) {
-      this.logger.level = logLevel;
-    }
+    // if (logLevel) {
+    //   this.logger.level = logLevel;
+    // }
   }
 
   log(...args: any[]): void {
@@ -91,11 +91,11 @@ export class Logger {
   }
 
   fatal(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.fatal(`🔥 ${_messages[message] || message}`, ...args);
+    return this.logger.warn(`🔥 ${_messages[message] || message}`, ...args);
   }
 
   mark(message: keyof typeof _messages, ...args: any[]): void {
-    return this.logger.mark(_messages[message] || message, ...args);
+    return this.logger.warn(_messages[message] || message, ...args);
   }
 
   discord(message: keyof typeof _messages, ...args: any[]): Promise<void> {

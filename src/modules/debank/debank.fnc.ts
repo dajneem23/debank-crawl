@@ -885,7 +885,7 @@ export const getAccountsFromTxEvent = async () => {
           from_account: {
             $cond: {
               if: {
-                $eq: ['$from_account_type', 'smart_contract'],
+                $ne: ['$from_account_type', 'eoa'],
               },
               then: null,
               else: '$from_account',
@@ -894,7 +894,7 @@ export const getAccountsFromTxEvent = async () => {
           to_account: {
             $cond: {
               if: {
-                $eq: ['$to_account_type', 'smart_contract'],
+                $ne: ['$to_account_type', 'eoa'],
               },
               then: null,
               else: '$to_account',

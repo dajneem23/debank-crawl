@@ -1840,7 +1840,7 @@ export class DebankService {
     }
   }
 
-  async crawlUsersProject({ user_addresses, crawl_id }: { user_addresses: string[]; crawl_id: string }) {
+  async crawlUsersProject({ user_addresses }: { user_addresses: string[] }) {
     const browser = await (process.env.MODE === 'production' ? connectChrome() : createPuppeteerBrowser());
     const context = browser.defaultBrowserContext();
     const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
@@ -1888,29 +1888,6 @@ export class DebankService {
 
       //TODO: bulk insert to job queue
       if (process.env.MODE == 'production') {
-        const jobs = Object.entries(jobData).map(([user_address, data]) => {
-          return {
-            name: DebankJobNames['debank:insert:user-assets-portfolio'],
-            data: {
-              ...data,
-              crawl_id,
-              user_address,
-            },
-            opts: {
-              jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
-              removeOnComplete: {
-                // remove job after 1 hour
-                age: 60 * 30,
-              },
-              removeOnFail: {
-                age: 60 * 60 * 1,
-              },
-              priority: 10,
-              attempts: 10,
-            },
-          };
-        });
-        this.queueInsert.addBulk(jobs);
         const mgData = Object.entries(jobData)
           .map(([user_address, { project_list: projects }]) => ({
             address: user_address,
@@ -1926,7 +1903,6 @@ export class DebankService {
                 }));
               })
               .flat(),
-            crawl_id,
             crawl_time: new Date(),
           }))
           .map(({ portfolio_item_list, ...rest }) => ({

@@ -1,5 +1,7 @@
 import { Queue } from 'bullmq';
 import 'reflect-metadata';
+import { sendTelegramMessage } from './service/alert/telegram';
+import { BOT_HEALTH_CHECK_GROUP_ID } from './service/alert/telegram/const';
 /**
  *  @description this import is required to initialize service class
  */
@@ -49,6 +51,11 @@ import 'reflect-metadata';
 
     //load modules here
     await import('./modules/index');
+
+    await sendTelegramMessage({
+      message: `[cronjob-debank][✅  Up] running`,
+      chatId: BOT_HEALTH_CHECK_GROUP_ID,
+    });
   } catch (err) {
     console.error(err);
     if (process.env.MODE == 'production') {

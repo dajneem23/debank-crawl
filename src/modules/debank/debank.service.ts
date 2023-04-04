@@ -17,6 +17,7 @@ import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } fro
 import { uniqBy } from 'lodash';
 import {
   bulkWriteUsersProject,
+  getAccountsFromTxEvent,
   getDebankCoinsCrawlId,
   getDebankCrawlId,
   getDebankSocialRankingCrawlId,
@@ -94,11 +95,6 @@ export class DebankService {
   private readonly jobs: {
     [key in DebankJobNames | 'default']?: (payload?: any) => any;
   } = {
-    // 'debank:fetch:social:user': this.fetchSocialRankingByUserAddress,
-    // 'debank:fetch:user:project-list': this.fetchUserProjectList,
-    // 'debank:fetch:user:assets-portfolios': this.fetchUserAssetClassify,
-    // 'debank:fetch:user:token-balances': this.fetchUserTokenBalanceList,
-
     'debank:fetch:social:rankings:page': this.fetchSocialRankingsPage,
     'debank:fetch:whales:page': this.fetchWhalesPage,
     'debank:insert:whale': insertDebankWhale,
@@ -108,11 +104,13 @@ export class DebankService {
     'debank:fetch:top-holders': this.fetchTopHolders,
     'debank:fetch:top-holders:page': this.fetchTopHoldersPage,
     'debank:insert:top-holder': insertDebankTopHolder,
-    // 'debank:crawl:portfolio': this.crawlPortfolio,
 
+    // 'debank:crawl:portfolio': this.crawlPortfolio,
     'debank:crawl:portfolio:list': this.crawlPortfolioByList,
 
     'debank:crawl:users:project': this.crawlUsersProject,
+
+    'debank:add:snapshot:users:project': this.addSnapshotUsersProjectJob,
 
     //! DEPRECATED
     // 'debank:add:project:users': this.addFetchProjectUsersJobs,
@@ -157,6 +155,7 @@ export class DebankService {
   };
 
   constructor() {
+    this.addSnapshotUsersProjectJob();
     // TODO: CHANGE THIS TO PRODUCTION
     if (env.MODE === 'production') {
       // Init Worker
@@ -630,6 +629,30 @@ export class DebankService {
       {
         repeatJobKey: 'debank:add:fetch:top-holders',
         jobId: `debank:add:fetch:top-holders`,
+        removeOnComplete: {
+          //remove after 1 hour
+          age: 60 * 60 * 1,
+        },
+        removeOnFail: {
+          //remove after 1 hour
+          age: 60 * 60 * 1,
+        },
+        repeat: {
+          //repeat every 60 minutes
+          every: 1000 * 60 * 60 * 1,
+          // pattern: '* 0 0 * * *',
+        },
+        priority: 2,
+        attempts: 5,
+      },
+    );
+
+    this.queue.add(
+      DebankJobNames['debank:add:snapshot:users:project'],
+      {},
+      {
+        repeatJobKey: 'debank:add:snapshot:users:project',
+        jobId: `debank:add:snapshot:users:project`,
         removeOnComplete: {
           //remove after 1 hour
           age: 60 * 60 * 1,
@@ -1923,5 +1946,49 @@ export class DebankService {
       // await context.close();
       browser.disconnect();
     }
+  }
+
+  async addSnapshotUsersProjectJob() {
+    const accounts = await getAccountsFromTxEvent();
+
+    const NUM_ADDRESSES_PER_JOB = 10;
+    const user_addresses_list = Array.from({ length: Math.ceil(accounts.length / NUM_ADDRESSES_PER_JOB) }).map(
+      (_, i) => {
+        return [...accounts.slice(i * NUM_ADDRESSES_PER_JOB, (i + 1) * NUM_ADDRESSES_PER_JOB)];
+      },
+    );
+    const jobs = user_addresses_list.map((user_addresses: any, index) => ({
+      name: DebankJobNames['debank:crawl:users:project'],
+      data: {
+        user_addresses,
+      },
+      opts: {
+        jobId: `debank:crawl:users:project:${index}`,
+        removeOnComplete: {
+          age: 60 * 30,
+        },
+        removeOnFail: {
+          age: 60 * 30,
+        },
+        priority: 10,
+        attempts: 10,
+        // delay: 1000 * 5,
+      },
+    }));
+    await this.queuePortfolio.addBulk(jobs);
+    const countJobs = await this.queuePortfolio.getJobCounts();
+    await sendTelegramMessage({
+      message: `[debank-portfolio]\n
+      [add-snapshot-users-project-job]\n
+      ----------------------------------\n
+      - added::${jobs.length}\n
+      - waiting::${countJobs.waiting}\n
+      - delayed::${countJobs.delayed}\n
+      - active::${countJobs.active}\n
+      - ✅completed::${countJobs.completed}\n
+      - ❌failed::${countJobs.failed}\n
+      ----------------------------------\n
+      `,
+    });
   }
 }

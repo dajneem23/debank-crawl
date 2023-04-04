@@ -874,6 +874,10 @@ export const getAccountsFromTxEvent = async () => {
           block_at: {
             $gte: +new Date(new Date().getTime() - 1 * 60 * 60 * 1000).getTime() / 1000,
           },
+          usd_value: {
+            $exists: true,
+            $gt: 1000,
+          },
         },
       },
       {
@@ -907,4 +911,3 @@ export const getAccountsFromTxEvent = async () => {
 
   return uniq([...accounts[0].to_accounts, ...accounts[0].from_accounts]);
 };
-getAccountsFromTxEvent();

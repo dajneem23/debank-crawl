@@ -1,3 +1,4 @@
+import { Queue } from 'bullmq';
 import 'reflect-metadata';
 /**
  *  @description this import is required to initialize service class
@@ -25,7 +26,7 @@ import 'reflect-metadata';
     }
     if (process.env.MODE == 'production') {
       const { exitHandler } = await import('./core/handler');
-
+      Queue.setMaxListeners(0);
       process.setMaxListeners(0);
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       require('events').EventEmitter.prototype._maxListeners = 500;

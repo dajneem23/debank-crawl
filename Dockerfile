@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 
 # We don't need the standalone Chromium
@@ -41,4 +41,4 @@ EXPOSE 9002
 
 
 # Start service
-CMD [  "pm2-runtime", "build/server.js" ,"-i", "1" ,"--max-memory-restart", "1G","--max-old-space-size=8192" ]
+CMD [  "pm2-runtime",  "ecosystem.config.js" ]

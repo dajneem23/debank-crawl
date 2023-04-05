@@ -373,7 +373,7 @@ export const insertDebankTopHolders = async ({
     crawl_id,
     crawl_time,
   }));
-
+  const mgClient = Container.get(DIMongoClient);
   const MGValues = await Promise.all(
     holders.map(async (holder) => {
       const { tags, labels } = (await mgClient.db('onchain').collection('address-book').findOne({
@@ -390,7 +390,6 @@ export const insertDebankTopHolders = async ({
       };
     }),
   );
-  const mgClient = Container.get(DIMongoClient);
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({
     id,
     updated_at: new Date(),

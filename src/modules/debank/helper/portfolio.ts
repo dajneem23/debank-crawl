@@ -167,24 +167,27 @@ export const crawlPortfolioByList = async ({
       user_addresses,
       async (user_address) => {
         try {
-          const cache_balance_list = await pageDebankFetchProfileAPI({
-            url: `https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`,
-            page,
-            user_address,
-          });
-          await sleep(3 * 1000);
-          const project_list = await pageDebankFetchProfileAPI({
-            url: `https://api.debank.com/portfolio/project_list?user_addr=${user_address}`,
-            page,
-            user_address,
-          });
+          const [cache_balance_list, project_list] = await Promise.all([
+            pageDebankFetchProfileAPI({
+              url: `https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`,
+              page,
+              user_address,
+            }),
+            pageDebankFetchProfileAPI({
+              url: `https://api.debank.com/portfolio/project_list?user_addr=${user_address}`,
+              page,
+              user_address,
+            }),
+          ]);
           if (project_list.status() != 200 || cache_balance_list.status() != 200) {
             throw new Error('crawlPortfolio:response:not 200');
           }
-          const { data: balance_list_data } = await cache_balance_list.json();
-          jobData[user_address]['balance_list'] = balance_list_data;
 
-          const { data: project_list_data } = await project_list.json();
+          const [{ data: balance_list_data }, { data: project_list_data }] = await Promise.all([
+            cache_balance_list.json(),
+            project_list.json(),
+          ]);
+          jobData[user_address]['balance_list'] = balance_list_data;
           jobData[user_address]['project_list'] = project_list_data;
         } catch (error) {
           logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));

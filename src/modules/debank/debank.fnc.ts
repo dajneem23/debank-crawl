@@ -576,7 +576,7 @@ export const insertDebankUserAssetPortfolio = async ({
       table: 'debank-portfolio-projects',
     }));
   const mgClient = Container.get(DIMongoClient);
-  const collection = mgClient.db('onchain-dev').collection('account-snapshot');
+  const collection = mgClient.db('onchain').collection('account-snapshot');
   const portfolio_item_list = project_list
     .map(({ portfolio_item_list = [] }) => {
       return portfolio_item_list.map(({ stats, ...rest }) => ({

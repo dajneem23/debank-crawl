@@ -216,7 +216,7 @@ export const crawlPortfolioByList = async ({
         }
       },
       {
-        concurrency: 3,
+        concurrency: 2,
       },
     );
 

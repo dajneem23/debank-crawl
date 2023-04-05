@@ -305,7 +305,7 @@ export const crawlUserBalance = async ({
   const balance_list = await bluebird.map(
     chains,
     async (chain, index) => {
-      await sleep(1000 * 2 * index);
+      await sleep(1000 * index);
       const balance_list = await pageDebankFetchProfileAPI({
         url: `https://api.debank.com/token/balance_list?user_addr=${user_address}&chain=${chain}`,
         page,
@@ -318,7 +318,7 @@ export const crawlUserBalance = async ({
       return balance_list_data;
     },
     {
-      concurrency: 1,
+      concurrency: 2,
     },
   );
   return balance_list.flat();

@@ -227,7 +227,6 @@ export const crawlPortfolioByList = async ({
     ) {
       throw new Error('crawlPortfolio:mismatch-data');
     }
-    console.log('completed');
     //TODO: bulk insert to job queue
     if (process.env.MODE == 'production') {
       const jobs = Object.entries(jobData).map(([user_address, data]) => {
@@ -305,7 +304,8 @@ export const crawlUserBalance = async ({
 }) => {
   const balance_list = await bluebird.map(
     chains,
-    async (chain) => {
+    async (chain, index) => {
+      await sleep(1000 * 2 * index);
       const balance_list = await pageDebankFetchProfileAPI({
         url: `https://api.debank.com/token/balance_list?user_addr=${user_address}&chain=${chain}`,
         page,
@@ -318,10 +318,9 @@ export const crawlUserBalance = async ({
       return balance_list_data;
     },
     {
-      concurrency: 2,
+      concurrency: 1,
     },
   );
-  console.log('balance_list', balance_list.length, 'chains', chains.length, 'user_address', user_address);
   return balance_list.flat();
 };
 
@@ -335,7 +334,6 @@ export const crawlUserProjectList = async ({ page, user_address }: { page: Page;
     throw new Error('crawlPortfolio:response:not 200');
   }
   const { data: project_list_data } = await project_list.json();
-  console.log('project_list', project_list_data.length, 'user_address', user_address);
   return project_list_data;
 };
 

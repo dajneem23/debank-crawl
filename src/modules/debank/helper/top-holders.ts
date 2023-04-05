@@ -315,7 +315,7 @@ const fetchTopHoldersPageUsePuppeteer = async ({
   }
 };
 export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: number }) => {
-  const browser = process.env.MODE == 'production' ? await connectChrome() : await createPuppeteerBrowser();
+  const browser = process.env.MODE == 'production' || true ? await connectChrome() : await createPuppeteerBrowser();
   // const browser = await createPuppeteerBrowser();
   // const context = await browser.createIncognitoBrowserContext();
   const context = await browser.defaultBrowserContext();
@@ -400,7 +400,7 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
     //cleanup
     await page.close();
     // await context.close();
-    // await browser.close();
-    browser.disconnect();
+    await browser.close();
+    // browser.disconnect();
   }
 };

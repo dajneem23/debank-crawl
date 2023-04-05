@@ -235,7 +235,8 @@ export const crawlPortfolioByList = async ({
   } finally {
     await page.close();
     // await context.close();
-    browser.disconnect();
+    // browser.disconnect();
+    await browser.close();
   }
 };
 export const fetchUserProfile = async ({ address }: { address: string }) => {

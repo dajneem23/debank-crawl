@@ -287,6 +287,7 @@ export const crawlDebankUserProfile = async ({ user_address, page }: { user_addr
       {
         $set: {
           ...profile,
+          updated_at: new Date(),
         },
       },
       {
@@ -341,13 +342,19 @@ export const crawlUserProjectList = async ({ page, user_address }: { page: Page;
   return project_list_data;
 };
 
+export const crawlUserAssetList = async ({ page, user_address }: { page: Page; user_address: string }) => {
+  const assets = await pageDebankFetchProfileAPI({
+    url: `https://api.debank.com/asset/classify?user_addr=${user_address}`,
+    page,
+    user_address,
+  });
+  if (assets.status() != 200) {
+    throw new Error('crawlPortfolio:response:not 200');
+  }
+  const { data } = await assets.json();
+  return data;
+};
 // crawlPortfolioByList({
-//   user_addresses: [
-//     '0x7511BF43a734819e5Ab53BA024bb7471A97b5da7',
-//     '0xD3EdceD65E6e739008b4dC696F4C0336d4c8444D',
-//     '0x03d279C296429c573f02a57a6b0DD79af3b77ce7',
-//     '0x783418803a9C65f3be7E869d51664FA873354282',
-//     '0xC8Ff459075Ba2228Fd8908b0792c12b588E1f7B8',
-//   ],
+//   user_addresses: ['0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50'],
 //   crawl_id: 'test',
 // });

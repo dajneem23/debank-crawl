@@ -179,21 +179,20 @@ export const crawlPortfolioByList = async ({
   const browser = await (process.env.MODE === 'production' ? connectChrome() : createPuppeteerBrowser());
   const context = await browser.defaultBrowserContext();
   const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
-
+  const page = await context.newPage();
+  await page.authenticate({
+    username: WEBSHARE_PROXY_HTTP.auth.username,
+    password: WEBSHARE_PROXY_HTTP.auth.password,
+  });
+  await page.goto(`https://debank.com/profile/${user_addresses[0]}`, {
+    waitUntil: 'load',
+    timeout: 1000 * 60,
+  });
   try {
     await bluebird.map(
       user_addresses,
       async (user_address) => {
-        const page = await context.newPage();
         try {
-          await page.authenticate({
-            username: WEBSHARE_PROXY_HTTP.auth.username,
-            password: WEBSHARE_PROXY_HTTP.auth.password,
-          });
-          await page.goto(`https://debank.com/profile/${user_addresses[0]}`, {
-            waitUntil: 'load',
-            timeout: 1000 * 60,
-          });
           const { used_chains } = await crawlDebankUserProfile({
             page,
             user_address,
@@ -214,8 +213,6 @@ export const crawlPortfolioByList = async ({
         } catch (error) {
           logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
           throw error;
-        } finally {
-          await page.close();
         }
       },
       {
@@ -261,7 +258,7 @@ export const crawlPortfolioByList = async ({
     logger.error('error', '[crawlPortfolioByList:-1:error]', JSON.stringify(error));
     throw error;
   } finally {
-    // await page.close();
+    await page.close();
     // await context.close();
     // browser.disconnect();
     await browser.close();

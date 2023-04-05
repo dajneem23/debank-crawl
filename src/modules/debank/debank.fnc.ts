@@ -575,6 +575,12 @@ export const insertDebankUserAssetPortfolio = async ({
       table: 'debank-portfolio-projects',
     }));
   const mgClient = Container.get(DIMongoClient);
+  const { tags, labels } = (await mgClient.db('onchain').collection('address-book').findOne({
+    address: user_address,
+  })) || {
+    tags: [],
+    labels: [],
+  };
   const collection = mgClient.db('onchain').collection('account-snapshot');
   const portfolio_item_list = project_list
     .map(({ portfolio_item_list = [] }) => {
@@ -599,9 +605,11 @@ export const insertDebankUserAssetPortfolio = async ({
   );
 
   const mgData = {
-    user_address,
+    address: user_address,
     crawl_id,
     crawl_time: now,
+    tags,
+    labels,
     ...(coin_list.length && {
       coin_list,
     }),

@@ -5,6 +5,8 @@ import { executablePath } from 'puppeteer';
 import { anonymizeProxy } from 'proxy-chain';
 import pluginStealth from 'puppeteer-extra-plugin-stealth';
 import puppeteer from 'puppeteer-extra';
+import axios from 'axios';
+import { INTERNAL_HOST, LIMIT_CPU, LIMIT_RUNNING, PUBLIC_HOST } from './const';
 
 export const puppeteerBrowserToken = new Token<Browser>('_puppeteerBrowser');
 
@@ -41,7 +43,7 @@ export const createPuppeteerBrowser = async (
 };
 
 export const connectChrome = async () => {
-  const host = process.env.MODE == 'production' ? '10.104.0.3' : '167.172.79.230';
+  const host = await selectBestServer();
   const browser = await puppeteer.connect({
     browserWSEndpoint: `ws://${host}:9999?stealth`,
     defaultViewport: {
@@ -52,4 +54,30 @@ export const connectChrome = async () => {
   });
   Container.set(puppeteerBrowserToken, browser);
   return browser;
+};
+
+export const getSeverPressure = async (host) => {
+  const { data, status } = await axios.get(`http://${host}:9999/pressure`);
+  if (status == 200) {
+    const { pressure } = data;
+    return pressure;
+  }
+  return null;
+};
+
+export const selectBestServer = async () => {
+  const host = process.env.MODE == 'production' ? INTERNAL_HOST : PUBLIC_HOST;
+  const pressure = await Promise.all(host.map((h) => getSeverPressure(h)));
+  const cpu = pressure.map(({ cpu, running }, index) => {
+    //last index is crawler server
+    if (index == pressure.length - 1) {
+      return cpu;
+    }
+    if (cpu >= LIMIT_CPU || running >= LIMIT_RUNNING) {
+      return 200;
+    }
+    return cpu;
+  });
+  const index = cpu.indexOf(Math.min(...cpu));
+  return host[index];
 };

@@ -606,7 +606,7 @@ export const insertDebankUserAssetPortfolio = async ({
 
   const mgData = {
     address: user_address,
-    crawl_id,
+    crawl_id: +crawl_id,
     crawl_time: now,
     tags,
     labels,

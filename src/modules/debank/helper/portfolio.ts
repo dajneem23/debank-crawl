@@ -216,7 +216,7 @@ export const crawlPortfolioByList = async ({
         }
       },
       {
-        concurrency: 5,
+        concurrency: 2,
       },
     );
 
@@ -227,7 +227,7 @@ export const crawlPortfolioByList = async ({
     ) {
       throw new Error('crawlPortfolio:mismatch-data');
     }
-
+    console.log('completed');
     //TODO: bulk insert to job queue
     if (process.env.MODE == 'production') {
       const jobs = Object.entries(jobData).map(([user_address, data]) => {
@@ -255,13 +255,13 @@ export const crawlPortfolioByList = async ({
       queueInsert.addBulk(jobs);
     }
   } catch (error) {
-    logger.error('error', '[crawlPortfolioByList:error]', JSON.stringify(error));
-    throw error;
+    logger.error('error', '[crawlPortfolioByList:-1:error]', JSON.stringify(error));
+    // throw error;
   } finally {
-    await page.close();
+    // await page.close();
     // await context.close();
     // browser.disconnect();
-    await browser.close();
+    // await browser.close();
   }
 };
 
@@ -321,6 +321,7 @@ export const crawlUserBalance = async ({
       concurrency: 2,
     },
   );
+  console.log('balance_list', balance_list.length, 'chains', chains.length, 'user_address', user_address);
   return balance_list.flat();
 };
 
@@ -334,5 +335,17 @@ export const crawlUserProjectList = async ({ page, user_address }: { page: Page;
     throw new Error('crawlPortfolio:response:not 200');
   }
   const { data: project_list_data } = await project_list.json();
+  console.log('project_list', project_list_data.length, 'user_address', user_address);
   return project_list_data;
 };
+
+// crawlPortfolioByList({
+//   user_addresses: [
+//     '0x7511BF43a734819e5Ab53BA024bb7471A97b5da7',
+//     '0xD3EdceD65E6e739008b4dC696F4C0336d4c8444D',
+//     '0x03d279C296429c573f02a57a6b0DD79af3b77ce7',
+//     '0x783418803a9C65f3be7E869d51664FA873354282',
+//     '0xC8Ff459075Ba2228Fd8908b0792c12b588E1f7B8',
+//   ],
+//   crawl_id: 'test',
+// });

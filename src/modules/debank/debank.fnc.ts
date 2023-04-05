@@ -875,6 +875,7 @@ export const pageDebankFetchProfileAPI = async ({
   user_address: string;
 }): Promise<any> => {
   try {
+    console.log('pageDebankFetchProfileAPI', url, 'retry=>>', retry);
     const [_, data] = await Promise.all([
       page.evaluate((url) => {
         // @ts-ignore-start
@@ -901,6 +902,7 @@ export const pageDebankFetchProfileAPI = async ({
 
     return data;
   } catch (error) {
+    console.log('error', error, 'retry=>>', retry);
     if (retry > 0) {
       await sleep(10 * 1000);
       await page.goto(`https://debank.com/profile/${user_address}`, {

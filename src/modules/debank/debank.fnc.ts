@@ -577,15 +577,50 @@ export const insertDebankUserAssetPortfolio = async ({
     }));
   const mgClient = Container.get(DIMongoClient);
   const collection = mgClient.db('onchain-dev').collection('account-snapshot');
-  await collection.insertOne({
+  const portfolio_item_list = project_list
+    .map(({ portfolio_item_list = [] }) => {
+      return portfolio_item_list.map(({ stats, ...rest }) => ({
+        ...rest,
+        stats,
+        usd_value: stats.asset_usd_value,
+        net_value: stats.net_usd_value,
+        debt_value: stats.debt_usd_value,
+      }));
+    })
+    .flat();
+  const total_balance_usd_value = balance_list.reduce(
+    (acc: number, { amount, price }: any) => acc + +amount * +price,
+    0,
+  );
+  const total_project_usd_value = portfolio_item_list.reduce((acc: number, { usd_value }: any) => acc + +usd_value, 0);
+  const total_project_net_value = portfolio_item_list.reduce((acc: number, { net_value }: any) => acc + +net_value, 0);
+  const total_project_debt_value = portfolio_item_list.reduce(
+    (acc: number, { debt_value }: any) => acc + +debt_value,
+    0,
+  );
+
+  const mgData = {
     user_address,
     crawl_id,
     crawl_time: now,
-    token_list,
-    coin_list,
+    ...(coin_list.length && {
+      coin_list,
+    }),
+    ...(token_list.length && {
+      token_list,
+    }),
     balance_list,
     project_list,
-  });
+    stats: {
+      total_balance_usd_value,
+      total_project_usd_value,
+      total_project_net_value,
+      total_project_debt_value,
+      total_usd_value: total_balance_usd_value + total_project_usd_value,
+      total_net_usd_value: total_balance_usd_value + total_project_net_value,
+    },
+  };
+  await collection.insertOne(mgData);
 };
 export const insertDebankWhale = async ({
   whale,

@@ -216,7 +216,7 @@ export const crawlPortfolioByList = async ({
         }
       },
       {
-        concurrency: 2,
+        concurrency: 3,
       },
     );
 
@@ -265,12 +265,6 @@ export const crawlPortfolioByList = async ({
 };
 
 export const crawlDebankUserProfile = async ({ user_address, page }: { user_address: string; page: Page }) => {
-  const userFromMG = await mgClient.db('onchain').collection('debank-user').findOne({
-    address: user_address,
-  });
-  if (userFromMG) {
-    return userFromMG;
-  }
   const data = await pageDebankFetchProfileAPI({
     url: `https://api.debank.com/user/addr?addr=${user_address}`,
     page,
@@ -286,10 +280,20 @@ export const crawlDebankUserProfile = async ({ user_address, page }: { user_addr
   await mgClient
     .db('onchain')
     .collection('debank-user')
-    .insertOne({
-      address: user_address,
-      ...profile,
-    });
+    .findOneAndUpdate(
+      {
+        address: user_address,
+      },
+      {
+        $set: {
+          ...profile,
+        },
+      },
+      {
+        upsert: true,
+        returnDocument: 'after',
+      },
+    );
   return profile;
 };
 
@@ -318,7 +322,7 @@ export const crawlUserBalance = async ({
       return balance_list_data;
     },
     {
-      concurrency: 2,
+      concurrency: 3,
     },
   );
   return balance_list.flat();

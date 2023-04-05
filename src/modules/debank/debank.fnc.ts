@@ -6,7 +6,7 @@ import { DebankAPI } from '../../common/api';
 import STABLE_COINS from '../../common/stablecoins.json';
 import { formatDate } from '../../utils/date';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
-import { Page } from 'puppeteer';
+import { HTTPResponse, Page } from 'puppeteer';
 import { sleep } from '../../utils/common';
 import { filter, isNil, uniq, uniqBy } from 'lodash';
 
@@ -508,72 +508,72 @@ export const insertDebankUserAssetPortfolio = async ({
 }) => {
   const now = new Date();
 
-  const tokens_rows = token_list.map((token: any) => ({
-    user_address,
-    details: JSON.stringify(token).replace(/\\u0000/g, ''),
-    crawl_id,
-    crawl_time: now,
-  }));
+  // const tokens_rows = token_list.map((token: any) => ({
+  //   user_address,
+  //   details: JSON.stringify(token).replace(/\\u0000/g, ''),
+  //   crawl_id,
+  //   crawl_time: now,
+  // }));
 
-  const coins_rows = coin_list.map((coin: any) => ({
-    user_address,
-    details: JSON.stringify(coin).replace(/\\u0000/g, ''),
-    crawl_id,
-    crawl_time: now,
-  }));
+  // const coins_rows = coin_list.map((coin: any) => ({
+  //   user_address,
+  //   details: JSON.stringify(coin).replace(/\\u0000/g, ''),
+  //   crawl_id,
+  //   crawl_time: now,
+  // }));
 
-  const balances_rows = balance_list.map((balance: any) => ({
-    user_address,
-    details: JSON.stringify({
-      ...balance,
-      is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-    }).replace(/\\u0000/g, ''),
-    is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
-    price: balance.price,
-    symbol: balance.symbol,
-    optimized_symbol: balance.optimized_symbol,
-    amount: balance.amount,
-    crawl_id,
-    crawl_time: now,
-    chain: balance.chain,
-    usd_value: +balance.price * +balance.amount,
-  }));
+  // const balances_rows = balance_list.map((balance: any) => ({
+  //   user_address,
+  //   details: JSON.stringify({
+  //     ...balance,
+  //     is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+  //   }).replace(/\\u0000/g, ''),
+  //   is_stable_coin: STABLE_COINS.some((b: any) => b.symbol === balance.symbol),
+  //   price: balance.price,
+  //   symbol: balance.symbol,
+  //   optimized_symbol: balance.optimized_symbol,
+  //   amount: balance.amount,
+  //   crawl_id,
+  //   crawl_time: now,
+  //   chain: balance.chain,
+  //   usd_value: +balance.price * +balance.amount,
+  // }));
 
-  const projects_rows = project_list.map((project: any) => ({
-    user_address,
-    details: JSON.stringify(project).replace(/\\u0000/g, ''),
-    crawl_id,
-    crawl_time: now,
+  // const projects_rows = project_list.map((project: any) => ({
+  //   user_address,
+  //   details: JSON.stringify(project).replace(/\\u0000/g, ''),
+  //   crawl_id,
+  //   crawl_time: now,
 
-    usd_value:
-      project.portfolio_item_list?.reduce((acc: number, { stats }: any) => {
-        return acc + stats.asset_usd_value;
-      }, 0) || 0,
-  }));
+  //   usd_value:
+  //     project.portfolio_item_list?.reduce((acc: number, { stats }: any) => {
+  //       return acc + stats.asset_usd_value;
+  //     }, 0) || 0,
+  // }));
 
-  tokens_rows.length &&
-    (await bulkInsert({
-      data: tokens_rows,
-      table: 'debank-portfolio-tokens',
-    }));
+  // tokens_rows.length &&
+  //   (await bulkInsert({
+  //     data: tokens_rows,
+  //     table: 'debank-portfolio-tokens',
+  //   }));
 
-  coins_rows.length &&
-    (await bulkInsert({
-      data: coins_rows,
-      table: 'debank-portfolio-coins',
-    }));
+  // coins_rows.length &&
+  //   (await bulkInsert({
+  //     data: coins_rows,
+  //     table: 'debank-portfolio-coins',
+  //   }));
 
-  balances_rows.length &&
-    (await bulkInsert({
-      data: balances_rows,
-      table: 'debank-portfolio-balances',
-    }));
+  // balances_rows.length &&
+  //   (await bulkInsert({
+  //     data: balances_rows,
+  //     table: 'debank-portfolio-balances',
+  //   }));
 
-  projects_rows.length &&
-    (await bulkInsert({
-      data: projects_rows,
-      table: 'debank-portfolio-projects',
-    }));
+  // projects_rows.length &&
+  //   (await bulkInsert({
+  //     data: projects_rows,
+  //     table: 'debank-portfolio-projects',
+  //   }));
   const mgClient = Container.get(DIMongoClient);
   const { tags, labels } = (await mgClient.db('onchain').collection('address-book').findOne({
     address: user_address,
@@ -873,7 +873,7 @@ export const pageDebankFetchProfileAPI = async ({
   retry?: number;
   timeout?: number;
   user_address: string;
-}): Promise<any> => {
+}): Promise<HTTPResponse> => {
   try {
     const [_, data] = await Promise.all([
       page.evaluate((url) => {

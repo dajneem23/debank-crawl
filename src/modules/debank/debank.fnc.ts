@@ -991,7 +991,7 @@ export const getAccountsFromTxEvent = async () => {
 };
 
 export const isValidPortfolioData = (data: any) => {
-  return data && data.coin_list && data.token_list;
+  return data && data.balance_list && data.project_list;
 };
 
 export const isValidTopHoldersData = ({ data, total_count }: { data: any[]; total_count: number }) => {

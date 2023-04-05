@@ -11,11 +11,37 @@ import {
   pageDebankFetchProfileAPI,
   updateDebankUserProfile,
 } from '../debank.fnc';
-import { logger } from '../debank.config';
+import { logger, mgClient } from '../debank.config';
 import { DebankJobNames } from '../debank.job';
 import { sleep } from '../../../utils/common';
 import { DebankAPI } from '../../../common/api';
+import { Page } from 'puppeteer';
+import { chain } from 'lodash';
+export const fetchUserProfile = async ({ address }: { address: string }) => {
+  const {
+    data: { data, error_code },
+    status,
+  } = await DebankAPI.fetch({
+    endpoint: DebankAPI.User.addr.endpoint,
+    params: {
+      addr: address,
+    },
+  });
+  if (status !== 200 || error_code || !data) {
+    throw new Error('fetchUserProfile:error');
+  }
+  return { data };
+};
 
+export const updateUserProfileJob = async ({ address }: { address: string }) => {
+  try {
+    const { data } = await fetchUserProfile({ address });
+    await updateDebankUserProfile({ address, profile: data });
+  } catch (error) {
+    logger.error('error', '[updateUserProfileJob:error]', JSON.stringify(error));
+    throw error;
+  }
+};
 export const crawlUsersProject = async ({ user_addresses }: { user_addresses: string[] }) => {
   const browser = await (process.env.MODE === 'production' ? connectChrome() : createPuppeteerBrowser());
   const context = browser.defaultBrowserContext();
@@ -167,28 +193,23 @@ export const crawlPortfolioByList = async ({
       user_addresses,
       async (user_address) => {
         try {
-          const [cache_balance_list, project_list] = await Promise.all([
-            pageDebankFetchProfileAPI({
-              url: `https://api.debank.com/token/cache_balance_list?user_addr=${user_address}`,
+          const { used_chains } = await crawlDebankUserProfile({
+            page,
+            user_address,
+          });
+          const [balance_list, project_list] = await Promise.all([
+            crawlUserBalance({
               page,
               user_address,
+              chains: used_chains,
             }),
-            pageDebankFetchProfileAPI({
-              url: `https://api.debank.com/portfolio/project_list?user_addr=${user_address}`,
+            crawlUserProjectList({
               page,
               user_address,
             }),
           ]);
-          if (project_list.status() != 200 || cache_balance_list.status() != 200) {
-            throw new Error('crawlPortfolio:response:not 200');
-          }
-
-          const [{ data: balance_list_data }, { data: project_list_data }] = await Promise.all([
-            cache_balance_list.json(),
-            project_list.json(),
-          ]);
-          jobData[user_address]['balance_list'] = balance_list_data;
-          jobData[user_address]['project_list'] = project_list_data;
+          jobData[user_address]['balance_list'] = balance_list;
+          jobData[user_address]['project_list'] = project_list;
         } catch (error) {
           logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
           throw error;
@@ -206,30 +227,31 @@ export const crawlPortfolioByList = async ({
     ) {
       throw new Error('crawlPortfolio:mismatch-data');
     }
-    const jobs = Object.entries(jobData).map(([user_address, data]) => {
-      return {
-        name: DebankJobNames['debank:insert:user-assets-portfolio'],
-        data: {
-          ...data,
-          crawl_id,
-          user_address,
-        },
-        opts: {
-          jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
-          removeOnComplete: {
-            // remove job after 1 hour
-            age: 60 * 30,
-          },
-          removeOnFail: {
-            age: 60 * 60 * 1,
-          },
-          priority: 10,
-          attempts: 10,
-        },
-      };
-    });
+
     //TODO: bulk insert to job queue
     if (process.env.MODE == 'production') {
+      const jobs = Object.entries(jobData).map(([user_address, data]) => {
+        return {
+          name: DebankJobNames['debank:insert:user-assets-portfolio'],
+          data: {
+            ...data,
+            crawl_id,
+            user_address,
+          },
+          opts: {
+            jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
+            removeOnComplete: {
+              // remove job after 1 hour
+              age: 60 * 30,
+            },
+            removeOnFail: {
+              age: 60 * 60 * 1,
+            },
+            priority: 10,
+            attempts: 10,
+          },
+        };
+      });
       queueInsert.addBulk(jobs);
     }
   } catch (error) {
@@ -242,28 +264,75 @@ export const crawlPortfolioByList = async ({
     await browser.close();
   }
 };
-export const fetchUserProfile = async ({ address }: { address: string }) => {
-  const {
-    data: { data, error_code },
-    status,
-  } = await DebankAPI.fetch({
-    endpoint: DebankAPI.User.addr.endpoint,
-    params: {
-      addr: address,
-    },
+
+export const crawlDebankUserProfile = async ({ user_address, page }: { user_address: string; page: Page }) => {
+  const userFromMG = await mgClient.db('onchain').collection('debank-user').findOne({
+    address: user_address,
   });
-  if (status !== 200 || error_code || !data) {
-    throw new Error('fetchUserProfile:error');
+  if (userFromMG) {
+    return userFromMG;
   }
-  return { data };
+  const data = await pageDebankFetchProfileAPI({
+    url: `https://api.debank.com/user/addr?addr=${user_address}`,
+    page,
+    user_address,
+  });
+  if (data.status() != 200) {
+    throw new Error('crawlDebankUserProfile:response:not 200');
+  }
+  const { data: profile } = await data.json();
+  if (!profile) {
+    throw new Error('crawlDebankUserProfile:response:profile-not-found');
+  }
+  await mgClient
+    .db('onchain')
+    .collection('debank-user')
+    .insertOne({
+      address: user_address,
+      ...profile,
+    });
+  return profile;
 };
 
-export const updateUserProfileJob = async ({ address }: { address: string }) => {
-  try {
-    const { data } = await fetchUserProfile({ address });
-    await updateDebankUserProfile({ address, profile: data });
-  } catch (error) {
-    logger.error('error', '[updateUserProfileJob:error]', JSON.stringify(error));
-    throw error;
+export const crawlUserBalance = async ({
+  page,
+  user_address,
+  chains,
+}: {
+  page: Page;
+  user_address: string;
+  chains: any[];
+}) => {
+  const balance_list = await bluebird.map(
+    chains,
+    async (chain) => {
+      const balance_list = await pageDebankFetchProfileAPI({
+        url: `https://api.debank.com/token/balance_list?user_addr=${user_address}&chain=${chain}`,
+        page,
+        user_address,
+      });
+      if (balance_list.status() != 200) {
+        throw new Error('crawlPortfolio:response:not 200');
+      }
+      const { data: balance_list_data } = await balance_list.json();
+      return balance_list_data;
+    },
+    {
+      concurrency: 2,
+    },
+  );
+  return balance_list.flat();
+};
+
+export const crawlUserProjectList = async ({ page, user_address }: { page: Page; user_address: string }) => {
+  const project_list = await pageDebankFetchProfileAPI({
+    url: `https://api.debank.com/portfolio/project_list?user_addr=${user_address}`,
+    page,
+    user_address,
+  });
+  if (project_list.status() != 200) {
+    throw new Error('crawlPortfolio:response:not 200');
   }
+  const { data: project_list_data } = await project_list.json();
+  return project_list_data;
 };

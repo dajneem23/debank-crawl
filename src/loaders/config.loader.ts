@@ -1,5 +1,6 @@
 import Container, { Token } from 'typedi';
 import { DIMongoClient } from './mongoDB.loader';
+import { DIRedisClient, DIRedisConnection } from './redis.loader';
 
 export default async () => {
   await Promise.all([loadOnchainBotAlertConfig()]);
@@ -21,3 +22,5 @@ const loadOnchainBotAlertConfig = async () => {
     .toArray();
   Container.set('onchain-alert-telegram-chat-id', config);
 };
+
+export const redisConnection = Container.get(DIRedisConnection);

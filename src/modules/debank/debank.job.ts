@@ -1,3 +1,24 @@
+import {
+  insertDebankCoin,
+  insertDebankTopHolder,
+  insertDebankUserAddress,
+  insertDebankUserAssetPortfolio,
+  insertDebankWhale,
+} from './debank.fnc';
+import { addFetchCoinsJob } from './helper/coin';
+import { cleanOutdatedData, createPartitions } from './helper/partition';
+import { addSnapshotUsersProjectJob, crawlPortfolioByList, crawlUsersProject } from './helper/portfolio';
+import { addFetchProtocolPoolsById, addFetchProtocolPoolsJob, fetchProtocolPoolsPage } from './helper/protocol';
+import { addFetchSocialRankingJob, fetchSocialRankingsPage } from './helper/ranking';
+import {
+  addFetchTopHoldersByUsersAddressJob,
+  addFetchTopHoldersJob,
+  crawlTopHolders,
+  fetchTopHolders,
+  fetchTopHoldersPage,
+} from './helper/top-holders';
+import { addFetchWhalesPagingJob, fetchWhalesPage } from './helper/whale';
+
 export type fetchDebankDataJob = {
   name: DebankJobNames;
 };
@@ -48,3 +69,56 @@ export enum DebankJobNames {
 }
 
 export type DebankJobData = fetchDebankDataJob;
+
+export const jobs: {
+  [key in DebankJobNames | 'default']?: (payload?: any) => any;
+} = {
+  'debank:fetch:social:rankings:page': fetchSocialRankingsPage,
+  'debank:fetch:whales:page': fetchWhalesPage,
+  'debank:insert:whale': insertDebankWhale,
+  'debank:insert:user-address': insertDebankUserAddress,
+  'debank:insert:user-assets-portfolio': insertDebankUserAssetPortfolio,
+  'debank:insert:coin': insertDebankCoin,
+  'debank:fetch:top-holders': fetchTopHolders,
+  'debank:fetch:top-holders:page': fetchTopHoldersPage,
+  'debank:insert:top-holder': insertDebankTopHolder,
+
+  // 'debank:crawl:portfolio': crawlPortfolio,
+  'debank:crawl:portfolio:list': crawlPortfolioByList,
+
+  'debank:crawl:users:project': crawlUsersProject,
+
+  'debank:add:snapshot:users:project': addSnapshotUsersProjectJob,
+
+  //! DEPRECATED
+  // 'debank:add:project:users': addFetchProjectUsersJobs,
+
+  //!PAUSED
+  'debank:add:fetch:coins': addFetchCoinsJob,
+
+  // 'debank:add:social:users': addFetchSocialRankingByUsersAddressJob,
+  //! RUNNING
+  'debank:add:social:users:rankings': addFetchSocialRankingJob,
+  //! RUNNING
+  'debank:add:fetch:whales:paging': addFetchWhalesPagingJob,
+  //! RUNNING
+  'debank:add:fetch:top-holders': addFetchTopHoldersJob,
+  //! RUNNING
+  'debank:add:fetch:user-address:top-holders': addFetchTopHoldersByUsersAddressJob,
+
+  'debank:crawl:top-holders': crawlTopHolders,
+
+  'debank:add:fetch:protocols:pools': addFetchProtocolPoolsJob,
+
+  'debank:fetch:protocols:pools:page': fetchProtocolPoolsPage,
+
+  'debank:add:fetch:protocols:pools:id': addFetchProtocolPoolsById,
+
+  //* PARTITION JOBS
+  'debank:create:partitions': createPartitions,
+
+  'debank:clean:outdated-data': cleanOutdatedData,
+  default: () => {
+    throw new Error('Invalid job name');
+  },
+};

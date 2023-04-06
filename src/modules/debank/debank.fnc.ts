@@ -385,7 +385,7 @@ export const insertDebankTopHolders = async ({
       };
       return {
         // details: holder,
-        user_address: holder.id,
+        address: holder.id,
         tags,
         labels,
       };

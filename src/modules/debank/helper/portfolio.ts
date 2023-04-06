@@ -5,6 +5,7 @@ import { WEBSHARE_PROXY_HTTP } from '../../../common/proxy';
 import bluebird from 'bluebird';
 import {
   bulkWriteUsersProject,
+  getAccountSnapshotCrawlId,
   getAccountsFromTxEvent,
   getDebankCrawlId,
   isValidPortfolioData,
@@ -129,7 +130,7 @@ export const crawlUsersProject = async ({ user_addresses }: { user_addresses: st
 
 export const addSnapshotUsersProjectJob = async () => {
   const accounts = await getAccountsFromTxEvent();
-  const crawl_id = await getDebankCrawlId();
+  const crawl_id = await getAccountSnapshotCrawlId();
 
   const NUM_ADDRESSES_PER_JOB = 5;
   const user_addresses_list = Array.from({ length: Math.ceil(accounts.length / NUM_ADDRESSES_PER_JOB) }).map((_, i) => {

@@ -24,7 +24,7 @@ import { ObjectId } from 'mongodb';
 export const addFetchTopHoldersByUsersAddressJob = async () => {
   const { rows } = await queryDebankTopHoldersImportantToken();
 
-  const crawl_id = await getAccountSnapshotCrawlId();
+  const crawl_id = await getDebankCrawlId();
 
   const NUM_ADDRESSES_PER_JOB = 5;
   const user_addresses_list = Array.from({ length: Math.ceil(rows.length / NUM_ADDRESSES_PER_JOB) }).map((_, i) => {

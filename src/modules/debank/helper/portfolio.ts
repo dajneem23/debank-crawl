@@ -220,24 +220,9 @@ export const crawlPortfolioByList = async ({
     }
     if (api_nonce && api_sign && api_ts && api_ver) {
       setExpireRedisKey({
-        key: 'debank:api:nonce',
+        key: 'debank:api',
         expire: 60 * 5,
-        value: api_nonce,
-      });
-      setExpireRedisKey({
-        key: 'debank:api:sign',
-        expire: 60 * 5,
-        value: api_sign,
-      });
-      setExpireRedisKey({
-        key: 'debank:api:ts',
-        expire: 60 * 5,
-        value: api_ts,
-      });
-      setExpireRedisKey({
-        key: 'debank:api:ver',
-        expire: 60 * 5,
-        value: api_ver,
+        value: JSON.stringify({ api_nonce, api_sign, api_ts, api_ver }),
       });
     }
   });

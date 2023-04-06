@@ -887,10 +887,15 @@ export const pageDebankFetchProfileAPI = async ({
   user_address: string;
 }): Promise<HTTPResponse> => {
   try {
-    const api_nonce = await getRedisKey('debank:api:nonce');
-    const api_sign = await getRedisKey('debank:api:sign');
-    const api_ts = await getRedisKey('debank:api:ts');
-    const api_ver = await getRedisKey('debank:api:ver');
+    const debank_api = await getRedisKey('debank:api');
+    const { api_nonce, api_sign, api_ts, api_ver } = debank_api
+      ? JSON.parse(debank_api)
+      : {
+          api_nonce: '',
+          api_sign: '',
+          api_ts: '',
+          api_ver: '',
+        };
     const [_, data] = await Promise.all([
       page.evaluate(
         (url, { api_nonce, api_sign, api_ts, api_ver }) => {

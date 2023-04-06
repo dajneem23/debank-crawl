@@ -10,6 +10,7 @@ import { HTTPResponse, Page } from 'puppeteer';
 import { sleep } from '../../utils/common';
 import { filter, isNil, uniq, uniqBy } from 'lodash';
 import { getRedisKey, getRedisKeys, getRedisValues } from '../../service/redis';
+import { mgClient } from './debank.config';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {
@@ -375,22 +376,10 @@ export const insertDebankTopHolders = async ({
     crawl_time,
   }));
   const mgClient = Container.get(DIMongoClient);
-  const MGValues = await Promise.all(
-    holders.map(async (holder) => {
-      const { tags, labels } = (await mgClient.db('onchain').collection('address-book').findOne({
-        address: holder.id,
-      })) || {
-        tags: [],
-        labels: [],
-      };
-      return {
-        // details: holder,
-        address: holder.id,
-        tags,
-        labels,
-      };
-    }),
-  );
+  const MGValues = holders.map(({ id }) => {
+    return id;
+  });
+
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({
     id,
     updated_at: new Date(),
@@ -499,6 +488,7 @@ export const insertDebankUserAssetPortfolio = async ({
   balance_list = [],
   project_list = [],
   crawl_id,
+  crawl_time,
 }: {
   user_address: string;
   token_list?: any;
@@ -506,9 +496,8 @@ export const insertDebankUserAssetPortfolio = async ({
   balance_list?: any;
   project_list?: any;
   crawl_id: number;
+  crawl_time: Date;
 }) => {
-  const now = new Date();
-
   // const tokens_rows = token_list.map((token: any) => ({
   //   user_address,
   //   details: JSON.stringify(token).replace(/\\u0000/g, ''),
@@ -608,7 +597,7 @@ export const insertDebankUserAssetPortfolio = async ({
   const mgData = {
     address: user_address,
     crawl_id: +crawl_id,
-    crawl_time: now,
+    crawl_time,
     tags,
     labels,
     ...(coin_list.length && {
@@ -804,7 +793,29 @@ export const getDebankCrawlId = async () => {
     return `${formatDate(new Date(), 'YYYYMMDD')}01`;
   }
 };
-
+export const getAccountSnapshotCrawlId = async () => {
+  const snapshot = await mgClient
+    .db('onchain')
+    .collection('account-snapshot')
+    .findOne(
+      {},
+      {
+        sort: { crawl_id: -1 },
+      },
+    );
+  if (snapshot?.crawl_id && snapshot.crawl_id) {
+    const crawl_id = snapshot.crawl_id.toString();
+    const crawl_id_date = crawl_id.slice(0, 8);
+    const crawl_id_number = parseInt(crawl_id.slice(8));
+    if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
+      return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
+    } else {
+      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+    }
+  } else {
+    return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+  }
+};
 export const getDebankCoinsCrawlId = async () => {
   const pgClient = Container.get(pgClientToken);
   const { rows } = await pgClient.query(`

@@ -18,7 +18,7 @@ export const worker = new Worker('debank', workerProcessor.bind(this), {
 export const workerPortfolio = new Worker('debank-portfolio', workerProcessor.bind(this), {
   autorun: true,
   connection: redisConnection,
-  lockDuration: 1000 * 60 * 2,
+  lockDuration: 1000 * 60 * 3,
   concurrency: 7,
   stalledInterval: 1000 * 30,
   skipLockRenewal: true,

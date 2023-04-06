@@ -1,9 +1,10 @@
 import { DebankAPI } from '../../../common/api';
 import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../../common/proxy';
 import { account, browser_uid, connected_dict, current_address } from '../debank.const';
-import { logger } from '../debank.config';
+import { logger, mgClient } from '../debank.config';
 import { queuePortfolio, queueTopHolder } from '../debank.queue';
 import {
+  getAccountSnapshotCrawlId,
   getDebankCrawlId,
   getDebankTopHoldersCrawlId,
   insertDebankTopHolders,
@@ -18,11 +19,12 @@ import { sleep } from '../../../utils/common';
 import bluebird from 'bluebird';
 import { uniqBy } from 'lodash';
 import { Page } from 'puppeteer';
+import { ObjectId } from 'mongodb';
 
 export const addFetchTopHoldersByUsersAddressJob = async () => {
   const { rows } = await queryDebankTopHoldersImportantToken();
 
-  const crawl_id = await getDebankCrawlId();
+  const crawl_id = await getAccountSnapshotCrawlId();
 
   const NUM_ADDRESSES_PER_JOB = 5;
   const user_addresses_list = Array.from({ length: Math.ceil(rows.length / NUM_ADDRESSES_PER_JOB) }).map((_, i) => {
@@ -404,3 +406,31 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
     // browser.disconnect();
   }
 };
+
+export const updateTopHolders = async () => {
+  console.log('start');
+  const collection = await mgClient.db('onchain').collection('debank-top-holders');
+  const top_holders = await collection.find({}).skip(1000).limit(4000).toArray();
+  console.log('top_holders', top_holders.length);
+  await bluebird.map(
+    top_holders,
+    async ({ holders, _id }) => {
+      await collection.updateOne(
+        {
+          _id: new ObjectId(_id),
+        },
+        {
+          $set: {
+            holders: holders.map(({ address, ...rest }) => address),
+          },
+        },
+      );
+      console.log('updated', _id);
+    },
+    {
+      concurrency: 50,
+    },
+  );
+  console.log('done=>>>>>>>>>>>>>>>>>>');
+};
+// updateTopHolders();

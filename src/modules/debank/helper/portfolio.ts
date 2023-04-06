@@ -222,7 +222,7 @@ export const crawlPortfolioByList = async ({
       setExpireRedisKey({
         key: 'debank:api',
         expire: 60 * 5,
-        value: JSON.stringify({ api_nonce, api_sign, api_ts, api_ver }),
+        value: JSON.stringify({ api_nonce, api_sign, api_ts: +api_ts, api_ver }),
       });
     }
   });
@@ -285,6 +285,7 @@ export const crawlPortfolioByList = async ({
             ...data,
             crawl_id,
             user_address,
+            crawl_time: new Date(),
           },
           opts: {
             jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,

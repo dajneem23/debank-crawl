@@ -240,41 +240,39 @@ export const crawlPortfolioByList = async ({
     logger.error('error', '[crawlPortfolioByList:-1:error]', JSON.stringify(error));
     throw error;
   } finally {
-    await page.close();
-    // await context.close();
-    // browser.disconnect();
-    await browser.close();
     //TODO: bulk insert to job queue
+    const jobs = Object.entries(jobData)
+      .map(([user_address, data]) => {
+        if (!isValidPortfolioData(data)) {
+          return;
+        }
+        return {
+          name: DebankJobNames['debank:insert:user-assets-portfolio'],
+          data: {
+            ...data,
+            crawl_id,
+            user_address,
+          },
+          opts: {
+            jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
+            removeOnComplete: {
+              // remove job after 1 hour
+              age: 60 * 30,
+            },
+            removeOnFail: {
+              age: 60 * 60 * 1,
+            },
+            priority: 10,
+            attempts: 10,
+          },
+        };
+      })
+      .filter(Boolean);
     if (process.env.MODE == 'production') {
-      const jobs = Object.entries(jobData)
-        .map(([user_address, data]) => {
-          if (!isValidPortfolioData(data)) {
-            return;
-          }
-          return {
-            name: DebankJobNames['debank:insert:user-assets-portfolio'],
-            data: {
-              ...data,
-              crawl_id,
-              user_address,
-            },
-            opts: {
-              jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
-              removeOnComplete: {
-                // remove job after 1 hour
-                age: 60 * 30,
-              },
-              removeOnFail: {
-                age: 60 * 60 * 1,
-              },
-              priority: 10,
-              attempts: 10,
-            },
-          };
-        })
-        .filter(Boolean);
       queueInsert.addBulk(jobs);
     }
+    await browser.close();
+    return jobs.map((job) => job.opts.jobId);
   }
 };
 

@@ -130,7 +130,7 @@ export const addSnapshotUsersProjectJob = async () => {
   const accounts = await getAccountsFromTxEvent();
   const crawl_id = await getDebankCrawlId();
 
-  const NUM_ADDRESSES_PER_JOB = 2;
+  const NUM_ADDRESSES_PER_JOB = 5;
   const user_addresses_list = Array.from({ length: Math.ceil(accounts.length / NUM_ADDRESSES_PER_JOB) }).map((_, i) => {
     return [...accounts.slice(i * NUM_ADDRESSES_PER_JOB, (i + 1) * NUM_ADDRESSES_PER_JOB)];
   });
@@ -177,20 +177,29 @@ export const crawlPortfolioByList = async ({
   crawl_id: string;
 }) => {
   const browser = await (process.env.MODE === 'production' ? connectChrome() : createPuppeteerBrowser());
-  const context = await browser.defaultBrowserContext();
-  const jobData = Object.fromEntries(user_addresses.map((k) => [k, {} as any]));
+  const context = await browser.createIncognitoBrowserContext();
+  const _user_addresses = await Promise.all(
+    user_addresses.filter(async (user_address) => {
+      const user = await mgClient.db('onchain').collection('account-snapshot').findOne({
+        address: user_address,
+        crawl_id,
+      });
+      return !user;
+    }),
+  );
+  const jobData = Object.fromEntries(_user_addresses.map((k) => [k, {} as any]));
   const page = await context.newPage();
   await page.authenticate({
     username: WEBSHARE_PROXY_HTTP.auth.username,
     password: WEBSHARE_PROXY_HTTP.auth.password,
   });
-  await page.goto(`https://debank.com/profile/${user_addresses[0]}`, {
+  await page.goto(`https://debank.com/profile/${_user_addresses[0]}`, {
     waitUntil: 'load',
     timeout: 1000 * 60,
   });
   try {
     await bluebird.map(
-      user_addresses,
+      _user_addresses,
       async (user_address) => {
         try {
           const { used_chains } = await crawlDebankUserProfile({
@@ -227,32 +236,6 @@ export const crawlPortfolioByList = async ({
     ) {
       throw new Error('crawlPortfolio:mismatch-data');
     }
-    //TODO: bulk insert to job queue
-    if (process.env.MODE == 'production') {
-      const jobs = Object.entries(jobData).map(([user_address, data]) => {
-        return {
-          name: DebankJobNames['debank:insert:user-assets-portfolio'],
-          data: {
-            ...data,
-            crawl_id,
-            user_address,
-          },
-          opts: {
-            jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
-            removeOnComplete: {
-              // remove job after 1 hour
-              age: 60 * 30,
-            },
-            removeOnFail: {
-              age: 60 * 60 * 1,
-            },
-            priority: 10,
-            attempts: 10,
-          },
-        };
-      });
-      queueInsert.addBulk(jobs);
-    }
   } catch (error) {
     logger.error('error', '[crawlPortfolioByList:-1:error]', JSON.stringify(error));
     throw error;
@@ -261,6 +244,37 @@ export const crawlPortfolioByList = async ({
     // await context.close();
     // browser.disconnect();
     await browser.close();
+    //TODO: bulk insert to job queue
+    if (process.env.MODE == 'production') {
+      const jobs = Object.entries(jobData)
+        .map(([user_address, data]) => {
+          if (!isValidPortfolioData(data)) {
+            return;
+          }
+          return {
+            name: DebankJobNames['debank:insert:user-assets-portfolio'],
+            data: {
+              ...data,
+              crawl_id,
+              user_address,
+            },
+            opts: {
+              jobId: `debank:insert:user-assets-portfolio:${user_address}:${crawl_id}`,
+              removeOnComplete: {
+                // remove job after 1 hour
+                age: 60 * 30,
+              },
+              removeOnFail: {
+                age: 60 * 60 * 1,
+              },
+              priority: 10,
+              attempts: 10,
+            },
+          };
+        })
+        .filter(Boolean);
+      queueInsert.addBulk(jobs);
+    }
   }
 };
 
@@ -310,7 +324,7 @@ export const crawlUserBalance = async ({
   const balance_list = await bluebird.map(
     chains,
     async (chain, index) => {
-      await sleep(1000 * index);
+      await sleep(500 * index);
       const balance_list = await pageDebankFetchProfileAPI({
         url: `https://api.debank.com/token/balance_list?user_addr=${user_address}&chain=${chain}`,
         page,
@@ -354,7 +368,3 @@ export const crawlUserAssetList = async ({ page, user_address }: { page: Page; u
   const { data } = await assets.json();
   return data;
 };
-// crawlPortfolioByList({
-//   user_addresses: ['0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50'],
-//   crawl_id: 'test',
-// });

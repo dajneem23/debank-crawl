@@ -627,7 +627,18 @@ export const insertDebankUserAssetPortfolio = async ({
       total_net_usd_value: total_balance_usd_value + total_project_net_value,
     },
   };
-  await collection.insertOne(mgData);
+  await collection.findOneAndUpdate(
+    {
+      address: user_address,
+      crawl_id: +crawl_id,
+    },
+    {
+      $set: mgData,
+    },
+    {
+      upsert: true,
+    },
+  );
 };
 export const insertDebankWhale = async ({
   whale,
@@ -896,6 +907,9 @@ export const pageDebankFetchProfileAPI = async ({
         },
       ),
     ]);
+    if (data.status() != 200) {
+      throw new Error(`response status is not 200: ${data.status()}: ${data.url()}`);
+    }
     //check if response is valid
     await data.json();
 
@@ -992,6 +1006,10 @@ export const getAccountsFromTxEvent = async () => {
 
 export const isValidPortfolioData = (data: any) => {
   return data && data.balance_list && data.project_list;
+};
+
+export const getValidPortfolioData = (data: any) => {
+  return data.filter((item: any) => isValidPortfolioData(item));
 };
 
 export const isValidTopHoldersData = ({ data, total_count }: { data: any[]; total_count: number }) => {

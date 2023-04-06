@@ -130,7 +130,7 @@ export const addSnapshotUsersProjectJob = async () => {
   const accounts = await getAccountsFromTxEvent();
   const crawl_id = await getDebankCrawlId();
 
-  const NUM_ADDRESSES_PER_JOB = 5;
+  const NUM_ADDRESSES_PER_JOB = 2;
   const user_addresses_list = Array.from({ length: Math.ceil(accounts.length / NUM_ADDRESSES_PER_JOB) }).map((_, i) => {
     return [...accounts.slice(i * NUM_ADDRESSES_PER_JOB, (i + 1) * NUM_ADDRESSES_PER_JOB)];
   });
@@ -157,7 +157,7 @@ export const addSnapshotUsersProjectJob = async () => {
   const countJobs = await queuePortfolio.getJobCounts();
   await sendTelegramMessage({
     message: `[debank-portfolio]\n
-    [add-snapshot-users-project-job]\n
+    [add-snapshot-users-portfolio-job]\n
     ----------------------------------\n
     - added::${jobs.length}\n
     - waiting::${countJobs.waiting}\n

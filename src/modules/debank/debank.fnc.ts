@@ -954,9 +954,9 @@ export const pageDebankFetchProfileAPI = async ({
   } catch (error) {
     if (retry > 0) {
       await sleep(10 * 1000);
-      // await page.goto(`https://debank.com/profile/${user_address}`, {
-      //   timeout: 1000 * 60,
-      // });
+      await page.goto(`https://debank.com/profile/${user_address}`, {
+        timeout: 1000 * 60,
+      });
       // await page.reload();
       return await pageDebankFetchProfileAPI({ url, retry: retry - 1, page, user_address, timeout });
     } else {

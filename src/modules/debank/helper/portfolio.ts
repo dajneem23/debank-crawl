@@ -176,6 +176,7 @@ export const crawlPortfolioByList = async ({
   user_addresses: string[];
   crawl_id: string;
 }) => {
+  const runAt = new Date();
   const browser = await (process.env.MODE === 'production' ? connectChrome() : createPuppeteerBrowser());
   const context = await browser.createIncognitoBrowserContext();
   const _user_addresses = await Promise.all(
@@ -187,6 +188,11 @@ export const crawlPortfolioByList = async ({
       return !user;
     }),
   );
+  if (_user_addresses.length == 0) {
+    return {
+      status: 'skipped',
+    };
+  }
   const jobData = Object.fromEntries(_user_addresses.map((k) => [k, {} as any]));
   const page = await context.newPage();
   await page.authenticate({
@@ -272,7 +278,22 @@ export const crawlPortfolioByList = async ({
       queueInsert.addBulk(jobs);
     }
     await browser.close();
-    return jobs.map((job) => job.opts.jobId);
+    await mgClient
+      .db('onchain-log')
+      .collection('account-snapshot')
+      .insertOne({
+        crawl_id,
+        user_addresses,
+        _user_addresses,
+        created_at: new Date(),
+        run: {
+          runAt,
+          finishedAt: new Date(),
+          time: new Date().getTime() - runAt.getTime(),
+        },
+        jobs,
+      });
+    // return jobs.map((job) => job.opts.jobId);
   }
 };
 

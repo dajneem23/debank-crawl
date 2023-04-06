@@ -898,7 +898,7 @@ export const pageDebankFetchProfileAPI = async ({
   user_address: string;
 }): Promise<HTTPResponse> => {
   try {
-    console.log('pageDebankFetchProfileAPI', { url, user_address, retry });
+    // console.log('pageDebankFetchProfileAPI', { url, user_address, retry });
     const debank_api = await getRedisKey('debank:api');
     const { api_nonce, api_sign, api_ts, api_ver } = debank_api
       ? JSON.parse(debank_api)
@@ -923,7 +923,7 @@ export const pageDebankFetchProfileAPI = async ({
             },
             method: 'GET',
             mode: 'cors',
-            credentials: 'include',
+            credentials: 'omit',
           }).then((res) => res.json());
           // @ts-ignore-end
         },

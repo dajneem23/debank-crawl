@@ -258,7 +258,7 @@ export const crawlPortfolioByList = async ({
         }
       },
       {
-        concurrency: 2,
+        concurrency: 5,
       },
     );
 
@@ -387,7 +387,7 @@ export const crawlUserBalance = async ({
       return balance_list_data;
     },
     {
-      concurrency: 2,
+      concurrency: 5,
     },
   );
   return balance_list.flat();

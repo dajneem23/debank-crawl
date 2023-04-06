@@ -292,6 +292,7 @@ export const crawlPortfolioByList = async ({
           time: new Date().getTime() - runAt.getTime(),
         },
         jobs,
+        jobData,
       });
     // return jobs.map((job) => job.opts.jobId);
   }
@@ -350,7 +351,7 @@ export const crawlUserBalance = async ({
         user_address,
       });
       if (balance_list.status() != 200) {
-        throw new Error('crawlPortfolio:response:not 200');
+        throw new Error(`crawlPortfolio:response:not 200:${balance_list.status()}`);
       }
       const { data: balance_list_data } = await balance_list.json();
       return balance_list_data;
@@ -369,7 +370,7 @@ export const crawlUserProjectList = async ({ page, user_address }: { page: Page;
     user_address,
   });
   if (project_list.status() != 200) {
-    throw new Error('crawlPortfolio:response:not 200');
+    throw new Error(`crawlPortfolio:response:not 200:${project_list.status()}`);
   }
   const { data: project_list_data } = await project_list.json();
   return project_list_data;
@@ -382,7 +383,7 @@ export const crawlUserAssetList = async ({ page, user_address }: { page: Page; u
     user_address,
   });
   if (assets.status() != 200) {
-    throw new Error('crawlPortfolio:response:not 200');
+    throw new Error(`crawlPortfolio:response:not 200:${assets.status()}`);
   }
   const { data } = await assets.json();
   return data;

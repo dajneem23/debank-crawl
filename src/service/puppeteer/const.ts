@@ -12,6 +12,6 @@ export const INTERNAL_HOST = [
   '10.104.0.3',
 ];
 
-export const LIMIT_CPU = 70;
+export const LIMIT_CPU = 60;
 
-export const LIMIT_RUNNING = 20;
+export const LIMIT_RUNNING = 10;

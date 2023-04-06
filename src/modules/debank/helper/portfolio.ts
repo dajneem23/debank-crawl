@@ -387,7 +387,7 @@ export const crawlUserBalance = async ({
       return balance_list_data;
     },
     {
-      concurrency: 5,
+      concurrency: 3,
     },
   );
   return balance_list.flat();

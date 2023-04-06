@@ -138,7 +138,7 @@ export const addSnapshotUsersProjectJob = async () => {
     name: DebankJobNames['debank:crawl:portfolio:list'],
     data: {
       user_addresses,
-      crawl_id,
+      crawl_id: +crawl_id,
     },
     opts: {
       jobId: `'debank:crawl:portfolio:list:${crawl_id}:${index}`,
@@ -183,7 +183,7 @@ export const crawlPortfolioByList = async ({
     user_addresses.filter(async (user_address) => {
       const user = await mgClient.db('onchain').collection('account-snapshot').findOne({
         address: user_address,
-        crawl_id,
+        crawl_id: +crawl_id,
       });
       return !user;
     }),
@@ -277,6 +277,8 @@ export const crawlPortfolioByList = async ({
     if (process.env.MODE == 'production') {
       queueInsert.addBulk(jobs);
     }
+    await page.close();
+    await context.close();
     await browser.close();
     await mgClient
       .db('onchain-log')
@@ -388,3 +390,7 @@ export const crawlUserAssetList = async ({ page, user_address }: { page: Page; u
   const { data } = await assets.json();
   return data;
 };
+crawlPortfolioByList({
+  user_addresses: ['0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50'],
+  crawl_id: 'test',
+});

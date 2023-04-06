@@ -1002,7 +1002,10 @@ export const getAccountsFromTxEvent = async () => {
       },
     ])
     .toArray();
-  return filter(uniq([...accounts[0].to_accounts, ...accounts[0].from_accounts]), (item) => !isNil(item));
+  return filter(
+    uniq([...accounts[0].to_accounts, ...accounts[0].from_accounts]),
+    (item) => !isNil(item) && item != '0x0000000000000000000000000000000000000000',
+  );
 };
 
 export const isValidPortfolioData = (data: any) => {

@@ -259,7 +259,7 @@ export const crawlPortfolioByList = async ({
         }
       },
       {
-        concurrency: 2,
+        concurrency: 3,
       },
     );
 

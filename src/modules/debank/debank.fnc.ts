@@ -923,7 +923,7 @@ export const pageDebankFetchProfileAPI = async ({
             },
             method: 'GET',
             mode: 'cors',
-            credentials: 'omit',
+            credentials: 'include',
           }).then((res) => res.json());
           // @ts-ignore-end
         },

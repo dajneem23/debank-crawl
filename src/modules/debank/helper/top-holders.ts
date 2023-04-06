@@ -406,31 +406,3 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
     // browser.disconnect();
   }
 };
-
-export const updateTopHolders = async () => {
-  console.log('start');
-  const collection = await mgClient.db('onchain').collection('debank-top-holders');
-  const top_holders = await collection.find({}).skip(1000).limit(4000).toArray();
-  console.log('top_holders', top_holders.length);
-  await bluebird.map(
-    top_holders,
-    async ({ holders, _id }) => {
-      await collection.updateOne(
-        {
-          _id: new ObjectId(_id),
-        },
-        {
-          $set: {
-            holders: holders.map(({ address, ...rest }) => address),
-          },
-        },
-      );
-      console.log('updated', _id);
-    },
-    {
-      concurrency: 50,
-    },
-  );
-  console.log('done=>>>>>>>>>>>>>>>>>>');
-};
-// updateTopHolders();

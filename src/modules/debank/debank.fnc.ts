@@ -372,7 +372,7 @@ export const insertDebankTopHolders = async ({
     symbol: id,
     details: JSON.stringify(holder).replace(/\\u0000/g, ''),
     user_address: holder.id,
-    crawl_id,
+    crawl_id: +crawl_id,
     crawl_time,
   }));
   const mgClient = Container.get(DIMongoClient);
@@ -898,6 +898,7 @@ export const pageDebankFetchProfileAPI = async ({
   user_address: string;
 }): Promise<HTTPResponse> => {
   try {
+    console.log('pageDebankFetchProfileAPI', { url, user_address, retry });
     const debank_api = await getRedisKey('debank:api');
     const { api_nonce, api_sign, api_ts, api_ver } = debank_api
       ? JSON.parse(debank_api)
@@ -953,10 +954,10 @@ export const pageDebankFetchProfileAPI = async ({
   } catch (error) {
     if (retry > 0) {
       await sleep(10 * 1000);
-      // await page.goto(`https://debank.com/profile/${user_address}`, {
-      //   timeout: 1000 * 60,
-      // });
-      await page.reload();
+      await page.goto(`https://debank.com/profile/${user_address}`, {
+        timeout: 1000 * 60,
+      });
+      // await page.reload();
       return await pageDebankFetchProfileAPI({ url, retry: retry - 1, page, user_address, timeout });
     } else {
       throw error;
@@ -984,7 +985,7 @@ export const getAccountsFromTxEvent = async () => {
           },
           usd_value: {
             $exists: true,
-            $gt: 1000,
+            $gt: 5000,
           },
         },
       },

@@ -17,6 +17,7 @@ import { sleep } from '../../../utils/common';
 import { DebankAPI } from '../../../common/api';
 import { Page } from 'puppeteer';
 import { chain } from 'lodash';
+import { setExpireRedisKey, setRedisKey } from '../../../service/redis';
 export const fetchUserProfile = async ({ address }: { address: string }) => {
   const {
     data: { data, error_code },
@@ -199,6 +200,47 @@ export const crawlPortfolioByList = async ({
     username: WEBSHARE_PROXY_HTTP.auth.username,
     password: WEBSHARE_PROXY_HTTP.auth.password,
   });
+  let api_nonce = '';
+  let api_sign = '';
+  let api_ts = '';
+  let api_ver = '';
+  page.on('request', (request) => {
+    const headers = request.headers();
+    if (headers['x-api-nonce']) {
+      api_nonce = headers['x-api-nonce'];
+    }
+    if (headers['x-api-sign']) {
+      api_sign = headers['x-api-sign'];
+    }
+    if (headers['x-api-ts']) {
+      api_ts = headers['x-api-ts'];
+    }
+    if (headers['x-api-ver']) {
+      api_ver = headers['x-api-ver'];
+    }
+    if (api_nonce && api_sign && api_ts && api_ver) {
+      setExpireRedisKey({
+        key: 'debank:api:nonce',
+        expire: 60 * 5,
+        value: api_nonce,
+      });
+      setExpireRedisKey({
+        key: 'debank:api:sign',
+        expire: 60 * 5,
+        value: api_sign,
+      });
+      setExpireRedisKey({
+        key: 'debank:api:ts',
+        expire: 60 * 5,
+        value: api_ts,
+      });
+      setExpireRedisKey({
+        key: 'debank:api:ver',
+        expire: 60 * 5,
+        value: api_ver,
+      });
+    }
+  });
   await page.goto(`https://debank.com/profile/${_user_addresses[0]}`, {
     waitUntil: 'load',
     timeout: 1000 * 60,
@@ -359,7 +401,7 @@ export const crawlUserBalance = async ({
       return balance_list_data;
     },
     {
-      concurrency: 3,
+      concurrency: 2,
     },
   );
   return balance_list.flat();
@@ -390,7 +432,7 @@ export const crawlUserAssetList = async ({ page, user_address }: { page: Page; u
   const { data } = await assets.json();
   return data;
 };
-crawlPortfolioByList({
-  user_addresses: ['0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50'],
-  crawl_id: 'test',
-});
+// crawlPortfolioByList({
+//   user_addresses: ['0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50'],
+//   crawl_id: 'test',
+// });

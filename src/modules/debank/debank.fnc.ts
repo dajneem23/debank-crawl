@@ -9,6 +9,7 @@ import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import { HTTPResponse, Page } from 'puppeteer';
 import { sleep } from '../../utils/common';
 import { filter, isNil, uniq, uniqBy } from 'lodash';
+import { getRedisKey, getRedisKeys, getRedisValues } from '../../service/redis';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {
@@ -886,18 +887,37 @@ export const pageDebankFetchProfileAPI = async ({
   user_address: string;
 }): Promise<HTTPResponse> => {
   try {
+    const api_nonce = await getRedisKey('debank:api:nonce');
+    const api_sign = await getRedisKey('debank:api:sign');
+    const api_ts = await getRedisKey('debank:api:ts');
+    const api_ver = await getRedisKey('debank:api:ver');
     const [_, data] = await Promise.all([
-      page.evaluate((url) => {
-        // @ts-ignore-start
-        fetch(url, {
-          referrerPolicy: 'strict-origin-when-cross-origin',
-          body: null,
-          method: 'GET',
-          mode: 'cors',
-          credentials: 'include',
-        }).then((res) => res.json());
-        // @ts-ignore-end
-      }, url),
+      page.evaluate(
+        (url, { api_nonce, api_sign, api_ts, api_ver }) => {
+          // @ts-ignore-start
+          fetch(url, {
+            referrerPolicy: 'strict-origin-when-cross-origin',
+            body: null,
+            headers: {
+              'x-api-nonce': api_nonce,
+              'x-api-sign': api_sign,
+              'x-api-ts': api_ts,
+              'x-api-ver': api_ver,
+            },
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+          }).then((res) => res.json());
+          // @ts-ignore-end
+        },
+        url,
+        {
+          api_nonce,
+          api_sign,
+          api_ts,
+          api_ver,
+        },
+      ),
       page.waitForResponse(
         async (response) => {
           return response.url().includes(url);

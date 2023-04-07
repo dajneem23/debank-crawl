@@ -515,7 +515,7 @@ export const DebankAPI = {
         'sec-fetch-site': 'none',
         'sec-fetch-user': '?1',
         'upgrade-insecure-requests': '1',
-        referer: endpoint,
+        // referer: endpoint,
       },
       ...config,
     });

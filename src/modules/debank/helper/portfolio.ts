@@ -511,6 +511,7 @@ export const fetchUserPortfolio = async ({
         profile,
       });
     }
+    await sleep(1000 * 2);
     if (!crawl_check_list.project_list) {
       const { data: project_list } = await fetchUserProjectList({
         address: user_address,
@@ -518,6 +519,7 @@ export const fetchUserPortfolio = async ({
       crawl_data.project_list = project_list;
       crawl_check_list.project_list = true;
     }
+    await sleep(1000 * 2);
     if (!crawl_check_list.balance_list) {
       for (const chain of crawl_data.used_chains) {
         if (crawl_check_list.crawled_chains.includes(chain)) {
@@ -527,6 +529,7 @@ export const fetchUserPortfolio = async ({
           address: user_address,
           chain,
         });
+        await sleep(1000 * 3);
         crawl_data.balance_list = crawl_data.balance_list.concat(balance_list);
         crawl_check_list.crawled_chains.push(chain);
       }
@@ -551,6 +554,7 @@ export const fetchUserPortfolio = async ({
     }
   } catch (error) {
     if (retry > 0) {
+      await sleep(1000 * 10);
       return fetchUserPortfolio({
         user_address,
         retry: retry - 1,

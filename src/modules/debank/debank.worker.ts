@@ -32,7 +32,7 @@ export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
   autorun: true,
   connection: redisConnection,
   lockDuration: 1000 * 60 * 3,
-  concurrency: 10,
+  concurrency: 15,
   stalledInterval: 1000 * 30,
   skipLockRenewal: true,
   maxStalledCount: 5,

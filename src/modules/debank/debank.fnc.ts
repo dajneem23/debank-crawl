@@ -598,6 +598,7 @@ export const insertDebankUserAssetPortfolio = async ({
     address: user_address,
     crawl_id: +crawl_id,
     crawl_time,
+    timestamp: +crawl_time.getTime() / 1000,
     tags,
     labels,
     ...(coin_list.length && {

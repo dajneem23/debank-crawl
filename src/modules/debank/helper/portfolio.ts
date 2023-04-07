@@ -481,7 +481,10 @@ export const fetchUserPortfolio = async ({
       crawl_id: +crawl_id,
     });
     if (snapshot) {
-      return snapshot;
+      return {
+        _id: snapshot._id,
+        status: 'skipped',
+      };
     }
 
     if (!crawl_check_list.used_chains) {

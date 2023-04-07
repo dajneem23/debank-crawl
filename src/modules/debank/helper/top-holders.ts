@@ -220,7 +220,7 @@ export const addFetchTopHoldersJob = async () => {
       name: DebankJobNames['debank:crawl:top-holders'],
       data: {
         id: db_id,
-        crawl_id,
+        crawl_id: +crawl_id,
       },
       opts: {
         jobId: `debank:crawl:top-holders:${crawl_id}:${symbol}`,

@@ -383,7 +383,7 @@ export const insertDebankTopHolders = async ({
     id,
     updated_at: new Date(),
     holders: MGValues,
-    crawl_id,
+    crawl_id: +crawl_id,
   });
   await bulkInsert({
     data: PGvalues,

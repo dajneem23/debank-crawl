@@ -307,13 +307,6 @@ export const insertDebankCoins = async ({ coins, crawl_id }: { coins: any[]; cra
     const cs = new pgp.helpers.ColumnSet(['details', 'crawl_time', 'crawl_id'], {
       table: 'debank-coins',
     });
-    const onConflict = `UPDATE SET  ${cs.assignColumns({ from: 'EXCLUDED', skip: ['symbol', 'db_id'] })}`;
-    await bulkInsertOnConflict({
-      table: 'debank-coins',
-      data,
-      conflict: 'symbol,db_id',
-      onConflict,
-    });
     const mgOperations = coins.map(({ id, ...rest }) => ({
       updateOne: {
         filter: { id },
@@ -326,6 +319,14 @@ export const insertDebankCoins = async ({ coins, crawl_id }: { coins: any[]; cra
       },
     }));
     await mgClient.db('onchain').collection('debank-coin').bulkWrite(mgOperations);
+
+    const onConflict = `UPDATE SET  ${cs.assignColumns({ from: 'EXCLUDED', skip: ['db_id'] })}`;
+    await bulkInsertOnConflict({
+      table: 'debank-coins',
+      data,
+      conflict: 'db_id',
+      onConflict,
+    });
   }
 };
 
@@ -1160,4 +1161,21 @@ export const updateDebankIdForTokenCollection = async () => {
   );
 };
 
-export const snapshotTokenTopHolders = async () => {};
+export const getTokenTopHolders = async ({ id }) => {
+  const collection = mgClient.db('onchain').collection('debank-top-holders');
+
+  const top_holders = await collection.findOne(
+    {
+      id,
+    },
+    {
+      sort: {
+        crawl_id: -1,
+      },
+    },
+  );
+  return { top_holders };
+};
+// getTokenTopHolders({
+//   id: 'keeperdao',
+// }).then((res) => console.log({ res }));

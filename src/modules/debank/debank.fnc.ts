@@ -314,6 +314,18 @@ export const insertDebankCoins = async ({ coins, crawl_id }: { coins: any[]; cra
       conflict: 'symbol,db_id',
       onConflict,
     });
+    const mgOperations = coins.map(({ id, ...rest }) => ({
+      updateOne: {
+        filter: { id },
+        update: {
+          $set: {
+            ...rest,
+          },
+        },
+        upsert: true,
+      },
+    }));
+    await mgClient.db('onchain').collection('debank-coin').bulkWrite(mgOperations);
   }
 };
 
@@ -390,26 +402,6 @@ export const insertDebankTopHolders = async ({
     table: 'debank-top-holders',
   });
 };
-export const insertDebankPools = async ({ pools }: { pools: any[] }) => {
-  const updated_at = new Date();
-  const values = pools.map((pool) => ({
-    details: JSON.stringify(pool).replace(/\\u0000/g, ''),
-    adapter_id: pool.adapter_id,
-    chain: pool.chain,
-    project_id: pool.project_id,
-    pool_id: pool.stats?.pool_id,
-    protocol_id: pool.stats?.protocol_id,
-    updated_at,
-  }));
-
-  values.length &&
-    (await bulkInsertOnConflict({
-      data: values,
-      table: 'debank-pools',
-      onConflict: 'UPDATE SET details = EXCLUDED.details, updated_at = EXCLUDED.updated_at',
-      conflict: 'pool_id',
-    }));
-};
 export const insertDebankTopHolder = async ({
   symbol,
   user_address,
@@ -437,6 +429,27 @@ export const insertDebankTopHolder = async ({
     [user_address, crawl_id, JSON.stringify(holder), symbol, crawl_time ?? new Date()],
   );
 };
+export const insertDebankPools = async ({ pools }: { pools: any[] }) => {
+  const updated_at = new Date();
+  const values = pools.map((pool) => ({
+    details: JSON.stringify(pool).replace(/\\u0000/g, ''),
+    adapter_id: pool.adapter_id,
+    chain: pool.chain,
+    project_id: pool.project_id,
+    pool_id: pool.stats?.pool_id,
+    protocol_id: pool.stats?.protocol_id,
+    updated_at,
+  }));
+
+  values.length &&
+    (await bulkInsertOnConflict({
+      data: values,
+      table: 'debank-pools',
+      onConflict: 'UPDATE SET details = EXCLUDED.details, updated_at = EXCLUDED.updated_at',
+      conflict: 'pool_id',
+    }));
+};
+
 export const queryDebankTopHoldersByCrawlId = async ({ symbol, crawl_id }: { symbol: string; crawl_id: number }) => {
   const pgClient = Container.get(pgClientToken);
   const { rows } = await pgClient.query(
@@ -599,7 +612,7 @@ export const insertDebankUserAssetPortfolio = async ({
     address: user_address,
     crawl_id: +crawl_id,
     crawl_time,
-    timestamp: +(crawl_time.getTime() / 1000).toFixed(0),
+    timestamp: +(new Date(crawl_time).getTime() / 1000).toFixed(0),
     tags,
     labels,
     ...(coin_list.length && {
@@ -1114,3 +1127,37 @@ export const getDebankAPISign = async () => {
     api_ver,
   };
 };
+
+export const updateDebankIdForTokenCollection = async () => {
+  const collection = mgClient.db('onchain').collection('token');
+  const tokens = await collection
+    .find({
+      'ids.debank_id': { $exists: 0 },
+    })
+    .toArray();
+
+  await Promise.all(
+    tokens.map(async ({ _id, address }) => {
+      const debankToken = await mgClient
+        .db('onchain')
+        .collection('debank-coin')
+        .findOne({
+          platform_token_id: new RegExp(address, 'i'),
+        });
+      if (debankToken) {
+        await collection.findOneAndUpdate(
+          {
+            _id,
+          },
+          {
+            $set: {
+              'ids.debank_id': debankToken.id,
+            },
+          },
+        );
+      }
+    }),
+  );
+};
+
+export const snapshotTokenTopHolders = async () => {};

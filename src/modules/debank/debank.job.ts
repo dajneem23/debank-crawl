@@ -5,24 +5,24 @@ import {
   insertDebankUserAssetPortfolio,
   insertDebankWhale,
 } from './debank.fnc';
-import { addFetchCoinsJob } from './helper/coin';
-import { cleanOutdatedData, createPartitions } from './helper/partition';
+import { addFetchCoinsJob } from './core/coin';
+import { cleanOutdatedData, createPartitions } from './core/partition';
 import {
   addSnapshotUsersProjectJob,
   crawlPortfolioByList,
   crawlUsersProject,
   fetchUserPortfolio,
-} from './helper/portfolio';
-import { addFetchProtocolPoolsById, addFetchProtocolPoolsJob, fetchProtocolPoolsPage } from './helper/protocol';
-import { addFetchSocialRankingJob, fetchSocialRankingsPage } from './helper/ranking';
+} from './core/portfolio';
+import { addFetchProtocolPoolsById, addFetchProtocolPoolsJob, fetchProtocolPoolsPage } from './core/protocol';
+import { addFetchSocialRankingJob, fetchSocialRankingsPage } from './core/ranking';
 import {
   addFetchTopHoldersByUsersAddressJob,
   addFetchTopHoldersJob,
   crawlTopHolders,
   fetchTopHolders,
   fetchTopHoldersPage,
-} from './helper/top-holders';
-import { addFetchWhalesPagingJob, fetchWhalesPage } from './helper/whale';
+} from './core/top-holders';
+import { addFetchWhalesPagingJob, fetchWhalesPage } from './core/whale';
 
 export type fetchDebankDataJob = {
   name: DebankJobNames;

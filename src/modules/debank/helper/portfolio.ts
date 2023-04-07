@@ -233,23 +233,25 @@ export const crawlPortfolioByList = async ({
   crawl_id: string;
 }) => {
   const runAt = new Date();
-  const browser = await (process.env.MODE === 'production' ? connectChrome() : createPuppeteerBrowser());
-  const context = await browser.createIncognitoBrowserContext();
-  const _user_addresses = await Promise.all(
-    user_addresses.filter(async (user_address) => {
-      const user = await mgClient.db('onchain').collection('account-snapshot').findOne({
-        address: user_address,
-        crawl_id: +crawl_id,
-      });
-      return !user;
-    }),
-  );
+  const snapshots = await mgClient
+    .db('onchain')
+    .collection('account-snapshot')
+    .find({
+      address: { $in: user_addresses },
+      crawl_id: +crawl_id,
+    })
+    .toArray();
+  const _user_addresses = user_addresses.filter((user_address) => {
+    return !snapshots.some((snapshot) => snapshot.address == user_address);
+  });
+  const jobData = Object.fromEntries(_user_addresses.map((k) => [k, {} as any]));
   if (_user_addresses.length == 0) {
     return {
       status: 'skipped',
     };
   }
-  const jobData = Object.fromEntries(_user_addresses.map((k) => [k, {} as any]));
+  const browser = await (process.env.MODE === 'production' ? connectChrome() : createPuppeteerBrowser());
+  const context = await browser.createIncognitoBrowserContext();
   const page = await context.newPage();
   await page.authenticate({
     username: WEBSHARE_PROXY_HTTP.auth.username,

@@ -1079,38 +1079,3 @@ export async function updateUserProfile({ user_address, profile }: { user_addres
       },
     );
 }
-
-// (async () => {
-//   console.log('start');
-//   const accounts = await mgClient
-//     .db('onchain')
-//     .collection('account-snapshot')
-//     .find({
-//       timestamp: {
-//         $exists: false,
-//       },
-//     })
-//     .limit(10000)
-//     .toArray();
-//   console.log('accounts', accounts.length);
-//   await Promise.all(
-//     accounts.map(async (account) => {
-//       const { crawl_time, _id } = account;
-//       await mgClient
-//         .db('onchain')
-//         .collection('account-snapshot')
-//         .updateOne(
-//           {
-//             _id: new ObjectId(_id),
-//           },
-//           {
-//             $set: {
-//               timestamp: +(new Date(crawl_time).getTime() / 1000).toFixed(0),
-//             },
-//           },
-//         );
-//       console.log('done', _id);
-//     }),
-//   );
-//   console.log('done=>>>>>>>>>>>>>>>>.');
-// })();

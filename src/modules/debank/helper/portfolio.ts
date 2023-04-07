@@ -264,6 +264,7 @@ export const crawlPortfolioByList = async ({
       headers: request.headers(),
     });
   });
+
   await page.goto(`https://debank.com/profile/${_user_addresses[0]}`, {
     waitUntil: 'load',
     timeout: 1000 * 60,

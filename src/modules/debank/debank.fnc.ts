@@ -1072,7 +1072,7 @@ export async function updateUserProfile({ user_address, profile }: { user_addres
     );
 }
 
-export const collectApiSign = async (headers: any) => {
+export const collectApiSign = async ({ headers }: { headers: any }) => {
   let api_nonce = '';
   let api_sign = '';
   let api_ts = '';

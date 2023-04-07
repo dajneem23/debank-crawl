@@ -7,7 +7,12 @@ import {
 } from './debank.fnc';
 import { addFetchCoinsJob } from './helper/coin';
 import { cleanOutdatedData, createPartitions } from './helper/partition';
-import { addSnapshotUsersProjectJob, crawlPortfolioByList, crawlUsersProject } from './helper/portfolio';
+import {
+  addSnapshotUsersProjectJob,
+  crawlPortfolioByList,
+  crawlUsersProject,
+  fetchUserPortfolio,
+} from './helper/portfolio';
 import { addFetchProtocolPoolsById, addFetchProtocolPoolsJob, fetchProtocolPoolsPage } from './helper/protocol';
 import { addFetchSocialRankingJob, fetchSocialRankingsPage } from './helper/ranking';
 import {
@@ -66,6 +71,8 @@ export enum DebankJobNames {
   'debank:crawl:users:project' = 'debank:crawl:users:project',
 
   'debank:add:snapshot:users:project' = 'debank:add:snapshot:users:project',
+
+  'debank:fetch:user:portfolio' = 'debank:fetch:user:portfolio',
 }
 
 export type DebankJobData = fetchDebankDataJob;
@@ -85,6 +92,8 @@ export const jobs: {
 
   // 'debank:crawl:portfolio': crawlPortfolio,
   'debank:crawl:portfolio:list': crawlPortfolioByList,
+
+  'debank:fetch:user:portfolio': fetchUserPortfolio,
 
   'debank:crawl:users:project': crawlUsersProject,
 

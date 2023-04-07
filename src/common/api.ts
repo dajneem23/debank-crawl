@@ -1,6 +1,7 @@
 import { env } from 'process';
 import axios, { AxiosRequestConfig } from 'axios';
 import { WEBSHARE_PROXY_HTTP } from './proxy';
+import { getRedisKey } from '../service/redis';
 
 /**
  * @description CoinMarketCap API
@@ -470,7 +471,7 @@ export const DebankAPI = {
       },
     },
   },
-  fetch({
+  async fetch({
     params = {},
     endpoint,
     config = {},
@@ -479,6 +480,15 @@ export const DebankAPI = {
     params?: any;
     config?: AxiosRequestConfig;
   }): Promise<any> {
+    const debank_api = await getRedisKey('debank:api');
+    const { api_nonce, api_sign, api_ts, api_ver } = debank_api
+      ? JSON.parse(debank_api)
+      : {
+          api_nonce: '',
+          api_sign: '',
+          api_ts: '',
+          api_ver: '',
+        };
     return axios.get(`${endpoint}`, {
       params,
       proxy: {
@@ -488,6 +498,10 @@ export const DebankAPI = {
         protocol: WEBSHARE_PROXY_HTTP.protocol,
       },
       headers: {
+        'x-api-nonce': api_nonce,
+        'x-api-sign': api_sign,
+        'x-api-ts': api_ts,
+        'x-api-ver': api_ver,
         accept:
           'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
         'accept-language': 'en-US,en;q=0.9,vi;q=0.8',
@@ -501,10 +515,6 @@ export const DebankAPI = {
         'sec-fetch-site': 'none',
         'sec-fetch-user': '?1',
         'upgrade-insecure-requests': '1',
-        cookie:
-          '_gid=GA1.2.126411779.1676209505; amp_fef1e8=83dbe3c7-9ad1-4883-9ee4-f4f8eab6eee7R...1gp71jr1d.1gp71nloo.p.1.q; __cuid=f931866dec6943df8a93824d500d99d9; _ga=GA1.2.1918244975.1671421451; _ga_XCH1EEPRPW=GS1.1.1677122700.101.1.1677124803.0.0.0',
-        'user-agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50',
         referer: endpoint,
       },
       ...config,

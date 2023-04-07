@@ -1,5 +1,5 @@
 import { sendTelegramMessage } from '../../../service/alert/telegram';
-import { queueInsert, queuePortfolio } from '../debank.queue';
+import { queueApi, queueInsert, queuePortfolio } from '../debank.queue';
 import { connectChrome, createPuppeteerBrowser } from '../../../service/puppeteer';
 import { WEBSHARE_PROXY_HTTP } from '../../../common/proxy';
 import bluebird from 'bluebird';
@@ -7,18 +7,18 @@ import {
   bulkWriteUsersProject,
   getAccountSnapshotCrawlId,
   getAccountsFromTxEvent,
-  getDebankCrawlId,
+  insertDebankUserAssetPortfolio,
   isValidPortfolioData,
   pageDebankFetchProfileAPI,
   updateDebankUserProfile,
+  updateUserProfile,
 } from '../debank.fnc';
 import { logger, mgClient } from '../debank.config';
 import { DebankJobNames } from '../debank.job';
 import { sleep } from '../../../utils/common';
 import { DebankAPI } from '../../../common/api';
 import { Page } from 'puppeteer';
-import { chain } from 'lodash';
-import { setExpireRedisKey, setRedisKey } from '../../../service/redis';
+import { setExpireRedisKey } from '../../../service/redis';
 export const fetchUserProfile = async ({ address }: { address: string }) => {
   const {
     data: { data, error_code },
@@ -30,7 +30,38 @@ export const fetchUserProfile = async ({ address }: { address: string }) => {
     },
   });
   if (status !== 200 || error_code || !data) {
-    throw new Error('fetchUserProfile:error');
+    throw new Error(`fetchUserProfile:error:${status}:${error_code}`);
+  }
+  return { data };
+};
+export const fetchUserProjectList = async ({ address }: { address: string }) => {
+  const {
+    data: { data, error_code },
+    status,
+  } = await DebankAPI.fetch({
+    endpoint: DebankAPI.Portfolio.projectList.endpoint,
+    params: {
+      user_addr: address,
+    },
+  });
+  if (status !== 200 || error_code || !data) {
+    throw new Error(`fetchUserProjectList:error:${status}:${error_code}`);
+  }
+  return { data };
+};
+export const fetchUserBalanceList = async ({ address, chain }: { address: string; chain: string }) => {
+  const {
+    data: { data, error_code },
+    status,
+  } = await DebankAPI.fetch({
+    endpoint: DebankAPI.Token.balanceList.endpoint,
+    params: {
+      user_addr: address,
+      chain,
+    },
+  });
+  if (status !== 200 || error_code || !data) {
+    throw new Error(`fetchUserBalanceList:error:${status}:${error_code}`);
   }
   return { data };
 };
@@ -155,7 +186,30 @@ export const addSnapshotUsersProjectJob = async () => {
       // delay: 1000 * 5,
     },
   }));
-  await queuePortfolio.addBulk(jobs);
+  const apiJobs = accounts
+    .map((user_address: any) => ({
+      name: DebankJobNames['debank:fetch:user:portfolio'],
+      data: {
+        user_address,
+        crawl_id: +crawl_id,
+      },
+      opts: {
+        jobId: `debank:fetch:user:portfolio:${crawl_id}:${user_address}`,
+        removeOnComplete: {
+          age: 60 * 30,
+        },
+        removeOnFail: {
+          age: 60 * 30,
+        },
+        priority: 10,
+        attempts: 10,
+        // delay: 1000 * 5,
+      },
+    }))
+    .reverse();
+
+  await Promise.all([queuePortfolio.addBulk(jobs), queueApi.addBulk(apiJobs)]);
+
   const countJobs = await queuePortfolio.getJobCounts();
   await sendTelegramMessage({
     message: `[debank-portfolio]\n
@@ -253,6 +307,7 @@ export const crawlPortfolioByList = async ({
           ]);
           jobData[user_address]['balance_list'] = balance_list;
           jobData[user_address]['project_list'] = project_list;
+          jobData[user_address]['used_chains'] = used_chains;
         } catch (error) {
           logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
           throw error;
@@ -342,24 +397,7 @@ export const crawlDebankUserProfile = async ({ user_address, page }: { user_addr
   if (!profile) {
     throw new Error('crawlDebankUserProfile:response:profile-not-found');
   }
-  await mgClient
-    .db('onchain')
-    .collection('debank-user')
-    .findOneAndUpdate(
-      {
-        address: user_address,
-      },
-      {
-        $set: {
-          ...profile,
-          updated_at: new Date(),
-        },
-      },
-      {
-        upsert: true,
-        returnDocument: 'after',
-      },
-    );
+  await updateUserProfile({ user_address, profile });
   return profile;
 };
 
@@ -419,7 +457,99 @@ export const crawlUserAssetList = async ({ page, user_address }: { page: Page; u
   const { data } = await assets.json();
   return data;
 };
-// crawlPortfolioByList({
-//   user_addresses: ['0x9409dD872955A18da29691AeDEaC3eb26c9322b6'],
-//   crawl_id: 'test',
-// });
+
+export const fetchUserPortfolio = async ({
+  user_address,
+  retry = 5,
+  crawl_data = {
+    user_address,
+    balance_list: [],
+    used_chains: [],
+    project_list: [],
+  },
+  crawl_check_list = {
+    balance_list: false,
+    used_chains: false,
+    crawled_chains: [],
+    project_list: false,
+  },
+  crawl_id,
+}: {
+  user_address: string;
+  retry?: number;
+  crawl_data?: {
+    user_address: string;
+    balance_list: any[];
+    used_chains: any[];
+    project_list: any[];
+  };
+  crawl_check_list?: {
+    balance_list: boolean;
+    used_chains: boolean;
+    crawled_chains: any[];
+    project_list: boolean;
+  };
+  crawl_id: string;
+}) => {
+  try {
+    const snapshot = await mgClient.db('onchain').collection('account-snapshot').findOne({
+      address: user_address,
+      crawl_id: +crawl_id,
+    });
+    if (snapshot) {
+      return snapshot;
+    }
+    if (crawl_check_list.balance_list && crawl_check_list.used_chains && crawl_check_list.project_list) {
+      // all data is crawled and return inserted data to db
+      return crawl_data;
+    }
+    if (!crawl_check_list.used_chains) {
+      const { data: profile } = await fetchUserProfile({
+        address: user_address,
+      });
+      crawl_data.used_chains = profile.used_chains;
+      crawl_check_list.used_chains = true;
+      updateUserProfile({
+        user_address,
+        profile,
+      });
+    }
+    if (!crawl_check_list.project_list) {
+      const { data: project_list } = await fetchUserProjectList({
+        address: user_address,
+      });
+      crawl_data.project_list = project_list;
+      crawl_check_list.project_list = true;
+    }
+    if (!crawl_check_list.balance_list) {
+      for (const chain of crawl_data.used_chains) {
+        if (crawl_check_list.crawled_chains.includes(chain)) {
+          continue;
+        }
+        const { data: balance_list } = await fetchUserBalanceList({
+          address: user_address,
+          chain,
+        });
+        crawl_data.balance_list = crawl_data.balance_list.concat(balance_list);
+        crawl_check_list.crawled_chains.push(chain);
+      }
+      if (crawl_check_list.crawled_chains.length === crawl_data.used_chains.length) {
+        crawl_check_list.balance_list = true;
+        crawl_check_list.balance_list = true;
+      }
+    }
+    await insertDebankUserAssetPortfolio({
+      user_address,
+      balance_list: crawl_data.balance_list,
+      project_list: crawl_data.project_list,
+      crawl_id: +crawl_id,
+      crawl_time: new Date(),
+      used_chains: crawl_data.used_chains,
+    });
+  } catch (error) {
+    if (retry > 0) {
+      return fetchUserPortfolio({ user_address, retry: retry + 1, crawl_data, crawl_check_list, crawl_id });
+    }
+    logger.error('error', '[fetchUserPortfolio:error]', JSON.stringify(error));
+  }
+};

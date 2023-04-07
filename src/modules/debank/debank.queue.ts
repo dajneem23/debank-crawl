@@ -43,6 +43,26 @@ export const queuePortfolio = initQueue({
     },
   },
 });
+export const queueApi = initQueue({
+  queueName: 'debank-api',
+  opts: {
+    connection: redisConnection,
+    defaultJobOptions: {
+      // The total number of attempts to try the job until it completes
+      attempts: 10,
+      // delay: 1000 * 2,
+      // Backoff setting for automatic retries if the job fails
+      backoff: { type: 'exponential', delay: 10 * 1000 },
+      removeOnComplete: {
+        // 1 hour
+        age: 60 * 60,
+      },
+      removeOnFail: {
+        age: 60 * 60,
+      },
+    },
+  },
+});
 
 export const queueInsert = initQueue({
   queueName: 'debank-insert',
@@ -143,9 +163,7 @@ export const queueCommon = initQueue({
     }
   });
 
-  initQueueListeners({ queueName: 'debank-insert', opts: { connection: redisConnection } });
-
-  initQueueListeners({ queueName: 'debank-whale', opts: { connection: redisConnection } });
+  // initQueueListeners({ queueName: 'debank-whale', opts: { connection: redisConnection } });
 
   const queueTopHoldersEvents = initQueueListeners({
     queueName: 'debank-top-holder',
@@ -160,7 +178,7 @@ export const queueCommon = initQueue({
     }
   });
 
-  initQueueListeners({ queueName: 'debank-insert', opts: { connection: redisConnection } });
+  // initQueueListeners({ queueName: 'debank-insert', opts: { connection: redisConnection } });
 
-  initQueueListeners({ queueName: 'debank-common', opts: { connection: redisConnection } });
+  // initQueueListeners({ queueName: 'debank-common', opts: { connection: redisConnection } });
 })();

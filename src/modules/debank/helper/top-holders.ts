@@ -301,11 +301,12 @@ const fetchTopHoldersPageUsePuppeteer = async ({
     ]);
     //check if response is valid
     await data.json();
-    await sleep(1000);
     return data;
   } catch (error) {
     if (retry > 0) {
-      await fetchTopHoldersPageUsePuppeteer({
+      await sleep(1000 * 10);
+
+      return await fetchTopHoldersPageUsePuppeteer({
         offset,
         retry: retry - 1,
         page,

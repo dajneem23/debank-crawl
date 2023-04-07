@@ -1,15 +1,13 @@
 import { pgClientToken, pgpToken } from '../../loaders/pg.loader';
-import Bluebird from 'bluebird';
 import Container from 'typedi';
 import { bulkInsert, bulkInsertOnConflict } from '../../utils/pg';
 import { DebankAPI } from '../../common/api';
-import STABLE_COINS from '../../common/stablecoins.json';
 import { formatDate } from '../../utils/date';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
 import { HTTPResponse, Page } from 'puppeteer';
 import { sleep } from '../../utils/common';
 import { filter, isNil, uniq, uniqBy } from 'lodash';
-import { getRedisKey, getRedisKeys, getRedisValues } from '../../service/redis';
+import { getRedisKey } from '../../service/redis';
 import { mgClient } from './debank.config';
 
 export const queryDebankCoins = async (
@@ -487,6 +485,7 @@ export const insertDebankUserAssetPortfolio = async ({
   coin_list = [],
   balance_list = [],
   project_list = [],
+  used_chains = [],
   crawl_id,
   crawl_time,
 }: {
@@ -496,6 +495,7 @@ export const insertDebankUserAssetPortfolio = async ({
   balance_list?: any;
   project_list?: any;
   crawl_id: number;
+  used_chains?: any;
   crawl_time: Date;
 }) => {
   // const tokens_rows = token_list.map((token: any) => ({
@@ -608,6 +608,7 @@ export const insertDebankUserAssetPortfolio = async ({
     }),
     balance_list,
     project_list,
+    used_chains,
     stats: {
       total_balance_usd_value,
       total_project_usd_value,
@@ -1056,3 +1057,23 @@ export const getValidPortfolioData = (data: any) => {
 export const isValidTopHoldersData = ({ data, total_count }: { data: any[]; total_count: number }) => {
   return data && uniqBy(data, 'id').length == total_count;
 };
+export async function updateUserProfile({ user_address, profile }: { user_address: string; profile: any }) {
+  await mgClient
+    .db('onchain')
+    .collection('debank-user')
+    .findOneAndUpdate(
+      {
+        address: user_address,
+      },
+      {
+        $set: {
+          ...profile,
+          updated_at: new Date(),
+        },
+      },
+      {
+        upsert: true,
+        returnDocument: 'after',
+      },
+    );
+}

@@ -2,6 +2,7 @@ import { env } from 'process';
 import axios, { AxiosRequestConfig } from 'axios';
 import { WEBSHARE_PROXY_HTTP } from './proxy';
 import { getRedisKey } from '../service/redis';
+import { getDebankAPISign } from '../modules/debank/debank.fnc';
 
 /**
  * @description CoinMarketCap API
@@ -480,15 +481,8 @@ export const DebankAPI = {
     params?: any;
     config?: AxiosRequestConfig;
   }): Promise<any> {
-    const debank_api = await getRedisKey('debank:api');
-    const { api_nonce, api_sign, api_ts, api_ver } = debank_api
-      ? JSON.parse(debank_api)
-      : {
-          api_nonce: '',
-          api_sign: '',
-          api_ts: '',
-          api_ver: '',
-        };
+    const { api_nonce, api_sign, api_ts, api_ver } = await getDebankAPISign();
+
     return axios.get(`${endpoint}`, {
       params,
       proxy: {

@@ -4,10 +4,10 @@ import { bulkInsert, bulkInsertOnConflict } from '../../utils/pg';
 import { DebankAPI } from '../../common/api';
 import { formatDate } from '../../utils/date';
 import { DIMongoClient } from '../../loaders/mongoDB.loader';
-import { HTTPResponse, Page } from 'puppeteer';
+import { HTTPRequest, HTTPResponse, Page } from 'puppeteer';
 import { sleep } from '../../utils/common';
 import { filter, isNil, uniq, uniqBy } from 'lodash';
-import { getRedisKey } from '../../service/redis';
+import { getRedisKey, setExpireRedisKey } from '../../service/redis';
 import { mgClient } from './debank.config';
 import { ObjectId } from 'mongodb';
 
@@ -902,15 +902,7 @@ export const pageDebankFetchProfileAPI = async ({
 }): Promise<HTTPResponse> => {
   try {
     // console.log('pageDebankFetchProfileAPI', { url, user_address, retry });
-    const debank_api = await getRedisKey('debank:api');
-    const { api_nonce, api_sign, api_ts, api_ver } = debank_api
-      ? JSON.parse(debank_api)
-      : {
-          api_nonce: '',
-          api_sign: '',
-          api_ts: '',
-          api_ver: '',
-        };
+    const { api_nonce, api_sign, api_ts, api_ver } = await getDebankAPISign();
     const [_, data] = await Promise.all([
       page.evaluate(
         (url, { api_nonce, api_sign, api_ts, api_ver }) => {
@@ -1079,3 +1071,46 @@ export async function updateUserProfile({ user_address, profile }: { user_addres
       },
     );
 }
+
+export const collectApiSign = async (headers: any) => {
+  let api_nonce = '';
+  let api_sign = '';
+  let api_ts = '';
+  let api_ver = '';
+  if (headers['x-api-nonce']) {
+    api_nonce = headers['x-api-nonce'];
+  }
+  if (headers['x-api-sign']) {
+    api_sign = headers['x-api-sign'];
+  }
+  if (headers['x-api-ts']) {
+    api_ts = headers['x-api-ts'];
+  }
+  if (headers['x-api-ver']) {
+    api_ver = headers['x-api-ver'];
+  }
+  if (api_nonce && api_sign && api_ts && api_ver) {
+    setExpireRedisKey({
+      key: 'debank:api',
+      expire: 60 * 5,
+      value: JSON.stringify({ api_nonce, api_sign, api_ts: +api_ts, api_ver }),
+    });
+  }
+};
+export const getDebankAPISign = async () => {
+  const debank_api = await getRedisKey('debank:api');
+  const { api_nonce, api_sign, api_ts, api_ver } = debank_api
+    ? JSON.parse(debank_api)
+    : {
+        api_nonce: '',
+        api_sign: '',
+        api_ts: '',
+        api_ver: '',
+      };
+  return {
+    api_nonce,
+    api_sign,
+    api_ts,
+    api_ver,
+  };
+};

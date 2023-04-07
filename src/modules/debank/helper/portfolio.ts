@@ -5,6 +5,7 @@ import { WEBSHARE_PROXY_HTTP } from '../../../common/proxy';
 import bluebird from 'bluebird';
 import {
   bulkWriteUsersProject,
+  collectApiSign,
   getAccountSnapshotCrawlId,
   getAccountsFromTxEvent,
   insertDebankUserAssetPortfolio,
@@ -257,31 +258,11 @@ export const crawlPortfolioByList = async ({
     username: WEBSHARE_PROXY_HTTP.auth.username,
     password: WEBSHARE_PROXY_HTTP.auth.password,
   });
-  let api_nonce = '';
-  let api_sign = '';
-  let api_ts = '';
-  let api_ver = '';
+
   page.on('request', (request) => {
-    const headers = request.headers();
-    if (headers['x-api-nonce']) {
-      api_nonce = headers['x-api-nonce'];
-    }
-    if (headers['x-api-sign']) {
-      api_sign = headers['x-api-sign'];
-    }
-    if (headers['x-api-ts']) {
-      api_ts = headers['x-api-ts'];
-    }
-    if (headers['x-api-ver']) {
-      api_ver = headers['x-api-ver'];
-    }
-    if (api_nonce && api_sign && api_ts && api_ver) {
-      setExpireRedisKey({
-        key: 'debank:api',
-        expire: 60 * 5,
-        value: JSON.stringify({ api_nonce, api_sign, api_ts: +api_ts, api_ver }),
-      });
-    }
+    collectApiSign({
+      headers: request.headers(),
+    });
   });
   await page.goto(`https://debank.com/profile/${_user_addresses[0]}`, {
     waitUntil: 'load',

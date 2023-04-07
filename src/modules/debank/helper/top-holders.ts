@@ -4,7 +4,9 @@ import { account, browser_uid, connected_dict, current_address } from '../debank
 import { logger, mgClient } from '../debank.config';
 import { queuePortfolio, queueTopHolder } from '../debank.queue';
 import {
+  collectApiSign,
   getAccountSnapshotCrawlId,
+  getDebankAPISign,
   getDebankCrawlId,
   getDebankTopHoldersCrawlId,
   insertDebankTopHolders,
@@ -19,7 +21,7 @@ import { sleep } from '../../../utils/common';
 import bluebird from 'bluebird';
 import { uniqBy } from 'lodash';
 import { Page } from 'puppeteer';
-import { ObjectId } from 'mongodb';
+import { getRedisKey } from '../../../service/redis';
 
 export const addFetchTopHoldersByUsersAddressJob = async () => {
   const { rows } = await queryDebankTopHoldersImportantToken();
@@ -272,13 +274,18 @@ const fetchTopHoldersPageUsePuppeteer = async ({
     url.searchParams.append('id', id);
     url.searchParams.append('start', offset.toString());
     url.searchParams.append('limit', DebankAPI.Coin.top_holders.params.limit.toString());
+    const { api_nonce, api_sign, api_ts, api_ver } = await getDebankAPISign();
     const [_, data] = await Promise.all([
       page.evaluate(
-        (url, account) => {
+        (url, { account, api_nonce, api_sign, api_ts, api_ver }) => {
           // @ts-ignore
           fetch(url, {
             headers: {
               account,
+              'x-api-nonce': api_nonce,
+              'x-api-sign': api_sign,
+              'x-api-ts': api_ts,
+              'x-api-ver': api_ver,
             },
             referrerPolicy: 'strict-origin-when-cross-origin',
             body: null,
@@ -288,7 +295,13 @@ const fetchTopHoldersPageUsePuppeteer = async ({
           }).then((res) => res.json());
         },
         url.toString(),
-        account,
+        {
+          account,
+          api_nonce,
+          api_sign,
+          api_ts,
+          api_ver,
+        },
       ),
       page.waitForResponse(
         async (response) => {
@@ -324,6 +337,11 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
   const context = await browser.defaultBrowserContext();
   let jobData = [];
   const page = await context.newPage();
+  page.on('request', (request) => {
+    collectApiSign({
+      headers: request.headers(),
+    });
+  });
   try {
     //login proxy
     await page.authenticate({

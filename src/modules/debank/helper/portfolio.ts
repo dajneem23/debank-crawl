@@ -499,10 +499,7 @@ export const fetchUserPortfolio = async ({
     if (snapshot) {
       return snapshot;
     }
-    if (crawl_check_list.balance_list && crawl_check_list.used_chains && crawl_check_list.project_list) {
-      // all data is crawled and return inserted data to db
-      return crawl_data;
-    }
+
     if (!crawl_check_list.used_chains) {
       const { data: profile } = await fetchUserProfile({
         address: user_address,
@@ -535,17 +532,23 @@ export const fetchUserPortfolio = async ({
       }
       if (crawl_check_list.crawled_chains.length === crawl_data.used_chains.length) {
         crawl_check_list.balance_list = true;
-        crawl_check_list.balance_list = true;
       }
     }
-    await insertDebankUserAssetPortfolio({
-      user_address,
-      balance_list: crawl_data.balance_list,
-      project_list: crawl_data.project_list,
-      crawl_id: +crawl_id,
-      crawl_time: new Date(),
-      used_chains: crawl_data.used_chains,
-    });
+    if (
+      !crawl_check_list.balance_list ||
+      !crawl_check_list.used_chains ||
+      !crawl_check_list.project_list ||
+      crawl_check_list.crawled_chains.length !== crawl_data.used_chains.length
+    ) {
+      await sleep(1000 * 3);
+      return fetchUserPortfolio({
+        user_address,
+        retry: retry - 1,
+        crawl_data,
+        crawl_check_list,
+        crawl_id,
+      });
+    }
   } catch (error) {
     if (retry > 0) {
       return fetchUserPortfolio({
@@ -555,7 +558,25 @@ export const fetchUserPortfolio = async ({
         crawl_check_list,
         crawl_id,
       });
+    } else {
+      logger.error('error', '[fetchUserPortfolio:error]', JSON.stringify(error));
+      throw error;
     }
-    logger.error('error', '[fetchUserPortfolio:error]', JSON.stringify(error));
+  } finally {
+    if (
+      crawl_check_list.balance_list &&
+      crawl_check_list.used_chains &&
+      crawl_check_list.project_list &&
+      crawl_check_list.crawled_chains.length === crawl_data.used_chains.length
+    ) {
+      await insertDebankUserAssetPortfolio({
+        user_address,
+        balance_list: crawl_data.balance_list,
+        project_list: crawl_data.project_list,
+        crawl_id: +crawl_id,
+        crawl_time: new Date(),
+        used_chains: crawl_data.used_chains,
+      });
+    }
   }
 };

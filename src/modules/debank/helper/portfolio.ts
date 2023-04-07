@@ -548,7 +548,13 @@ export const fetchUserPortfolio = async ({
     });
   } catch (error) {
     if (retry > 0) {
-      return fetchUserPortfolio({ user_address, retry: retry + 1, crawl_data, crawl_check_list, crawl_id });
+      return fetchUserPortfolio({
+        user_address,
+        retry: retry - 1,
+        crawl_data,
+        crawl_check_list,
+        crawl_id,
+      });
     }
     logger.error('error', '[fetchUserPortfolio:error]', JSON.stringify(error));
   }

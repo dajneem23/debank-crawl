@@ -10,7 +10,7 @@ import { filter, isNil, uniq, uniqBy } from 'lodash';
 import { getRedisKey, setExpireRedisKey } from '../../service/redis';
 import { mgClient } from './debank.config';
 import { ObjectId } from 'mongodb';
-import { ACCOUNT_TAGS, NULL_ACCOUNT } from '@/types/account';
+import { ACCOUNT_TAGS, NULL_ACCOUNT } from '../../types/account';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {

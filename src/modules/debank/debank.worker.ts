@@ -19,7 +19,7 @@ export const workerPortfolio = new Worker('debank-portfolio', workerProcessor.bi
   autorun: true,
   connection: redisConnection,
   lockDuration: 1000 * 60 * 3,
-  concurrency: 6,
+  concurrency: 7,
   limiter: {
     max: 15,
     duration: 1000 * 60,
@@ -37,10 +37,10 @@ export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
   connection: redisConnection,
   lockDuration: 1000 * 60 * 3,
   concurrency: 20,
-  limiter: {
-    max: 50,
-    duration: 1000 * 60,
-  },
+  // limiter: {
+  //   max: 50,
+  //   duration: 1000 * 60,
+  // },
   stalledInterval: 1000 * 30,
   skipLockRenewal: true,
   maxStalledCount: 5,

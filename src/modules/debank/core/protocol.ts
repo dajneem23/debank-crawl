@@ -1,6 +1,6 @@
 import { DebankAPI } from '../../../common/api';
 import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../../common/proxy';
-import { discord, logger } from '../debank.config';
+import { logger } from '../debank.config';
 import { insertDebankPools, queryDebankProtocols } from '../debank.fnc';
 import { DebankJobNames } from '../debank.job';
 import { queueCommon } from '../debank.queue';
@@ -131,16 +131,16 @@ export const addFetchProtocolPoolsJob = async () => {
     }));
     jobs.length && (await queueCommon.addBulk(jobs));
 
-    await discord.sendMsg({
-      message:
-        `\`\`\`diff` +
-        `\n[DEBANK-addFetchProtocolPoolsJob]` +
-        `\n+ totalJobs::${jobs.length}` +
-        `\nstart on::${new Date().toISOString()}` +
-        `\`\`\`
-      `,
-      channelId: '1041620555188682793',
-    });
+    // await discord.sendMsg({
+    //   message:
+    //     `\`\`\`diff` +
+    //     `\n[DEBANK-addFetchProtocolPoolsJob]` +
+    //     `\n+ totalJobs::${jobs.length}` +
+    //     `\nstart on::${new Date().toISOString()}` +
+    //     `\`\`\`
+    //   `,
+    //   channelId: '1041620555188682793',
+    // });
   } catch (error) {
     logger.error('error', '[addFetchProtocolPools:error]', JSON.stringify(error));
     throw error;

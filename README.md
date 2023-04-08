@@ -7,7 +7,7 @@ To build and run this app you will need a few things:
 1. **Install [Node.js](https://nodejs.org/en/) version `16.13.0 LTS`**
    > Or you can use [nvm](https://github.com/nvm-sh/nvm) to quickly install and use different versions of node via the command line 
 
-```shell
+```shell 
 $ nvm install lts/gallium
 $ nvm use lts/gallium
 

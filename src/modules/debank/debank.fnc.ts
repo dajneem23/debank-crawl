@@ -10,6 +10,7 @@ import { filter, isNil, uniq, uniqBy } from 'lodash';
 import { getRedisKey, setExpireRedisKey } from '../../service/redis';
 import { mgClient } from './debank.config';
 import { ObjectId } from 'mongodb';
+import { ACCOUNT_TAGS, NULL_ACCOUNT } from '@/types/account';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {
@@ -1050,7 +1051,7 @@ export const getAccountsFromTxEvent = async () => {
     .toArray();
   return filter(
     uniq([...accounts[0].to_accounts, ...accounts[0].from_accounts]),
-    (item) => !isNil(item) && item != '0x0000000000000000000000000000000000000000',
+    (item) => !isNil(item) && !NULL_ACCOUNT.includes(item),
   );
 };
 
@@ -1161,6 +1162,14 @@ export const updateDebankIdForTokenCollection = async () => {
   );
 };
 
+export const getAddressBook = async ({ address }: { address: string }) => {
+  const collection = mgClient.db('onchain').collection('address-book');
+  const address_book = await collection.findOne({
+    address,
+  });
+  return address_book;
+};
+
 export const getTokenTopHolders = async ({ id }) => {
   const collection = mgClient.db('onchain').collection('debank-top-holders');
 
@@ -1170,12 +1179,41 @@ export const getTokenTopHolders = async ({ id }) => {
     },
     {
       sort: {
-        crawl_id: -1,
+        updated_at: -1,
       },
     },
   );
   return { top_holders };
 };
-// getTokenTopHolders({
-//   id: 'keeperdao',
-// }).then((res) => console.log({ res }));
+
+export const snapshotTokenTopHolders = async ({ id }) => {
+  const collection = mgClient.db('onchain').collection('debank-top-holders');
+  const { top_holders } = await getTokenTopHolders({ id });
+  const { holders } = top_holders;
+  const stats = {};
+  await Promise.all(
+    holders.map(async (address: string) => {
+      const {
+        address_book: { tags, labels } = {
+          tags: [],
+          labels: [],
+        },
+      } = (await getAddressBook({ address })) || {
+        address_book: {
+          tags: [],
+          labels: [],
+        },
+      };
+      // console.log('address_book', { address, address_book: { tags, labels } });
+      Object.values(ACCOUNT_TAGS).forEach((tag) => {
+        if (tags.includes(tag)) {
+          stats[tag] = stats[tag] ? stats[tag] + 1 : 1;
+        }
+      });
+    }),
+  );
+  // console.log('stats', { stats });
+};
+// snapshotTokenTopHolders({
+//   id: 'anybtc',
+// }).then(console.log);

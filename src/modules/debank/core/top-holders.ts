@@ -1,11 +1,10 @@
 import { DebankAPI } from '../../../common/api';
 import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../../common/proxy';
 import { account, browser_uid, connected_dict, current_address } from '../debank.const';
-import { logger, mgClient } from '../debank.config';
+import { logger } from '../debank.config';
 import { queuePortfolio, queueTopHolder } from '../debank.queue';
 import {
   collectApiSign,
-  getAccountSnapshotCrawlId,
   getDebankAPISign,
   getDebankCrawlId,
   getDebankTopHoldersCrawlId,
@@ -21,7 +20,6 @@ import { sleep } from '../../../utils/common';
 import bluebird from 'bluebird';
 import { uniqBy } from 'lodash';
 import { Page } from 'puppeteer';
-import { getRedisKey } from '../../../service/redis';
 
 export const addFetchTopHoldersByUsersAddressJob = async () => {
   const { rows } = await queryDebankTopHoldersImportantToken();
@@ -73,60 +71,6 @@ export const addFetchTopHoldersByUsersAddressJob = async () => {
   });
 };
 
-export const fetchTopHoldersPage = async ({
-  id,
-  start = 0,
-  limit = DebankAPI.Coin.top_holders.params.limit,
-  crawl_id,
-}: {
-  id: string;
-  start: number;
-  limit: number;
-  crawl_id: number;
-}) => {
-  try {
-    const {
-      data: { data, error_code },
-      status,
-    } = await DebankAPI.fetch({
-      endpoint: DebankAPI.Coin.top_holders.endpoint,
-      params: {
-        id,
-        start,
-        limit,
-      },
-      config: {
-        headers: {
-          account,
-        },
-        proxy: {
-          host: WEBSHARE_PROXY_HTTP.host,
-          port: WEBSHARE_PROXY_HTTP.port,
-          auth: {
-            username: WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP.auth.username,
-            password: WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP.auth.password,
-          },
-          protocol: WEBSHARE_PROXY_HTTP.protocol,
-        },
-      },
-    });
-    if (status !== 200 || error_code) {
-      throw new Error('fetchTopHolders:error');
-    }
-    const { holders } = data;
-    await insertDebankTopHolders({
-      holders,
-      crawl_id,
-      id,
-    });
-    return {
-      holders,
-    };
-  } catch (error) {
-    logger.error('error', '[fetchTopHolders:error]', JSON.stringify(error));
-    throw error;
-  }
-};
 export const fetchTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: number }) => {
   try {
     const {
@@ -211,24 +155,78 @@ export const fetchTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
     throw error;
   }
 };
+export const fetchTopHoldersPage = async ({
+  id,
+  start = 0,
+  limit = DebankAPI.Coin.top_holders.params.limit,
+  crawl_id,
+}: {
+  id: string;
+  start: number;
+  limit: number;
+  crawl_id: number;
+}) => {
+  try {
+    const {
+      data: { data, error_code },
+      status,
+    } = await DebankAPI.fetch({
+      endpoint: DebankAPI.Coin.top_holders.endpoint,
+      params: {
+        id,
+        start,
+        limit,
+      },
+      config: {
+        headers: {
+          account,
+        },
+        proxy: {
+          host: WEBSHARE_PROXY_HTTP.host,
+          port: WEBSHARE_PROXY_HTTP.port,
+          auth: {
+            username: WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP.auth.username,
+            password: WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP.auth.password,
+          },
+          protocol: WEBSHARE_PROXY_HTTP.protocol,
+        },
+      },
+    });
+    if (status !== 200 || error_code) {
+      throw new Error('fetchTopHolders:error');
+    }
+    const { holders } = data;
+    await insertDebankTopHolders({
+      holders,
+      crawl_id,
+      id,
+    });
+    return {
+      holders,
+    };
+  } catch (error) {
+    logger.error('error', '[fetchTopHolders:error]', JSON.stringify(error));
+    throw error;
+  }
+};
 export const addFetchTopHoldersJob = async () => {
   try {
     const crawl_id = await getDebankTopHoldersCrawlId();
     const allCoins = await queryDebankAllCoins();
     //164
-    const jobs = allCoins.map(({ symbol, db_id }) => ({
+    const jobs = allCoins.map(({ db_id }) => ({
       name: DebankJobNames['debank:crawl:top-holders'],
       data: {
         id: db_id,
         crawl_id: +crawl_id,
       },
       opts: {
-        jobId: `debank:crawl:top-holders:${crawl_id}:${symbol}`,
+        jobId: `debank:crawl:top-holders:${crawl_id}:${db_id}`,
         removeOnComplete: {
-          age: 60 * 60 * 3,
+          age: 60 * 15,
         },
         removeOnFail: {
-          age: 60 * 60 * 3,
+          age: 60 * 30,
         },
         priority: 5,
         delay: 1000 * 30,

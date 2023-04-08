@@ -183,7 +183,7 @@ export const addSnapshotUsersProjectJob = async () => {
         age: 60 * 30,
       },
       priority: 10,
-      attempts: 10,
+      attempts: 15,
       // delay: 1000 * 5,
     },
   }));
@@ -203,7 +203,7 @@ export const addSnapshotUsersProjectJob = async () => {
           age: 60 * 30,
         },
         priority: 10,
-        attempts: 10,
+        attempts: 15,
         // delay: 1000 * 5,
       },
     }))

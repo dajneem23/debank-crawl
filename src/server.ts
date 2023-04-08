@@ -22,12 +22,6 @@ import { BOT_HEALTH_CHECK_GROUP_ID } from './service/alert/telegram/const';
 
     await (await import('./loaders/config.loader')).default();
 
-    // Discord
-    // if (process.env.MODE == 'production') {
-    //   const { Discord } = await import('./loaders/discord.loader');
-    //   const discord = new Discord();
-    //   await discord.init();
-    // }
     if (process.env.MODE == 'production') {
       const { exitHandler } = await import('./core/handler');
       Queue.setMaxListeners(0);

@@ -85,7 +85,7 @@ export const getETHPairPriceAtBlock = async ({
         retryTime: re,
       });
     }
-    logger.discord('error', 'getBSCPairPriceAtBlock', JSON.stringify({ jsonRpc, pairAddress, blockNumber, error }));
+    logger.alert('error', 'getBSCPairPriceAtBlock', JSON.stringify({ jsonRpc, pairAddress, blockNumber, error }));
     throw error;
   }
 };
@@ -130,7 +130,7 @@ export const getBSCPairPriceAtBlock = async ({
         retryTime: re,
       });
     }
-    logger.discord('error', 'getBSCPairPriceAtBlock', JSON.stringify({ jsonRpc, pairAddress, blockNumber, error }));
+    logger.alert('error', 'getBSCPairPriceAtBlock', JSON.stringify({ jsonRpc, pairAddress, blockNumber, error }));
     throw error;
   }
 };

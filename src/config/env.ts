@@ -31,9 +31,6 @@ export const env = {
 
   COINMARKETCAP_API_KEY: getRuntimeEnv('COINMARKETCAP_API_KEY'),
 
-  DISCORD_BOT_TOKEN: getRuntimeEnv('DISCORD_BOT_TOKEN'),
-  DISCORD_BOT_CLIENT_ID: getRuntimeEnv('DISCORD_BOT_CLIENT_ID'),
-
   TELEGRAM_BOT_TOKEN: getRuntimeEnv('TELEGRAM_BOT_TOKEN'),
 
   MB_DB_DBNAME: getRuntimeEnv('MB_DB_DBNAME'),

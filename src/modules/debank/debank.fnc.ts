@@ -142,8 +142,6 @@ export const insertDebankSocialRanking = async ({
     `,
     [user_address, rank, base_score, score_dict, value_dict, total_score, new Date()],
   );
-
-  // .catch((err) => this.logger.discord('error', '[debank:insertSocialRanking]', JSON.stringify(err)));
 };
 export const queryDebankSocialRanking = async (
   {
@@ -280,7 +278,6 @@ export const insertDebankProjectList = async () => {
         new Date(),
       ],
     );
-    // .catch((err) => this.logger.discord('error', '[queryProjectList:insert]', JSON.stringify(err)));
   }
 };
 

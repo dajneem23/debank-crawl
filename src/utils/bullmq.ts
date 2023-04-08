@@ -19,7 +19,7 @@ export const initQueueListeners = ({
   });
   const logger = new Logger(queueName);
   queueEvents.on('error', (error) => {
-    logger.discord('error', `${queueName}::Job failed`, error);
+    logger.alert('error', `${queueName}::Job failed`, error);
   });
   return queueEvents;
 };

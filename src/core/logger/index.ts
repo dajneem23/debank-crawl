@@ -1,7 +1,3 @@
-import { DIDiscordClient, Discord } from '../../loaders/discord.loader';
-import { configure, getLogger, Logger as JSLogger } from 'log4js';
-import Container, { Inject } from 'typedi';
-
 export type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 
 /**
@@ -98,22 +94,10 @@ export class Logger {
     return this.logger.warn(_messages[message] || message, ...args);
   }
 
-  discord(message: keyof typeof _messages, ...args: any[]): Promise<void> {
+  alert(message: keyof typeof _messages, ...args: any[]): Promise<void> {
     if (process.env.MODE !== 'production') {
       this.logger.info(_messages[message] || message, ...args);
       return Promise.resolve();
     }
-    console.error('Discord', message, ...args);
-    // const discordBot = Container.get(DIDiscordClient);
-    // return discordBot.sendMsg({
-    //   message: [
-    //     `\`\`\`diff\n${this.category ? this.category + ':' : ''}${_messages[message] || message}\`\`\``,
-    //     ...args,
-    //   ]
-    //     .map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg))
-    //     .map((arg) => discordBot.decorateMsg(arg))
-    //     .join('\n'),
-    //   channelId: message === 'error' ? discordBot.errorChannelId : discordBot.notifyChannelId,
-    // });
   }
 }

@@ -105,7 +105,7 @@ export const crawlUsersProject = async ({ user_addresses }: { user_addresses: st
           const { data: project_list_data } = await project_list.json();
           jobData[user_address]['project_list'] = project_list_data;
         } catch (error) {
-          logger.discord('error', '[crawlUsersProject:page:error]', JSON.stringify(error));
+          logger.alert('error', '[crawlUsersProject:page:error]', JSON.stringify(error));
           throw error;
         }
       },
@@ -293,7 +293,7 @@ export const crawlPortfolioByList = async ({
           jobData[user_address]['project_list'] = project_list;
           jobData[user_address]['used_chains'] = used_chains;
         } catch (error) {
-          logger.discord('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
+          logger.alert('error', '[crawlPortfolio:page:error]', JSON.stringify(error));
           throw error;
         }
       },

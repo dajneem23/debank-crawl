@@ -57,7 +57,7 @@ export const fetchWhaleList = async (
       limit,
     };
   } catch (error) {
-    logger.discord('error', '[fetchWhaleList:error]', JSON.stringify(error));
+    logger.alert('error', '[fetchWhaleList:error]', JSON.stringify(error));
     throw error;
   }
 };
@@ -75,7 +75,7 @@ export const fetchWhalesPage = async ({ start, crawl_id }: { start: number; craw
     //insert all whale list
     await insertDebankWhaleList({ whales, crawl_id });
   } catch (error) {
-    logger.discord('error', '[fetchWhalesPage:error]', JSON.stringify(error));
+    logger.alert('error', '[fetchWhalesPage:error]', JSON.stringify(error));
     throw error;
   }
 };
@@ -143,7 +143,7 @@ export const addFetchWhalesPagingJob = async () => {
       `,
     });
   } catch (error) {
-    logger.discord('error', '[addFetchWhalesPagingJob:error]', JSON.stringify(error));
+    logger.alert('error', '[addFetchWhalesPagingJob:error]', JSON.stringify(error));
     throw error;
   }
 };

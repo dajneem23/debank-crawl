@@ -70,7 +70,7 @@ export const fetchSocialRankingsPage = async ({
       onConflict,
     });
   } catch (error) {
-    logger.discord('error', '[fetchSocialRankingsPage:error]', JSON.stringify(error));
+    logger.alert('error', '[fetchSocialRankingsPage:error]', JSON.stringify(error));
     throw error;
   }
 };
@@ -120,7 +120,7 @@ export const addFetchSocialRankingJob = async () => {
       `,
     });
   } catch (error) {
-    logger.discord('error', '[addFetchSocialRankingJob:error]', JSON.stringify(error));
+    logger.alert('error', '[addFetchSocialRankingJob:error]', JSON.stringify(error));
     throw error;
   }
 };

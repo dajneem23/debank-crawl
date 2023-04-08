@@ -21,7 +21,7 @@ export const workerPortfolio = new Worker('debank-portfolio', workerProcessor.bi
   lockDuration: 1000 * 60 * 3,
   concurrency: 5,
   limiter: {
-    max: 15,
+    max: 10,
     duration: 1000 * 60,
   },
   stalledInterval: 1000 * 30,
@@ -38,7 +38,7 @@ export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
   lockDuration: 1000 * 60 * 3,
   concurrency: 15,
   limiter: {
-    max: 30,
+    max: 15,
     duration: 1000 * 30,
   },
   stalledInterval: 1000 * 30,

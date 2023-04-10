@@ -212,10 +212,12 @@ export const addSnapshotUsersProjectJob = async () => {
   await Promise.all([queuePortfolio.addBulk(jobs), queueApi.addBulk(apiJobs)]);
 
   const countJobs = await queuePortfolio.getJobCounts();
+  const apiJobsCount = await queueApi.getJobCounts();
   await sendTelegramMessage({
     message: `[debank-portfolio]\n
     [add-snapshot-users-portfolio-job]\n
     ----------------------------------\n
+    [queuePortfolio]
     - added::${jobs.length}\n
     - waiting::${countJobs.waiting}\n
     - delayed::${countJobs.delayed}\n
@@ -223,6 +225,13 @@ export const addSnapshotUsersProjectJob = async () => {
     - ✅completed::${countJobs.completed}\n
     - ❌failed::${countJobs.failed}\n
     ----------------------------------\n
+    [queueApi]
+    - added::${apiJobs.length}\n
+    - waiting::${apiJobsCount.waiting}\n
+    - delayed::${apiJobsCount.delayed}\n
+    - active::${apiJobsCount.active}\n
+    - ✅completed::${apiJobsCount.completed}\n
+    - ❌failed::${apiJobsCount.failed}\n
     `,
   });
 };

@@ -1,10 +1,10 @@
-import { MetricsTime, Worker } from 'bullmq';
-import { workerProcessor } from './debank.process';
 import { redisConnection } from '@/loaders/config.loader';
-import { setRedisKey } from '@/service/redis';
-import { mgClient } from './debank.config';
-import { queueApi, queuePortfolio, queueRanking, queueTopHolder } from './debank.queue';
 import { sendTelegramMessage } from '@/service/alert/telegram';
+import { setRedisKey } from '@/service/redis';
+import { MetricsTime, Worker } from 'bullmq';
+import { mgClient } from './debank.config';
+import { workerProcessor } from './debank.process';
+import { queueApi, queuePortfolio, queueRanking, queueTopHolder } from './debank.queue';
 
 export const worker = new Worker('debank', workerProcessor.bind(this), {
   autorun: true,
@@ -68,8 +68,8 @@ workerPortfolio.on('drained', async () => {
 export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
   autorun: true,
   connection: redisConnection,
-  lockDuration: 1000 * 60 * 2.5,
-  concurrency: 30,
+  lockDuration: 1000 * 60 * 3,
+  concurrency: 25,
   // limiter: {
   //   max: 50,
   //   duration: 1000 * 60,

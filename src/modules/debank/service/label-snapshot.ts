@@ -95,7 +95,7 @@ export const isSM = async (address: string) => {
 const MIN_TOKEN_FAN_USD_VALUE = 10_000;
 export const isTokenFan = async ({ balance_list, usd_value }: { balance_list: any[]; usd_value: number }) => {
   const tokensFan = balance_list.filter(
-    ({ amount, price }) => amount * price > MIN_TOKEN_FAN_USD_VALUE || amount * price >= usd_value / 2,
+    ({ amount, price }) => amount * price > MIN_TOKEN_FAN_USD_VALUE && amount * price >= usd_value / 2,
   );
   return (
     tokensFan.length && {

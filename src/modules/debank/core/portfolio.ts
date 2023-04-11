@@ -1,16 +1,14 @@
-import { sendTelegramMessage } from '@/service/alert/telegram';
-import { queueApi, queueInsert, queuePortfolio } from '../debank.queue';
-import { connectChrome, createPuppeteerBrowser } from '@/service/puppeteer';
-import { WEBSHARE_PROXY_HTTP } from '@/common/proxy';
-import bluebird from 'bluebird';
-
-import { logger, mgClient } from '../debank.config';
-import { DebankJobNames } from '../debank.job';
-import { sleep } from '@/utils/common';
 import { DebankAPI } from '@/common/api';
+import { WEBSHARE_PROXY_HTTP } from '@/common/proxy';
+import { sendTelegramMessage } from '@/service/alert/telegram';
+import { connectChrome, createPuppeteerBrowser } from '@/service/puppeteer';
+import { sleep } from '@/utils/common';
+import bluebird from 'bluebird';
 import { Page } from 'puppeteer';
-import { updateDebankUserProfile } from '../service/pg';
+import { logger, mgClient } from '../debank.config';
 import { collectApiSign, isValidPortfolioData, pageDebankFetchProfileAPI } from '../debank.fnc';
+import { DebankJobNames } from '../debank.job';
+import { queueApi, queueInsert, queuePortfolio } from '../debank.queue';
 import {
   bulkWriteUsersProject,
   getAccountSnapshotCrawlId,
@@ -18,6 +16,8 @@ import {
   insertDebankUserAssetPortfolio,
   updateUserProfile,
 } from '../service/mongo';
+import { updateDebankUserProfile } from '../service/pg';
+
 export const fetchUserProfile = async ({ address }: { address: string }) => {
   const {
     data: { data, error_code },

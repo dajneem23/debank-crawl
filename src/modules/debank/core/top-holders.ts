@@ -1,23 +1,23 @@
 import { DebankAPI } from '@/common/api';
 import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '@/common/proxy';
-import { account, browser_uid, connected_dict, current_address } from '../debank.const';
-import { logger } from '../debank.config';
-import { queuePortfolio, queueTopHolder } from '../debank.queue';
-import { collectApiSign, getDebankAPISign, isValidTopHoldersData } from '../debank.fnc';
-import { DebankJobNames } from '../debank.job';
 import { sendTelegramMessage } from '@/service/alert/telegram';
 import { connectChrome, createPuppeteerBrowser } from '@/service/puppeteer';
 import { sleep } from '@/utils/common';
 import bluebird from 'bluebird';
 import { uniqBy } from 'lodash';
 import { Page } from 'puppeteer';
+import { logger } from '../debank.config';
+import { account, browser_uid, connected_dict, current_address } from '../debank.const';
+import { collectApiSign, getDebankAPISign, isValidTopHoldersData } from '../debank.fnc';
+import { DebankJobNames } from '../debank.job';
+import { queuePortfolio, queueTopHolder } from '../debank.queue';
+import { insertDebankTopHolders } from '../service/mongo';
 import {
   getDebankCrawlId,
   getDebankTopHoldersCrawlId,
   queryDebankAllCoins,
   queryDebankTopHoldersImportantToken,
 } from '../service/pg';
-import { insertDebankTopHolders } from '../service/mongo';
 
 export const addFetchTopHoldersByUsersAddressJob = async () => {
   const { rows } = await queryDebankTopHoldersImportantToken();

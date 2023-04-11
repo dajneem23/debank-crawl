@@ -19,7 +19,7 @@ export const workerPortfolio = new Worker('debank-portfolio', workerProcessor.bi
   autorun: true,
   connection: redisConnection,
   lockDuration: 1000 * 60 * 3,
-  concurrency: 5,
+  concurrency: 6,
   // limiter: {
   //   max: 15,
   //   duration: 1000 * 60,
@@ -36,7 +36,7 @@ export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
   autorun: true,
   connection: redisConnection,
   lockDuration: 1000 * 60 * 2.5,
-  concurrency: 25,
+  concurrency: 30,
   // limiter: {
   //   max: 50,
   //   duration: 1000 * 60,
@@ -53,11 +53,11 @@ export const workerInsert = new Worker('debank-insert', workerProcessor.bind(thi
   autorun: true,
   connection: redisConnection,
   lockDuration: 1000 * 60,
-  concurrency: 100,
-  limiter: {
-    max: 500,
-    duration: 1000,
-  },
+  concurrency: 50,
+  // limiter: {
+  //   max: 500,
+  //   duration: 1000,
+  // },
   stalledInterval: 1000 * 60,
   maxStalledCount: 5,
   metrics: {

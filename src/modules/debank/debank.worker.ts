@@ -1,6 +1,9 @@
 import { MetricsTime, Worker } from 'bullmq';
 import { workerProcessor } from './debank.process';
 import { redisConnection } from '../../loaders/config.loader';
+import { setRedisKey } from '@/service/redis';
+import { mgClient } from './debank.config';
+import { queueApi, queuePortfolio, queueRanking } from './debank.queue';
 
 export const worker = new Worker('debank', workerProcessor.bind(this), {
   autorun: true,
@@ -31,6 +34,32 @@ export const workerPortfolio = new Worker('debank-portfolio', workerProcessor.bi
     maxDataPoints: MetricsTime.ONE_WEEK,
   },
 });
+workerPortfolio.on('failed', async (job, err) => {
+  await mgClient
+    .db('onchain-log')
+    .collection('debank-portfolio')
+    .insertOne({
+      from: 'debank-portfolio',
+      job: JSON.parse(JSON.stringify(job)),
+      err: err.message,
+    });
+  await setRedisKey(
+    `debank:jobs:portfolio:failed:${job.id}`,
+    JSON.stringify({
+      name: job.name,
+      data: job.data,
+      opts: job.opts,
+    }),
+  );
+});
+workerPortfolio.on('drained', async () => {
+  const keys = await redisConnection.keys('debank:jobs:portfolio:failed:*');
+  if (keys.length > 0) {
+    const jobs = await redisConnection.mget(keys);
+    await queuePortfolio.addBulk(jobs.map((job) => JSON.parse(job)));
+    await redisConnection.del(keys);
+  }
+});
 
 export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
   autorun: true,
@@ -48,7 +77,32 @@ export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
     maxDataPoints: MetricsTime.ONE_WEEK,
   },
 });
-
+workerApi.on('failed', async (job, err) => {
+  await mgClient
+    .db('onchain-log')
+    .collection('debank-api')
+    .insertOne({
+      from: 'debank-api',
+      job: JSON.parse(JSON.stringify(job)),
+      err: err.message,
+    });
+  await setRedisKey(
+    `debank:jobs:api:failed:${job.id}`,
+    JSON.stringify({
+      name: job.name,
+      data: job.data,
+      opts: job.opts,
+    }),
+  );
+});
+workerApi.on('drained', async () => {
+  const keys = await redisConnection.keys('debank:jobs:api:failed:*');
+  if (keys.length > 0) {
+    const jobs = await redisConnection.mget(keys);
+    await queueApi.addBulk(jobs.map((job) => JSON.parse(job)));
+    await redisConnection.del(keys);
+  }
+});
 export const workerInsert = new Worker('debank-insert', workerProcessor.bind(this), {
   autorun: true,
   connection: redisConnection,
@@ -111,6 +165,32 @@ export const workerRanking = new Worker('debank-ranking', workerProcessor.bind(t
   metrics: {
     maxDataPoints: MetricsTime.ONE_WEEK,
   },
+});
+workerRanking.on('failed', async (job, err) => {
+  await mgClient
+    .db('onchain-log')
+    .collection('debank-ranking')
+    .insertOne({
+      from: 'debank-ranking',
+      job: JSON.parse(JSON.stringify(job)),
+      err: err.message,
+    });
+  await setRedisKey(
+    `debank:jobs:ranking:failed:${job.id}`,
+    JSON.stringify({
+      name: job.name,
+      data: job.data,
+      opts: job.opts,
+    }),
+  );
+});
+workerRanking.on('drained', async () => {
+  const keys = await redisConnection.keys('debank:jobs:ranking:failed:*');
+  if (keys.length > 0) {
+    const jobs = await redisConnection.mget(keys);
+    await queueRanking.addBulk(jobs.map((job) => JSON.parse(job)));
+    await redisConnection.del(keys);
+  }
 });
 
 export const workerCommon = new Worker('debank-common', workerProcessor.bind(this), {

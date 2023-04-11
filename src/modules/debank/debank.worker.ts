@@ -1,7 +1,7 @@
 import { MetricsTime, Worker } from 'bullmq';
 import { workerProcessor } from './debank.process';
 import { redisConnection } from '../../loaders/config.loader';
-import { setRedisKey } from '@/service/redis';
+import { setRedisKey } from '../../service/redis';
 import { mgClient } from './debank.config';
 import { queueApi, queuePortfolio, queueRanking } from './debank.queue';
 

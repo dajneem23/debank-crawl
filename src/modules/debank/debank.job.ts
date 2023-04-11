@@ -1,10 +1,3 @@
-import {
-  insertDebankCoin,
-  insertDebankTopHolder,
-  insertDebankUserAddress,
-  insertDebankUserAssetPortfolio,
-  insertDebankWhale,
-} from './debank.fnc';
 import { addFetchCoinsJob } from './core/coin';
 import { cleanOutdatedData, createPartitions } from './core/partition';
 import {
@@ -23,6 +16,8 @@ import {
   fetchTopHoldersPage,
 } from './core/top-holders';
 import { addFetchWhalesPagingJob, fetchWhalesPage } from './core/whale';
+import { insertDebankUserAssetPortfolio } from './service/mongo';
+import { insertDebankCoin, insertDebankTopHolder, insertDebankUserAddress, insertDebankWhale } from './service/pg';
 
 export type fetchDebankDataJob = {
   name: DebankJobNames;

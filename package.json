@@ -7,16 +7,6 @@
   "engines": {
     "node": ">=16"
   },
-  "_moduleAliases": {
-    "@/modules": "build/modules",
-    "@/loaders": "build/loaders",
-    "@/service": "build/service",
-    "@/core": "build/core",
-    "@/config": "build/config",
-    "@/utils": "build/utils",
-    "@/types": "build/types",
-    "@/common": "build/common"
-  },
   "scripts": {
     "dev": "nodemon",
     "build": "tsc --build tsconfig.json",

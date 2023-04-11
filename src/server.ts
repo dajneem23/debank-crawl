@@ -1,15 +1,29 @@
 import 'module-alias/register'; //=> must be the first import in the file to make sure that all other imports are resolved correctly
-
-import { Queue } from 'bullmq';
+import moduleAlias from 'module-alias';
 import 'reflect-metadata';
-import { sendTelegramMessage } from '@/service/alert/telegram';
-import { BOT_HEALTH_CHECK_GROUP_ID } from '@/service/alert/telegram/const';
+/**
+ * @description register all modules alias
+ */
+const loadModulesAlias = async () => {
+  await moduleAlias.addAliases({
+    '@/modules': __dirname + '/modules',
+    '@/loaders': __dirname + '/loaders',
+    '@/service': __dirname + '/service',
+    '@/core': __dirname + '/core',
+    '@/config': __dirname + '/config',
+    '@/utils': __dirname + '/utils',
+    '@/types': __dirname + '/types',
+    '@/common': __dirname + '/common',
+  });
+};
 /**
  *  @description this import is required to initialize service class
  */
 (async () => {
   try {
-    // process.env.MODE = 'production';
+    // ----------------------------------------------------------------
+    await loadModulesAlias();
+    // ----------------------------------------------------------------
 
     await import('./config/env');
     await (await import('./loaders/telegram.loader')).default();
@@ -26,6 +40,7 @@ import { BOT_HEALTH_CHECK_GROUP_ID } from '@/service/alert/telegram/const';
 
     if (process.env.MODE == 'production') {
       const { exitHandler } = await import('./core/handler');
+      const { Queue } = await import('bullmq');
       Queue.setMaxListeners(0);
       process.setMaxListeners(0);
       // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -49,11 +64,14 @@ import { BOT_HEALTH_CHECK_GROUP_ID } from '@/service/alert/telegram/const';
 
     //load modules here
     await import('./modules/index');
-
-    await sendTelegramMessage({
-      message: `[cronjob-debank][✅  Up] running`,
-      chatId: BOT_HEALTH_CHECK_GROUP_ID,
-    });
+    if (process.env.MODE == 'production') {
+      const { sendTelegramMessage } = await import('@/service/alert/telegram');
+      const { BOT_HEALTH_CHECK_GROUP_ID } = await import('@/service/alert/telegram/const');
+      await sendTelegramMessage({
+        message: `[cronjob-debank][✅  Up] running`,
+        chatId: BOT_HEALTH_CHECK_GROUP_ID,
+      });
+    }
   } catch (err) {
     console.error(err);
     if (process.env.MODE == 'production') {

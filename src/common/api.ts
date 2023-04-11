@@ -2,6 +2,7 @@ import { env } from 'process';
 import axios, { AxiosRequestConfig } from 'axios';
 import { WEBSHARE_PROXY_HTTP } from './proxy';
 import { getDebankAPISign } from '@/modules/debank/debank.fnc';
+import { randomUserAgent } from '@/config/userAgent';
 
 /**
  * @description CoinMarketCap API
@@ -504,11 +505,13 @@ export const DebankAPI = {
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"macOS"',
         'sec-fetch-dest': 'document',
-        'sec-fetch-mode': 'navigate',
-        'sec-fetch-site': 'none',
-        'sec-fetch-user': '?1',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-site',
+        // 'sec-fetch-user': '?1',
         'upgrade-insecure-requests': '1',
-        // referer: endpoint,
+        referer: 'https://debank.com/',
+        origin: 'https://debank.com',
+        'User-Agent': randomUserAgent(),
       },
       ...config,
     });

@@ -3,23 +3,21 @@ import { queueApi, queueInsert, queuePortfolio } from '../debank.queue';
 import { connectChrome, createPuppeteerBrowser } from '@/service/puppeteer';
 import { WEBSHARE_PROXY_HTTP } from '@/common/proxy';
 import bluebird from 'bluebird';
-import {
-  bulkWriteUsersProject,
-  collectApiSign,
-  getAccountSnapshotCrawlId,
-  getAccountsFromTxEvent,
-  insertDebankUserAssetPortfolio,
-  isValidPortfolioData,
-  pageDebankFetchProfileAPI,
-  updateDebankUserProfile,
-  updateUserProfile,
-} from '../debank.fnc';
+
 import { logger, mgClient } from '../debank.config';
 import { DebankJobNames } from '../debank.job';
 import { sleep } from '@/utils/common';
 import { DebankAPI } from '@/common/api';
 import { Page } from 'puppeteer';
-import { setExpireRedisKey } from '@/service/redis';
+import { updateDebankUserProfile } from '../service/pg';
+import { collectApiSign, isValidPortfolioData, pageDebankFetchProfileAPI } from '../debank.fnc';
+import {
+  bulkWriteUsersProject,
+  getAccountSnapshotCrawlId,
+  getAccountsFromTxEvent,
+  insertDebankUserAssetPortfolio,
+  updateUserProfile,
+} from '../service/mongo';
 export const fetchUserProfile = async ({ address }: { address: string }) => {
   const {
     data: { data, error_code },
@@ -373,7 +371,6 @@ export const crawlPortfolioByList = async ({
         jobs,
         jobData,
       });
-    // return jobs.map((job) => job.opts.jobId);
   }
 };
 
@@ -453,7 +450,7 @@ export const crawlUserAssetList = async ({ page, user_address }: { page: Page; u
 
 export const fetchUserPortfolio = async ({
   user_address,
-  retry = 5,
+  retry = 10,
   crawl_data = {
     user_address,
     balance_list: [],

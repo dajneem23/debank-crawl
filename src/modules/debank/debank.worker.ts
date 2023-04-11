@@ -69,7 +69,7 @@ export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
   autorun: true,
   connection: redisConnection,
   lockDuration: 1000 * 60 * 2.5,
-  concurrency: 50,
+  concurrency: 30,
   // limiter: {
   //   max: 50,
   //   duration: 1000 * 60,

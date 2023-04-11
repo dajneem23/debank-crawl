@@ -1,6 +1,6 @@
-import { sendTelegramMessage } from '../../service/alert/telegram';
-import { redisConnection } from '../../loaders/config.loader';
-import { initQueue, initQueueListeners } from '../../utils/bullmq';
+import { sendTelegramMessage } from '@/service/alert/telegram';
+import { redisConnection } from '@/loaders/config.loader';
+import { initQueue, initQueueListeners } from '@/utils/bullmq';
 
 export const queue = initQueue({
   queueName: 'debank',

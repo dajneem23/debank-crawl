@@ -1,13 +1,15 @@
+import 'module-alias/register'; //=> must be the first import in the file to make sure that all other imports are resolved correctly
+
 import { Queue } from 'bullmq';
 import 'reflect-metadata';
-import { sendTelegramMessage } from './service/alert/telegram';
-import { BOT_HEALTH_CHECK_GROUP_ID } from './service/alert/telegram/const';
+import { sendTelegramMessage } from '@/service/alert/telegram';
+import { BOT_HEALTH_CHECK_GROUP_ID } from '@/service/alert/telegram/const';
 /**
  *  @description this import is required to initialize service class
  */
 (async () => {
   try {
-    process.env.MODE = 'production';
+    // process.env.MODE = 'production';
 
     await import('./config/env');
     await (await import('./loaders/telegram.loader')).default();

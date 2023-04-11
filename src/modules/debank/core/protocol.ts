@@ -1,5 +1,5 @@
-import { DebankAPI } from '../../../common/api';
-import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../../common/proxy';
+import { DebankAPI } from '@/common/api';
+import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '@/common/proxy';
 import { logger } from '../debank.config';
 import { insertDebankPools, queryDebankProtocols } from '../debank.fnc';
 import { DebankJobNames } from '../debank.job';

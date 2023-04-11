@@ -1,4 +1,4 @@
-import { WEBSHARE_PROXY_HOST, WEBSHARE_PROXY_STR } from '../../common/proxy';
+import { WEBSHARE_PROXY_HOST, WEBSHARE_PROXY_STR } from '@/common/proxy';
 import Container, { Token } from 'typedi';
 import { Browser } from 'puppeteer';
 import { executablePath } from 'puppeteer';

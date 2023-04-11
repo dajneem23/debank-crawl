@@ -1,12 +1,12 @@
-import { bulkInsertOnConflict } from '../../../utils/pg';
+import { bulkInsertOnConflict } from '@/utils/pg';
 import { logger, pgp } from '../debank.config';
 import { getDebankSocialRankingCrawlId } from '../debank.fnc';
 import { DebankJobNames } from '../debank.job';
 import { JobsOptions } from 'bullmq';
 import { queueRanking } from '../debank.queue';
-import { sendTelegramMessage } from '../../../service/alert/telegram';
-import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../../common/proxy';
-import { DebankAPI } from '../../../common/api';
+import { sendTelegramMessage } from '@/service/alert/telegram';
+import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '@/common/proxy';
+import { DebankAPI } from '@/common/api';
 
 export const fetchSocialRankingsPage = async ({
   page_num = 1,

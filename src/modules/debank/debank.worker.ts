@@ -1,9 +1,10 @@
 import { MetricsTime, Worker } from 'bullmq';
 import { workerProcessor } from './debank.process';
-import { redisConnection } from '../../loaders/config.loader';
-import { setRedisKey } from '../../service/redis';
+import { redisConnection } from '@/loaders/config.loader';
+import { setRedisKey } from '@/service/redis';
 import { mgClient } from './debank.config';
-import { queueApi, queuePortfolio, queueRanking } from './debank.queue';
+import { queueApi, queuePortfolio, queueRanking, queueTopHolder } from './debank.queue';
+import { sendTelegramMessage } from '@/service/alert/telegram';
 
 export const worker = new Worker('debank', workerProcessor.bind(this), {
   autorun: true,
@@ -58,6 +59,9 @@ workerPortfolio.on('drained', async () => {
     const jobs = await redisConnection.mget(keys);
     await queuePortfolio.addBulk(jobs.map((job) => JSON.parse(job)));
     await redisConnection.del(keys);
+    sendTelegramMessage({
+      message: `🚀 Debank portfolio jobs recovered: ${jobs.length}`,
+    });
   }
 });
 
@@ -101,6 +105,9 @@ workerApi.on('drained', async () => {
     const jobs = await redisConnection.mget(keys);
     await queueApi.addBulk(jobs.map((job) => JSON.parse(job)));
     await redisConnection.del(keys);
+    sendTelegramMessage({
+      message: `🚀 Debank api jobs recovered: ${jobs.length}`,
+    });
   }
 });
 export const workerInsert = new Worker('debank-insert', workerProcessor.bind(this), {
@@ -150,6 +157,35 @@ export const workerTopHolder = new Worker('debank-top-holder', workerProcessor.b
     maxDataPoints: MetricsTime.ONE_WEEK,
   },
 });
+workerTopHolder.on('failed', async (job, err) => {
+  await mgClient
+    .db('onchain-log')
+    .collection('debank-top-holder')
+    .insertOne({
+      from: 'debank-top-holder',
+      job: JSON.parse(JSON.stringify(job)),
+      err: err.message,
+    });
+  await setRedisKey(
+    `debank:jobs:top-holder:failed:${job.id}`,
+    JSON.stringify({
+      name: job.name,
+      data: job.data,
+      opts: job.opts,
+    }),
+  );
+});
+workerTopHolder.on('drained', async () => {
+  const keys = await redisConnection.keys('debank:jobs:top-holder:failed:*');
+  if (keys.length > 0) {
+    const jobs = await redisConnection.mget(keys);
+    await queueTopHolder.addBulk(jobs.map((job) => JSON.parse(job)));
+    await redisConnection.del(keys);
+    sendTelegramMessage({
+      message: `🚀 Debank top holder jobs recovered: ${jobs.length}`,
+    });
+  }
+});
 
 export const workerRanking = new Worker('debank-ranking', workerProcessor.bind(this), {
   autorun: true,
@@ -190,6 +226,9 @@ workerRanking.on('drained', async () => {
     const jobs = await redisConnection.mget(keys);
     await queueRanking.addBulk(jobs.map((job) => JSON.parse(job)));
     await redisConnection.del(keys);
+    sendTelegramMessage({
+      message: `🚀 Debank ranking jobs recovered: ${jobs.length}`,
+    });
   }
 });
 

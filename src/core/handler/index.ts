@@ -1,5 +1,5 @@
-import { sendTelegramMessage } from '../../service/alert/telegram';
-import { BOT_HEALTH_CHECK_GROUP_ID } from '../../service/alert/telegram/const';
+import { sendTelegramMessage } from '@/service/alert/telegram';
+import { BOT_HEALTH_CHECK_GROUP_ID } from '@/service/alert/telegram/const';
 
 export async function exitHandler(
   options: {

@@ -1,6 +1,6 @@
-import { DebankAPI } from '../../../common/api';
+import { DebankAPI } from '@/common/api';
 import { getDebankCoinsCrawlId, insertDebankCoins } from '../debank.fnc';
-import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../../common/proxy';
+import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '@/common/proxy';
 import { logger } from '../debank.config';
 
 export const fetchCoins = async () => {

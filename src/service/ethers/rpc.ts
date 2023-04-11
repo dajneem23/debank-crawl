@@ -1,5 +1,5 @@
 import Container from 'typedi';
-import { DIRedisClient } from '../../loaders/redis.loader';
+import { DIRedisClient } from '@/loaders/redis.loader';
 
 export const CHAINS_ALIASES = {
   '1': 1,

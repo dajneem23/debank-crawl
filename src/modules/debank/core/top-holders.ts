@@ -1,5 +1,5 @@
-import { DebankAPI } from '../../../common/api';
-import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../../common/proxy';
+import { DebankAPI } from '@/common/api';
+import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '@/common/proxy';
 import { account, browser_uid, connected_dict, current_address } from '../debank.const';
 import { logger } from '../debank.config';
 import { queuePortfolio, queueTopHolder } from '../debank.queue';
@@ -14,9 +14,9 @@ import {
   queryDebankTopHoldersImportantToken,
 } from '../debank.fnc';
 import { DebankJobNames } from '../debank.job';
-import { sendTelegramMessage } from '../../../service/alert/telegram';
-import { connectChrome, createPuppeteerBrowser } from '../../../service/puppeteer';
-import { sleep } from '../../../utils/common';
+import { sendTelegramMessage } from '@/service/alert/telegram';
+import { connectChrome, createPuppeteerBrowser } from '@/service/puppeteer';
+import { sleep } from '@/utils/common';
 import bluebird from 'bluebird';
 import { uniqBy } from 'lodash';
 import { Page } from 'puppeteer';

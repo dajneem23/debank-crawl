@@ -1,7 +1,7 @@
-import { sendTelegramMessage } from '../../../service/alert/telegram';
+import { sendTelegramMessage } from '@/service/alert/telegram';
 import { queueApi, queueInsert, queuePortfolio } from '../debank.queue';
-import { connectChrome, createPuppeteerBrowser } from '../../../service/puppeteer';
-import { WEBSHARE_PROXY_HTTP } from '../../../common/proxy';
+import { connectChrome, createPuppeteerBrowser } from '@/service/puppeteer';
+import { WEBSHARE_PROXY_HTTP } from '@/common/proxy';
 import bluebird from 'bluebird';
 import {
   bulkWriteUsersProject,
@@ -16,10 +16,10 @@ import {
 } from '../debank.fnc';
 import { logger, mgClient } from '../debank.config';
 import { DebankJobNames } from '../debank.job';
-import { sleep } from '../../../utils/common';
-import { DebankAPI } from '../../../common/api';
+import { sleep } from '@/utils/common';
+import { DebankAPI } from '@/common/api';
 import { Page } from 'puppeteer';
-import { setExpireRedisKey } from '../../../service/redis';
+import { setExpireRedisKey } from '@/service/redis';
 export const fetchUserProfile = async ({ address }: { address: string }) => {
   const {
     data: { data, error_code },
@@ -175,7 +175,7 @@ export const addSnapshotUsersProjectJob = async () => {
       crawl_id: +crawl_id,
     },
     opts: {
-      jobId: `'debank:crawl:portfolio:list:${crawl_id}:${index}`,
+      jobId: `debank:crawl:portfolio:list:${crawl_id}:${index}`,
       removeOnComplete: {
         age: 60 * 30,
       },

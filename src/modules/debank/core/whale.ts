@@ -1,14 +1,14 @@
 import { JobsOptions } from 'bullmq';
-import { DebankAPI } from '../../../common/api';
+import { DebankAPI } from '@/common/api';
 import { logger } from '../debank.config';
 import { getDebankWhalesCrawlId, insertDebankWhaleList } from '../debank.fnc';
 import { DebankJobNames } from '../debank.job';
 import { queueWhale } from '../debank.queue';
-import { sendTelegramMessage } from '../../../service/alert/telegram';
-import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '../../../common/proxy';
-import { createPuppeteerBrowser } from '../../../service/puppeteer';
+import { sendTelegramMessage } from '@/service/alert/telegram';
+import { WEBSHARE_PROXY_HTTP, WEBSHARE_PROXY_RANKING_WHALE_TOPHOLDERS_HTTP } from '@/common/proxy';
+import { createPuppeteerBrowser } from '@/service/puppeteer';
 import { account } from '../debank.const';
-import { sleep } from '../../../utils/common';
+import { sleep } from '@/utils/common';
 import { uniqBy } from 'lodash';
 import bluebird from 'bluebird';
 

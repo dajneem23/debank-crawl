@@ -1,5 +1,5 @@
-import { formatDate } from '../../../utils/date';
-import { createPartitionsInDateRange, truncateAndDropTable } from '../../../utils/pg';
+import { formatDate } from '@/utils/date';
+import { createPartitionsInDateRange, truncateAndDropTable } from '@/utils/pg';
 import { logger } from '../debank.config';
 import { MAX_CRAWL_ID } from '../debank.const';
 

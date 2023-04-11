@@ -1,4 +1,4 @@
-import { pgPromiseClientToken, pgpToken } from '../loaders/pg.loader';
+import { pgPromiseClientToken, pgpToken } from '@/loaders/pg.loader';
 import Container from 'typedi';
 import { formatDate } from './date';
 //bulk insert with pg-promise

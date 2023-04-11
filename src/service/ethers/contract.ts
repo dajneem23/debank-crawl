@@ -1,4 +1,4 @@
-import { BSC_SCAN_API_KEYS, ETHER_SCAN_API_KEYS } from '../../config/env';
+import { BSC_SCAN_API_KEYS, ETHER_SCAN_API_KEYS } from '@/config/env';
 import axios from 'axios';
 
 export const getBSCContract = async ({

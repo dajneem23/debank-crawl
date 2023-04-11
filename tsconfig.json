@@ -16,10 +16,10 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "typeRoots": ["./src/types", "./node_modules/@types"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["*"]
     },
     "rootDir": "./src",
     "rootDirs": ["./src"],

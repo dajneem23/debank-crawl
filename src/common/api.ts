@@ -1,8 +1,7 @@
 import { env } from 'process';
 import axios, { AxiosRequestConfig } from 'axios';
 import { WEBSHARE_PROXY_HTTP } from './proxy';
-import { getRedisKey } from '../service/redis';
-import { getDebankAPISign } from '../modules/debank/debank.fnc';
+import { getDebankAPISign } from '@/modules/debank/debank.fnc';
 
 /**
  * @description CoinMarketCap API

@@ -1,4 +1,4 @@
-import { getRuntimeEnv, parseJSONFromFile } from '../utils/common';
+import { getRuntimeEnv, parseJSONFromFile } from '@/utils/common';
 
 // Local env file path
 const LOCAL_ENV_FILEPATH = './env.local.json';

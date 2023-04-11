@@ -1,6 +1,6 @@
 import { Container, Token } from 'typedi';
 
-import { Logger } from '../core/logger';
+import { Logger } from '@/core/logger';
 export const DILogger = new Token<Logger>('LOGGER');
 
 const loggerLoader = (): Logger => {

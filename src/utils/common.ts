@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { BaseQuery, T } from '../types/Common';
+import { BaseQuery, T } from '@/types/Common';
 import { isNull, omitBy, pick } from 'lodash';
 /**
  * Get runtime config from "process" Nodejs

@@ -1,16 +1,16 @@
-import { pgClientToken, pgpToken } from '../../loaders/pg.loader';
+import { pgClientToken, pgpToken } from '@/loaders/pg.loader';
 import Container from 'typedi';
-import { bulkInsert, bulkInsertOnConflict } from '../../utils/pg';
-import { DebankAPI } from '../../common/api';
-import { formatDate } from '../../utils/date';
-import { DIMongoClient } from '../../loaders/mongoDB.loader';
+import { bulkInsert, bulkInsertOnConflict } from '@/utils/pg';
+import { DebankAPI } from '@/common/api';
+import { formatDate } from '@/utils/date';
+import { DIMongoClient } from '@/loaders/mongoDB.loader';
 import { HTTPRequest, HTTPResponse, Page } from 'puppeteer';
-import { sleep } from '../../utils/common';
+import { sleep } from '@/utils/common';
 import { filter, isNil, uniq, uniqBy } from 'lodash';
-import { getRedisKey, setExpireRedisKey } from '../../service/redis';
+import { getRedisKey, setExpireRedisKey } from '@/service/redis';
 import { mgClient } from './debank.config';
 import { ObjectId } from 'mongodb';
-import { ACCOUNT_TAGS, NULL_ACCOUNT } from '../../types/account';
+import { ACCOUNT_TAGS, NULL_ACCOUNT } from '@/types/account';
 
 export const queryDebankCoins = async (
   { select = 'symbol, details' } = {

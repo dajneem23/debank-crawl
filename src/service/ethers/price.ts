@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
-import ERC_20_ABI from '../../common/abi/ERC_20.json';
-import BEP_20_ABI from '../../common/abi/BEP_20.json';
-import { sleep } from '../../utils/common';
-import { Logger } from '../../core/logger';
+import ERC_20_ABI from '@/common/abi/ERC_20.json';
+import BEP_20_ABI from '@/common/abi/BEP_20.json';
+import { sleep } from '@/utils/common';
+import { Logger } from '@/core/logger';
 import { getBestRPCFromRedis } from './rpc';
 const logger = new Logger('getPairPriceAtBlock');
 export const getPairPriceAtBlock = async ({

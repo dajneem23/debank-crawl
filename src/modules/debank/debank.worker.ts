@@ -36,33 +36,39 @@ export const workerPortfolio = new Worker('debank-portfolio', workerProcessor.bi
   },
 });
 workerPortfolio.on('failed', async (job, err) => {
-  await mgClient
-    .db('onchain-log')
-    .collection('debank-portfolio')
-    .insertOne({
-      from: 'debank-portfolio',
-      job: JSON.parse(JSON.stringify(job)),
-      err: err.message,
-    });
-  await setRedisKey(
-    `debank:jobs:portfolio:failed:${job.id}`,
-    JSON.stringify({
-      name: job.name,
-      data: job.data,
-      opts: job.opts,
-    }),
-  );
+  try {
+    await mgClient
+      .db('onchain-log')
+      .collection('debank-portfolio')
+      .insertOne({
+        from: 'debank-portfolio',
+        job: JSON.parse(JSON.stringify(job)),
+        err: err.message,
+      });
+    await setRedisKey(
+      `debank:jobs:portfolio:failed:${job.id}`,
+      JSON.stringify({
+        name: job.name,
+        data: job.data,
+        opts: job.opts,
+      }),
+    );
+  } catch (error) {
+    console.error(error);
+  }
 });
 workerPortfolio.on('drained', async () => {
-  const keys = await redisConnection.keys('debank:jobs:portfolio:failed:*');
-  if (keys.length > 0) {
-    const jobs = await redisConnection.mget(keys);
-    await queuePortfolio.addBulk(jobs.map((job) => JSON.parse(job)));
-    await redisConnection.del(keys);
-    sendTelegramMessage({
-      message: `🚀 Debank portfolio jobs recovered: ${jobs.length}`,
-    });
-  }
+  try {
+    const keys = await redisConnection.keys('debank:jobs:portfolio:failed:*');
+    if (keys.length > 0) {
+      const jobs = await redisConnection.mget(keys);
+      await queuePortfolio.addBulk(jobs.map((job) => JSON.parse(job)));
+      await redisConnection.del(keys);
+      sendTelegramMessage({
+        message: `🚀 Debank portfolio jobs recovered: ${jobs.length}`,
+      });
+    }
+  } catch (error) {}
 });
 
 export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
@@ -82,33 +88,37 @@ export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
   },
 });
 workerApi.on('failed', async (job, err) => {
-  await mgClient
-    .db('onchain-log')
-    .collection('debank-api')
-    .insertOne({
-      from: 'debank-api',
-      job: JSON.parse(JSON.stringify(job)),
-      err: err.message,
-    });
-  await setRedisKey(
-    `debank:jobs:api:failed:${job.id}`,
-    JSON.stringify({
-      name: job.name,
-      data: job.data,
-      opts: job.opts,
-    }),
-  );
+  try {
+    await mgClient
+      .db('onchain-log')
+      .collection('debank-api')
+      .insertOne({
+        from: 'debank-api',
+        job: JSON.parse(JSON.stringify(job)),
+        err: err.message,
+      });
+    await setRedisKey(
+      `debank:jobs:api:failed:${job.id}`,
+      JSON.stringify({
+        name: job.name,
+        data: job.data,
+        opts: job.opts,
+      }),
+    );
+  } catch (error) {}
 });
 workerApi.on('drained', async () => {
-  const keys = await redisConnection.keys('debank:jobs:api:failed:*');
-  if (keys.length > 0) {
-    const jobs = await redisConnection.mget(keys);
-    await queueApi.addBulk(jobs.map((job) => JSON.parse(job)));
-    await redisConnection.del(keys);
-    sendTelegramMessage({
-      message: `🚀 Debank api jobs recovered: ${jobs.length}`,
-    });
-  }
+  try {
+    const keys = await redisConnection.keys('debank:jobs:api:failed:*');
+    if (keys.length > 0) {
+      const jobs = await redisConnection.mget(keys);
+      await queueApi.addBulk(jobs.map((job) => JSON.parse(job)));
+      await redisConnection.del(keys);
+      sendTelegramMessage({
+        message: `🚀 Debank api jobs recovered: ${jobs.length}`,
+      });
+    }
+  } catch (error) {}
 });
 export const workerInsert = new Worker('debank-insert', workerProcessor.bind(this), {
   autorun: true,
@@ -158,33 +168,37 @@ export const workerTopHolder = new Worker('debank-top-holder', workerProcessor.b
   },
 });
 workerTopHolder.on('failed', async (job, err) => {
-  await mgClient
-    .db('onchain-log')
-    .collection('debank-top-holder')
-    .insertOne({
-      from: 'debank-top-holder',
-      job: JSON.parse(JSON.stringify(job)),
-      err: err.message,
-    });
-  await setRedisKey(
-    `debank:jobs:top-holder:failed:${job.id}`,
-    JSON.stringify({
-      name: job.name,
-      data: job.data,
-      opts: job.opts,
-    }),
-  );
+  try {
+    await mgClient
+      .db('onchain-log')
+      .collection('debank-top-holder')
+      .insertOne({
+        from: 'debank-top-holder',
+        job: JSON.parse(JSON.stringify(job)),
+        err: err.message,
+      });
+    await setRedisKey(
+      `debank:jobs:top-holder:failed:${job.id}`,
+      JSON.stringify({
+        name: job.name,
+        data: job.data,
+        opts: job.opts,
+      }),
+    );
+  } catch (error) {}
 });
 workerTopHolder.on('drained', async () => {
-  const keys = await redisConnection.keys('debank:jobs:top-holder:failed:*');
-  if (keys.length > 0) {
-    const jobs = await redisConnection.mget(keys);
-    await queueTopHolder.addBulk(jobs.map((job) => JSON.parse(job)));
-    await redisConnection.del(keys);
-    sendTelegramMessage({
-      message: `🚀 Debank top holder jobs recovered: ${jobs.length}`,
-    });
-  }
+  try {
+    const keys = await redisConnection.keys('debank:jobs:top-holder:failed:*');
+    if (keys.length > 0) {
+      const jobs = await redisConnection.mget(keys);
+      await queueTopHolder.addBulk(jobs.map((job) => JSON.parse(job)));
+      await redisConnection.del(keys);
+      sendTelegramMessage({
+        message: `🚀 Debank top holder jobs recovered: ${jobs.length}`,
+      });
+    }
+  } catch (error) {}
 });
 
 export const workerRanking = new Worker('debank-ranking', workerProcessor.bind(this), {
@@ -203,33 +217,37 @@ export const workerRanking = new Worker('debank-ranking', workerProcessor.bind(t
   },
 });
 workerRanking.on('failed', async (job, err) => {
-  await mgClient
-    .db('onchain-log')
-    .collection('debank-ranking')
-    .insertOne({
-      from: 'debank-ranking',
-      job: JSON.parse(JSON.stringify(job)),
-      err: err.message,
-    });
-  await setRedisKey(
-    `debank:jobs:ranking:failed:${job.id}`,
-    JSON.stringify({
-      name: job.name,
-      data: job.data,
-      opts: job.opts,
-    }),
-  );
+  try {
+    await mgClient
+      .db('onchain-log')
+      .collection('debank-ranking')
+      .insertOne({
+        from: 'debank-ranking',
+        job: JSON.parse(JSON.stringify(job)),
+        err: err.message,
+      });
+    await setRedisKey(
+      `debank:jobs:ranking:failed:${job.id}`,
+      JSON.stringify({
+        name: job.name,
+        data: job.data,
+        opts: job.opts,
+      }),
+    );
+  } catch (error) {}
 });
 workerRanking.on('drained', async () => {
-  const keys = await redisConnection.keys('debank:jobs:ranking:failed:*');
-  if (keys.length > 0) {
-    const jobs = await redisConnection.mget(keys);
-    await queueRanking.addBulk(jobs.map((job) => JSON.parse(job)));
-    await redisConnection.del(keys);
-    sendTelegramMessage({
-      message: `🚀 Debank ranking jobs recovered: ${jobs.length}`,
-    });
-  }
+  try {
+    const keys = await redisConnection.keys('debank:jobs:ranking:failed:*');
+    if (keys.length > 0) {
+      const jobs = await redisConnection.mget(keys);
+      await queueRanking.addBulk(jobs.map((job) => JSON.parse(job)));
+      await redisConnection.del(keys);
+      sendTelegramMessage({
+        message: `🚀 Debank ranking jobs recovered: ${jobs.length}`,
+      });
+    }
+  } catch (error) {}
 });
 
 export const workerCommon = new Worker('debank-common', workerProcessor.bind(this), {

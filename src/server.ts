@@ -3,6 +3,7 @@ import moduleAlias from 'module-alias';
 import 'reflect-metadata';
 /**
  * @description register all modules alias
+ * TODO: find a way to auto register all modules alias
  */
 const loadModulesAlias = async () => {
   await moduleAlias.addAliases({

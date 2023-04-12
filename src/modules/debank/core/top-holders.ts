@@ -328,7 +328,7 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
   const browser = process.env.MODE == 'production' || true ? await connectChrome() : await createPuppeteerBrowser();
   // const browser = await createPuppeteerBrowser();
   // const context = await browser.createIncognitoBrowserContext();
-  const context = await browser.defaultBrowserContext();
+  const context = await browser.createIncognitoBrowserContext();
   let jobData = [];
   const page = await context.newPage();
   page.on('request', (request) => {
@@ -348,9 +348,14 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
         waitUntil: 'load',
         timeout: 1000 * 60,
       }),
-      page.waitForResponse((response) => {
-        return response.url().includes(DebankAPI.Coin.top_holders.endpoint);
-      }),
+      page.waitForResponse(
+        (response) => {
+          return response.url().includes(DebankAPI.Coin.top_holders.endpoint);
+        },
+        {
+          timeout: 1000 * 60,
+        },
+      ),
     ]);
     const dataJson = await data.json();
     const {
@@ -373,7 +378,7 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
       },
     );
     await page.reload();
-    await sleep(15 * 1000);
+    await sleep(10 * 1000);
     const listIndex = Array.from(Array(Math.ceil(total_count / DebankAPI.Coin.top_holders.params.limit))).reduce(
       (acc, _, index) => {
         acc.push(index * DebankAPI.Coin.top_holders.params.limit);
@@ -414,7 +419,7 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
   } finally {
     //cleanup
     await page.close();
-    // await context.close();
+    await context.close();
     await browser.close();
     // browser.disconnect();
   }

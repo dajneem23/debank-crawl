@@ -5,25 +5,28 @@ import 'reflect-metadata';
  * @description register all modules alias
  * TODO: find a way to auto register all modules alias
  */
-const loadModulesAlias = async () => {
-  await moduleAlias.addAliases({
-    '@/modules': __dirname + '/modules',
-    '@/loaders': __dirname + '/loaders',
-    '@/service': __dirname + '/service',
-    '@/core': __dirname + '/core',
-    '@/config': __dirname + '/config',
-    '@/utils': __dirname + '/utils',
-    '@/types': __dirname + '/types',
-    '@/common': __dirname + '/common',
-  });
-};
 /**
  *  @description this import is required to initialize service class
  */
 (async () => {
   try {
     // ----------------------------------------------------------------
-    await loadModulesAlias();
+    /**
+     * @description register all modules alias
+     * TODO: find a way to auto register all modules alias
+     */
+    (() => {
+      moduleAlias.addAliases({
+        '@/modules': __dirname + '/modules',
+        '@/loaders': __dirname + '/loaders',
+        '@/service': __dirname + '/service',
+        '@/core': __dirname + '/core',
+        '@/config': __dirname + '/config',
+        '@/utils': __dirname + '/utils',
+        '@/types': __dirname + '/types',
+        '@/common': __dirname + '/common',
+      });
+    })();
     // ----------------------------------------------------------------
 
     await import('./config/env');

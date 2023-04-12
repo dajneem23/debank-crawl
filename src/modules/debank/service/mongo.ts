@@ -164,7 +164,7 @@ export const updateDebankIdForTokenCollection = async () => {
 export const getAddressBook = async ({ address }: { address: string }) => {
   const collection = mgClient.db('onchain').collection('address-book');
   const address_book = await collection.findOne({
-    address,
+    address: new RegExp(address, 'i'),
   });
   return address_book;
 };
@@ -183,34 +183,7 @@ export const getTokenTopHolders = async ({ id }) => {
   );
   return { top_holders };
 };
-export const snapshotTokenTopHolders = async ({ id }) => {
-  const collection = mgClient.db('onchain').collection('debank-top-holders');
-  const { top_holders } = await getTokenTopHolders({ id });
-  const { holders } = top_holders;
-  const stats = {};
-  await Promise.all(
-    holders.map(async (address: string) => {
-      const {
-        address_book: { tags, labels } = {
-          tags: [],
-          labels: [],
-        },
-      } = (await getAddressBook({ address })) || {
-        address_book: {
-          tags: [],
-          labels: [],
-        },
-      };
-      // console.log('address_book', { address, address_book: { tags, labels } });
-      Object.values(ACCOUNT_TAGS).forEach((tag) => {
-        if (tags.includes(tag)) {
-          stats[tag] = stats[tag] ? stats[tag] + 1 : 1;
-        }
-      });
-    }),
-  );
-  // console.log('stats', { stats });
-};
+
 export const insertDebankUserAssetPortfolio = async ({
   user_address,
   token_list = [],
@@ -424,12 +397,40 @@ export const insertDebankTopHolders = async ({
   const MGValues = holders.map(({ id }) => {
     return id;
   });
+  const stats = await Promise.all(
+    holders.reduce(async (acc, { id }) => {
+      const {
+        address_book: { tags, labels } = {
+          tags: [],
+          labels: [],
+        },
+      } = (await getAddressBook({
+        address: id,
+      })) || {
+        address_book: {
+          tags: [],
+          labels: [],
+        },
+      };
+
+      if (tags.length) {
+        Object.values(ACCOUNT_TAGS).forEach((tag) => {
+          if (tags.includes(tag)) {
+            acc[tag] = acc[tag] ? acc[tag] + 1 : 1;
+          }
+        });
+      }
+
+      return acc;
+    }, <any>{}),
+  );
 
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({
     id,
     updated_at: new Date(),
     holders: MGValues,
     crawl_id: +crawl_id,
+    stats,
   });
   await bulkInsert({
     data: PGvalues,

@@ -1,4 +1,6 @@
+import { ACCOUNT_TAGS } from '@/types/account';
 import { mgClient } from '../debank.config';
+import { getAddressBook, getTokenTopHolders } from './mongo';
 
 export const DOLPHIN_LABEL = {
   S: {
@@ -103,4 +105,70 @@ export const isTokenFan = async ({ balance_list, usd_value }: { balance_list: an
       tokens: tokensFan.map(({ symbol }) => symbol),
     }
   );
+};
+export const snapshotTokenTopHolders = async ({ id }) => {
+  const collection = mgClient.db('onchain').collection('debank-top-holders');
+  const { top_holders } = await getTokenTopHolders({ id });
+  const { holders } = top_holders;
+  const stats = {};
+  await Promise.all(
+    holders.map(async (address: string) => {
+      const {
+        address_book: { tags, labels } = {
+          tags: [],
+          labels: [],
+        },
+      } = (await getAddressBook({ address })) || {
+        address_book: {
+          tags: [],
+          labels: [],
+        },
+      };
+      // console.log('address_book', { address, address_book: { tags, labels } });
+      Object.values(ACCOUNT_TAGS).forEach((tag) => {
+        if (tags.includes(tag)) {
+          stats[tag] = stats[tag] ? stats[tag] + 1 : 1;
+        }
+      });
+    }),
+  );
+};
+//TODO: snapshotTokenTopHolders by crawl_id
+export const snapshotTokensTopHoldersByCrawlId = async ({ crawl_id }) => {
+  const collection = mgClient.db('onchain').collection('debank-top-holders');
+  const tokens = await collection.find({ crawl_id: +crawl_id }).limit(100).toArray();
+  // console.log('tokens', tokens.length);
+  const stats = {};
+  for (const { id } of tokens) {
+    stats[id] = {};
+    const { top_holders } = await getTokenTopHolders({ id });
+    const { holders } = top_holders;
+    await Promise.all(
+      holders.map(async (address: string) => {
+        const {
+          address_book: { tags, labels } = {
+            tags: [],
+            labels: [],
+          },
+        } = (await getAddressBook({
+          address,
+        })) || {
+          address_book: {
+            tags: [],
+            labels: [],
+          },
+        };
+        if (!tags.length) return;
+        // console.log('address_book', { address, address_book: { tags, labels } });
+        Object.values(ACCOUNT_TAGS).forEach((tag) => {
+          if (tags.includes(tag)) {
+            stats[id][tag] = stats[id][tag] ? stats[id][tag] + 1 : 1;
+            // console.log(stats[id][tag]);
+          }
+        });
+      }),
+    );
+    // console.log('stats', { stats });
+  }
+  // console.log('stats', { stats });
 };

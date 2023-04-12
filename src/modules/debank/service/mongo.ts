@@ -397,10 +397,11 @@ export const insertDebankTopHolders = async ({
   const MGValues = holders.map(({ id }) => {
     return id;
   });
-  const stats = await Promise.all(
-    holders.reduce(async (acc, { id }) => {
+  const stats = {};
+  await Promise.all(
+    holders.map(async ({ id }) => {
       const {
-        address_book: { tags, labels } = {
+        address_book: { tags = [], labels } = {
           tags: [],
           labels: [],
         },
@@ -412,17 +413,15 @@ export const insertDebankTopHolders = async ({
           labels: [],
         },
       };
-
+      if (!tags) return;
       if (tags.length) {
         Object.values(ACCOUNT_TAGS).forEach((tag) => {
           if (tags.includes(tag)) {
-            acc[tag] = acc[tag] ? acc[tag] + 1 : 1;
+            stats[tag] = stats[tag] ? stats[tag] + 1 : 1;
           }
         });
       }
-
-      return acc;
-    }, <any>{}),
+    }),
   );
 
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({

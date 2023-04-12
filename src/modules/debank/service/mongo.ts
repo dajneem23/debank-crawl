@@ -168,6 +168,30 @@ export const getAddressBook = async ({ address }: { address: string }) => {
   });
   return address_book;
 };
+
+export const getAddressesTagsFromAddressBook = async ({ addresses }: { addresses: string[] }) => {
+  const collection = mgClient.db('onchain').collection('address-book');
+  const tags = await collection
+    .aggregate([
+      {
+        $match: {
+          address: {
+            $in: addresses,
+          },
+        },
+      },
+      {
+        $project: {
+          address: 1,
+          tags: 1,
+          labels: 1,
+        },
+      },
+    ])
+    .toArray();
+  return tags;
+};
+
 export const getTokenTopHolders = async ({ id }) => {
   const collection = mgClient.db('onchain').collection('debank-top-holders');
 
@@ -397,32 +421,21 @@ export const insertDebankTopHolders = async ({
   const MGValues = holders.map(({ id }) => {
     return id;
   });
-  const stats = {};
-  await Promise.all(
-    holders.map(async ({ id }) => {
-      const {
-        address_book: { tags = [], labels } = {
-          tags: [],
-          labels: [],
-        },
-      } = (await getAddressBook({
-        address: id,
-      })) || {
-        address_book: {
-          tags: [],
-          labels: [],
-        },
-      };
-      if (!tags) return;
-      if (tags.length) {
-        Object.values(ACCOUNT_TAGS).forEach((tag) => {
-          if (tags.includes(tag)) {
-            stats[tag] = stats[tag] ? stats[tag] + 1 : 1;
-          }
-        });
+  const accounts = await getAddressesTagsFromAddressBook({
+    addresses: MGValues,
+  });
+  const stats = accounts.reduce((acc: any, { address, tags }: any) => {
+    if (!tags || !tags.length) return acc;
+    Object.values(ACCOUNT_TAGS).forEach((tag) => {
+      if (tags.includes(tag)) {
+        if (!acc[tag]) {
+          acc[tag] = 0;
+        }
+        acc[tag] += 1;
       }
-    }),
-  );
+    });
+    return acc;
+  }, {});
 
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({
     id,

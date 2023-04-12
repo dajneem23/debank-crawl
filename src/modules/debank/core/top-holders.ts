@@ -11,17 +11,12 @@ import { account, browser_uid, connected_dict, current_address } from '../debank
 import { collectApiSign, getDebankAPISign, isValidTopHoldersData } from '../debank.fnc';
 import { DebankJobNames } from '../debank.job';
 import { queuePortfolio, queueTopHolder } from '../debank.queue';
-import { insertDebankTopHolders } from '../service/mongo';
-import {
-  getDebankCrawlId,
-  getDebankTopHoldersCrawlId,
-  queryDebankAllCoins,
-  queryDebankTopHoldersImportantToken,
-} from '../service/pg';
+import { getDebankCoinIds, getDebankTopHoldersCrawlId, insertDebankTopHolders } from '../service/mongo';
+import { getDebankCrawlId, queryDebankAllCoins, queryDebankTopHoldersImportantToken } from '../service/pg';
 
 export const addFetchTopHoldersByUsersAddressJob = async () => {
   const { rows } = await queryDebankTopHoldersImportantToken();
-
+  //! IMPORTANT: crawl_id is used to identify the crawl session!!carefully
   const crawl_id = await getDebankCrawlId();
 
   const NUM_ADDRESSES_PER_JOB = 5;
@@ -209,17 +204,18 @@ export const fetchTopHoldersPage = async ({
 };
 export const addFetchTopHoldersJob = async () => {
   try {
-    const crawl_id = await getDebankTopHoldersCrawlId();
-    const allCoins = await queryDebankAllCoins();
+    //! WARNING: Get crawl_id from MongoDB carefully
+    const crawl_id = +(await getDebankTopHoldersCrawlId());
+    const allCoins = await getDebankCoinIds();
     //164
-    const jobs = allCoins.map(({ db_id }) => ({
+    const jobs = allCoins.map(({ id }) => ({
       name: DebankJobNames['debank:crawl:top-holders'],
       data: {
-        id: db_id,
+        id,
         crawl_id: +crawl_id,
       },
       opts: {
-        jobId: `debank:crawl:top-holders:${crawl_id}:${db_id}`,
+        jobId: `debank:crawl:top-holders:${crawl_id}:${id}`,
         removeOnComplete: {
           age: 60 * 15,
         },
@@ -231,10 +227,11 @@ export const addFetchTopHoldersJob = async () => {
         attempts: 10,
       },
     }));
-    await queueTopHolder.addBulk(jobs);
-    const countJobs = await queueTopHolder.getJobCounts();
-    await sendTelegramMessage({
-      message: `[debank-top-holder]\n
+    if (process.env.NODE_ENV === 'production') {
+      await queueTopHolder.addBulk(jobs);
+      const countJobs = await queueTopHolder.getJobCounts();
+      await sendTelegramMessage({
+        message: `[debank-top-holder]\n
       [add-fetch-top-holders-job]\n
       ----------------------------------\n
       crawl_id::${crawl_id}\n
@@ -246,7 +243,8 @@ export const addFetchTopHoldersJob = async () => {
       - ❌failed::${countJobs.failed}\n
       ----------------------------------\n
       `,
-    });
+      });
+    }
   } catch (error) {
     logger.error('error', '[addFetchTopHoldersJob:error]', JSON.stringify(error));
     throw error;

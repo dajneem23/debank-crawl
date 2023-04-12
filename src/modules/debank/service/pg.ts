@@ -266,7 +266,7 @@ export const insertDebankCoins = async ({ coins, crawl_id }: { coins: any[]; cra
     details: JSON.stringify(coin),
     crawl_id,
     crawl_time: new Date(),
-    cg_id: coin.id,
+    db_id: coin.id,
   }));
 
   if (data.length) {

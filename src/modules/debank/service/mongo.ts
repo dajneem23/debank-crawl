@@ -33,6 +33,30 @@ export const getAccountSnapshotCrawlId = async () => {
     return `${formatDate(new Date(), 'YYYYMMDD')}01`;
   }
 };
+export const getDebankTopHoldersCrawlId = async () => {
+  const lastCrawlId = await mgClient
+    .db('onchain')
+    .collection('debank-top-holders')
+    .findOne(
+      {},
+      {
+        sort: { crawl_id: -1 },
+      },
+    );
+  if (lastCrawlId?.crawl_id && lastCrawlId.crawl_id) {
+    const crawl_id = lastCrawlId.crawl_id.toString();
+    const crawl_id_date = crawl_id.slice(0, 8);
+    const crawl_id_number = parseInt(crawl_id.slice(8));
+    if (crawl_id_date === formatDate(new Date(), 'YYYYMMDD')) {
+      return `${crawl_id_date}${crawl_id_number + 1 >= 10 ? crawl_id_number + 1 : '0' + (crawl_id_number + 1)}`;
+    } else {
+      return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+    }
+  } else {
+    return `${formatDate(new Date(), 'YYYYMMDD')}01`;
+  }
+};
+
 export const bulkWriteUsersProject = async (data: any[]) => {
   const collection = mgClient.db('onchain-dev').collection('account-project-snapshot');
   await collection.insertMany(data);
@@ -411,13 +435,6 @@ export const insertDebankTopHolders = async ({
   // });
 
   if (!holders.length) return;
-  const PGvalues = holders.map((holder) => ({
-    symbol: id,
-    details: JSON.stringify(holder).replace(/\\u0000/g, ''),
-    user_address: holder.id,
-    crawl_id: +crawl_id,
-    crawl_time,
-  }));
   const MGValues = holders.map(({ id }) => {
     return id;
   });
@@ -444,8 +461,37 @@ export const insertDebankTopHolders = async ({
     crawl_id: +crawl_id,
     stats,
   });
-  await bulkInsert({
-    data: PGvalues,
-    table: 'debank-top-holders',
-  });
+  // const PGvalues = holders.map((holder) => ({
+  //   symbol: id,
+  //   details: JSON.stringify(holder).replace(/\\u0000/g, ''),
+  //   user_address: holder.id,
+  //   crawl_id: +crawl_id,
+  //   crawl_time,
+  // }));
+  // await bulkInsert({
+  //   data: PGvalues,
+  //   table: 'debank-top-holders',
+  // });
+};
+
+export const getDebankCoinIds = async () => {
+  const coins = await mgClient
+    .db('onchain')
+    .collection('debank-coin')
+    .aggregate([
+      {
+        $match: {
+          id: {
+            $ne: null,
+          },
+        },
+      },
+      {
+        $project: {
+          id: 1,
+        },
+      },
+    ])
+    .toArray();
+  return coins;
 };

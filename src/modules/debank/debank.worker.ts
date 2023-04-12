@@ -158,9 +158,10 @@ export const workerWhale = new Worker('debank-whale', workerProcessor.bind(this)
 export const workerTopHolder = new Worker('debank-top-holder', workerProcessor.bind(this), {
   autorun: true,
   connection: redisConnection,
-  lockDuration: 1000 * 60 * 4,
-  skipLockRenewal: true,
+  lockDuration: 1000 * 60 * 3.5,
   concurrency: 5,
+
+  skipLockRenewal: true,
   stalledInterval: 1000 * 15,
   maxStalledCount: 5,
   metrics: {

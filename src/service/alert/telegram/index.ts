@@ -11,6 +11,10 @@ export const sendTelegramMessage = async ({
   chatId?: string;
   options?: TelegramBot.SendMessageOptions;
 }) => {
-  const bot = Container.get(telegramBotToken);
-  await bot.sendMessage(chatId, message, options);
+  try {
+    const bot = Container.get(telegramBotToken);
+    await bot.sendMessage(chatId, message, options);
+  } catch (err) {
+    console.error(err);
+  }
 };

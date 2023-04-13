@@ -1,6 +1,6 @@
 import { formatDate } from '@/utils/date';
 import { mgClient } from '../debank.config';
-import { filter, isNil, uniq } from 'lodash';
+import { filter, findKey, isNil, uniq } from 'lodash';
 import { ACCOUNT_TAGS, NULL_ACCOUNT } from '@/types/account';
 import { bulkInsert } from '@/utils/pg';
 import { queryDebankPools } from './pg';
@@ -441,39 +441,44 @@ export const insertDebankTopHolders = async ({
   const accounts = await getAddressesTagsFromAddressBook({
     addresses: MGValues,
   });
-  const stats = {
-    tags: {},
-    amount: 0,
-    usd_value: 0,
-  };
-  const tags = accounts.reduce((acc: any, { address, tags }: any) => {
+  const stats = accounts.reduce((acc: any, { address, tags }: any) => {
     if (!tags || !tags.length) return acc;
     Object.values(ACCOUNT_TAGS).forEach((tag) => {
       if (tags.includes(tag)) {
-        if (!acc[tag]) {
-          acc[tag] = 0;
+        const index = acc.findIndex(({ tag: _tag }: any) => _tag == tag);
+        if (index > -1) {
+          acc[index].count += 1;
+        } else {
+          acc.push({
+            tag,
+            name: findKey(ACCOUNT_TAGS, (t) => t == tag),
+            count: 1,
+            amount: 0,
+          });
         }
-        acc[tag] += 1;
       }
     });
     return acc;
-  }, {});
-  const amount = holders.reduce((acc: number, { amount, id: holder_id }: any) => {
-    if (accounts.some(({ address }) => address == holder_id)) {
-      return acc + +amount;
-    }
-    return acc;
-  }, 0);
+  }, []);
 
-  const usd_value = holders.reduce((acc: number, { id: holder_id, top_protocols }: any) => {
-    if (accounts.some(({ address }) => address == holder_id)) {
-      return acc + (top_protocols.find(({ id: protocol_id }: any) => protocol_id == id)?.usd_value || 0);
-    }
-    return acc;
-  }, 0);
-  stats.tags = tags;
-  stats.amount = amount;
-  stats.usd_value = usd_value;
+  accounts.forEach(({ address, tags }) => {
+    if (!tags || !tags.length) return;
+    Object.values(ACCOUNT_TAGS).forEach((tag) => {
+      if (tags.includes(tag)) {
+        const index = stats.findIndex(({ tag: _tag }: any) => _tag == tag);
+        const amount = holders.find(({ id }) => id == address)?.amount || 0;
+        if (index > -1) {
+          stats[index].amount += amount;
+        } else {
+          stats.push({
+            tag,
+            name: findKey(ACCOUNT_TAGS, (t) => t == tag),
+            amount,
+          });
+        }
+      }
+    });
+  });
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({
     id,
     updated_at: new Date(),

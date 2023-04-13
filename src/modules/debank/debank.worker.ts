@@ -2,11 +2,11 @@ import { redisConnection } from '@/loaders/config.loader';
 import { sendTelegramMessage } from '@/service/alert/telegram';
 import { setRedisKey } from '@/service/redis';
 import { MetricsTime, Worker } from 'bullmq';
-import { mgClient } from './debank.config';
+import { WORKER_CONFIG, mgClient } from './debank.config';
 import { workerProcessor } from './debank.process';
 import { queueApi, queuePortfolio, queueRanking, queueTopHolder } from './debank.queue';
 
-export const worker = new Worker('debank', workerProcessor.bind(this), {
+export const worker = new Worker('debank', workerProcessor, {
   autorun: true,
   connection: redisConnection,
   lockDuration: 1000 * 60 * 2.5,
@@ -19,22 +19,7 @@ export const worker = new Worker('debank', workerProcessor.bind(this), {
   },
 });
 
-export const workerPortfolio = new Worker('debank-portfolio', workerProcessor.bind(this), {
-  autorun: true,
-  connection: redisConnection,
-  lockDuration: 1000 * 60 * 4,
-  concurrency: 6,
-  // limiter: {
-  //   max: 15,
-  //   duration: 1000 * 60,
-  // },
-  stalledInterval: 1000 * 30,
-  skipLockRenewal: true,
-  maxStalledCount: 5,
-  metrics: {
-    maxDataPoints: MetricsTime.ONE_WEEK,
-  },
-});
+export const workerPortfolio = new Worker('debank-portfolio', workerProcessor, WORKER_CONFIG['debank']);
 workerPortfolio.on('failed', async (job, err) => {
   try {
     await mgClient
@@ -71,22 +56,7 @@ workerPortfolio.on('drained', async () => {
   } catch (error) {}
 });
 
-export const workerApi = new Worker('debank-api', workerProcessor.bind(this), {
-  autorun: true,
-  connection: redisConnection,
-  lockDuration: 1000 * 60 * 3,
-  concurrency: 25,
-  // limiter: {
-  //   max: 50,
-  //   duration: 1000 * 60,
-  // },
-  stalledInterval: 1000 * 30,
-  skipLockRenewal: true,
-  maxStalledCount: 5,
-  metrics: {
-    maxDataPoints: MetricsTime.ONE_WEEK,
-  },
-});
+export const workerApi = new Worker('debank-api', workerProcessor, WORKER_CONFIG['debank-api']);
 workerApi.on('failed', async (job, err) => {
   try {
     await mgClient
@@ -120,54 +90,11 @@ workerApi.on('drained', async () => {
     }
   } catch (error) {}
 });
-export const workerInsert = new Worker('debank-insert', workerProcessor.bind(this), {
-  autorun: true,
-  connection: redisConnection,
-  lockDuration: 1000 * 60,
-  concurrency: 50,
-  // limiter: {
-  //   max: 500,
-  //   duration: 1000,
-  // },
-  stalledInterval: 1000 * 60,
-  maxStalledCount: 5,
-  metrics: {
-    maxDataPoints: MetricsTime.ONE_WEEK,
-  },
-});
+export const workerInsert = new Worker('debank-insert', workerProcessor, WORKER_CONFIG['debank-insert']);
 
-export const workerWhale = new Worker('debank-whale', workerProcessor.bind(this), {
-  autorun: true,
-  connection: redisConnection,
-  lockDuration: 1000 * 60,
-  concurrency: 5,
-  skipLockRenewal: true,
+export const workerWhale = new Worker('debank-whale', workerProcessor, WORKER_CONFIG['debank-whale']);
 
-  limiter: {
-    max: 50,
-    duration: 1000,
-  },
-  stalledInterval: 1000 * 60,
-  maxStalledCount: 5,
-  metrics: {
-    maxDataPoints: MetricsTime.ONE_WEEK,
-  },
-  // drainDelay: 1000 * 60 * 2,
-});
-
-export const workerTopHolder = new Worker('debank-top-holder', workerProcessor.bind(this), {
-  autorun: true,
-  connection: redisConnection,
-  lockDuration: 1000 * 60 * 3.5,
-  concurrency: 5,
-
-  skipLockRenewal: true,
-  stalledInterval: 1000 * 15,
-  maxStalledCount: 5,
-  metrics: {
-    maxDataPoints: MetricsTime.ONE_WEEK,
-  },
-});
+export const workerTopHolder = new Worker('debank-top-holder', workerProcessor, WORKER_CONFIG['debank-top-holder']);
 workerTopHolder.on('failed', async (job, err) => {
   try {
     await mgClient
@@ -202,21 +129,7 @@ workerTopHolder.on('drained', async () => {
   } catch (error) {}
 });
 
-export const workerRanking = new Worker('debank-ranking', workerProcessor.bind(this), {
-  autorun: true,
-  connection: redisConnection,
-  lockDuration: 1000 * 60,
-  concurrency: 5,
-  limiter: {
-    max: 50,
-    duration: 1000,
-  },
-  stalledInterval: 1000 * 60,
-  maxStalledCount: 5,
-  metrics: {
-    maxDataPoints: MetricsTime.ONE_WEEK,
-  },
-});
+export const workerRanking = new Worker('debank-ranking', workerProcessor, WORKER_CONFIG['debank-ranking']);
 workerRanking.on('failed', async (job, err) => {
   try {
     await mgClient
@@ -251,18 +164,9 @@ workerRanking.on('drained', async () => {
   } catch (error) {}
 });
 
-export const workerCommon = new Worker('debank-common', workerProcessor.bind(this), {
-  autorun: true,
-  connection: redisConnection,
-  lockDuration: 1000 * 60 * 5,
-  concurrency: 5,
-  limiter: {
-    max: 60,
-    duration: 60 * 1000,
-  },
-  stalledInterval: 1000 * 60,
-  maxStalledCount: 5,
-  metrics: {
-    maxDataPoints: MetricsTime.ONE_WEEK,
-  },
-});
+export const workerCommon = new Worker('debank-common', workerProcessor, WORKER_CONFIG['debank-common']);
+
+setInterval(async () => {
+  //recheck concurrency
+  console.info('workerTopHolder.concurrency::', workerTopHolder.concurrency);
+}, 1000 * 60 * 60);

@@ -441,7 +441,12 @@ export const insertDebankTopHolders = async ({
   const accounts = await getAddressesTagsFromAddressBook({
     addresses: MGValues,
   });
-  const stats = accounts.reduce((acc: any, { address, tags }: any) => {
+  const stats = {
+    tags: {},
+    amount: 0,
+    usd_value: 0,
+  };
+  const tags = accounts.reduce((acc: any, { address, tags }: any) => {
     if (!tags || !tags.length) return acc;
     Object.values(ACCOUNT_TAGS).forEach((tag) => {
       if (tags.includes(tag)) {
@@ -453,7 +458,22 @@ export const insertDebankTopHolders = async ({
     });
     return acc;
   }, {});
+  const amount = holders.reduce((acc: number, { amount, id: holder_id }: any) => {
+    if (accounts.some(({ address }) => address == holder_id)) {
+      return acc + +amount;
+    }
+    return acc;
+  }, 0);
 
+  const usd_value = holders.reduce((acc: number, { id: holder_id, top_protocols }: any) => {
+    if (accounts.some(({ address }) => address == holder_id)) {
+      return acc + (top_protocols.find(({ id: protocol_id }: any) => protocol_id == id)?.usd_value || 0);
+    }
+    return acc;
+  }, 0);
+  stats.tags = tags;
+  stats.amount = amount;
+  stats.usd_value = usd_value;
   await mgClient.db('onchain').collection('debank-top-holders').insertOne({
     id,
     updated_at: new Date(),

@@ -42,10 +42,18 @@ export const createPuppeteerBrowser = async (
   return browser;
 };
 
-export const connectChrome = async () => {
-  const host = await selectBestServer();
+export const connectChrome = async (
+  {
+    host,
+  }: {
+    host?: string;
+  } = {
+    host: '',
+  },
+) => {
+  const _host = host || (await selectBestServer());
   const browser = await puppeteer.connect({
-    browserWSEndpoint: `ws://${host}:9999?stealth`,
+    browserWSEndpoint: `ws://${_host}:9999?stealth`,
     defaultViewport: {
       width: 1920,
       height: 1080,

@@ -490,6 +490,11 @@ export const DebankAPI = {
         port: WEBSHARE_PROXY_HTTP.port,
         auth: { username: WEBSHARE_PROXY_HTTP.auth.username, password: WEBSHARE_PROXY_HTTP.auth.password },
         protocol: WEBSHARE_PROXY_HTTP.protocol,
+        ...(config.proxy
+          ? {
+              ...config.proxy,
+            }
+          : {}),
       },
       headers: {
         'x-api-nonce': api_nonce,
@@ -512,8 +517,12 @@ export const DebankAPI = {
         referer: 'https://debank.com/',
         origin: 'https://debank.com',
         'User-Agent': randomUserAgent(),
+        ...(config.headers
+          ? {
+              ...config.headers,
+            }
+          : {}),
       },
-      ...config,
     });
   },
 };

@@ -111,12 +111,9 @@ export const addFetchWhalesPagingJob = async () => {
       },
       opts: {
         jobId: `debank:fetch:whales:page:${crawl_id}:${index}`,
-        removeOnComplete: {
-          // remove job after 1 hour
-          age: 60 * 60 * 3,
-        },
+        removeOnComplete: true,
         removeOnFail: {
-          age: 60 * 60 * 3,
+          age: 60 * 30,
         },
 
         delay: 1000 * 30,

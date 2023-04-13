@@ -92,10 +92,10 @@ export const addFetchSocialRankingJob = async () => {
         opts: {
           jobId: `debank:fetch:social:rankings:page:${page_num}:${crawl_id}`,
           removeOnComplete: {
-            age: 60 * 60 * 3,
+            age: 60 * 60,
           },
           removeOnFail: {
-            age: 60 * 60 * 3,
+            age: 60 * 30,
           },
           priority: 5,
 

@@ -361,6 +361,14 @@ export const crawlTopHolders = async ({ id, crawl_id }: { id: string; crawl_id: 
     const {
       data: { total_count },
     } = dataJson;
+    if (total_count == 0) {
+      return {
+        crawl_id,
+        id,
+        total_count,
+        status: 'empty',
+      };
+    }
     //set localstorage
     await page.evaluate(
       ({ current_address, connected_dict, browser_uid }) => {

@@ -81,11 +81,11 @@ export const WORKER_CONFIG = {
   'debank-top-holder': {
     autorun: true,
     connection: redisConnection,
-    lockDuration: 1000 * 60 * 3.5,
+    lockDuration: 1000 * 60 * 2.5,
     concurrency: 4,
     skipLockRenewal: true,
 
-    stalledInterval: 1000 * 30,
+    stalledInterval: 1000 * 15,
     maxStalledCount: 5,
     metrics: {
       maxDataPoints: MetricsTime.ONE_WEEK,

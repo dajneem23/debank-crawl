@@ -259,7 +259,7 @@ export const crawlWhales = async ({ crawl_id }: { crawl_id: number }) => {
       // });
     }
   } catch (error) {
-    logger.error('error', '[crawlTopHoldersByList:error]', JSON.stringify(error));
+    logger.error('error', '[crawlWhales:error]', JSON.stringify(error));
     throw error;
   } finally {
     //cleanup

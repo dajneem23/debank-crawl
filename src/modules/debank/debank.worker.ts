@@ -165,8 +165,3 @@ workerRanking.on('drained', async () => {
 });
 
 export const workerCommon = new Worker('debank-common', workerProcessor, WORKER_CONFIG['debank-common']);
-
-setInterval(async () => {
-  //recheck concurrency
-  console.info('workerTopHolder.concurrency::', workerTopHolder.concurrency);
-}, 1000 * 60 * 60);

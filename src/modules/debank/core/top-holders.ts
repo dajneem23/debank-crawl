@@ -217,13 +217,11 @@ export const addFetchTopHoldersJob = async () => {
       opts: {
         jobId: `debank:crawl:top-holders:${crawl_id}:${id}`,
         removeOnComplete: {
-          age: 60 * 15,
+          age: 60,
         },
-        removeOnFail: {
-          age: 60 * 30,
-        },
+        removeOnFail: true,
         priority: 5,
-        delay: 1000 * 30,
+        // delay: 1000 * 30,
         attempts: 10,
       },
     }));

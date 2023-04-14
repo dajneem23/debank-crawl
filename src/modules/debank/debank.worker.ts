@@ -50,7 +50,7 @@ workerPortfolio.on('drained', async () => {
       await queuePortfolio.addBulk(jobs.map((job) => JSON.parse(job)));
       await redisConnection.del(keys);
       sendTelegramMessage({
-        message: `🚀 Debank portfolio jobs recovered: ${jobs.length}`,
+        message: `🚀[debank-portfolio] recovered: ${jobs.length}`,
       });
     }
   } catch (error) {}
@@ -85,7 +85,7 @@ workerApi.on('drained', async () => {
       await queueApi.addBulk(jobs.map((job) => JSON.parse(job)));
       await redisConnection.del(keys);
       sendTelegramMessage({
-        message: `🚀 Debank api jobs recovered: ${jobs.length}`,
+        message: `🚀 [debank-api] recovered: ${jobs.length}`,
       });
     }
   } catch (error) {}
@@ -123,7 +123,7 @@ workerTopHolder.on('drained', async () => {
       await queueTopHolder.addBulk(jobs.map((job) => JSON.parse(job)));
       await redisConnection.del(keys);
       sendTelegramMessage({
-        message: `🚀 Debank top holder jobs recovered: ${jobs.length}`,
+        message: `🚀 [debank-top-holder] jobs recovered: ${jobs.length}`,
       });
     }
   } catch (error) {}
@@ -158,7 +158,7 @@ workerRanking.on('drained', async () => {
       await queueRanking.addBulk(jobs.map((job) => JSON.parse(job)));
       await redisConnection.del(keys);
       sendTelegramMessage({
-        message: `🚀 Debank ranking jobs recovered: ${jobs.length}`,
+        message: `🚀 [debank-ranking] jobs recovered: ${jobs.length}`,
       });
     }
   } catch (error) {}

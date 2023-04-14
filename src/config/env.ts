@@ -41,9 +41,6 @@ export const env = {
 
   BINANCE_API_KEY: getRuntimeEnv('BINANCE_API_KEY'),
   BINANCE_API_SECRET: getRuntimeEnv('BINANCE_API_SECRET'),
-
-  NANSEN_USERNAME: getRuntimeEnv('NANSEN_USERNAME'),
-  NANSEN_PASSWORD: getRuntimeEnv('NANSEN_PASSWORD'),
 };
 
 export default env;

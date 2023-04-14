@@ -490,7 +490,7 @@ export const insertDebankTopHolders = async ({
   //   symbol: id,
   //   details: JSON.stringify(holder).replace(/\\u0000/g, ''),
   //   user_address: holder.id,
-  //   crawl_id: +crawl_id,
+  //    crawl_id: +crawl_id,
   //   crawl_time,
   // }));
   // await bulkInsert({

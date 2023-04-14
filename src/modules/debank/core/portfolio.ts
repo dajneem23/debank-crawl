@@ -174,12 +174,8 @@ export const addSnapshotUsersProjectJob = async () => {
     },
     opts: {
       jobId: `debank:crawl:portfolio:list:${crawl_id}:${index}`,
-      removeOnComplete: {
-        age: 60 * 30,
-      },
-      removeOnFail: {
-        age: 60 * 30,
-      },
+      removeOnComplete: true,
+      removeOnFail: true,
       priority: 10,
       attempts: 15,
       // delay: 1000 * 5,
@@ -194,12 +190,8 @@ export const addSnapshotUsersProjectJob = async () => {
       },
       opts: {
         jobId: `debank:fetch:user:portfolio:${crawl_id}:${user_address}`,
-        removeOnComplete: {
-          age: 60 * 30,
-        },
-        removeOnFail: {
-          age: 60 * 30,
-        },
+        removeOnComplete: true,
+        removeOnFail: true,
         priority: 10,
         attempts: 15,
         // delay: 1000 * 5,

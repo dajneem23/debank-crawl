@@ -6,20 +6,9 @@ import { WORKER_CONFIG, mgClient } from './debank.config';
 import { workerProcessor } from './debank.process';
 import { queueApi, queuePortfolio, queueRanking, queueTopHolder } from './debank.queue';
 
-export const worker = new Worker('debank', workerProcessor, {
-  autorun: true,
-  connection: redisConnection,
-  lockDuration: 1000 * 60 * 2.5,
-  concurrency: 1,
-  stalledInterval: 1000 * 30,
-  skipLockRenewal: true,
-  maxStalledCount: 5,
-  metrics: {
-    maxDataPoints: MetricsTime.ONE_WEEK,
-  },
-});
+export const worker = new Worker('debank', workerProcessor, WORKER_CONFIG['debank']);
 
-export const workerPortfolio = new Worker('debank-portfolio', workerProcessor, WORKER_CONFIG['debank']);
+export const workerPortfolio = new Worker('debank-portfolio', workerProcessor, WORKER_CONFIG['debank-portfolio']);
 workerPortfolio.on('failed', async (job, err) => {
   try {
     await mgClient

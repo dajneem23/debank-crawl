@@ -82,7 +82,20 @@ export const WORKER_CONFIG = {
     autorun: true,
     connection: redisConnection,
     lockDuration: 1000 * 60 * 2.5,
-    concurrency: 4,
+    concurrency: 5,
+    skipLockRenewal: true,
+
+    stalledInterval: 1000 * 15,
+    maxStalledCount: 5,
+    metrics: {
+      maxDataPoints: MetricsTime.ONE_WEEK,
+    },
+  },
+  'debank-portfolio': {
+    autorun: true,
+    connection: redisConnection,
+    lockDuration: 1000 * 60 * 3.5,
+    concurrency: 7,
     skipLockRenewal: true,
 
     stalledInterval: 1000 * 15,

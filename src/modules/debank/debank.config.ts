@@ -4,7 +4,7 @@ import { pgClientToken, pgpToken } from '@/loaders/pg.loader';
 import { DIMongoClient } from '@/loaders/mongoDB.loader';
 import { DIRedisClient } from '@/loaders/redis.loader';
 import { redisConnection } from '@/loaders/config.loader';
-import { MetricsTime } from 'bullmq';
+import { MetricsTime, WorkerOptions } from 'bullmq';
 
 export const logger = new Logger('Debank');
 
@@ -16,7 +16,9 @@ export const pgClient = Container.get(pgClientToken);
 
 export const redisClient = Container.get(DIRedisClient);
 
-export const WORKER_CONFIG = {
+export const WORKER_CONFIG: {
+  [key: string]: WorkerOptions;
+} = {
   debank: {
     autorun: true,
     connection: redisConnection,

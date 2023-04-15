@@ -1,3 +1,5 @@
 export const ONCHAIN_PRICE_GROUP_ID = '-917324808';
 
 export const BOT_HEALTH_CHECK_GROUP_ID = '-617049881';
+
+export const DEBANK_CRAWLER_GROUP_ID = '-815217228';

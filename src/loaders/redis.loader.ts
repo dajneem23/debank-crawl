@@ -2,6 +2,7 @@ import { createClient, RedisClientType } from 'redis';
 import { Container, Token } from 'typedi';
 import { DILogger } from './logger.loader';
 import IORedis from 'ioredis';
+import { sendTelegramMessage } from '@/service/alert/telegram';
 
 export const DIRedisClient = new Token<RedisClientType>('redisClient');
 
@@ -13,11 +14,17 @@ export const redisClientLoader = async () => {
   // Create client
   const client = createClient({ url: process.env.REDIS_URI });
 
-  const connection = new IORedis(process.env.REDIS_URI, { maxRetriesPerRequest: null, enableReadyCheck: false });
+  const connection = new IORedis(process.env.REDIS_URI, {
+    maxRetriesPerRequest: null,
+    enableReadyCheck: true,
+    retryStrategy: (times) => {
+      return Math.max(Math.min(Math.exp(times), 20000), 1000);
+    },
+  });
 
   // Listeners
   client.on('connect', () => logger.info('connected', 'Redis'));
-  client.on('error', (err) => logger.error('error', err));
+  client.on('error', (err) => sendTelegramMessage({ message: `Redis error: ${err.message}` }));
   client.on('reconnecting', () => logger.warn('reconnecting', 'Redis'));
 
   // Connect

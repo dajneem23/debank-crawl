@@ -84,7 +84,7 @@ export const WORKER_CONFIG: {
     autorun: true,
     connection: redisConnection,
     lockDuration: 1000 * 60 * 2.5,
-    concurrency: 5,
+    concurrency: 2,
     skipLockRenewal: true,
 
     stalledInterval: 1000 * 15,

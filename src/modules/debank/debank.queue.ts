@@ -111,12 +111,8 @@ export const queueTopHolder = initQueue({
       attempts: 10,
       // Backoff setting for automatic retries if the job fails
       backoff: { type: 'exponential', delay: 10 * 1000 },
-      removeOnComplete: {
-        age: 60 * 60 * 3,
-      },
-      removeOnFail: {
-        age: 60 * 60 * 3,
-      },
+      removeOnComplete: true,
+      removeOnFail: true,
     },
   },
 });

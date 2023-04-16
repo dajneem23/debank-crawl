@@ -117,7 +117,25 @@ workerTopHolder.on('drained', async () => {
     }
   } catch (error) {}
 });
-
+//interval check worker is alive
+setInterval(async () => {
+  console.info('debank workerTopHolder alive');
+  console.info('is workerTopHolder alive', workerTopHolder.isRunning());
+  console.info('is workerTopHolder paused', workerTopHolder.isPaused());
+  workerTopHolder.resume();
+  if (!workerTopHolder.isRunning()) {
+    workerTopHolder.run();
+    sendTelegramMessage({
+      message: `🚨 [debank-top-holder] worker is not running`,
+    });
+  }
+  if (workerTopHolder.isPaused()) {
+    workerTopHolder.resume();
+    sendTelegramMessage({
+      message: `🚨 [debank-top-holder] worker is paused`,
+    });
+  }
+}, 1000 * 60 * 5);
 export const workerRanking = new Worker('debank-ranking', workerProcessor, WORKER_CONFIG['debank-ranking']);
 workerRanking.on('failed', async (job, err) => {
   try {

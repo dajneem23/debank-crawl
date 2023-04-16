@@ -116,6 +116,7 @@ export const queueTopHolder = initQueue({
     },
   },
 });
+
 export const queueRanking = initQueue({
   queueName: 'debank-ranking',
   opts: {

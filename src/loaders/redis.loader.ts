@@ -17,6 +17,7 @@ export const redisClientLoader = async () => {
   const connection = new IORedis(process.env.REDIS_URI, {
     maxRetriesPerRequest: null,
     enableReadyCheck: true,
+    lazyConnect: true,
     retryStrategy: (times) => {
       return Math.max(Math.min(Math.exp(times), 20000), 1000);
     },

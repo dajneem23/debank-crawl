@@ -159,7 +159,7 @@ export class DebankService {
         },
         repeat: {
           //repeat every 60 minutes
-          every: 1000 * 60 * 60 * 1,
+          every: 1000 * 60 * 60 * 4,
           // pattern: '* 0 0 * * *',
         },
         priority: 2,
@@ -183,7 +183,7 @@ export class DebankService {
         },
         repeat: {
           //repeat every 60 minutes
-          every: 1000 * 60 * 60 * 1,
+          every: 1000 * 60 * 60 * 4,
           // pattern: '* 0 0 * * *',
         },
         priority: 2,

@@ -35,7 +35,7 @@ export const WORKER_CONFIG: {
     autorun: true,
     connection: redisConnection,
     lockDuration: 1000 * 60 * 3,
-    concurrency: 20,
+    concurrency: 15,
     // limiter: {
     //   max: 50,
     //   duration: 1000 * 60,
@@ -97,7 +97,7 @@ export const WORKER_CONFIG: {
     autorun: true,
     connection: redisConnection,
     lockDuration: 1000 * 60 * 3.5,
-    concurrency: 5,
+    concurrency: 3,
     skipLockRenewal: true,
 
     stalledInterval: 1000 * 15,

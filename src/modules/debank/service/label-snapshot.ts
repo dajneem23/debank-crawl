@@ -37,17 +37,17 @@ export const WHALE_LABEL = {
 };
 
 export const isDolphin = (usd_value: number) => {
-  if (usd_value > 100_000 && usd_value < 200_000) return DOLPHIN_LABEL.S;
-  if (usd_value > 200_000 && usd_value < 500_000) return DOLPHIN_LABEL.M;
-  if (usd_value > 500_000 && usd_value < 1_000_000) return DOLPHIN_LABEL.L;
+  if (usd_value >= 100_000 && usd_value < 200_000) return DOLPHIN_LABEL.S;
+  if (usd_value >= 200_000 && usd_value < 500_000) return DOLPHIN_LABEL.M;
+  if (usd_value >= 500_000 && usd_value < 1_000_000) return DOLPHIN_LABEL.L;
 
   return null;
 };
 export const isWhale = (usd_value: number) => {
-  if (usd_value > 10_000_000 && usd_value < 20_000_000) return WHALE_LABEL.S;
-  if (usd_value > 20_000_000 && usd_value < 50_000_000) return WHALE_LABEL.M;
-  if (usd_value > 50_000_000 && usd_value < 100_000_000) return WHALE_LABEL.L;
-  if (usd_value > 100_000_000) return WHALE_LABEL.BLUE;
+  if (usd_value >= 10_000_000 && usd_value < 20_000_000) return WHALE_LABEL.S;
+  if (usd_value >= 20_000_000 && usd_value < 50_000_000) return WHALE_LABEL.M;
+  if (usd_value >= 50_000_000 && usd_value < 100_000_000) return WHALE_LABEL.L;
+  if (usd_value >= 100_000_000) return WHALE_LABEL.BLUE;
   return null;
 };
 
@@ -97,7 +97,7 @@ export const isSM = async (address: string) => {
 const MIN_TOKEN_FAN_USD_VALUE = 10_000;
 export const isTokenFan = async ({ balance_list, usd_value }: { balance_list: any[]; usd_value: number }) => {
   const tokensFan = balance_list.filter(
-    ({ amount, price }) => amount * price > MIN_TOKEN_FAN_USD_VALUE && amount * price >= usd_value / 2,
+    ({ amount, price }) => amount * price >= MIN_TOKEN_FAN_USD_VALUE && amount * price >= usd_value / 2,
   );
   return (
     tokensFan.length && {

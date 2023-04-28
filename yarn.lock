@@ -5197,13 +5197,6 @@ trim-newlines@^3.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-3.0.1.tgz#260a5d962d8b752425b32f3a7db0dcacd176c144"
   integrity sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==
 
-ts-interface-keys-transformer@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/ts-interface-keys-transformer/-/ts-interface-keys-transformer-2.3.2.tgz#c3c10cd54a929f41441276c16bd4528fd7f6e21b"
-  integrity sha512-TtM4RHD8xcEmgIK3AfwnmpY4uoM1Btq3zkbOkoApU4K9lD1W/RRzCpr7Wb2CzzC4EG2cFwsqkVmhtACOs7OItQ==
-  dependencies:
-    lodash "^4.17.15"
-
 ts-node@^10.4.0, ts-node@^10.8.1:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"

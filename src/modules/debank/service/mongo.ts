@@ -2,9 +2,8 @@ import { formatDate } from '@/utils/date';
 import { mgClient } from '../debank.config';
 import { filter, findKey, isNil, uniq } from 'lodash';
 import { ACCOUNT_TAGS, NULL_ACCOUNT } from '@/types/account';
-import { bulkInsert } from '@/utils/pg';
 import { queryDebankPools } from './pg';
-import { isDolphin, isKOL, isMM, isSM, isTokenFan, isVC, isWhale } from './label-snapshot';
+import { isDolphin, isTokenFan, isWhale } from './label-snapshot';
 
 export const insertDebankPoolsToMongo = async () => {
   const { rows } = await queryDebankPools();

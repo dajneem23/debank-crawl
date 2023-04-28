@@ -1,6 +1,6 @@
 # 1fox.co crawler
 
-# Prerequisites
+# Prerequisites 
 
 To build and run this app you will need a few things:
 

@@ -25,57 +25,57 @@ export class DebankService {
 
   private initRepeatJobs() {
     //DB Job
-    queue.add(
-      DebankJobNames['debank:create:partitions'],
-      {},
-      {
-        repeatJobKey: 'debank:create:partitions',
-        jobId: `debank:create:partitions`,
-        removeOnComplete: {
-          //remove after 1 hour
-          age: 60 * 60,
-        },
-        removeOnFail: {
-          //remove after 1 day
-          age: 60 * 60 * 24,
-        },
-        repeat: {
-          //repeat every day
-          every: 1000 * 60 * 60 * 24,
-          // pattern: '* 0 0 * * *',
-        },
-        //delay for 5 minutes when the job is added for done other jobs
-        delay: 1000 * 60 * 5,
-        priority: 1,
-        attempts: 5,
-      },
-    );
+    // queue.add(
+    //   DebankJobNames['debank:create:partitions'],
+    //   {},
+    //   {
+    //     repeatJobKey: 'debank:create:partitions',
+    //     jobId: `debank:create:partitions`,
+    //     removeOnComplete: {
+    //       //remove after 1 hour
+    //       age: 60 * 60,
+    //     },
+    //     removeOnFail: {
+    //       //remove after 1 day
+    //       age: 60 * 60 * 24,
+    //     },
+    //     repeat: {
+    //       //repeat every day
+    //       every: 1000 * 60 * 60 * 24,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     //delay for 5 minutes when the job is added for done other jobs
+    //     delay: 1000 * 60 * 5,
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // );
 
-    queue.add(
-      DebankJobNames['debank:clean:outdated-data'],
-      {},
-      {
-        repeatJobKey: 'debank:clean:outdated-data',
-        jobId: 'debank:clean:outdated-data',
-        removeOnComplete: {
-          //remove after 1 hour
-          age: 60 * 60,
-        },
-        removeOnFail: {
-          //remove after 1 day
-          age: 60 * 60 * 24,
-        },
-        repeat: {
-          //repeat every day
-          every: 1000 * 60 * 60 * 24,
-          // pattern: '* 0 0 * * *',
-        },
-        //delay for 5 minutes when the job is added for done other jobs
-        delay: 1000 * 60 * 5,
-        priority: 1,
-        attempts: 5,
-      },
-    );
+    // queue.add(
+    //   DebankJobNames['debank:clean:outdated-data'],
+    //   {},
+    //   {
+    //     repeatJobKey: 'debank:clean:outdated-data',
+    //     jobId: 'debank:clean:outdated-data',
+    //     removeOnComplete: {
+    //       //remove after 1 hour
+    //       age: 60 * 60,
+    //     },
+    //     removeOnFail: {
+    //       //remove after 1 day
+    //       age: 60 * 60 * 24,
+    //     },
+    //     repeat: {
+    //       //repeat every day
+    //       every: 1000 * 60 * 60 * 24,
+    //       // pattern: '* 0 0 * * *',
+    //     },
+    //     //delay for 5 minutes when the job is added for done other jobs
+    //     delay: 1000 * 60 * 5,
+    //     priority: 1,
+    //     attempts: 5,
+    //   },
+    // );
 
     queue.add(
       DebankJobNames['debank:add:fetch:protocols:pools'],

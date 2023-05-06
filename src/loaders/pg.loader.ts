@@ -50,8 +50,8 @@ Container.set(pgpToken, pgp);
 const pgLoader = async () => {
   const logger = Container.get(DILogger);
   try {
-    await pgPool.connect();
-    await pgClient.connect();
+    // await pgPool.connect();
+    // await pgClient.connect();
     await pgPromiseClient.connect();
 
     logger.info('connected', 'Pool Postgres');

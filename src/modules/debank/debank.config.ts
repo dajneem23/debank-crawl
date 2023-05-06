@@ -1,6 +1,6 @@
 import { Logger } from '@/core/logger';
 import Container from 'typedi';
-import { pgClientToken, pgpToken } from '@/loaders/pg.loader';
+import { pgClientToken, pgPromiseClientToken, pgpToken } from '@/loaders/pg.loader';
 import { DIMongoClient } from '@/loaders/mongoDB.loader';
 import { DIRedisClient } from '@/loaders/redis.loader';
 import { redisConnection } from '@/loaders/config.loader';
@@ -12,7 +12,7 @@ export const pgp = Container.get(pgpToken);
 
 export const mgClient = Container.get(DIMongoClient);
 
-export const pgClient = Container.get(pgClientToken);
+export const pgClient = Container.get(pgPromiseClientToken);
 
 export const redisClient = Container.get(DIRedisClient);
 

@@ -1,4 +1,4 @@
-# 1fox.co crawler
+# Debank crawler
 
 # Prerequisites 
 
